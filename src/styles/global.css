@@ -1,0 +1,3 @@
+/* Re-export globals.css which contains the main Tailwind import and theme */
+@import "./globals.css";
+@import "./accessibility.css";

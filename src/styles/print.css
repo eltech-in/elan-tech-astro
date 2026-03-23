@@ -1,0 +1,59 @@
+/* Print-specific styles — expanded version */
+@media print {
+  /* Hide non-essential elements */
+  nav,
+  footer,
+  .whatsapp-float,
+  .cookie-consent,
+  .cta-banner,
+  .mobile-nav,
+  .mega-menu,
+  .theme-toggle,
+  button,
+  [role="dialog"] {
+    display: none !important;
+  }
+
+  /* Reset colors for printing */
+  body {
+    color: black !important;
+    background: white !important;
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+
+  /* Show full URLs for links */
+  a {
+    text-decoration: underline;
+    color: black !important;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 10pt;
+    font-style: italic;
+  }
+
+  /* Don't show URLs for internal anchor links */
+  a[href^="#"]::after {
+    content: "";
+  }
+
+  /* Page break controls */
+  h1, h2, h3 {
+    page-break-after: avoid;
+  }
+
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  table {
+    page-break-inside: avoid;
+  }
+
+  pre, blockquote {
+    page-break-inside: avoid;
+  }
+}

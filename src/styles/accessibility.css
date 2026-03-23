@@ -1,0 +1,53 @@
+/* ♿ Accessibility-specific styles */
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+  .skip-link {
+    border: 2px solid;
+  }
+
+  *:focus-visible {
+    outline: 2px solid LinkText;
+    outline-offset: 2px;
+  }
+
+  button, [role="button"] {
+    border: 1px solid ButtonText;
+  }
+}
+
+/* Ensure minimum touch target sizes for interactive elements */
+button,
+[role="button"],
+a,
+input,
+select,
+textarea {
+  min-height: 44px;
+}
+
+/* Except inline text links — only block/prominent links need 44px */
+p a, li a, td a {
+  min-height: auto;
+}
+
+/* Visible focus indicator for all interactive elements */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid #00E5A0;
+  outline-offset: 2px;
+}
+
+/* Ensure links are distinguishable from surrounding text */
+main a:not([class]) {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+main a:not([class]):hover {
+  text-decoration-thickness: 2px;
+}

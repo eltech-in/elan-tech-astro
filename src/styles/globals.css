@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+/* =============================================
+   Custom Tailwind v4 Theme Configuration
+   ============================================= */
+@theme {
+  --font-sans: 'DM Sans', 'system-ui', 'sans-serif';
+  --font-heading: 'Sora', 'system-ui', 'sans-serif';
+
+  --color-bg: var(--bg);
+  --color-bg-card: var(--bg-card);
+  --color-accent: var(--accent);
+  --color-accent-dim: var(--accent-dim);
+  --color-text: var(--text);
+  --color-text-dim: var(--text-dim);
+  --color-text-muted: var(--text-muted);
+  --color-border: var(--border);
+}
+
+/* ♿ WCAG: Reduced motion — disable ALL animations */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ♿ WCAG: Global focus visible styles */
+*:focus-visible {
+  outline: 2px solid #00E5A0;
+  outline-offset: 2px;
+}
+
+/* ♿ WCAG: Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ♿ WCAG: Skip link */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  background: #00E5A0;
+  color: #0A0E1A;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 700;
+  z-index: 10000;
+  transition: top 0.3s;
+}
+.skip-link:focus {
+  top: 16px;
+}
+
+/* CSS custom properties for theming — Dark mode (default) */
+:root {
+  --bg: #0A0E1A;
+  --bg-card: #111827;
+  --accent: #00E5A0;
+  --accent-dim: #00b87e;
+  --text: #E2E8F0;
+  --text-dim: #94A3B8;
+  --text-muted: #64748B;
+  --border: rgba(255,255,255,0.06);
+}
+
+/* Light mode overrides */
+:root.light {
+  --bg: #FAFBFC;
+  --bg-card: #FFFFFF;
+  --accent: #059669;
+  --text: #0F172A;
+  --text-dim: #475569;
+  --text-muted: #94A3B8;
+  --border: rgba(0,0,0,0.08);
+}
+
+/* Print stylesheet */
+@media print {
+  nav, footer, .whatsapp-float, .cookie-consent, .cta-banner {
+    display: none !important;
+  }
+  body {
+    color: black;
+    background: white;
+    font-size: 12pt;
+  }
+  a {
+    text-decoration: underline;
+  }
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 10pt;
+  }
+}
