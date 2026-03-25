@@ -1,4 +1,218 @@
 ---
-// TODO: Implement website-design
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+import { services } from '../../data/services';
+import { cities } from '../../data/cities';
+import { serviceSchema, faqSchema, breadcrumbSchema } from '../../utils/schema';
+
+const service = services.find((s) => s.slug === 'website-design')!;
+
+const serviceFaqs = [
+  {
+    question: 'How long does a website design project take?',
+    answer: 'Most website design projects take 4–8 weeks from kickoff to launch, depending on the scope. A standard 5–8 page business website typically takes 4–6 weeks. Larger projects with custom functionality, e-commerce integration, or complex animations may take 8–12 weeks. We provide a detailed timeline during the discovery phase.',
+  },
+  {
+    question: 'Do you use templates or custom designs?',
+    answer: 'Every website we design is 100% custom — no page builders, no off-the-shelf templates. Our designers create original mockups in Figma tailored specifically to your brand, audience, and goals. This ensures your website stands out from competitors and perfectly reflects your business identity.',
+  },
+  {
+    question: 'Will my website be mobile-responsive?',
+    answer: 'Absolutely. We follow a mobile-first design approach, which means your website is designed for small screens first and then progressively enhanced for tablets and desktops. Every design is tested across 10+ device and browser combinations before launch, ensuring a flawless experience for all users.',
+  },
+  {
+    question: 'Do you offer website redesign services?',
+    answer: 'Yes. Redesigning an existing website is one of our most common engagements. We begin with a comprehensive audit of your current site — reviewing performance, SEO, user experience, and conversion rates. This data informs the new design so that you gain measurably better results, not just a prettier interface.',
+  },
+  {
+    question: 'What happens after the website is launched?',
+    answer: 'Every project includes a 30-day post-launch support window where we fix any bugs, address feedback, and make minor adjustments at no additional cost. After that, we offer structured maintenance plans (Basic, Standard, Premium) covering security updates, speed optimization, content edits, backups, and uptime monitoring.',
+  },
+];
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: '/services' },
+  { name: service.title, href: `/services/${service.slug}` },
+];
+
+const schemaBreadcrumbs = breadcrumbs.map((b) => ({ name: b.name, url: b.href }));
+
+const schemas = [
+  serviceSchema(service.title, service.description, `/services/${service.slug}`),
+  faqSchema(serviceFaqs),
+  breadcrumbSchema(schemaBreadcrumbs),
+];
+
+const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
 ---
-<p>Placeholder: website-design</p>
+<ServiceLayout
+  title={`${service.title} Services | eLan Technology`}
+  description={service.description}
+  breadcrumbs={breadcrumbs}
+  schema={schemas}
+>
+
+  <!-- ── HERO ─────────────────────────────────────────────────────────────── -->
+  <section class="relative mb-12 overflow-hidden rounded-2xl bg-gradient-to-br from-pink-500/10 via-[var(--bg-card)] to-[var(--bg-card)] p-8 md:p-12 border border-[var(--border)]">
+    <div class="grid gap-10 md:grid-cols-2 md:items-center">
+      <div>
+        <p class="mb-2 text-sm font-semibold uppercase tracking-widest" style="color: #EC4899;">{service.tagline}</p>
+        <h1 class="font-heading text-3xl font-bold leading-tight text-[var(--text)] md:text-4xl lg:text-5xl">
+          {service.title} Services — eLan Technology
+        </h1>
+        <p class="mt-4 text-base text-[var(--text-muted)] md:text-lg">
+          {service.description} We approach every project as a unique design challenge, ensuring your website communicates your brand story with clarity and confidence. Whether you're launching a new brand or refreshing an outdated site, our designers create experiences that leave a lasting impression.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="/schedule-consultation" class="inline-flex items-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white shadow transition hover:opacity-90" style="background: #EC4899;">
+            Get Free Consultation
+          </a>
+          <a href="/get-quote" class="inline-flex items-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
+            Get a Quote
+          </a>
+        </div>
+      </div>
+      <ul class="space-y-3">
+        {service.features.map((f) => (
+          <li class="flex items-center gap-3 rounded-lg bg-[var(--bg)] px-4 py-3 border border-[var(--border)] text-sm font-medium text-[var(--text)]">
+            <span class="text-green-400 font-bold">✓</span> {f}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── WHAT'S INCLUDED ───────────────────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-2">What's Included in Our {service.shortTitle} Services</h2>
+    <p class="text-[var(--text-muted)] mb-8">Every engagement is tailored to your goals, but here's what you can expect as standard from our website design service.</p>
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {[
+        { icon: '🎨', name: 'UI/UX Design', desc: 'We design intuitive interfaces backed by user research and usability best practices. Every screen is optimised for conversion and ease of navigation, reducing bounce rates and increasing engagement.' },
+        { icon: '📱', name: 'Responsive Design', desc: 'Your website will look and function perfectly on every device — mobile, tablet, laptop, and widescreen. We use a mobile-first approach to ensure the smallest screens are prioritised, where most traffic originates.' },
+        { icon: '📐', name: 'Wireframing & Prototyping', desc: 'Before any visual design begins, we map out the full user journey through detailed wireframes and interactive Figma prototypes. This saves time, reduces rework, and aligns stakeholders early in the process.' },
+        { icon: '🖥️', name: 'Landing Page Design', desc: 'High-converting landing pages for PPC campaigns, product launches, or lead generation. We apply proven conversion design principles — clear CTAs, trust signals, and minimal friction — to maximise your return on ad spend.' },
+        { icon: '🔄', name: 'Redesign & Revamp', desc: "If your existing website looks dated or underperforms, we offer comprehensive redesign services. We audit your current site's UX, SEO, and performance before designing a replacement that retains what works and fixes what doesn't." },
+        { icon: '📏', name: 'Design Systems', desc: 'For growing businesses and products, we build scalable design systems in Figma — consistent component libraries, typography scales, colour tokens, and spacing guidelines that keep your brand coherent across every touchpoint.' },
+        { icon: '♿', name: 'WCAG 2.1 AA Compliance', desc: 'Every website we design meets WCAG 2.1 Level AA accessibility standards — colour contrast, keyboard navigation, ARIA labels, and screen reader support. This protects you legally and broadens your potential audience.' },
+        { icon: '✍️', name: 'Brand-Aligned Visual Design', desc: 'We don\'t just design websites — we design brand experiences. Your website will reflect your visual identity, tone of voice, and values, creating a cohesive impression across every page and interaction.' },
+      ].map(({ icon, name, desc }) => (
+        <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
+          <div class="mb-3 inline-flex h-11 w-11 items-center justify-center rounded-xl text-xl" style="background: #EC489920;">{icon}</div>
+          <h3 class="font-heading text-base font-semibold text-[var(--text)] mb-2">{name}</h3>
+          <p class="text-sm text-[var(--text-muted)] leading-relaxed">{desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── WHY CUSTOM BEATS TEMPLATES ────────────────────────────────────────── -->
+  <section class="mb-16 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 md:p-10">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-4">Why Custom Design Beats Templates</h2>
+    <p class="text-[var(--text-muted)] mb-8">Template-based sites may seem cost-effective, but they come with hidden trade-offs that affect your brand, SEO, and long-term growth.</p>
+    <div class="grid gap-6 md:grid-cols-3">
+      <div class="rounded-xl bg-[var(--bg)] border border-[var(--border)] p-5">
+        <h3 class="font-heading text-base font-semibold text-[var(--text)] mb-2">Brand Differentiation</h3>
+        <p class="text-sm text-[var(--text-muted)]">When hundreds of businesses use the same template, you blend in rather than stand out. Custom design gives you a unique visual identity that competitors cannot easily replicate. Your website becomes a genuine extension of your brand rather than a digital brochure that looks like everyone else's.</p>
+      </div>
+      <div class="rounded-xl bg-[var(--bg)] border border-[var(--border)] p-5">
+        <h3 class="font-heading text-base font-semibold text-[var(--text)] mb-2">Performance & Speed</h3>
+        <p class="text-sm text-[var(--text-muted)]">Templates are built for general use cases and carry significant bloat — unused CSS, JavaScript, and plugins that slow your site down. Custom-built websites contain only what your project needs, resulting in faster load times, better Core Web Vitals scores, and improved SEO rankings.</p>
+      </div>
+      <div class="rounded-xl bg-[var(--bg)] border border-[var(--border)] p-5">
+        <h3 class="font-heading text-base font-semibold text-[var(--text)] mb-2">Scalability & Control</h3>
+        <p class="text-sm text-[var(--text-muted)]">As your business evolves, your website needs to evolve with it. Custom designs are architecturally flexible — adding features, changing layouts, or integrating new systems is straightforward. With a template, you're at the mercy of the template vendor's roadmap and update cycles.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PORTFOLIO TEASER ──────────────────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-2">Projects We're Proud Of</h2>
+    <p class="text-[var(--text-muted)] mb-8">A glimpse into work we've delivered — each project uniquely designed, each outcome measurably better.</p>
+    <div class="grid gap-6 md:grid-cols-3">
+      {[
+        { client: 'Trimit Architects', outcome: 'A sophisticated portfolio website for a Nagpur-based architecture firm, featuring full-screen project galleries, smooth page transitions, and a design language that reflects the precision and artistry of their practice. Enquiry rate improved significantly post-launch.' },
+        { client: 'Aasthaa Hospital', outcome: 'A WCAG 2.1 AA compliant healthcare website for a multi-specialty hospital, designed for clarity and patient trust. Features include department pages, doctor profiles, online appointment booking, and a resource centre for health information.' },
+        { client: 'CIPL', outcome: 'A B2B corporate website for an industrial products company, designed to communicate technical expertise and support a national sales team. Custom product catalogue with filtering, downloadable spec sheets, and a lead generation system integrated with CRM.' },
+      ].map(({ client, outcome }) => (
+        <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+          <h3 class="font-heading text-base font-semibold text-[var(--text)] mb-3">{client}</h3>
+          <p class="text-sm text-[var(--text-muted)] leading-relaxed">{outcome}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── OUR PROCESS ────────────────────────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-2">Our {service.shortTitle} Process</h2>
+    <p class="text-[var(--text-muted)] mb-8">A clear, collaborative four-phase approach that keeps you informed and in control throughout the project.</p>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {[
+        { n: '1', title: 'Discovery & Strategy', desc: 'We conduct stakeholder interviews, competitive analysis, and user research to build a solid brief. We define goals, personas, sitemap, and success metrics before any design work begins.' },
+        { n: '2', title: 'Design & Planning', desc: 'Wireframes establish information architecture and user flows. High-fidelity Figma mockups follow, complete with interactive prototypes you can click through and share with stakeholders for feedback.' },
+        { n: '3', title: 'Development & Testing', desc: 'Designs are coded into pixel-perfect, responsive HTML/CSS/JS and integrated with your CMS. We run WCAG audits, cross-browser tests, performance checks, and load-time optimisations before anything goes live.' },
+        { n: '4', title: 'Launch & Support', desc: 'We handle deployment, redirect mapping, DNS updates, and post-launch monitoring. Our 30-day support window ensures any post-launch issues are resolved quickly. Maintenance plans available thereafter.' },
+      ].map(({ n, title, desc }) => (
+        <div class="relative rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
+          <div class="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-full font-heading text-sm font-bold text-white" style="background: #EC4899;">{n}</div>
+          <h3 class="font-heading text-sm font-semibold text-[var(--text)] mb-2">{title}</h3>
+          <p class="text-sm text-[var(--text-muted)]">{desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── FAQ ───────────────────────────────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-8">Frequently Asked Questions</h2>
+    <div class="divide-y divide-[var(--border)] rounded-xl border border-[var(--border)] overflow-hidden">
+      {serviceFaqs.map(({ question, answer }) => (
+        <details class="bg-[var(--bg-card)] py-0">
+          <summary class="cursor-pointer font-medium text-[var(--text)] flex items-center justify-between px-6 py-4 hover:bg-[var(--bg)] transition-colors list-none">
+            <span>{question}</span>
+            <span class="ml-4 shrink-0 text-[var(--text-muted)] text-lg">+</span>
+          </summary>
+          <p class="px-6 pb-5 pt-1 text-sm text-[var(--text-muted)] leading-relaxed">{answer}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── CITY LINKS ─────────────────────────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-xl font-bold text-[var(--text)] md:text-2xl mb-2">Website Design Services Across India</h2>
+    <p class="text-sm text-[var(--text-muted)] mb-6">We serve clients in all major Indian cities with the same quality and commitment as our home base in Nagpur.</p>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+      {featuredCities.map((city) => (
+        <a
+          href={city.hasLandingPage ? `/web-design-company-${city.slug}` : `/services/website-design`}
+          class="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-3 hover:border-[var(--accent)]/50 transition-colors"
+        >
+          <p class="font-medium text-sm text-[var(--text)]">{city.name}</p>
+          <p class="text-xs text-[var(--text-muted)] mt-0.5">Services available</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── DOUBLE CTA ─────────────────────────────────────────────────────────── -->
+  <section class="grid gap-5 md:grid-cols-2 mb-4">
+    <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-7 flex flex-col">
+      <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-2">Ready to Get Started?</h3>
+      <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Let us audit your current website for free and show you exactly how we'd improve it. No obligation, no pushy sales calls.</p>
+      <a href="/free-website-audit" class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90" style="background: #EC4899;">
+        Get Free Audit
+      </a>
+    </div>
+    <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-7 flex flex-col">
+      <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-2">Have Questions?</h3>
+      <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Not sure if custom design is right for your budget? Speak to one of our strategists and we'll help you find the best approach for your business.</p>
+      <a href="/schedule-consultation" class="inline-flex items-center justify-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
+        Schedule a Call
+      </a>
+    </div>
+  </section>
+
+</ServiceLayout>

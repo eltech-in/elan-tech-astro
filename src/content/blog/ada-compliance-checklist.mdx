@@ -1,15 +1,149 @@
 ---
-title: "Placeholder: ada-compliance-checklist"
-description: "TODO: Add description"
-publishDate: 2026-01-01
-author: "eLan Technology"
-category: "technology-trends"
-tags: []
-readTime: 5
+title: "ADA Website Compliance Checklist: 25 Steps for 2026"
+description: "A practical 25-step ADA website compliance checklist for 2026. Learn what ADA requires, how to audit your site, tools to use, and the legal risks of non-compliance."
+publishDate: 2026-01-20
+author: "eLan Technology Team"
+category: "accessibility"
+tags: ["ADA compliance", "website accessibility", "WCAG checklist"]
+readTime: 11
 featuredImage:
-  src: "/images/blog/placeholder.jpg"
-  alt: "Placeholder"
-draft: true
+  src: "/blog/featuredblog.png"
+  alt: "ADA website compliance checklist 2026"
+draft: false
+seo:
+  focusKeyword: "ADA website compliance checklist"
+  metaTitle: "ADA Website Compliance Checklist: 25 Steps for 2026"
+  metaDescription: "Use this 25-step ADA compliance checklist to audit your website in 2026. Covers WCAG 2.1 AA requirements, testing tools, and legal risk reduction strategies."
 ---
 
-TODO: Add content for ada-compliance-checklist
+The Americans with Disabilities Act (ADA) has been interpreted by courts to apply to websites since at least 2018, and the DOJ formally adopted WCAG 2.1 Level AA as the standard for federal agency websites in 2024. For businesses operating in the US — and increasingly in the UK, EU, and Canada — ADA-compliant websites are both a legal requirement and an ethical imperative.
+
+Non-compliance exposes your business to lawsuits, settlements, and reputational damage. More importantly, an inaccessible website excludes approximately 1 in 4 adults in the United States who live with a disability.
+
+This 25-step checklist gives you a practical framework to audit and remediate your website's accessibility.
+
+## Understanding the Legal Context
+
+ADA Title III prohibits discrimination against people with disabilities in places of public accommodation. Courts have consistently ruled that websites operated by businesses open to the public fall under this definition.
+
+In recent years, thousands of ADA website lawsuits have been filed annually in the US, primarily targeting businesses with inaccessible websites. The primary standard courts look to is WCAG 2.1 Level AA — the Web Content Accessibility Guidelines published by the W3C.
+
+## The 25-Step ADA Compliance Checklist
+
+### Perceivable — Information Must Be Presented in Ways Users Can Perceive
+
+**1. Add alt text to all meaningful images**
+Every image that conveys information needs a text alternative describing what it shows. Decorative images should have empty alt attributes (alt="") so screen readers skip them.
+
+**2. Provide transcripts for audio content**
+Any podcast, audio interview, or audio-only content needs a full text transcript.
+
+**3. Provide captions for all video content**
+All videos must have closed captions, including live video. Captions must be accurate and synchronized.
+
+**4. Provide audio descriptions for video content where necessary**
+If visual information in a video is not conveyed in the audio track, an audio description track is required.
+
+**5. Ensure sufficient color contrast**
+Text must have a contrast ratio of at least 4.5:1 against its background (for normal text) or 3:1 (for large text). Use a contrast checker tool to verify.
+
+**6. Do not use color as the only means of conveying information**
+Form error states, required fields, and status indicators must use text or iconography in addition to color, since colorblind users cannot distinguish red from green.
+
+**7. Ensure text can be resized to 200% without losing content or functionality**
+When a user zooms text to 200%, the page should remain fully usable — no overlapping text, no hidden content.
+
+**8. Avoid content that flashes more than 3 times per second**
+Flashing content can trigger seizures in people with photosensitive epilepsy.
+
+**9. Provide text alternatives for non-text content used as controls**
+Icons used as buttons (search icon, close icon, menu icon) must have accessible names via aria-label or visible text.
+
+### Operable — Interface Components Must Be Operable
+
+**10. Ensure all functionality is accessible by keyboard**
+Every interactive element — menus, forms, modals, carousels, tabs — must be operable using only a keyboard (Tab, Enter, Space, arrow keys).
+
+**11. Provide a visible focus indicator**
+When a user navigates via keyboard, the focused element must be clearly visible. Removing the default focus outline without providing an equally visible replacement is a common accessibility failure.
+
+**12. Provide skip navigation links**
+Add a "Skip to main content" link at the top of every page, allowing keyboard users and screen reader users to bypass the navigation and jump directly to the page content.
+
+**13. Ensure no time limits cause accessibility barriers**
+If your site has session timeouts or auto-refreshing content, users must be warned and given the option to extend time limits.
+
+**14. Provide users control over moving or auto-updating content**
+Auto-playing carousels, scrolling tickers, and animated banners must have pause, stop, or hide controls.
+
+**15. Ensure page titles are descriptive and unique**
+Every page must have a unique, descriptive title element (e.g., "Contact Us | Company Name") so screen reader users and tab users know where they are.
+
+**16. Provide meaningful link text**
+Links must describe their destination or purpose. "Click here" and "Read more" are inaccessible. Use "Read our ADA compliance guide" or "Download the 2026 pricing PDF" instead.
+
+### Understandable — Information and Operation of the UI Must Be Understandable
+
+**17. Set the language attribute on the HTML element**
+The lang attribute on your HTML tag tells screen readers what language to use. All pages must have this set correctly (e.g., lang="en").
+
+**18. Identify language changes within the page**
+If a page contains content in multiple languages, use lang attributes on those specific elements.
+
+**19. Ensure forms have visible, properly associated labels**
+Every form input must have a visible label that is programmatically associated (using for/id attributes or aria-labelledby). Placeholder text is not sufficient as a label.
+
+**20. Provide helpful error messages for form validation**
+Error messages must identify the field with the error and explain how to correct it. "This field is required" is acceptable; a red border alone is not.
+
+**21. Ensure consistent navigation across pages**
+Navigation menus that appear on multiple pages must appear in the same location and same order on each page.
+
+### Robust — Content Must Be Interpreted by Assistive Technologies
+
+**22. Use valid, semantic HTML**
+Headings (h1–h6), lists (ul/ol/li), tables (with proper headers), and landmark roles (nav, main, header, footer) allow screen readers to understand and navigate your content structure.
+
+**23. Ensure ARIA attributes are used correctly**
+ARIA (Accessible Rich Internet Applications) attributes like aria-label, aria-expanded, and role must be used accurately. Incorrect ARIA can make a site less accessible than no ARIA at all.
+
+**24. Ensure all interactive components have accessible names**
+Buttons, links, form controls, and custom widgets must all have names that describe their purpose, either through visible text or ARIA attributes.
+
+**25. Test with real screen readers and assistive technology**
+Automated tools catch approximately 30–40% of accessibility issues. Real testing with NVDA (Windows), JAWS (Windows), VoiceOver (Mac/iOS), or TalkBack (Android) is essential to find interaction-level issues.
+
+## Tools for Auditing ADA Compliance
+
+- **axe DevTools** — browser extension for automated accessibility testing
+- **WAVE** — visual accessibility evaluation tool from WebAIM
+- **Lighthouse** — built into Chrome DevTools, includes accessibility audit
+- **Color Contrast Analyzer** — standalone desktop tool for checking contrast ratios
+- **Screen readers** — NVDA (free, Windows), VoiceOver (built into Mac), TalkBack (built into Android)
+
+No automated tool is a complete solution. Combine automated scanning with manual keyboard testing and screen reader testing for a thorough audit.
+
+## What to Do If Your Website Fails This Checklist
+
+Start with the highest-impact, most commonly litigated issues:
+
+1. Missing alt text on images
+2. Insufficient color contrast
+3. Keyboard inaccessibility
+4. Missing form labels
+5. Lack of skip navigation
+
+These five issues appear in the majority of ADA accessibility lawsuits and are relatively straightforward to fix on most websites.
+
+For a full remediation, work with an experienced accessibility-focused web development team. At eLan Technology, we build WCAG 2.1 AA compliant websites for clients in the US, UK, Canada, and Australia, and we offer accessibility audits for existing websites with a prioritized remediation plan.
+
+## Accessibility is Good for Everyone
+
+Beyond legal compliance, accessible websites deliver broader benefits:
+
+- Better SEO (semantic HTML and descriptive text help search engines too)
+- Larger addressable audience
+- Better mobile usability
+- Stronger brand reputation
+
+The web should work for everyone. This checklist is your starting point.

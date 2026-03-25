@@ -1,4 +1,647 @@
 ---
-// TODO: Implement index
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { services } from '../data/services';
+import { testimonials } from '../data/testimonials';
+import { faqs } from '../data/faq';
+import { cities } from '../data/cities';
+import { countries } from '../data/countries';
+import { organizationSchema, faqSchema, reviewSchema, breadcrumbSchema } from '../utils/schema';
+import StatsCounter from '../islands/StatsCounter';
+import TestimonialCarousel from '../islands/TestimonialCarousel';
+
+// Data prep
+const featuredTestimonials = testimonials.filter(t => t.isFeatured);
+const homeFaqs = faqs.filter(f => f.category === 'general').slice(0, 8);
+const featuredCities = cities.filter(c => c.isFeatured);
+const featuredCountries = countries.filter(c => c.isFeatured);
+
+// reviewSchema expects ReviewItem[] with { author, reviewBody, ratingValue }
+const reviewItems = featuredTestimonials.map(t => ({
+  author: t.author,
+  reviewBody: t.quote,
+  ratingValue: t.rating,
+}));
+
+// Schemas
+const schemas = [
+  organizationSchema(),
+  faqSchema(homeFaqs),
+  reviewSchema(reviewItems),
+  breadcrumbSchema([{ name: 'Home', url: '/' }]),
+];
+
+const year = new Date().getFullYear();
+const yearsExp = year - 2002;
 ---
-<p>Placeholder: index</p>
+
+<BaseLayout
+  title="Web Design & Development Company — Trusted by 500+ Businesses"
+  description="eLan Technology — award-winning web design & digital marketing agency in Nagpur since 2002. WCAG/ADA compliant websites for India & global markets."
+  schema={schemas}
+>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 1: HERO
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section
+    aria-labelledby="hero-heading"
+    class="relative overflow-hidden bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-24 md:py-36"
+  >
+    <!-- Background glow orbs -->
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+      <div class="absolute -top-40 -left-40 h-[600px] w-[600px] rounded-full bg-[#00E5A0]/8 blur-[120px]"></div>
+      <div class="absolute -bottom-40 -right-20 h-[500px] w-[500px] rounded-full bg-[#6366F1]/8 blur-[120px]"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[400px] w-[400px] rounded-full bg-[#EC4899]/5 blur-[100px]"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+      <!-- Pre-heading badge -->
+      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)]/60 px-4 py-2 text-sm text-[var(--text-muted)] backdrop-blur-sm">
+        <span class="h-2 w-2 rounded-full bg-[#00E5A0] animate-pulse" aria-hidden="true"></span>
+        Award-winning agency since 2002 — Nagpur, India
+      </div>
+
+      <!-- H1 -->
+      <h1
+        id="hero-heading"
+        class="font-heading text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight text-[var(--text)] mb-6"
+      >
+        Web Design &amp; Development Company —<br class="hidden lg:block" />
+        Trusted by{' '}
+        <span class="bg-gradient-to-r from-[#00E5A0] to-[#6366F1] bg-clip-text text-transparent">
+          500+ Businesses
+        </span>{' '}
+        Worldwide
+      </h1>
+
+      <!-- Subheading -->
+      <p class="mx-auto mb-10 max-w-3xl text-lg sm:text-xl text-[var(--text-dim)] leading-relaxed">
+        Nagpur's most trusted web agency since 2002. We build WCAG/ADA-compliant websites,
+        eCommerce stores, and digital marketing campaigns that deliver measurable results —
+        for India and the world.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+        <a
+          href="/free-website-audit"
+          class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-4 text-base font-semibold text-[var(--bg)] shadow-lg shadow-[var(--accent)]/25 transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
+        >
+          Get Free Website Audit
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <a
+          href="/portfolio"
+          class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-transparent px-8 py-4 text-base font-semibold text-[var(--text)] transition-all duration-300 hover:border-[var(--accent)] hover:text-[var(--accent)] hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
+        >
+          View Our Work
+        </a>
+      </div>
+
+      <!-- Trust badges -->
+      <div
+        role="list"
+        aria-label="Trust indicators"
+        class="flex flex-wrap items-center justify-center gap-3"
+      >
+        {[
+          `${yearsExp}+ Years Experience`,
+          '500+ Clients',
+          'WCAG 2.1 AA',
+          'ADA Compliant',
+          'ISO Certified',
+        ].map(badge => (
+          <div
+            role="listitem"
+            class="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] bg-[var(--bg-card)]/60 px-3 py-1.5 text-xs font-medium text-[var(--text-muted)] backdrop-blur-sm"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#00E5A0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            {badge}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 2: STATS COUNTER
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-label="Company statistics" class="border-y border-[var(--border)] bg-[var(--bg-card)]">
+    <StatsCounter client:visible />
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 3: SERVICES GRID
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="services-heading" class="bg-[var(--bg)] py-16 md:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <!-- Section header -->
+      <p class="text-center text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-3">
+        What We Do
+      </p>
+      <h2
+        id="services-heading"
+        class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] text-center mb-4"
+      >
+        Our Services
+      </h2>
+      <p class="text-lg text-[var(--text-dim)] text-center mb-12 max-w-2xl mx-auto">
+        Everything your business needs to succeed online
+      </p>
+
+      <!-- Services grid -->
+      <ul
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+        role="list"
+      >
+        {services.map(service => (
+          <li>
+            <article class="group relative flex flex-col h-full bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-6 hover:border-[var(--accent)]/40 hover:-translate-y-1 transition-all duration-300 hover:shadow-lg hover:shadow-[var(--accent)]/5">
+              <!-- Icon circle -->
+              <div
+                class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl"
+                style={`background-color: ${service.accent}20;`}
+                aria-hidden="true"
+              >
+                <div
+                  class="h-5 w-5 rounded-full"
+                  style={`background-color: ${service.accent};`}
+                ></div>
+              </div>
+
+              <!-- Title -->
+              <h3 class="font-heading text-lg font-bold text-[var(--text)] mb-2">
+                {service.title}
+              </h3>
+
+              <!-- Tagline -->
+              <p class="text-sm text-[var(--text-dim)] mb-4 line-clamp-2 flex-grow">
+                {service.tagline}
+              </p>
+
+              <!-- Top 3 features -->
+              <ul class="mb-5 space-y-1.5" aria-label={`${service.title} features`}>
+                {service.features.slice(0, 3).map(feature => (
+                  <li class="flex items-center gap-2 text-xs text-[var(--text-muted)]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style={`color: ${service.accent};`}>
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+
+              <!-- CTA link -->
+              <a
+                href={`/services/${service.slug}`}
+                class="mt-auto inline-flex items-center gap-1 text-sm font-semibold transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
+                style={`color: ${service.accent};`}
+                aria-label={`Learn more about ${service.title}`}
+              >
+                Learn More
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </article>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 4: CLIENT LOGOS STRIP
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="clients-heading" class="bg-[var(--bg-card)] py-16 md:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2
+        id="clients-heading"
+        class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] text-center mb-4"
+      >
+        Trusted by Businesses Across India &amp; Worldwide
+      </h2>
+      <p class="text-lg text-[var(--text-dim)] text-center mb-12 max-w-2xl mx-auto">
+        From local Nagpur enterprises to international organisations — clients who trust eLan Technology
+      </p>
+
+      <ul
+        class="flex flex-wrap items-center justify-center gap-3"
+        role="list"
+        aria-label="Client names"
+      >
+        {[
+          'Ribolator USA',
+          'CIPL India',
+          'CSRI-BSB',
+          'Aasthaa Hospital',
+          'Trimit Architects',
+          "D'FYNE Magazine",
+          'Guru Nanak College',
+          'GeoStudio',
+          'Pragati Foundation',
+          'BrightMinds School',
+          'Resort Management Co.',
+          'Aarna Weddings',
+        ].map(name => (
+          <li
+            class="rounded-full border border-[var(--border)] px-4 py-2 text-sm text-[var(--text-muted)] transition-colors duration-200 hover:border-[var(--accent)]/50 hover:text-[var(--text)]"
+          >
+            {name}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 5: CTA BANNER
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="audit-cta-heading" class="bg-[var(--bg)] py-16 md:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#00E5A0]/10 via-[#6366F1]/10 to-[#EC4899]/10 border border-[var(--border)] p-10 md:p-16 text-center">
+        <!-- Subtle background glow -->
+        <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden rounded-3xl">
+          <div class="absolute top-0 left-1/4 h-64 w-64 rounded-full bg-[#00E5A0]/10 blur-[80px]"></div>
+          <div class="absolute bottom-0 right-1/4 h-64 w-64 rounded-full bg-[#6366F1]/10 blur-[80px]"></div>
+        </div>
+
+        <div class="relative">
+          <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-[#00E5A0]/30 bg-[#00E5A0]/10 px-4 py-1.5 text-xs font-semibold text-[#00E5A0] uppercase tracking-wider">
+            Free — No Credit Card Required
+          </div>
+          <h2
+            id="audit-cta-heading"
+            class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] mb-4"
+          >
+            Get Your Free Website Security, SEO &amp; ADA Audit
+          </h2>
+          <p class="mx-auto mb-8 max-w-2xl text-lg text-[var(--text-dim)]">
+            We'll analyse your existing website and identify critical issues — completely free, no strings attached.
+          </p>
+          <a
+            href="/free-website-audit"
+            class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-10 py-4 text-base font-semibold text-[var(--bg)] shadow-lg shadow-[var(--accent)]/25 transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
+          >
+            Claim Free Audit
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <p class="mt-4 text-xs text-[var(--text-muted)]">
+            No credit card required. Results delivered within 48 hours.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 6: PRODUCTS TEASER
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="products-heading" class="bg-[var(--bg-card)] py-16 md:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <p class="text-center text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-3">
+        Proprietary Software
+      </p>
+      <h2
+        id="products-heading"
+        class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] text-center mb-4"
+      >
+        Proprietary Software Products
+      </h2>
+      <p class="text-lg text-[var(--text-dim)] text-center mb-12 max-w-2xl mx-auto">
+        Custom-built business management platforms — own your digital infrastructure
+      </p>
+
+      <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" role="list">
+        {[
+          {
+            slug: 'real-estate-portal',
+            name: 'Real Estate Portal',
+            description: 'Complete property listing & lead management platform',
+            accent: '#00E5A0',
+            gradient: 'from-[#00E5A0]/20 to-[#06B6D4]/20',
+          },
+          {
+            slug: 'conference-portal',
+            name: 'Conference Portal',
+            description: 'End-to-end event registration & management system',
+            accent: '#6366F1',
+            gradient: 'from-[#6366F1]/20 to-[#A855F7]/20',
+          },
+          {
+            slug: 'ima-portal',
+            name: 'IMA Portal',
+            description: 'Member management & CME tracking for medical associations',
+            accent: '#EC4899',
+            gradient: 'from-[#EC4899]/20 to-[#F59E0B]/20',
+          },
+          {
+            slug: 'ribolator',
+            name: 'Ribolator',
+            description: 'Industrial rib calculator & B2B quoting platform',
+            accent: '#F59E0B',
+            gradient: 'from-[#F59E0B]/20 to-[#EF4444]/20',
+          },
+        ].map(product => (
+          <li>
+            <article
+              class="group relative flex flex-col h-full rounded-2xl p-px transition-all duration-300 hover:-translate-y-1"
+              style={`background: linear-gradient(135deg, ${product.accent}40, transparent);`}
+            >
+              <div class="flex flex-col h-full rounded-2xl bg-[var(--bg-card)] p-6">
+                <!-- Accent dot -->
+                <div
+                  class="mb-4 h-10 w-10 rounded-xl flex items-center justify-center"
+                  style={`background-color: ${product.accent}20;`}
+                  aria-hidden="true"
+                >
+                  <div class="h-4 w-4 rounded-full" style={`background-color: ${product.accent};`}></div>
+                </div>
+
+                <h3 class="font-heading text-lg font-bold text-[var(--text)] mb-2">
+                  {product.name}
+                </h3>
+                <p class="text-sm text-[var(--text-dim)] mb-5 flex-grow">
+                  {product.description}
+                </p>
+                <a
+                  href={`/products/${product.slug}`}
+                  class="mt-auto inline-flex items-center gap-1 text-sm font-semibold transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
+                  style={`color: ${product.accent};`}
+                  aria-label={`Learn more about ${product.name}`}
+                >
+                  Learn More
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </a>
+              </div>
+            </article>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 7: TESTIMONIAL CAROUSEL
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="testimonials-heading" class="bg-[var(--bg)] py-16 md:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <p class="text-center text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-3">
+        Client Testimonials
+      </p>
+      <h2
+        id="testimonials-heading"
+        class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] text-center mb-4"
+      >
+        What Our Clients Say
+      </h2>
+      <p class="text-lg text-[var(--text-dim)] text-center mb-12 max-w-2xl mx-auto">
+        Real results from real businesses — across India and around the world
+      </p>
+
+      <TestimonialCarousel client:visible testimonials={featuredTestimonials} />
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 8: WHERE WE SERVE
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="where-we-serve-heading" class="bg-[var(--bg-card)] py-16 md:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2
+        id="where-we-serve-heading"
+        class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] text-center mb-4"
+      >
+        Where We Serve
+      </h2>
+      <p class="text-lg text-[var(--text-dim)] text-center mb-12 max-w-2xl mx-auto">
+        Local expertise. Global reach. Serving clients in 25+ countries.
+      </p>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <!-- India cities -->
+        <div>
+          <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-6 flex items-center gap-2">
+            <span class="h-6 w-1 rounded-full bg-[#00E5A0]" aria-hidden="true"></span>
+            India
+          </h3>
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4" role="list">
+            {featuredCities.map(city => (
+              <li>
+                <a
+                  href={city.hasLandingPage ? `/web-design-company-${city.slug}` : '/contact'}
+                  class="group flex items-center gap-3 rounded-xl border border-[var(--border)] bg-[var(--bg)] p-4 transition-all duration-200 hover:border-[#00E5A0]/40 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
+                >
+                  <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-[#00E5A0]/10 text-[#00E5A0] font-bold text-sm flex-shrink-0" aria-hidden="true">
+                    {city.name.slice(0, 2).toUpperCase()}
+                  </div>
+                  <div>
+                    <div class="font-semibold text-[var(--text)] group-hover:text-[#00E5A0] transition-colors">
+                      {city.name}
+                    </div>
+                    <div class="text-xs text-[var(--text-muted)]">{city.state}</div>
+                  </div>
+                  <svg class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00E5A0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Global countries -->
+        <div>
+          <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-6 flex items-center gap-2">
+            <span class="h-6 w-1 rounded-full bg-[#6366F1]" aria-hidden="true"></span>
+            Global
+          </h3>
+          <ul class="flex flex-wrap gap-3" role="list">
+            {featuredCountries.filter(c => c.slug !== 'india').map(country => (
+              <li>
+                <a
+                  href="/contact"
+                  class="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] px-4 py-2 text-sm text-[var(--text-muted)] transition-all duration-200 hover:border-[#6366F1]/50 hover:text-[var(--text)] hover:bg-[#6366F1]/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
+                >
+                  <span class="font-mono text-xs text-[var(--text-muted)]">{country.code}</span>
+                  {country.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p class="mt-6 text-sm text-[var(--text-muted)] leading-relaxed">
+            We work with clients across the USA, Canada, Australia, UAE, UK, and 20+ other
+            countries. All projects managed remotely with clear, reliable communication.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 9: FAQ
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="faq-heading" class="bg-[var(--bg)] py-16 md:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2
+        id="faq-heading"
+        class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] text-center mb-4"
+      >
+        Frequently Asked Questions
+      </h2>
+      <p class="text-lg text-[var(--text-dim)] text-center mb-12 max-w-2xl mx-auto">
+        Answers to the most common questions about working with eLan Technology
+      </p>
+
+      <div class="mx-auto max-w-3xl space-y-3">
+        {homeFaqs.map((faq) => (
+          <details
+            class="group rounded-xl border border-[var(--border)] bg-[var(--bg-card)] overflow-hidden transition-colors duration-200 hover:border-[var(--accent)]/30"
+          >
+            <summary
+              class="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 font-medium text-[var(--text)] hover:text-[var(--accent)] transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)] focus-visible:outline-offset-2"
+            >
+              <span>{faq.question}</span>
+              <!-- Chevron icon — rotates via CSS when open -->
+              <svg
+                class="flex-shrink-0 text-[var(--text-muted)] transition-transform duration-200 group-open:rotate-180"
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </summary>
+            <div class="border-t border-[var(--border)] px-6 pb-5 pt-4">
+              <p class="text-[var(--text-dim)] leading-relaxed text-sm">
+                {faq.answer}
+              </p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 10: TRIPLE CTA
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="triple-cta-heading" class="bg-[var(--bg-card)] py-16 md:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2
+        id="triple-cta-heading"
+        class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] text-center mb-4"
+      >
+        Ready to Get Started?
+      </h2>
+      <p class="text-lg text-[var(--text-dim)] text-center mb-12 max-w-2xl mx-auto">
+        Choose the option that works best for you — we'll take it from there.
+      </p>
+
+      <ul class="grid grid-cols-1 md:grid-cols-3 gap-6" role="list">
+        <!-- CTA 1: Free Audit -->
+        <li>
+          <article class="relative overflow-hidden rounded-2xl p-px h-full">
+            <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#00E5A0]/40 to-[#06B6D4]/40" aria-hidden="true"></div>
+            <div class="relative flex flex-col h-full rounded-2xl bg-gradient-to-br from-[#00E5A0]/10 to-[#06B6D4]/10 p-8">
+              <div class="mb-4 h-12 w-12 rounded-xl bg-[#00E5A0]/20 flex items-center justify-center" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00E5A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+                </svg>
+              </div>
+              <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-3">
+                Free Website Audit
+              </h3>
+              <p class="text-sm text-[var(--text-dim)] mb-6 flex-grow">
+                Get a comprehensive report on your site's security, SEO &amp; accessibility
+              </p>
+              <a
+                href="/free-website-audit"
+                class="inline-flex items-center justify-center gap-2 rounded-full bg-[#00E5A0] px-6 py-3 text-sm font-semibold text-[var(--bg)] transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
+              >
+                Get Free Audit
+              </a>
+            </div>
+          </article>
+        </li>
+
+        <!-- CTA 2: Get Quote -->
+        <li>
+          <article class="relative overflow-hidden rounded-2xl p-px h-full">
+            <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#6366F1]/40 to-[#A855F7]/40" aria-hidden="true"></div>
+            <div class="relative flex flex-col h-full rounded-2xl bg-gradient-to-br from-[#6366F1]/10 to-[#A855F7]/10 p-8">
+              <div class="mb-4 h-12 w-12 rounded-xl bg-[#6366F1]/20 flex items-center justify-center" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+                </svg>
+              </div>
+              <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-3">
+                Get a Quote
+              </h3>
+              <p class="text-sm text-[var(--text-dim)] mb-6 flex-grow">
+                Tell us about your project and receive a detailed proposal within 24 hours
+              </p>
+              <a
+                href="/get-quote"
+                class="inline-flex items-center justify-center gap-2 rounded-full bg-[#6366F1] px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#6366F1]"
+              >
+                Request a Quote
+              </a>
+            </div>
+          </article>
+        </li>
+
+        <!-- CTA 3: Schedule Call -->
+        <li>
+          <article class="relative overflow-hidden rounded-2xl p-px h-full">
+            <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#EC4899]/40 to-[#F59E0B]/40" aria-hidden="true"></div>
+            <div class="relative flex flex-col h-full rounded-2xl bg-gradient-to-br from-[#EC4899]/10 to-[#F59E0B]/10 p-8">
+              <div class="mb-4 h-12 w-12 rounded-xl bg-[#EC4899]/20 flex items-center justify-center" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#EC4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+              </div>
+              <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-3">
+                Schedule a Call
+              </h3>
+              <p class="text-sm text-[var(--text-dim)] mb-6 flex-grow">
+                Book a free 30-minute consultation with our team
+              </p>
+              <a
+                href="/schedule-consultation"
+                class="inline-flex items-center justify-center gap-2 rounded-full bg-[#EC4899] px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#EC4899]"
+              >
+                Book a Consultation
+              </a>
+            </div>
+          </article>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+</BaseLayout>

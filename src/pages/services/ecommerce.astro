@@ -1,4 +1,221 @@
 ---
-// TODO: Implement ecommerce
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+import { services } from '../../data/services';
+import { cities } from '../../data/cities';
+import { serviceSchema, faqSchema, breadcrumbSchema } from '../../utils/schema';
+
+const service = services.find((s) => s.slug === 'ecommerce')!;
+
+const serviceFaqs = [
+  {
+    question: 'How much does an eCommerce website cost?',
+    answer: 'The cost depends on the number of products, required features, and the chosen platform. A basic Shopify or WooCommerce store starts from approximately ₹40,000, while a custom-built eCommerce solution with advanced features, integrations, and B2B capabilities may range from ₹1,50,000 to ₹5,00,000 or more. We provide a detailed quote after a free discovery call.',
+  },
+  {
+    question: 'Which platform do you recommend — Shopify or WooCommerce?',
+    answer: "It depends on your scale, team, and goals. Shopify is ideal for businesses that want a hosted, easy-to-manage platform with minimal technical overhead. WooCommerce suits businesses that already use WordPress or need more flexibility and control at a lower subscription cost. For very large catalogues or complex B2B requirements, we often build fully custom solutions. We'll recommend the right fit after understanding your business.",
+  },
+  {
+    question: 'Do you set up payment gateways?',
+    answer: 'Yes. We integrate all major payment gateways including Razorpay, Stripe, PayPal, and CCAvenue. For Indian businesses, we also set up UPI, net banking, and EMI options through Razorpay. Gateway selection, account setup assistance, test transactions, and webhook configuration are all included in our eCommerce setup service.',
+  },
+  {
+    question: 'Can I manage products myself after launch?',
+    answer: 'Absolutely. Every eCommerce store we build includes a user-friendly admin interface for managing products, categories, inventory, orders, discounts, and customers. We provide training sessions after launch to ensure you and your team can manage the store confidently without needing developer assistance for day-to-day operations.',
+  },
+  {
+    question: 'Do you provide SEO for eCommerce stores?',
+    answer: 'Yes. eCommerce SEO is a specialised discipline and is included as standard in our store builds. We optimise product titles and descriptions, implement structured data (Product, Review, BreadcrumbList schemas), create SEO-friendly URL structures, set up canonical tags, configure XML sitemaps, and optimise category pages for search engines.',
+  },
+];
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: '/services' },
+  { name: service.title, href: `/services/${service.slug}` },
+];
+
+const schemaBreadcrumbs = breadcrumbs.map((b) => ({ name: b.name, url: b.href }));
+
+const schemas = [
+  serviceSchema(service.title, service.description, `/services/${service.slug}`),
+  faqSchema(serviceFaqs),
+  breadcrumbSchema(schemaBreadcrumbs),
+];
+
+const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
 ---
-<p>Placeholder: ecommerce</p>
+<ServiceLayout
+  title={`${service.title} Services | eLan Technology`}
+  description={service.description}
+  breadcrumbs={breadcrumbs}
+  schema={schemas}
+>
+
+  <!-- ── HERO ─────────────────────────────────────────────────────────────── -->
+  <section class="relative mb-12 overflow-hidden rounded-2xl bg-gradient-to-br from-amber-500/10 via-[var(--bg-card)] to-[var(--bg-card)] p-8 md:p-12 border border-[var(--border)]">
+    <div class="grid gap-10 md:grid-cols-2 md:items-center">
+      <div>
+        <p class="mb-2 text-sm font-semibold uppercase tracking-widest" style="color: #F59E0B;">{service.tagline}</p>
+        <h1 class="font-heading text-3xl font-bold leading-tight text-[var(--text)] md:text-4xl lg:text-5xl">
+          {service.title} Services — eLan Technology
+        </h1>
+        <p class="mt-4 text-base text-[var(--text-muted)] md:text-lg">
+          {service.description} We design every store with conversion optimisation at the forefront — intuitive product discovery, streamlined checkout flows, and trust signals that turn browsers into buyers. Whether you're launching your first store or migrating from an underperforming platform, we build eCommerce that generates revenue around the clock.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="/schedule-consultation" class="inline-flex items-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white shadow transition hover:opacity-90" style="background: #F59E0B;">
+            Get Free Consultation
+          </a>
+          <a href="/get-quote" class="inline-flex items-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
+            Get a Quote
+          </a>
+        </div>
+      </div>
+      <ul class="space-y-3">
+        {service.features.map((f) => (
+          <li class="flex items-center gap-3 rounded-lg bg-[var(--bg)] px-4 py-3 border border-[var(--border)] text-sm font-medium text-[var(--text)]">
+            <span class="text-green-400 font-bold">✓</span> {f}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── WHAT'S INCLUDED ───────────────────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-2">What's Included in Our {service.shortTitle} Services</h2>
+    <p class="text-[var(--text-muted)] mb-8">End-to-end eCommerce development — from platform setup and design to payment integration, SEO, and ongoing optimisation.</p>
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {[
+        { icon: '🛒', name: 'Shopify Development', desc: 'Custom Shopify themes, app integrations, and Shopify Plus solutions for growing brands. We build beyond default Shopify capabilities — custom landing pages, subscription models, multi-currency support, and advanced product variants tailored to your catalogue.' },
+        { icon: '🛍️', name: 'WooCommerce Development', desc: 'Fully custom WooCommerce stores built on WordPress, with optimised performance, custom product types, and deep plugin integrations. We configure variable products, bundles, digital downloads, and bookings — all with a fast, clean admin experience.' },
+        { icon: '💳', name: 'Payment Gateway Integration', desc: 'We integrate Razorpay, Stripe, PayPal, and CCAvenue with full support for UPI, cards, net banking, wallets, and EMI options. Every integration includes end-to-end testing, webhook setup, refund handling, and secure tokenisation for repeat customers.' },
+        { icon: '📦', name: 'Product Catalogue Management', desc: 'We build structured, scalable product catalogues with advanced filtering, faceted search, comparison features, and bulk import/export. Whether you have 10 or 10,000 SKUs, we design a management system that keeps your team in control.' },
+        { icon: '🔄', name: 'Abandoned Cart Recovery', desc: 'Automated abandoned cart emails, push notifications, and retargeting pixel setup to recover lost revenue. We configure trigger sequences, personalise messaging based on cart value, and A/B test subject lines to maximise recovery rates.' },
+        { icon: '🏢', name: 'B2B eCommerce Portals', desc: 'Custom pricing tiers, bulk ordering, purchase order workflows, account-based catalogues, and credit terms — we build B2B portals that serve wholesale and trade customers with the same polish as D2C stores, fully integrated with your ERP or CRM.' },
+        { icon: '📊', name: 'Conversion Optimisation', desc: 'We analyse your store\'s funnel — from product page to thank-you page — and implement data-backed improvements: better product photography guidelines, social proof placement, urgency signals, simplified checkout, and guest checkout optimisation.' },
+        { icon: '🚀', name: 'Performance & Speed', desc: 'A 1-second delay in load time can reduce conversions by 7%. We optimise image formats, implement lazy loading, configure edge CDN delivery, and tune server response times so your store loads fast on every connection speed.' },
+      ].map(({ icon, name, desc }) => (
+        <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
+          <div class="mb-3 inline-flex h-11 w-11 items-center justify-center rounded-xl text-xl" style="background: #F59E0B20;">{icon}</div>
+          <h3 class="font-heading text-base font-semibold text-[var(--text)] mb-2">{name}</h3>
+          <p class="text-sm text-[var(--text-muted)] leading-relaxed">{desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── SHOPIFY vs WOOCOMMERCE ────────────────────────────────────────────── -->
+  <section class="mb-16 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 md:p-10">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-3">Shopify vs WooCommerce — Which is Right for You?</h2>
+    <p class="text-[var(--text-muted)] mb-8">Both platforms are powerful, but they suit different business types. Here is how we help clients choose:</p>
+    <div class="grid gap-6 md:grid-cols-2">
+      <div class="rounded-xl bg-[var(--bg)] border border-[var(--border)] p-6">
+        <h3 class="font-heading text-base font-semibold mb-3" style="color: #F59E0B;">Choose Shopify if...</h3>
+        <ul class="space-y-2 text-sm text-[var(--text-muted)]">
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>You want a hosted solution with no server management</li>
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>You need a reliable platform that scales to millions in revenue</li>
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>Your team is non-technical and needs an easy admin experience</li>
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>You want to integrate with Shopify's growing app ecosystem</li>
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>You plan to sell internationally across multiple currencies</li>
+        </ul>
+      </div>
+      <div class="rounded-xl bg-[var(--bg)] border border-[var(--border)] p-6">
+        <h3 class="font-heading text-base font-semibold mb-3" style="color: #F59E0B;">Choose WooCommerce if...</h3>
+        <ul class="space-y-2 text-sm text-[var(--text-muted)]">
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>You already have a WordPress website and want to add a store</li>
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>You want to avoid monthly platform subscription fees</li>
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>You need highly custom product types or checkout logic</li>
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>You want full ownership and control over your data and code</li>
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>You need deep integration with Indian payment and shipping APIs</li>
+        </ul>
+      </div>
+    </div>
+    <p class="mt-6 text-sm text-[var(--text-muted)]">We also build fully custom eCommerce solutions for businesses with requirements that neither platform handles well — such as complex B2B pricing, multi-vendor marketplaces, or tight ERP integration.</p>
+  </section>
+
+  <!-- ── OUR PROCESS ────────────────────────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-2">Our {service.shortTitle} Process</h2>
+    <p class="text-[var(--text-muted)] mb-8">Building an eCommerce store involves more moving parts than a standard website. Our structured process keeps every element on track.</p>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {[
+        { n: '1', title: 'Discovery & Strategy', desc: 'We map your product catalogue, customer journey, fulfilment process, and technical integrations. We define the platform, payment setup, shipping logic, and SEO strategy before any development begins.' },
+        { n: '2', title: 'Design & Planning', desc: 'We design high-fidelity mockups for your homepage, category pages, product pages, cart, and checkout — with conversion optimisation principles applied at every step. Mobile UX gets equal priority.' },
+        { n: '3', title: 'Development & Testing', desc: 'Development covers theme/front-end, payment gateway integration, shipping zone configuration, analytics setup, and SEO foundations. We run end-to-end checkout tests, cross-device testing, and load testing before launch.' },
+        { n: '4', title: 'Launch & Support', desc: 'We handle DNS, SSL, domain configuration, Google Merchant Centre setup, and post-launch monitoring. Training sessions ensure your team can manage orders, products, and promotions independently from day one.' },
+      ].map(({ n, title, desc }) => (
+        <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
+          <div class="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-full font-heading text-sm font-bold text-white" style="background: #F59E0B;">{n}</div>
+          <h3 class="font-heading text-sm font-semibold text-[var(--text)] mb-2">{title}</h3>
+          <p class="text-sm text-[var(--text-muted)]">{desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── TECHNOLOGIES ───────────────────────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-4">Technologies We Use</h2>
+    <div class="flex flex-wrap gap-3">
+      {['Shopify', 'Shopify Plus', 'WooCommerce', 'WordPress', 'Razorpay', 'Stripe', 'PayPal', 'CCAvenue', 'React', 'Next.js', 'Node.js', 'Algolia', 'Elasticsearch', 'Google Analytics 4', 'Google Merchant Centre', 'Meta Pixel', 'Klaviyo'].map((tech) => (
+        <span class="rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-4 py-2 text-sm font-medium text-[var(--text-muted)] hover:border-amber-500/50 hover:text-[var(--text)] transition-colors">
+          {tech}
+        </span>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── FAQ ───────────────────────────────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-8">Frequently Asked Questions</h2>
+    <div class="divide-y divide-[var(--border)] rounded-xl border border-[var(--border)] overflow-hidden">
+      {serviceFaqs.map(({ question, answer }) => (
+        <details class="bg-[var(--bg-card)] py-0">
+          <summary class="cursor-pointer font-medium text-[var(--text)] flex items-center justify-between px-6 py-4 hover:bg-[var(--bg)] transition-colors list-none">
+            <span>{question}</span>
+            <span class="ml-4 shrink-0 text-[var(--text-muted)] text-lg">+</span>
+          </summary>
+          <p class="px-6 pb-5 pt-1 text-sm text-[var(--text-muted)] leading-relaxed">{answer}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── CITY LINKS ─────────────────────────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-xl font-bold text-[var(--text)] md:text-2xl mb-2">eCommerce Development Services Across India</h2>
+    <p class="text-sm text-[var(--text-muted)] mb-6">We build online stores for businesses in Nagpur, Raipur, Mumbai, Pune, Hyderabad, Delhi, and beyond — with deep knowledge of Indian payment systems and consumer behaviour.</p>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+      {featuredCities.map((city) => (
+        <a
+          href={city.hasLandingPage ? `/web-design-company-${city.slug}` : `/services/ecommerce`}
+          class="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-3 hover:border-amber-500/50 transition-colors"
+        >
+          <p class="font-medium text-sm text-[var(--text)]">{city.name}</p>
+          <p class="text-xs text-[var(--text-muted)] mt-0.5">Services available</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── DOUBLE CTA ─────────────────────────────────────────────────────────── -->
+  <section class="grid gap-5 md:grid-cols-2 mb-4">
+    <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-7 flex flex-col">
+      <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-2">Ready to Get Started?</h3>
+      <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Get a free audit of your existing eCommerce store or a consultation for your new store. We'll identify conversion opportunities and recommend the best platform for your business model.</p>
+      <a href="/free-website-audit" class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90" style="background: #F59E0B;">
+        Get Free Audit
+      </a>
+    </div>
+    <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-7 flex flex-col">
+      <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-2">Have Questions?</h3>
+      <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Unsure about platforms, costs, or timelines? Book a free 30-minute call and get straight answers about what your eCommerce project will require — no obligation.</p>
+      <a href="/schedule-consultation" class="inline-flex items-center justify-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
+        Schedule a Call
+      </a>
+    </div>
+  </section>
+
+</ServiceLayout>

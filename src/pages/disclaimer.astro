@@ -1,4 +1,88 @@
 ---
-// TODO: Implement disclaimer
+import LegalLayout from '../layouts/LegalLayout.astro';
+import SchemaMarkup from '../components/SchemaMarkup.astro';
+import { webPageSchema, breadcrumbSchema } from '../utils/schema';
+
+const schema = [
+  webPageSchema('Disclaimer', 'eLan Technology disclaimer — limitations on website information and service guarantees.', '/disclaimer'),
+  breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Disclaimer', url: '/disclaimer' }]),
+];
 ---
-<p>Placeholder: disclaimer</p>
+<LegalLayout
+  title="Disclaimer"
+  description="eLan Technology disclaimer — limitations on website information and service guarantees."
+  lastUpdated="2025-01-01"
+>
+  <SchemaMarkup schema={schema} />
+
+  <h2>General Disclaimer</h2>
+  <p>
+    The information provided on <a href="https://elan-tech.net">elan-tech.net</a> is intended for
+    general informational purposes only. While eLan Technology strives to keep all content accurate,
+    current, and complete, we make no representations or warranties of any kind — express or implied
+    — about the completeness, accuracy, reliability, suitability, or availability of the information,
+    services, or related graphics contained on this website.
+  </p>
+
+  <h2>Service Results</h2>
+  <p>
+    Digital marketing, SEO, and web development results (including but not limited to search engine
+    rankings, website traffic, conversion rates, and lead generation) depend on a wide range of
+    factors that are outside our direct control, including search engine algorithm changes, market
+    conditions, client industry, and competitive landscape. eLan Technology does not guarantee any
+    specific outcomes, rankings, or results from the use of our services.
+  </p>
+
+  <h2>External Links</h2>
+  <p>
+    Our website may contain links to third-party websites and resources for your convenience and
+    reference. These links do not constitute endorsement of those websites or their content. eLan
+    Technology has no control over the nature, content, or availability of those websites and accepts
+    no responsibility for their accuracy, legality, or any potential harm arising from their use.
+  </p>
+
+  <h2>Testimonials</h2>
+  <p>
+    Client testimonials and case studies published on this website reflect the individual experiences
+    of specific clients and are provided for illustrative purposes only. Results may vary
+    significantly between clients. Testimonials are not intended to be guarantees or promises of
+    similar outcomes for all clients.
+  </p>
+
+  <h2>Technical Information</h2>
+  <p>
+    Technology recommendations, tool suggestions, and best-practice guidance published on this
+    website are based on current industry knowledge at the time of writing. The technology landscape
+    evolves rapidly, and eLan Technology does not guarantee that any specific technology, platform,
+    or tool will remain suitable, supported, or optimal for any given purpose indefinitely.
+  </p>
+
+  <h2>Pricing</h2>
+  <p>
+    Any pricing, cost estimates, or package details displayed on this website are indicative only
+    and are subject to change without notice. All final pricing is confirmed in a written project
+    proposal or service agreement issued directly to the client. Indicative prices do not constitute
+    a binding offer.
+  </p>
+
+  <h2>Professional Advice</h2>
+  <p>
+    Nothing on this website constitutes legal, financial, accounting, tax, or other professional
+    advice. For matters requiring professional expertise in these areas, you should consult a
+    qualified and appropriately licenced professional in your jurisdiction.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    If you have any questions about this disclaimer or the information on our website, please
+    contact us at:
+  </p>
+  <ul>
+    <li>Email: <a href="mailto:info@elan-tech.net">info@elan-tech.net</a></li>
+    <li>Phone: <a href="tel:+918788834630">+91 8788834630</a></li>
+    <li>
+      Address: eLan Technology, Basement Floor, PTG IT Park, Plot No. 21, IT Park Rd,
+      Gayatri Nagar, Nagpur, Maharashtra 440022, India
+    </li>
+  </ul>
+</LegalLayout>

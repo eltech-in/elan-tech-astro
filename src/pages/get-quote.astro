@@ -1,4 +1,225 @@
 ---
-// TODO: Implement get-quote
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '../utils/schema';
+
+const schema = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Get Quote', url: '/get-quote' },
+]);
+
+const inputClass = "w-full rounded-lg border border-[var(--border)] bg-[var(--bg)] px-4 py-2.5 text-sm text-[var(--text)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]";
+const labelClass = "block text-sm font-medium text-[var(--text)] mb-1.5";
 ---
-<p>Placeholder: get-quote</p>
+
+<BaseLayout
+  title="Get a Project Quote — eLan Technology"
+  description="Tell us about your project and get a detailed, no-obligation quote within 4 business hours. Web design, development, eCommerce, and digital marketing."
+  schema={schema}
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-[var(--bg)] py-20 sm:py-28">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-4">Free Quote</p>
+      <h1 class="font-heading text-4xl sm:text-5xl font-bold text-[var(--text)] leading-tight">
+        Tell Us About Your Project
+      </h1>
+      <p class="mt-6 max-w-2xl mx-auto text-lg text-[var(--text-dim)] leading-relaxed">
+        We respond to every quote request within <strong class="text-[var(--text)]">4 business hours</strong>. No obligation, no pushy sales — just a clear breakdown of what your project will involve.
+      </p>
+
+      <!-- Trust indicators -->
+      <div class="flex flex-wrap justify-center gap-4 mt-8">
+        {['100% Free', 'No Obligation', 'Detailed Breakdown', 'Response in 4hrs'].map((badge) => (
+          <span class="px-4 py-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] text-sm text-[var(--text-dim)] font-medium">
+            {badge}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote form -->
+  <section class="py-16 md:py-20 border-t border-[var(--border)]" aria-labelledby="quote-form-heading">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <h2 id="quote-form-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-8 text-center">
+        Project Quote Request
+      </h2>
+
+      <!-- TODO: GetQuoteForm island (Step 3) — 4-step conditional form -->
+      <form action="/api/quote" method="POST" class="space-y-8" novalidate>
+
+        <!-- Step 1: Service Type -->
+        <fieldset class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+          <legend class="font-heading text-lg font-semibold text-[var(--text)] px-2">
+            <span class="text-[var(--accent)] mr-2">01.</span>Service Type
+          </legend>
+          <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {[
+              { value: 'website-design', label: 'Website Design' },
+              { value: 'web-development', label: 'Web Development' },
+              { value: 'ecommerce', label: 'eCommerce Store' },
+              { value: 'digital-marketing', label: 'Digital Marketing' },
+              { value: 'mobile-app', label: 'Mobile App' },
+              { value: 'branding', label: 'Branding' },
+              { value: 'maintenance', label: 'Maintenance / Security' },
+              { value: 'multiple', label: 'Multiple Services' },
+            ].map(({ value, label }) => (
+              <label class="flex items-center gap-3 cursor-pointer rounded-lg border border-[var(--border)] p-3 hover:border-[var(--accent)] transition-colors has-[:checked]:border-[var(--accent)] has-[:checked]:bg-[var(--accent)]/5">
+                <input type="radio" name="service_type" value={value} class="w-4 h-4 accent-[var(--accent)]" />
+                <span class="text-sm text-[var(--text)]">{label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <!-- Step 2: Project Details -->
+        <fieldset class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+          <legend class="font-heading text-lg font-semibold text-[var(--text)] px-2">
+            <span class="text-[var(--accent)] mr-2">02.</span>Project Details
+          </legend>
+          <div class="mt-4 space-y-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label for="quote-name" class={labelClass}>Full Name <span class="text-red-400" aria-hidden="true">*</span></label>
+                <input id="quote-name" name="name" type="text" required autocomplete="name" placeholder="Your full name" class={inputClass} />
+              </div>
+              <div>
+                <label for="quote-email" class={labelClass}>Email <span class="text-red-400" aria-hidden="true">*</span></label>
+                <input id="quote-email" name="email" type="email" required autocomplete="email" placeholder="you@company.com" class={inputClass} />
+              </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label for="quote-phone" class={labelClass}>Phone</label>
+                <input id="quote-phone" name="phone" type="tel" autocomplete="tel" placeholder="+91 98765 43210" class={inputClass} />
+              </div>
+              <div>
+                <label for="quote-company" class={labelClass}>Company</label>
+                <input id="quote-company" name="company" type="text" autocomplete="organization" placeholder="Your company name" class={inputClass} />
+              </div>
+            </div>
+            <div>
+              <label for="quote-website" class={labelClass}>Existing Website URL</label>
+              <input id="quote-website" name="website" type="url" placeholder="https://yourwebsite.com (leave blank if new project)" class={inputClass} />
+            </div>
+            <div>
+              <label for="quote-description" class={labelClass}>Project Description <span class="text-red-400" aria-hidden="true">*</span></label>
+              <textarea
+                id="quote-description"
+                name="description"
+                rows={5}
+                required
+                placeholder="Describe your project goals, target audience, key features needed, and anything else that helps us understand what you're building…"
+                class={inputClass}
+              ></textarea>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Step 3: Budget & Timeline -->
+        <fieldset class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+          <legend class="font-heading text-lg font-semibold text-[var(--text)] px-2">
+            <span class="text-[var(--accent)] mr-2">03.</span>Budget &amp; Timeline
+          </legend>
+          <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label for="quote-budget" class={labelClass}>Budget Range</label>
+              <select id="quote-budget" name="budget" class={inputClass}>
+                <option value="">Select a range…</option>
+                <option value="under-25k">Under ₹25,000</option>
+                <option value="25k-75k">₹25,000 – ₹75,000</option>
+                <option value="75k-2l">₹75,000 – ₹2,00,000</option>
+                <option value="2l-plus">₹2,00,000+</option>
+                <option value="not-sure">Not sure yet</option>
+              </select>
+            </div>
+            <div>
+              <label for="quote-timeline" class={labelClass}>Preferred Timeline</label>
+              <select id="quote-timeline" name="timeline" class={inputClass}>
+                <option value="">Select a timeline…</option>
+                <option value="asap">ASAP</option>
+                <option value="1-2-months">1–2 months</option>
+                <option value="2-4-months">2–4 months</option>
+                <option value="4-plus-months">4+ months</option>
+                <option value="flexible">Flexible</option>
+              </select>
+            </div>
+          </div>
+          <div class="mt-5">
+            <label for="quote-additional" class={labelClass}>Additional Notes</label>
+            <textarea
+              id="quote-additional"
+              name="additional"
+              rows={3}
+              placeholder="Any other requirements, preferences, or questions…"
+              class={inputClass}
+            ></textarea>
+          </div>
+        </fieldset>
+
+        <div class="text-center">
+          <button
+            type="submit"
+            class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-10 py-4 text-base font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity"
+          >
+            Submit Quote Request →
+          </button>
+          <p class="text-xs text-[var(--text-muted)] mt-4">
+            Free and no-obligation. We'll respond within 4 business hours.
+          </p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Why get a quote -->
+  <section class="py-16 md:py-20 bg-[var(--bg-card)] border-y border-[var(--border)]" aria-labelledby="why-quote-heading">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <h2 id="why-quote-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-8 text-center">
+        Why Get a Quote?
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        {[
+          {
+            title: 'Completely Free',
+            desc: 'Our quotes are always free, with no commitment required. Getting a quote is the first step to understanding what your project involves.',
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>`,
+          },
+          {
+            title: 'No Obligation',
+            desc: 'Receiving a quote doesn\'t mean you\'re committed to anything. Review it, ask questions, and decide when you\'re ready.',
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>`,
+          },
+          {
+            title: 'Detailed Breakdown',
+            desc: 'We don\'t give vague estimates. Our quotes break down every deliverable, milestone, and cost so you know exactly what you\'re getting.',
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`,
+          },
+        ].map(({ title, desc, icon }) => (
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 text-center">
+            <div class="w-12 h-12 rounded-2xl bg-[var(--accent)]/10 flex items-center justify-center mx-auto mb-4 text-[var(--accent)]" aria-hidden="true">
+              <Fragment set:html={icon} />
+            </div>
+            <h3 class="font-heading text-lg font-semibold text-[var(--text)] mb-2">{title}</h3>
+            <p class="text-sm text-[var(--text-dim)] leading-relaxed">{desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Response guarantee -->
+  <section class="py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
+      <div class="rounded-2xl border border-[var(--accent)] bg-[var(--accent)]/5 p-8">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-4" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <h2 class="font-heading text-xl font-bold text-[var(--text)] mb-2">
+          4-Hour Response Guarantee
+        </h2>
+        <p class="text-[var(--text-dim)]">
+          We respond to every quote request within <strong class="text-[var(--text)]">4 business hours</strong> (Mon–Sat, 10am–6pm IST). If we miss that window, we'll extend a 10% discount on your project as an apology.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

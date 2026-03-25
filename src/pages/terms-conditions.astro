@@ -1,4 +1,129 @@
 ---
-// TODO: Implement terms-conditions
+import LegalLayout from '../layouts/LegalLayout.astro';
+import SchemaMarkup from '../components/SchemaMarkup.astro';
+import { webPageSchema, breadcrumbSchema } from '../utils/schema';
+
+const schema = [
+  webPageSchema('Terms and Conditions', 'eLan Technology terms and conditions — rules governing use of our website and services.', '/terms-conditions'),
+  breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Terms and Conditions', url: '/terms-conditions' }]),
+];
 ---
-<p>Placeholder: terms-conditions</p>
+<LegalLayout
+  title="Terms and Conditions"
+  description="eLan Technology terms and conditions — rules governing use of our website and services."
+  lastUpdated="2025-01-01"
+>
+  <SchemaMarkup schema={schema} />
+
+  <h2>Introduction</h2>
+  <p>
+    These Terms and Conditions govern your use of <a href="https://elan-tech.net">elan-tech.net</a>
+    and any services provided by eLan Technology (registered in India). By accessing our website or
+    engaging our services, you agree to be bound by these terms. If you do not agree, please do not
+    use our website or services.
+  </p>
+
+  <h2>Services</h2>
+  <p>
+    eLan Technology provides professional digital services including web design, web development,
+    digital marketing, branding, mobile app development, and website maintenance. All projects are
+    governed by a separate written proposal or contract agreed upon between eLan Technology and the
+    client prior to commencement.
+  </p>
+
+  <h2>Intellectual Property</h2>
+  <ul>
+    <li>
+      All creative work, code, and deliverables produced by eLan Technology remain our intellectual
+      property until full and final payment has been received.
+    </li>
+    <li>
+      Upon receipt of full payment, the client receives full intellectual property ownership of the
+      delivered work as specified in the project proposal.
+    </li>
+    <li>
+      Our proprietary frameworks, internal tools, reusable components, and development processes
+      remain the exclusive property of eLan Technology and are not transferred to the client.
+    </li>
+  </ul>
+
+  <h2>Payment Terms</h2>
+  <ul>
+    <li>A 50% advance payment is required before any project work commences.</li>
+    <li>
+      The remaining 50% balance is due upon project completion and before final files or credentials
+      are delivered to the client.
+    </li>
+    <li>Late payments may attract interest at 2% per month on the outstanding amount.</li>
+    <li>
+      eLan Technology reserves the right to suspend or withhold services for accounts with overdue
+      payments.
+    </li>
+  </ul>
+
+  <h2>Project Scope &amp; Changes</h2>
+  <ul>
+    <li>
+      Any changes to the agreed project scope after formal approval are subject to additional charges,
+      assessed on a time-and-materials basis.
+    </li>
+    <li>
+      All change requests must be submitted in writing (email or project management system) to be
+      considered valid.
+    </li>
+  </ul>
+
+  <h2>Warranties &amp; Limitations of Liability</h2>
+  <ul>
+    <li>
+      eLan Technology warrants that all delivered work will be free from material defects for a period
+      of 30 days following delivery and client sign-off.
+    </li>
+    <li>
+      We are not liable for outages, failures, or disruptions caused by third-party services including
+      hosting providers, domain registrars, payment gateways, or third-party APIs.
+    </li>
+    <li>
+      Our total liability to you in connection with any specific service shall not exceed the total
+      amount paid by you for that service.
+    </li>
+    <li>
+      We are not liable for indirect, consequential, or incidental damages, including loss of business
+      or revenue.
+    </li>
+  </ul>
+
+  <h2>Confidentiality</h2>
+  <p>
+    Both parties agree to treat all project-related information as confidential and not to disclose
+    it to unauthorised third parties. For full details of our confidentiality commitments, please see
+    our <a href="/nda-confidentiality-policy">NDA &amp; Confidentiality Policy</a>.
+  </p>
+
+  <h2>Termination</h2>
+  <p>
+    Either party may terminate a service agreement by providing 30 days written notice to the other
+    party. Upon termination, the client is responsible for payment of all work completed up to and
+    including the termination date, calculated on a pro-rata or milestone basis as applicable.
+  </p>
+
+  <h2>Governing Law</h2>
+  <p>
+    These Terms and Conditions are governed by and construed in accordance with the laws of India.
+    Any disputes arising under or in connection with these terms shall be subject to the exclusive
+    jurisdiction of the courts of Nagpur, Maharashtra, India.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    For any questions regarding these Terms and Conditions, please contact us at:
+  </p>
+  <ul>
+    <li>Email: <a href="mailto:info@elan-tech.net">info@elan-tech.net</a></li>
+    <li>Phone: <a href="tel:+918788834630">+91 8788834630</a></li>
+    <li>
+      Address: eLan Technology, Basement Floor, PTG IT Park, Plot No. 21, IT Park Rd,
+      Gayatri Nagar, Nagpur, Maharashtra 440022, India
+    </li>
+  </ul>
+</LegalLayout>

@@ -1,4 +1,309 @@
 ---
-// TODO: Implement maintenance-security
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+import { services } from '../../data/services';
+import { cities } from '../../data/cities';
+import { serviceSchema, faqSchema, breadcrumbSchema } from '../../utils/schema';
+
+const service = services.find((s) => s.slug === 'maintenance-security')!;
+
+const serviceFaqs = [
+  {
+    question: 'What does a monthly maintenance plan include?',
+    answer: 'Our monthly maintenance plans cover: daily automated backups with offsite storage, weekly security scans and malware checks, CMS and plugin updates with pre-update staging tests, uptime monitoring with instant alerts, SSL certificate management and renewal, Core Web Vitals monitoring, monthly performance reporting, and a set number of content update hours depending on your plan tier. Emergency support is available 24/7 for critical incidents on Standard and Premium plans.',
+  },
+  {
+    question: 'How quickly do you respond to security incidents?',
+    answer: 'Response times depend on your plan tier. For critical security incidents (active malware, site defacement, data breach indicators), Premium plan clients receive a response within 4 hours, 24/7. Standard plan clients receive a response within 8 business hours. All plans include immediate automated isolation of compromised files. We also provide a post-incident report documenting what happened, how we resolved it, and what was implemented to prevent recurrence.',
+  },
+  {
+    question: 'Do you offer one-time security audits?',
+    answer: 'Yes. Our one-time website security audit covers: vulnerability scanning across all files and directories, plugin and theme security review, user account and permissions audit, server configuration review, SSL and HTTPS implementation check, Content Security Policy analysis, review of admin access controls and 2FA status, database security review, and a prioritised written report with remediation recommendations. Ideal for businesses that have never had a professional security review or that have recently experienced issues.',
+  },
+  {
+    question: 'Can you take over maintenance of a website not built by you?',
+    answer: 'Yes — this is one of our most common engagements. We begin with an onboarding audit: a thorough review of the codebase, hosting environment, plugin/theme versions, backup status, security posture, and performance. We then produce a condition report and remediation plan. Once any critical issues are resolved, we onboard the site to our maintenance platform for ongoing support. We charge a one-time onboarding fee for sites not built by us.',
+  },
+  {
+    question: 'What security measures do you implement?',
+    answer: 'Our security hardening covers: SSL/TLS installation and renewal, HTTP Strict Transport Security (HSTS), Content Security Policy (CSP) headers, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, forced strong passwords and two-factor authentication for admin accounts, malware scanning and removal, firewall rules at server and application level, login attempt limiting and IP blocking, database prefix randomisation, file permission hardening, and weekly vulnerability scans via dedicated security tools.',
+  },
+];
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: '/services' },
+  { name: service.title, href: `/services/${service.slug}` },
+];
+
+const schemaBreadcrumbs = breadcrumbs.map((b) => ({ name: b.name, url: b.href }));
+
+const schemas = [
+  serviceSchema(service.title, service.description, `/services/${service.slug}`),
+  faqSchema(serviceFaqs),
+  breadcrumbSchema(schemaBreadcrumbs),
+];
+
+const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
+
+const plans = [
+  {
+    name: 'Basic',
+    price: '₹3,999/mo',
+    features: [
+      'Daily automated backups',
+      'Weekly malware scans',
+      'Core/plugin updates (monthly)',
+      'Uptime monitoring',
+      'SSL management',
+      '1 hr content updates/mo',
+      'Monthly report',
+      'Email support (48h response)',
+    ],
+    highlight: false,
+  },
+  {
+    name: 'Standard',
+    price: '₹7,999/mo',
+    features: [
+      'Everything in Basic',
+      'Real-time malware monitoring',
+      'Core/plugin updates (weekly)',
+      'Staging environment testing',
+      'Security hardening audit',
+      '3 hrs content updates/mo',
+      'Performance optimisation (quarterly)',
+      'Priority support (8h response)',
+      'Emergency support (business hours)',
+    ],
+    highlight: true,
+  },
+  {
+    name: 'Premium',
+    price: '₹14,999/mo',
+    features: [
+      'Everything in Standard',
+      'Advanced security firewall',
+      'Daily core/plugin updates',
+      'Core Web Vitals monitoring',
+      'CDN management',
+      '6 hrs content/dev updates/mo',
+      'Monthly strategy call',
+      '24/7 emergency support (4h response)',
+      'Annual security penetration test',
+    ],
+    highlight: false,
+  },
+];
 ---
-<p>Placeholder: maintenance-security</p>
+<ServiceLayout
+  title={`${service.title} Services | eLan Technology`}
+  description={service.description}
+  breadcrumbs={breadcrumbs}
+  schema={schemas}
+>
+
+  <!-- ── HERO ─────────────────────────────────────────────────────────────── -->
+  <section class="relative mb-12 overflow-hidden rounded-2xl bg-gradient-to-br from-red-500/10 via-[var(--bg-card)] to-[var(--bg-card)] p-8 md:p-12 border border-[var(--border)]">
+    <div class="grid gap-10 md:grid-cols-2 md:items-center">
+      <div>
+        <p class="mb-2 text-sm font-semibold uppercase tracking-widest" style="color: #EF4444;">{service.tagline}</p>
+        <h1 class="font-heading text-3xl font-bold leading-tight text-[var(--text)] md:text-4xl lg:text-5xl">
+          {service.title} Services — eLan Technology
+        </h1>
+        <p class="mt-4 text-base text-[var(--text-muted)] md:text-lg">
+          {service.description} A neglected website is a vulnerability — outdated plugins, lapsed SSL certificates, and unpatched CMS cores are the most common entry points for attackers. Our maintenance plans ensure your website is always one step ahead of threats, always fast, and always backed up.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="/schedule-consultation" class="inline-flex items-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white shadow transition hover:opacity-90" style="background: #EF4444;">
+            Get Free Consultation
+          </a>
+          <a href="/get-quote" class="inline-flex items-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
+            Get a Quote
+          </a>
+        </div>
+      </div>
+      <ul class="space-y-3">
+        {service.features.map((f) => (
+          <li class="flex items-center gap-3 rounded-lg bg-[var(--bg)] px-4 py-3 border border-[var(--border)] text-sm font-medium text-[var(--text)]">
+            <span class="text-green-400 font-bold">✓</span> {f}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── WHAT'S INCLUDED ───────────────────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-2">What's Included in Our {service.shortTitle} Services</h2>
+    <p class="text-[var(--text-muted)] mb-8">Comprehensive website care that keeps your digital presence fast, secure, and always available — without requiring you to become a technical expert.</p>
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {[
+        { icon: '🔐', name: 'Security Audits', desc: 'Comprehensive security reviews covering vulnerability scanning, file integrity checks, user permission audits, server configuration analysis, and OWASP Top 10 assessment. You receive a written report with prioritised remediation steps and optional implementation support.' },
+        { icon: '🔒', name: 'SSL Setup & Renewal', desc: 'SSL certificate installation, HTTPS enforcement, HSTS configuration, and automatic renewal management. We also conduct HTTPS health checks to ensure mixed content warnings, incorrect redirect chains, and certificate misconfigurations are caught and resolved promptly.' },
+        { icon: '⚡', name: 'Speed Optimisation', desc: 'Regular performance audits using PageSpeed Insights and WebPageTest, followed by targeted optimisations: image compression, asset minification, browser caching headers, server response time improvements, and CDN configuration. Quarterly performance benchmarking tracks improvements over time.' },
+        { icon: '💾', name: 'Daily Backups', desc: 'Automated daily backups of all files and databases, stored securely offsite in geographically separate locations. Backups are retained for 30 days (Standard) or 90 days (Premium), with tested restore procedures documented for every site. One-click restoration available on request.' },
+        { icon: '📅', name: 'Monthly Maintenance Plans', desc: 'Structured monthly care plans tailored to your site size and criticality. Covers all core platform, plugin, and theme updates tested on staging before deployment, content update hours, performance monitoring, security checks, and priority support with defined SLAs.' },
+        { icon: '🦠', name: 'Malware Removal', desc: 'If your site is infected, we perform emergency malware removal — scanning all files, cleaning infected code, removing backdoors, blacklist removal requests (Google, McAfee, Norton), and security hardening to prevent re-infection. Included in all maintenance plans; available as a standalone emergency service.' },
+        { icon: '📡', name: 'Uptime Monitoring', desc: '24/7 uptime monitoring with instant alerts to our team via SMS and email if your website goes down. We investigate, resolve, and report root cause within SLA. Monthly uptime reports track performance over time against industry benchmarks.' },
+        { icon: '🛡️', name: 'Security Hardening', desc: 'Proactive hardening across every layer: CSP headers, X-Frame-Options, 2FA enforcement for admin accounts, login throttling, IP allowlisting for admin areas, database security, file permission hardening, and web application firewall (WAF) configuration.' },
+      ].map(({ icon, name, desc }) => (
+        <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
+          <div class="mb-3 inline-flex h-11 w-11 items-center justify-center rounded-xl text-xl" style="background: #EF444420;">{icon}</div>
+          <h3 class="font-heading text-base font-semibold text-[var(--text)] mb-2">{name}</h3>
+          <p class="text-sm text-[var(--text-muted)] leading-relaxed">{desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── HACKING STORY ─────────────────────────────────────────────────────── -->
+  <section class="mb-16 rounded-2xl border border-red-500/30 bg-red-500/5 p-8 md:p-10">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-3">What Happens When Your Website Gets Hacked?</h2>
+    <p class="text-[var(--text-muted)] mb-6">It is more common than you think — and the consequences are more serious than a temporary outage. Here is the typical attack sequence:</p>
+    <ol class="space-y-4">
+      {[
+        { step: '1', title: 'Entry', desc: 'An attacker exploits an outdated plugin with a known vulnerability — something patched in the latest version that was never installed. It takes minutes. Automated bots scan millions of websites daily looking for exactly this.' },
+        { step: '2', title: 'Persistence', desc: 'A backdoor script is uploaded to your server. Even if you discover and remove the obvious infection, the backdoor allows re-entry. Many sites are re-infected within hours of a DIY cleanup that misses these hidden files.' },
+        { step: '3', title: 'Damage', desc: 'Your site begins redirecting visitors to pharmacy spam or phishing pages. Google detects the malicious activity and adds your domain to the Safe Browsing blacklist. Your hosting provider may suspend your account. Your email domain reputation drops.' },
+        { step: '4', title: 'Discovery', desc: 'You find out either through a customer complaint, a Google Search Console alert, or when your website goes offline. At this point, recovery takes days — not hours — and involves Google blacklist removal requests alongside the technical cleanup.' },
+        { step: '5', title: 'Recovery Cost', desc: 'Emergency malware removal, blacklist removal, SEO recovery, brand reputation management, and potential legal obligations under data protection law if customer data was accessed. The total cost typically exceeds a full year of professional maintenance retainer.' },
+      ].map(({ step, title, desc }) => (
+        <li class="flex gap-4">
+          <span class="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full font-heading text-xs font-bold text-white mt-0.5" style="background: #EF4444;">{step}</span>
+          <div>
+            <p class="font-semibold text-sm text-[var(--text)]">{title}</p>
+            <p class="text-sm text-[var(--text-muted)] mt-1">{desc}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+    <div class="mt-8 rounded-xl bg-[var(--bg)] border border-[var(--border)] p-5">
+      <p class="text-sm font-semibold text-[var(--text)] mb-1">Prevention is dramatically cheaper than recovery.</p>
+      <p class="text-sm text-[var(--text-muted)]">Our Basic maintenance plan starts at ₹3,999/month — less than the cost of a single emergency malware removal service. Every plan includes the proactive security measures that prevent the scenario above from occurring.</p>
+    </div>
+  </section>
+
+  <!-- ── PLANS ──────────────────────────────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-2">Monthly Maintenance Plans</h2>
+    <p class="text-[var(--text-muted)] mb-8">Three plan tiers designed to match the size, traffic, and criticality of your website. All plans include no lock-in contracts — cancel any time with 30 days notice.</p>
+    <div class="grid gap-5 lg:grid-cols-3">
+      {plans.map(({ name, price, features, highlight }) => (
+        <div class:list={[
+          'rounded-2xl border p-6 flex flex-col',
+          highlight
+            ? 'border-red-500/50 bg-red-500/5 relative'
+            : 'border-[var(--border)] bg-[var(--bg-card)]'
+        ]}>
+          {highlight && (
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+              <span class="rounded-full px-3 py-1 text-xs font-bold text-white" style="background: #EF4444;">Most Popular</span>
+            </div>
+          )}
+          <h3 class="font-heading text-xl font-bold text-[var(--text)]">{name}</h3>
+          <p class="mt-1 text-2xl font-bold" style="color: #EF4444;">{price}</p>
+          <ul class="mt-5 space-y-2 flex-1">
+            {features.map((f) => (
+              <li class="flex gap-2 text-sm text-[var(--text-muted)]">
+                <span class="text-green-400 shrink-0 mt-0.5">✓</span> {f}
+              </li>
+            ))}
+          </ul>
+          <a href="/get-quote" class:list={[
+            'mt-6 inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold transition',
+            highlight
+              ? 'text-white hover:opacity-90'
+              : 'border border-[var(--border)] text-[var(--text)] hover:bg-[var(--bg)]'
+          ]} style={highlight ? 'background: #EF4444;' : ''}>
+            Get Started
+          </a>
+        </div>
+      ))}
+    </div>
+    <p class="mt-4 text-xs text-[var(--text-muted)] text-center">All prices exclude GST. Custom enterprise plans available for multi-site portfolios and high-traffic eCommerce stores. <a href="/schedule-consultation" class="underline hover:text-[var(--text)]">Contact us</a> for a custom quote.</p>
+  </section>
+
+  <!-- ── OUR PROCESS ────────────────────────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-2">Our {service.shortTitle} Process</h2>
+    <p class="text-[var(--text-muted)] mb-8">Getting started with our maintenance service is straightforward — we take care of everything from initial audit to ongoing monitoring.</p>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {[
+        { n: '1', title: 'Discovery & Audit', desc: 'We conduct a comprehensive audit of your website — security posture, performance benchmarks, plugin versions, backup status, and server configuration. You receive a condition report with priority findings before we begin.' },
+        { n: '2', title: 'Onboarding & Hardening', desc: 'We remediate any critical issues found in the audit, install monitoring tools, configure automated backups, apply security headers, and set up our maintenance workflow. This typically takes 2–3 business days.' },
+        { n: '3', title: 'Ongoing Maintenance', desc: 'Monthly updates are deployed after staging environment testing. Security scans, performance checks, and backup verification run automatically. Our team monitors alerts 24/7 and acts on any anomalies immediately.' },
+        { n: '4', title: 'Reporting & Review', desc: 'Monthly reports summarise all maintenance activity, security events, performance metrics, and any recommended improvements. Quarterly reviews align the maintenance scope with your evolving business needs.' },
+      ].map(({ n, title, desc }) => (
+        <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
+          <div class="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-full font-heading text-sm font-bold text-white" style="background: #EF4444;">{n}</div>
+          <h3 class="font-heading text-sm font-semibold text-[var(--text)] mb-2">{title}</h3>
+          <p class="text-sm text-[var(--text-muted)]">{desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── TECHNOLOGIES ───────────────────────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-4">Tools & Technologies We Use</h2>
+    <div class="flex flex-wrap gap-3">
+      {['Wordfence', 'Sucuri', 'WPScan', 'Cloudflare', 'Let\'s Encrypt', 'ModSecurity', 'Fail2Ban', 'UpdraftPlus', 'ManageWP', 'Sentry', 'UptimeRobot', 'Google PageSpeed', 'GTmetrix', 'OWASP ZAP', 'Plesk', 'cPanel', 'AWS S3 (Backups)'].map((tech) => (
+        <span class="rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-4 py-2 text-sm font-medium text-[var(--text-muted)] hover:border-red-500/50 hover:text-[var(--text)] transition-colors">
+          {tech}
+        </span>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── FAQ ───────────────────────────────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-8">Frequently Asked Questions</h2>
+    <div class="divide-y divide-[var(--border)] rounded-xl border border-[var(--border)] overflow-hidden">
+      {serviceFaqs.map(({ question, answer }) => (
+        <details class="bg-[var(--bg-card)] py-0">
+          <summary class="cursor-pointer font-medium text-[var(--text)] flex items-center justify-between px-6 py-4 hover:bg-[var(--bg)] transition-colors list-none">
+            <span>{question}</span>
+            <span class="ml-4 shrink-0 text-[var(--text-muted)] text-lg">+</span>
+          </summary>
+          <p class="px-6 pb-5 pt-1 text-sm text-[var(--text-muted)] leading-relaxed">{answer}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── CITY LINKS ─────────────────────────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-xl font-bold text-[var(--text)] md:text-2xl mb-2">Website Maintenance Services Across India</h2>
+    <p class="text-sm text-[var(--text-muted)] mb-6">We maintain and secure websites for businesses in Nagpur, Raipur, Mumbai, Pune, Hyderabad, Delhi, and across India — as well as international clients with Indian-hosted websites.</p>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+      {featuredCities.map((city) => (
+        <a
+          href={city.hasLandingPage ? `/web-design-company-${city.slug}` : `/services/maintenance-security`}
+          class="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-3 hover:border-red-500/50 transition-colors"
+        >
+          <p class="font-medium text-sm text-[var(--text)]">{city.name}</p>
+          <p class="text-xs text-[var(--text-muted)] mt-0.5">Services available</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── DOUBLE CTA ─────────────────────────────────────────────────────────── -->
+  <section class="grid gap-5 md:grid-cols-2 mb-4">
+    <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-7 flex flex-col">
+      <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-2">Ready to Get Started?</h3>
+      <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Get a free security and performance audit of your website. We'll identify vulnerabilities, outdated components, and performance issues — and show you exactly what our maintenance service will cover.</p>
+      <a href="/free-website-audit" class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90" style="background: #EF4444;">
+        Get Free Audit
+      </a>
+    </div>
+    <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-7 flex flex-col">
+      <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-2">Have Questions?</h3>
+      <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Not sure which maintenance plan is right for your website? Schedule a call with our team and we'll assess your site's needs and recommend the appropriate level of care — honestly, without upselling.</p>
+      <a href="/schedule-consultation" class="inline-flex items-center justify-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
+        Schedule a Call
+      </a>
+    </div>
+  </section>
+
+</ServiceLayout>

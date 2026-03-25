@@ -1,4 +1,221 @@
 ---
-// TODO: Implement testimonials
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { testimonials } from '../data/testimonials';
+import { reviewSchema, breadcrumbSchema } from '../utils/schema';
+
+const reviewItems = testimonials.map((t) => ({
+  author: t.author,
+  reviewBody: t.quote,
+  ratingValue: t.rating,
+}));
+
+const schema = [
+  reviewSchema(reviewItems),
+  breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Testimonials', url: '/testimonials' },
+  ]),
+];
+
+const featured = testimonials.filter((t) => t.isFeatured);
+const all = testimonials;
+
+function getInitials(name: string) {
+  return name
+    .split(' ')
+    .map((n) => n[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2);
+}
+
+const industries = ['Healthcare', 'Real Estate', 'Hospitality', 'Education', 'Manufacturing', 'Retail', 'NGO', 'Government'];
 ---
-<p>Placeholder: testimonials</p>
+
+<BaseLayout
+  title="Client Testimonials & Reviews — eLan Technology"
+  description="See what 500+ clients across India and internationally say about eLan Technology's web design, development, and digital marketing services."
+  schema={schema}
+>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="testimonials-hero-heading" class="relative overflow-hidden bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-24 md:py-32">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+      <div class="absolute -top-40 left-1/2 -translate-x-1/2 h-[500px] w-[500px] rounded-full bg-[var(--accent)]/6 blur-[120px]"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)]/60 px-4 py-2 text-sm text-[var(--text-muted)] backdrop-blur-sm">
+        <span class="h-2 w-2 rounded-full bg-[var(--accent)] animate-pulse" aria-hidden="true"></span>
+        Trusted by 500+ Clients
+      </div>
+
+      <h1
+        id="testimonials-hero-heading"
+        class="font-heading text-4xl sm:text-5xl font-bold text-[var(--text)] mb-6"
+      >
+        What Our Clients Say
+      </h1>
+      <p class="mx-auto max-w-2xl text-lg text-[var(--text-dim)] leading-relaxed mb-4">
+        Real results, real businesses, real feedback. Here's what 500+ clients across India and internationally say about working with eLan Technology.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       AGGREGATE RATING DISPLAY
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-label="Aggregate rating" class="bg-[var(--bg-card)] border-y border-[var(--border)] py-12">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-16">
+        <div class="text-center">
+          <div class="font-heading text-6xl font-bold text-[var(--accent)]" aria-label="4.9 out of 5 stars">4.9</div>
+          <div class="flex gap-1 justify-center my-2" aria-hidden="true">
+            {"★★★★★".split('').map(() => (
+              <span class="text-[var(--accent)] text-2xl">★</span>
+            ))}
+          </div>
+          <p class="text-sm text-[var(--text-muted)]">Average Rating</p>
+        </div>
+        <div class="hidden sm:block w-px h-16 bg-[var(--border)]"></div>
+        <div class="text-center">
+          <div class="font-heading text-6xl font-bold text-[var(--text)]">500<span class="text-[var(--accent)]">+</span></div>
+          <p class="text-sm text-[var(--text-muted)] mt-2">Happy Clients</p>
+        </div>
+        <div class="hidden sm:block w-px h-16 bg-[var(--border)]"></div>
+        <div class="text-center">
+          <div class="font-heading text-6xl font-bold text-[var(--text)]">9<span class="text-[var(--accent)]">+</span></div>
+          <p class="text-sm text-[var(--text-muted)] mt-2">Years in Business</p>
+        </div>
+        <div class="hidden sm:block w-px h-16 bg-[var(--border)]"></div>
+        <div class="text-center">
+          <div class="font-heading text-6xl font-bold text-[var(--text)]">10<span class="text-[var(--accent)]">+</span></div>
+          <p class="text-sm text-[var(--text-muted)] mt-2">Industries Served</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       FEATURED TESTIMONIALS
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="featured-testimonials-heading" class="bg-[var(--bg)] py-16 md:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <p class="text-center text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-3">Featured</p>
+      <h2 id="featured-testimonials-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] text-center mb-12">
+        Stories That Stand Out
+      </h2>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {featured.map((t) => (
+          <blockquote class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 flex flex-col">
+            <div class="flex gap-0.5 mb-6" aria-label={`${t.rating} out of 5 stars`}>
+              {Array.from({ length: t.rating }).map(() => (
+                <span class="text-[var(--accent)] text-lg" aria-hidden="true">★</span>
+              ))}
+            </div>
+            <p class="text-base italic text-[var(--text)] mb-6 flex-1 leading-relaxed">"{t.quote}"</p>
+            <footer class="flex items-center gap-4">
+              <div
+                class="w-12 h-12 rounded-full bg-[var(--accent)]/20 flex items-center justify-center font-bold text-[var(--accent)] shrink-0"
+                aria-hidden="true"
+              >
+                {getInitials(t.author)}
+              </div>
+              <div class="min-w-0">
+                <cite class="font-semibold text-[var(--text)] not-italic block truncate">{t.author}</cite>
+                <p class="text-sm text-[var(--text-muted)] truncate">{t.role}, {t.company}</p>
+              </div>
+            </footer>
+          </blockquote>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       ALL TESTIMONIALS GRID
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="all-testimonials-heading" class="bg-[var(--bg-card)] py-16 md:py-20 border-y border-[var(--border)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <p class="text-center text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-3">All Reviews</p>
+      <h2 id="all-testimonials-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] text-center mb-12">
+        More Happy Clients
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {all.map((t) => (
+          <blockquote class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 flex flex-col">
+            <div class="flex items-center gap-3 mb-4">
+              <div
+                class="w-10 h-10 rounded-full bg-[var(--accent)]/20 flex items-center justify-center font-bold text-[var(--accent)] text-sm shrink-0"
+                aria-hidden="true"
+              >
+                {getInitials(t.author)}
+              </div>
+              <div class="min-w-0">
+                <cite class="font-semibold text-[var(--text)] not-italic text-sm block truncate">{t.author}</cite>
+                <p class="text-xs text-[var(--text-muted)] truncate">{t.role}, {t.company}</p>
+              </div>
+              <div class="ml-auto flex gap-0.5 shrink-0" aria-label={`${t.rating} stars`}>
+                {Array.from({ length: t.rating }).map(() => (
+                  <span class="text-[var(--accent)] text-sm" aria-hidden="true">★</span>
+                ))}
+              </div>
+            </div>
+            <p class="text-sm text-[var(--text-dim)] leading-relaxed flex-1">"{t.quote}"</p>
+            <p class="mt-3 text-xs text-[var(--text-muted)] font-medium">{t.industry}</p>
+          </blockquote>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       INDUSTRIES SERVED
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="industries-heading" class="bg-[var(--bg)] py-16 md:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-3">Our Clients Come From</p>
+      <h2 id="industries-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-8">
+        Industries We Serve
+      </h2>
+      <div class="flex flex-wrap justify-center gap-3">
+        {industries.map((industry) => (
+          <span class="rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-5 py-2 text-sm font-medium text-[var(--text-dim)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors cursor-default">
+            {industry}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       CTA
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="testimonials-cta-heading" class="bg-[var(--bg-card)] py-16 md:py-20 border-t border-[var(--border)]">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
+      <h2 id="testimonials-cta-heading" class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] mb-4">
+        Join 500+ Happy Clients
+      </h2>
+      <p class="text-lg text-[var(--text-dim)] mb-8 leading-relaxed">
+        Ready to become our next success story? Let's build something remarkable together.
+      </p>
+      <a
+        href="/get-quote"
+        class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-4 text-base font-semibold text-[#0A0E1A] shadow-lg shadow-[var(--accent)]/25 transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5"
+      >
+        Get a Free Quote
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+</BaseLayout>

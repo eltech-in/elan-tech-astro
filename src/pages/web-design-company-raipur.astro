@@ -1,4 +1,402 @@
 ---
-// TODO: Implement web-design-company-raipur
+import CityLayout from '../layouts/CityLayout.astro';
+import { localBusinessSchema, faqSchema, breadcrumbSchema } from '../utils/schema';
+
+const raipurFaqs = [
+  {
+    question: "Do you provide web design services in Raipur, Chhattisgarh?",
+    answer: "Yes, we actively serve Raipur businesses — both remotely via video consultation and through on-site visits for larger engagements. We have delivered projects for clients across Raipur's key commercial areas including Pandri, Shankar Nagar, Telibandha, and the VIP Road corridor. Our team is available via WhatsApp, email, and phone for all Raipur clients."
+  },
+  {
+    question: "How much does a website cost in Raipur?",
+    answer: "Basic business websites for Raipur businesses start from ₹15,000. A standard 5–10 page professional website with SEO setup typically costs ₹25,000–₹55,000. eCommerce websites start from ₹40,000 and custom web applications from ₹80,000. We offer transparent pricing with no hidden costs and flexible payment plans for Raipur clients."
+  },
+  {
+    question: "Can you create a website in Hindi or Chhattisgarhi?",
+    answer: "Yes, we build fully multilingual websites in English, Hindi, and regional languages including Chhattisgarhi. This is important for Raipur businesses targeting local customers. We handle Devanagari script rendering, Unicode typography, and bilingual SEO to ensure your website ranks for both English and Hindi search queries relevant to your Raipur business."
+  },
+  {
+    question: "Do you offer SEO services for Raipur businesses?",
+    answer: "Yes, we offer comprehensive local SEO services specifically targeting Raipur and the broader Chhattisgarh market. This includes Google My Business optimisation, keyword research for Raipur-specific search terms, on-page SEO, local citation building, and monthly ranking reports. We help Raipur businesses rank for searches like 'web design company in Raipur', 'digital marketing Raipur', and industry-specific local keywords."
+  },
+  {
+    question: "Do you build websites for steel and mining companies in Chhattisgarh?",
+    answer: "Yes, we specialise in industrial and B2B websites for Chhattisgarh's steel, mining, and manufacturing sector. Our industrial websites include detailed company profiles, product and service catalogues, export-ready enquiry management, photo and video galleries of facilities, and compliance certifications. We have experience with companies operating in proximity to Bhilai, Raigarh, and Korba."
+  },
+  {
+    question: "Can you help Raipur hospitals and clinics get a professional website?",
+    answer: "Yes, we build HIPAA-aware, WCAG 2.1 AA accessibility-compliant healthcare websites for hospitals, clinics, diagnostic centres, and medical practitioners across Raipur. Features include online appointment booking, doctor profile listings, department and service pages, patient information portals, and integration with healthcare management systems. We have experience building for organisations similar to the Apollo and AIIMS ecosystem."
+  },
+  {
+    question: "Do you handle eCommerce websites for Raipur retailers?",
+    answer: "Yes, we build Shopify stores and custom eCommerce websites for Raipur-based retailers and brands. Our eCommerce solutions include Indian payment gateways (Razorpay, PayU, CCAvenue), GST-compliant invoicing, delivery partner integrations, and mobile-optimised shopping experiences. Whether you are at City Centre Mall, Magneto Mall, or running a standalone store, we can take your retail business online."
+  },
+  {
+    question: "How do I get started with a web project from Raipur?",
+    answer: "Getting started is simple. Contact us via WhatsApp (+91-8788834630) or email (info@elan-tech.net) with a brief description of your project. We will schedule a free 30-minute discovery call to understand your goals, discuss options, and provide a no-obligation quote. We work with clients across India remotely and can deliver your complete website without you needing to travel. Projects are managed through collaborative tools with regular progress updates."
+  }
+];
+
+const schema = [
+  localBusinessSchema('Raipur', {
+    url: 'https://elan-tech.net/web-design-company-raipur',
+    description: 'Professional web design company serving Raipur and Chhattisgarh. Custom websites, SEO & digital marketing.',
+    geo: { latitude: 21.2514, longitude: 81.6296 },
+  }),
+  faqSchema(raipurFaqs),
+  breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Services', url: '/services' },
+    { name: 'Web Design Company Raipur', url: '/web-design-company-raipur' },
+  ]),
+];
+
+const services = [
+  {
+    icon: '🎨',
+    title: 'Website Design in Raipur',
+    desc: "Custom, mobile-first website design for Raipur businesses. We create professional sites that reflect Chhattisgarh's growing commercial identity and convert visitors into leads."
+  },
+  {
+    icon: '💻',
+    title: 'Web Development Raipur',
+    desc: 'Full-stack web development using modern frameworks. Performance-optimised, SEO-ready websites built for Raipur businesses — from Naya Raipur smart city projects to Pandri commercial establishments.'
+  },
+  {
+    icon: '🛒',
+    title: 'eCommerce Solutions Raipur',
+    desc: "Online stores with Indian payment gateways, GST-compliant invoicing, and logistics integrations for Raipur's growing retail sector and Chhattisgarh's agricultural product exporters."
+  },
+  {
+    icon: '📈',
+    title: 'Digital Marketing Raipur',
+    desc: 'Local SEO, Google Ads, and social media marketing for Raipur businesses. We target Raipur and Chhattisgarh-specific keywords to drive qualified local traffic to your website.'
+  },
+  {
+    icon: '📱',
+    title: 'Mobile App Development',
+    desc: 'iOS and Android app development for Raipur businesses. From hospital appointment apps to industrial order management — custom mobile solutions tailored to your sector.'
+  },
+  {
+    icon: '🎯',
+    title: 'Branding & Identity',
+    desc: 'Complete brand identity design for Raipur businesses — logo, colour palette, typography, and brand guidelines. Build a memorable brand that stands out in the Chhattisgarh market.'
+  },
+  {
+    icon: '🔒',
+    title: 'Maintenance & Security',
+    desc: 'Monthly website maintenance, security hardening, SSL management, and performance monitoring for Raipur businesses. Reliable remote support starting from ₹3,999/month.'
+  }
+];
+
+const industries = [
+  { icon: '🏭', name: 'Steel & Mining Industry', desc: "B2B company profiles, product catalogues, and export portals for Chhattisgarh's steel, iron, and mining sector companies operating across Bhilai, Raipur, and Korba." },
+  { icon: '🏥', name: 'Healthcare & Hospitals', desc: "WCAG-compliant, HIPAA-aware websites for Raipur's growing healthcare ecosystem — hospitals, clinics, diagnostic labs, and AIIMS-affiliated institutions." },
+  { icon: '🌾', name: 'Agriculture & Food Processing', desc: "Websites for Chhattisgarh's 'rice bowl' agri-businesses — paddy processors, dal mills, organic farm brands, and food product exporters reaching pan-India markets." },
+  { icon: '🏗️', name: 'Real Estate & Builders', desc: "Property listing websites and builder portfolios for Naya Raipur's smart city developments, residential complexes, and commercial real estate projects." },
+  { icon: '🎓', name: 'Education & Coaching', desc: "Admission portals and institutional websites for NIT Raipur, Pt. Ravi Shankar Shukla University affiliates, schools, and the thriving coaching institute sector." },
+  { icon: '🛍️', name: 'Retail & eCommerce', desc: "Online stores for Raipur's retail businesses — from City Centre Mall and Magneto Mall anchor stores to independent brands expanding their digital presence." },
+  { icon: '🤝', name: 'NGO & Social Sector', desc: 'Donation portals, project pages, and volunteer management systems for NGOs and social enterprises working across Chhattisgarh.' },
+  { icon: '⚖️', name: 'Legal & Professional Services', desc: 'Professional websites for lawyers, chartered accountants, and consultants serving Raipur and Chhattisgarh state government institutions.' }
+];
+
+const process = [
+  { step: '01', title: 'Discovery & Strategy', desc: "We begin with a remote discovery session to understand your Raipur business goals, target market, competitors, and digital requirements. For Chhattisgarh's industrial clients, this often includes competitor benchmarking at the state and national level." },
+  { step: '02', title: 'Design & Prototyping', desc: 'Our designers create wireframes and high-fidelity mockups tailored to your brand and industry. You review and provide feedback before development starts — fully collaborative and transparent.' },
+  { step: '03', title: 'Development & Testing', desc: "We build your website with clean, modern code. Cross-device and cross-browser testing ensures a flawless experience for Raipur's mobile-first audience — especially important as mobile internet penetration in Chhattisgarh grows rapidly." },
+  { step: '04', title: 'Launch & Ongoing Support', desc: 'We deploy your website, configure analytics and Search Console, and provide post-launch support. For Raipur clients, we offer remote support via WhatsApp, email, and video calls — same-day response for critical issues.' }
+];
+
+const portfolio = [
+  { name: 'CIPL', category: 'Industrial / Manufacturing, Chhattisgarh', desc: 'A B2B company profile and product catalogue website for an industrial client operating in the Chhattisgarh region. Built with export market targeting, multi-language support, and inquiry management system. Generated a 40% increase in qualified B2B inquiries.' },
+  { name: 'Aasthaa Hospital', category: 'Healthcare', desc: 'WCAG 2.1 AA compliant hospital website with online appointment booking, doctor profiles, and department pages. The approach and quality we deliver mirrors what we would build for any Raipur healthcare institution.' },
+  { name: 'Trimit Architects', category: 'Architecture & Real Estate', desc: 'A portfolio website with project galleries and lead generation — the same digital strategy we apply for Naya Raipur real estate developers and architects working on Chhattisgarh smart city projects.' }
+];
 ---
-<p>Placeholder: web-design-company-raipur</p>
+
+<CityLayout
+  title="Web Design Company in Raipur — eLan Technology Chhattisgarh"
+  description="Professional web design company in Raipur, Chhattisgarh. Custom websites, SEO & digital marketing for Raipur businesses. WCAG compliant. Free audit available."
+  city="Raipur"
+  state="Chhattisgarh"
+  heroHeading="Web Design Company in Raipur, Chhattisgarh"
+  heroSubtext="Custom websites, SEO & digital marketing for Raipur businesses. Serving Chhattisgarh since 2002. Free website audit for new clients."
+  schema={schema}
+>
+
+  <!-- A. Why Choose a Local Web Design Company in Raipur -->
+  <section class="py-16 md:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-3xl">
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-6">
+          Why Choose a Web Design Company That Understands Raipur?
+        </h2>
+        <div class="space-y-5 text-[var(--text-dim)] leading-relaxed">
+          <p>
+            Raipur has undergone a remarkable transformation since Chhattisgarh was formed as a separate state in 2000. From a regional commercial centre, Raipur has evolved into one of central India's fastest-growing cities — home to a booming steel and manufacturing sector, a rapidly developing IT ecosystem in Naya Raipur's smart city project, a thriving agricultural economy rooted in paddy and dal processing, and an expanding healthcare hub anchored by institutions like Apollo and AIIMS Raipur. This diverse economy means that businesses across every sector are increasingly competing online, and digital presence has become non-negotiable.
+          </p>
+          <p>
+            eLan Technology has been serving clients across India since 2002, including businesses in Chhattisgarh's industrial and commercial sectors. We understand the specific digital landscape of Raipur — from the B2B steel and mining companies near Bhilai to the agricultural product exporters of the "rice bowl of India," from the educational institutions affiliated with NIT Raipur and Pt. Ravi Shankar Shukla University to the retail chains at City Centre Mall and Magneto Mall. We bring the same depth of sector expertise to every Raipur engagement that we deliver for our Nagpur base clients.
+          </p>
+          <p>
+            The Chhattisgarh Industrial Development Corporation (CIDC) and the Atal Nagar and Mandir Hasaud IT Zones are attracting growing numbers of technology companies, startups, and service businesses to Raipur. These businesses need websites and digital marketing that can compete not just locally but nationally and globally. Naya Raipur's smart city development is creating demand for sophisticated digital infrastructure — from real estate portals to government-facing applications. eLan Technology is positioned to serve this evolving digital economy with proven expertise and a transparent, results-driven approach.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- B. Services Grid -->
+  <section class="py-16 md:py-20 bg-[var(--bg-card)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 text-center">
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+          Web Design &amp; Digital Services in Raipur
+        </h2>
+        <p class="text-[var(--text-dim)] max-w-2xl mx-auto">
+          From professional business websites to full eCommerce platforms and digital marketing campaigns — complete digital solutions for Raipur and Chhattisgarh businesses.
+        </p>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {services.map((s) => (
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 hover:border-[var(--accent)] transition-colors">
+            <div class="text-3xl mb-3">{s.icon}</div>
+            <h3 class="font-heading font-semibold text-[var(--text)] mb-2">{s.title}</h3>
+            <p class="text-sm text-[var(--text-dim)] leading-relaxed">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- C. Why Raipur Businesses Choose eLan -->
+  <section class="py-16 md:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 text-center">
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+          Why Raipur &amp; Chhattisgarh Businesses Choose eLan Technology
+        </h2>
+        <p class="text-[var(--text-dim)] max-w-2xl mx-auto">
+          Four reasons businesses across Chhattisgarh trust us with their most important digital asset — their website.
+        </p>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2">
+        <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8">
+          <div class="text-[var(--accent)] text-2xl mb-4">🏭</div>
+          <h3 class="font-heading font-bold text-[var(--text)] text-lg mb-3">Industrial Sector Expertise</h3>
+          <p class="text-[var(--text-dim)] leading-relaxed">
+            We understand the B2B digital needs of Chhattisgarh's steel, mining, and manufacturing sector. From export-ready company profiles to industrial product catalogues — we build websites that help Raipur's industrial businesses compete on a national and international stage.
+          </p>
+        </div>
+        <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8">
+          <div class="text-[var(--accent)] text-2xl mb-4">🌐</div>
+          <h3 class="font-heading font-bold text-[var(--text)] text-lg mb-3">Remote-First, India-Wide Delivery</h3>
+          <p class="text-[var(--text-dim)] leading-relaxed">
+            Distance is not a barrier. We have delivered hundreds of projects to clients across India via remote collaboration. Raipur clients benefit from our structured discovery calls, cloud-based design reviews, and transparent project management — all without needing to travel to our Nagpur office.
+          </p>
+        </div>
+        <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8">
+          <div class="text-[var(--accent)] text-2xl mb-4">📊</div>
+          <h3 class="font-heading font-bold text-[var(--text)] text-lg mb-3">Chhattisgarh Market Understanding</h3>
+          <p class="text-[var(--text-dim)] leading-relaxed">
+            We research Raipur and Chhattisgarh's digital competitive landscape before every engagement. This means we understand which competitors are ranking, which keywords your local audience is using, and where your digital strategy can gain the most traction in the Chhattisgarh market.
+          </p>
+        </div>
+        <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8">
+          <div class="text-[var(--accent)] text-2xl mb-4">🗣️</div>
+          <h3 class="font-heading font-bold text-[var(--text)] text-lg mb-3">Hindi &amp; Regional Language Support</h3>
+          <p class="text-[var(--text-dim)] leading-relaxed">
+            We build multilingual websites in English, Hindi, and Chhattisgarhi. This is essential for Raipur businesses that serve local customers who search and communicate in Hindi or the regional language. Our bilingual SEO strategies ensure your website ranks for local-language search queries across Chhattisgarh.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- D. Industries We Serve -->
+  <section class="py-16 md:py-20 bg-[var(--bg-card)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 text-center">
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+          Industries We Serve in Raipur &amp; Chhattisgarh
+        </h2>
+        <p class="text-[var(--text-dim)] max-w-2xl mx-auto">
+          From Chhattisgarh's steel belt to its smart city developments — we bring digital expertise to every sector that powers Raipur's economy.
+        </p>
+      </div>
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {industries.map((ind) => (
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 hover:border-[var(--accent)] transition-colors">
+            <div class="text-2xl mb-3">{ind.icon}</div>
+            <h3 class="font-heading font-semibold text-[var(--text)] mb-2">{ind.name}</h3>
+            <p class="text-sm text-[var(--text-dim)] leading-relaxed">{ind.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- E. Our Process -->
+  <section class="py-16 md:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 text-center">
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+          How We Work with Raipur Clients
+        </h2>
+        <p class="text-[var(--text-dim)] max-w-2xl mx-auto">
+          A clear, remote-friendly process designed to deliver exceptional results for Raipur and Chhattisgarh businesses.
+        </p>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {process.map((p) => (
+          <div class="relative rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+            <div class="font-heading text-4xl font-bold text-[var(--accent)]/20 mb-3">{p.step}</div>
+            <h3 class="font-heading font-bold text-[var(--text)] mb-2">{p.title}</h3>
+            <p class="text-sm text-[var(--text-dim)] leading-relaxed">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- F. Portfolio Highlights -->
+  <section class="py-16 md:py-20 bg-[var(--bg-card)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 text-center">
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+          Projects We Have Built for Businesses Like Yours
+        </h2>
+        <p class="text-[var(--text-dim)] max-w-2xl mx-auto">
+          A selection of websites and digital solutions that demonstrate the quality and expertise we bring to every Raipur and Chhattisgarh project.
+        </p>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-3">
+        {portfolio.map((p) => (
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6">
+            <div class="text-xs font-semibold uppercase tracking-widest text-[var(--accent)] mb-2">{p.category}</div>
+            <h3 class="font-heading font-bold text-[var(--text)] text-lg mb-3">{p.name}</h3>
+            <p class="text-sm text-[var(--text-dim)] leading-relaxed">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+      <div class="mt-10 text-center">
+        <a
+          href="/portfolio"
+          class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-8 py-3 font-semibold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+        >
+          View Full Portfolio
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- G. FAQ Section -->
+  <section class="py-16 md:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-3xl">
+        <div class="mb-10 text-center">
+          <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+            Frequently Asked Questions — Raipur Web Design
+          </h2>
+          <p class="text-[var(--text-dim)]">
+            Common questions from Raipur and Chhattisgarh businesses about our web design and digital marketing services.
+          </p>
+        </div>
+        <div class="divide-y divide-[var(--border)]">
+          {raipurFaqs.map((faq) => (
+            <details class="border-b border-[var(--border)] py-4 group">
+              <summary class="cursor-pointer list-none flex items-center justify-between font-medium text-[var(--text)] py-1 hover:text-[var(--accent)] transition-colors">
+                <span>{faq.question}</span>
+                <svg
+                  class="ml-4 h-5 w-5 shrink-0 text-[var(--text-muted)] transition-transform duration-200 group-open:rotate-180"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </summary>
+              <p class="mt-3 text-[var(--text-dim)] leading-relaxed pr-8">{faq.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- H. Contact / Reach Us -->
+  <section class="py-16 md:py-20 bg-[var(--bg-card)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-4xl">
+        <div class="mb-10 text-center">
+          <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+            Ready to Work with the Best Web Design Company in Raipur?
+          </h2>
+          <p class="text-[var(--text-dim)] max-w-2xl mx-auto">
+            Contact us today for a free website audit and no-obligation consultation. We serve Raipur and all of Chhattisgarh remotely with the same quality as our local Nagpur clients.
+          </p>
+        </div>
+        <div class="grid gap-6 sm:grid-cols-2 mb-10">
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6">
+            <h3 class="font-heading font-bold text-[var(--text)] mb-4">Our Office (Nagpur HQ)</h3>
+            <address class="not-italic text-[var(--text-dim)] space-y-2 text-sm leading-relaxed">
+              <p>Basement Floor, PTG IT Park</p>
+              <p>Plot No. 21, IT Park Road</p>
+              <p>Gayatri Nagar, Nagpur 440022</p>
+              <p>Maharashtra, India</p>
+            </address>
+            <p class="mt-3 text-sm text-[var(--text-muted)]">Raipur clients served remotely via video call &amp; WhatsApp</p>
+          </div>
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6">
+            <h3 class="font-heading font-bold text-[var(--text)] mb-4">Get in Touch</h3>
+            <div class="space-y-3 text-sm">
+              <a
+                href="https://wa.me/918788834630?text=Hi+eLan+Technology%2C+I%27m+a+Raipur+business+interested+in+web+design+services"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center gap-3 text-[var(--text-dim)] hover:text-[var(--accent)] transition-colors"
+              >
+                <span class="text-xl">💬</span>
+                <span>WhatsApp: +91-8788834630</span>
+              </a>
+              <a
+                href="mailto:info@elan-tech.net"
+                class="flex items-center gap-3 text-[var(--text-dim)] hover:text-[var(--accent)] transition-colors"
+              >
+                <span class="text-xl">📧</span>
+                <span>info@elan-tech.net</span>
+              </a>
+              <a
+                href="tel:+918788834630"
+                class="flex items-center gap-3 text-[var(--text-dim)] hover:text-[var(--accent)] transition-colors"
+              >
+                <span class="text-xl">📞</span>
+                <span>+91-8788834630</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <a
+            href="/get-quote"
+            class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity"
+          >
+            Get a Free Quote
+          </a>
+          <a
+            href="/contact"
+            class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg)] px-8 py-3 font-semibold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+          >
+            Schedule a Call
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</CityLayout>

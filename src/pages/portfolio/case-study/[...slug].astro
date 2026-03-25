@@ -1,7 +1,178 @@
 ---
-// TODO: Implement portfolio case study dynamic route (Step 7)
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { projects } from '../../../data/portfolio';
+import { breadcrumbSchema } from '../../../utils/schema';
+
 export function getStaticPaths() {
-  return []
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
 }
+
+const { project } = Astro.props;
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Portfolio', url: '/portfolio' },
+  { name: project.title, url: `/portfolio/case-study/${project.slug}` },
+];
+
+const schema = breadcrumbSchema(breadcrumbs);
 ---
-<p>Placeholder: portfolio case study</p>
+
+<BaseLayout
+  title={`${project.title} — Web Design Case Study | eLan Technology`}
+  description={`Case study: ${project.description.slice(0, 140)}…`}
+  schema={schema}
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-[var(--bg)] py-20 sm:py-28">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" class="mb-8">
+        <ol class="flex items-center gap-2 text-sm text-[var(--text-muted)]">
+          <li><a href="/" class="hover:text-[var(--accent)] transition-colors">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/portfolio" class="hover:text-[var(--accent)] transition-colors">Portfolio</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="text-[var(--text-dim)]" aria-current="page">{project.title}</li>
+        </ol>
+      </nav>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <!-- Category badge -->
+          <span
+            class="inline-block px-3 py-1 rounded-full text-xs font-semibold border mb-4"
+            style={`border-color: ${project.accent}; color: ${project.accent}`}
+          >
+            {project.category}
+          </span>
+
+          <h1 class="font-heading text-4xl sm:text-5xl font-bold text-[var(--text)] leading-tight mb-4">
+            {project.title}
+          </h1>
+
+          <dl class="flex flex-wrap gap-6 text-sm mb-6">
+            <div>
+              <dt class="text-[var(--text-muted)] uppercase tracking-wide text-xs mb-1">Client</dt>
+              <dd class="font-semibold text-[var(--text)]">{project.client}</dd>
+            </div>
+            <div>
+              <dt class="text-[var(--text-muted)] uppercase tracking-wide text-xs mb-1">Industry</dt>
+              <dd class="font-semibold text-[var(--text)]">{project.industry}</dd>
+            </div>
+          </dl>
+
+          <p class="text-lg text-[var(--text-dim)] leading-relaxed mb-6">
+            {project.description}
+          </p>
+
+          <!-- Technologies -->
+          <div class="flex flex-wrap gap-2">
+            {project.technologies.map((tech) => (
+              <span class="px-3 py-1 rounded-full text-sm bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text-dim)]">
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <!-- Project image -->
+        <div class="rounded-2xl overflow-hidden border border-[var(--border)] aspect-video bg-[var(--bg-card)]">
+          <img
+            src={project.image}
+            alt={`${project.title} — project screenshot`}
+            width="640"
+            height="360"
+            loading="eager"
+            decoding="async"
+            class="w-full h-full object-cover"
+            onerror="this.style.display='none'"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Challenge -->
+  <section class="py-16 md:py-20 border-t border-[var(--border)]" aria-labelledby="challenge-heading">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <h2 id="challenge-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-6">
+        The Challenge
+      </h2>
+      <p class="text-lg text-[var(--text-dim)] leading-relaxed">
+        {project.challenge}
+      </p>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section class="py-16 md:py-20 bg-[var(--bg-card)] border-y border-[var(--border)]" aria-labelledby="solution-heading">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <h2 id="solution-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-6">
+        Our Solution
+      </h2>
+      <p class="text-lg text-[var(--text-dim)] leading-relaxed">
+        {project.solution}
+      </p>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <section class="py-16 md:py-20" aria-labelledby="results-heading">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <h2 id="results-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-6">
+        Results &amp; Outcomes
+      </h2>
+      <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+        <div class="flex gap-4">
+          <span class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center" style={`background-color: ${project.accent}20`} aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={project.accent} stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+          <p class="text-[var(--text-dim)] leading-relaxed">{project.result}</p>
+        </div>
+      </div>
+
+      {project.liveUrl && (
+        <div class="mt-8">
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-8 py-3 text-base font-semibold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+          >
+            View Live Site
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 md:py-20 bg-[var(--bg-card)] border-t border-[var(--border)]">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+        Ready to Start Your Project?
+      </h2>
+      <p class="text-[var(--text-dim)] mb-8 text-lg">
+        Let's build something remarkable together. Get a free, no-obligation quote today.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/get-quote"
+          class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity"
+        >
+          Start Your Project
+        </a>
+        <a
+          href="/portfolio"
+          class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-8 py-3 text-base font-semibold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+        >
+          ← Back to Portfolio
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

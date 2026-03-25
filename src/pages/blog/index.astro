@@ -1,4 +1,150 @@
 ---
-// TODO: Implement index
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { breadcrumbSchema } from '../../utils/schema';
+
+const allPosts = await getCollection('blog');
+const posts = allPosts
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
+
+const schema = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Blog', url: '/blog' },
+]);
+
+function truncate(str: string, n: number) {
+  return str.length > n ? str.slice(0, n - 1) + '…' : str;
+}
+
+const categoryLabels: Record<string, string> = {
+  'web-design': 'Web Design',
+  'seo': 'SEO',
+  'ecommerce': 'eCommerce',
+  'digital-marketing': 'Digital Marketing',
+  'nagpur-business': 'Nagpur Business',
+  'accessibility': 'Accessibility',
+  'technology-trends': 'Technology',
+};
 ---
-<p>Placeholder: index</p>
+
+<BaseLayout
+  title="Web Design & Digital Marketing Blog — eLan Technology"
+  description="Insights, guides and tips on web design, SEO, accessibility, eCommerce, and digital marketing from the eLan Technology team."
+  schema={schema}
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-[var(--bg)] py-20 sm:py-28">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-4">Our Blog</p>
+      <h1 class="font-heading text-4xl sm:text-5xl font-bold text-[var(--text)] leading-tight">
+        Insights on Web Design, SEO &amp; Accessibility
+      </h1>
+      <p class="mt-6 max-w-2xl mx-auto text-lg text-[var(--text-dim)] leading-relaxed">
+        Practical guides, case studies, and industry insights from the eLan Technology team — helping you build better websites and grow your business online.
+      </p>
+    </div>
+  </section>
+
+  <!-- Category filter -->
+  <section class="bg-[var(--bg)] py-6 border-b border-[var(--border)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <!-- TODO: BlogFilter island (Step 3) -->
+      <nav aria-label="Blog categories" class="flex flex-wrap gap-2">
+        <a href="/blog" class="px-4 py-2 rounded-full bg-[var(--accent)] text-[#0A0E1A] text-sm font-medium">All Posts</a>
+        <a href="/blog/category/web-design" class="px-4 py-2 rounded-full border border-[var(--border)] text-sm text-[var(--text-dim)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">Web Design</a>
+        <a href="/blog/category/seo" class="px-4 py-2 rounded-full border border-[var(--border)] text-sm text-[var(--text-dim)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">SEO</a>
+        <a href="/blog/category/accessibility" class="px-4 py-2 rounded-full border border-[var(--border)] text-sm text-[var(--text-dim)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">Accessibility</a>
+        <a href="/blog/category/digital-marketing" class="px-4 py-2 rounded-full border border-[var(--border)] text-sm text-[var(--text-dim)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">Digital Marketing</a>
+        <a href="/blog/category/ecommerce" class="px-4 py-2 rounded-full border border-[var(--border)] text-sm text-[var(--text-dim)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">eCommerce</a>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Posts grid -->
+  <section class="py-16 md:py-20" aria-labelledby="posts-heading">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 id="posts-heading" class="sr-only">All Posts</h2>
+
+      {posts.length === 0 ? (
+        <div class="text-center py-20">
+          <p class="text-[var(--text-dim)] text-lg">No posts published yet. Check back soon!</p>
+        </div>
+      ) : (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {posts.map((post) => {
+            const date = new Date(post.data.publishDate);
+            const formattedDate = date.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
+            const categoryLabel = categoryLabels[post.data.category] ?? post.data.category;
+            return (
+              <article class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] overflow-hidden flex flex-col hover:border-[var(--accent)] transition-colors group">
+                {post.data.featuredImage?.src && (
+                  <a href={`/blog/${post.id}`} aria-hidden="true" tabindex="-1" class="block aspect-video overflow-hidden bg-[var(--bg)]">
+                    <img
+                      src={post.data.featuredImage.src}
+                      alt={post.data.featuredImage.alt}
+                      width="640"
+                      height="360"
+                      loading="lazy"
+                      decoding="async"
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </a>
+                )}
+
+                <div class="p-6 flex flex-col flex-1">
+                  <!-- Category badge -->
+                  <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[var(--accent)]/10 text-[var(--accent)] mb-3 self-start">
+                    {categoryLabel}
+                  </span>
+
+                  <h2 class="font-heading text-lg font-semibold text-[var(--text)] mb-2 leading-snug flex-1">
+                    <a href={`/blog/${post.id}`} class="hover:text-[var(--accent)] transition-colors">
+                      {post.data.title}
+                    </a>
+                  </h2>
+
+                  <p class="text-sm text-[var(--text-dim)] leading-relaxed mb-4">
+                    {truncate(post.data.description, 160)}
+                  </p>
+
+                  <!-- Meta row -->
+                  <div class="flex items-center justify-between text-xs text-[var(--text-muted)] mt-auto pt-4 border-t border-[var(--border)]">
+                    <time datetime={date.toISOString()}>{formattedDate}</time>
+                    <span>{post.data.readTime} min read</span>
+                  </div>
+
+                  <a
+                    href={`/blog/${post.id}`}
+                    class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent)] hover:underline"
+                  >
+                    Read More
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Newsletter CTA -->
+  <section class="py-16 md:py-20 bg-[var(--bg-card)] border-t border-[var(--border)]">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+        Stay Updated
+      </h2>
+      <p class="text-[var(--text-dim)] mb-8">
+        Join our newsletter for the latest web design tips, SEO insights, and accessibility guides — straight to your inbox.
+      </p>
+      <a
+        href="/contact"
+        class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity"
+      >
+        Subscribe to Our Newsletter
+      </a>
+    </div>
+  </section>
+</BaseLayout>

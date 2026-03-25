@@ -1,4 +1,46 @@
 ---
-// TODO: Implement LegalLayout
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  lastUpdated?: string;
+}
+
+const { title, description, lastUpdated } = Astro.props;
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: title, href: Astro.url.pathname },
+];
+
+const formattedDate = lastUpdated
+  ? new Date(lastUpdated).toLocaleDateString('en-IN', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    })
+  : null;
 ---
-<slot />
+<BaseLayout title={title} description={description}>
+  <!-- Page header -->
+  <section class="border-b border-[var(--border)] bg-[var(--bg-card)] px-4 py-12 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl">
+      <Breadcrumb items={breadcrumbs} />
+      <h1 class="mt-4 font-heading text-3xl font-bold text-[var(--text)] sm:text-4xl">
+        {title}
+      </h1>
+      {formattedDate && (
+        <p class="mt-2 text-sm text-[var(--text-muted)]">
+          Last updated: <time datetime={lastUpdated}>{formattedDate}</time>
+        </p>
+      )}
+    </div>
+  </section>
+
+  <!-- Legal content -->
+  <div class="prose max-w-3xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+    <slot />
+  </div>
+</BaseLayout>

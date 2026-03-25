@@ -1,4 +1,308 @@
 ---
-// TODO: Implement index
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '../../utils/schema';
+
+const schema = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Products', url: '/products' },
+]);
+
+const products = [
+  {
+    id: 'real-estate-portal',
+    slug: 'real-estate-portal',
+    title: 'Real Estate Portal',
+    tagline: 'Property Management & Listing Platform',
+    desc: 'Property listings, agent dashboards, map integration, and lead capture. Deployed for multiple real estate businesses across India.',
+    accent: '#00E5A0',
+    features: [
+      'Comprehensive listings for buying, renting, and selling',
+      'Advanced search filters by location, budget, BHK, and type',
+      'Verified listings with RERA badges',
+      'Joint ventures platform for land owners and investors',
+      'Specialized categories (Agricultural, Commercial, Residential)',
+    ],
+  },
+  {
+    id: 'medical-conference-portal',
+    slug: 'medical-conference-portal',
+    title: 'Medical Conference Portal',
+    tagline: 'Event Registration & Speaker Management System',
+    desc: 'Event registration, abstract submission, speaker management, and certificate generation. Handles 500–5000+ delegates per event.',
+    accent: '#6366F1',
+    features: [
+      'Multi-tier registration (Delegates, PG Students, AC Members)',
+      'Online abstract submission for speakers',
+      'Scientific program highlights and detailed schedule',
+      'Faculty and committee management grids',
+      'Live countdown timer and automated notifications',
+    ],
+  },
+  {
+    id: 'ima-society-portal',
+    slug: 'ima-society-portal',
+    title: 'IMA Society Portal',
+    tagline: 'Association Management System for Medical Bodies',
+    desc: 'Member directory, election module, publication library, and CPD tracking. Used by Indian Medical Association specialty societies.',
+    accent: '#EC4899',
+    features: [
+      'Exclusive job portal for IMA members',
+      'Member e-Connect for membership and profile management',
+      'News, Media, and Journal (JIMA) access',
+      'Professional wings and social security schemes',
+      'Policy and advocacy updates for the medical community',
+    ],
+  },
+  {
+    id: 'resort-management-system',
+    slug: 'resort-management-system',
+    title: 'Resort Management Portal',
+    tagline: 'End-to-End Hospitality Management System',
+    desc: 'End-to-end management for resorts and boutique stays. Handles online room booking, dining POS, and housekeeping operations.',
+    accent: '#F59E0B',
+    features: [
+      'Online room booking engine with payment gateway',
+      'Staff scheduling and housekeeping management dashboard',
+      'Dining & restaurant inventory / POS integration',
+      'Customer relationship management (CRM) for guests',
+      'Automated email/SMS notifications for bookings',
+    ],
+  },
+];
 ---
-<p>Placeholder: index</p>
+
+<BaseLayout
+  title="Proprietary Business Software Products — eLan Technology"
+  description="Explore eLan Technology's proprietary software products: Real Estate Portal, Medical Conference Portal, IMA Society Portal, and Resort Management System. Own your platform, not rent it."
+  schema={schema}
+>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section
+    aria-labelledby="products-hero-heading"
+    class="relative overflow-hidden bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-24 md:py-36"
+  >
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+      <div class="absolute -top-40 -left-40 h-[600px] w-[600px] rounded-full bg-[#00E5A0]/8 blur-[120px]"></div>
+      <div class="absolute -bottom-40 -right-20 h-[500px] w-[500px] rounded-full bg-[#6366F1]/8 blur-[120px]"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)]/60 px-4 py-2 text-sm text-[var(--text-muted)] backdrop-blur-sm">
+        <span class="h-2 w-2 rounded-full bg-[#00E5A0] animate-pulse" aria-hidden="true"></span>
+        4 Proprietary Software Products
+      </div>
+
+      <h1
+        id="products-hero-heading"
+        class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-[var(--text)] mb-6"
+      >
+        Own Your
+        <span class="bg-gradient-to-r from-[#00E5A0] to-[#6366F1] bg-clip-text text-transparent">
+          Business Platform
+        </span>
+      </h1>
+
+      <p class="mx-auto mb-10 max-w-3xl text-lg sm:text-xl text-[var(--text-dim)] leading-relaxed">
+        Why pay monthly SaaS subscriptions forever? eLan Technology builds white-labelled,
+        fully custom software products you own outright. One investment — unlimited value.
+        No vendor lock-in. No recurring fees. Just a platform built for your exact needs.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a
+          href="/get-quote"
+          class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-4 text-base font-semibold text-[var(--bg)] shadow-lg shadow-[var(--accent)]/25 transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
+        >
+          Discuss a Custom Product
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a
+          href="/request-demo"
+          class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-transparent px-8 py-4 text-base font-semibold text-[var(--text)] transition-all duration-300 hover:border-[var(--accent)] hover:text-[var(--accent)] hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
+        >
+          Request a Live Demo
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       PRODUCTS GRID
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="products-grid-heading" class="bg-[var(--bg)] py-16 md:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <p class="text-center text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-3">
+        Our Products
+      </p>
+      <h2
+        id="products-grid-heading"
+        class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] text-center mb-4"
+      >
+        4 Battle-Tested Software Products
+      </h2>
+      <p class="text-lg text-[var(--text-dim)] text-center mb-14 max-w-2xl mx-auto">
+        Each product is refined across multiple real-world deployments. Buy, white-label, and launch faster.
+      </p>
+
+      <ul class="grid grid-cols-1 lg:grid-cols-2 gap-8" role="list">
+        {products.map((product) => (
+          <li
+            class="group relative rounded-2xl border bg-[var(--bg-card)] p-8 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+            style={`border-color: ${product.accent}33;`}
+          >
+            <!-- Accent top border -->
+            <div
+              class="absolute inset-x-0 top-0 h-1 rounded-t-2xl"
+              style={`background: linear-gradient(to right, ${product.accent}, ${product.accent}88);`}
+              aria-hidden="true"
+            ></div>
+
+            <div class="mb-4">
+              <h2 class="font-heading text-2xl font-bold text-[var(--text)] mb-1" style={`color: var(--text)`}>
+                {product.title}
+              </h2>
+              <p class="text-sm font-medium mb-3" style={`color: ${product.accent}`}>{product.tagline}</p>
+              <p class="text-[var(--text-dim)] leading-relaxed">{product.desc}</p>
+            </div>
+
+            <ul class="mb-8 space-y-2 flex-1" role="list" aria-label={`Key features of ${product.title}`}>
+              {product.features.map((feat) => (
+                <li class="flex items-start gap-2 text-sm text-[var(--text-dim)]">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0" style={`color: ${product.accent}`} aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  {feat}
+                </li>
+              ))}
+            </ul>
+
+            <div class="flex flex-col sm:flex-row gap-3 mt-auto">
+              <a
+                href={`/products/${product.slug}`}
+                class="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-[var(--bg)] transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2"
+                style={`background-color: ${product.accent}; --tw-shadow-color: ${product.accent}40; outline-color: ${product.accent};`}
+              >
+                Learn More
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+              <a
+                href="/request-demo"
+                class="inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3 text-sm font-semibold text-[var(--text)] transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2"
+                style={`border-color: ${product.accent}55; hover:border-color: ${product.accent}; outline-color: ${product.accent};`}
+              >
+                Request Demo
+              </a>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       WHY OWN VS SUBSCRIBE
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="own-vs-sub-heading" class="bg-[var(--bg-card)] py-16 md:py-24 border-y border-[var(--border)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <p class="text-center text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-3">
+        The Case for Ownership
+      </p>
+      <h2
+        id="own-vs-sub-heading"
+        class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] text-center mb-12"
+      >
+        Own Your Platform vs. Renting SaaS Forever
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <!-- SaaS Subscription -->
+        <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-8">
+          <div class="mb-4 flex items-center gap-3">
+            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-red-500/10">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            </div>
+            <h3 class="font-heading text-lg font-bold text-[var(--text)]">SaaS Subscription</h3>
+          </div>
+          <ul class="space-y-3" role="list">
+            {[
+              'Pay $200–$2,000/month forever',
+              'Limited customization options',
+              'Vendor can change pricing or shut down',
+              'Your data on their servers',
+              'Generic features — not your workflow',
+              'No competitive advantage',
+            ].map((item) => (
+              <li class="flex items-start gap-2 text-sm text-[var(--text-dim)]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- One-time Custom Product -->
+        <div class="rounded-2xl border bg-[var(--bg)] p-8" style="border-color: #00E5A033;">
+          <div class="mb-4 flex items-center gap-3">
+            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-[#00E5A0]/10">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00E5A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3 class="font-heading text-lg font-bold text-[var(--text)]">One-time Custom Product</h3>
+          </div>
+          <ul class="space-y-3" role="list">
+            {[
+              'Pay once — own forever',
+              'Fully customized to your business',
+              'Hosted on your own servers',
+              'Your data, your control',
+              'Built around your exact workflow',
+              'Unique competitive advantage',
+            ].map((item) => (
+              <li class="flex items-start gap-2 text-sm text-[var(--text-dim)]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00E5A0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       CTA
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="products-cta-heading" class="bg-[var(--bg)] py-16 md:py-24">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
+      <h2
+        id="products-cta-heading"
+        class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] mb-4"
+      >
+        Ready to Build Your Own Platform?
+      </h2>
+      <p class="text-lg text-[var(--text-dim)] mb-8 leading-relaxed">
+        Whether you want to white-label one of our existing products or build something entirely custom,
+        let's talk about making it happen.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a
+          href="/get-quote"
+          class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-4 text-base font-semibold text-[var(--bg)] shadow-lg shadow-[var(--accent)]/25 transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
+        >
+          Discuss a Custom Product
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a
+          href="/request-demo"
+          class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-transparent px-8 py-4 text-base font-semibold text-[var(--text)] transition-all duration-300 hover:border-[var(--accent)] hover:text-[var(--accent)] hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
+        >
+          See a Live Demo
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

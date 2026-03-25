@@ -1,4 +1,259 @@
 ---
-// TODO: Implement free-website-audit
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '../utils/schema';
+
+const schema = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Free Website Audit', url: '/free-website-audit' },
+]);
+
+const inputClass = "w-full rounded-lg border border-[var(--border)] bg-[var(--bg)] px-4 py-2.5 text-sm text-[var(--text)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]";
+const labelClass = "block text-sm font-medium text-[var(--text)] mb-1.5";
+
+const auditCategories = [
+  {
+    title: 'Security Audit',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+    items: [
+      'SSL certificate status & validity',
+      'HTTP security headers check',
+      'Malware & blacklist scan',
+      'Known vulnerability detection',
+      'Open ports & exposure check',
+      'Content Security Policy (CSP)',
+    ],
+  },
+  {
+    title: 'SEO Audit',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
+    items: [
+      'Meta titles & descriptions',
+      'Page speed & Core Web Vitals',
+      'Mobile-friendliness score',
+      'Backlink profile overview',
+      'Broken links & 404 errors',
+      'Schema markup presence',
+    ],
+  },
+  {
+    title: 'ADA / WCAG Audit',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>`,
+    items: [
+      'Colour contrast ratios',
+      'ARIA labels & roles',
+      'Keyboard navigation flow',
+      'Screen reader compatibility',
+      'Image alt text completeness',
+      'Form accessibility',
+    ],
+  },
+];
 ---
-<p>Placeholder: free-website-audit</p>
+
+<BaseLayout
+  title="Free Website Security, SEO & ADA Audit — eLan Technology"
+  description="Get a free comprehensive website audit covering security vulnerabilities, SEO issues, and ADA/WCAG accessibility compliance. 500+ websites audited."
+  schema={schema}
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-[var(--bg)] py-20 sm:py-28">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-4">Free Offer</p>
+      <h1 class="font-heading text-4xl sm:text-5xl font-bold text-[var(--text)] leading-tight">
+        Free Website Audit: Security, SEO &amp; ADA
+      </h1>
+      <p class="mt-6 max-w-2xl mx-auto text-lg text-[var(--text-dim)] leading-relaxed">
+        Get a comprehensive, no-obligation audit of your website covering security vulnerabilities, SEO health, and ADA/WCAG accessibility compliance — completely free.
+      </p>
+
+      <!-- Trust badges -->
+      <div class="flex flex-wrap justify-center gap-4 mt-8">
+        {[
+          '500+ Websites Audited',
+          'Average 23 Issues Found',
+          'No Obligation, No Sales Pitch',
+          'Report in 24–48 Hours',
+        ].map((badge) => (
+          <span class="px-4 py-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] text-sm text-[var(--text-dim)] font-medium">
+            {badge}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- What's included -->
+  <section class="py-16 md:py-20 border-t border-[var(--border)]" aria-labelledby="audit-includes-heading">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 id="audit-includes-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+          What's Included in Your Free Audit
+        </h2>
+        <p class="text-[var(--text-dim)] max-w-2xl mx-auto">
+          Our audit team manually reviews your website across three critical dimensions — and delivers a detailed report with actionable recommendations.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {auditCategories.map((cat) => (
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+            <div class="w-12 h-12 rounded-xl bg-[var(--accent)]/10 flex items-center justify-center mb-5 text-[var(--accent)]" aria-hidden="true">
+              <Fragment set:html={cat.icon} />
+            </div>
+            <h3 class="font-heading text-lg font-semibold text-[var(--text)] mb-4">{cat.title}</h3>
+            <ul class="space-y-2.5" role="list">
+              {cat.items.map((item) => (
+                <li class="flex items-start gap-2 text-sm text-[var(--text-dim)]">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 mt-0.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Audit form -->
+  <section class="py-16 md:py-20 bg-[var(--bg-card)] border-y border-[var(--border)]" aria-labelledby="audit-form-heading">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h2 id="audit-form-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+          Request Your Free Audit
+        </h2>
+        <p class="text-[var(--text-dim)]">
+          Fill in your details below and our team will analyse your website within 24–48 hours.
+        </p>
+      </div>
+
+      <!-- TODO: FreeAuditForm island (Step 3) -->
+      <form action="/api/audit-request" method="POST" class="space-y-5" novalidate>
+        <div>
+          <label for="audit-url" class={labelClass}>Your Website URL <span class="text-red-400" aria-hidden="true">*</span></label>
+          <input
+            id="audit-url"
+            name="url"
+            type="url"
+            required
+            placeholder="https://yourwebsite.com"
+            class={inputClass}
+          />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <label for="audit-name" class={labelClass}>Your Name <span class="text-red-400" aria-hidden="true">*</span></label>
+            <input
+              id="audit-name"
+              name="name"
+              type="text"
+              required
+              autocomplete="name"
+              placeholder="Your full name"
+              class={inputClass}
+            />
+          </div>
+          <div>
+            <label for="audit-email" class={labelClass}>Email <span class="text-red-400" aria-hidden="true">*</span></label>
+            <input
+              id="audit-email"
+              name="email"
+              type="email"
+              required
+              autocomplete="email"
+              placeholder="you@company.com"
+              class={inputClass}
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="audit-phone" class={labelClass}>Phone</label>
+          <input
+            id="audit-phone"
+            name="phone"
+            type="tel"
+            autocomplete="tel"
+            placeholder="+91 98765 43210"
+            class={inputClass}
+          />
+        </div>
+
+        <div>
+          <label for="audit-focus" class={labelClass}>Audit Focus</label>
+          <select id="audit-focus" name="focus" class={inputClass}>
+            <option value="">All three areas (recommended)</option>
+            <option value="security">Security only</option>
+            <option value="seo">SEO only</option>
+            <option value="accessibility">Accessibility / ADA only</option>
+          </select>
+        </div>
+
+        <button
+          type="submit"
+          class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity w-full justify-center"
+        >
+          Get My Free Audit →
+        </button>
+
+        <p class="text-center text-xs text-[var(--text-muted)]">
+          No credit card required. No spam. We respect your privacy.
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="py-16 md:py-20" aria-labelledby="how-it-works-heading">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <h2 id="how-it-works-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-10 text-center">
+        How It Works
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+        {[
+          {
+            step: '01',
+            title: 'Submit Your URL',
+            desc: 'Fill in the form with your website URL and contact details. Takes less than 60 seconds.',
+          },
+          {
+            step: '02',
+            title: 'We Analyse',
+            desc: 'Our team runs automated scans and manual checks across security, SEO, and accessibility. Allow 24–48 hours.',
+          },
+          {
+            step: '03',
+            title: 'Receive Your Report',
+            desc: "You'll receive a detailed PDF report by email with prioritised issues and recommended fixes.",
+          },
+        ].map(({ step, title, desc }) => (
+          <div class="text-center">
+            <div class="w-16 h-16 rounded-2xl bg-[var(--accent)]/10 border border-[var(--accent)]/20 flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl font-bold text-[var(--accent)]">{step}</span>
+            </div>
+            <h3 class="font-heading text-lg font-semibold text-[var(--text)] mb-2">{title}</h3>
+            <p class="text-sm text-[var(--text-dim)] leading-relaxed">{desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Social proof -->
+  <section class="py-16 md:py-20 bg-[var(--bg-card)] border-t border-[var(--border)]">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-5xl font-bold text-[var(--accent)] mb-2">500+</p>
+      <p class="text-xl font-semibold text-[var(--text)] mb-4">Websites Audited</p>
+      <p class="text-[var(--text-dim)] text-lg">
+        Average <strong class="text-[var(--text)]">23 issues found</strong> per audit — including critical security vulnerabilities, SEO gaps, and accessibility failures that most website owners never knew existed.
+      </p>
+      <a
+        href="#audit-form-heading"
+        class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity mt-8"
+      >
+        Get Your Free Audit Now
+      </a>
+    </div>
+  </section>
+</BaseLayout>

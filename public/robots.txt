@@ -1,0 +1,42 @@
+User-agent: *
+Allow: /
+
+# Block API routes
+Disallow: /api/
+
+# Block admin paths
+Disallow: /admin/
+Disallow: /admin
+
+# Block thank-you (conversion tracking — no indexing)
+Disallow: /thank-you
+
+# Block legacy WordPress paths
+Disallow: /wp-admin/
+Disallow: /wp-login.php
+Disallow: /wp-content/
+Disallow: /wp-includes/
+Disallow: /xmlrpc.php
+Disallow: /?author=
+Disallow: /?s=
+Disallow: /feed/
+Disallow: /comments/feed/
+
+# Block query strings
+Disallow: /*?*utm_source=
+Disallow: /*?*utm_medium=
+Disallow: /*?*utm_campaign=
+Disallow: /*?*ref=
+
+# Crawl delay for aggressive bots
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+User-agent: MJ12bot
+Disallow: /
+
+# Sitemap
+Sitemap: https://elan-tech.net/sitemap-index.xml

@@ -1,4 +1,111 @@
 ---
-// TODO: Implement privacy-policy
+import LegalLayout from '../layouts/LegalLayout.astro';
+import SchemaMarkup from '../components/SchemaMarkup.astro';
+import { webPageSchema, breadcrumbSchema } from '../utils/schema';
+
+const schema = [
+  webPageSchema('Privacy Policy', 'eLan Technology privacy policy — how we collect, use, and protect your personal data.', '/privacy-policy'),
+  breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Privacy Policy', url: '/privacy-policy' }]),
+];
 ---
-<p>Placeholder: privacy-policy</p>
+<LegalLayout
+  title="Privacy Policy"
+  description="eLan Technology privacy policy — how we collect, use, and protect your personal data."
+  lastUpdated="2025-01-01"
+>
+  <SchemaMarkup schema={schema} />
+
+  <h2>Introduction</h2>
+  <p>
+    We at eLan Technology ("we", "us", "our") are committed to protecting your privacy. This Privacy
+    Policy explains how we collect, use, and safeguard your personal information when you visit
+    <a href="https://elan-tech.net">https://elan-tech.net</a> or use our services.
+  </p>
+
+  <h2>Information We Collect</h2>
+  <p>We may collect the following categories of personal data:</p>
+  <ul>
+    <li>
+      <strong>Contact form data:</strong> name, email address, phone number, company name, and project
+      details you submit via our enquiry or quote forms.
+    </li>
+    <li>
+      <strong>Newsletter subscriptions:</strong> your email address when you subscribe to our mailing list.
+    </li>
+    <li>
+      <strong>Analytics data:</strong> pages visited, time spent on site, and referral source, collected
+      via privacy-respecting analytics tools.
+    </li>
+    <li>
+      <strong>Technical data:</strong> IP address, browser type, and device type, used for security
+      monitoring and analytics purposes.
+    </li>
+  </ul>
+
+  <h2>How We Use Your Information</h2>
+  <p>We use the information we collect to:</p>
+  <ul>
+    <li>Respond to your enquiries and provide project quotes.</li>
+    <li>Send newsletters and marketing communications (only with your explicit consent).</li>
+    <li>Improve our website performance and service offerings.</li>
+    <li>Comply with applicable legal obligations.</li>
+  </ul>
+
+  <h2>Data Storage &amp; Security</h2>
+  <ul>
+    <li>Your data is stored on secure servers located in India and/or the EU (MongoDB Atlas / Vercel infrastructure).</li>
+    <li>All data in transit is protected by SSL/TLS encryption.</li>
+    <li>We do not sell, rent, or trade your personal data to any third parties.</li>
+    <li>
+      Retention periods: contact form data is retained for up to 3 years; newsletter subscriptions
+      are retained until you unsubscribe.
+    </li>
+  </ul>
+
+  <h2>Cookies</h2>
+  <p>
+    We use essential cookies required for site functionality and optional analytics cookies to
+    understand how visitors use our website. You may manage your cookie preferences at any time.
+    For full details, please see our <a href="/cookie-policy">Cookie Policy</a>.
+  </p>
+
+  <h2>Your Rights</h2>
+  <p>Depending on your location, you may have the following rights regarding your personal data:</p>
+  <ul>
+    <li><strong>Access:</strong> request a copy of the personal data we hold about you.</li>
+    <li><strong>Correction:</strong> request correction of inaccurate or incomplete data.</li>
+    <li><strong>Deletion:</strong> request erasure of your personal data ("right to be forgotten").</li>
+    <li><strong>Withdraw consent:</strong> withdraw consent for data processing at any time.</li>
+    <li><strong>Lodge a complaint:</strong> contact the relevant data protection authority in your jurisdiction.</li>
+  </ul>
+  <p>To exercise any of these rights, please contact us using the details in the Contact section below.</p>
+
+  <h2>Third-Party Services</h2>
+  <p>We use the following third-party services which may process your data in accordance with their own privacy policies:</p>
+  <ul>
+    <li><strong>Google Analytics</strong> (optional, anonymised analytics)</li>
+    <li><strong>Calendly</strong> (appointment scheduling)</li>
+    <li><strong>Hostinger SMTP</strong> (transactional email delivery)</li>
+  </ul>
+  <p>We encourage you to review the privacy policies of these third-party providers.</p>
+
+  <h2>Changes to This Policy</h2>
+  <p>
+    We may update this Privacy Policy from time to time to reflect changes in our practices or
+    applicable law. The "Last updated" date at the top of this page indicates when the policy was
+    last revised. We encourage you to review this page periodically.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    For privacy-related enquiries, including requests to access, correct, or delete your data,
+    please contact us at:
+  </p>
+  <ul>
+    <li>Email: <a href="mailto:privacy@elan-tech.net">privacy@elan-tech.net</a></li>
+    <li>
+      Post: eLan Technology, Basement Floor, PTG IT Park, Plot No. 21, IT Park Rd,
+      Gayatri Nagar, Nagpur, Maharashtra 440022, India
+    </li>
+  </ul>
+</LegalLayout>

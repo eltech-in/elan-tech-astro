@@ -1,4 +1,68 @@
 ---
-// TODO: Implement SEOHead
+import SchemaMarkup from './SchemaMarkup.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: string;
+  noindex?: boolean;
+  schema?: object | object[];
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage = '/images/elan-tech-logo.svg',
+  ogType = 'website',
+  noindex = false,
+  schema,
+} = Astro.props;
+
+const canonicalURL = canonical ?? Astro.url.href;
+const pageTitle = title.includes('eLan Technology')
+  ? title
+  : `${title} | eLan Technology`;
+const robotsContent = noindex ? 'noindex,nofollow' : 'index,follow';
 ---
-<!-- SEOHead -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{pageTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL} />
+<meta name="robots" content={robotsContent} />
+<link rel="icon" href="/favicon.ico" />
+
+<!-- Open Graph -->
+<meta property="og:title" content={pageTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:type" content={ogType} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:site_name" content="eLan Technology" />
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={pageTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<!-- Font preloads -->
+<link
+  rel="preload"
+  href="/fonts/Sora-Variable.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin="anonymous"
+/>
+<link
+  rel="preload"
+  href="/fonts/DMSans-Variable.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin="anonymous"
+/>
+
+{schema && <SchemaMarkup schema={schema} />}

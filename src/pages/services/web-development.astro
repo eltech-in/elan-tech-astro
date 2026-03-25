@@ -1,4 +1,227 @@
 ---
-// TODO: Implement web-development
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+import { services } from '../../data/services';
+import { cities } from '../../data/cities';
+import { serviceSchema, faqSchema, breadcrumbSchema } from '../../utils/schema';
+
+const service = services.find((s) => s.slug === 'web-development')!;
+
+const serviceFaqs = [
+  {
+    question: "What's the difference between website design and web development?",
+    answer: "Website design focuses on how a site looks and feels — layouts, colours, typography, imagery, and user experience. Web development covers how it works — writing code, building functionality, integrating databases, setting up APIs, and ensuring everything performs reliably. Most projects require both; eLan Technology handles both disciplines in-house for a seamless result.",
+  },
+  {
+    question: 'Do you build on WordPress or custom frameworks?',
+    answer: "Both — and we recommend the right tool for each project rather than defaulting to one. WordPress suits content-heavy sites, blogs, and businesses that need easy self-management. Custom frameworks like React/Next.js are better for web applications, portals, SaaS products, and performance-critical projects. We'll advise you on the best fit during discovery.",
+  },
+  {
+    question: 'Can you build a web application with user logins?',
+    answer: 'Yes. We build full-featured web applications with authentication and authorisation systems — including email/password login, OAuth (Google, LinkedIn), role-based access control, and multi-factor authentication. Whether you need a client portal, a SaaS dashboard, an admin panel, or a community platform, we have you covered.',
+  },
+  {
+    question: 'Do you provide the source code?',
+    answer: 'Absolutely. Upon final payment, you receive full intellectual property ownership of your codebase — including all source files, assets, database schemas, and deployment configurations. We also provide a handover document and optional training so your team can manage and extend the system independently.',
+  },
+  {
+    question: 'Can you integrate third-party APIs?',
+    answer: 'Yes — API integration is a core part of our development practice. We regularly integrate payment gateways (Razorpay, Stripe, PayPal), CRM systems (Salesforce, HubSpot, Zoho), ERP systems, mapping services (Google Maps), shipping APIs, marketing platforms, and custom enterprise APIs via REST or GraphQL.',
+  },
+];
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: '/services' },
+  { name: service.title, href: `/services/${service.slug}` },
+];
+
+const schemaBreadcrumbs = breadcrumbs.map((b) => ({ name: b.name, url: b.href }));
+
+const schemas = [
+  serviceSchema(service.title, service.description, `/services/${service.slug}`),
+  faqSchema(serviceFaqs),
+  breadcrumbSchema(schemaBreadcrumbs),
+];
+
+const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
+
+const technologies = [
+  'React', 'Next.js', 'Node.js', 'Express.js', 'MongoDB', 'MySQL',
+  'PostgreSQL', 'WordPress', 'REST APIs', 'GraphQL', 'TypeScript',
+  'PHP', 'Laravel', 'Redis', 'Docker', 'AWS', 'Vercel', 'Tailwind CSS',
+];
 ---
-<p>Placeholder: web-development</p>
+<ServiceLayout
+  title={`${service.title} Services | eLan Technology`}
+  description={service.description}
+  breadcrumbs={breadcrumbs}
+  schema={schemas}
+>
+
+  <!-- ── HERO ─────────────────────────────────────────────────────────────── -->
+  <section class="relative mb-12 overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-500/10 via-[var(--bg-card)] to-[var(--bg-card)] p-8 md:p-12 border border-[var(--border)]">
+    <div class="grid gap-10 md:grid-cols-2 md:items-center">
+      <div>
+        <p class="mb-2 text-sm font-semibold uppercase tracking-widest" style="color: #6366F1;">{service.tagline}</p>
+        <h1 class="font-heading text-3xl font-bold leading-tight text-[var(--text)] md:text-4xl lg:text-5xl">
+          {service.title} Services — eLan Technology
+        </h1>
+        <p class="mt-4 text-base text-[var(--text-muted)] md:text-lg">
+          {service.description} We build with performance, maintainability, and scalability as first-class requirements. Your website or application will score well on Core Web Vitals, handle real-world traffic, and be easy for your team to manage and extend over time.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="/schedule-consultation" class="inline-flex items-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white shadow transition hover:opacity-90" style="background: #6366F1;">
+            Get Free Consultation
+          </a>
+          <a href="/get-quote" class="inline-flex items-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
+            Get a Quote
+          </a>
+        </div>
+      </div>
+      <ul class="space-y-3">
+        {service.features.map((f) => (
+          <li class="flex items-center gap-3 rounded-lg bg-[var(--bg)] px-4 py-3 border border-[var(--border)] text-sm font-medium text-[var(--text)]">
+            <span class="text-green-400 font-bold">✓</span> {f}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── WHAT'S INCLUDED ───────────────────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-2">What's Included in Our {service.shortTitle} Services</h2>
+    <p class="text-[var(--text-muted)] mb-8">We offer a comprehensive range of web development capabilities — from front-end interfaces to back-end infrastructure and DevOps.</p>
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {[
+        { icon: '⚛️', name: 'React & Next.js Development', desc: 'We build fast, interactive front-ends using React and production-ready applications using Next.js — with server-side rendering, static generation, and edge functions for maximum performance. Ideal for SaaS products, marketing sites, and content platforms.' },
+        { icon: '🛠️', name: 'MERN Stack Applications', desc: 'Full-stack development using MongoDB, Express.js, React, and Node.js. We architect and build complete web applications with RESTful or GraphQL APIs, authentication, real-time features, and database management — all from a single cohesive team.' },
+        { icon: '🔌', name: 'WordPress Development', desc: 'Custom WordPress themes and plugins built from scratch — no page builders, no bloated starters. We build headless WordPress solutions for high-performance sites and traditional WordPress for teams that need a familiar admin interface.' },
+        { icon: '🔗', name: 'REST & GraphQL APIs', desc: 'We design and build robust APIs that power your web and mobile applications. Whether you need a simple CRUD API or a complex GraphQL schema with subscriptions, our backend engineers build APIs that are secure, documented, and performant.' },
+        { icon: '⚡', name: 'Performance Optimization', desc: 'We audit and improve Core Web Vitals (LCP, CLS, INP) to boost search rankings and user experience. Our optimisation work covers image compression, code splitting, caching strategies, CDN configuration, and database query tuning.' },
+        { icon: '🔍', name: 'Code Audits', desc: 'If you have an existing codebase with technical debt, security issues, or performance problems, our engineers provide a comprehensive code audit with prioritised recommendations and an optional remediation engagement.' },
+        { icon: '🗄️', name: 'Custom CMS Development', desc: 'Sometimes off-the-shelf CMS platforms do not fit your workflow. We build bespoke content management systems that match exactly how your team works — custom content types, approval workflows, and role-based access control.' },
+        { icon: '🔒', name: 'Security-First Development', desc: 'Security is embedded in our development process — input validation, parameterised queries, CSRF protection, rate limiting, Content Security Policy headers, and regular dependency audits. We follow OWASP guidelines on every project.' },
+      ].map(({ icon, name, desc }) => (
+        <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
+          <div class="mb-3 inline-flex h-11 w-11 items-center justify-center rounded-xl text-xl" style="background: #6366F120;">{icon}</div>
+          <h3 class="font-heading text-base font-semibold text-[var(--text)] mb-2">{name}</h3>
+          <p class="text-sm text-[var(--text-muted)] leading-relaxed">{desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── MERN vs WORDPRESS ─────────────────────────────────────────────────── -->
+  <section class="mb-16 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 md:p-10">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-3">MERN Stack vs WordPress — We Recommend the Right Tool</h2>
+    <p class="text-[var(--text-muted)] mb-8">There is no universally correct answer. The best technology stack depends on your project's requirements, your team's capabilities, and your long-term roadmap. Here is how we think about it:</p>
+    <div class="grid gap-6 md:grid-cols-2">
+      <div class="rounded-xl bg-[var(--bg)] border border-[var(--border)] p-6">
+        <h3 class="font-heading text-base font-semibold mb-3" style="color: #6366F1;">When We Recommend MERN / React / Next.js</h3>
+        <ul class="space-y-2 text-sm text-[var(--text-muted)]">
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>You need a web application with complex user interactions</li>
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>Real-time features like live dashboards, notifications, or chat</li>
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>High-traffic performance requirements with custom caching</li>
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>API-first architecture serving both web and mobile clients</li>
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>Your team has or will hire JavaScript engineers to maintain it</li>
+        </ul>
+      </div>
+      <div class="rounded-xl bg-[var(--bg)] border border-[var(--border)] p-6">
+        <h3 class="font-heading text-base font-semibold mb-3" style="color: #6366F1;">When We Recommend WordPress</h3>
+        <ul class="space-y-2 text-sm text-[var(--text-muted)]">
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>Content-heavy websites where your team manages frequent updates</li>
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>Budget-conscious projects that benefit from a broad plugin ecosystem</li>
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>Businesses that want a familiar CMS without full developer dependency</li>
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>Headless WordPress feeding a fast React front-end via REST or GraphQL</li>
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>SEO-focused content sites where plugin support matters</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── OUR PROCESS ────────────────────────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-2">Our {service.shortTitle} Process</h2>
+    <p class="text-[var(--text-muted)] mb-8">From requirements gathering to deployment, we follow a structured process that minimises surprises and maximises quality.</p>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {[
+        { n: '1', title: 'Discovery & Strategy', desc: 'We gather functional requirements, map user journeys, choose the technology stack, plan the database schema, and define success criteria. We produce a technical specification document for alignment before work begins.' },
+        { n: '2', title: 'Design & Planning', desc: 'API contracts are defined, data models are designed, and front-end component architecture is planned. Development is broken into sprints with clear deliverables and milestone reviews to keep projects on track.' },
+        { n: '3', title: 'Development & Testing', desc: 'Code is written to production standards — TypeScript, linting, unit tests, integration tests, and code review included. We run performance benchmarks, security scans, and accessibility checks before sign-off.' },
+        { n: '4', title: 'Launch & Support', desc: 'We handle CI/CD pipeline setup, server configuration, deployment, and monitoring. Post-launch, we provide 30 days of support and offer ongoing maintenance plans for long-term stability and security.' },
+      ].map(({ n, title, desc }) => (
+        <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
+          <div class="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-full font-heading text-sm font-bold text-white" style="background: #6366F1;">{n}</div>
+          <h3 class="font-heading text-sm font-semibold text-[var(--text)] mb-2">{title}</h3>
+          <p class="text-sm text-[var(--text-muted)]">{desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── TECHNOLOGIES ───────────────────────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-4">Technologies We Use</h2>
+    <p class="text-[var(--text-muted)] mb-6">Our engineers are proficient across the modern web stack. We select technologies based on project fit, not trend-chasing.</p>
+    <div class="flex flex-wrap gap-3">
+      {technologies.map((tech) => (
+        <span class="rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-4 py-2 text-sm font-medium text-[var(--text-muted)] hover:border-indigo-500/50 hover:text-[var(--text)] transition-colors">
+          {tech}
+        </span>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── FAQ ───────────────────────────────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-8">Frequently Asked Questions</h2>
+    <div class="divide-y divide-[var(--border)] rounded-xl border border-[var(--border)] overflow-hidden">
+      {serviceFaqs.map(({ question, answer }) => (
+        <details class="bg-[var(--bg-card)] py-0">
+          <summary class="cursor-pointer font-medium text-[var(--text)] flex items-center justify-between px-6 py-4 hover:bg-[var(--bg)] transition-colors list-none">
+            <span>{question}</span>
+            <span class="ml-4 shrink-0 text-[var(--text-muted)] text-lg">+</span>
+          </summary>
+          <p class="px-6 pb-5 pt-1 text-sm text-[var(--text-muted)] leading-relaxed">{answer}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── CITY LINKS ─────────────────────────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-xl font-bold text-[var(--text)] md:text-2xl mb-2">Web Development Services Across India</h2>
+    <p class="text-sm text-[var(--text-muted)] mb-6">Our remote-first team delivers full-stack web development for clients across India — from Nagpur and Raipur to Mumbai, Pune, Hyderabad, and Delhi.</p>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+      {featuredCities.map((city) => (
+        <a
+          href={city.hasLandingPage ? `/web-design-company-${city.slug}` : `/services/web-development`}
+          class="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-3 hover:border-indigo-500/50 transition-colors"
+        >
+          <p class="font-medium text-sm text-[var(--text)]">{city.name}</p>
+          <p class="text-xs text-[var(--text-muted)] mt-0.5">Services available</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── DOUBLE CTA ─────────────────────────────────────────────────────────── -->
+  <section class="grid gap-5 md:grid-cols-2 mb-4">
+    <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-7 flex flex-col">
+      <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-2">Ready to Get Started?</h3>
+      <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Get a free technical audit of your existing website or application. We'll identify performance bottlenecks, security vulnerabilities, and scalability limitations with actionable recommendations.</p>
+      <a href="/free-website-audit" class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90" style="background: #6366F1;">
+        Get Free Audit
+      </a>
+    </div>
+    <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-7 flex flex-col">
+      <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-2">Have Questions?</h3>
+      <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Not sure which technology stack is right for your project? Book a free 30-minute call with one of our senior engineers to discuss your requirements and get honest advice.</p>
+      <a href="/schedule-consultation" class="inline-flex items-center justify-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
+        Schedule a Call
+      </a>
+    </div>
+  </section>
+
+</ServiceLayout>

@@ -1,4 +1,229 @@
 ---
-// TODO: Implement pricing
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { pricingTiers } from '../data/pricing';
+import { breadcrumbSchema, faqSchema } from '../utils/schema';
+
+const pricingFaqs = [
+  {
+    question: 'Do you offer monthly payment plans?',
+    answer: 'Yes, we offer flexible milestone-based and monthly payment terms for all projects. We typically structure payments in 3 instalments: 50% upfront, 25% at midpoint, and 25% on delivery.',
+  },
+  {
+    question: 'Are there any hidden fees?',
+    answer: 'No. All costs are outlined upfront in your project proposal. We itemise every deliverable and any third-party costs (hosting, plugins, APIs) before you sign off.',
+  },
+  {
+    question: 'Can I upgrade my plan later?',
+    answer: 'Absolutely. Our packages are designed to be flexible. If your needs grow after launch, we can add features, pages, or services at any time with transparent addon pricing.',
+  },
+  {
+    question: 'Do you offer discounts for startups or NGOs?',
+    answer: 'Yes, we offer special pricing for registered startups and non-profit organisations. Contact us with details of your organisation and we will work within your budget.',
+  },
+  {
+    question: 'What is your refund policy?',
+    answer: 'We follow a milestone-based refund policy. If you cancel before work begins on a milestone, that milestone fee is refundable. Once work has started on a milestone, the fee for that stage is non-refundable. Please see our full Cancellation & Refund Policy for details.',
+  },
+  {
+    question: 'Do prices include hosting?',
+    answer: 'Hosting is not included in the project price but we can recommend and set up reliable hosting plans for your budget. We work with AWS, DigitalOcean, Cloudflare, and shared hosting providers depending on your requirements.',
+  },
+];
+
+const schema = [
+  faqSchema(pricingFaqs),
+  breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Pricing', url: '/pricing' },
+  ]),
+];
+
+// Feature comparison table
+const comparisonFeatures = [
+  { label: 'Number of Pages', starter: 'Up to 5', professional: 'Up to 15', enterprise: 'Unlimited' },
+  { label: 'Custom Design', starter: true, professional: true, enterprise: true },
+  { label: 'CMS Integration', starter: false, professional: true, enterprise: true },
+  { label: 'WCAG AA Accessibility', starter: false, professional: false, enterprise: true },
+  { label: 'Post-Launch Support', starter: '30 days', professional: '90 days', enterprise: '1 year' },
+];
 ---
-<p>Placeholder: pricing</p>
+
+<BaseLayout
+  title="Web Design & Development Pricing — eLan Technology"
+  description="Transparent, value-based pricing for web design, development, and eCommerce projects. Starter from ₹25,000. Custom quotes available."
+  schema={schema}
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-[var(--bg)] py-20 sm:py-28">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-4">Pricing</p>
+      <h1 class="font-heading text-4xl sm:text-5xl font-bold text-[var(--text)] leading-tight">
+        Transparent, Value-Based Pricing
+      </h1>
+      <p class="mt-6 max-w-2xl mx-auto text-lg text-[var(--text-dim)] leading-relaxed">
+        Every business is different. Our packages are starting points — all projects receive a custom quote based on your specific requirements, timeline, and goals.
+      </p>
+
+      <!-- Currency toggle placeholder -->
+      <!-- TODO: CurrencyToggle island (Step 3) — currently shows INR -->
+      <div class="flex gap-2 mt-8 justify-center" aria-label="Currency selector (static display)">
+        <span class="px-3 py-1 rounded-full bg-[var(--accent)] text-[#0A0E1A] text-sm font-semibold">₹ INR</span>
+        <span class="px-3 py-1 rounded-full border border-[var(--border)] text-sm text-[var(--text-muted)]">$ USD</span>
+        <span class="px-3 py-1 rounded-full border border-[var(--border)] text-sm text-[var(--text-muted)]">A$ AUD</span>
+        <span class="px-3 py-1 rounded-full border border-[var(--border)] text-sm text-[var(--text-muted)]">£ GBP</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing tiers -->
+  <section class="py-16 md:py-20 border-t border-[var(--border)]" aria-labelledby="tiers-heading">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 id="tiers-heading" class="sr-only">Pricing Tiers</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+        {pricingTiers.map((tier) => (
+          <div class={`rounded-2xl border p-8 flex flex-col relative ${tier.highlighted ? 'border-[var(--accent)] bg-[var(--bg-card)] shadow-lg shadow-[var(--accent)]/10' : 'border-[var(--border)] bg-[var(--bg-card)]'}`}>
+            {tier.highlighted && (
+              <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+                <span class="px-4 py-1.5 rounded-full bg-[var(--accent)] text-[#0A0E1A] text-xs font-bold tracking-wide whitespace-nowrap">
+                  Most Popular
+                </span>
+              </div>
+            )}
+
+            <div class="mb-6">
+              <h3 class="font-heading text-2xl font-bold text-[var(--text)]">{tier.name}</h3>
+              <p class="text-sm text-[var(--text-dim)] mt-1">{tier.tagline}</p>
+            </div>
+
+            <div class="mb-6">
+              <div class="flex items-baseline gap-1">
+                <span class="text-4xl font-bold text-[var(--text)]">₹{tier.prices.INR.toLocaleString('en-IN')}</span>
+                <span class="text-[var(--text-muted)] text-sm">onwards</span>
+              </div>
+              <p class="text-xs text-[var(--text-muted)] mt-1">
+                {tier.deliveryDays}-day delivery · {tier.revisions === 'Unlimited' ? 'Unlimited' : `${tier.revisions}`} revisions · {tier.support} support
+              </p>
+            </div>
+
+            <ul class="space-y-3 mb-8 flex-1" role="list">
+              {tier.features.map((feature) => (
+                <li class="flex items-start gap-2.5 text-sm text-[var(--text-dim)]">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 mt-0.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href={tier.ctaHref}
+              class={`text-center rounded-full px-6 py-3 text-sm font-semibold transition-all ${tier.highlighted ? 'bg-[var(--accent)] text-[#0A0E1A] hover:opacity-90' : 'border border-[var(--border)] text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)]'}`}
+            >
+              {tier.cta}
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature comparison table -->
+  <section class="py-16 md:py-20 bg-[var(--bg-card)] border-y border-[var(--border)]" aria-labelledby="comparison-heading">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <h2 id="comparison-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-8 text-center">
+        Feature Comparison
+      </h2>
+      <div class="overflow-x-auto rounded-2xl border border-[var(--border)]">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-[var(--border)]">
+              <th class="text-left p-4 text-[var(--text)] font-semibold bg-[var(--bg)]">Feature</th>
+              <th class="text-center p-4 text-[var(--text)] font-semibold bg-[var(--bg)]">Starter</th>
+              <th class="text-center p-4 text-[var(--accent)] font-semibold bg-[var(--accent)]/5">Professional</th>
+              <th class="text-center p-4 text-[var(--text)] font-semibold bg-[var(--bg)]">Enterprise</th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparisonFeatures.map((row, i) => (
+              <tr class={`border-b border-[var(--border)] ${i % 2 === 0 ? 'bg-[var(--bg-card)]' : 'bg-[var(--bg)]'}`}>
+                <td class="p-4 font-medium text-[var(--text)]">{row.label}</td>
+                <td class="p-4 text-center">
+                  {typeof row.starter === 'boolean' ? (
+                    row.starter ? (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mx-auto" aria-label="Included"><polyline points="20 6 9 17 4 12"/></svg>
+                    ) : (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto" aria-label="Not included"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    )
+                  ) : (
+                    <span class="text-[var(--text-dim)]">{row.starter}</span>
+                  )}
+                </td>
+                <td class="p-4 text-center bg-[var(--accent)]/5">
+                  {typeof row.professional === 'boolean' ? (
+                    row.professional ? (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mx-auto" aria-label="Included"><polyline points="20 6 9 17 4 12"/></svg>
+                    ) : (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto" aria-label="Not included"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    )
+                  ) : (
+                    <span class="text-[var(--text-dim)]">{row.professional}</span>
+                  )}
+                </td>
+                <td class="p-4 text-center">
+                  {typeof row.enterprise === 'boolean' ? (
+                    row.enterprise ? (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mx-auto" aria-label="Included"><polyline points="20 6 9 17 4 12"/></svg>
+                    ) : (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto" aria-label="Not included"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    )
+                  ) : (
+                    <span class="text-[var(--text-dim)]">{row.enterprise}</span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing FAQs -->
+  <section class="py-16 md:py-20" aria-labelledby="faq-heading">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <h2 id="faq-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-8 text-center">
+        Pricing FAQs
+      </h2>
+      <div class="space-y-3">
+        {pricingFaqs.map((faq) => (
+          <details class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] group">
+            <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-semibold text-[var(--text)] hover:text-[var(--accent)] transition-colors">
+              {faq.question}
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 ml-4 transition-transform group-open:rotate-180" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="px-6 pb-6 text-[var(--text-dim)] leading-relaxed text-sm">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Custom quote CTA -->
+  <section class="py-16 md:py-20 bg-[var(--bg-card)] border-t border-[var(--border)]">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+        Need something specific?
+      </h2>
+      <p class="text-[var(--text-dim)] mb-8 text-lg">
+        Our packages are starting points. Tell us about your project and we'll give you a detailed, no-obligation custom quote within 4 business hours.
+      </p>
+      <a
+        href="/get-quote"
+        class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity"
+      >
+        Get a Custom Quote
+      </a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,4 +1,116 @@
 ---
-// TODO: Implement nda-confidentiality-policy
+import LegalLayout from '../layouts/LegalLayout.astro';
+import SchemaMarkup from '../components/SchemaMarkup.astro';
+import { webPageSchema, breadcrumbSchema } from '../utils/schema';
+
+const schema = [
+  webPageSchema('NDA and Confidentiality Policy', 'eLan Technology NDA and confidentiality policy — how we protect your project details and business information.', '/nda-confidentiality-policy'),
+  breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'NDA and Confidentiality Policy', url: '/nda-confidentiality-policy' }]),
+];
 ---
-<p>Placeholder: nda-confidentiality-policy</p>
+<LegalLayout
+  title="NDA and Confidentiality Policy"
+  description="eLan Technology NDA and confidentiality policy — how we protect your project details and business information."
+  lastUpdated="2025-01-01"
+>
+  <SchemaMarkup schema={schema} />
+
+  <h2>Our Commitment</h2>
+  <p>
+    eLan Technology treats all client project details, business information, and technical
+    specifications as strictly confidential. Protecting your sensitive information is a fundamental
+    part of how we operate, and this commitment applies to every team member involved in your project.
+  </p>
+
+  <h2>What We Keep Confidential</h2>
+  <p>The following categories of information are treated as confidential by default:</p>
+  <ul>
+    <li>Project briefs, requirements documents, wireframes, and technical specifications.</li>
+    <li>Business strategies, operational processes, and internal data shared during discovery or onboarding.</li>
+    <li>Source code, databases, design files, and other deliverables created for your project.</li>
+    <li>Financial information, pricing discussions, and commercial arrangements.</li>
+    <li>Any information explicitly marked as "Confidential" or "Proprietary" by the client.</li>
+  </ul>
+
+  <h2>Our Obligations</h2>
+  <ul>
+    <li>
+      We will not disclose your confidential information to any third party without your prior
+      written consent.
+    </li>
+    <li>
+      Access to your project information is restricted to the team members directly assigned to
+      your project.
+    </li>
+    <li>
+      Any sub-contractors or specialist freelancers engaged on your project are required to sign
+      confidentiality agreements and are bound by the same obligations outlined here.
+    </li>
+    <li>
+      We will not use your confidential information for any purpose other than delivering the
+      services agreed in your project proposal.
+    </li>
+  </ul>
+
+  <h2>Formal NDA</h2>
+  <p>
+    If your project involves highly sensitive information, proprietary technology, or trade secrets,
+    we are happy to sign a formal Mutual Non-Disclosure Agreement (NDA) before any project
+    discussions begin.
+  </p>
+  <p>
+    To request a formal NDA, please contact us at:
+    <a href="mailto:legal@elan-tech.net">legal@elan-tech.net</a>
+  </p>
+
+  <h2>Portfolio &amp; Case Studies</h2>
+  <ul>
+    <li>
+      We may wish to feature your completed project in our portfolio or as a case study to
+      demonstrate our capabilities. We will always seek your approval before publishing any
+      project-specific content.
+    </li>
+    <li>
+      If you prefer your project not to appear in our portfolio, please notify us in writing at
+      any time before or after project delivery, and we will honour that request.
+    </li>
+    <li>
+      We will never publish confidential business data, trade secrets, financial figures, or any
+      other sensitive information in portfolio entries or case studies, regardless of consent.
+    </li>
+  </ul>
+
+  <h2>Duration</h2>
+  <p>
+    Our confidentiality obligations remain in effect for a period of <strong>3 years</strong>
+    following the completion or termination of the project. After this period, general project
+    information (such as the technology stack or industry sector) may be referenced, but specific
+    confidential details remain protected indefinitely.
+  </p>
+
+  <h2>Exceptions</h2>
+  <p>
+    Confidential information may be disclosed in the following limited circumstances:
+  </p>
+  <ul>
+    <li>
+      When required by law, court order, or regulatory authority — in which case we will notify you
+      as promptly as possible (where legally permissible) before making such disclosure.
+    </li>
+    <li>
+      When the information has become publicly available through no fault of eLan Technology.
+    </li>
+  </ul>
+
+  <h2>Contact</h2>
+  <p>
+    For confidentiality enquiries or to request a formal NDA, please contact:
+  </p>
+  <ul>
+    <li>Email: <a href="mailto:legal@elan-tech.net">legal@elan-tech.net</a></li>
+    <li>
+      Address: eLan Technology, Basement Floor, PTG IT Park, Plot No. 21, IT Park Rd,
+      Gayatri Nagar, Nagpur, Maharashtra 440022, India
+    </li>
+  </ul>
+</LegalLayout>

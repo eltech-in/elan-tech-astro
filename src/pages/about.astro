@@ -1,4 +1,231 @@
 ---
-// TODO: Implement about
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { organizationSchema, breadcrumbSchema } from '../utils/schema';
+
+const schema = [
+  organizationSchema(),
+  breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'About', url: '/about' },
+  ]),
+];
 ---
-<p>Placeholder: about</p>
+
+<BaseLayout
+  title="About eLan Technology — Web Design Agency Since 2002"
+  description="Learn about eLan Technology — a full-service web design and digital marketing agency founded in Nagpur in 2002. 24+ years, 500+ clients, 1200+ projects, 25+ countries."
+  schema={schema}
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-[var(--bg)] py-20 sm:py-28">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-4">Our Story</p>
+      <h1 class="font-heading text-4xl font-bold text-[var(--text)] sm:text-5xl lg:text-6xl leading-tight">
+        About eLan Technology
+      </h1>
+      <p class="mt-6 max-w-3xl mx-auto text-lg text-[var(--text-dim)] leading-relaxed">
+        Since 2002, we have been designing, developing, and growing digital experiences for businesses across India and around the world. From a small studio in Nagpur to a globally trusted web agency — our mission has always been the same: build technology that works for people.
+      </p>
+    </div>
+  </section>
+
+  <!-- Stats strip -->
+  <section class="bg-[var(--bg-card)] border-y border-[var(--border)] py-12" aria-label="Company statistics">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <dl class="grid grid-cols-2 gap-8 sm:grid-cols-4 text-center">
+        <div>
+          <dt class="text-sm font-medium text-[var(--text-muted)] uppercase tracking-wide">Experience</dt>
+          <dd class="mt-2 text-4xl font-bold text-[var(--accent)]">24+</dd>
+          <dd class="mt-1 text-sm text-[var(--text-dim)]">Years</dd>
+        </div>
+        <div>
+          <dt class="text-sm font-medium text-[var(--text-muted)] uppercase tracking-wide">Happy Clients</dt>
+          <dd class="mt-2 text-4xl font-bold text-[var(--accent)]">500+</dd>
+          <dd class="mt-1 text-sm text-[var(--text-dim)]">Clients</dd>
+        </div>
+        <div>
+          <dt class="text-sm font-medium text-[var(--text-muted)] uppercase tracking-wide">Delivered</dt>
+          <dd class="mt-2 text-4xl font-bold text-[var(--accent)]">1200+</dd>
+          <dd class="mt-1 text-sm text-[var(--text-dim)]">Projects</dd>
+        </div>
+        <div>
+          <dt class="text-sm font-medium text-[var(--text-muted)] uppercase tracking-wide">Global Reach</dt>
+          <dd class="mt-2 text-4xl font-bold text-[var(--accent)]">25+</dd>
+          <dd class="mt-1 text-sm text-[var(--text-dim)]">Countries</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Our Story -->
+  <section class="py-20 sm:py-24" aria-labelledby="story-heading">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <h2 id="story-heading" class="font-heading text-3xl font-bold text-[var(--text)] sm:text-4xl mb-8">
+        Our Story
+      </h2>
+      <div class="space-y-6 text-[var(--text-dim)] leading-relaxed text-lg">
+        <p>
+          eLan Technology was founded in 2002 in Nagpur, Maharashtra — a time when having a website was still a novelty for most Indian businesses. Our founders saw an opportunity to help local businesses establish a credible online presence, and what started as a small web design studio quickly grew into something much larger.
+        </p>
+        <p>
+          Over the years, we expanded our capabilities far beyond web design. We built complex web applications, enterprise portals, eCommerce platforms, and School ERP systems. We started serving clients not just in Nagpur, but across Raipur, Mumbai, Pune, and Delhi — and then internationally, with clients in the USA, Canada, Australia, UAE, and the UK.
+        </p>
+        <p>
+          Through every phase of growth, we have held firm to one principle: <strong class="text-[var(--text)]">accessibility first</strong>. Every website we build is designed with WCAG compliance in mind, ensuring that the digital experiences we create are usable by everyone — regardless of ability, device, or connection speed.
+        </p>
+        <p>
+          Today, eLan Technology is a full-service digital agency with expertise spanning web design, development, eCommerce, digital marketing, mobile apps, and branding. We are proud to have partnered with hospitals, colleges, NGOs, manufacturing companies, resorts, media houses, and international organisations — and we bring the same dedication to every project, regardless of size.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Values -->
+  <section class="bg-[var(--bg-card)] py-20 sm:py-24" aria-labelledby="values-heading">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14">
+        <h2 id="values-heading" class="font-heading text-3xl font-bold text-[var(--text)] sm:text-4xl">
+          Our Core Values
+        </h2>
+        <p class="mt-4 text-[var(--text-dim)] max-w-2xl mx-auto">
+          These principles guide every decision we make — from how we design to how we communicate.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+        <div class="rounded-2xl bg-[var(--bg)] border border-[var(--border)] p-8">
+          <div class="w-12 h-12 rounded-xl bg-[var(--accent)]/10 flex items-center justify-center mb-5" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <h3 class="font-heading text-xl font-semibold text-[var(--text)] mb-3">Client-First Approach</h3>
+          <p class="text-[var(--text-dim)] leading-relaxed">
+            Your goals are our goals. We invest time upfront to understand your business, your audience, and your challenges before writing a single line of code. Every recommendation we make is driven by what is best for your success.
+          </p>
+        </div>
+        <div class="rounded-2xl bg-[var(--bg)] border border-[var(--border)] p-8">
+          <div class="w-12 h-12 rounded-xl bg-[var(--accent)]/10 flex items-center justify-center mb-5" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <h3 class="font-heading text-xl font-semibold text-[var(--text)] mb-3">Accessibility by Default</h3>
+          <p class="text-[var(--text-dim)] leading-relaxed">
+            We build WCAG-compliant websites as a matter of course — not as an add-on. Accessible design is better design. It improves usability for everyone, reduces legal risk, and ensures your digital presence is inclusive.
+          </p>
+        </div>
+        <div class="rounded-2xl bg-[var(--bg)] border border-[var(--border)] p-8">
+          <div class="w-12 h-12 rounded-xl bg-[var(--accent)]/10 flex items-center justify-center mb-5" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          </div>
+          <h3 class="font-heading text-xl font-semibold text-[var(--text)] mb-3">Innovation-Driven</h3>
+          <p class="text-[var(--text-dim)] leading-relaxed">
+            We stay at the cutting edge of web technology — from performance-first frameworks like Astro and Next.js to AI-assisted tooling — so your website is built for the web of today and tomorrow, not the web of five years ago.
+          </p>
+        </div>
+        <div class="rounded-2xl bg-[var(--bg)] border border-[var(--border)] p-8">
+          <div class="w-12 h-12 rounded-xl bg-[var(--accent)]/10 flex items-center justify-center mb-5" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3 class="font-heading text-xl font-semibold text-[var(--text)] mb-3">Long-Term Partnership</h3>
+          <p class="text-[var(--text-dim)] leading-relaxed">
+            We are not a one-and-done agency. Our relationships with clients often span years — we grow with you, evolve your digital presence, and stay available as a trusted technology partner long after your launch day.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team section -->
+  <section class="py-20 sm:py-24" aria-labelledby="team-heading">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14">
+        <h2 id="team-heading" class="font-heading text-3xl font-bold text-[var(--text)] sm:text-4xl">
+          Meet the Team
+        </h2>
+        <p class="mt-4 text-[var(--text-dim)] max-w-2xl mx-auto">
+          The people behind eLan Technology bring together expertise in design, development, marketing, and strategy.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl mx-auto">
+        <div class="rounded-2xl bg-[var(--bg-card)] border border-[var(--border)] p-8 text-center">
+          <div class="w-20 h-20 rounded-full bg-[var(--accent)]/20 flex items-center justify-center mx-auto mb-5" aria-hidden="true">
+            <span class="text-2xl font-bold text-[var(--accent)]">NA</span>
+          </div>
+          <h3 class="font-heading text-xl font-semibold text-[var(--text)]">Nishee Aaru</h3>
+          <p class="text-[var(--accent)] text-sm font-medium mt-1">Director</p>
+          <p class="mt-4 text-[var(--text-dim)] text-sm leading-relaxed">
+            Founder and Director of eLan Technology, with 24+ years of experience driving digital strategy and client success for businesses globally.
+          </p>
+        </div>
+        <div class="rounded-2xl bg-[var(--bg-card)] border border-[var(--border)] p-8 text-center">
+          <div class="w-20 h-20 rounded-full bg-[var(--border)] flex items-center justify-center mx-auto mb-5" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <h3 class="font-heading text-xl font-semibold text-[var(--text)]">Lead Developer</h3>
+          <p class="text-[var(--accent)] text-sm font-medium mt-1">Technical Lead</p>
+          <p class="mt-4 text-[var(--text-dim)] text-sm leading-relaxed">
+            Full bio coming soon. Our technical team leads projects across React, Next.js, MERN, and WordPress platforms with a focus on performance and security.
+          </p>
+        </div>
+      </div>
+      <p class="text-center text-[var(--text-muted)] text-sm mt-8">Full team bios will be added soon.</p>
+    </div>
+  </section>
+
+  <!-- Why Us -->
+  <section class="bg-[var(--bg-card)] py-20 sm:py-24" aria-labelledby="why-us-heading">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14">
+        <h2 id="why-us-heading" class="font-heading text-3xl font-bold text-[var(--text)] sm:text-4xl">
+          Why Businesses Choose eLan
+        </h2>
+        <p class="mt-4 text-[var(--text-dim)] max-w-2xl mx-auto">
+          Not all web agencies are created equal. Here is what sets eLan apart.
+        </p>
+      </div>
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-6" role="list">
+        {[
+          { title: 'Dedicated project teams', desc: 'You work with a consistent team who knows your project — not a rotating roster of freelancers.' },
+          { title: 'Accessibility built-in', desc: 'WCAG AA compliance is standard, not an upsell. Every site passes accessibility audits before handover.' },
+          { title: 'Transparent pricing', desc: 'Fixed-price projects with milestone-based billing. No hidden costs, no surprise invoices.' },
+          { title: 'Performance-first development', desc: 'We target sub-2s load times and strong Core Web Vitals scores as baseline requirements.' },
+          { title: 'Long-term support', desc: 'All packages include post-launch support. We also offer ongoing maintenance plans to keep your site healthy.' },
+          { title: 'Real results, documented', desc: 'Our case studies show measurable outcomes — not vague claims. 200% more inquiries. 65% revenue from direct bookings.' },
+        ].map(({ title, desc }) => (
+          <li class="flex gap-4 rounded-2xl bg-[var(--bg)] border border-[var(--border)] p-6">
+            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--accent)]/20 flex items-center justify-center mt-0.5" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <div>
+              <p class="font-semibold text-[var(--text)]">{title}</p>
+              <p class="mt-1 text-sm text-[var(--text-dim)]">{desc}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 sm:py-24 text-center" aria-labelledby="about-cta-heading">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <h2 id="about-cta-heading" class="font-heading text-3xl font-bold text-[var(--text)] sm:text-4xl">
+        Ready to work with us?
+      </h2>
+      <p class="mt-4 text-lg text-[var(--text-dim)]">
+        Let us bring our 24 years of experience to your next project.
+      </p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/get-quote"
+          class="inline-flex items-center justify-center rounded-xl bg-[var(--accent)] px-8 py-4 text-base font-semibold text-[var(--bg)] hover:opacity-90 transition-opacity"
+        >
+          Start Your Project
+        </a>
+        <a
+          href="/portfolio"
+          class="inline-flex items-center justify-center rounded-xl border border-[var(--border)] px-8 py-4 text-base font-semibold text-[var(--text)] hover:bg-[var(--bg-card)] transition-colors"
+        >
+          See Our Work
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

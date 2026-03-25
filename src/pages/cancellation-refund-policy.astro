@@ -1,4 +1,108 @@
 ---
-// TODO: Implement cancellation-refund-policy
+import LegalLayout from '../layouts/LegalLayout.astro';
+import SchemaMarkup from '../components/SchemaMarkup.astro';
+import { webPageSchema, breadcrumbSchema } from '../utils/schema';
+
+const schema = [
+  webPageSchema('Cancellation and Refund Policy', 'eLan Technology cancellation and refund policy for web design and digital services.', '/cancellation-refund-policy'),
+  breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Cancellation and Refund Policy', url: '/cancellation-refund-policy' }]),
+];
 ---
-<p>Placeholder: cancellation-refund-policy</p>
+<LegalLayout
+  title="Cancellation and Refund Policy"
+  description="eLan Technology cancellation and refund policy for web design and digital services."
+  lastUpdated="2025-01-01"
+>
+  <SchemaMarkup schema={schema} />
+
+  <h2>Overview</h2>
+  <p>
+    eLan Technology aims for complete client satisfaction on every project. This policy outlines the
+    conditions under which cancellations are accepted and refunds may be issued for each of our
+    service categories. We encourage clients to contact us to discuss any concerns before initiating
+    a cancellation.
+  </p>
+
+  <h2>Web Design &amp; Development Projects</h2>
+  <ul>
+    <li>
+      The 50% advance payment is <strong>non-refundable</strong> once design or development work has
+      commenced, as it covers the time and resources allocated to your project.
+    </li>
+    <li>
+      If eLan Technology fails to deliver the agreed project scope within the agreed timeline through
+      no fault of the client, a pro-rata refund of the advance may be considered and issued at our
+      discretion.
+    </li>
+    <li>
+      No refund will be issued after final delivery and the client has provided written sign-off or
+      approval.
+    </li>
+    <li>
+      If a project is cancelled by the client <em>before commencement</em> (i.e., before any design
+      or development work has begun), a full refund of the advance will be issued minus a 10%
+      administrative processing charge.
+    </li>
+  </ul>
+
+  <h2>Digital Marketing &amp; SEO Services</h2>
+  <ul>
+    <li>
+      Monthly retainer fees are <strong>non-refundable</strong> once work for that month has
+      commenced (including strategy, content creation, campaign setup, or reporting).
+    </li>
+    <li>
+      Cancellation of a digital marketing retainer requires <strong>30 days written notice</strong>
+      prior to the next billing cycle.
+    </li>
+    <li>
+      Advertising spend (Google Ads, Meta Ads, or other paid social media platforms) is passed
+      directly to those platforms and is <strong>non-refundable</strong> under any circumstances.
+    </li>
+  </ul>
+
+  <h2>Maintenance Plans</h2>
+  <ul>
+    <li>
+      <strong>Monthly plans:</strong> may be cancelled at any time with 30 days written notice. No
+      partial-month refunds are issued.
+    </li>
+    <li>
+      <strong>Annual plans:</strong> a pro-rata refund for unused complete months will be issued if
+      the plan is cancelled after the first 3 months of service. No refund is available for
+      cancellations within the first 3 months.
+    </li>
+  </ul>
+
+  <h2>Products (Portals &amp; Custom Software)</h2>
+  <ul>
+    <li>
+      The 50% advance payment for custom product or software development is
+      <strong>non-refundable</strong> once development work has commenced.
+    </li>
+    <li>
+      All custom software deliverables include a <strong>90-day bug-fix warranty</strong> period. This
+      warranty covers defects in the delivered software and does not constitute grounds for a refund.
+    </li>
+  </ul>
+
+  <h2>Refund Process</h2>
+  <p>
+    Where a refund is approved under this policy, it will be processed within
+    <strong>7 to 14 business days</strong> via the original payment method used at the time of
+    purchase. Refunds cannot be issued to a different account or payment method.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    To initiate a cancellation or enquire about a refund, please contact our billing team:
+  </p>
+  <ul>
+    <li>Email: <a href="mailto:billing@elan-tech.net">billing@elan-tech.net</a></li>
+    <li>WhatsApp: <a href="https://wa.me/918788834630">+91 8788834630</a></li>
+    <li>
+      Address: eLan Technology, Basement Floor, PTG IT Park, Plot No. 21, IT Park Rd,
+      Gayatri Nagar, Nagpur, Maharashtra 440022, India
+    </li>
+  </ul>
+</LegalLayout>

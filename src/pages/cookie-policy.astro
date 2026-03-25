@@ -1,4 +1,112 @@
 ---
-// TODO: Implement cookie-policy
+import LegalLayout from '../layouts/LegalLayout.astro';
+import SchemaMarkup from '../components/SchemaMarkup.astro';
+import { webPageSchema, breadcrumbSchema } from '../utils/schema';
+
+const schema = [
+  webPageSchema('Cookie Policy', 'eLan Technology cookie policy — types of cookies we use and how to manage them.', '/cookie-policy'),
+  breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Cookie Policy', url: '/cookie-policy' }]),
+];
 ---
-<p>Placeholder: cookie-policy</p>
+<LegalLayout
+  title="Cookie Policy"
+  description="eLan Technology cookie policy — types of cookies we use and how to manage them."
+  lastUpdated="2025-01-01"
+>
+  <SchemaMarkup schema={schema} />
+
+  <h2>What Are Cookies</h2>
+  <p>
+    Cookies are small text files that are placed on your device (computer, smartphone, or tablet)
+    when you visit a website. They are widely used to make websites work efficiently and to provide
+    information to the site owner. Cookies help us recognise your device on return visits and
+    remember your preferences to improve your browsing experience.
+  </p>
+
+  <h2>Types of Cookies We Use</h2>
+  <p>We use the following categories of cookies on <a href="https://elan-tech.net">elan-tech.net</a>:</p>
+
+  <div class="overflow-x-auto my-6">
+    <table class="min-w-full border border-[var(--border)] text-sm">
+      <thead class="bg-[var(--bg-card)]">
+        <tr>
+          <th class="border border-[var(--border)] px-4 py-2 text-left font-semibold">Cookie Type</th>
+          <th class="border border-[var(--border)] px-4 py-2 text-left font-semibold">Purpose</th>
+          <th class="border border-[var(--border)] px-4 py-2 text-left font-semibold">Duration</th>
+          <th class="border border-[var(--border)] px-4 py-2 text-left font-semibold">Required?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="border border-[var(--border)] px-4 py-2 font-medium">Essential</td>
+          <td class="border border-[var(--border)] px-4 py-2">Site functionality, security, and form submissions</td>
+          <td class="border border-[var(--border)] px-4 py-2">Session</td>
+          <td class="border border-[var(--border)] px-4 py-2">Yes</td>
+        </tr>
+        <tr>
+          <td class="border border-[var(--border)] px-4 py-2 font-medium">Analytics</td>
+          <td class="border border-[var(--border)] px-4 py-2">Page views and traffic source analysis (Google Analytics)</td>
+          <td class="border border-[var(--border)] px-4 py-2">2 years</td>
+          <td class="border border-[var(--border)] px-4 py-2">Optional</td>
+        </tr>
+        <tr>
+          <td class="border border-[var(--border)] px-4 py-2 font-medium">Preferences</td>
+          <td class="border border-[var(--border)] px-4 py-2">Theme choice (dark/light mode) and display preferences</td>
+          <td class="border border-[var(--border)] px-4 py-2">1 year</td>
+          <td class="border border-[var(--border)] px-4 py-2">Optional</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Third-Party Cookies</h2>
+  <p>Some pages on our website include content from third-party services that may set their own cookies:</p>
+  <ul>
+    <li>
+      <strong>Google Analytics:</strong> used to analyse website traffic with IP addresses anonymised.
+      Governed by the <a href="https://policies.google.com/privacy" rel="noopener noreferrer" target="_blank">Google Privacy Policy</a>.
+    </li>
+    <li>
+      <strong>Calendly:</strong> embedded scheduling widget on our consultation pages. Calendly may
+      set cookies when you interact with the booking embed.
+    </li>
+  </ul>
+  <p>We do not control third-party cookies. Please review each provider's privacy policy for details.</p>
+
+  <h2>Managing Cookies</h2>
+  <p>You have several options for managing cookies:</p>
+  <ul>
+    <li>
+      <strong>Browser settings:</strong> most browsers allow you to block or delete cookies via
+      Settings &gt; Privacy. Note that blocking essential cookies may affect site functionality.
+    </li>
+    <li>
+      <strong>Cookie consent banner:</strong> when you first visit our website, our cookie consent
+      banner allows you to accept or decline optional (analytics and preference) cookies.
+    </li>
+    <li>
+      <strong>Opt-out of analytics:</strong> you may install the
+      <a href="https://tools.google.com/dlpage/gaoptout" rel="noopener noreferrer" target="_blank">Google Analytics Opt-out Browser Add-on</a>
+      to prevent your data from being collected by Google Analytics.
+    </li>
+  </ul>
+  <p>Opting out of optional cookies does not affect your ability to use the core features of our website.</p>
+
+  <h2>Do Not Track</h2>
+  <p>
+    We honour browser Do Not Track (DNT) signals. If your browser sends a DNT signal, we will
+    not activate analytics cookies for your session.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    If you have questions about our use of cookies, please contact us at:
+  </p>
+  <ul>
+    <li>Email: <a href="mailto:info@elan-tech.net">info@elan-tech.net</a></li>
+    <li>
+      Address: eLan Technology, Basement Floor, PTG IT Park, Plot No. 21, IT Park Rd,
+      Gayatri Nagar, Nagpur, Maharashtra 440022, India
+    </li>
+  </ul>
+</LegalLayout>

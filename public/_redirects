@@ -1,14 +1,100 @@
-# Cloudflare Pages redirects
-# Old WordPress URLs
-/wp-admin/*  /  301
-/wp-login.php  /  301
-/wp-content/*  /  301
+# Cloudflare Pages — 301 Redirects
+# Format: /old-path  /new-path  301
+# Place more-specific rules before wildcards
 
-# Legacy route redirects
-/about-elantech  /about  301
-/services/  /services  301
-/contact/  /contact  301
-/services/web-design  /services/website-design  301
-/services/seo  /services/digital-marketing  301
-/services/social-media  /services/digital-marketing  301
-/services/mobile-app  /services/mobile-app-development  301
+# ─── WordPress & Common Attack Paths ────────────────────────────────────────
+/wp-admin/*           /  301
+/wp-admin             /  301
+/wp-login.php         /  301
+/wp-content/*         /  301
+/wp-includes/*        /  301
+/xmlrpc.php           /  301
+/wp-json/*            /  301
+/.env                 /  301
+/.git/*               /  301
+
+# ─── Legacy eLan URLs (old site structure) ───────────────────────────────────
+/about-elantech                     /about                              301
+/about-us                           /about                              301
+/who-we-are                         /about                              301
+/our-team                           /about                              301
+
+# Services — old slugs → new slugs
+/services/web-design                /services/website-design            301
+/services/website-design-services   /services/website-design            301
+/services/web-designing             /services/website-design            301
+/services/seo                       /services/digital-marketing         301
+/services/seo-services              /services/digital-marketing         301
+/services/search-engine-optimization /services/digital-marketing        301
+/services/social-media              /services/digital-marketing         301
+/services/social-media-marketing    /services/digital-marketing         301
+/services/ppc                       /services/digital-marketing         301
+/services/mobile-app                /services/mobile-app-development    301
+/services/app-development           /services/mobile-app-development    301
+/services/android-app               /services/mobile-app-development    301
+/services/ios-app                   /services/mobile-app-development    301
+/services/logo-design               /services/branding                  301
+/services/graphic-design            /services/branding                  301
+/services/website-maintenance       /services/maintenance-security      301
+/services/security                  /services/maintenance-security      301
+
+# Trailing slash normalisation
+/services/                          /services                           301
+/about/                             /about                              301
+/contact/                           /contact                            301
+/blog/                              /blog                               301
+/portfolio/                         /portfolio                          301
+/pricing/                           /pricing                            301
+/faq/                               /faq                                301
+/careers/                           /careers                            301
+/testimonials/                      /testimonials                       301
+/products/                          /products                           301
+/get-quote/                         /get-quote                          301
+/free-website-audit/                /free-website-audit                 301
+/schedule-consultation/             /schedule-consultation              301
+/request-demo/                      /request-demo                       301
+
+# ─── Old Blog URLs ────────────────────────────────────────────────────────────
+/blog/web-design/*                  /blog/:splat                        301
+/news/*                             /blog/:splat                        301
+/articles/*                         /blog/:splat                        301
+
+# ─── Old Location Pages ───────────────────────────────────────────────────────
+/web-design-nagpur                  /web-design-company-nagpur          301
+/website-design-nagpur              /web-design-company-nagpur          301
+/web-design-company-in-nagpur       /web-design-company-nagpur          301
+/website-development-nagpur         /web-design-company-nagpur          301
+/website-development-services-nagpur /web-design-company-nagpur         301
+/web-design-raipur                  /web-design-company-raipur          301
+/website-design-raipur              /web-design-company-raipur          301
+/web-design-company-in-raipur       /web-design-company-raipur          301
+
+# ─── Old Policy Pages ─────────────────────────────────────────────────────────
+/privacy                            /privacy-policy                     301
+/terms                              /terms-conditions                   301
+/terms-and-conditions               /terms-conditions                   301
+/refund-policy                      /cancellation-refund-policy         301
+/cancellation-policy                /cancellation-refund-policy         301
+/nda                                /nda-confidentiality-policy         301
+/accessibility                      /accessibility-statement            301
+
+# ─── Old Product/Portfolio Pages ─────────────────────────────────────────────
+/portfolio/real-estate              /portfolio                          301
+/our-work                           /portfolio                          301
+/case-studies                       /portfolio                          301
+/work                               /portfolio                          301
+
+# ─── Old CTA Destination Pages ────────────────────────────────────────────────
+/free-audit                         /free-website-audit                 301
+/website-audit                      /free-website-audit                 301
+/get-a-quote                        /get-quote                          301
+/request-quote                      /get-quote                          301
+/quote                              /get-quote                          301
+/demo                               /request-demo                       301
+/book-demo                          /request-demo                       301
+/book-call                          /schedule-consultation              301
+/schedule-call                      /schedule-consultation              301
+/consultation                       /schedule-consultation              301
+/thankyou                           /thank-you                          301
+/thank_you                          /thank-you                          301
+/success                            /thank-you                          301

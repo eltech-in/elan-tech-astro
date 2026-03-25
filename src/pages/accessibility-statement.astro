@@ -1,4 +1,199 @@
 ---
-// TODO: Implement accessibility-statement
+import LegalLayout from '../layouts/LegalLayout.astro';
+import SchemaMarkup from '../components/SchemaMarkup.astro';
+import { webPageSchema, breadcrumbSchema } from '../utils/schema';
+
+const schema = [
+  webPageSchema('Accessibility Statement', 'eLan Technology accessibility statement — our WCAG 2.1 AA, ADA, and Section 508 compliance commitment.', '/accessibility-statement'),
+  breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Accessibility Statement', url: '/accessibility-statement' }]),
+];
 ---
-<p>Placeholder: accessibility-statement</p>
+<LegalLayout
+  title="Accessibility Statement"
+  description="eLan Technology accessibility statement — our WCAG 2.1 AA, ADA, and Section 508 compliance commitment."
+  lastUpdated="2025-01-01"
+>
+  <SchemaMarkup schema={schema} />
+
+  <h2>Our Commitment</h2>
+  <p>
+    eLan Technology is committed to ensuring digital accessibility for people with disabilities. We
+    believe that everyone deserves equal access to information and services online, regardless of
+    ability. We continually review and improve the user experience for all visitors, and we apply
+    relevant accessibility standards across our website and client projects.
+  </p>
+
+  <h2>Conformance Status</h2>
+  <p>We aim to conform to the following accessibility standards:</p>
+  <ul>
+    <li>
+      <strong>WCAG 2.1 Level AA</strong> — Web Content Accessibility Guidelines 2.1 published by the
+      World Wide Web Consortium (W3C). Our goal is full conformance with all Level A and Level AA
+      success criteria.
+    </li>
+    <li>
+      <strong>ADA (Americans with Disabilities Act)</strong> — Our website follows ADA web
+      accessibility guidelines to ensure equitable access for users in the United States.
+    </li>
+    <li>
+      <strong>Section 508 of the Rehabilitation Act of 1973</strong> — We apply Section 508
+      standards to support users who rely on assistive technologies.
+    </li>
+  </ul>
+
+  <h2>Technical Specifications</h2>
+  <p>
+    Our website relies on the following technologies to deliver accessible content and ensure
+    conformance with the standards listed above:
+  </p>
+  <ul>
+    <li>HTML5</li>
+    <li>CSS3 / Tailwind CSS v4</li>
+    <li>JavaScript (Astro Islands architecture — minimal and purposeful)</li>
+    <li>WAI-ARIA (Web Accessibility Initiative — Accessible Rich Internet Applications)</li>
+  </ul>
+
+  <h2>Measures Taken</h2>
+  <p>
+    eLan Technology has implemented the following specific accessibility measures on this website:
+  </p>
+  <ul>
+    <li>
+      <strong>Semantic HTML5 landmarks:</strong> we use <code>&lt;header&gt;</code>,
+      <code>&lt;main&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;footer&gt;</code>, and other
+      landmark elements to define page regions clearly for screen reader users.
+    </li>
+    <li>
+      <strong>Skip navigation link:</strong> a "Skip to main content" link is the first focusable
+      element on every page, allowing keyboard users to bypass the navigation menu.
+    </li>
+    <li>
+      <strong>Descriptive alt text:</strong> all meaningful images include descriptive
+      <code>alt</code> attributes. Decorative images use <code>alt=""</code> to be ignored by
+      screen readers.
+    </li>
+    <li>
+      <strong>Colour contrast:</strong> we maintain a minimum contrast ratio of 4.5:1 for normal
+      text and 3:1 for large text, meeting WCAG 2.1 AA requirements.
+    </li>
+    <li>
+      <strong>Full keyboard navigation:</strong> all interactive elements (links, buttons, forms,
+      modals) are fully operable using only a keyboard — no mouse is required.
+    </li>
+    <li>
+      <strong>Visible focus indicators:</strong> all interactive elements display a clearly visible
+      focus ring or outline when focused via keyboard navigation.
+    </li>
+    <li>
+      <strong>Labelled form fields:</strong> every form input has a programmatically associated
+      <code>&lt;label&gt;</code>. We do not rely on placeholder text alone as a substitute for labels.
+    </li>
+    <li>
+      <strong>Accessible error messages:</strong> form validation errors are linked to specific fields
+      using <code>aria-describedby</code>, so assistive technologies can identify the relevant field.
+    </li>
+    <li>
+      <strong>Responsive and zoomable:</strong> our layout is fully responsive and content remains
+      readable at up to 400% zoom without horizontal scrolling, in compliance with WCAG 1.4.10
+      (Reflow).
+    </li>
+    <li>
+      <strong>No seizure-inducing content:</strong> no content on our website flashes more than 3
+      times per second, meeting the WCAG guideline for photosensitive seizure prevention.
+    </li>
+    <li>
+      <strong>Reduced motion support:</strong> we respect the <code>prefers-reduced-motion</code>
+      CSS media query. Animations and transitions are disabled or minimised for users who have
+      indicated a preference for reduced motion.
+    </li>
+    <li>
+      <strong>Logical reading order:</strong> the visual reading order of content matches the
+      underlying DOM order, ensuring screen readers present content in a logical sequence without
+      relying on CSS positioning.
+    </li>
+    <li>
+      <strong>Page language declared:</strong> the <code>lang="en"</code> attribute is set on the
+      <code>&lt;html&gt;</code> element of every page to enable correct pronunciation by screen
+      readers.
+    </li>
+    <li>
+      <strong>Descriptive link text:</strong> all links use meaningful, context-aware text. We avoid
+      ambiguous phrases such as "click here" or "read more" as standalone link text.
+    </li>
+  </ul>
+
+  <h2>Known Limitations</h2>
+  <p>
+    We are committed to continuous improvement. The following known limitations are being addressed:
+  </p>
+  <ul>
+    <li>
+      <strong>Legacy PDF documents:</strong> some older PDF files on this website may not be fully
+      accessible to screen reader users. If you require an accessible version of any document, please
+      contact us and we will provide an alternative format.
+    </li>
+    <li>
+      <strong>Third-party embeds:</strong> embedded tools such as Calendly (scheduling) and Google
+      Maps are provided by third parties and are beyond our direct control. We encourage users
+      requiring accessible alternatives to contact us directly.
+    </li>
+  </ul>
+
+  <h2>Feedback and Contact</h2>
+  <p>
+    We actively welcome feedback on the accessibility of our website. If you encounter any barriers,
+    have difficulty accessing content, or would like to report an accessibility issue, please get in
+    touch:
+  </p>
+  <ul>
+    <li>
+      Email: <a href="mailto:accessibility@elan-tech.net">accessibility@elan-tech.net</a>
+    </li>
+    <li>
+      WhatsApp: <a href="https://wa.me/918788834630">+91 8788834630</a>
+    </li>
+    <li>
+      Address: eLan Technology, Basement Floor, PTG IT Park, Plot No. 21, IT Park Rd,
+      Gayatri Nagar, Nagpur, Maharashtra 440022, India
+    </li>
+  </ul>
+  <p>We aim to respond to all accessibility enquiries within <strong>2 business days</strong>.</p>
+
+  <h2>Formal Complaints</h2>
+  <p>
+    If you have raised an accessibility concern with us and are not satisfied with the response or
+    the resolution timeline, you are entitled to contact the relevant regulatory authority or
+    disability rights body in your jurisdiction.
+  </p>
+
+  <h2>Assessment Approach</h2>
+  <p>
+    eLan Technology self-assesses the accessibility of this website using the following tools and
+    methods:
+  </p>
+  <ul>
+    <li>
+      <strong>axe DevTools</strong> browser extension — automated accessibility scanning integrated
+      into our development workflow.
+    </li>
+    <li>
+      <strong>Google Lighthouse</strong> accessibility audits — run against all key pages during
+      development and before deployment.
+    </li>
+    <li>
+      <strong>Manual keyboard testing</strong> — all pages and interactive components are tested
+      using keyboard-only navigation to verify tab order, focus management, and operability.
+    </li>
+    <li>
+      <strong>Screen reader testing</strong> — we test with NVDA on Windows and VoiceOver on macOS
+      to verify that content is correctly announced and navigable for screen reader users.
+    </li>
+  </ul>
+
+  <h2>Statement Date</h2>
+  <p>
+    This Accessibility Statement was last reviewed and updated on <strong>1 January 2025</strong>.
+    We review this statement at least annually and whenever significant changes are made to the
+    website.
+  </p>
+</LegalLayout>

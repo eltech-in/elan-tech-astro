@@ -1,4 +1,45 @@
 ---
-// TODO: Implement web-design-company-hyderabad
+// TODO: Full city page content (Step 8 expansion)
+import CityLayout from '../layouts/CityLayout.astro';
+import { localBusinessSchema, breadcrumbSchema } from '../utils/schema';
+
+const schema = [
+  localBusinessSchema('Hyderabad', {
+    url: 'https://elan-tech.net/web-design-company-hyderabad',
+    description: 'Professional web design & digital marketing for Hyderabad businesses. Custom websites, SEO, and eCommerce. WCAG compliant.',
+    geo: { latitude: 17.3850, longitude: 78.4867 },
+  }),
+  breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Services', url: '/services' },
+    { name: 'Web Design Company Hyderabad', url: '/web-design-company-hyderabad' },
+  ]),
+];
 ---
-<p>Placeholder: web-design-company-hyderabad</p>
+
+<CityLayout
+  title="Web Design Company in Hyderabad — eLan Technology"
+  description="Professional web design & digital marketing for Hyderabad businesses. Custom websites, SEO, and eCommerce. WCAG compliant. Get a free website audit."
+  city="Hyderabad"
+  state="Telangana"
+  heroHeading="Web Design Company in Hyderabad"
+  heroSubtext="Custom websites, SEO & digital marketing for Hyderabad and Telangana businesses. Trusted since 2002."
+  schema={schema}
+>
+
+  <section class="py-16 text-center px-4">
+    <div class="mx-auto max-w-2xl">
+      <h2 class="font-heading text-2xl font-bold text-[var(--text)] mb-4">
+        Web Design Services in Hyderabad — Coming Soon
+      </h2>
+      <p class="text-[var(--text-dim)] mb-6">
+        We are expanding our local presence to Hyderabad. In the meantime, we serve Hyderabad businesses
+        remotely with the same quality and dedication as our Nagpur clients.
+      </p>
+      <a href="/contact" class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity">
+        Contact Us Today
+      </a>
+    </div>
+  </section>
+
+</CityLayout>

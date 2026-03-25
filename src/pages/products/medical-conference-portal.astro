@@ -1,4 +1,187 @@
 ---
-// TODO: Implement medical-conference-portal
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { softwareAppSchema, breadcrumbSchema } from '../../utils/schema';
+
+const schema = [
+  softwareAppSchema({
+    name: 'Medical Conference Portal',
+    description: 'Event registration, abstract submission, speaker management, and certificate generation. Handles 500–5000+ delegates per event.',
+    url: '/products/medical-conference-portal',
+    applicationCategory: 'HealthApplication',
+  }),
+  breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Products', url: '/products' },
+    { name: 'Medical Conference Portal', url: '/products/medical-conference-portal' },
+  ]),
+];
+
+const features = [
+  { title: 'Multi-tier Registration', desc: 'Separate registration tracks for Delegates, PG Students, and AC Members with tier-specific pricing and access.' },
+  { title: 'Abstract Submission', desc: 'Online abstract submission portal for speakers with review workflow, acceptance notifications, and scheduling.' },
+  { title: 'Scientific Program', desc: 'Publish full conference schedule with session tracks, speaker bios, and downloadable programme books.' },
+  { title: 'Faculty & Committee Grids', desc: 'Showcase faculty profiles, committee members, and organising body with photos and designations.' },
+  { title: 'Certificate Generation', desc: 'Automated certificate generation and delivery for delegates, speakers, and CME credits.' },
+  { title: 'Sponsor Management', desc: 'Manage platinum, gold, and silver sponsors with branding placement on all digital and print assets.' },
+  { title: 'Live Countdown Timer', desc: 'Prominent countdown timer on the homepage to drive early registrations and maintain event urgency.' },
+  { title: 'Payment Gateway', desc: 'Integrated payment processing for registration fees with instant confirmation and invoice generation.' },
+];
+
+const audience = [
+  { title: 'Medical Colleges', desc: 'Organise annual conferences, CMEs, and symposia with professional-grade event management tools.' },
+  { title: 'IMA Chapters', desc: 'Run state and national conferences with multi-chapter coordination and delegate management.' },
+  { title: 'CME Organisers', desc: 'Manage Continuing Medical Education events, track attendance, and issue credit certificates.' },
+  { title: 'Pharmaceutical Companies', desc: 'Handle sponsor branding, satellite symposia, and exhibitor booth management from one dashboard.' },
+];
+
+const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'AWS S3', 'Razorpay', 'NodeMailer', 'Tailwind CSS', 'TypeScript'];
 ---
-<p>Placeholder: medical-conference-portal</p>
+
+<BaseLayout
+  title="Medical Conference Portal & Event Management — eLan Technology"
+  description="Purpose-built medical conference portal for event registration, abstract submission, certificate generation, and sponsor management. Handles 500–5000+ delegates."
+  schema={schema}
+>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="mcp-hero-heading" class="relative overflow-hidden bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-24 md:py-36">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+      <div class="absolute -top-40 -left-40 h-[600px] w-[600px] rounded-full bg-[#6366F1]/8 blur-[120px]"></div>
+      <div class="absolute -bottom-40 -right-20 h-[500px] w-[500px] rounded-full bg-[#6366F1]/5 blur-[100px]"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+      <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-[#6366F1]/30 bg-[#6366F1]/10 px-4 py-2 text-sm font-medium text-[#6366F1]">
+        Healthcare Event Software
+      </div>
+
+      <h1
+        id="mcp-hero-heading"
+        class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-[var(--text)] mb-6"
+      >
+        Medical Conference Portal
+      </h1>
+
+      <p class="mx-auto mb-4 max-w-2xl text-lg text-[#6366F1] font-medium">
+        Event Registration &amp; Speaker Management System
+      </p>
+
+      <p class="mx-auto mb-10 max-w-3xl text-lg text-[var(--text-dim)] leading-relaxed">
+        A comprehensive digital platform for national and state-level medical conferences. Handles everything from delegate registration to abstract review, certificate generation, and sponsor management.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a
+          href="/request-demo"
+          class="inline-flex items-center gap-2 rounded-full bg-[#6366F1] px-8 py-4 text-base font-semibold text-white shadow-lg shadow-[#6366F1]/25 transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#6366F1]"
+        >
+          Request Demo
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a
+          href="/get-quote"
+          class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-transparent px-8 py-4 text-base font-semibold text-[var(--text)] transition-all duration-300 hover:border-[#6366F1] hover:text-[#6366F1] hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#6366F1]"
+        >
+          Get Quote
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       FEATURES GRID
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="mcp-features-heading" class="bg-[var(--bg)] py-16 md:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <p class="text-center text-sm font-semibold uppercase tracking-widest text-[#6366F1] mb-3">Key Features</p>
+      <h2 id="mcp-features-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] text-center mb-4">
+        Everything a Medical Conference Needs
+      </h2>
+      <p class="text-center text-[var(--text-dim)] mb-12 max-w-2xl mx-auto">
+        Built for the complexity of academic medical events — from 500 to 5,000+ attendees.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {features.map((f) => (
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+            <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#6366F1]/10">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3 class="font-semibold text-[var(--text)] mb-2">{f.title}</h3>
+            <p class="text-sm text-[var(--text-dim)] leading-relaxed">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       WHO IT'S FOR
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="mcp-audience-heading" class="bg-[var(--bg-card)] py-16 md:py-20 border-y border-[var(--border)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <p class="text-center text-sm font-semibold uppercase tracking-widest text-[#6366F1] mb-3">Who It's For</p>
+      <h2 id="mcp-audience-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] text-center mb-12">
+        Designed for the Medical Community
+      </h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {audience.map((a) => (
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 text-center">
+            <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#6366F1]/10">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <h3 class="font-semibold text-[var(--text)] mb-2">{a.title}</h3>
+            <p class="text-sm text-[var(--text-dim)] leading-relaxed">{a.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       TECHNOLOGY STACK
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="mcp-tech-heading" class="bg-[var(--bg)] py-16 md:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-sm font-semibold uppercase tracking-widest text-[#6366F1] mb-3">Technology Stack</p>
+      <h2 id="mcp-tech-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-8">
+        Built With Modern Technology
+      </h2>
+      <div class="flex flex-wrap justify-center gap-3">
+        {techStack.map((tech) => (
+          <span class="rounded-full border border-[#6366F1]/30 bg-[#6366F1]/10 px-4 py-2 text-sm font-medium text-[#6366F1]">
+            {tech}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       REQUEST DEMO CTA
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section class="bg-[var(--bg-card)] py-16 md:py-20 border-t border-[var(--border)]">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-8 text-center">
+        <h2 class="font-heading text-2xl font-bold text-[var(--text)] mb-4">See It In Action</h2>
+        <p class="text-[var(--text-dim)] mb-6">
+          Schedule a 30-minute live demo of the Medical Conference Portal and see how it handles your event workflow.
+        </p>
+        <a
+          href="/request-demo"
+          class="inline-flex items-center gap-2 rounded-full bg-[#6366F1] px-8 py-3 text-base font-semibold text-white hover:opacity-90 transition-opacity"
+        >
+          Request Demo →
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

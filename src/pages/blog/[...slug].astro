@@ -1,7 +1,60 @@
 ---
-// TODO: Implement blog post dynamic route (Step 7)
-export function getStaticPaths() {
-  return []
+import { getCollection, render } from 'astro:content';
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import { articleSchema, breadcrumbSchema } from '../../utils/schema';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
 }
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const publishDateStr = post.data.publishDate instanceof Date
+  ? post.data.publishDate.toISOString()
+  : String(post.data.publishDate);
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Blog', url: '/blog' },
+  { name: post.data.title, url: `/blog/${post.id}` },
+];
+
+const schemas = [
+  articleSchema({
+    title: post.data.title,
+    description: post.data.description,
+    url: `/blog/${post.id}`,
+    datePublished: publishDateStr,
+    dateModified: publishDateStr,
+    authorName: post.data.author ?? 'eLan Technology Team',
+    imageUrl: post.data.featuredImage?.src,
+  }),
+  breadcrumbSchema(breadcrumbs),
+];
 ---
-<p>Placeholder: blog post</p>
+
+<BlogLayout
+  title={post.data.seo?.metaTitle ?? post.data.title}
+  description={post.data.seo?.metaDescription ?? post.data.description}
+  publishDate={publishDateStr}
+  author={post.data.author}
+  readTime={`${post.data.readTime} min read`}
+  coverImage={post.data.featuredImage?.src}
+  coverAlt={post.data.featuredImage?.alt}
+  schema={schemas}
+>
+  <Content />
+
+  <!-- Related posts CTA -->
+  <div class="mt-12 border-t border-[var(--border)] pt-8">
+    <p class="text-center text-[var(--text-dim)]">
+      Need help implementing these ideas?{' '}
+      <a href="/contact" class="text-[var(--accent)] font-medium hover:underline">Talk to our team →</a>
+    </p>
+  </div>
+</BlogLayout>

@@ -1,4 +1,187 @@
 ---
-// TODO: Implement ima-society-portal
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { softwareAppSchema, breadcrumbSchema } from '../../utils/schema';
+
+const schema = [
+  softwareAppSchema({
+    name: 'IMA Society Portal',
+    description: 'Member directory, election module, publication library, and CPD tracking. Used by Indian Medical Association specialty societies.',
+    url: '/products/ima-society-portal',
+    applicationCategory: 'BusinessApplication',
+  }),
+  breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Products', url: '/products' },
+    { name: 'IMA Society Portal', url: '/products/ima-society-portal' },
+  ]),
+];
+
+const features = [
+  { title: 'Exclusive Job Portal', desc: 'Dedicated career board for IMA members with speciality-specific postings and application tracking.' },
+  { title: 'Member e-Connect', desc: 'Comprehensive membership management — profiles, renewals, ID cards, and communication preferences.' },
+  { title: 'News, Media & JIMA Access', desc: 'Publish and distribute news, press releases, and access to the Journal of IMA (JIMA) for members.' },
+  { title: 'Professional Wings', desc: 'Manage specialty wings, sub-committees, and interest groups within the association structure.' },
+  { title: 'Social Security Schemes', desc: 'Administer insurance, death benefits, and welfare schemes for member doctors and their families.' },
+  { title: 'Policy & Advocacy Updates', desc: 'Centralised repository for government policy updates, health ministry circulars, and advocacy campaigns.' },
+  { title: 'Election Module', desc: 'Online elections with voter roll management, candidate profiles, and secure digital ballot casting.' },
+  { title: 'Document Library', desc: 'Organised repository of circulars, guidelines, publications, and archived documents for members.' },
+];
+
+const audience = [
+  { title: 'IMA Chapters', desc: 'State and district IMA chapters managing thousands of doctor members with complex organisational needs.' },
+  { title: 'Medical Associations', desc: 'Specialty bodies, academic societies, and alumni associations for medical colleges.' },
+  { title: 'Professional Bodies', desc: 'Any registered medical body needing member management, elections, and publication distribution.' },
+  { title: 'Healthcare Policy Makers', desc: 'Organisations involved in policy advocacy, regulatory compliance, and professional standards.' },
+];
+
+const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'AWS S3', 'NodeMailer', 'Razorpay', 'Tailwind CSS', 'TypeScript'];
 ---
-<p>Placeholder: ima-society-portal</p>
+
+<BaseLayout
+  title="IMA Society Portal & Association Management System — eLan Technology"
+  description="Comprehensive membership management portal for IMA chapters and medical associations. Includes member directory, elections, job portal, publications, and social security scheme management."
+  schema={schema}
+>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="ima-hero-heading" class="relative overflow-hidden bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-24 md:py-36">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+      <div class="absolute -top-40 -left-40 h-[600px] w-[600px] rounded-full bg-[#EC4899]/8 blur-[120px]"></div>
+      <div class="absolute -bottom-40 -right-20 h-[500px] w-[500px] rounded-full bg-[#EC4899]/5 blur-[100px]"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+      <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-[#EC4899]/30 bg-[#EC4899]/10 px-4 py-2 text-sm font-medium text-[#EC4899]">
+        Association Management Software
+      </div>
+
+      <h1
+        id="ima-hero-heading"
+        class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-[var(--text)] mb-6"
+      >
+        IMA Society Portal
+      </h1>
+
+      <p class="mx-auto mb-4 max-w-2xl text-lg text-[#EC4899] font-medium">
+        Association Management System for Medical Bodies
+      </p>
+
+      <p class="mx-auto mb-10 max-w-3xl text-lg text-[var(--text-dim)] leading-relaxed">
+        A unified digital ecosystem for medical associations — combining member management, career opportunities, policy advocacy, and social security schemes into one powerful platform.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a
+          href="/request-demo"
+          class="inline-flex items-center gap-2 rounded-full bg-[#EC4899] px-8 py-4 text-base font-semibold text-white shadow-lg shadow-[#EC4899]/25 transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#EC4899]"
+        >
+          Request Demo
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a
+          href="/get-quote"
+          class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-transparent px-8 py-4 text-base font-semibold text-[var(--text)] transition-all duration-300 hover:border-[#EC4899] hover:text-[#EC4899] hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#EC4899]"
+        >
+          Get Quote
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       FEATURES GRID
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="ima-features-heading" class="bg-[var(--bg)] py-16 md:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <p class="text-center text-sm font-semibold uppercase tracking-widest text-[#EC4899] mb-3">Key Features</p>
+      <h2 id="ima-features-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] text-center mb-4">
+        Complete Association Management
+      </h2>
+      <p class="text-center text-[var(--text-dim)] mb-12 max-w-2xl mx-auto">
+        From member onboarding to elections and publications, every function a medical society needs in one system.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {features.map((f) => (
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+            <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#EC4899]/10">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EC4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3 class="font-semibold text-[var(--text)] mb-2">{f.title}</h3>
+            <p class="text-sm text-[var(--text-dim)] leading-relaxed">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       WHO IT'S FOR
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="ima-audience-heading" class="bg-[var(--bg-card)] py-16 md:py-20 border-y border-[var(--border)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <p class="text-center text-sm font-semibold uppercase tracking-widest text-[#EC4899] mb-3">Who It's For</p>
+      <h2 id="ima-audience-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] text-center mb-12">
+        Serving the Medical Fraternity
+      </h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {audience.map((a) => (
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 text-center">
+            <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#EC4899]/10">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#EC4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h3 class="font-semibold text-[var(--text)] mb-2">{a.title}</h3>
+            <p class="text-sm text-[var(--text-dim)] leading-relaxed">{a.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       TECHNOLOGY STACK
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="ima-tech-heading" class="bg-[var(--bg)] py-16 md:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-sm font-semibold uppercase tracking-widest text-[#EC4899] mb-3">Technology Stack</p>
+      <h2 id="ima-tech-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-8">
+        Built With Modern Technology
+      </h2>
+      <div class="flex flex-wrap justify-center gap-3">
+        {techStack.map((tech) => (
+          <span class="rounded-full border border-[#EC4899]/30 bg-[#EC4899]/10 px-4 py-2 text-sm font-medium text-[#EC4899]">
+            {tech}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       REQUEST DEMO CTA
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section class="bg-[var(--bg-card)] py-16 md:py-20 border-t border-[var(--border)]">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-8 text-center">
+        <h2 class="font-heading text-2xl font-bold text-[var(--text)] mb-4">See It In Action</h2>
+        <p class="text-[var(--text-dim)] mb-6">
+          Schedule a 30-minute live demo of the IMA Society Portal and see how it can modernise your association management.
+        </p>
+        <a
+          href="/request-demo"
+          class="inline-flex items-center gap-2 rounded-full bg-[#EC4899] px-8 py-3 text-base font-semibold text-white hover:opacity-90 transition-opacity"
+        >
+          Request Demo →
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

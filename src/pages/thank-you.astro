@@ -1,4 +1,115 @@
 ---
-// TODO: Implement thank-you
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
-<p>Placeholder: thank-you</p>
+
+<BaseLayout
+  title="Thank You — eLan Technology"
+  description="Thank you for reaching out to eLan Technology. We'll be in touch shortly."
+  noindex={true}
+>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       THANK YOU CONTENT
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section class="bg-[var(--bg)] py-24 md:py-32">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
+
+      <!-- Large checkmark -->
+      <div class="flex justify-center mb-8" aria-hidden="true">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="80"
+          height="80"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="var(--accent)"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-label="Success checkmark"
+        >
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="9 12 11 14 15 10"/>
+        </svg>
+      </div>
+
+      <h1 class="font-heading text-4xl sm:text-5xl font-bold text-[var(--text)] mb-6">
+        Thank You!
+      </h1>
+
+      <p class="text-lg text-[var(--text-dim)] leading-relaxed mb-12">
+        We've received your message and will get back to you within 4 business hours. Keep an eye on your inbox — we're already reviewing your submission.
+      </p>
+
+
+      <!-- What happens next -->
+      <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 mb-12 text-left">
+        <h2 class="font-heading text-xl font-bold text-[var(--text)] mb-6 text-center">What Happens Next</h2>
+        <ol class="space-y-5" role="list">
+          {[
+            'Our team reviews your submission and prepares a thoughtful response.',
+            'We reach out via email or WhatsApp to discuss your needs.',
+            'We schedule a discovery call if needed to understand your project better.',
+          ].map((step, i) => (
+            <li class="flex items-start gap-4">
+              <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--accent)]/10 font-bold text-[var(--accent)] text-sm font-heading">
+                {i + 1}
+              </div>
+              <p class="text-[var(--text-dim)] pt-1">{step}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+
+      <!-- While you wait -->
+      <div class="mb-12">
+        <h2 class="font-heading text-xl font-bold text-[var(--text)] mb-6">While You Wait</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <a
+            href="/blog"
+            class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 text-center hover:border-[var(--accent)] hover:bg-[var(--accent)]/5 transition-colors group"
+          >
+            <div class="mb-3 flex justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--text-muted)] group-hover:text-[var(--accent)] transition-colors" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
+            <p class="font-semibold text-[var(--text)] text-sm group-hover:text-[var(--accent)] transition-colors">Read Our Blog</p>
+            <p class="text-xs text-[var(--text-muted)] mt-1">Tips & insights</p>
+          </a>
+          <a
+            href="/portfolio"
+            class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 text-center hover:border-[var(--accent)] hover:bg-[var(--accent)]/5 transition-colors group"
+          >
+            <div class="mb-3 flex justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--text-muted)] group-hover:text-[var(--accent)] transition-colors" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </div>
+            <p class="font-semibold text-[var(--text)] text-sm group-hover:text-[var(--accent)] transition-colors">View Our Portfolio</p>
+            <p class="text-xs text-[var(--text-muted)] mt-1">200+ projects</p>
+          </a>
+          <a
+            href="/services"
+            class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 text-center hover:border-[var(--accent)] hover:bg-[var(--accent)]/5 transition-colors group"
+          >
+            <div class="mb-3 flex justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--text-muted)] group-hover:text-[var(--accent)] transition-colors" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            </div>
+            <p class="font-semibold text-[var(--text)] text-sm group-hover:text-[var(--accent)] transition-colors">Explore Services</p>
+            <p class="text-xs text-[var(--text-muted)] mt-1">What we offer</p>
+          </a>
+        </div>
+      </div>
+
+
+      <!-- Back to home -->
+      <a
+        href="/"
+        class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-4 text-base font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        Back to Home
+      </a>
+
+    </div>
+  </section>
+
+</BaseLayout>

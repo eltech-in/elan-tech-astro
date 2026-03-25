@@ -1,4 +1,10 @@
 ---
-// TODO: Implement SchemaMarkup
+interface Props {
+  schema: object | object[];
+}
+const { schema } = Astro.props;
+const schemas = Array.isArray(schema) ? schema : [schema];
 ---
-<!-- SchemaMarkup -->
+{schemas.map((s) => (
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(s)} />
+))}

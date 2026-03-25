@@ -1,4 +1,186 @@
 ---
-// TODO: Implement careers
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '../utils/schema';
+
+const schema = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Careers', url: '/careers' },
+]);
+
+const perks = [
+  {
+    title: 'Remote-Friendly',
+    desc: 'Work from anywhere in India. We trust our team to deliver quality work from wherever they are most productive.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
+  },
+  {
+    title: 'Learning Culture',
+    desc: 'Conferences, online courses, and certifications are sponsored. We invest in your growth because your skills are our strength.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`,
+  },
+  {
+    title: 'Meaningful Work',
+    desc: 'Real products, real clients, real impact. Your work goes live and is used by thousands of users across India and internationally.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
+  },
+  {
+    title: 'Competitive Pay',
+    desc: 'Market-rate salaries plus performance bonuses. We believe in rewarding excellence and sharing success.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`,
+  },
+];
+
+const jobs = [
+  {
+    title: 'Frontend Developer (React/Astro)',
+    type: 'Full-time',
+    location: 'Nagpur / Remote',
+    desc: 'Work on modern Astro and React projects for clients across India and internationally. Build fast, accessible, and beautifully crafted websites.',
+    skills: ['React', 'TypeScript', 'Tailwind CSS', 'Astro'],
+  },
+  {
+    title: 'Digital Marketing Specialist',
+    type: 'Full-time',
+    location: 'Nagpur',
+    desc: 'Drive organic growth through SEO strategy and content marketing. Own keyword rankings and grow client traffic month over month.',
+    skills: ['SEO', 'Google Analytics', 'Content Strategy', 'Google Ads'],
+  },
+  {
+    title: 'UI/UX Designer',
+    type: 'Full-time / Contract',
+    location: 'Nagpur / Remote',
+    desc: 'Design intuitive, WCAG-compliant interfaces for web and mobile applications. From wireframes to polished high-fidelity prototypes.',
+    skills: ['Figma', 'Accessibility', 'Prototyping', 'User Research'],
+  },
+];
 ---
-<p>Placeholder: careers</p>
+
+<BaseLayout
+  title="Careers at eLan Technology — Join Our Team in Nagpur"
+  description="Join eLan Technology's team of designers, developers, and marketers in Nagpur. Remote-friendly roles with competitive pay, learning support, and meaningful work."
+  schema={schema}
+>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="careers-hero-heading" class="relative overflow-hidden bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-24 md:py-36">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+      <div class="absolute -top-40 -left-40 h-[600px] w-[600px] rounded-full bg-[var(--accent)]/6 blur-[120px]"></div>
+      <div class="absolute -bottom-40 -right-20 h-[500px] w-[500px] rounded-full bg-[#6366F1]/6 blur-[100px]"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)]/60 px-4 py-2 text-sm text-[var(--text-muted)] backdrop-blur-sm">
+        <span class="h-2 w-2 rounded-full bg-[var(--accent)] animate-pulse" aria-hidden="true"></span>
+        {jobs.length} Open Positions
+      </div>
+
+      <h1
+        id="careers-hero-heading"
+        class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-[var(--text)] mb-6"
+      >
+        Build the Web With Us
+      </h1>
+      <p class="mx-auto max-w-2xl text-lg text-[var(--text-dim)] leading-relaxed">
+        We're a tight-knit team of craftspeople who care deeply about quality, accessibility, and the impact of digital work. Come build things that matter.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       WHY JOIN ELAN
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="perks-heading" class="bg-[var(--bg)] py-16 md:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <p class="text-center text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-3">Why Join eLan</p>
+      <h2 id="perks-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] text-center mb-12">
+        More Than Just a Job
+      </h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {perks.map((perk) => (
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--accent)]/10 text-[var(--accent)]" set:html={perk.icon} />
+            <h3 class="font-semibold text-[var(--text)] mb-2">{perk.title}</h3>
+            <p class="text-sm text-[var(--text-dim)] leading-relaxed">{perk.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       OPEN POSITIONS
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="positions-heading" class="bg-[var(--bg-card)] py-16 md:py-20 border-y border-[var(--border)]">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <p class="text-center text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-3">Open Positions</p>
+      <h2 id="positions-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] text-center mb-12">
+        We're Hiring
+      </h2>
+
+      <div class="space-y-6">
+        {jobs.map((job) => (
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 sm:p-8">
+            <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
+              <div>
+                <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-2">{job.title}</h3>
+                <div class="flex flex-wrap gap-2">
+                  <span class="inline-flex items-center rounded-full bg-[var(--accent)]/10 px-3 py-1 text-xs font-semibold text-[var(--accent)]">
+                    {job.type}
+                  </span>
+                  <span class="inline-flex items-center rounded-full bg-[var(--bg-card)] border border-[var(--border)] px-3 py-1 text-xs font-medium text-[var(--text-muted)]">
+                    {job.location}
+                  </span>
+                </div>
+              </div>
+              <a
+                href={`mailto:careers@elan-tech.net?subject=Application: ${encodeURIComponent(job.title)}`}
+                class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-6 py-2.5 text-sm font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity shrink-0"
+              >
+                Apply Now
+              </a>
+            </div>
+
+            <p class="text-[var(--text-dim)] text-sm leading-relaxed mb-4">{job.desc}</p>
+
+            <div class="flex flex-wrap gap-2">
+              {job.skills.map((skill) => (
+                <span class="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-3 py-1 text-xs font-medium text-[var(--text-dim)]">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       NO MATCHING ROLE
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section class="bg-[var(--bg)] py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 text-center">
+        <h2 class="font-heading text-2xl font-bold text-[var(--text)] mb-4">
+          Don't See a Matching Role?
+        </h2>
+        <p class="text-[var(--text-dim)] mb-6 leading-relaxed">
+          We're always looking for talented people. Send us your resume and tell us what you're great at — we'll keep it on file and reach out when the right opportunity arises.
+        </p>
+        <a
+          href="mailto:careers@elan-tech.net"
+          class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity"
+        >
+          Send Us Your Resume →
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

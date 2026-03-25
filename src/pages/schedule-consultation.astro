@@ -1,4 +1,165 @@
 ---
-// TODO: Implement schedule-consultation
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '../utils/schema';
+
+const schema = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Schedule Consultation', url: '/schedule-consultation' },
+]);
+
+const coverPoints = [
+  'Your business goals and digital challenges',
+  'Review of your current website (if any)',
+  'Recommended solutions and technologies',
+  'Project timeline and budget estimate',
+];
+
+const afterSteps = [
+  { step: '1', title: 'Discovery Call', desc: 'We listen, understand your needs, and ask the right questions.' },
+  { step: '2', title: 'Proposal in 2 Days', desc: 'You receive a detailed proposal with scope, timeline, and pricing.' },
+  { step: '3', title: 'Project Kickoff', desc: 'Once approved, we begin with an onboarding session and project plan.' },
+];
 ---
-<p>Placeholder: schedule-consultation</p>
+
+<BaseLayout
+  title="Schedule a Free Strategy Consultation — eLan Technology"
+  description="Book a free 30-minute strategy consultation with eLan Technology. We'll review your goals, current website, and recommend the right digital solutions."
+  schema={schema}
+>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="consult-hero-heading" class="relative overflow-hidden bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-24 md:py-32">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+      <div class="absolute -top-40 left-1/2 -translate-x-1/2 h-[500px] w-[500px] rounded-full bg-[var(--accent)]/6 blur-[120px]"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)]/60 px-4 py-2 text-sm text-[var(--text-muted)] backdrop-blur-sm">
+        <span class="h-2 w-2 rounded-full bg-[var(--accent)] animate-pulse" aria-hidden="true"></span>
+        100% Free — No Obligation
+      </div>
+
+      <h1
+        id="consult-hero-heading"
+        class="font-heading text-4xl sm:text-5xl font-bold text-[var(--text)] mb-6"
+      >
+        Let's Talk About Your Project
+      </h1>
+      <p class="mx-auto max-w-2xl text-lg text-[var(--text-dim)] leading-relaxed">
+        Free 30-minute strategy call with our experts. No sales pitch — just honest advice about what will work for your business.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       WHAT WE COVER
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="cover-heading" class="bg-[var(--bg-card)] border-y border-[var(--border)] py-16 md:py-20">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-3">What We Cover</p>
+          <h2 id="cover-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-8">
+            A Focused, Productive 30 Minutes
+          </h2>
+          <ul class="space-y-4" role="list">
+            {coverPoints.map((point) => (
+              <li class="flex items-start gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00E5A0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span class="text-[var(--text-dim)]">{point}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-8">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent)]/10">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00E5A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <p class="font-semibold text-[var(--text)]">30-Minute Session</p>
+              <p class="text-sm text-[var(--text-muted)]">Video call via Google Meet or Zoom</p>
+            </div>
+          </div>
+          <ul class="space-y-2 text-sm text-[var(--text-dim)]">
+            <li class="flex items-center gap-2">
+              <span class="text-[var(--accent)]">→</span> Available Mon–Sat, 10am–6pm IST
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-[var(--accent)]">→</span> International clients welcome
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-[var(--accent)]">→</span> No obligation to proceed
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       BOOKING SECTION
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="booking-heading" class="bg-[var(--bg)] py-16 md:py-20">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
+      <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 text-center">
+        <h2 id="booking-heading" class="font-heading text-2xl font-bold text-[var(--text)] mb-4">Book Your Free Call</h2>
+        <p class="text-[var(--text-dim)] mb-6">Use Calendly to pick a time that works for you:</p>
+        <a
+          href="https://calendly.com/elantech"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity"
+        >
+          Open Calendly Scheduler →
+        </a>
+        <p class="mt-4 text-sm text-[var(--text-muted)]">Or reach us directly:</p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center mt-3">
+          <a
+            href="https://wa.me/918788834630"
+            class="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-8 py-3 text-sm font-semibold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+          >
+            WhatsApp
+          </a>
+          <a
+            href="mailto:info@elan-tech.net"
+            class="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-8 py-3 text-sm font-semibold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+          >
+            Email Us
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       WHAT HAPPENS AFTER
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="after-heading" class="bg-[var(--bg-card)] border-t border-[var(--border)] py-16 md:py-20">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <p class="text-center text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-3">After the Call</p>
+      <h2 id="after-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] text-center mb-12">
+        What Happens Next
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {afterSteps.map((s) => (
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 text-center">
+            <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent)]/10 font-bold text-[var(--accent)] font-heading text-lg">
+              {s.step}
+            </div>
+            <h3 class="font-semibold text-[var(--text)] mb-2">{s.title}</h3>
+            <p class="text-sm text-[var(--text-dim)] leading-relaxed">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

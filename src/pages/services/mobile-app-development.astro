@@ -1,4 +1,220 @@
 ---
-// TODO: Implement mobile-app-development
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+import { services } from '../../data/services';
+import { cities } from '../../data/cities';
+import { serviceSchema, faqSchema, breadcrumbSchema } from '../../utils/schema';
+
+const service = services.find((s) => s.slug === 'mobile-app-development')!;
+
+const serviceFaqs = [
+  {
+    question: 'How long does it take to build a mobile app?',
+    answer: 'Most mobile apps take 3–6 months to build, depending on complexity. A simple MVP with core features typically takes 3–4 months. A full-featured app with custom UI, multiple user roles, real-time features, and third-party integrations usually takes 5–8 months. We provide a detailed timeline and milestone plan during the discovery phase.',
+  },
+  {
+    question: 'Do you build for both iOS and Android?',
+    answer: 'Yes. We build cross-platform mobile apps using React Native, which produces native-quality apps for both iOS and Android from a single codebase. This significantly reduces development time and cost compared to building two separate native apps. For projects requiring deep platform-specific features, we also build native iOS (Swift) or Android (Kotlin) apps.',
+  },
+  {
+    question: 'Can you publish the app to the App Store and Play Store?',
+    answer: 'Yes — full submission support is included. We handle the entire submission process for both the Apple App Store and Google Play Store: creating developer accounts (if needed), preparing screenshots and metadata, configuring signing certificates, and managing the review process. We have experience navigating App Store review guidelines and resolving rejection issues.',
+  },
+  {
+    question: 'Do you provide app maintenance after launch?',
+    answer: 'Yes. Mobile apps require ongoing maintenance — OS updates from Apple and Google can break functionality, and user feedback often surfaces improvements. We offer structured maintenance plans covering monthly dependency updates, OS compatibility testing, bug fixes, performance monitoring, and crash reporting via tools like Sentry or Firebase Crashlytics.',
+  },
+  {
+    question: 'Can you integrate the app with our existing website or backend?',
+    answer: 'Yes. All our mobile apps are built API-first, designed to communicate with your existing backend via REST or GraphQL APIs. If you do not have a backend, we build one alongside the app using Node.js and MongoDB. We regularly integrate apps with websites, eCommerce platforms, CRMs, ERP systems, payment gateways, and third-party services.',
+  },
+];
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: '/services' },
+  { name: service.title, href: `/services/${service.slug}` },
+];
+
+const schemaBreadcrumbs = breadcrumbs.map((b) => ({ name: b.name, url: b.href }));
+
+const schemas = [
+  serviceSchema(service.title, service.description, `/services/${service.slug}`),
+  faqSchema(serviceFaqs),
+  breadcrumbSchema(schemaBreadcrumbs),
+];
+
+const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
 ---
-<p>Placeholder: mobile-app-development</p>
+<ServiceLayout
+  title={`${service.title} Services | eLan Technology`}
+  description={service.description}
+  breadcrumbs={breadcrumbs}
+  schema={schemas}
+>
+
+  <!-- ── HERO ─────────────────────────────────────────────────────────────── -->
+  <section class="relative mb-12 overflow-hidden rounded-2xl bg-gradient-to-br from-cyan-500/10 via-[var(--bg-card)] to-[var(--bg-card)] p-8 md:p-12 border border-[var(--border)]">
+    <div class="grid gap-10 md:grid-cols-2 md:items-center">
+      <div>
+        <p class="mb-2 text-sm font-semibold uppercase tracking-widest" style="color: #06B6D4;">{service.tagline}</p>
+        <h1 class="font-heading text-3xl font-bold leading-tight text-[var(--text)] md:text-4xl lg:text-5xl">
+          {service.title} Services — eLan Technology
+        </h1>
+        <p class="mt-4 text-base text-[var(--text-muted)] md:text-lg">
+          {service.description} From ideation and UI/UX design to development, testing, and App Store submission, we manage the complete mobile product lifecycle. Our apps are built for performance, reliability, and the real-world usage patterns of your target audience.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="/schedule-consultation" class="inline-flex items-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white shadow transition hover:opacity-90" style="background: #06B6D4;">
+            Get Free Consultation
+          </a>
+          <a href="/get-quote" class="inline-flex items-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
+            Get a Quote
+          </a>
+        </div>
+      </div>
+      <ul class="space-y-3">
+        {service.features.map((f) => (
+          <li class="flex items-center gap-3 rounded-lg bg-[var(--bg)] px-4 py-3 border border-[var(--border)] text-sm font-medium text-[var(--text)]">
+            <span class="text-green-400 font-bold">✓</span> {f}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── WHAT'S INCLUDED ───────────────────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-2">What's Included in Our {service.shortTitle} Services</h2>
+    <p class="text-[var(--text-muted)] mb-8">We build mobile apps end-to-end — from discovery and design through development, testing, store submission, and post-launch maintenance.</p>
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {[
+        { icon: '⚛️', name: 'React Native Development', desc: 'We build cross-platform apps using React Native that look and feel native on both iOS and Android. One codebase, two platforms — reducing development time by up to 40% compared to native-only development, without compromising user experience or performance.' },
+        { icon: '🍎', name: 'iOS Development', desc: 'For apps that require deep Apple ecosystem integration — HealthKit, ARKit, Core ML, Face ID, Apple Pay — we build native iOS apps using Swift and SwiftUI, following Human Interface Guidelines for a polished, App Store-ready experience.' },
+        { icon: '🤖', name: 'Android Development', desc: 'Native Android development using Kotlin and Jetpack Compose for apps that leverage platform-specific Android capabilities — including NFC, Bluetooth, background services, and deep Google ecosystem integration across the fragmented Android device landscape.' },
+        { icon: '🌐', name: 'Progressive Web Apps (PWA)', desc: 'For businesses that need app-like functionality without the friction of app store distribution, we build PWAs that work offline, send push notifications, and install on home screens — accessible from any browser with no download required.' },
+        { icon: '🎨', name: 'App UI/UX Design', desc: 'Our mobile designers create intuitive, visually refined interfaces following platform-specific design guidelines (iOS Human Interface and Material Design). We prototype interactions in Figma and conduct usability testing before development begins.' },
+        { icon: '🔗', name: 'API Integration', desc: 'Every app we build integrates seamlessly with backends via REST or GraphQL APIs. We connect apps to payment gateways (Razorpay, Stripe), maps (Google Maps), authentication (Firebase Auth, OAuth), push notifications (FCM/APNs), analytics, and custom APIs.' },
+        { icon: '📤', name: 'App Store Submission', desc: 'We handle the complete submission process for both Apple App Store and Google Play — preparing app metadata, screenshots, compliance documentation, privacy policy requirements, and managing the review pipeline until your app is live and downloadable.' },
+        { icon: '🛡️', name: 'Security & Compliance', desc: 'Mobile apps require specific security considerations — certificate pinning, secure storage, biometric authentication, data encryption, and GDPR/DPDP compliance. We implement these from day one, not as an afterthought before submission.' },
+      ].map(({ icon, name, desc }) => (
+        <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
+          <div class="mb-3 inline-flex h-11 w-11 items-center justify-center rounded-xl text-xl" style="background: #06B6D420;">{icon}</div>
+          <h3 class="font-heading text-base font-semibold text-[var(--text)] mb-2">{name}</h3>
+          <p class="text-sm text-[var(--text-muted)] leading-relaxed">{desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── REACT NATIVE vs NATIVE ────────────────────────────────────────────── -->
+  <section class="mb-16 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 md:p-10">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-3">React Native vs Native iOS/Android</h2>
+    <p class="text-[var(--text-muted)] mb-8">Choosing the right development approach affects your timeline, budget, and long-term maintenance costs. Here is how we help clients decide:</p>
+    <div class="grid gap-6 md:grid-cols-2">
+      <div class="rounded-xl bg-[var(--bg)] border border-[var(--border)] p-6">
+        <h3 class="font-heading text-base font-semibold mb-3" style="color: #06B6D4;">Choose React Native if...</h3>
+        <ul class="space-y-2 text-sm text-[var(--text-muted)]">
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>You need to launch on both iOS and Android with limited budget</li>
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>Your app is primarily UI-driven with standard device features</li>
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>You want a shared codebase for easier long-term maintenance</li>
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>Your team already has React/JavaScript expertise</li>
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>You plan to build a web version alongside the mobile app</li>
+        </ul>
+      </div>
+      <div class="rounded-xl bg-[var(--bg)] border border-[var(--border)] p-6">
+        <h3 class="font-heading text-base font-semibold mb-3" style="color: #06B6D4;">Choose Native Development if...</h3>
+        <ul class="space-y-2 text-sm text-[var(--text-muted)]">
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>Your app needs deep hardware access (ARKit, HealthKit, CoreML)</li>
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>Performance is critical — gaming, video processing, real-time AR</li>
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>You need features only available through native platform APIs</li>
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>You are building for a single platform initially with no cross-platform plans</li>
+          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>Pixel-perfect platform-specific UI conventions are a hard requirement</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── APP STORE SUBMISSION PROCESS ──────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-2">Our {service.shortTitle} Process</h2>
+    <p class="text-[var(--text-muted)] mb-8">From concept to App Store listing, our process is designed to minimise risk and maximise quality at every stage.</p>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {[
+        { n: '1', title: 'Discovery & Strategy', desc: 'We define app goals, user personas, feature scope (MVP vs full release), technology stack, backend architecture, and third-party integrations. We produce a detailed specification that prevents scope creep and cost overruns.' },
+        { n: '2', title: 'Design & Planning', desc: 'User flows, wireframes, and high-fidelity Figma prototypes for every screen. We prototype key interactions and test with real users before development begins, catching UX issues when changes are cheap — not expensive.' },
+        { n: '3', title: 'Development & Testing', desc: 'Development in two-week sprints with working demos at each milestone. Unit testing, integration testing, device compatibility testing across 10+ real devices, and beta testing via TestFlight (iOS) and Play Store internal track (Android).' },
+        { n: '4', title: 'Launch & Support', desc: 'App Store and Play Store submission, listing optimisation, launch monitoring, and crash tracking via Sentry or Firebase Crashlytics. Post-launch, we offer structured maintenance plans to handle OS updates, user feedback, and feature additions.' },
+      ].map(({ n, title, desc }) => (
+        <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
+          <div class="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-full font-heading text-sm font-bold text-white" style="background: #06B6D4;">{n}</div>
+          <h3 class="font-heading text-sm font-semibold text-[var(--text)] mb-2">{title}</h3>
+          <p class="text-sm text-[var(--text-muted)]">{desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── TECHNOLOGIES ───────────────────────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-4">Technologies We Use</h2>
+    <div class="flex flex-wrap gap-3">
+      {['React Native', 'Expo', 'Swift', 'SwiftUI', 'Kotlin', 'Jetpack Compose', 'Node.js', 'Firebase', 'Supabase', 'Redux', 'React Query', 'Razorpay SDK', 'Google Maps SDK', 'Sentry', 'TestFlight', 'Fastlane', 'TypeScript', 'Figma'].map((tech) => (
+        <span class="rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-4 py-2 text-sm font-medium text-[var(--text-muted)] hover:border-cyan-500/50 hover:text-[var(--text)] transition-colors">
+          {tech}
+        </span>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── FAQ ───────────────────────────────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-8">Frequently Asked Questions</h2>
+    <div class="divide-y divide-[var(--border)] rounded-xl border border-[var(--border)] overflow-hidden">
+      {serviceFaqs.map(({ question, answer }) => (
+        <details class="bg-[var(--bg-card)] py-0">
+          <summary class="cursor-pointer font-medium text-[var(--text)] flex items-center justify-between px-6 py-4 hover:bg-[var(--bg)] transition-colors list-none">
+            <span>{question}</span>
+            <span class="ml-4 shrink-0 text-[var(--text-muted)] text-lg">+</span>
+          </summary>
+          <p class="px-6 pb-5 pt-1 text-sm text-[var(--text-muted)] leading-relaxed">{answer}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── CITY LINKS ─────────────────────────────────────────────────────────── -->
+  <section class="mb-16">
+    <h2 class="font-heading text-xl font-bold text-[var(--text)] md:text-2xl mb-2">Mobile App Development Services Across India</h2>
+    <p class="text-sm text-[var(--text-muted)] mb-6">We deliver mobile applications for clients in Nagpur, Raipur, Mumbai, Pune, Hyderabad, Delhi, and across India — as well as internationally in the USA, UAE, Australia, and UK.</p>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+      {featuredCities.map((city) => (
+        <a
+          href={city.hasLandingPage ? `/web-design-company-${city.slug}` : `/services/mobile-app-development`}
+          class="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-3 hover:border-cyan-500/50 transition-colors"
+        >
+          <p class="font-medium text-sm text-[var(--text)]">{city.name}</p>
+          <p class="text-xs text-[var(--text-muted)] mt-0.5">Services available</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── DOUBLE CTA ─────────────────────────────────────────────────────────── -->
+  <section class="grid gap-5 md:grid-cols-2 mb-4">
+    <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-7 flex flex-col">
+      <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-2">Ready to Get Started?</h3>
+      <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Get a free technical consultation for your app idea. We'll help you scope the MVP, estimate development costs, and choose the right technology stack — in a single 45-minute session.</p>
+      <a href="/free-website-audit" class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90" style="background: #06B6D4;">
+        Get Free Audit
+      </a>
+    </div>
+    <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-7 flex flex-col">
+      <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-2">Have Questions?</h3>
+      <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Have an app idea but not sure where to start? Our mobile specialists will help you understand what's possible, what it will cost, and how long it will take — straight talking, no jargon.</p>
+      <a href="/schedule-consultation" class="inline-flex items-center justify-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
+        Schedule a Call
+      </a>
+    </div>
+  </section>
+
+</ServiceLayout>

@@ -1,4 +1,41 @@
 ---
-// TODO: Implement Breadcrumb
+interface Props {
+  items: Array<{ name: string; href: string }>;
+}
+const { items } = Astro.props;
+
+// Ensure Home is always the first item
+const crumbs =
+  items[0]?.href === '/'
+    ? items
+    : [{ name: 'Home', href: '/' }, ...items];
 ---
-<!-- Breadcrumb -->
+<nav aria-label="Breadcrumb" class="w-full">
+  <ol class="flex flex-wrap items-center gap-1 text-sm text-[var(--text-muted)]">
+    {crumbs.map((item, index) => {
+      const isLast = index === crumbs.length - 1;
+      return (
+        <li class="flex items-center gap-1">
+          {index > 0 && (
+            <span aria-hidden="true" class="select-none">/</span>
+          )}
+          {isLast ? (
+            <span
+              aria-current="page"
+              class="font-medium text-[var(--accent)]"
+            >
+              {item.name}
+            </span>
+          ) : (
+            <a
+              href={item.href}
+              class="hover:text-[var(--text)] transition-colors duration-150"
+            >
+              {item.name}
+            </a>
+          )}
+        </li>
+      );
+    })}
+  </ol>
+</nav>

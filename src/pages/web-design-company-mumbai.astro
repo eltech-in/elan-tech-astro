@@ -1,4 +1,45 @@
 ---
-// TODO: Implement web-design-company-mumbai
+// TODO: Full city page content (Step 8 expansion)
+import CityLayout from '../layouts/CityLayout.astro';
+import { localBusinessSchema, breadcrumbSchema } from '../utils/schema';
+
+const schema = [
+  localBusinessSchema('Mumbai', {
+    url: 'https://elan-tech.net/web-design-company-mumbai',
+    description: 'Professional web design & digital marketing for Mumbai businesses. Custom websites, SEO, and eCommerce. WCAG compliant.',
+    geo: { latitude: 19.0760, longitude: 72.8777 },
+  }),
+  breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Services', url: '/services' },
+    { name: 'Web Design Company Mumbai', url: '/web-design-company-mumbai' },
+  ]),
+];
 ---
-<p>Placeholder: web-design-company-mumbai</p>
+
+<CityLayout
+  title="Web Design Company in Mumbai — eLan Technology"
+  description="Professional web design & digital marketing for Mumbai businesses. Custom websites, SEO, and eCommerce. WCAG compliant. Get a free website audit."
+  city="Mumbai"
+  state="Maharashtra"
+  heroHeading="Web Design Company in Mumbai"
+  heroSubtext="Custom websites, SEO & digital marketing for Mumbai businesses. Serving Maharashtra since 2002."
+  schema={schema}
+>
+
+  <section class="py-16 text-center px-4">
+    <div class="mx-auto max-w-2xl">
+      <h2 class="font-heading text-2xl font-bold text-[var(--text)] mb-4">
+        Web Design Services in Mumbai — Coming Soon
+      </h2>
+      <p class="text-[var(--text-dim)] mb-6">
+        We are expanding our local presence to Mumbai. In the meantime, we serve Mumbai businesses
+        remotely with the same quality and dedication as our Nagpur clients.
+      </p>
+      <a href="/contact" class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity">
+        Contact Us Today
+      </a>
+    </div>
+  </section>
+
+</CityLayout>

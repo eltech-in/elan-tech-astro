@@ -1,4 +1,101 @@
 ---
-// TODO: Implement ServiceLayout
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: string;
+  noindex?: boolean;
+  schema?: object | object[];
+  breadcrumbs: Array<{ name: string; href: string }>;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage,
+  ogType,
+  noindex,
+  schema,
+  breadcrumbs,
+} = Astro.props;
+
+const services = [
+  { label: 'Website Design', slug: 'website-design' },
+  { label: 'Web Development', slug: 'web-development' },
+  { label: 'eCommerce', slug: 'ecommerce' },
+  { label: 'Digital Marketing', slug: 'digital-marketing' },
+  { label: 'Mobile Apps', slug: 'mobile-app-development' },
+  { label: 'Branding', slug: 'branding' },
+  { label: 'Maintenance & Security', slug: 'maintenance-security' },
+];
+
+const currentPath = Astro.url.pathname;
 ---
-<slot />
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={canonical}
+  ogImage={ogImage}
+  ogType={ogType}
+  noindex={noindex}
+  schema={schema}
+>
+  <!-- Breadcrumb bar -->
+  <div class="border-b border-[var(--border)] bg-[var(--bg-card)] px-4 py-3 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <Breadcrumb items={breadcrumbs} />
+    </div>
+  </div>
+
+  <!-- Page body with sidebar -->
+  <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:grid lg:grid-cols-[240px_1fr] lg:gap-10 lg:px-8">
+
+    <!-- Sidebar: service navigation -->
+    <aside aria-label="Services navigation" class="hidden lg:block">
+      <nav>
+        <h2 class="mb-4 font-heading text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">
+          Our Services
+        </h2>
+        <ul class="flex flex-col gap-1">
+          {services.map((service) => {
+            const href = `/services/${service.slug}`;
+            const isActive =
+              currentPath === href || currentPath === `${href}/`;
+            return (
+              <li>
+                <a
+                  href={href}
+                  aria-current={isActive ? 'page' : undefined}
+                  class:list={[
+                    'flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-150',
+                    isActive
+                      ? 'bg-[var(--accent)]/10 text-[var(--accent)]'
+                      : 'text-[var(--text-dim)] hover:bg-[var(--bg-card)] hover:text-[var(--text)]',
+                  ]}
+                >
+                  {isActive && (
+                    <span
+                      class="h-1.5 w-1.5 rounded-full bg-[var(--accent)] shrink-0"
+                      aria-hidden="true"
+                    />
+                  )}
+                  {service.label}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main content -->
+    <div>
+      <slot />
+    </div>
+  </div>
+</BaseLayout>

@@ -1,4 +1,187 @@
 ---
-// TODO: Implement resort-management-system
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { softwareAppSchema, breadcrumbSchema } from '../../utils/schema';
+
+const schema = [
+  softwareAppSchema({
+    name: 'Resort Management System',
+    description: 'End-to-end management for resorts and boutique stays. Handles online room booking, dining POS, and housekeeping operations.',
+    url: '/products/resort-management-system',
+    applicationCategory: 'TravelApplication',
+  }),
+  breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Products', url: '/products' },
+    { name: 'Resort Management System', url: '/products/resort-management-system' },
+  ]),
+];
+
+const features = [
+  { title: 'Online Room Booking Engine', desc: 'Direct booking with real-time availability, room type selection, and integrated payment gateway to reduce OTA commissions.' },
+  { title: 'Occupancy Dashboard', desc: 'Live occupancy rates, upcoming check-ins, room status, and revenue metrics at a glance.' },
+  { title: 'Billing & Invoicing', desc: 'Automated bill generation, GST-compliant invoicing, and multi-payment mode settlement for guests.' },
+  { title: 'Housekeeping Management', desc: 'Room assignment for housekeeping staff, cleaning status tracking, and maintenance request workflows.' },
+  { title: 'Dining POS Integration', desc: 'Restaurant and in-room dining POS with menu management, order tracking, and room charge posting.' },
+  { title: 'Guest CRM', desc: 'Guest profiles, stay history, preferences, and automated birthday and anniversary communications.' },
+  { title: 'Staff Scheduling', desc: 'Manage shifts, roles, and task assignments for front desk, housekeeping, and F&B staff.' },
+  { title: 'Reports & Analytics', desc: 'Revenue reports, occupancy trends, seasonal analysis, and export to Excel for management review.' },
+];
+
+const audience = [
+  { title: 'Resorts', desc: 'Full-service resorts needing end-to-end management from booking to checkout and operations.' },
+  { title: 'Boutique Hotels', desc: 'Independent hotels seeking a cost-effective alternative to expensive international PMS software.' },
+  { title: 'Guesthouses', desc: 'B&Bs and homestays wanting professional booking management without complexity.' },
+  { title: 'Hospitality Groups', desc: 'Multi-property owners needing centralised visibility across their portfolio of properties.' },
+];
+
+const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'Razorpay', 'AWS S3', 'NodeMailer', 'Tailwind CSS', 'TypeScript'];
 ---
-<p>Placeholder: resort-management-system</p>
+
+<BaseLayout
+  title="Resort & Hotel Management System — eLan Technology"
+  description="Complete resort and hotel management software with online booking, occupancy dashboard, billing, housekeeping, dining POS, and guest CRM. Built for Indian hospitality businesses."
+  schema={schema}
+>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="rms-hero-heading" class="relative overflow-hidden bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-24 md:py-36">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+      <div class="absolute -top-40 -left-40 h-[600px] w-[600px] rounded-full bg-[#F59E0B]/8 blur-[120px]"></div>
+      <div class="absolute -bottom-40 -right-20 h-[500px] w-[500px] rounded-full bg-[#F59E0B]/5 blur-[100px]"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+      <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-[#F59E0B]/30 bg-[#F59E0B]/10 px-4 py-2 text-sm font-medium text-[#F59E0B]">
+        Hospitality Management Software
+      </div>
+
+      <h1
+        id="rms-hero-heading"
+        class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-[var(--text)] mb-6"
+      >
+        Resort Management Portal
+      </h1>
+
+      <p class="mx-auto mb-4 max-w-2xl text-lg text-[#F59E0B] font-medium">
+        End-to-End Hospitality Management System
+      </p>
+
+      <p class="mx-auto mb-10 max-w-3xl text-lg text-[var(--text-dim)] leading-relaxed">
+        A complete, white-labelled hospitality management system for resorts and boutique stays. From online booking to housekeeping, dining POS, and guest CRM — full control over every aspect of your property.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a
+          href="/request-demo"
+          class="inline-flex items-center gap-2 rounded-full bg-[#F59E0B] px-8 py-4 text-base font-semibold text-[#0A0E1A] shadow-lg shadow-[#F59E0B]/25 transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#F59E0B]"
+        >
+          Request Demo
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a
+          href="/get-quote"
+          class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-transparent px-8 py-4 text-base font-semibold text-[var(--text)] transition-all duration-300 hover:border-[#F59E0B] hover:text-[#F59E0B] hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#F59E0B]"
+        >
+          Get Quote
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       FEATURES GRID
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="rms-features-heading" class="bg-[var(--bg)] py-16 md:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <p class="text-center text-sm font-semibold uppercase tracking-widest text-[#F59E0B] mb-3">Key Features</p>
+      <h2 id="rms-features-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] text-center mb-4">
+        Everything a Hospitality Business Needs
+      </h2>
+      <p class="text-center text-[var(--text-dim)] mb-12 max-w-2xl mx-auto">
+        Streamline operations, increase direct bookings, and delight guests with a system built for the Indian hospitality market.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {features.map((f) => (
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+            <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#F59E0B]/10">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3 class="font-semibold text-[var(--text)] mb-2">{f.title}</h3>
+            <p class="text-sm text-[var(--text-dim)] leading-relaxed">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       WHO IT'S FOR
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="rms-audience-heading" class="bg-[var(--bg-card)] py-16 md:py-20 border-y border-[var(--border)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <p class="text-center text-sm font-semibold uppercase tracking-widest text-[#F59E0B] mb-3">Who It's For</p>
+      <h2 id="rms-audience-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] text-center mb-12">
+        Built for Hospitality Operators
+      </h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {audience.map((a) => (
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 text-center">
+            <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#F59E0B]/10">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+            </div>
+            <h3 class="font-semibold text-[var(--text)] mb-2">{a.title}</h3>
+            <p class="text-sm text-[var(--text-dim)] leading-relaxed">{a.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       TECHNOLOGY STACK
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="rms-tech-heading" class="bg-[var(--bg)] py-16 md:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-sm font-semibold uppercase tracking-widest text-[#F59E0B] mb-3">Technology Stack</p>
+      <h2 id="rms-tech-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-8">
+        Built With Modern Technology
+      </h2>
+      <div class="flex flex-wrap justify-center gap-3">
+        {techStack.map((tech) => (
+          <span class="rounded-full border border-[#F59E0B]/30 bg-[#F59E0B]/10 px-4 py-2 text-sm font-medium text-[#F59E0B]">
+            {tech}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       REQUEST DEMO CTA
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section class="bg-[var(--bg-card)] py-16 md:py-20 border-t border-[var(--border)]">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-8 text-center">
+        <h2 class="font-heading text-2xl font-bold text-[var(--text)] mb-4">See It In Action</h2>
+        <p class="text-[var(--text-dim)] mb-6">
+          Schedule a 30-minute live demo of the Resort Management System and see how it transforms your daily operations.
+        </p>
+        <a
+          href="/request-demo"
+          class="inline-flex items-center gap-2 rounded-full bg-[#F59E0B] px-8 py-3 text-base font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity"
+        >
+          Request Demo →
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

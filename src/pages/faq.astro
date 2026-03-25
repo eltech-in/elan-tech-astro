@@ -1,4 +1,136 @@
 ---
-// TODO: Implement faq
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { faqs } from '../data/faq';
+import { faqSchema, breadcrumbSchema } from '../utils/schema';
+
+const schema = [
+  faqSchema(faqs),
+  breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'FAQ', url: '/faq' },
+  ]),
+];
+
+const categoryLabels: Record<string, string> = {
+  general: 'General',
+  pricing: 'Pricing & Packages',
+  process: 'Our Process',
+  technical: 'Technical',
+  seo: 'SEO & Digital Marketing',
+  'city-nagpur': 'Serving Nagpur',
+  'city-raipur': 'Serving Raipur',
+};
+
+const categories = [...new Set(faqs.map((f) => f.category))];
 ---
-<p>Placeholder: faq</p>
+
+<BaseLayout
+  title="Frequently Asked Questions — eLan Technology"
+  description="Answers to common questions about eLan Technology's web design, development, SEO, pricing, process, and services for businesses in Nagpur, Raipur, and across India."
+  schema={schema}
+>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="faq-hero-heading" class="relative overflow-hidden bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-24 md:py-32">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+      <div class="absolute -top-40 left-1/2 -translate-x-1/2 h-[500px] w-[500px] rounded-full bg-[var(--accent)]/6 blur-[120px]"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)]/60 px-4 py-2 text-sm text-[var(--text-muted)] backdrop-blur-sm">
+        <span class="h-2 w-2 rounded-full bg-[var(--accent)] animate-pulse" aria-hidden="true"></span>
+        {faqs.length} Questions Answered
+      </div>
+
+      <h1
+        id="faq-hero-heading"
+        class="font-heading text-4xl sm:text-5xl font-bold text-[var(--text)] mb-6"
+      >
+        Got Questions? We Have Answers.
+      </h1>
+      <p class="mx-auto max-w-2xl text-lg text-[var(--text-dim)] leading-relaxed">
+        Everything you need to know about working with eLan Technology — pricing, process, technology, and more.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       FAQ BY CATEGORY
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section class="bg-[var(--bg)] py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+
+      {categories.map((cat) => {
+        const items = faqs.filter((f) => f.category === cat);
+        return (
+          <div class="mb-14">
+            <h2 class="font-heading text-xl font-bold text-[var(--text)] mb-6 pb-3 border-b border-[var(--border)]">
+              <span class="text-[var(--accent)]">#</span> {categoryLabels[cat] ?? cat}
+            </h2>
+            <div class="divide-y divide-[var(--border)]">
+              {items.map((item) => (
+                <details class="border-b border-[var(--border)] py-4 group">
+                  <summary class="cursor-pointer list-none flex items-center justify-between font-medium text-[var(--text)] py-1 hover:text-[var(--accent)] transition-colors">
+                    {item.question}
+                    <svg
+                      class="h-5 w-5 shrink-0 transition-transform duration-200 group-open:rotate-180 ml-4 text-[var(--text-muted)]"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                  </summary>
+                  <div class="pt-3 pb-1 text-[var(--text-dim)] text-sm leading-relaxed">
+                    {item.answer}
+                  </div>
+                </details>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       STILL HAVE QUESTIONS CTA
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="faq-cta-heading" class="bg-[var(--bg-card)] py-16 md:py-20 border-t border-[var(--border)]">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-8 text-center">
+        <h2 id="faq-cta-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+          Still Have Questions?
+        </h2>
+        <p class="text-[var(--text-dim)] mb-8 leading-relaxed">
+          Our team is happy to answer anything not covered above. Reach out directly or book a free consultation call.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a
+            href="/contact"
+            class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity"
+          >
+            Contact Us Directly
+          </a>
+          <a
+            href="/schedule-consultation"
+            class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-8 py-3 text-base font-semibold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+          >
+            Schedule a Call
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

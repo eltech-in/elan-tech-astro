@@ -1,4 +1,409 @@
 ---
-// TODO: Implement web-design-company-nagpur
+import CityLayout from '../layouts/CityLayout.astro';
+import { localBusinessSchema, faqSchema, breadcrumbSchema } from '../utils/schema';
+
+const nagpurFaqs = [
+  {
+    question: "How much does a website cost in Nagpur?",
+    answer: "Website costs in Nagpur range from ₹15,000 for a basic business website to ₹2,00,000+ for custom web applications. A standard business website with 5–10 pages typically costs ₹25,000–₹60,000. eCommerce websites start from ₹40,000. We offer flexible packages tailored to Nagpur businesses of all sizes."
+  },
+  {
+    question: "Do you offer website maintenance services in Nagpur?",
+    answer: "Yes, we offer comprehensive website maintenance plans starting from ₹3,999/month. Plans include security updates, content updates, performance monitoring, uptime tracking, and monthly reports. We serve businesses across Nagpur — from Sitabuldi and Dharampeth to Wardha Road and the IT Park area."
+  },
+  {
+    question: "Can I visit your office in Nagpur for a consultation?",
+    answer: "Yes, our office is located at Basement Floor, PTG IT Park, Plot No. 21, IT Park Road, Gayatri Nagar, Nagpur 440022. We welcome walk-in consultations and scheduled meetings. You can also book a free online consultation if visiting in person is not convenient."
+  },
+  {
+    question: "Do you design websites for Nagpur-based healthcare and hospital businesses?",
+    answer: "Yes, we specialize in HIPAA-aware, WCAG 2.1 AA accessibility-compliant healthcare websites. We have built websites for hospitals, clinics, diagnostic centres, and medical practices across Nagpur. Features include appointment booking, doctor profiles, service listings, and patient portals."
+  },
+  {
+    question: "How long does it take to build a website for a Nagpur business?",
+    answer: "A standard business website typically takes 4–8 weeks from project kickoff to launch. Simple brochure sites can be ready in 2–3 weeks. Complex eCommerce platforms or custom web applications may take 8–16 weeks. We provide a clear timeline after the discovery call and stick to agreed deadlines."
+  },
+  {
+    question: "Do you provide SEO services for Nagpur businesses?",
+    answer: "Yes, we offer comprehensive local SEO services targeting Nagpur and the broader Vidarbha region. This includes Google My Business optimisation, on-page SEO, keyword research for Nagpur-specific search terms, technical SEO audits, local citation building, and monthly ranking reports."
+  },
+  {
+    question: "Can you help with Google My Business for our Nagpur store?",
+    answer: "Yes, Google My Business setup and optimisation is included in our digital marketing packages for Nagpur businesses. We handle profile setup, category selection, photo uploads, review management, Q&A, posts, and local SEO to help your Nagpur business rank in Google Maps and local search results."
+  },
+  {
+    question: "Do you build websites in Marathi?",
+    answer: "Yes, we build fully multilingual websites in English, Hindi, and Marathi. This is especially important for Nagpur and Vidarbha businesses that serve local customers. We handle Devanagari script rendering, Unicode font optimisation, and bilingual SEO so your website ranks for both English and Marathi search queries."
+  }
+];
+
+const schema = [
+  localBusinessSchema('Nagpur', {
+    url: 'https://elan-tech.net/web-design-company-nagpur',
+    description: 'Award-winning web design company in Nagpur. Custom websites, SEO & digital marketing since 2002.',
+    geo: { latitude: 21.1458, longitude: 79.0882 },
+  }),
+  faqSchema(nagpurFaqs),
+  breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Services', url: '/services' },
+    { name: 'Web Design Company Nagpur', url: '/web-design-company-nagpur' },
+  ]),
+];
+
+const services = [
+  {
+    icon: '🎨',
+    title: 'Website Design in Nagpur',
+    desc: "Custom, mobile-first website design tailored to Nagpur's business culture. We create visually compelling sites that convert visitors into customers."
+  },
+  {
+    icon: '💻',
+    title: 'Web Development Nagpur',
+    desc: 'Full-stack web development using modern frameworks — React, Next.js, Astro, Laravel. Performance-optimised, SEO-ready websites built for Nagpur businesses.'
+  },
+  {
+    icon: '🛒',
+    title: 'eCommerce Solutions Nagpur',
+    desc: "Online stores with Indian payment gateways (Razorpay, PayU, CCAvenue), GST-compliant invoicing, and logistics integrations for Nagpur's growing retail sector."
+  },
+  {
+    icon: '📈',
+    title: 'Digital Marketing Nagpur',
+    desc: "Local SEO, Google Ads, Meta Ads, and content marketing for Nagpur businesses. We target Nagpur and Vidarbha region keywords to drive qualified local traffic."
+  },
+  {
+    icon: '📱',
+    title: 'Mobile App Development',
+    desc: 'iOS and Android app development for Nagpur businesses looking to go mobile. From service booking apps for hospitals to delivery apps for retail stores.'
+  },
+  {
+    icon: '🎯',
+    title: 'Branding & Identity',
+    desc: 'Complete brand identity design — logo, colour palette, typography, and brand guidelines. We help Nagpur businesses build a memorable and consistent brand presence.'
+  },
+  {
+    icon: '🔒',
+    title: 'Maintenance & Security',
+    desc: 'Monthly website maintenance, security hardening, SSL management, backups, and performance monitoring. Reliable support for Nagpur businesses starting from ₹3,999/month.'
+  }
+];
+
+const industries = [
+  { icon: '🏥', name: 'Healthcare & Hospitals', desc: 'WCAG-compliant, HIPAA-aware websites for hospitals, clinics, and diagnostic centres across Nagpur.' },
+  { icon: '🏗️', name: 'Real Estate & Builders', desc: "Property listing websites, builder portfolios, and virtual tour integrations for Nagpur's booming real estate sector." },
+  { icon: '🏭', name: 'Manufacturing & Industrial', desc: 'B2B company profiles, product catalogues, and export-ready websites for Vidarbha manufacturing units and MIHAN-based companies.' },
+  { icon: '🎓', name: 'Education & Coaching', desc: "Admission portals, LMS integrations, and coaching institute websites for Nagpur's universities, schools, and coaching centres." },
+  { icon: '🛍️', name: 'Retail & eCommerce', desc: "Online stores and retail websites for Nagpur's growing Orange City retail market — from Sitabuldi to Dharampeth." },
+  { icon: '🤝', name: 'NGO & Trusts', desc: 'Donation portals, project showcases, and volunteer management websites for NGOs and charitable trusts in Nagpur.' },
+  { icon: '⚖️', name: 'Legal & CA Firms', desc: 'Professional websites for lawyers, chartered accountants, and consultants. Compliant, authoritative, and client-focused.' },
+  { icon: '🏛️', name: 'Government & PSUs', desc: 'Accessible, bilingual websites for government bodies, PSUs, and semi-government organisations operating from Nagpur.' }
+];
+
+const process = [
+  { step: '01', title: 'Discovery & Strategy', desc: 'We start with a detailed consultation to understand your Nagpur business goals, target audience, competitors, and digital requirements. This shapes the entire project.' },
+  { step: '02', title: 'Design & Prototyping', desc: 'Our designers create wireframes and high-fidelity mockups tailored to your brand. You review and approve before a single line of code is written.' },
+  { step: '03', title: 'Development & Testing', desc: 'Our developers build your website using modern, clean code. We test across devices, browsers, and screen sizes — including mobile-first testing for Nagpur users.' },
+  { step: '04', title: 'Launch & Support', desc: "We deploy your website, set up analytics, submit to Google Search Console, and provide post-launch support. We're here for the long term." }
+];
+
+const portfolio = [
+  { name: 'Aasthaa Hospital', category: 'Healthcare, Nagpur', desc: 'A WCAG 2.1 AA compliant hospital website with online appointment booking, doctor profiles, and patient information portal. Achieved 3x increase in online appointments within 3 months.' },
+  { name: 'Trimit Architects', category: 'Architecture & Real Estate', desc: 'A portfolio website with project galleries, 3D visualisation integrations, and a lead generation system. Ranked on page 1 for "architects in Nagpur" within 60 days.' },
+  { name: 'CIPL', category: 'Industrial / Manufacturing', desc: 'A B2B company profile and product catalogue website for an industrial client. Built with export market targeting, multi-language support, and inquiry management system.' }
+];
 ---
-<p>Placeholder: web-design-company-nagpur</p>
+
+<CityLayout
+  title="Web Design Company in Nagpur — eLan Technology Since 2002"
+  description="Award-winning web design company in Nagpur. WCAG/ADA compliant websites, SEO, and digital marketing. Serving Nagpur businesses since 2002. Get a free audit."
+  city="Nagpur"
+  state="Maharashtra"
+  heroHeading="Web Design Company in Nagpur — Trusted Since 2002"
+  heroSubtext="Custom websites, SEO & digital marketing for Nagpur businesses. WCAG 2.1 AA compliant. 500+ clients served across India."
+  schema={schema}
+>
+
+  <!-- A. Why Choose a Local Web Design Company in Nagpur -->
+  <section class="py-16 md:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-3xl">
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-6">
+          Why Choose a Local Web Design Company in Nagpur?
+        </h2>
+        <div class="space-y-5 text-[var(--text-dim)] leading-relaxed">
+          <p>
+            Nagpur is no longer just the "Zero Mile City" at the geographic heart of India — it is rapidly transforming into a major economic and technology hub. With the MIHAN (Multi-modal International Cargo Hub and Airport) project attracting international investment, the Nagpur IT Park housing dozens of technology firms, and Vidarbha's industrial corridor expanding year on year, local businesses face unprecedented digital competition. A generic web design agency that does not understand this landscape simply cannot deliver what Nagpur businesses need.
+          </p>
+          <p>
+            eLan Technology has been designing websites for Nagpur businesses since 2002 — long before terms like "responsive design" or "local SEO" entered the mainstream. We understand the unique commercial ecosystems of areas like Sitabuldi's retail district, Dharampeth's professional services corridor, Wardha Road's industrial belt, and Ramdaspeth's growing corporate sector. We know that a hospital in Civil Lines has different digital needs from a textile exporter in MIDC Butibori or a coaching institute near VNIT.
+          </p>
+          <p>
+            Nagpur's status as the winter capital of Maharashtra means a significant government and semi-government sector, while institutions like NIT Nagpur, VNIT, and Laxminarayan Institute of Technology create a strong academic ecosystem that demands quality digital infrastructure. The CMIA (Chamber of Minerals &amp; Industries Association) connects hundreds of manufacturing businesses that increasingly need digital presence to compete globally. We serve all of these segments — with local insight that remote agencies simply cannot replicate.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- B. Services Grid -->
+  <section class="py-16 md:py-20 bg-[var(--bg-card)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 text-center">
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+          Web Design &amp; Digital Services in Nagpur
+        </h2>
+        <p class="text-[var(--text-dim)] max-w-2xl mx-auto">
+          From custom website design to full digital marketing campaigns, we offer end-to-end digital solutions for Nagpur businesses of every size and sector.
+        </p>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {services.map((s) => (
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 hover:border-[var(--accent)] transition-colors">
+            <div class="text-3xl mb-3">{s.icon}</div>
+            <h3 class="font-heading font-semibold text-[var(--text)] mb-2">{s.title}</h3>
+            <p class="text-sm text-[var(--text-dim)] leading-relaxed">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- C. Why Nagpur Businesses Choose eLan -->
+  <section class="py-16 md:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 text-center">
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+          Why Nagpur Businesses Choose eLan Technology
+        </h2>
+        <p class="text-[var(--text-dim)] max-w-2xl mx-auto">
+          Four reasons Nagpur's leading businesses trust us with their digital presence year after year.
+        </p>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2">
+        <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8">
+          <div class="text-[var(--accent)] text-2xl mb-4">📍</div>
+          <h3 class="font-heading font-bold text-[var(--text)] text-lg mb-3">Deep Local Market Knowledge</h3>
+          <p class="text-[var(--text-dim)] leading-relaxed">
+            We understand Nagpur's commercial neighbourhoods, seasonal business cycles (including the influx of government activity during Maharashtra's winter assembly sessions), and the competitive landscape across sectors from MIHAN logistics to Sitabuldi retail. This local intelligence informs every design and marketing decision we make.
+          </p>
+        </div>
+        <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8">
+          <div class="text-[var(--accent)] text-2xl mb-4">🤝</div>
+          <h3 class="font-heading font-bold text-[var(--text)] text-lg mb-3">Face-to-Face Consultations Available</h3>
+          <p class="text-[var(--text-dim)] leading-relaxed">
+            Our office is located at PTG IT Park, Gayatri Nagar, Nagpur. We welcome in-person meetings for project planning, design reviews, and ongoing strategy sessions. For Nagpur clients, this means you get the personal attention of a local partner, not a ticket number from a remote support desk.
+          </p>
+        </div>
+        <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8">
+          <div class="text-[var(--accent)] text-2xl mb-4">🎯</div>
+          <h3 class="font-heading font-bold text-[var(--text)] text-lg mb-3">Understanding of Local Competition</h3>
+          <p class="text-[var(--text-dim)] leading-relaxed">
+            We track Nagpur's digital competitive landscape — who is ranking for which keywords, which local businesses have strong online presence, and where the gaps are. This research-driven approach helps us position our Nagpur clients for maximum visibility against their direct local competitors.
+          </p>
+        </div>
+        <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8">
+          <div class="text-[var(--accent)] text-2xl mb-4">🗣️</div>
+          <h3 class="font-heading font-bold text-[var(--text)] text-lg mb-3">Regional Language Support</h3>
+          <p class="text-[var(--text-dim)] leading-relaxed">
+            We build multilingual websites in English, Hindi, and Marathi — essential for reaching Nagpur's diverse audience. Our Devanagari-optimised web typography and bilingual SEO strategies ensure your website connects with local customers in the language they prefer, dramatically improving engagement and trust.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- D. Industries We Serve -->
+  <section class="py-16 md:py-20 bg-[var(--bg-card)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 text-center">
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+          Industries We Serve in Nagpur
+        </h2>
+        <p class="text-[var(--text-dim)] max-w-2xl mx-auto">
+          From Vidarbha's agricultural exporters to MIHAN's aviation logistics companies — we bring digital expertise to every sector that drives Nagpur's economy.
+        </p>
+      </div>
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {industries.map((ind) => (
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 hover:border-[var(--accent)] transition-colors">
+            <div class="text-2xl mb-3">{ind.icon}</div>
+            <h3 class="font-heading font-semibold text-[var(--text)] mb-2">{ind.name}</h3>
+            <p class="text-sm text-[var(--text-dim)] leading-relaxed">{ind.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- E. Our Process -->
+  <section class="py-16 md:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 text-center">
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+          How We Work with Nagpur Clients
+        </h2>
+        <p class="text-[var(--text-dim)] max-w-2xl mx-auto">
+          A clear, collaborative process designed to deliver results on time — whether you are in Nagpur or anywhere across India.
+        </p>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {process.map((p) => (
+          <div class="relative rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+            <div class="font-heading text-4xl font-bold text-[var(--accent)]/20 mb-3">{p.step}</div>
+            <h3 class="font-heading font-bold text-[var(--text)] mb-2">{p.title}</h3>
+            <p class="text-sm text-[var(--text-dim)] leading-relaxed">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- F. Portfolio Highlights -->
+  <section class="py-16 md:py-20 bg-[var(--bg-card)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 text-center">
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+          Projects We Have Built for Nagpur Businesses
+        </h2>
+        <p class="text-[var(--text-dim)] max-w-2xl mx-auto">
+          A selection of websites and digital solutions we have delivered for clients across Nagpur and Vidarbha.
+        </p>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-3">
+        {portfolio.map((p) => (
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6">
+            <div class="text-xs font-semibold uppercase tracking-widest text-[var(--accent)] mb-2">{p.category}</div>
+            <h3 class="font-heading font-bold text-[var(--text)] text-lg mb-3">{p.name}</h3>
+            <p class="text-sm text-[var(--text-dim)] leading-relaxed">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+      <div class="mt-10 text-center">
+        <a
+          href="/portfolio"
+          class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-8 py-3 font-semibold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+        >
+          View Full Portfolio
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- G. FAQ Section -->
+  <section class="py-16 md:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-3xl">
+        <div class="mb-10 text-center">
+          <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+            Frequently Asked Questions — Nagpur Web Design
+          </h2>
+          <p class="text-[var(--text-dim)]">
+            Common questions from Nagpur businesses about our web design and digital marketing services.
+          </p>
+        </div>
+        <div class="divide-y divide-[var(--border)]">
+          {nagpurFaqs.map((faq) => (
+            <details class="border-b border-[var(--border)] py-4 group">
+              <summary class="cursor-pointer list-none flex items-center justify-between font-medium text-[var(--text)] py-1 hover:text-[var(--accent)] transition-colors">
+                <span>{faq.question}</span>
+                <svg
+                  class="ml-4 h-5 w-5 shrink-0 text-[var(--text-muted)] transition-transform duration-200 group-open:rotate-180"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </summary>
+              <p class="mt-3 text-[var(--text-dim)] leading-relaxed pr-8">{faq.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- H. Contact / Reach Us -->
+  <section class="py-16 md:py-20 bg-[var(--bg-card)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-4xl">
+        <div class="mb-10 text-center">
+          <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+            Ready to Work with the Best Web Design Company in Nagpur?
+          </h2>
+          <p class="text-[var(--text-dim)] max-w-2xl mx-auto">
+            Talk to our Nagpur team today. We offer a free website audit and no-obligation consultation for all new clients.
+          </p>
+        </div>
+        <div class="grid gap-6 sm:grid-cols-2 mb-10">
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6">
+            <h3 class="font-heading font-bold text-[var(--text)] mb-4">Our Nagpur Office</h3>
+            <address class="not-italic text-[var(--text-dim)] space-y-2 text-sm leading-relaxed">
+              <p>Basement Floor, PTG IT Park</p>
+              <p>Plot No. 21, IT Park Road</p>
+              <p>Gayatri Nagar, Nagpur 440022</p>
+              <p>Maharashtra, India</p>
+            </address>
+            <a
+              href="https://maps.google.com/?q=PTG+IT+Park+Gayatri+Nagar+Nagpur"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-4 inline-flex items-center gap-1 text-sm text-[var(--accent)] hover:underline"
+            >
+              View on Google Maps ↗
+            </a>
+          </div>
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6">
+            <h3 class="font-heading font-bold text-[var(--text)] mb-4">Get in Touch</h3>
+            <div class="space-y-3 text-sm">
+              <a
+                href="https://wa.me/918788834630?text=Hi+eLan+Technology%2C+I%27m+interested+in+web+design+services+in+Nagpur"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center gap-3 text-[var(--text-dim)] hover:text-[var(--accent)] transition-colors"
+              >
+                <span class="text-xl">💬</span>
+                <span>WhatsApp: +91-8788834630</span>
+              </a>
+              <a
+                href="mailto:info@elan-tech.net"
+                class="flex items-center gap-3 text-[var(--text-dim)] hover:text-[var(--accent)] transition-colors"
+              >
+                <span class="text-xl">📧</span>
+                <span>info@elan-tech.net</span>
+              </a>
+              <a
+                href="tel:+918788834630"
+                class="flex items-center gap-3 text-[var(--text-dim)] hover:text-[var(--accent)] transition-colors"
+              >
+                <span class="text-xl">📞</span>
+                <span>+91-8788834630</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <a
+            href="/get-quote"
+            class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity"
+          >
+            Get a Free Quote
+          </a>
+          <a
+            href="/contact"
+            class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg)] px-8 py-3 font-semibold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+          >
+            Schedule a Call
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</CityLayout>
