@@ -26,6 +26,17 @@ const categoryLabels: Record<string, string> = {
   'accessibility': 'Accessibility',
   'technology-trends': 'Technology',
 };
+
+const featuredPost = posts[0];
+const remainingPosts = posts.slice(1);
+
+// Sidebar: popular posts = top 4 by readTime (proxy for depth)
+const popularPosts = [...posts]
+  .sort((a, b) => (b.data.readTime ?? 0) - (a.data.readTime ?? 0))
+  .slice(0, 4);
+
+// Unique categories present in published posts
+const categories = [...new Set(posts.map((p) => p.data.category))];
 ---
 
 <BaseLayout
@@ -33,9 +44,16 @@ const categoryLabels: Record<string, string> = {
   description="Insights, guides and tips on web design, SEO, accessibility, eCommerce, and digital marketing from the eLan Technology team."
   schema={schema}
 >
-  <!-- Hero -->
-  <section class="relative overflow-hidden bg-[var(--bg)] py-20 sm:py-28">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section class="relative overflow-hidden bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-20 sm:py-28">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+      <div class="absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full bg-[var(--accent)]/8 blur-[120px]"></div>
+      <div class="absolute -bottom-20 -right-20 h-[400px] w-[400px] rounded-full bg-[#6366F1]/8 blur-[100px]"></div>
+    </div>
+    <div class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
       <p class="text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-4">Our Blog</p>
       <h1 class="font-heading text-4xl sm:text-5xl font-bold text-[var(--text)] leading-tight">
         Insights on Web Design, SEO &amp; Accessibility
@@ -46,105 +64,232 @@ const categoryLabels: Record<string, string> = {
     </div>
   </section>
 
-  <!-- Category filter -->
-  <section class="bg-[var(--bg)] py-6 border-b border-[var(--border)]">
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       CATEGORY FILTER PILLS
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section class="bg-[var(--bg)] py-4 border-b border-[var(--border)] sticky top-[72px] z-30 backdrop-blur-md bg-[var(--bg)]/90">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <!-- TODO: BlogFilter island (Step 3) -->
       <nav aria-label="Blog categories" class="flex flex-wrap gap-2">
-        <a href="/blog" class="px-4 py-2 rounded-full bg-[var(--accent)] text-[#0A0E1A] text-sm font-medium">All Posts</a>
-        <a href="/blog/category/web-design" class="px-4 py-2 rounded-full border border-[var(--border)] text-sm text-[var(--text-dim)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">Web Design</a>
-        <a href="/blog/category/seo" class="px-4 py-2 rounded-full border border-[var(--border)] text-sm text-[var(--text-dim)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">SEO</a>
-        <a href="/blog/category/accessibility" class="px-4 py-2 rounded-full border border-[var(--border)] text-sm text-[var(--text-dim)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">Accessibility</a>
-        <a href="/blog/category/digital-marketing" class="px-4 py-2 rounded-full border border-[var(--border)] text-sm text-[var(--text-dim)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">Digital Marketing</a>
-        <a href="/blog/category/ecommerce" class="px-4 py-2 rounded-full border border-[var(--border)] text-sm text-[var(--text-dim)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">eCommerce</a>
+        <a href="/blog" class="px-4 py-2 rounded-full bg-[var(--accent)] text-[#0A0E1A] text-sm font-semibold transition-all">
+          All Posts
+        </a>
+        {categories.map((cat) => (
+          <a
+            href={`/blog/category/${cat}`}
+            class="px-4 py-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] text-sm text-[var(--text-dim)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+          >
+            {categoryLabels[cat] ?? cat}
+          </a>
+        ))}
       </nav>
     </div>
   </section>
 
-  <!-- Posts grid -->
-  <section class="py-16 md:py-20" aria-labelledby="posts-heading">
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       FEATURED POST
+  ════════════════════════════════════════════════════════════════════════ -->
+  {featuredPost && (
+    <section class="bg-[var(--bg)] pt-14 pb-8">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-6">Featured Post</p>
+        <article class="group relative rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] overflow-hidden hover:border-[var(--accent)]/40 transition-colors">
+          <div class="grid grid-cols-1 lg:grid-cols-2">
+            <!-- Image -->
+            {featuredPost.data.featuredImage?.src && (
+              <a href={`/blog/${featuredPost.id}`} class="block aspect-video lg:aspect-auto overflow-hidden">
+                <img
+                  src={featuredPost.data.featuredImage.src}
+                  alt={featuredPost.data.featuredImage.alt}
+                  width="760"
+                  height="480"
+                  loading="eager"
+                  decoding="async"
+                  class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+              </a>
+            )}
+            <!-- Content -->
+            <div class="flex flex-col justify-center p-8 lg:p-12">
+              <span class="inline-block self-start px-3 py-1 rounded-full text-xs font-semibold bg-[var(--accent)]/10 text-[var(--accent)] mb-4">
+                {categoryLabels[featuredPost.data.category] ?? featuredPost.data.category}
+              </span>
+              <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] leading-snug mb-4">
+                <a href={`/blog/${featuredPost.id}`} class="hover:text-[var(--accent)] transition-colors">
+                  {featuredPost.data.title}
+                </a>
+              </h2>
+              <p class="text-[var(--text-dim)] leading-relaxed mb-6">
+                {truncate(featuredPost.data.description, 220)}
+              </p>
+              <div class="flex items-center gap-4 text-sm text-[var(--text-muted)] mb-6">
+                <time datetime={new Date(featuredPost.data.publishDate).toISOString()}>
+                  {new Date(featuredPost.data.publishDate).toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </time>
+                <span>·</span>
+                <span>{featuredPost.data.readTime} min read</span>
+              </div>
+              <a
+                href={`/blog/${featuredPost.id}`}
+                class="inline-flex self-start items-center gap-2 rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-semibold text-[#0A0E1A] hover:brightness-110 transition-all"
+              >
+                Read Article
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  )}
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       POSTS GRID + SIDEBAR
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section class="bg-[var(--bg)] py-8 pb-20" aria-labelledby="posts-heading">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <h2 id="posts-heading" class="sr-only">All Posts</h2>
 
-      {posts.length === 0 ? (
-        <div class="text-center py-20">
-          <p class="text-[var(--text-dim)] text-lg">No posts published yet. Check back soon!</p>
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-12 items-start">
+
+        <!-- Posts column -->
+        <div>
+          {remainingPosts.length === 0 && posts.length === 0 ? (
+            <div class="py-20 text-center">
+              <p class="text-[var(--text-dim)] text-lg">No posts published yet. Check back soon!</p>
+            </div>
+          ) : (
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {(remainingPosts.length > 0 ? remainingPosts : posts).map((post) => {
+                const date = new Date(post.data.publishDate);
+                const formattedDate = date.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
+                const categoryLabel = categoryLabels[post.data.category] ?? post.data.category;
+                return (
+                  <article class="group rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] overflow-hidden flex flex-col hover:border-[var(--accent)]/40 hover:-translate-y-0.5 transition-all duration-300 shadow-sm hover:shadow-lg">
+                    {post.data.featuredImage?.src && (
+                      <a href={`/blog/${post.id}`} aria-hidden="true" tabindex="-1" class="block aspect-video overflow-hidden">
+                        <img
+                          src={post.data.featuredImage.src}
+                          alt={post.data.featuredImage.alt}
+                          width="480"
+                          height="270"
+                          loading="lazy"
+                          decoding="async"
+                          class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </a>
+                    )}
+                    <div class="p-5 flex flex-col flex-1">
+                      <span class="self-start mb-3 inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[var(--accent)]/10 text-[var(--accent)]">
+                        {categoryLabel}
+                      </span>
+                      <h3 class="font-heading text-base font-semibold text-[var(--text)] mb-2 leading-snug flex-1">
+                        <a href={`/blog/${post.id}`} class="hover:text-[var(--accent)] transition-colors">
+                          {post.data.title}
+                        </a>
+                      </h3>
+                      <p class="text-sm text-[var(--text-dim)] leading-relaxed mb-4">
+                        {truncate(post.data.description, 120)}
+                      </p>
+                      <div class="flex items-center justify-between text-xs text-[var(--text-muted)] mt-auto pt-4 border-t border-[var(--border)]">
+                        <time datetime={date.toISOString()}>{formattedDate}</time>
+                        <span>{post.data.readTime} min read</span>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          )}
         </div>
-      ) : (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {posts.map((post) => {
-            const date = new Date(post.data.publishDate);
-            const formattedDate = date.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
-            const categoryLabel = categoryLabels[post.data.category] ?? post.data.category;
-            return (
-              <article class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] overflow-hidden flex flex-col hover:border-[var(--accent)] transition-colors group">
-                {post.data.featuredImage?.src && (
-                  <a href={`/blog/${post.id}`} aria-hidden="true" tabindex="-1" class="block aspect-video overflow-hidden bg-[var(--bg)]">
-                    <img
-                      src={post.data.featuredImage.src}
-                      alt={post.data.featuredImage.alt}
-                      width="640"
-                      height="360"
-                      loading="lazy"
-                      decoding="async"
-                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
+
+        <!-- Sidebar -->
+        <aside class="hidden lg:flex flex-col gap-8 sticky top-[120px]">
+
+          <!-- Popular posts widget -->
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+            <h3 class="font-heading text-base font-bold text-[var(--text)] mb-5 flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--accent)]" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              Popular Posts
+            </h3>
+            <ul class="space-y-4">
+              {popularPosts.map((p, i) => (
+                <li>
+                  <a href={`/blog/${p.id}`} class="flex items-start gap-3 group">
+                    <span class="shrink-0 flex h-7 w-7 items-center justify-center rounded-full bg-[var(--accent)]/10 text-xs font-bold text-[var(--accent)]">
+                      {i + 1}
+                    </span>
+                    <span class="text-sm text-[var(--text-dim)] leading-snug group-hover:text-[var(--accent)] transition-colors">
+                      {truncate(p.data.title, 70)}
+                    </span>
                   </a>
-                )}
+                </li>
+              ))}
+            </ul>
+          </div>
 
-                <div class="p-6 flex flex-col flex-1">
-                  <!-- Category badge -->
-                  <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[var(--accent)]/10 text-[var(--accent)] mb-3 self-start">
-                    {categoryLabel}
-                  </span>
-
-                  <h2 class="font-heading text-lg font-semibold text-[var(--text)] mb-2 leading-snug flex-1">
-                    <a href={`/blog/${post.id}`} class="hover:text-[var(--accent)] transition-colors">
-                      {post.data.title}
+          <!-- Categories widget -->
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+            <h3 class="font-heading text-base font-bold text-[var(--text)] mb-5">Browse by Category</h3>
+            <ul class="space-y-2">
+              {categories.map((cat) => {
+                const count = posts.filter((p) => p.data.category === cat).length;
+                return (
+                  <li>
+                    <a
+                      href={`/blog/category/${cat}`}
+                      class="flex items-center justify-between rounded-xl px-3 py-2 text-sm text-[var(--text-dim)] hover:bg-[var(--accent)]/5 hover:text-[var(--accent)] transition-colors"
+                    >
+                      <span>{categoryLabels[cat] ?? cat}</span>
+                      <span class="text-xs font-semibold bg-[var(--accent)]/10 text-[var(--accent)] rounded-full px-2 py-0.5">{count}</span>
                     </a>
-                  </h2>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
 
-                  <p class="text-sm text-[var(--text-dim)] leading-relaxed mb-4">
-                    {truncate(post.data.description, 160)}
-                  </p>
+          <!-- Sticky CTA -->
+          <div class="rounded-2xl border border-[var(--accent)]/20 bg-gradient-to-br from-[var(--accent)]/10 to-[#6366F1]/10 p-6 text-center">
+            <h3 class="font-heading text-base font-bold text-[var(--text)] mb-2">
+              Ready to Grow Online?
+            </h3>
+            <p class="text-sm text-[var(--text-dim)] mb-4 leading-relaxed">
+              Get a free website audit covering SEO, security, and accessibility.
+            </p>
+            <a
+              href="/free-website-audit"
+              class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-5 py-2.5 text-sm font-semibold text-[#0A0E1A] hover:brightness-110 transition-all"
+            >
+              Get Free Audit
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
 
-                  <!-- Meta row -->
-                  <div class="flex items-center justify-between text-xs text-[var(--text-muted)] mt-auto pt-4 border-t border-[var(--border)]">
-                    <time datetime={date.toISOString()}>{formattedDate}</time>
-                    <span>{post.data.readTime} min read</span>
-                  </div>
-
-                  <a
-                    href={`/blog/${post.id}`}
-                    class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent)] hover:underline"
-                  >
-                    Read More
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                  </a>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      )}
+        </aside>
+      </div>
     </div>
   </section>
 
-  <!-- Newsletter CTA -->
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       NEWSLETTER CTA
+  ════════════════════════════════════════════════════════════════════════ -->
   <section class="py-16 md:py-20 bg-[var(--bg-card)] border-t border-[var(--border)]">
     <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
-        Stay Updated
-      </h2>
+      <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">Stay Updated</h2>
       <p class="text-[var(--text-dim)] mb-8">
         Join our newsletter for the latest web design tips, SEO insights, and accessibility guides — straight to your inbox.
       </p>
       <a
         href="/contact"
-        class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity"
+        class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[#0A0E1A] hover:brightness-110 transition-all"
       >
         Subscribe to Our Newsletter
       </a>
     </div>
   </section>
+
 </BaseLayout>

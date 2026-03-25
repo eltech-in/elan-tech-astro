@@ -8,6 +8,7 @@ import { countries } from '../data/countries';
 import { organizationSchema, faqSchema, reviewSchema, breadcrumbSchema } from '../utils/schema';
 import StatsCounter from '../islands/StatsCounter';
 import TestimonialCarousel from '../islands/TestimonialCarousel';
+import ProjectCarousel from '../components/ProjectCarousel.astro';
 
 // Data prep
 const featuredTestimonials = testimonials.filter(t => t.isFeatured);
@@ -215,6 +216,12 @@ const yearsExp = year - 2002;
       </ul>
     </div>
   </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 3B: PROJECT CAROUSEL — OUR RECENT WORK
+  ════════════════════════════════════════════════════════════════════════ -->
+  <ProjectCarousel />
 
 
   <!-- ═══════════════════════════════════════════════════════════════════════

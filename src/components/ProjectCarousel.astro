@@ -1,0 +1,106 @@
+---
+// Portfolio project images for the infinite-scroll carousel
+// Source: /public/portfolio/*.avif (copied from Next.js public/portfolio/)
+const projects = [
+  { name: 'Aarch Meraki',          image: '/portfolio/aarchmeraki.avif' },
+  { name: 'ABC Wiindo',            image: '/portfolio/abcwiindo.avif' },
+  { name: 'Abhirama Real Estate',  image: '/portfolio/abhirama-realestae.avif' },
+  { name: 'Abhirama',              image: '/portfolio/abhirama.avif' },
+  { name: 'Anirwan',               image: '/portfolio/anirwan.avif' },
+  { name: 'CABA',                  image: '/portfolio/caba.avif' },
+  { name: 'Deetya',                image: '/portfolio/deetya.avif' },
+  { name: 'KMP',                   image: '/portfolio/kmp.avif' },
+  { name: 'Larisha',               image: '/portfolio/larisha.avif' },
+  { name: 'Mahavir',               image: '/portfolio/mahavir.avif' },
+  { name: 'Manomay Home',          image: '/portfolio/manomay-home.avif' },
+  { name: 'Meme Hub',              image: '/portfolio/meme-hub.avif' },
+  { name: 'Merraki Expert',        image: '/portfolio/merraki-expert.avif' },
+  { name: 'NEI',                   image: '/portfolio/nei.avif' },
+  { name: 'Patel RCM',             image: '/portfolio/patelrcm.avif' },
+  { name: 'Rudra',                 image: '/portfolio/rudra.avif' },
+  { name: 'The Core',              image: '/portfolio/thecore.avif' },
+  { name: 'Trimit Architects',     image: '/portfolio/trimitarch.avif' },
+  { name: 'Zest',                  image: '/portfolio/zest.avif' },
+];
+
+// Triple for seamless loop (33.33% = one full set)
+const items = [...projects, ...projects, ...projects];
+---
+
+<section
+  aria-labelledby="carousel-heading"
+  class="relative overflow-hidden bg-[var(--bg)] py-12 md:py-20"
+>
+  <!-- Header row -->
+  <div class="relative z-10 mx-auto mb-12 max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+    <div class="text-center md:text-left">
+      <p class="text-xs font-bold uppercase tracking-[0.4em] text-[var(--accent)] mb-4 opacity-80">
+        Our Recent Work
+      </p>
+      <h2
+        id="carousel-heading"
+        class="font-heading text-3xl md:text-5xl font-bold text-[var(--text)] leading-tight mb-4"
+      >
+        Delivering
+        <span class="bg-gradient-to-r from-[#00E5A0] to-[#6366F1] bg-clip-text text-transparent">
+          Exceptional Digital
+        </span>
+        <br class="hidden lg:block" />
+        Experiences
+      </h2>
+      <p class="max-w-2xl text-[var(--text-dim)] text-lg">
+        Take a look at some of the stunning websites and applications we've built for clients across India and the globe.
+      </p>
+    </div>
+    <div class="flex-shrink-0 text-center md:text-right pb-2">
+      <a
+        href="/portfolio"
+        class="inline-flex items-center gap-2 rounded-full border border-[var(--accent)]/20 px-6 py-3 text-sm font-bold text-[var(--accent)] hover:bg-[var(--accent)]/5 hover:gap-3 transition-all duration-300 group"
+      >
+        View Full Portfolio
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="transition-transform group-hover:translate-x-1"
+          aria-hidden="true"
+        >
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- Carousel track -->
+  <div class="relative w-full" aria-hidden="true">
+    <!-- Edge fades -->
+    <div class="pointer-events-none absolute inset-y-0 left-0 z-20 w-32 md:w-64 bg-gradient-to-r from-[var(--bg)] to-transparent"></div>
+    <div class="pointer-events-none absolute inset-y-0 right-0 z-20 w-32 md:w-64 bg-gradient-to-l from-[var(--bg)] to-transparent"></div>
+
+    <div class="flex w-fit animate-loop-scroll-slow py-4">
+      {items.map((project) => (
+        <div class="relative mx-2 md:mx-3 w-[180px] md:w-[240px] aspect-video shrink-0 overflow-hidden border border-white/10 shadow-xl transition-transform duration-500 hover:scale-[1.05]">
+          <img
+            src={project.image}
+            alt={project.name}
+            width="240"
+            height="135"
+            loading="lazy"
+            decoding="async"
+            class="h-full w-full object-cover"
+          />
+          <!-- Hover overlay -->
+          <div class="absolute inset-0 flex items-end bg-gradient-to-t from-black/80 via-black/20 to-transparent p-4 opacity-0 transition-opacity duration-300 hover:opacity-100">
+            <p class="font-bold text-white text-sm md:text-base">{project.name}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

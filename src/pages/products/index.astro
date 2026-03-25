@@ -1,74 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { breadcrumbSchema } from '../../utils/schema';
+import { products } from '../../data/products';
 
 const schema = breadcrumbSchema([
   { name: 'Home', url: '/' },
   { name: 'Products', url: '/products' },
 ]);
-
-const products = [
-  {
-    id: 'real-estate-portal',
-    slug: 'real-estate-portal',
-    title: 'Real Estate Portal',
-    tagline: 'Property Management & Listing Platform',
-    desc: 'Property listings, agent dashboards, map integration, and lead capture. Deployed for multiple real estate businesses across India.',
-    accent: '#00E5A0',
-    features: [
-      'Comprehensive listings for buying, renting, and selling',
-      'Advanced search filters by location, budget, BHK, and type',
-      'Verified listings with RERA badges',
-      'Joint ventures platform for land owners and investors',
-      'Specialized categories (Agricultural, Commercial, Residential)',
-    ],
-  },
-  {
-    id: 'medical-conference-portal',
-    slug: 'medical-conference-portal',
-    title: 'Medical Conference Portal',
-    tagline: 'Event Registration & Speaker Management System',
-    desc: 'Event registration, abstract submission, speaker management, and certificate generation. Handles 500–5000+ delegates per event.',
-    accent: '#6366F1',
-    features: [
-      'Multi-tier registration (Delegates, PG Students, AC Members)',
-      'Online abstract submission for speakers',
-      'Scientific program highlights and detailed schedule',
-      'Faculty and committee management grids',
-      'Live countdown timer and automated notifications',
-    ],
-  },
-  {
-    id: 'ima-society-portal',
-    slug: 'ima-society-portal',
-    title: 'IMA Society Portal',
-    tagline: 'Association Management System for Medical Bodies',
-    desc: 'Member directory, election module, publication library, and CPD tracking. Used by Indian Medical Association specialty societies.',
-    accent: '#EC4899',
-    features: [
-      'Exclusive job portal for IMA members',
-      'Member e-Connect for membership and profile management',
-      'News, Media, and Journal (JIMA) access',
-      'Professional wings and social security schemes',
-      'Policy and advocacy updates for the medical community',
-    ],
-  },
-  {
-    id: 'resort-management-system',
-    slug: 'resort-management-system',
-    title: 'Resort Management Portal',
-    tagline: 'End-to-End Hospitality Management System',
-    desc: 'End-to-end management for resorts and boutique stays. Handles online room booking, dining POS, and housekeeping operations.',
-    accent: '#F59E0B',
-    features: [
-      'Online room booking engine with payment gateway',
-      'Staff scheduling and housekeeping management dashboard',
-      'Dining & restaurant inventory / POS integration',
-      'Customer relationship management (CRM) for guests',
-      'Automated email/SMS notifications for bookings',
-    ],
-  },
-];
 ---
 
 <BaseLayout

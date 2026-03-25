@@ -41,20 +41,15 @@ const schemas = [
 <BlogLayout
   title={post.data.seo?.metaTitle ?? post.data.title}
   description={post.data.seo?.metaDescription ?? post.data.description}
+  canonical={`/blog/${post.id}`}
   publishDate={publishDateStr}
   author={post.data.author}
   readTime={`${post.data.readTime} min read`}
   coverImage={post.data.featuredImage?.src}
   coverAlt={post.data.featuredImage?.alt}
+  category={post.data.category}
+  tags={post.data.tags}
   schema={schemas}
 >
   <Content />
-
-  <!-- Related posts CTA -->
-  <div class="mt-12 border-t border-[var(--border)] pt-8">
-    <p class="text-center text-[var(--text-dim)]">
-      Need help implementing these ideas?{' '}
-      <a href="/contact" class="text-[var(--accent)] font-medium hover:underline">Talk to our team →</a>
-    </p>
-  </div>
 </BlogLayout>

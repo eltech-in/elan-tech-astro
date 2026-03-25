@@ -1,21 +1,25 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { softwareAppSchema, breadcrumbSchema } from '../../utils/schema';
+import { getProductBySlug } from '../../data/products';
+
+const product = getProductBySlug('real-estate-portal');
 
 const schema = [
   softwareAppSchema({
-    name: 'Real Estate Portal',
-    description: 'Property listings, agent dashboards, map integration, and lead capture. Deployed for multiple real estate businesses across India.',
-    url: '/products/real-estate-portal',
-    applicationCategory: 'RealEstateApplication',
+    name: product.title,
+    description: product.desc,
+    url: `/products/${product.slug}`,
+    applicationCategory: product.schemaCategory,
   }),
   breadcrumbSchema([
     { name: 'Home', url: '/' },
     { name: 'Products', url: '/products' },
-    { name: 'Real Estate Portal', url: '/products/real-estate-portal' },
+    { name: product.title, url: `/products/${product.slug}` },
   ]),
 ];
 
+// Expanded feature descriptions for the detail page (titles match products.ts features)
 const features = [
   { title: 'Comprehensive Listings', desc: 'Manage buying, renting, and selling properties with rich listing pages, photo galleries, and floor plans.' },
   { title: 'Advanced Search Filters', desc: 'Filter by location, budget, BHK configuration, property type, and RERA status.' },
@@ -69,7 +73,7 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'AWS S3'
       </p>
 
       <p class="mx-auto mb-10 max-w-3xl text-lg text-[var(--text-dim)] leading-relaxed">
-        A high-performance property portal with comprehensive listings, verified RERA badges, advanced search, and agent dashboards. Deployed for multiple real estate businesses across India.
+        {product.longDesc}
       </p>
 
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4">

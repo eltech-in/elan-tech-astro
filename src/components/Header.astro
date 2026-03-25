@@ -19,17 +19,34 @@ const currentPath = Astro.url.pathname;
 >
   <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
 
-    <!-- Logo -->
+    <!-- Logo (dual: full logo ↔ horizontal stamp on scroll) -->
     <a href="/" class="flex shrink-0 items-center gap-2" aria-label="eLan Technology — home">
-      <img
-        src="/images/elan-tech-logo.svg"
-        alt="eLan Technology"
-        width="140"
-        height="40"
-        loading="eager"
-        decoding="async"
-        class="h-10 w-auto"
-      />
+      <span class="relative block" style="width:140px;height:40px;">
+        <!-- Full logo — visible by default, fades out on scroll -->
+        <img
+          id="logo-full"
+          src="/images/elan-tech-logo.svg"
+          alt="eLan Technology"
+          width="140"
+          height="40"
+          loading="eager"
+          decoding="async"
+          class="absolute inset-0 h-10 w-auto transition-all duration-500 ease-in-out"
+          style="opacity:1;transform:scale(1);"
+        />
+        <!-- Horizontal compact logo — hidden by default, fades in on scroll -->
+        <img
+          id="logo-scrolled"
+          src="/images/elan-tech-logoh.svg"
+          alt="eLan Technology"
+          width="140"
+          height="40"
+          loading="eager"
+          decoding="async"
+          class="absolute inset-0 h-10 w-auto transition-all duration-500 ease-in-out"
+          style="opacity:0;transform:scale(1.1);"
+        />
+      </span>
     </a>
 
     <!-- Desktop Navigation -->
@@ -59,12 +76,17 @@ const currentPath = Astro.url.pathname;
       </a>
 
       <!-- Services — triggers MegaMenu island -->
-      <button
-        type="button"
+      <a
+        href="/services"
         data-mega="services"
         aria-haspopup="true"
         aria-expanded="false"
-        class="flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium text-[var(--text-dim)] hover:text-[var(--text)] transition-colors duration-150"
+        class:list={[
+          'flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150',
+          currentPath.startsWith('/services') 
+            ? 'text-[var(--accent)]' 
+            : 'text-[var(--text-dim)] hover:text-[var(--text)]'
+        ]}
       >
         Services
         <svg
@@ -82,15 +104,20 @@ const currentPath = Astro.url.pathname;
         >
           <polyline points="6 9 12 15 18 9" />
         </svg>
-      </button>
+      </a>
 
       <!-- Products — triggers MegaMenu island -->
-      <button
-        type="button"
+      <a
+        href="/products"
         data-mega="products"
         aria-haspopup="true"
         aria-expanded="false"
-        class="flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium text-[var(--text-dim)] hover:text-[var(--text)] transition-colors duration-150"
+        class:list={[
+          'flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150',
+          currentPath.startsWith('/products') 
+            ? 'text-[var(--accent)]' 
+            : 'text-[var(--text-dim)] hover:text-[var(--text)]'
+        ]}
       >
         Products
         <svg
@@ -108,7 +135,7 @@ const currentPath = Astro.url.pathname;
         >
           <polyline points="6 9 12 15 18 9" />
         </svg>
-      </button>
+      </a>
 
       {navLinks.slice(2).map((link) => (
         <a
@@ -146,3 +173,46 @@ const currentPath = Astro.url.pathname;
   <!-- Island: MegaMenu -->
   <MegaMenu client:load />
 </header>
+
+<script>
+  (function () {
+    const header = document.querySelector('header') as HTMLElement | null;
+    const logoFull = document.getElementById('logo-full') as HTMLImageElement | null;
+    const logoScrolled = document.getElementById('logo-scrolled') as HTMLImageElement | null;
+    if (!header || !logoFull || !logoScrolled) return;
+
+    let ticking = false;
+
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrolled = window.scrollY > 20;
+          // Header background transition
+          if (scrolled) {
+            header!.classList.add('header--scrolled');
+          } else {
+            header!.classList.remove('header--scrolled');
+          }
+          // Logo swap
+          logoFull!.style.opacity = scrolled ? '0' : '1';
+          logoFull!.style.transform = scrolled ? 'scale(0.9)' : 'scale(1)';
+          logoScrolled!.style.opacity = scrolled ? '1' : '0';
+          logoScrolled!.style.transform = scrolled ? 'scale(1)' : 'scale(1.1)';
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+</script>
+
+<style>
+  header.header--scrolled {
+    background-color: color-mix(in srgb, var(--bg-card) 92%, transparent);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+  }
+</style>

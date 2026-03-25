@@ -42,22 +42,22 @@ const products = [
   {
     title: 'Real Estate Portal',
     slug: 'real-estate-portal',
-    features: ['Property listings', 'Agent management', 'Lead capture', 'Search filters'],
+    features: ['Property listings', 'Agent dashboards', 'Lead capture & CRM', 'Map integration'],
   },
   {
-    title: 'Conference Portal',
-    slug: 'conference-portal',
-    features: ['Event registration', 'Speaker profiles', 'Schedule management', 'Attendee portal'],
+    title: 'Medical Conference Portal',
+    slug: 'medical-conference-portal',
+    features: ['Event registration', 'Abstract submission', 'Speaker management', 'Certificate generation'],
   },
   {
-    title: 'IMA Portal',
-    slug: 'ima-portal',
-    features: ['Member management', 'Event booking', 'News & updates', 'CME tracking'],
+    title: 'IMA Society Portal',
+    slug: 'ima-society-portal',
+    features: ['Member management', 'Election module', 'Job portal', 'CPD tracking'],
   },
   {
-    title: 'Ribolator',
-    slug: 'ribolator',
-    features: ['Rib calculator', 'Quote generator', 'Product catalog', 'B2B ordering'],
+    title: 'Resort Management Portal',
+    slug: 'resort-management-system',
+    features: ['Online room booking', 'Housekeeping mgmt', 'Dining POS', 'Guest CRM'],
   },
 ];
 
@@ -66,38 +66,48 @@ export default function MegaMenu() {
   const menuRef = useRef<HTMLDivElement>(null);
   const hoverTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const closeMenu = () => {
+    hoverTimeout.current = setTimeout(() => {
+      setActiveMenu(null);
+      const serviceTrigger = document.querySelector('[data-mega="services"]');
+      const productsTrigger = document.querySelector('[data-mega="products"]');
+      serviceTrigger?.setAttribute('aria-expanded', 'false');
+      productsTrigger?.setAttribute('aria-expanded', 'false');
+    }, 250); // increased timeout to allow moving across the gap
+  };
+
+  const openMenu = (which: 'services' | 'products') => {
+    if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
+    setActiveMenu(which);
+    const serviceTrigger = document.querySelector('[data-mega="services"]');
+    const productsTrigger = document.querySelector('[data-mega="products"]');
+    serviceTrigger?.setAttribute('aria-expanded', which === 'services' ? 'true' : 'false');
+    productsTrigger?.setAttribute('aria-expanded', which === 'products' ? 'true' : 'false');
+  };
+
   useEffect(() => {
     const serviceTrigger = document.querySelector('[data-mega="services"]') as HTMLElement | null;
     const productsTrigger = document.querySelector('[data-mega="products"]') as HTMLElement | null;
 
-    function openMenu(which: 'services' | 'products') {
-      if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
-      setActiveMenu(which);
-      serviceTrigger?.setAttribute('aria-expanded', which === 'services' ? 'true' : 'false');
-      productsTrigger?.setAttribute('aria-expanded', which === 'products' ? 'true' : 'false');
-    }
-
-    function closeMenu() {
-      hoverTimeout.current = setTimeout(() => {
-        setActiveMenu(null);
-        serviceTrigger?.setAttribute('aria-expanded', 'false');
-        productsTrigger?.setAttribute('aria-expanded', 'false');
-      }, 150);
-    }
-
+    const handleServiceEnter = () => openMenu('services');
+    const handleProductsEnter = () => openMenu('products');
+    
     // Desktop: hover
-    serviceTrigger?.addEventListener('mouseenter', () => openMenu('services'));
+    serviceTrigger?.addEventListener('mouseenter', handleServiceEnter);
     serviceTrigger?.addEventListener('mouseleave', closeMenu);
-    productsTrigger?.addEventListener('mouseenter', () => openMenu('products'));
+    productsTrigger?.addEventListener('mouseenter', handleProductsEnter);
     productsTrigger?.addEventListener('mouseleave', closeMenu);
 
     // Click fallback (also works on mobile)
-    serviceTrigger?.addEventListener('click', () =>
-      setActiveMenu((prev) => (prev === 'services' ? null : 'services'))
-    );
-    productsTrigger?.addEventListener('click', () =>
-      setActiveMenu((prev) => (prev === 'products' ? null : 'products'))
-    );
+    const handleServiceClick = () => {
+      setActiveMenu((prev) => (prev === 'services' ? null : 'services'));
+    };
+    const handleProductsClick = () => {
+      setActiveMenu((prev) => (prev === 'products' ? null : 'products'));
+    };
+    
+    serviceTrigger?.addEventListener('click', handleServiceClick);
+    productsTrigger?.addEventListener('click', handleProductsClick);
 
     // Keyboard: Escape
     function handleKey(e: KeyboardEvent) {
@@ -115,6 +125,13 @@ export default function MegaMenu() {
     document.addEventListener('keydown', handleKey);
 
     return () => {
+      serviceTrigger?.removeEventListener('mouseenter', handleServiceEnter);
+      serviceTrigger?.removeEventListener('mouseleave', closeMenu);
+      productsTrigger?.removeEventListener('mouseenter', handleProductsEnter);
+      productsTrigger?.removeEventListener('mouseleave', closeMenu);
+      serviceTrigger?.removeEventListener('click', handleServiceClick);
+      productsTrigger?.removeEventListener('click', handleProductsClick);
+      
       document.removeEventListener('keydown', handleKey);
       if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
     };
@@ -130,9 +147,12 @@ export default function MegaMenu() {
       onMouseEnter={() => {
         if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
       }}
-      onMouseLeave={() => setActiveMenu(null)}
+      onMouseLeave={closeMenu}
       className="absolute left-0 top-full z-40 w-full bg-[var(--bg-card)] shadow-2xl border-t border-[var(--border)] py-8"
     >
+      {/* Invisible bridge to catch hovers in the gap between the nav and the menu */}
+      <div className="absolute left-0 -top-6 w-full h-6 bg-transparent" />
+      
       <div className="mx-auto max-w-7xl px-4">
         {activeMenu === 'services' ? (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -225,3 +245,4 @@ export default function MegaMenu() {
     </div>
   );
 }
+

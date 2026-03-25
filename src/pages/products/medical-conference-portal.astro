@@ -1,18 +1,21 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { softwareAppSchema, breadcrumbSchema } from '../../utils/schema';
+import { getProductBySlug } from '../../data/products';
+
+const product = getProductBySlug('medical-conference-portal');
 
 const schema = [
   softwareAppSchema({
-    name: 'Medical Conference Portal',
-    description: 'Event registration, abstract submission, speaker management, and certificate generation. Handles 500–5000+ delegates per event.',
-    url: '/products/medical-conference-portal',
-    applicationCategory: 'HealthApplication',
+    name: product.title,
+    description: product.desc,
+    url: `/products/${product.slug}`,
+    applicationCategory: product.schemaCategory,
   }),
   breadcrumbSchema([
     { name: 'Home', url: '/' },
     { name: 'Products', url: '/products' },
-    { name: 'Medical Conference Portal', url: '/products/medical-conference-portal' },
+    { name: product.title, url: `/products/${product.slug}` },
   ]),
 ];
 
@@ -69,7 +72,7 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'AWS S3'
       </p>
 
       <p class="mx-auto mb-10 max-w-3xl text-lg text-[var(--text-dim)] leading-relaxed">
-        A comprehensive digital platform for national and state-level medical conferences. Handles everything from delegate registration to abstract review, certificate generation, and sponsor management.
+        {product.longDesc}
       </p>
 
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
