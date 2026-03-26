@@ -25,9 +25,6 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     build: { cssMinify: true },
-    optimizeDeps: {
-      include: ['react', 'react-dom', '@nanostores/react'],
-    },
   },
 
   image: {
