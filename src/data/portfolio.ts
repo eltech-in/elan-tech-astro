@@ -32,7 +32,7 @@ export const projects: Project[] = [
     solution:
       'We engineered a custom MERN stack application with a dynamic product configurator, multi-step quote request system, and an admin dashboard for real-time lead management. SEO-optimized landing pages were built for each product category.',
     result: 'International B2B lead generation platform driving qualified inquiries from 12+ countries.',
-    image: '/portfolio/ribolator.avif',
+    image: '/portfolio/ribolator.png',
     liveUrl: 'https://ribolatorusa.com',
     isFeatured: true,
     accent: '#00E5A0',
@@ -185,7 +185,7 @@ export const projects: Project[] = [
     solution:
       'We developed a custom Next.js booking engine with real-time availability calendar, Stripe payment integration, automated booking confirmation emails, a guest-facing portal, and an operations dashboard for the resort team. The system handles seasonal pricing and promotional codes.',
     result: 'Online bookings account for 65% of total revenue within 4 months of launch; zero double-booking incidents.',
-    image: '/portfolio/resort.avif',
+    image: '/portfolio/resort-management.png',
     isFeatured: false,
     accent: '#06B6D4',
   },

@@ -49,20 +49,12 @@ const robotsContent = noindex ? 'noindex,nofollow' : 'index,follow';
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
 
-<!-- Font preloads -->
+<!-- Google Fonts — Sora (headings) + DM Sans (body) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 <link
-  rel="preload"
-  href="/fonts/Sora-Variable.woff2"
-  as="font"
-  type="font/woff2"
-  crossorigin="anonymous"
-/>
-<link
-  rel="preload"
-  href="/fonts/DMSans-Variable.woff2"
-  as="font"
-  type="font/woff2"
-  crossorigin="anonymous"
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap"
 />
 
 {schema && <SchemaMarkup schema={schema} />}
