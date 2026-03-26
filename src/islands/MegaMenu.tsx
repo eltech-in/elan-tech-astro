@@ -17,9 +17,14 @@ const services = [
     subpages: ['Shopify', 'WooCommerce', 'Custom eCommerce', 'B2B Portals', 'Payment Integration'],
   },
   {
+    label: 'SEO',
+    slug: 'seo',
+    subpages: ['Technical SEO', 'On-Page SEO', 'Local SEO', 'Link Building', 'Content SEO'],
+  },
+  {
     label: 'Digital Marketing',
     slug: 'digital-marketing',
-    subpages: ['SEO', 'Google Ads', 'Social Media', 'Content Marketing', 'Email Marketing'],
+    subpages: ['Google Ads / PPC', 'Social Media', 'Content Marketing', 'Email Marketing', 'Analytics'],
   },
   {
     label: 'Mobile App Development',

@@ -37,7 +37,6 @@ export default defineConfig({
   redirects: {
     '/about-elantech': '/about',
     '/services/web-design': '/services/website-design',
-    '/services/seo': '/services/digital-marketing',
     '/services/social-media': '/services/digital-marketing',
     '/services/mobile-app': '/services/mobile-app-development',
   },

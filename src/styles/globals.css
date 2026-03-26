@@ -98,6 +98,18 @@
   animation-play-state: paused;
 }
 
+/* Client logo carousel — right to left */
+@keyframes scroll-rtl {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.animate-scroll-rtl {
+  animation: scroll-rtl 35s linear infinite;
+}
+.animate-scroll-rtl:hover {
+  animation-play-state: paused;
+}
+
 /* Print stylesheet */
 @media print {
   nav, footer, .whatsapp-float, .cookie-consent, .cta-banner {

@@ -139,11 +139,83 @@ const yearsExp = year - 2002;
 
 
   <!-- ═══════════════════════════════════════════════════════════════════════
-       SECTION 3: SERVICES GRID
+       SECTION 3: CLIENT LOGO CAROUSEL (right-to-left scrolling)
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="clients-heading" class="relative overflow-hidden bg-[var(--bg)] py-12 md:py-16 border-b border-[var(--border)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-8 text-center">
+      <h2
+        id="clients-heading"
+        class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-3"
+      >
+        Trusted by Businesses Across India &amp; Worldwide
+      </h2>
+      <p class="text-base text-[var(--text-dim)] max-w-2xl mx-auto">
+        From local Nagpur enterprises to international organisations
+      </p>
+    </div>
+
+    <!-- Scrolling carousel track -->
+    <div class="relative w-full" aria-hidden="true">
+      <!-- Edge fades -->
+      <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 md:w-40 bg-gradient-to-r from-[var(--bg)] to-transparent"></div>
+      <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 md:w-40 bg-gradient-to-l from-[var(--bg)] to-transparent"></div>
+
+      <div class="flex w-fit animate-scroll-rtl">
+        {[...[
+          'Ribolator USA',
+          'CIPL India',
+          'CSRI-BSB',
+          'Aasthaa Hospital',
+          'Trimit Architects',
+          "D'FYNE Magazine",
+          'Guru Nanak College',
+          'GeoStudio',
+          'Pragati Foundation',
+          'BrightMinds School',
+          'Resort Management Co.',
+          'Aarna Weddings',
+          'Vidarbha Steel',
+          'Omkar Constructions',
+          'Central India Diagnostics',
+          'Apex Pharma',
+        ], ...[
+          'Ribolator USA',
+          'CIPL India',
+          'CSRI-BSB',
+          'Aasthaa Hospital',
+          'Trimit Architects',
+          "D'FYNE Magazine",
+          'Guru Nanak College',
+          'GeoStudio',
+          'Pragati Foundation',
+          'BrightMinds School',
+          'Resort Management Co.',
+          'Aarna Weddings',
+          'Vidarbha Steel',
+          'Omkar Constructions',
+          'Central India Diagnostics',
+          'Apex Pharma',
+        ]].map(name => (
+          <span class="mx-2 shrink-0 rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-5 py-2.5 text-sm font-medium text-[var(--text-dim)] whitespace-nowrap">
+            {name}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 3B: PROJECT CAROUSEL — OUR RECENT WORK
+  ════════════════════════════════════════════════════════════════════════ -->
+  <ProjectCarousel />
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 4: SERVICES GRID
   ════════════════════════════════════════════════════════════════════════ -->
   <section aria-labelledby="services-heading" class="bg-[var(--bg)] py-16 md:py-24">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <!-- Section header -->
       <p class="text-center text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-3">
         What We Do
       </p>
@@ -157,7 +229,6 @@ const yearsExp = year - 2002;
         Everything your business needs to succeed online
       </p>
 
-      <!-- Services grid -->
       <ul
         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
         role="list"
@@ -165,29 +236,15 @@ const yearsExp = year - 2002;
         {services.map(service => (
           <li>
             <article class="group relative flex flex-col h-full bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-6 hover:border-[var(--accent)]/40 hover:-translate-y-1 transition-all duration-300 hover:shadow-lg hover:shadow-[var(--accent)]/5">
-              <!-- Icon circle -->
               <div
                 class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl"
                 style={`background-color: ${service.accent}20;`}
                 aria-hidden="true"
               >
-                <div
-                  class="h-5 w-5 rounded-full"
-                  style={`background-color: ${service.accent};`}
-                ></div>
+                <div class="h-5 w-5 rounded-full" style={`background-color: ${service.accent};`}></div>
               </div>
-
-              <!-- Title -->
-              <h3 class="font-heading text-lg font-bold text-[var(--text)] mb-2">
-                {service.title}
-              </h3>
-
-              <!-- Tagline -->
-              <p class="text-sm text-[var(--text-dim)] mb-4 line-clamp-2 flex-grow">
-                {service.tagline}
-              </p>
-
-              <!-- Top 3 features -->
+              <h3 class="font-heading text-lg font-bold text-[var(--text)] mb-2">{service.title}</h3>
+              <p class="text-sm text-[var(--text-dim)] mb-4 line-clamp-2 flex-grow">{service.tagline}</p>
               <ul class="mb-5 space-y-1.5" aria-label={`${service.title} features`}>
                 {service.features.slice(0, 3).map(feature => (
                   <li class="flex items-center gap-2 text-xs text-[var(--text-muted)]">
@@ -198,8 +255,6 @@ const yearsExp = year - 2002;
                   </li>
                 ))}
               </ul>
-
-              <!-- CTA link -->
               <a
                 href={`/services/${service.slug}`}
                 class="mt-auto inline-flex items-center gap-1 text-sm font-semibold transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
@@ -212,57 +267,6 @@ const yearsExp = year - 2002;
                 </svg>
               </a>
             </article>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       SECTION 3B: PROJECT CAROUSEL — OUR RECENT WORK
-  ════════════════════════════════════════════════════════════════════════ -->
-  <ProjectCarousel />
-
-
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       SECTION 4: CLIENT LOGOS STRIP
-  ════════════════════════════════════════════════════════════════════════ -->
-  <section aria-labelledby="clients-heading" class="bg-[var(--bg-card)] py-16 md:py-24">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h2
-        id="clients-heading"
-        class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] text-center mb-4"
-      >
-        Trusted by Businesses Across India &amp; Worldwide
-      </h2>
-      <p class="text-lg text-[var(--text-dim)] text-center mb-12 max-w-2xl mx-auto">
-        From local Nagpur enterprises to international organisations — clients who trust eLan Technology
-      </p>
-
-      <ul
-        class="flex flex-wrap items-center justify-center gap-3"
-        role="list"
-        aria-label="Client names"
-      >
-        {[
-          'Ribolator USA',
-          'CIPL India',
-          'CSRI-BSB',
-          'Aasthaa Hospital',
-          'Trimit Architects',
-          "D'FYNE Magazine",
-          'Guru Nanak College',
-          'GeoStudio',
-          'Pragati Foundation',
-          'BrightMinds School',
-          'Resort Management Co.',
-          'Aarna Weddings',
-        ].map(name => (
-          <li
-            class="rounded-full border border-[var(--border)] px-4 py-2 text-sm text-[var(--text-muted)] transition-colors duration-200 hover:border-[var(--accent)]/50 hover:text-[var(--text)]"
-          >
-            {name}
           </li>
         ))}
       </ul>
