@@ -98,15 +98,15 @@
   animation-play-state: paused;
 }
 
-/* Client logo carousel — right to left */
-@keyframes scroll-rtl {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+/* Client logo carousel — left to right */
+@keyframes scroll-ltr {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
 }
-.animate-scroll-rtl {
-  animation: scroll-rtl 35s linear infinite;
+.animate-scroll-ltr {
+  animation: scroll-ltr 60s linear infinite;
 }
-.animate-scroll-rtl:hover {
+.animate-scroll-ltr:hover {
   animation-play-state: paused;
 }
 

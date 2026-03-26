@@ -139,7 +139,7 @@ const yearsExp = year - 2002;
 
 
   <!-- ═══════════════════════════════════════════════════════════════════════
-       SECTION 3: CLIENT LOGO CAROUSEL (right-to-left scrolling)
+       SECTION 3: CLIENT LOGO CAROUSEL (left-to-right scrolling)
   ════════════════════════════════════════════════════════════════════════ -->
   <section aria-labelledby="clients-heading" class="relative overflow-hidden bg-[var(--bg)] py-12 md:py-16 border-b border-[var(--border)]">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-8 text-center">
@@ -154,51 +154,139 @@ const yearsExp = year - 2002;
       </p>
     </div>
 
-    <!-- Scrolling carousel track -->
+    <!-- Scrolling carousel track (logos duplicated for seamless loop) -->
     <div class="relative w-full" aria-hidden="true">
       <!-- Edge fades -->
       <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 md:w-40 bg-gradient-to-r from-[var(--bg)] to-transparent"></div>
       <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 md:w-40 bg-gradient-to-l from-[var(--bg)] to-transparent"></div>
 
-      <div class="flex w-fit animate-scroll-rtl">
+      <div class="flex w-fit animate-scroll-ltr items-center">
         {[...[
-          'Ribolator USA',
-          'CIPL India',
-          'CSRI-BSB',
-          'Aasthaa Hospital',
-          'Trimit Architects',
-          "D'FYNE Magazine",
-          'Guru Nanak College',
-          'GeoStudio',
-          'Pragati Foundation',
-          'BrightMinds School',
-          'Resort Management Co.',
-          'Aarna Weddings',
-          'Vidarbha Steel',
-          'Omkar Constructions',
-          'Central India Diagnostics',
-          'Apex Pharma',
+          'cl-ta-logo.avif',
+          'nei-logo.svg',
+          'cl-dfm-logo.avif',
+          'merraki-expert-logo.svg',
+          'cl-hc-logo.avif',
+          'abc-wiindo-logo.svg',
+          'GNC-logo.avif',
+          'trimit-arch-logo.avif',
+          'cl-ah-logo.avif',
+          'gokhale-insurance.svg',
+          'patel-rcm-logo.svg',
+          'cl-cbbf-logo.avif',
+          'hmh-logo.avif',
+          'nexus-cowork.svg',
+          'cl-w4c-logo.avif',
+          'jpdata-logo.avif',
+          'am-logo.svg',
+          'cl-isancb-logo.avif',
+          'sakhi-logo02.avif',
+          'lotus-care-exim.svg',
+          'cl-pr-logo.avif',
+          'ss360.avif',
+          'dizviz-logoh.webp',
+          'cl-gss-logo.avif',
+          'msmehub-logo.svg',
+          'icon-hospital-logo.avif',
+          'cl-sp-logo.avif',
+          'pdm-logo.svg',
+          'cl-rr-logo.avif',
+          '77mp-logo.webp',
+          'cl-iapm-logo.avif',
+          'silaris-logo.avif',
+          'apd-logo.svg',
+          'ia-logo.avif',
+          'cl-cambian-logo.avif',
+          'yfy-logo.avif',
+          'tmp-logo.svg',
+          'cl-pmi-logo.avif',
+          'logo-3dots.avif',
+          'cl-psn-logo.avif',
+          'h2ms-sloglogo-wh.webp',
+          'cl-oafa-logo.avif',
+          'arp-logo.avif',
+          'navsamaj-logo.avif',
+          'cl-bl-logo.avif',
+          'pmindustries-logo.avif',
+          'svsss-logo.avif',
+          'cl-ci-logo.avif',
+          'cl-geg-logo.avif',
+          'tnf-logo.avif',
+          'cl-iv-logo.avif',
+          'cl-rg-logo.avif',
+          'mm-logo.avif',
+          'cl-iep-logo.avif',
+          'cl-aa-logo.avif',
+          'e-t.avif',
         ], ...[
-          'Ribolator USA',
-          'CIPL India',
-          'CSRI-BSB',
-          'Aasthaa Hospital',
-          'Trimit Architects',
-          "D'FYNE Magazine",
-          'Guru Nanak College',
-          'GeoStudio',
-          'Pragati Foundation',
-          'BrightMinds School',
-          'Resort Management Co.',
-          'Aarna Weddings',
-          'Vidarbha Steel',
-          'Omkar Constructions',
-          'Central India Diagnostics',
-          'Apex Pharma',
-        ]].map(name => (
-          <span class="mx-2 shrink-0 rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-5 py-2.5 text-sm font-medium text-[var(--text-dim)] whitespace-nowrap">
-            {name}
-          </span>
+          'cl-ta-logo.avif',
+          'nei-logo.svg',
+          'cl-dfm-logo.avif',
+          'merraki-expert-logo.svg',
+          'cl-hc-logo.avif',
+          'abc-wiindo-logo.svg',
+          'GNC-logo.avif',
+          'trimit-arch-logo.avif',
+          'cl-ah-logo.avif',
+          'gokhale-insurance.svg',
+          'patel-rcm-logo.svg',
+          'cl-cbbf-logo.avif',
+          'hmh-logo.avif',
+          'nexus-cowork.svg',
+          'cl-w4c-logo.avif',
+          'jpdata-logo.avif',
+          'am-logo.svg',
+          'cl-isancb-logo.avif',
+          'sakhi-logo02.avif',
+          'lotus-care-exim.svg',
+          'cl-pr-logo.avif',
+          'ss360.avif',
+          'dizviz-logoh.webp',
+          'cl-gss-logo.avif',
+          'msmehub-logo.svg',
+          'icon-hospital-logo.avif',
+          'cl-sp-logo.avif',
+          'pdm-logo.svg',
+          'cl-rr-logo.avif',
+          '77mp-logo.webp',
+          'cl-iapm-logo.avif',
+          'silaris-logo.avif',
+          'apd-logo.svg',
+          'ia-logo.avif',
+          'cl-cambian-logo.avif',
+          'yfy-logo.avif',
+          'tmp-logo.svg',
+          'cl-pmi-logo.avif',
+          'logo-3dots.avif',
+          'cl-psn-logo.avif',
+          'h2ms-sloglogo-wh.webp',
+          'cl-oafa-logo.avif',
+          'arp-logo.avif',
+          'navsamaj-logo.avif',
+          'cl-bl-logo.avif',
+          'pmindustries-logo.avif',
+          'svsss-logo.avif',
+          'cl-ci-logo.avif',
+          'cl-geg-logo.avif',
+          'tnf-logo.avif',
+          'cl-iv-logo.avif',
+          'cl-rg-logo.avif',
+          'mm-logo.avif',
+          'cl-iep-logo.avif',
+          'cl-aa-logo.avif',
+          'e-t.avif',
+        ]].map(logo => (
+          <div class="mx-3 md:mx-5 shrink-0 flex items-center justify-center h-12 md:h-14 w-auto opacity-60 hover:opacity-100 transition-opacity duration-300 grayscale hover:grayscale-0">
+            <img
+              src={`/elan-client-logos/${logo}`}
+              alt="Client logo"
+              width="120"
+              height="48"
+              loading="lazy"
+              decoding="async"
+              class="h-full w-auto max-w-[100px] md:max-w-[130px] object-contain"
+            />
+          </div>
         ))}
       </div>
     </div>
