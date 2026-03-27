@@ -88,11 +88,13 @@
 
 /* Project carousel infinite scroll */
 @keyframes loop-scroll-slow {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-33.33%); }
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-33.33%, 0, 0); }
 }
 .animate-loop-scroll-slow {
   animation: loop-scroll-slow 80s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 .animate-loop-scroll-slow:hover {
   animation-play-state: paused;
@@ -100,11 +102,13 @@
 
 /* Client logo carousel — left to right */
 @keyframes scroll-ltr {
-  from { transform: translateX(-50%); }
-  to   { transform: translateX(0); }
+  from { transform: translate3d(-50%, 0, 0); }
+  to   { transform: translate3d(0, 0, 0); }
 }
 .animate-scroll-ltr {
   animation: scroll-ltr 60s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 .animate-scroll-ltr:hover {
   animation-play-state: paused;

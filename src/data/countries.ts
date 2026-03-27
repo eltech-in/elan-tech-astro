@@ -2,7 +2,7 @@ export interface Country {
   name: string;
   code: string; // ISO 3166-1 alpha-2
   slug: string;
-  currency: string; // 'INR'|'USD'|'AUD'|'AED'|'GBP'
+  currency: string; // 'INR'|'USD'|'AUD'|'AED'|'GBP'|'JPY'
   hasLandingPage: boolean;
   isFeatured: boolean;
 }
@@ -76,9 +76,9 @@ export const countries: Country[] = [
     name: 'Japan',
     code: 'JP',
     slug: 'japan',
-    currency: 'USD',
+    currency: 'JPY',
     hasLandingPage: true,
-    isFeatured: false,
+    isFeatured: true,
   },
   {
     name: 'Brazil',

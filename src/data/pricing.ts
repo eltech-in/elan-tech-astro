@@ -1,4 +1,4 @@
-export type Currency = 'INR' | 'USD' | 'AUD' | 'AED' | 'GBP';
+export type Currency = 'INR' | 'USD' | 'AUD' | 'AED' | 'GBP' | 'JPY';
 
 export interface PricingTier {
   id: string;
@@ -25,6 +25,7 @@ export const pricingTiers: PricingTier[] = [
       AUD: 450,
       AED: 1100,
       GBP: 240,
+      JPY: 45000,
     },
     features: [
       'Up to 5 Pages',
@@ -37,8 +38,8 @@ export const pricingTiers: PricingTier[] = [
       '30-Day Post-Launch Support',
     ],
     highlighted: false,
-    cta: 'Get Started',
-    ctaHref: '/contact?plan=starter',
+    cta: 'Get a Quote',
+    ctaHref: '/get-quote',
     deliveryDays: 14,
     revisions: 3,
     support: '30 days',
@@ -53,6 +54,7 @@ export const pricingTiers: PricingTier[] = [
       AUD: 1080,
       AED: 2640,
       GBP: 576,
+      JPY: 108000,
     },
     features: [
       'Up to 15 Pages',
@@ -68,8 +70,8 @@ export const pricingTiers: PricingTier[] = [
       '90-Day Post-Launch Support',
     ],
     highlighted: true,
-    cta: 'Most Popular — Get a Quote',
-    ctaHref: '/contact?plan=professional',
+    cta: 'Get a Quote',
+    ctaHref: '/get-quote',
     deliveryDays: 30,
     revisions: 10,
     support: '90 days',
@@ -84,6 +86,7 @@ export const pricingTiers: PricingTier[] = [
       AUD: 2160,
       AED: 5280,
       GBP: 1152,
+      JPY: 216000,
     },
     features: [
       'Unlimited Pages',
@@ -101,8 +104,8 @@ export const pricingTiers: PricingTier[] = [
       'Dedicated Project Manager',
     ],
     highlighted: false,
-    cta: 'Request a Custom Quote',
-    ctaHref: '/contact?plan=enterprise',
+    cta: 'Get a Quote',
+    ctaHref: '/get-quote',
     deliveryDays: 60,
     revisions: 'Unlimited',
     support: '1 year',
@@ -115,6 +118,7 @@ export const currencySymbols: Record<Currency, string> = {
   AUD: 'A$',
   AED: 'AED ',
   GBP: '£',
+  JPY: '¥',
 };
 
 export const currencyNames: Record<Currency, string> = {
@@ -123,4 +127,5 @@ export const currencyNames: Record<Currency, string> = {
   AUD: 'Australian Dollar',
   AED: 'UAE Dirham',
   GBP: 'British Pound',
+  JPY: 'Japanese Yen',
 };

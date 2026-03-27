@@ -50,7 +50,7 @@ const comparisonFeatures = [
 
 <BaseLayout
   title="Web Design & Development Pricing — eLan Technology"
-  description="Transparent, value-based pricing for web design, development, and eCommerce projects. Starter from ₹25,000. Custom quotes available."
+  description="Transparent, value-based pricing for web design, development, and eCommerce projects. Get a custom quote tailored to your project."
   schema={schema}
 >
   <!-- Hero -->
@@ -64,14 +64,16 @@ const comparisonFeatures = [
         Every business is different. Our packages are starting points — all projects receive a custom quote based on your specific requirements, timeline, and goals.
       </p>
 
-      <!-- Currency toggle placeholder -->
-      <!-- TODO: CurrencyToggle island (Step 3) — currently shows INR -->
-      <div class="flex gap-2 mt-8 justify-center" aria-label="Currency selector (static display)">
-        <span class="px-3 py-1 rounded-full bg-[var(--accent)] text-[#0A0E1A] text-sm font-semibold">₹ INR</span>
+      <!-- Currency indicator — pricing is quote-based and tailored per currency -->
+      <div class="flex flex-wrap gap-2 mt-8 justify-center" aria-label="Currencies we quote in">
+        <span class="px-3 py-1 rounded-full border border-[var(--border)] text-sm text-[var(--text-muted)]">₹ INR</span>
         <span class="px-3 py-1 rounded-full border border-[var(--border)] text-sm text-[var(--text-muted)]">$ USD</span>
         <span class="px-3 py-1 rounded-full border border-[var(--border)] text-sm text-[var(--text-muted)]">A$ AUD</span>
         <span class="px-3 py-1 rounded-full border border-[var(--border)] text-sm text-[var(--text-muted)]">£ GBP</span>
+        <span class="px-3 py-1 rounded-full border border-[var(--border)] text-sm text-[var(--text-muted)]">AED</span>
+        <span class="px-3 py-1 rounded-full border border-[var(--border)] text-sm text-[var(--text-muted)]">¥ JPY</span>
       </div>
+      <p class="mt-3 text-xs text-[var(--text-muted)]">We quote in your local currency — no conversion surprises.</p>
     </div>
   </section>
 
@@ -96,11 +98,7 @@ const comparisonFeatures = [
             </div>
 
             <div class="mb-6">
-              <div class="flex items-baseline gap-1">
-                <span class="text-4xl font-bold text-[var(--text)]">₹{tier.prices.INR.toLocaleString('en-IN')}</span>
-                <span class="text-[var(--text-muted)] text-sm">onwards</span>
-              </div>
-              <p class="text-xs text-[var(--text-muted)] mt-1">
+              <p class="text-xs text-[var(--text-muted)]">
                 {tier.deliveryDays}-day delivery · {tier.revisions === 'Unlimited' ? 'Unlimited' : `${tier.revisions}`} revisions · {tier.support} support
               </p>
             </div>
