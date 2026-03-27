@@ -25,6 +25,25 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     build: { cssMinify: true },
+
+    // Fix: Vite 7 EnvironmentPluginContainer.transform doesn't null-check
+    // the handler returned by getHookHandler(). Pre-bundling React packages
+    // bypasses the plugin transform chain for these modules in dev mode,
+    // preventing "Cannot read properties of undefined (reading 'call')".
+    resolve: {
+      dedupe: ['react', 'react-dom'],
+    },
+    optimizeDeps: {
+      include: [
+        'react',
+        'react-dom',
+        'react/jsx-runtime',
+        'react-dom/client',
+        'nanostores',
+        '@nanostores/react',
+        'react-hook-form',
+      ],
+    },
   },
 
   image: {
