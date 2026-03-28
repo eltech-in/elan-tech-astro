@@ -9,6 +9,7 @@ import { organizationSchema, faqSchema, reviewSchema, breadcrumbSchema } from '.
 import StatsCounter from '../islands/StatsCounter';
 import TestimonialCarousel from '../islands/TestimonialCarousel';
 import ProjectCarousel from '../components/ProjectCarousel.astro';
+import TechStackCarousel from '../components/TechStackCarousel.astro';
 import { products } from '../data/products';
 
 // Data prep
@@ -202,6 +203,12 @@ const yearsExp = year - 2002;
 
 
   <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 3A: TECH STACK CAROUSEL
+  ════════════════════════════════════════════════════════════════════════ -->
+  <TechStackCarousel />
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
        SECTION 3B: PROJECT CAROUSEL — OUR RECENT WORK
   ════════════════════════════════════════════════════════════════════════ -->
   <ProjectCarousel />
@@ -290,7 +297,7 @@ const yearsExp = year - 2002;
             id="audit-cta-heading"
             class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] mb-4"
           >
-            Get Your Free Website Security, SEO &amp; ADA Audit
+            Get Your Free Website Security &amp; SEO Audit
           </h2>
           <p class="mx-auto mb-8 max-w-2xl text-lg text-[var(--text-dim)]">
             We'll analyse your existing website and identify critical issues — completely free, no strings attached.
@@ -305,7 +312,7 @@ const yearsExp = year - 2002;
             </svg>
           </a>
           <p class="mt-4 text-xs text-[var(--text-muted)]">
-            No credit card required. Results delivered within 48 hours.
+            No credit card required. Results delivered within 48 hours. * Conditions apply.
           </p>
         </div>
       </div>
@@ -556,7 +563,7 @@ const yearsExp = year - 2002;
                 Free Website Audit
               </h3>
               <p class="text-sm text-[var(--text-dim)] mb-6 flex-grow">
-                Get a comprehensive report on your site's security, SEO &amp; accessibility
+                Get a comprehensive report on your site's security &amp; SEO health
               </p>
               <a
                 href="/free-website-audit"

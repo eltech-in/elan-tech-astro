@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { services } from '../../data/services';
 import { breadcrumbSchema, serviceSchema } from '../../utils/schema';
+import TechStackCarousel from '../../components/TechStackCarousel.astro';
 
 const breadcrumbs = [
   { name: 'Home', url: '/' },
@@ -40,10 +41,10 @@ const schemas = [
         </a>
       </div>
       <div class="mt-10 flex flex-wrap justify-center gap-6 text-sm text-[var(--text-muted)]">
-        <span class="flex items-center gap-2"><span class="text-green-400">✓</span> 24+ Years Experience</span>
-        <span class="flex items-center gap-2"><span class="text-green-400">✓</span> 200+ Projects Delivered</span>
-        <span class="flex items-center gap-2"><span class="text-green-400">✓</span> WCAG/ADA Compliant</span>
-        <span class="flex items-center gap-2"><span class="text-green-400">✓</span> Dedicated Support</span>
+        <span class="flex items-center gap-2"><span class="text-green-400" aria-hidden="true">✓</span> 24+ Years Experience</span>
+        <span class="flex items-center gap-2"><span class="text-green-400" aria-hidden="true">✓</span> 200+ Projects Delivered</span>
+        <span class="flex items-center gap-2"><span class="text-green-400" aria-hidden="true">✓</span> WCAG/ADA Compliant</span>
+        <span class="flex items-center gap-2"><span class="text-green-400" aria-hidden="true">✓</span> Dedicated Support</span>
       </div>
     </div>
   </section>
@@ -59,13 +60,14 @@ const schemas = [
         {services.map((service) => (
           <a
             href={`/services/${service.slug}`}
+            aria-label={`Learn more about ${service.title}`}
             class="group flex flex-col rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 transition hover:border-[var(--accent)]/50 hover:shadow-lg"
           >
             <div
               class="mb-4 h-12 w-12 rounded-xl flex items-center justify-center text-2xl"
               style={`background: ${service.accent}20;`}
             >
-              <span style={`color: ${service.accent};`}>◆</span>
+              <span style={`color: ${service.accent};`} aria-hidden="true">◆</span>
             </div>
             <h3 class="font-heading text-xl font-semibold text-[var(--text)] group-hover:text-[var(--accent)] transition-colors">
               {service.title}
@@ -80,7 +82,7 @@ const schemas = [
                 </li>
               ))}
             </ul>
-            <span class="mt-5 inline-flex items-center text-sm font-semibold text-[var(--accent)] group-hover:gap-2 transition-all">
+            <span class="mt-5 inline-flex items-center text-sm font-semibold text-[var(--accent)] group-hover:gap-2 transition-all" aria-hidden="true">
               Learn More <span class="ml-1">→</span>
             </span>
           </a>
@@ -98,28 +100,28 @@ const schemas = [
       </div>
       <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
         <div class="flex gap-4 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
-          <div class="h-12 w-12 shrink-0 rounded-xl bg-[var(--accent)]/10 flex items-center justify-center text-2xl">🏆</div>
+          <div class="h-12 w-12 shrink-0 rounded-xl bg-[var(--accent)]/10 flex items-center justify-center text-2xl"><span role="img" aria-label="Trophy">🏆</span></div>
           <div>
             <h3 class="font-heading text-lg font-semibold text-[var(--text)]">24+ Years of Experience</h3>
             <p class="mt-2 text-sm text-[var(--text-muted)]">Founded in 2002, eLan Technology has spent over two decades building websites and digital solutions for businesses of all sizes — from startups to enterprises across India and internationally. Our experience spans every major technology shift, giving us unmatched perspective and proven methodologies.</p>
           </div>
         </div>
         <div class="flex gap-4 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
-          <div class="h-12 w-12 shrink-0 rounded-xl bg-purple-500/10 flex items-center justify-center text-2xl">♿</div>
+          <div class="h-12 w-12 shrink-0 rounded-xl bg-purple-500/10 flex items-center justify-center text-2xl"><span role="img" aria-label="Accessibility">♿</span></div>
           <div>
             <h3 class="font-heading text-lg font-semibold text-[var(--text)]">WCAG/ADA Compliant by Default</h3>
             <p class="mt-2 text-sm text-[var(--text-muted)]">Accessibility is not an afterthought — it is baked into every project from day one. All our websites meet WCAG 2.1 AA standards, ensuring your digital presence is inclusive and legally compliant. This also improves your SEO rankings and reaches a broader audience.</p>
           </div>
         </div>
         <div class="flex gap-4 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
-          <div class="h-12 w-12 shrink-0 rounded-xl bg-blue-500/10 flex items-center justify-center text-2xl">⚙️</div>
+          <div class="h-12 w-12 shrink-0 rounded-xl bg-blue-500/10 flex items-center justify-center text-2xl"><span role="img" aria-label="Full-stack capability">⚙️</span></div>
           <div>
             <h3 class="font-heading text-lg font-semibold text-[var(--text)]">Full-Stack Capability</h3>
             <p class="mt-2 text-sm text-[var(--text-muted)]">Design, development, and marketing — all under one roof. You never need to coordinate between multiple agencies. From Figma wireframes to deployed production code to running Google Ads, our team handles the complete digital lifecycle with seamless handoffs and unified strategy.</p>
           </div>
         </div>
         <div class="flex gap-4 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
-          <div class="h-12 w-12 shrink-0 rounded-xl bg-green-500/10 flex items-center justify-center text-2xl">🤝</div>
+          <div class="h-12 w-12 shrink-0 rounded-xl bg-green-500/10 flex items-center justify-center text-2xl"><span role="img" aria-label="Partnership">🤝</span></div>
           <div>
             <h3 class="font-heading text-lg font-semibold text-[var(--text)]">Dedicated Post-Launch Support</h3>
             <p class="mt-2 text-sm text-[var(--text-muted)]">Our relationship does not end at launch. Every project includes post-launch support, and we offer ongoing maintenance plans to keep your website secure, fast, and up-to-date. Our team is reachable via WhatsApp, email, and phone — with SLAs that match your business needs.</p>
@@ -158,21 +160,7 @@ const schemas = [
   </section>
 
   <!-- ── TECH STACK ─────────────────────────────────────────────────────────── -->
-  <section class="py-16 md:py-20 bg-[var(--bg)]">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-10">
-        <h2 class="font-heading text-3xl font-bold text-[var(--text)] md:text-4xl">Technologies We Work With</h2>
-        <p class="mt-4 text-[var(--text-muted)] max-w-2xl mx-auto">We choose the right tool for each project — not the fashionable one. Here's our current core technology stack.</p>
-      </div>
-      <div class="flex flex-wrap justify-center gap-3">
-        {['React', 'Next.js', 'Astro', 'WordPress', 'Shopify', 'WooCommerce', 'Node.js', 'Express', 'MongoDB', 'React Native', 'Tailwind CSS', 'Figma', 'GraphQL', 'REST APIs', 'TypeScript', 'PHP', 'MySQL', 'Firebase'].map((tech) => (
-          <span class="rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-4 py-2 text-sm font-medium text-[var(--text-muted)] hover:border-[var(--accent)]/50 hover:text-[var(--text)] transition-colors">
-            {tech}
-          </span>
-        ))}
-      </div>
-    </div>
-  </section>
+  <TechStackCarousel />
 
   <!-- ── CTA ────────────────────────────────────────────────────────────────── -->
   <section class="py-16 md:py-20 bg-gradient-to-br from-[var(--accent)]/10 to-purple-500/5">

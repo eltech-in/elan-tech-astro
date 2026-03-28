@@ -100,6 +100,7 @@ export default function BlogFilter({ posts }: Props) {
               </div>
               <a
                 href={`/blog/${post.slug}`}
+                aria-label={`Read more: ${post.title}`}
                 className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent)] hover:gap-2 transition-all duration-150 relative z-20"
               >
                 Read More →

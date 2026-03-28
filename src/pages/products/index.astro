@@ -119,6 +119,7 @@ const schema = breadcrumbSchema([
             <div class="flex flex-col sm:flex-row gap-3 mt-auto">
               <a
                 href={`/products/${product.slug}`}
+                aria-label={`Learn more about ${product.title}`}
                 class="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-[var(--bg)] transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2"
                 style={`background-color: ${product.accent}; --tw-shadow-color: ${product.accent}40; outline-color: ${product.accent};`}
               >

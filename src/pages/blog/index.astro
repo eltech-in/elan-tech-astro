@@ -132,6 +132,7 @@ const categories = [...new Set(posts.map((p) => p.data.category))];
               </div>
               <a
                 href={`/blog/${featuredPost.id}`}
+                aria-label={`Read article: ${featuredPost.data.title}`}
                 class="inline-flex self-start items-center gap-2 rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-semibold text-[#0A0E1A] hover:brightness-110 transition-all"
               >
                 Read Article
@@ -257,7 +258,7 @@ const categories = [...new Set(posts.map((p) => p.data.category))];
               Ready to Grow Online?
             </h3>
             <p class="text-sm text-[var(--text-dim)] mb-4 leading-relaxed">
-              Get a free website audit covering SEO, security, and accessibility.
+              Get a free website audit covering SEO & security. * Conditions apply.
             </p>
             <a
               href="/free-website-audit"
