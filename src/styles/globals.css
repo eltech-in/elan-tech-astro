@@ -100,17 +100,16 @@
   animation-play-state: paused;
 }
 
-/* Client logo carousel — left to right, smooth & flicker-free */
+/* Client logo carousel — left to right, tripled for seamless loop (same pattern as ProjectCarousel) */
 @keyframes scroll-ltr {
-  0%   { transform: translate3d(-50%, 0, 0); }
-  100% { transform: translate3d(0, 0, 0); }
+  from { transform: translate3d(-33.33%, 0, 0); }
+  to   { transform: translate3d(0, 0, 0); }
 }
 .animate-scroll-ltr {
-  animation: scroll-ltr 50s linear infinite;
+  animation: scroll-ltr 60s linear infinite;
   will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  transform-style: preserve-3d;
 }
 .animate-scroll-ltr:hover {
   animation-play-state: paused;

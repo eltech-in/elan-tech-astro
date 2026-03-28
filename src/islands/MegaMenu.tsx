@@ -213,14 +213,7 @@ export default function MegaMenu() {
             })}
           </div>
 
-          {/* Bottom bar */}
-          <div className="mt-6 pt-4 border-t border-[var(--border)] flex items-center justify-between">
-            <p className="text-xs text-[var(--text-muted)]">
-              Need help choosing the right service?{' '}
-              <a href="/contact" onClick={() => setActiveMenu(null)} className="text-[var(--accent)] hover:underline font-medium">
-                Talk to us →
-              </a>
-            </p>
+          <div className="mt-6 pt-4 border-t border-[var(--border)] flex justify-end">
             <a
               href="/services"
               onClick={() => setActiveMenu(null)}

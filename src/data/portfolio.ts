@@ -190,6 +190,44 @@ export const projects: Project[] = [
     accent: '#06B6D4',
   },
   {
+    id: 31,
+    slug: 'abhirama',
+    title: 'Abhirama',
+    client: 'Abhirama Group',
+    industry: 'Real Estate',
+    category: 'Website Design',
+    technologies: ['WordPress', 'Elementor', 'CSS3'],
+    description:
+      'A dynamic website for Abhirama, showcasing their real estate projects and property portfolio with a focus on generating leads and site visit bookings.',
+    challenge:
+      'Abhirama needed a fresh digital platform to complement their main real estate portal, capturing a broader audience with a clean, fast-loading brand presence.',
+    solution:
+      'We built a sleek WordPress website with project highlights, image galleries, amenities breakdowns, and an integrated lead capture system.',
+    result: 'Consistent pre-sales enquiries driven through the website with strong engagement metrics.',
+    image: '/portfolio/abhirama.avif',
+    isFeatured: false,
+    accent: '#F59E0B',
+  },
+  {
+    id: 32,
+    slug: 'at',
+    title: 'AT',
+    client: 'AT',
+    industry: 'Business Services',
+    category: 'Website Design',
+    technologies: ['WordPress', 'CSS3'],
+    description:
+      'A professional business website for AT, designed to clearly communicate their service offering and drive qualified customer inquiries.',
+    challenge:
+      'The client required a credible online presence that would differentiate them in a competitive local market.',
+    solution:
+      'We delivered a clean, conversion-focused WordPress website with structured service pages, strong call-to-actions, and a mobile-first responsive layout.',
+    result: 'Established strong digital presence with consistent inbound inquiry generation.',
+    image: '/portfolio/at.avif',
+    isFeatured: false,
+    accent: '#6366F1',
+  },
+  {
     id: 10,
     slug: 'anirwan',
     title: 'Anirwan',
