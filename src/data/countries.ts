@@ -41,6 +41,14 @@ export const countries: Country[] = [
     isFeatured: true,
   },
   {
+    name: 'Japan',
+    code: 'JP',
+    slug: 'japan',
+    currency: 'JPY',
+    hasLandingPage: true,
+    isFeatured: true,
+  },
+  {
     name: 'United Arab Emirates',
     code: 'AE',
     slug: 'dubai-uae',
@@ -71,14 +79,6 @@ export const countries: Country[] = [
     currency: 'AUD',
     hasLandingPage: true,
     isFeatured: false,
-  },
-  {
-    name: 'Japan',
-    code: 'JP',
-    slug: 'japan',
-    currency: 'JPY',
-    hasLandingPage: true,
-    isFeatured: true,
   },
   {
     name: 'Brazil',

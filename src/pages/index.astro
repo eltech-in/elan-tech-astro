@@ -5,7 +5,7 @@ import { testimonials } from '../data/testimonials';
 import { faqs } from '../data/faq';
 import { cities } from '../data/cities';
 import { countries } from '../data/countries';
-import { organizationSchema, faqSchema, reviewSchema, breadcrumbSchema } from '../utils/schema';
+import { webSiteSchema, organizationSchema, faqSchema, reviewSchema, breadcrumbSchema } from '../utils/schema';
 import StatsCounter from '../islands/StatsCounter';
 import TestimonialCarousel from '../islands/TestimonialCarousel';
 import ProjectCarousel from '../components/ProjectCarousel.astro';
@@ -31,6 +31,7 @@ const reviewItems = featuredTestimonials.map(t => ({
 
 // Schemas
 const schemas = [
+  webSiteSchema(),
   organizationSchema(),
   faqSchema(homeFaqs),
   reviewSchema(reviewItems),
@@ -238,13 +239,13 @@ const yearsExp = year - 2002;
       >
         {services.map(service => (
           <li>
-            <article class="group relative flex flex-col h-full bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-6 hover:border-[var(--accent)]/40 hover:-translate-y-1 transition-all duration-300 hover:shadow-lg hover:shadow-[var(--accent)]/5">
+            <article class="group relative flex flex-col h-full border border-[var(--border)] rounded-2xl p-6 hover:border-[var(--accent)]/40 hover:-translate-y-1 transition-all duration-300 hover:shadow-lg hover:shadow-[var(--accent)]/5 overflow-hidden" style={`background: linear-gradient(135deg, ${service.accent}08, var(--bg-card) 60%);`}>
               <div
                 class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl"
                 style={`background-color: ${service.accent}20;`}
                 aria-hidden="true"
               >
-                <div class="h-5 w-5 rounded-full" style={`background-color: ${service.accent};`}></div>
+                <div style={`color: ${service.accent};`} set:html={service.iconSvg} />
               </div>
               <h3 class="font-heading text-lg font-bold text-[var(--text)] mb-2">{service.title}</h3>
               <p class="text-sm text-[var(--text-dim)] mb-4 line-clamp-2 flex-grow">{service.tagline}</p>
@@ -551,10 +552,13 @@ const yearsExp = year - 2002;
       <ul class="grid grid-cols-1 md:grid-cols-3 gap-6" role="list">
         <!-- CTA 1: Free Audit -->
         <li>
-          <article class="relative overflow-hidden rounded-2xl p-px h-full">
-            <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#00E5A0]/40 to-[#06B6D4]/40" aria-hidden="true"></div>
-            <div class="relative flex flex-col h-full rounded-2xl bg-gradient-to-br from-[#00E5A0]/10 to-[#06B6D4]/10 p-8">
-              <div class="mb-4 h-12 w-12 rounded-xl bg-[#00E5A0]/20 flex items-center justify-center" aria-hidden="true">
+          <article class="group relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-8 h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#00E5A0]/10">
+            <!-- Accent gradient bar at top -->
+            <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#00E5A0] to-[#06B6D4]" aria-hidden="true"></div>
+            <!-- Corner glow -->
+            <div class="absolute -top-20 -right-20 h-40 w-40 rounded-full bg-[#00E5A0]/8 blur-3xl group-hover:bg-[#00E5A0]/15 transition-all duration-500" aria-hidden="true"></div>
+            <div class="relative flex flex-col h-full">
+              <div class="mb-4 h-12 w-12 rounded-xl bg-gradient-to-br from-[#00E5A0]/20 to-[#06B6D4]/20 flex items-center justify-center" aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00E5A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
                 </svg>
@@ -567,7 +571,7 @@ const yearsExp = year - 2002;
               </p>
               <a
                 href="/free-website-audit"
-                class="inline-flex items-center justify-center gap-2 rounded-full bg-[#00E5A0] px-6 py-3 text-sm font-semibold text-[var(--bg)] transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
+                class="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#00E5A0] to-[#06B6D4] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#00E5A0]/25 transition-all duration-300 hover:shadow-xl hover:shadow-[#00E5A0]/30 hover:-translate-y-0.5"
               >
                 Get Free Audit
               </a>
@@ -577,10 +581,11 @@ const yearsExp = year - 2002;
 
         <!-- CTA 2: Get Quote -->
         <li>
-          <article class="relative overflow-hidden rounded-2xl p-px h-full">
-            <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#6366F1]/40 to-[#A855F7]/40" aria-hidden="true"></div>
-            <div class="relative flex flex-col h-full rounded-2xl bg-gradient-to-br from-[#6366F1]/10 to-[#A855F7]/10 p-8">
-              <div class="mb-4 h-12 w-12 rounded-xl bg-[#6366F1]/20 flex items-center justify-center" aria-hidden="true">
+          <article class="group relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-8 h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#6366F1]/10">
+            <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#6366F1] to-[#A855F7]" aria-hidden="true"></div>
+            <div class="absolute -top-20 -right-20 h-40 w-40 rounded-full bg-[#6366F1]/8 blur-3xl group-hover:bg-[#6366F1]/15 transition-all duration-500" aria-hidden="true"></div>
+            <div class="relative flex flex-col h-full">
+              <div class="mb-4 h-12 w-12 rounded-xl bg-gradient-to-br from-[#6366F1]/20 to-[#A855F7]/20 flex items-center justify-center" aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
                 </svg>
@@ -593,7 +598,7 @@ const yearsExp = year - 2002;
               </p>
               <a
                 href="/get-quote"
-                class="inline-flex items-center justify-center gap-2 rounded-full bg-[#6366F1] px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#6366F1]"
+                class="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#6366F1] to-[#A855F7] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#6366F1]/25 transition-all duration-300 hover:shadow-xl hover:shadow-[#6366F1]/30 hover:-translate-y-0.5"
               >
                 Request a Quote
               </a>
@@ -603,10 +608,11 @@ const yearsExp = year - 2002;
 
         <!-- CTA 3: Schedule Call -->
         <li>
-          <article class="relative overflow-hidden rounded-2xl p-px h-full">
-            <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#EC4899]/40 to-[#F59E0B]/40" aria-hidden="true"></div>
-            <div class="relative flex flex-col h-full rounded-2xl bg-gradient-to-br from-[#EC4899]/10 to-[#F59E0B]/10 p-8">
-              <div class="mb-4 h-12 w-12 rounded-xl bg-[#EC4899]/20 flex items-center justify-center" aria-hidden="true">
+          <article class="group relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-8 h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#EC4899]/10">
+            <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#EC4899] to-[#F59E0B]" aria-hidden="true"></div>
+            <div class="absolute -top-20 -right-20 h-40 w-40 rounded-full bg-[#EC4899]/8 blur-3xl group-hover:bg-[#EC4899]/15 transition-all duration-500" aria-hidden="true"></div>
+            <div class="relative flex flex-col h-full">
+              <div class="mb-4 h-12 w-12 rounded-xl bg-gradient-to-br from-[#EC4899]/20 to-[#F59E0B]/20 flex items-center justify-center" aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#EC4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
                 </svg>
@@ -619,7 +625,7 @@ const yearsExp = year - 2002;
               </p>
               <a
                 href="/schedule-consultation"
-                class="inline-flex items-center justify-center gap-2 rounded-full bg-[#EC4899] px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#EC4899]"
+                class="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#EC4899] to-[#F59E0B] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#EC4899]/25 transition-all duration-300 hover:shadow-xl hover:shadow-[#EC4899]/30 hover:-translate-y-0.5"
               >
                 Book a Consultation
               </a>

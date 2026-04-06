@@ -24,7 +24,7 @@ const {
   breadcrumbs,
 } = Astro.props;
 
-const services = [
+const services: Array<{ label: string; slug?: string; href?: string }> = [
   { label: 'Website Design', slug: 'website-design' },
   { label: 'Web Development', slug: 'web-development' },
   { label: 'eCommerce', slug: 'ecommerce' },
@@ -32,6 +32,7 @@ const services = [
   { label: 'Mobile Apps', slug: 'mobile-app-development' },
   { label: 'Branding', slug: 'branding' },
   { label: 'Maintenance & Security', slug: 'maintenance-security' },
+  { label: 'API Integrations', href: '/integrations' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -63,7 +64,7 @@ const currentPath = Astro.url.pathname;
         </h2>
         <ul class="flex flex-col gap-1">
           {services.map((service) => {
-            const href = `/services/${service.slug}`;
+            const href = service.href || `/services/${service.slug}`;
             const isActive =
               currentPath === href || currentPath === `${href}/`;
             return (

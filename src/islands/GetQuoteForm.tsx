@@ -7,6 +7,7 @@ const PROJECT_TYPES = [
   'Mobile App',
   'Digital Marketing',
   'Branding',
+  'API Integration',
 ];
 
 const BUDGETS = [

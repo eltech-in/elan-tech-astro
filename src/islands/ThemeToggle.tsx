@@ -9,7 +9,14 @@ export default function ThemeToggle() {
   useEffect(() => {
     setMounted(true);
     const stored = localStorage.getItem('theme') as Theme | null;
-    const initial: Theme = stored === 'dark' || stored === 'light' ? stored : 'dark';
+    let initial: Theme;
+    if (stored === 'dark' || stored === 'light') {
+      initial = stored;
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      initial = 'dark';
+    } else {
+      initial = 'light';
+    }
     themeStore.set(initial);
     applyTheme(initial);
   }, []);
@@ -32,7 +39,7 @@ export default function ThemeToggle() {
     applyTheme(next);
   }
 
-  const isDark = !mounted || theme === 'dark';
+  const isDark = mounted ? theme === 'dark' : false;
 
   return (
     <button

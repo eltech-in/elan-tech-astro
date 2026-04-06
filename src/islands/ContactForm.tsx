@@ -21,6 +21,7 @@ const SERVICES = [
   'Digital Marketing',
   'Mobile App Development',
   'Branding',
+  'API Integration',
   'Maintenance & Security',
   'Other',
 ];

@@ -4,6 +4,24 @@
 const SITE_URL = 'https://elan-tech.net';
 const ORG_NAME = 'eLan Technology';
 
+// ─── WebSite (Homepage — enables sitelinks search box) ───────────────────────
+export function webSiteSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: ORG_NAME,
+    url: SITE_URL,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${SITE_URL}/search?q={search_term_string}`,
+      },
+      'query-input': 'required name=search_term_string',
+    },
+  };
+}
+
 // ─── Organization (Homepage) ──────────────────────────────────────────────────
 export function organizationSchema() {
   return {
@@ -86,7 +104,7 @@ export function localBusinessSchema(city = 'Nagpur', overrides: LocalBusinessOve
         '@type': 'OpeningHoursSpecification',
         dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
         opens: '10:00',
-        closes: '18:00',
+        closes: '19:00',
       },
     ],
     sameAs: [

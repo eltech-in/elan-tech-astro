@@ -20,8 +20,20 @@ interface Props {
 const { title, description, canonical, ogImage, ogType, noindex, schema } = Astro.props;
 ---
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
+    <script is:inline>
+      (function() {
+        var s = localStorage.getItem('theme');
+        if (s === 'dark' || s === 'light') {
+          document.documentElement.className = s;
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.className = 'dark';
+        } else {
+          document.documentElement.className = 'light';
+        }
+      })();
+    </script>
     <SEOHead
       title={title}
       description={description}

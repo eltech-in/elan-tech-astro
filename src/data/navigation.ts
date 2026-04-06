@@ -27,6 +27,7 @@ export const serviceSubnav: NavLink[] = [
   { label: 'Mobile App Development', href: '/services/mobile-app-development' },
   { label: 'Branding & Identity', href: '/services/branding' },
   { label: 'Maintenance & Security', href: '/services/maintenance-security' },
+  { label: 'API Integrations', href: '/integrations' },
 ];
 
 export const footerNav = {
@@ -38,6 +39,7 @@ export const footerNav = {
     { label: 'Mobile App Development', href: '/services/mobile-app-development' },
     { label: 'Branding & Identity', href: '/services/branding' },
     { label: 'Maintenance & Security', href: '/services/maintenance-security' },
+    { label: 'API Integrations', href: '/integrations' },
   ],
   company: [
     { label: 'About Us', href: '/about' },

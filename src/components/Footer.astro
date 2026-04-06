@@ -1,7 +1,7 @@
 ---
 const year = new Date().getFullYear();
 
-const services = [
+const services: Array<{ label: string; slug?: string; href?: string }> = [
   { label: 'Website Design', slug: 'website-design' },
   { label: 'Web Development', slug: 'web-development' },
   { label: 'eCommerce', slug: 'ecommerce' },
@@ -10,6 +10,7 @@ const services = [
   { label: 'Mobile Apps', slug: 'mobile-app-development' },
   { label: 'Branding', slug: 'branding' },
   { label: 'Maintenance & Security', slug: 'maintenance-security' },
+  { label: 'API Integrations', href: '/integrations' },
 ];
 
 const companyLinks = [
@@ -142,7 +143,7 @@ const socialLinks = [
           {services.map((service) => (
             <li>
               <a
-                href={`/services/${service.slug}`}
+                href={service.href || `/services/${service.slug}`}
                 class="transition-colors duration-150 hover:text-[var(--accent)]"
               >
                 {service.label}
