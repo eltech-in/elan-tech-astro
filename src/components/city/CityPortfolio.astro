@@ -1,0 +1,56 @@
+---
+import type { CityData } from '../../data/cities';
+
+interface Props {
+  city: CityData;
+}
+
+const { city } = Astro.props;
+
+const hasLocalClients = city.nearbyClients.length > 0;
+const heading = hasLocalClients
+  ? `Our Work in ${city.name}`
+  : `Projects Delivered for Clients Near ${city.name}`;
+
+// Use city portfolio data, fall back to generic showcase
+const projects = city.portfolio.length > 0
+  ? city.portfolio
+  : [
+      { name: 'Aasthaa Hospital', category: 'Healthcare', desc: 'WCAG 2.1 AA compliant hospital website with online appointment booking and doctor profiles. 3x increase in online appointments.' },
+      { name: 'Trimit Architects', category: 'Architecture & Real Estate', desc: 'Portfolio website with project galleries and lead generation. Page 1 ranking for target keywords within 60 days.' },
+      { name: 'CIPL', category: 'Industrial / Manufacturing', desc: 'B2B company profile and product catalogue with export market targeting and inquiry management system.' },
+    ];
+---
+
+<section class="py-16 md:py-20 bg-[var(--bg-card)]">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-12 text-center">
+      <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+        {heading}
+      </h2>
+      <p class="text-[var(--text-dim)] max-w-2xl mx-auto">
+        A selection of websites and digital solutions demonstrating the quality we bring to every {city.name} project.
+      </p>
+    </div>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {projects.map((p) => (
+        <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6">
+          <div class="text-xs font-semibold uppercase tracking-widest text-[var(--accent)] mb-2">
+            {p.category}
+          </div>
+          <h3 class="font-heading font-bold text-[var(--text)] text-lg mb-3">{p.name}</h3>
+          <p class="text-sm text-[var(--text-dim)] leading-relaxed">{p.desc}</p>
+        </div>
+      ))}
+    </div>
+    <div class="mt-10 text-center">
+      <a
+        href="/portfolio"
+        class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-8 py-3 font-semibold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+      >
+        View Full Portfolio
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>

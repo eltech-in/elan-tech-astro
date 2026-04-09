@@ -17,6 +17,11 @@
   --color-border: var(--border);
 }
 
+/* Prevent horizontal overflow on mobile — use clip instead of hidden to preserve sticky */
+body {
+  overflow-x: clip;
+}
+
 /* ♿ WCAG: Reduced motion — disable ALL animations */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

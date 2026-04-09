@@ -1,0 +1,40 @@
+---
+import type { CountryData } from '../../data/countries';
+
+interface Props {
+  country: CountryData;
+}
+
+const { country } = Astro.props;
+
+const services = [
+  { title: 'Website Design', desc: `Custom, mobile-first websites for ${country.name} businesses. Modern design, fast performance, and WCAG accessibility.`, href: '/services/website-design' },
+  { title: 'Web Development', desc: `Full-stack development using React, Next.js, Astro, Node.js. Enterprise-grade applications for ${country.name} clients.`, href: '/services/web-development' },
+  { title: 'eCommerce', desc: `Shopify, WooCommerce, and custom eCommerce solutions with ${country.currency} support and local payment gateways.`, href: '/services/ecommerce' },
+  { title: 'SEO & Digital Marketing', desc: `International SEO, Google Ads, and content marketing targeting ${country.name} audiences and search patterns.`, href: '/services/seo' },
+  { title: 'Mobile Apps', desc: `iOS and Android app development using React Native and Flutter for ${country.name} market requirements.`, href: '/services/mobile-app-development' },
+  { title: 'Branding', desc: `Complete brand identity — logo, colours, typography, guidelines — designed for the ${country.name} market.`, href: '/services/branding' },
+  { title: 'Maintenance & Security', desc: 'Monthly maintenance, security monitoring, SSL, backups, and performance optimisation with priority support.', href: '/services/maintenance-security' },
+];
+---
+
+<section class="py-16 md:py-20 bg-[var(--bg-card)]">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-12 text-center">
+      <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+        Services for {country.name} Businesses
+      </h2>
+      <p class="text-[var(--text-dim)] max-w-2xl mx-auto">
+        End-to-end web design, development, and digital marketing — delivered from India to {country.name} with seamless communication.
+      </p>
+    </div>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {services.map((s) => (
+        <a href={s.href} class="group rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 transition-colors hover:border-[var(--accent)]">
+          <h3 class="font-heading font-semibold text-[var(--text)] mb-2 group-hover:text-[var(--accent)] transition-colors">{s.title}</h3>
+          <p class="text-sm text-[var(--text-dim)] leading-relaxed">{s.desc}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

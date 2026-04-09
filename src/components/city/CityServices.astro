@@ -1,0 +1,84 @@
+---
+import type { CityData } from '../../data/cities';
+
+interface Props {
+  city: CityData;
+}
+
+const { city } = Astro.props;
+
+const services = [
+  {
+    title: `Website Design in ${city.name}`,
+    desc: `Custom, mobile-first website design tailored to ${city.name} businesses. We create visually compelling sites that convert visitors into customers.`,
+    href: '/services/website-design',
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>',
+  },
+  {
+    title: `Web Development ${city.name}`,
+    desc: `Full-stack web development using React, Next.js, Astro, Node.js. Performance-optimised, SEO-ready websites built for ${city.name} businesses.`,
+    href: '/services/web-development',
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
+  },
+  {
+    title: `eCommerce Solutions ${city.name}`,
+    desc: `Online stores with Indian payment gateways (Razorpay, PayU), GST-compliant invoicing, and logistics integrations for ${city.name} retailers.`,
+    href: '/services/ecommerce',
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>',
+  },
+  {
+    title: `SEO & Digital Marketing ${city.name}`,
+    desc: `Local SEO, Google Ads, Meta Ads, and content marketing for ${city.name} businesses. Target local keywords to drive qualified traffic.`,
+    href: '/services/seo',
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>',
+  },
+  {
+    title: 'Mobile App Development',
+    desc: `iOS and Android app development for ${city.name} businesses. From service booking apps to delivery and management solutions.`,
+    href: '/services/mobile-app-development',
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>',
+  },
+  {
+    title: 'Branding & Identity',
+    desc: `Complete brand identity — logo, colour palette, typography, and guidelines. Build a memorable brand for your ${city.name} business.`,
+    href: '/services/branding',
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+  },
+  {
+    title: 'Maintenance & Security',
+    desc: `Monthly website maintenance, security hardening, SSL, backups, and performance monitoring for ${city.name} businesses from ₹3,999/month.`,
+    href: '/services/maintenance-security',
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+  },
+];
+---
+
+<section class="py-16 md:py-20 bg-[var(--bg-card)]">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-12 text-center">
+      <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+        Web Design & Development Services in {city.name}
+      </h2>
+      <p class="text-[var(--text-dim)] max-w-2xl mx-auto">
+        End-to-end digital solutions for {city.name} businesses — from custom website design to full digital marketing campaigns.
+      </p>
+    </div>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {services.map((s) => (
+        <a
+          href={s.href}
+          class="group rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 transition-colors hover:border-[var(--accent)]"
+        >
+          <div class="mb-3 text-[var(--accent)]" aria-hidden="true" set:html={s.icon} />
+          <h3 class="font-heading font-semibold text-[var(--text)] mb-2 group-hover:text-[var(--accent)] transition-colors">
+            {s.title}
+          </h3>
+          <p class="text-sm text-[var(--text-dim)] leading-relaxed">{s.desc}</p>
+        </a>
+      ))}
+    </div>
+    <p class="mt-8 text-center text-sm text-[var(--text-muted)]">
+      Available in {city.name}: Website Design · Web Development · eCommerce · SEO · Mobile Apps · Branding · Maintenance
+    </p>
+  </div>
+</section>

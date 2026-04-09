@@ -1,0 +1,62 @@
+---
+import type { CountryData } from '../../data/countries';
+
+interface Props {
+  country: CountryData;
+}
+
+const { country } = Astro.props;
+---
+
+<section class="py-16 md:py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-12 text-center">
+      <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+        Cost Comparison: {country.name} vs India
+      </h2>
+      <p class="text-[var(--text-dim)] max-w-2xl mx-auto">
+        See how much {country.name} businesses save by partnering with eLan Technology instead of hiring a local agency.
+      </p>
+    </div>
+    <div class="mx-auto max-w-3xl">
+      <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] overflow-hidden">
+        <table class="w-full text-left">
+          <thead>
+            <tr class="border-b border-[var(--border)]">
+              <th class="px-6 py-4 text-sm font-semibold text-[var(--text)]">Metric</th>
+              <th class="px-6 py-4 text-sm font-semibold text-[var(--text)]">Local {country.name} Agency</th>
+              <th class="px-6 py-4 text-sm font-semibold text-[var(--accent)]">eLan Technology</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-[var(--border)]">
+              <td class="px-6 py-4 text-sm text-[var(--text-dim)]">Website Cost</td>
+              <td class="px-6 py-4 text-sm text-[var(--text-dim)]">{country.costComparison.localCost}</td>
+              <td class="px-6 py-4 text-sm font-semibold text-[var(--accent)]">{country.costComparison.eLanCost}</td>
+            </tr>
+            <tr class="border-b border-[var(--border)]">
+              <td class="px-6 py-4 text-sm text-[var(--text-dim)]">Savings</td>
+              <td class="px-6 py-4 text-sm text-[var(--text-dim)]">—</td>
+              <td class="px-6 py-4 text-sm font-bold text-[var(--accent)]">{country.costComparison.savings}</td>
+            </tr>
+            <tr class="border-b border-[var(--border)]">
+              <td class="px-6 py-4 text-sm text-[var(--text-dim)]">WCAG Compliance</td>
+              <td class="px-6 py-4 text-sm text-[var(--text-dim)]">Often extra cost</td>
+              <td class="px-6 py-4 text-sm text-[var(--accent)]">Included free</td>
+            </tr>
+            <tr class="border-b border-[var(--border)]">
+              <td class="px-6 py-4 text-sm text-[var(--text-dim)]">Experience</td>
+              <td class="px-6 py-4 text-sm text-[var(--text-dim)]">Varies</td>
+              <td class="px-6 py-4 text-sm text-[var(--accent)]">24+ years, 500+ clients</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-[var(--text-dim)]">Timezone Overlap</td>
+              <td class="px-6 py-4 text-sm text-[var(--text-dim)]">Same timezone</td>
+              <td class="px-6 py-4 text-sm text-[var(--accent)]">{country.timezoneOverlap}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

@@ -9,23 +9,27 @@ interface Props {
   ogType?: string;
   noindex?: boolean;
   schema?: object | object[];
+  geo?: { region: string; placename: string; lat: number; lng: number };
 }
 
 const {
   title,
   description,
   canonical,
-  ogImage = '/images/elan-tech-logo.svg',
+  ogImage = '/images/eLanTech-00.png',
   ogType = 'website',
   noindex = false,
   schema,
+  geo,
 } = Astro.props;
 
+const SITE_URL = 'https://elan-tech.net';
 const canonicalURL = canonical ?? Astro.url.href;
 const pageTitle = title.includes('eLan Technology')
   ? title
   : `${title} | eLan Technology`;
 const robotsContent = noindex ? 'noindex,nofollow' : 'index,follow';
+const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage}`;
 ---
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -33,21 +37,36 @@ const robotsContent = noindex ? 'noindex,nofollow' : 'index,follow';
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalURL} />
 <meta name="robots" content={robotsContent} />
-<link rel="icon" href="/favicon.ico" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon.ico" sizes="32x32" />
+<link rel="apple-touch-icon" href="/images/et-sym.png" />
 
 <!-- Open Graph -->
 <meta property="og:title" content={pageTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:type" content={ogType} />
-<meta property="og:image" content={ogImage} />
+<meta property="og:image" content={absoluteOgImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
 <meta property="og:site_name" content="eLan Technology" />
 
 <!-- Twitter / X Card -->
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@eLanTechnology" />
 <meta name="twitter:title" content={pageTitle} />
 <meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={ogImage} />
+<meta name="twitter:image" content={absoluteOgImage} />
+
+{/* Geo meta tags for local SEO (city pages) */}
+{geo && (
+  <>
+    <meta name="geo.region" content={geo.region} />
+    <meta name="geo.placename" content={geo.placename} />
+    <meta name="geo.position" content={`${geo.lat};${geo.lng}`} />
+    <meta name="ICBM" content={`${geo.lat}, ${geo.lng}`} />
+  </>
+)}
 
 <!-- Google Fonts — Sora (headings) + DM Sans (body) -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />

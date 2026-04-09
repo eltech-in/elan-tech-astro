@@ -1,0 +1,133 @@
+---
+import type { CityData } from "../../data/cities";
+
+interface Props {
+  city: CityData;
+}
+
+const { city } = Astro.props;
+
+const packages = [
+  {
+    name: "Starter",
+    price: "₹1x,xxx",
+    desc: "Perfect for small businesses and startups",
+    features: [
+      "5 Pages",
+      "Mobile Responsive",
+      "Basic SEO Setup",
+      "Contact Form",
+      "SSL Certificate",
+    ],
+  },
+  {
+    name: "Professional",
+    price: "₹4x,xxx",
+    desc: "For growing businesses that need more",
+    features: [
+      "10-15 Pages",
+      "Custom Design",
+      "Advanced SEO",
+      "WCAG 2.1 AA Compliant",
+      "CMS Integration",
+      "Analytics Setup",
+    ],
+    popular: true,
+  },
+  {
+    name: "Enterprise",
+    price: "₹1x,xxx+",
+    desc: "Custom solutions for large businesses",
+    features: [
+      "Unlimited Pages",
+      "Custom Web Application",
+      "eCommerce Ready",
+      "API Integrations",
+      "Priority Support",
+      "Performance Optimisation",
+    ],
+  },
+];
+---
+
+<section class="py-16 md:py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-12 text-center">
+      <h2
+        class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4"
+      >
+        Website Design Cost in {city.name}
+      </h2>
+      <p class="text-[var(--text-dim)] max-w-2xl mx-auto">
+        {city.pricingNote}
+      </p>
+    </div>
+    <div class="grid gap-6 sm:grid-cols-3">
+      {
+        packages.map((pkg) => (
+          <div
+            class:list={[
+              "rounded-2xl border p-8 relative",
+              pkg.popular
+                ? "border-[var(--accent)] bg-[var(--bg-card)] shadow-lg shadow-[var(--accent)]/10"
+                : "border-[var(--border)] bg-[var(--bg-card)]",
+            ]}
+          >
+            {pkg.popular && (
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[var(--accent)] px-4 py-1 text-xs font-semibold text-[#0A0E1A]">
+                Most Popular
+              </div>
+            )}
+            <h3 class="font-heading text-lg font-bold text-[var(--text)] mb-1">
+              {pkg.name}
+            </h3>
+            <p class="text-sm text-[var(--text-muted)] mb-4">{pkg.desc}</p>
+            <div class="mb-6">
+              <span class="font-heading text-3xl font-bold text-[var(--text)]">
+                {pkg.price}
+              </span>
+            </div>
+            <ul class="space-y-3 mb-8">
+              {pkg.features.map((f) => (
+                <li class="flex items-center gap-2 text-sm text-[var(--text-dim)]">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="text-[var(--accent)] shrink-0"
+                    aria-hidden="true"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <a
+              href="/get-quote"
+              class:list={[
+                "block w-full rounded-full py-3 text-center font-semibold transition-colors",
+                pkg.popular
+                  ? "bg-[var(--accent)] text-[#0A0E1A] hover:opacity-90"
+                  : "border border-[var(--border)] text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)]",
+              ]}
+            >
+              Get Quote
+            </a>
+          </div>
+        ))
+      }
+    </div>
+    <div class="mt-8 text-center">
+      <a href="/pricing" class="text-sm text-[var(--accent)] hover:underline">
+        View All Packages & Compare Features →
+      </a>
+    </div>
+  </div>
+</section>

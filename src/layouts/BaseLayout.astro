@@ -15,9 +15,10 @@ interface Props {
   ogType?: string;
   noindex?: boolean;
   schema?: object | object[];
+  geo?: { region: string; placename: string; lat: number; lng: number };
 }
 
-const { title, description, canonical, ogImage, ogType, noindex, schema } = Astro.props;
+const { title, description, canonical, ogImage, ogType, noindex, schema, geo } = Astro.props;
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -42,6 +43,7 @@ const { title, description, canonical, ogImage, ogType, noindex, schema } = Astr
       ogType={ogType}
       noindex={noindex}
       schema={schema}
+      geo={geo}
     />
   </head>
   <body class="bg-[var(--bg)] text-[var(--text)] font-sans antialiased">

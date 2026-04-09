@@ -1,0 +1,58 @@
+---
+import type { CityData } from '../../data/cities';
+
+interface Props {
+  city: CityData;
+}
+
+const { city } = Astro.props;
+
+const steps = [
+  {
+    num: '01',
+    title: 'Discovery & Strategy',
+    desc: city.isHQ
+      ? `We start with a detailed in-person or video consultation to understand your ${city.name} business goals, target audience, competitors, and digital requirements.`
+      : `We begin with a video discovery session to understand your ${city.name} business goals, target market, competitors, and digital requirements.`,
+  },
+  {
+    num: '02',
+    title: 'Design & Prototyping',
+    desc: `Our designers create wireframes and high-fidelity mockups tailored to your brand. You review and approve designs before a single line of code is written.`,
+  },
+  {
+    num: '03',
+    title: 'Development & Testing',
+    desc: `We build your website with clean, modern code. Cross-device and cross-browser testing ensures a flawless experience for ${city.name}'s mobile-first audience.`,
+  },
+  {
+    num: '04',
+    title: 'Launch & Support',
+    desc: city.isHQ
+      ? `We deploy, set up analytics and Google Search Console, and provide ongoing support. We're here in ${city.name} for the long term.`
+      : `We deploy, configure analytics and Search Console, and provide post-launch support via WhatsApp, email, and video calls — same-day response for critical issues.`,
+  },
+];
+---
+
+<section class="py-16 md:py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-12 text-center">
+      <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+        How We Work with {city.name} Clients
+      </h2>
+      <p class="text-[var(--text-dim)] max-w-2xl mx-auto">
+        A clear, collaborative process designed to deliver results on time — {city.isHQ ? `in-person or remotely, your choice.` : `fully remote with the same quality as working with a local agency.`}
+      </p>
+    </div>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {steps.map((s) => (
+        <div class="relative rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+          <div class="font-heading text-4xl font-bold text-[var(--accent)]/20 mb-3">{s.num}</div>
+          <h3 class="font-heading font-bold text-[var(--text)] mb-2">{s.title}</h3>
+          <p class="text-sm text-[var(--text-dim)] leading-relaxed">{s.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

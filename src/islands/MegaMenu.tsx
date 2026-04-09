@@ -24,11 +24,19 @@ const serviceAccents: Record<string, string> = {
   'maintenance-security':  '#64748B',
 };
 
-const services = [
+type SubPage = string | { label: string; href: string };
+
+const services: { label: string; slug: string; subpages: SubPage[] }[] = [
   {
     label: 'Website Design',
     slug: 'website-design',
-    subpages: ['UI/UX Design', 'Custom Design', 'Responsive Design', 'Landing Pages', 'Redesign'],
+    subpages: [
+      'UI/UX Design',
+      'Custom Design',
+      'Responsive Design',
+      'Landing Pages',
+      { label: 'ADA & WCAG Compliance', href: '/ada-compliant-web-design' },
+    ],
   },
   {
     label: 'Web Development',
@@ -137,10 +145,24 @@ export default function MegaMenu() {
         setActiveMenu(null);
         serviceTrigger?.setAttribute('aria-expanded', 'false');
         productsTrigger?.setAttribute('aria-expanded', 'false');
+        // Restore focus to the trigger that opened the menu
+        if (activeMenu === 'services') serviceTrigger?.focus();
+        else if (activeMenu === 'products') productsTrigger?.focus();
       }
-      if ((e.key === 'ArrowDown' || e.key === 'ArrowRight') && activeMenu) {
+      if (activeMenu) {
         const focusables = menuRef.current?.querySelectorAll<HTMLAnchorElement>('a');
-        if (focusables && focusables.length > 0) focusables[0].focus();
+        if (!focusables || focusables.length === 0) return;
+        const currentIndex = Array.from(focusables).indexOf(document.activeElement as HTMLAnchorElement);
+
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+          e.preventDefault();
+          const nextIndex = currentIndex < 0 ? 0 : (currentIndex + 1) % focusables.length;
+          focusables[nextIndex].focus();
+        } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+          e.preventDefault();
+          const prevIndex = currentIndex <= 0 ? focusables.length - 1 : currentIndex - 1;
+          focusables[prevIndex].focus();
+        }
       }
     }
     document.addEventListener('keydown', handleKey);
@@ -196,17 +218,21 @@ export default function MegaMenu() {
                     </span>
                   </a>
                   <ul className="space-y-1.5 pl-9">
-                    {svc.subpages.map((sub) => (
-                      <li key={sub}>
-                        <a
-                          href={`/services/${svc.slug}`}
-                          onClick={() => setActiveMenu(null)}
-                          className="text-xs text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors leading-snug block py-0.5"
-                        >
-                          {sub}
-                        </a>
-                      </li>
-                    ))}
+                    {svc.subpages.map((sub) => {
+                      const subLabel = typeof sub === 'string' ? sub : sub.label;
+                      const subHref = typeof sub === 'string' ? `/services/${svc.slug}` : sub.href;
+                      return (
+                        <li key={subLabel}>
+                          <a
+                            href={subHref}
+                            onClick={() => setActiveMenu(null)}
+                            className="text-xs text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors leading-snug block py-0.5"
+                          >
+                            {subLabel}
+                          </a>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
               );

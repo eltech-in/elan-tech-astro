@@ -1,45 +1,29 @@
 ---
-// TODO: Full city page content (Step 8 expansion)
 import CityLayout from '../layouts/CityLayout.astro';
-import { localBusinessSchema, breadcrumbSchema } from '../utils/schema';
+import CityIntro from '../components/city/CityIntro.astro';
+import CityServices from '../components/city/CityServices.astro';
+import CityWhyChoose from '../components/city/CityWhyChoose.astro';
+import CityIndustries from '../components/city/CityIndustries.astro';
+import CityProcess from '../components/city/CityProcess.astro';
+import CityPortfolio from '../components/city/CityPortfolio.astro';
+import CityPricing from '../components/city/CityPricing.astro';
+import CityFAQ from '../components/city/CityFAQ.astro';
+import CityContact from '../components/city/CityContact.astro';
+import CityAlsoServing from '../components/city/CityAlsoServing.astro';
+import { getCityBySlug } from '../data/cities';
 
-const schema = [
-  localBusinessSchema('Pune', {
-    url: 'https://elan-tech.net/web-design-company-pune',
-    description: 'Professional web design & digital marketing for Pune businesses. Custom websites, SEO, and eCommerce. WCAG compliant.',
-    geo: { latitude: 18.5204, longitude: 73.8567 },
-  }),
-  breadcrumbSchema([
-    { name: 'Home', url: '/' },
-    { name: 'Services', url: '/services' },
-    { name: 'Web Design Company Pune', url: '/web-design-company-pune' },
-  ]),
-];
+const city = getCityBySlug('pune')!;
 ---
 
-<CityLayout
-  title="Web Design Company in Pune — eLan Technology"
-  description="Professional web design & digital marketing for Pune businesses. Custom websites, SEO, and eCommerce. WCAG compliant. Get a free website audit."
-  city="Pune"
-  state="Maharashtra"
-  heroHeading="Web Design Company in Pune"
-  heroSubtext="Custom websites, SEO & digital marketing for Pune businesses. Trusted across Maharashtra since 2002."
-  schema={schema}
->
-
-  <section class="py-16 text-center px-4">
-    <div class="mx-auto max-w-2xl">
-      <h2 class="font-heading text-2xl font-bold text-[var(--text)] mb-4">
-        Web Design Services in Pune — Coming Soon
-      </h2>
-      <p class="text-[var(--text-dim)] mb-6">
-        We are expanding our local presence to Pune. In the meantime, we serve Pune businesses
-        remotely with the same quality and dedication as our Nagpur clients.
-      </p>
-      <a href="/contact" class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity">
-        Contact Us Today
-      </a>
-    </div>
-  </section>
-
+<CityLayout city={city}>
+  <CityIntro city={city} />
+  <CityServices city={city} />
+  <CityWhyChoose city={city} />
+  <CityIndustries city={city} />
+  <CityProcess city={city} />
+  <CityPortfolio city={city} />
+  <CityPricing city={city} />
+  <CityFAQ city={city} />
+  <CityContact city={city} />
+  <CityAlsoServing currentSlug="pune" />
 </CityLayout>

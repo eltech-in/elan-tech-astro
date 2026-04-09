@@ -17,7 +17,16 @@ const breadcrumbs = [
   { name: project.title, url: `/portfolio/case-study/${project.slug}` },
 ];
 
-const schema = breadcrumbSchema(breadcrumbs);
+const caseStudySchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: project.title,
+  description: project.description,
+  url: `https://elan-tech.net/portfolio/case-study/${project.slug}`,
+  author: { '@type': 'Organization', name: 'eLan Technology', url: 'https://elan-tech.net' },
+  genre: project.category,
+};
+const schema = [breadcrumbSchema(breadcrumbs), caseStudySchema];
 ---
 
 <BaseLayout

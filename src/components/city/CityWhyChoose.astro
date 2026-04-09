@@ -1,0 +1,53 @@
+---
+import type { CityData } from '../../data/cities';
+
+interface Props {
+  city: CityData;
+}
+
+const { city } = Astro.props;
+
+// Build reason cards based on city type
+const reasons = city.isHQ
+  ? [
+      { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>', title: 'Visit Our Office', desc: `Walk into our ${city.name} headquarters for in-person consultations, design reviews, and project discussions. No remote barriers — meet the team building your website.` },
+      { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>', title: '24+ Years Local Presence', desc: `Operating from ${city.name} since 2002. We understand the local business culture, commercial districts like ${city.businessDistricts.slice(0, 3).join(', ')}, and the digital needs of ${city.state} businesses.` },
+      { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>', title: 'Meet the Team in Person', desc: `Our 10+ member team is based right here in ${city.name}. Schedule a face-to-face strategy session with our designers, developers, and marketing specialists.` },
+      { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>', title: 'WCAG & ADA Compliance', desc: `Every website we build meets WCAG 2.1 AA and ADA standards. We are the only web design company in ${city.name} offering accessibility compliance as standard on every project.` },
+    ]
+  : city.tier <= 2
+    ? [
+        { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>', title: `60-70% Cost Savings vs ${city.name} Agencies`, desc: `${city.name} agencies charge premium metro rates. eLan Technology delivers the same quality — React, Next.js, Astro, WordPress — at 60-70% less cost from our Nagpur headquarters.` },
+        { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>', title: 'Same Tech, Same Standards', desc: `We use the same technologies as top ${city.name} agencies — React, Next.js, Node.js, MongoDB, Shopify — with WCAG 2.1 AA accessibility compliance included as standard.` },
+        { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>', title: 'Seamless Remote Collaboration', desc: `${city.distanceFromNagpur} from our Nagpur HQ — but that doesn't matter. We collaborate via Slack, Zoom, and Jira. Hundreds of clients work with us entirely remotely.` },
+        { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>', title: 'WCAG & ADA Compliance Standard', desc: `Every website includes WCAG 2.1 AA and ADA compliance — critical for ${city.name} businesses serving international clients, especially in the USA and Europe.` },
+      ]
+    : [
+        { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>', title: 'Same Quality as Local Agencies', desc: `We deliver the same quality a local ${city.name} agency would — modern design, clean code, responsive layouts — at a fraction of the cost. 500+ clients trust us across India.` },
+        { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>', title: `${city.distanceFromNagpur} from Our Nagpur HQ`, desc: `Our structured remote collaboration via Slack, Zoom, and project management tools means distance is never a barrier. Hundreds of clients work with us remotely across India.` },
+        { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>', title: '24+ Years of Proven Experience', desc: `Since 2002, we've delivered 1500+ projects for 500+ clients. ${city.name} businesses get access to this depth of experience — something most local agencies cannot match.` },
+        { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>', title: 'Accessibility Compliance Included', desc: `Every website meets WCAG 2.1 AA standards — important for ${city.name} businesses that want to serve all users, including those with disabilities, and meet international compliance requirements.` },
+      ];
+---
+
+<section class="py-16 md:py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-12 text-center">
+      <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+        Why {city.name} Businesses Choose eLan Technology
+      </h2>
+      <p class="text-[var(--text-dim)] max-w-2xl mx-auto">
+        {city.whyChooseContent}
+      </p>
+    </div>
+    <ul role="list" class="grid gap-6 sm:grid-cols-2">
+      {reasons.map((r) => (
+        <li class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8">
+          <div class="mb-4 text-[var(--accent)]" aria-hidden="true" set:html={r.icon} />
+          <h3 class="font-heading font-bold text-[var(--text)] text-lg mb-3">{r.title}</h3>
+          <p class="text-[var(--text-dim)] leading-relaxed">{r.desc}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

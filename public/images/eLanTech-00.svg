@@ -1,0 +1,186 @@
+<svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#060A14"/>
+      <stop offset="50%" style="stop-color:#0A0E1A"/>
+      <stop offset="100%" style="stop-color:#0D1225"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="15%" cy="25%" r="40%">
+      <stop offset="0%" style="stop-color:#00E5A0;stop-opacity:0.12"/>
+      <stop offset="100%" style="stop-color:#00E5A0;stop-opacity:0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="85%" cy="75%" r="35%">
+      <stop offset="0%" style="stop-color:#6366F1;stop-opacity:0.10"/>
+      <stop offset="100%" style="stop-color:#6366F1;stop-opacity:0"/>
+    </radialGradient>
+    <radialGradient id="glow3" cx="60%" cy="20%" r="25%">
+      <stop offset="0%" style="stop-color:#EC4899;stop-opacity:0.06"/>
+      <stop offset="100%" style="stop-color:#EC4899;stop-opacity:0"/>
+    </radialGradient>
+    <linearGradient id="accentLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00E5A0"/>
+      <stop offset="50%" style="stop-color:#6366F1"/>
+      <stop offset="100%" style="stop-color:#EC4899"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00E5A0"/>
+      <stop offset="45%" style="stop-color:#6366F1"/>
+      <stop offset="100%" style="stop-color:#EC4899"/>
+    </linearGradient>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="gridPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.025)" stroke-width="0.5"/>
+    </pattern>
+    <pattern id="dotPattern" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="0.5" fill="rgba(255,255,255,0.04)"/>
+    </pattern>
+  </defs>
+
+  <!-- Background layers -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  <rect width="1200" height="630" fill="url(#gridPattern)"/>
+  <rect width="1200" height="630" fill="url(#dotPattern)"/>
+
+  <!-- Ambient glow orbs -->
+  <rect width="1200" height="630" fill="url(#glow1)"/>
+  <rect width="1200" height="630" fill="url(#glow2)"/>
+  <rect width="1200" height="630" fill="url(#glow3)"/>
+
+  <!-- Top accent gradient line -->
+  <rect x="0" y="0" width="1200" height="3" fill="url(#accentLine)"/>
+
+  <!-- Decorative geometric elements -->
+  <!-- Top-left corner bracket -->
+  <path d="M 60 50 L 60 35 L 75 35" stroke="#00E5A0" stroke-width="1.5" fill="none" opacity="0.4"/>
+  <!-- Bottom-right corner bracket -->
+  <path d="M 1140 580 L 1140 595 L 1125 595" stroke="#6366F1" stroke-width="1.5" fill="none" opacity="0.4"/>
+
+  <!-- Floating decorative circles -->
+  <circle cx="950" cy="120" r="60" stroke="rgba(99,102,241,0.08)" stroke-width="1" fill="none"/>
+  <circle cx="950" cy="120" r="40" stroke="rgba(99,102,241,0.05)" stroke-width="1" fill="none"/>
+  <circle cx="180" cy="520" r="45" stroke="rgba(0,229,160,0.06)" stroke-width="1" fill="none"/>
+  <circle cx="1100" cy="400" r="25" stroke="rgba(236,72,153,0.06)" stroke-width="1" fill="none"/>
+
+  <!-- Small accent dots -->
+  <circle cx="100" cy="100" r="3" fill="#00E5A0" opacity="0.3"/>
+  <circle cx="1080" cy="200" r="2" fill="#6366F1" opacity="0.25"/>
+  <circle cx="300" cy="560" r="2.5" fill="#EC4899" opacity="0.2"/>
+  <circle cx="850" cy="80" r="2" fill="#00E5A0" opacity="0.2"/>
+
+  <!-- Code bracket decoration (left side, subtle) -->
+  <text x="80" y="315" font-family="monospace" font-size="180" fill="rgba(0,229,160,0.04)" font-weight="300">&lt;/&gt;</text>
+
+  <!-- eLan Technology logo text -->
+  <text x="100" y="175" font-family="'Segoe UI', 'Helvetica Neue', sans-serif" font-size="22" font-weight="300" letter-spacing="6" fill="#00E5A0" opacity="0.9">eLan</text>
+  <text x="168" y="175" font-family="'Segoe UI', 'Helvetica Neue', sans-serif" font-size="22" font-weight="500" letter-spacing="2" fill="#E2E8F0" opacity="0.9">Technology</text>
+
+  <!-- Green accent dot next to logo -->
+  <circle cx="85" cy="169" r="4" fill="#00E5A0" opacity="0.8"/>
+
+  <!-- Badge: "SINCE 2002" -->
+  <rect x="340" y="156" width="100" height="26" rx="13" fill="rgba(0,229,160,0.08)" stroke="rgba(0,229,160,0.2)" stroke-width="0.5"/>
+  <text x="390" y="174" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="600" fill="#00E5A0" text-anchor="middle" letter-spacing="1.5">SINCE 2002</text>
+
+  <!-- Main heading line 1 -->
+  <text x="100" y="280" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="52" font-weight="700" fill="#FFFFFF" letter-spacing="-1">Web Design &amp; Development</text>
+
+  <!-- Main heading line 2 with gradient -->
+  <text x="100" y="345" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="52" font-weight="700" fill="url(#textGrad)" letter-spacing="-1">Company</text>
+
+  <!-- Divider line -->
+  <rect x="100" y="370" width="60" height="3" rx="1.5" fill="#00E5A0" opacity="0.8"/>
+
+  <!-- Subheading -->
+  <text x="100" y="410" font-family="'Segoe UI', 'Helvetica Neue', sans-serif" font-size="18" font-weight="400" fill="#94A3B8" letter-spacing="0.5">Award-winning websites built for performance, accessibility &amp; growth.</text>
+  <text x="100" y="438" font-family="'Segoe UI', 'Helvetica Neue', sans-serif" font-size="18" font-weight="400" fill="#94A3B8" letter-spacing="0.5">Serving clients in 25+ countries since 2002.</text>
+
+  <!-- Stats bar -->
+  <rect x="100" y="475" width="920" height="1" fill="rgba(255,255,255,0.06)"/>
+
+  <!-- Stat items -->
+  <!-- 24+ Years -->
+  <text x="140" y="520" font-family="'Segoe UI', sans-serif" font-size="28" font-weight="700" fill="#00E5A0">24+</text>
+  <text x="140" y="542" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="500" fill="#64748B" letter-spacing="1">YEARS</text>
+
+  <!-- Separator -->
+  <rect x="250" y="500" width="1" height="50" fill="rgba(255,255,255,0.06)"/>
+
+  <!-- 500+ Clients -->
+  <text x="310" y="520" font-family="'Segoe UI', sans-serif" font-size="28" font-weight="700" fill="#00E5A0">500+</text>
+  <text x="310" y="542" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="500" fill="#64748B" letter-spacing="1">CLIENTS</text>
+
+  <!-- Separator -->
+  <rect x="440" y="500" width="1" height="50" fill="rgba(255,255,255,0.06)"/>
+
+  <!-- 1200+ Projects -->
+  <text x="500" y="520" font-family="'Segoe UI', sans-serif" font-size="28" font-weight="700" fill="#00E5A0">1200+</text>
+  <text x="500" y="542" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="500" fill="#64748B" letter-spacing="1">PROJECTS</text>
+
+  <!-- Separator -->
+  <rect x="645" y="500" width="1" height="50" fill="rgba(255,255,255,0.06)"/>
+
+  <!-- 25+ Countries -->
+  <text x="705" y="520" font-family="'Segoe UI', sans-serif" font-size="28" font-weight="700" fill="#00E5A0">25+</text>
+  <text x="705" y="542" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="500" fill="#64748B" letter-spacing="1">COUNTRIES</text>
+
+  <!-- Separator -->
+  <rect x="830" y="500" width="1" height="50" fill="rgba(255,255,255,0.06)"/>
+
+  <!-- WCAG badge -->
+  <text x="890" y="515" font-family="'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#FBBF24">♿</text>
+  <text x="915" y="520" font-family="'Segoe UI', sans-serif" font-size="18" font-weight="700" fill="#FBBF24">WCAG</text>
+  <text x="890" y="542" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="500" fill="#64748B" letter-spacing="1">ADA COMPLIANT</text>
+
+  <!-- Bottom stats separator line -->
+  <rect x="100" y="560" width="920" height="1" fill="rgba(255,255,255,0.06)"/>
+
+  <!-- Website URL -->
+  <text x="100" y="595" font-family="monospace, 'Courier New'" font-size="14" font-weight="400" fill="#00E5A0" opacity="0.7" letter-spacing="1">elan-tech.net</text>
+
+  <!-- Service tags -->
+  <rect x="300" y="578" width="95" height="22" rx="11" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+  <text x="347" y="593" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="500" fill="#94A3B8" text-anchor="middle" letter-spacing="0.5">Web Design</text>
+
+  <rect x="405" y="578" width="65" height="22" rx="11" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+  <text x="437" y="593" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="500" fill="#94A3B8" text-anchor="middle" letter-spacing="0.5">SEO</text>
+
+  <rect x="480" y="578" width="95" height="22" rx="11" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+  <text x="527" y="593" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="500" fill="#94A3B8" text-anchor="middle" letter-spacing="0.5">eCommerce</text>
+
+  <rect x="585" y="578" width="110" height="22" rx="11" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+  <text x="640" y="593" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="500" fill="#94A3B8" text-anchor="middle" letter-spacing="0.5">Mobile Apps</text>
+
+  <rect x="705" y="578" width="100" height="22" rx="11" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+  <text x="755" y="593" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="500" fill="#94A3B8" text-anchor="middle" letter-spacing="0.5">Branding</text>
+
+  <rect x="815" y="578" width="120" height="22" rx="11" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+  <text x="875" y="593" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="500" fill="#94A3B8" text-anchor="middle" letter-spacing="0.5">Development</text>
+
+  <!-- Right-side decorative element: abstract tech/code visual -->
+  <g opacity="0.15" transform="translate(980, 200)">
+    <!-- Stylized circuit/connection lines -->
+    <line x1="0" y1="0" x2="40" y2="40" stroke="#00E5A0" stroke-width="1"/>
+    <line x1="40" y1="40" x2="80" y2="20" stroke="#6366F1" stroke-width="1"/>
+    <line x1="80" y1="20" x2="120" y2="60" stroke="#EC4899" stroke-width="1"/>
+    <line x1="40" y1="40" x2="40" y2="100" stroke="#00E5A0" stroke-width="1"/>
+    <line x1="80" y1="20" x2="120" y2="-10" stroke="#6366F1" stroke-width="1"/>
+    <line x1="120" y1="60" x2="160" y2="40" stroke="#00E5A0" stroke-width="1"/>
+    <!-- Nodes -->
+    <circle cx="0" cy="0" r="3" fill="#00E5A0"/>
+    <circle cx="40" cy="40" r="4" fill="#6366F1"/>
+    <circle cx="80" cy="20" r="3" fill="#EC4899"/>
+    <circle cx="120" cy="60" r="3" fill="#00E5A0"/>
+    <circle cx="40" cy="100" r="3" fill="#00E5A0"/>
+    <circle cx="120" cy="-10" r="3" fill="#6366F1"/>
+    <circle cx="160" cy="40" r="3" fill="#00E5A0"/>
+  </g>
+
+  <!-- Bottom accent gradient line -->
+  <rect x="0" y="627" width="1200" height="3" fill="url(#accentLine)"/>
+</svg>

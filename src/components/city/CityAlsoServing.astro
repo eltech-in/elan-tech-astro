@@ -1,0 +1,57 @@
+---
+import { citiesWithPages } from '../../data/cities';
+
+interface Props {
+  currentSlug: string;
+}
+
+const { currentSlug } = Astro.props;
+
+// Group cities by region, excluding the current city
+const otherCities = citiesWithPages.filter((c) => c.slug !== currentSlug);
+
+const regions: Record<string, typeof otherCities> = {};
+for (const city of otherCities) {
+  const region =
+    city.state === 'Maharashtra' ? 'Maharashtra'
+    : ['Chhattisgarh', 'Madhya Pradesh'].includes(city.state) ? 'Central India'
+    : ['Telangana', 'Karnataka', 'Tamil Nadu', 'Kerala'].includes(city.state) ? 'South India'
+    : ['Gujarat', 'Rajasthan'].includes(city.state) ? 'West India'
+    : ['Delhi NCR', 'Uttar Pradesh', 'Punjab / Haryana'].includes(city.state) ? 'North India'
+    : 'East India';
+  if (!regions[region]) regions[region] = [];
+  regions[region].push(city);
+}
+
+// Ordered regions
+const regionOrder = ['Maharashtra', 'Central India', 'South India', 'West India', 'North India', 'East India'];
+---
+
+<nav aria-label="Other locations we serve" class="py-16 md:py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-8 text-center">
+      Also Serving Businesses In
+    </h2>
+    <div class="space-y-4">
+      {regionOrder.map((region) => {
+        const cities = regions[region];
+        if (!cities || cities.length === 0) return null;
+        return (
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-sm font-semibold text-[var(--text-muted)] min-w-[120px]">{region}:</span>
+            <div class="flex flex-wrap gap-2">
+              {cities.map((c) => (
+                <a
+                  href={`/web-design-company-${c.slug}`}
+                  class="rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-4 py-1.5 text-sm text-[var(--text-dim)] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]"
+                >
+                  {c.name}
+                </a>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</nav>

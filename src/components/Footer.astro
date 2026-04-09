@@ -1,4 +1,7 @@
 ---
+import { citiesWithPages, featuredCities } from '../data/cities';
+import { internationalCountries } from '../data/countries';
+
 const year = new Date().getFullYear();
 
 const services: Array<{ label: string; slug?: string; href?: string }> = [
@@ -11,6 +14,7 @@ const services: Array<{ label: string; slug?: string; href?: string }> = [
   { label: 'Branding', slug: 'branding' },
   { label: 'Maintenance & Security', slug: 'maintenance-security' },
   { label: 'API Integrations', href: '/integrations' },
+  { label: 'ADA & WCAG Compliance', href: '/ada-compliant-web-design' },
 ];
 
 const companyLinks = [
@@ -79,8 +83,8 @@ const socialLinks = [
   <div class="h-px w-full bg-gradient-to-r from-[#00E5A0] via-[#6366F1] to-[#EC4899]"></div>
 
   <div class="mx-auto max-w-7xl px-4 pt-14 pb-10 sm:px-6 lg:px-8">
-    <!-- 4-column grid -->
-    <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+    <!-- 5-column grid -->
+    <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-5">
 
       <!-- Col 1: Brand -->
       <div class="flex flex-col gap-5">
@@ -172,7 +176,58 @@ const socialLinks = [
         </ul>
       </div>
 
-      <!-- Col 4: Contact + Newsletter -->
+      <!-- Col 4: Locations -->
+      <div>
+        <h3 class="mb-4 font-heading text-sm font-semibold uppercase tracking-wider text-[var(--text)]">
+          Locations
+        </h3>
+        <div class="space-y-4">
+          <div>
+            <h4 class="mb-2 text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">India</h4>
+            <ul class="flex flex-col gap-1.5 text-sm">
+              {featuredCities.map((city) => (
+                <li>
+                  <a
+                    href={`/web-design-company-${city.slug}`}
+                    class="transition-colors duration-150 hover:text-[var(--accent)]"
+                  >
+                    {city.name}{city.isHQ ? ' (HQ)' : ''}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <span class="text-xs text-[var(--text-muted)]">
+                  + {citiesWithPages.length - featuredCities.length} more cities
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="mb-2 text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">International</h4>
+            <ul class="flex flex-col gap-1.5 text-sm">
+              {internationalCountries.slice(0, 6).map((country) => (
+                <li>
+                  <a
+                    href={`/web-design-company-${country.slug}`}
+                    class="transition-colors duration-150 hover:text-[var(--accent)]"
+                  >
+                    {country.flag} {country.name}
+                  </a>
+                </li>
+              ))}
+              {internationalCountries.length > 6 && (
+                <li>
+                  <span class="text-xs text-[var(--text-muted)]">
+                    + {internationalCountries.length - 6} more countries
+                  </span>
+                </li>
+              )}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Col 5: Contact + Newsletter -->
       <div class="flex flex-col gap-5">
         <div>
           <h3 class="mb-4 font-heading text-sm font-semibold uppercase tracking-wider text-[var(--text)]">

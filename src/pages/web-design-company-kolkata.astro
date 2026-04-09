@@ -1,0 +1,29 @@
+---
+import CityLayout from '../layouts/CityLayout.astro';
+import CityIntro from '../components/city/CityIntro.astro';
+import CityServices from '../components/city/CityServices.astro';
+import CityWhyChoose from '../components/city/CityWhyChoose.astro';
+import CityIndustries from '../components/city/CityIndustries.astro';
+import CityProcess from '../components/city/CityProcess.astro';
+import CityPortfolio from '../components/city/CityPortfolio.astro';
+import CityPricing from '../components/city/CityPricing.astro';
+import CityFAQ from '../components/city/CityFAQ.astro';
+import CityContact from '../components/city/CityContact.astro';
+import CityAlsoServing from '../components/city/CityAlsoServing.astro';
+import { getCityBySlug } from '../data/cities';
+
+const city = getCityBySlug('kolkata')!;
+---
+
+<CityLayout city={city}>
+  <CityIntro city={city} />
+  <CityServices city={city} />
+  <CityWhyChoose city={city} />
+  <CityIndustries city={city} />
+  <CityProcess city={city} />
+  <CityPortfolio city={city} />
+  <CityPricing city={city} />
+  <CityFAQ city={city} />
+  <CityContact city={city} />
+  <CityAlsoServing currentSlug="kolkata" />
+</CityLayout>

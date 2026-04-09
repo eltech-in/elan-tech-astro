@@ -38,7 +38,7 @@ export function organizationSchema() {
     foundingDate: '2002',
     description:
       'Award-winning web design & digital marketing agency. Building impactful digital experiences since 2002.',
-    numberOfEmployees: { '@type': 'QuantitativeValue', value: 30 },
+    numberOfEmployees: { '@type': 'QuantitativeValue', value: 10 },
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Basement Floor, PTG IT Park, Plot No. 21, IT Park Rd, Gayatri Nagar',
