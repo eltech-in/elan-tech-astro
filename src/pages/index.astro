@@ -5,7 +5,7 @@ import { testimonials } from '../data/testimonials';
 import { faqs } from '../data/faq';
 import { cities } from '../data/cities';
 import { countries } from '../data/countries';
-import { webSiteSchema, organizationSchema, faqSchema, reviewSchema, breadcrumbSchema, speakableSchema } from '../utils/schema';
+import { webSiteSchema, organizationSchema, localBusinessSchema, faqSchema, reviewSchema, breadcrumbSchema, speakableSchema } from '../utils/schema';
 import StatsRebuild from '../islands/StatsRebuild';
 import KineticPhrase from '../islands/KineticPhrase';
 import TestimonialCarousel from '../islands/TestimonialCarousel';
@@ -38,6 +38,7 @@ const reviewItems = featuredTestimonials.map(t => ({
 const schemas = [
   webSiteSchema(),
   organizationSchema(),
+  localBusinessSchema('Nagpur'),
   faqSchema(homeFaqs),
   reviewSchema(reviewItems),
   breadcrumbSchema([{ name: 'Home', url: '/' }]),

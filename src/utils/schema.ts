@@ -3,6 +3,13 @@
 
 const SITE_URL = 'https://elan-tech.net';
 const ORG_NAME = 'eLan Technology';
+const OFFICE_PHONE = '+91-9822231642';
+const WHATSAPP_PHONE = '+91-8788834630';
+const STREET_ADDRESS = 'Basement Floor, PTG IT Park, Plot No. 21, IT Park Rd, Gayatri Nagar';
+const ADDRESS_LOCALITY = 'Nagpur';
+const ADDRESS_REGION = 'Maharashtra';
+const POSTAL_CODE = '440022';
+const ADDRESS_COUNTRY = 'IN';
 
 // ─── WebSite (Homepage — enables sitelinks search box) ───────────────────────
 export function webSiteSchema() {
@@ -41,18 +48,29 @@ export function organizationSchema() {
     numberOfEmployees: { '@type': 'QuantitativeValue', value: 10 },
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Basement Floor, PTG IT Park, Plot No. 21, IT Park Rd, Gayatri Nagar',
-      addressLocality: 'Nagpur',
-      addressRegion: 'Maharashtra',
-      postalCode: '440022',
-      addressCountry: 'IN',
+      streetAddress: STREET_ADDRESS,
+      addressLocality: ADDRESS_LOCALITY,
+      addressRegion: ADDRESS_REGION,
+      postalCode: POSTAL_CODE,
+      addressCountry: ADDRESS_COUNTRY,
     },
-    contactPoint: {
-      '@type': 'ContactPoint',
-      telephone: '+91-9822231642',
-      contactType: 'customer service',
-      availableLanguage: ['English', 'Hindi', 'Marathi'],
-    },
+    telephone: OFFICE_PHONE,
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        telephone: OFFICE_PHONE,
+        contactType: 'customer service',
+        availableLanguage: ['English', 'Hindi', 'Marathi'],
+        areaServed: 'IN',
+      },
+      {
+        '@type': 'ContactPoint',
+        telephone: WHATSAPP_PHONE,
+        contactType: 'sales',
+        availableLanguage: ['English', 'Hindi', 'Marathi'],
+        contactOption: 'TollFree',
+      },
+    ],
     sameAs: [
       'https://www.linkedin.com/company/elan-technology',
       'https://www.facebook.com/eLanTechnology',
@@ -77,9 +95,10 @@ export function localBusinessSchema(city = 'Nagpur', overrides: LocalBusinessOve
   return {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
+    '@id': `${SITE_URL}/#localbusiness`,
     name: `${ORG_NAME} — Web Design Company in ${city}`,
     url: overrides.url ?? SITE_URL,
-    telephone: overrides.telephone ?? '+91-9822231642',
+    telephone: overrides.telephone ?? OFFICE_PHONE,
     email: 'info@elan-tech.net',
     description:
       overrides.description ??
@@ -88,17 +107,31 @@ export function localBusinessSchema(city = 'Nagpur', overrides: LocalBusinessOve
     image: `${SITE_URL}/images/elan-tech-logo.svg`,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Basement Floor, PTG IT Park, Plot No. 21, IT Park Rd, Gayatri Nagar',
+      streetAddress: STREET_ADDRESS,
       addressLocality: city,
-      addressRegion: 'Maharashtra',
-      postalCode: '440022',
-      addressCountry: 'IN',
+      addressRegion: ADDRESS_REGION,
+      postalCode: POSTAL_CODE,
+      addressCountry: ADDRESS_COUNTRY,
     },
     geo: {
       '@type': 'GeoCoordinates',
       latitude: overrides.geo?.latitude ?? defaultGeo.latitude,
       longitude: overrides.geo?.longitude ?? defaultGeo.longitude,
     },
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        telephone: OFFICE_PHONE,
+        contactType: 'customer service',
+        availableLanguage: ['English', 'Hindi', 'Marathi'],
+      },
+      {
+        '@type': 'ContactPoint',
+        telephone: WHATSAPP_PHONE,
+        contactType: 'sales',
+        availableLanguage: ['English', 'Hindi', 'Marathi'],
+      },
+    ],
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',
@@ -110,6 +143,9 @@ export function localBusinessSchema(city = 'Nagpur', overrides: LocalBusinessOve
     sameAs: [
       'https://www.linkedin.com/company/elan-technology',
       'https://www.facebook.com/eLanTechnology',
+      'https://www.instagram.com/elantechnology',
+      'https://twitter.com/elantechnology',
+      'https://www.youtube.com/@elantechnology',
     ],
   };
 }
