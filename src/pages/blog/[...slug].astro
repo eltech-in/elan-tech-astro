@@ -1,47 +1,66 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BlogLayout from '../../layouts/BlogLayout.astro';
-import { articleSchema, breadcrumbSchema } from '../../utils/schema';
+import { articleSchema, breadcrumbSchema, speakableSchema, howToSchema } from '../../utils/schema';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
-  return posts.map((post) => ({
-    params: { slug: post.id },
-    props: { post },
-  }));
+  return posts
+    .filter((p) => !p.data.draft)
+    .map((post) => ({
+      // URL pattern: /blog/<category>/<slug>
+      params: { slug: `${post.data.category}/${post.id}` },
+      props: { post },
+    }));
 }
 
 const { post } = Astro.props;
 const { Content } = await render(post);
 
-const publishDateStr = post.data.publishDate instanceof Date
-  ? post.data.publishDate.toISOString()
-  : String(post.data.publishDate);
+const toISO = (d: unknown) => (d instanceof Date ? d.toISOString() : String(d));
+const publishDateStr = toISO(post.data.publishDate);
+const updatedDateStr = post.data.updatedDate ? toISO(post.data.updatedDate) : publishDateStr;
+
+const postUrl = `/blog/${post.data.category}/${post.id}`;
 
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'Blog', url: '/blog' },
-  { name: post.data.title, url: `/blog/${post.id}` },
+  { name: post.data.title, url: postUrl },
 ];
 
 const schemas = [
   articleSchema({
     title: post.data.title,
     description: post.data.description,
-    url: `/blog/${post.id}`,
+    url: postUrl,
     datePublished: publishDateStr,
-    dateModified: publishDateStr,
+    dateModified: updatedDateStr,
     authorName: post.data.author ?? 'eLan Technology Team',
     imageUrl: post.data.featuredImage?.src,
   }),
   breadcrumbSchema(breadcrumbs),
+  // AEO: H1, lede, summary box, and structured-answer blocks are speakable.
+  speakableSchema(postUrl, ['h1', '.lede', '[data-speakable]', '.tldr']),
+  // AEO: emit HowTo only when the post is a procedural guide.
+  ...(post.data.howTo
+    ? [
+        howToSchema({
+          name: post.data.howTo.name,
+          description: post.data.howTo.description,
+          url: postUrl,
+          totalTime: post.data.howTo.totalTime,
+          steps: post.data.howTo.steps,
+        }),
+      ]
+    : []),
 ];
 ---
 
 <BlogLayout
   title={post.data.seo?.metaTitle ?? post.data.title}
   description={post.data.seo?.metaDescription ?? post.data.description}
-  canonical={`/blog/${post.id}`}
+  canonical={postUrl}
   publishDate={publishDateStr}
   author={post.data.author}
   readTime={`${post.data.readTime} min read`}

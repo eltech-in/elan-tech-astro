@@ -27,7 +27,7 @@ const { country } = Astro.props;
                 <span>{item.question}</span>
                 <svg class="ml-4 h-5 w-5 shrink-0 text-[var(--text-muted)] transition-transform duration-200 group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
               </summary>
-              <p class="mt-3 text-[var(--text-dim)] leading-relaxed pr-8">{item.answer}</p>
+              <p class="mt-3 text-[var(--text-dim)] leading-relaxed pr-8" set:html={item.answer} />
             </details>
           ))}
         </div>

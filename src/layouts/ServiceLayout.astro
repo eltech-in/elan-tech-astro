@@ -28,11 +28,13 @@ const services: Array<{ label: string; slug?: string; href?: string }> = [
   { label: 'Website Design', slug: 'website-design' },
   { label: 'Web Development', slug: 'web-development' },
   { label: 'eCommerce', slug: 'ecommerce' },
+  { label: 'SEO', slug: 'seo' },
   { label: 'Digital Marketing', slug: 'digital-marketing' },
   { label: 'Mobile Apps', slug: 'mobile-app-development' },
   { label: 'Branding', slug: 'branding' },
   { label: 'Maintenance & Security', slug: 'maintenance-security' },
-  { label: 'API Integrations', href: '/integrations' },
+  { label: 'API Integrations', href: '/services/integrations' },
+  { label: 'ADA & WCAG Compliance', href: '/services/ada-compliant-web-design' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -46,8 +48,10 @@ const currentPath = Astro.url.pathname;
   noindex={noindex}
   schema={schema}
 >
-  <!-- Breadcrumb bar -->
-  <div class="border-b border-[var(--border)] bg-[var(--bg-card)] px-4 py-3 sm:px-6 lg:px-8">
+  <!-- Breadcrumb bar — uses body bg (NOT card bg) so it doesn't visually
+       merge with the floating-island header above it (both used to share
+       --bg-card and looked like one continuous element). -->
+  <div class="border-b border-[var(--border)] bg-[var(--bg)] px-4 py-3 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-7xl">
       <Breadcrumb items={breadcrumbs} />
     </div>

@@ -8,6 +8,10 @@ const PROJECT_TYPES = [
   'Digital Marketing',
   'Branding',
   'API Integration',
+  'SEO / Audits',
+  'Maintenance & Security',
+  'ADA & WCAG Compliance',
+  'Other',
 ];
 
 const BUDGETS = [
@@ -58,6 +62,7 @@ export default function GetQuoteForm() {
       if (!contact.name.trim() || contact.name.trim().length < 2) errs.name = 'Name must be at least 2 characters';
       if (!contact.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email)) errs.email = 'Please enter a valid email';
       if (!contact.phone.trim()) errs.phone = 'Phone number is required';
+      else if (!/^[\d\s+\-()]{7,20}$/.test(contact.phone.trim())) errs.phone = 'Please enter a valid phone number';
     }
     if (n === 3 && !project.description.trim()) errs.description = 'Project description is required';
     setFieldErrors(errs);
@@ -79,10 +84,19 @@ export default function GetQuoteForm() {
     e.preventDefault();
     setStatus('submitting');
     try {
-      const res = await fetch('/api/get-quote', {
+      const res = await fetch('https://formsubmit.co/ajax/info@elantech.in', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ projectType, ...contact, ...project, referral }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: `New Quote Request for ${projectType}`,
+          projectType,
+          ...contact,
+          ...project,
+          referral
+        }),
       });
       if (res.ok) {
         setStatus('success');
@@ -95,10 +109,10 @@ export default function GetQuoteForm() {
     }
   }
 
-  if (status === 'success') {
+    if (status === 'success') {
     return (
       <div className="rounded-xl border border-[var(--accent)]/30 bg-[var(--accent)]/10 p-8 text-center">
-        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[var(--accent)] text-[#0A0E1A]">
+        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[var(--accent)] text-[var(--bg)]">
           <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <polyline points="20 6 9 17 4 12" />
           </svg>
@@ -124,7 +138,7 @@ export default function GetQuoteForm() {
           <div
             className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-colors ${
               n === step
-                ? 'bg-[var(--accent)] text-[#0A0E1A]'
+                ? 'bg-[var(--accent)] text-[var(--bg)]'
                 : n < step
                 ? 'bg-[var(--accent)]/40 text-[var(--text)]'
                 : 'border border-[var(--border)] text-[var(--text-muted)]'
@@ -304,14 +318,14 @@ export default function GetQuoteForm() {
           </button>
         )}
         {step < 4 ? (
-          <button type="button" onClick={nextStep} className="flex-1 rounded-lg bg-[var(--accent)] py-2.5 text-sm font-semibold text-[#0A0E1A] hover:opacity-90 transition-all">
+          <button type="button" onClick={nextStep} className="flex-1 rounded-lg bg-[var(--accent)] py-2.5 text-sm font-semibold text-[var(--bg)] hover:opacity-90 transition-all">
             Next
           </button>
         ) : (
           <button
             type="submit"
             disabled={status === 'submitting'}
-            className="flex-1 rounded-lg bg-[var(--accent)] py-2.5 text-sm font-semibold text-[#0A0E1A] hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+            className="flex-1 rounded-lg bg-[var(--accent)] py-2.5 text-sm font-semibold text-[var(--bg)] hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
           >
             {status === 'submitting' ? (
               <>

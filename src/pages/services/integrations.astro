@@ -1,15 +1,16 @@
 ---
-import ServiceLayout from '../layouts/ServiceLayout.astro';
-import { integrations } from '../data/integrations';
-import { cities } from '../data/cities';
-import { breadcrumbSchema, serviceSchema, faqSchema } from '../utils/schema';
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+import { integrations } from '../../data/integrations';
+import { cities } from '../../data/cities';
+import { breadcrumbSchema, serviceSchema, faqSchema } from '../../utils/schema';
 
 const breadcrumbs = [
   { name: 'Home', href: '/' },
-  { name: 'Integrations', href: '/integrations' },
+  { name: 'Services', href: '/services' },
+  { name: 'Integrations', href: '/services/integrations' },
 ];
 
-const accent = '#0EA5E9'; // sky-500
+const accent = 'var(--ac-cyan)'; // sky-500
 
 const categories = [...new Set(integrations.map((i) => i.category))];
 
@@ -69,11 +70,11 @@ const integrationFaqs = [
 ];
 
 const schema = [
-  serviceSchema('API & Third-Party Integrations', 'Connect your website with payment gateways, shipping APIs, CRMs, and eCommerce platforms for seamless automated workflows.', '/integrations'),
+  serviceSchema('API & Third-Party Integrations', 'Connect your website with payment gateways, shipping APIs, CRMs, and eCommerce platforms for seamless automated workflows.', '/services/integrations'),
   faqSchema(integrationFaqs),
   breadcrumbSchema([
     { name: 'Home', url: '/' },
-    { name: 'Integrations', url: '/integrations' },
+    { name: 'Integrations', url: '/services/integrations' },
   ]),
 ];
 ---
@@ -85,7 +86,10 @@ const schema = [
 >
 
   <!-- ── HERO ─────────────────────────────────────────────────────────────── -->
-  <section class="relative mb-12 overflow-hidden rounded-2xl bg-gradient-to-br from-sky-500/10 via-[var(--bg-card)] to-[var(--bg-card)] p-8 md:p-12 border border-[var(--border)]">
+  <section class="service-card relative mb-12 overflow-hidden rounded-2xl border border-[var(--border)] p-8 md:p-12" style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-cyan) 12%, var(--bg-card)) 0%, var(--bg-card) 65%);">
+    <span aria-hidden="true" class="service-card__num pointer-events-none absolute top-4 right-6 font-heading font-black leading-none select-none" style="color: var(--ac-cyan); font-size: 7rem;">09</span>
+    <span aria-hidden="true" class="service-card__stripe pointer-events-none absolute -left-12 -bottom-12 h-60 w-60 rotate-[-20deg] opacity-[0.08]" style="background: var(--ac-cyan);"></span>
+    <div class="relative">
     <div class="grid gap-10 md:grid-cols-2 md:items-center">
       <div>
         <p class="mb-2 text-sm font-semibold uppercase tracking-widest" style={`color: ${accent};`}>Seamless Third-Party Connections</p>
@@ -113,6 +117,7 @@ const schema = [
         ))}
       </ul>
     </div>
+  </div>
   </section>
 
   <!-- ── INTEGRATIONS BY CATEGORY ─────────────────────────────────────────── -->
@@ -170,9 +175,7 @@ const schema = [
               <polyline points="6 9 12 15 18 9"/>
             </svg>
           </summary>
-          <div class="px-5 pb-5 text-sm text-[var(--text-muted)] leading-relaxed">
-            {faq.answer}
-          </div>
+          <div class="px-5 pb-5 text-sm text-[var(--text-muted)] leading-relaxed" set:html={faq.answer} />
         </details>
       ))}
     </div>

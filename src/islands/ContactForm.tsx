@@ -5,7 +5,7 @@ import { z } from 'zod';
 const schema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Please enter a valid email'),
-  phone: z.string().optional(),
+  phone: z.string().refine((val) => val === undefined || val === '' || /^[\d\s+\-()]{7,20}$/.test(val), { message: 'Please enter a valid phone number' }).optional(),
   company: z.string().optional(),
   website: z.string().url('Please enter a valid URL').optional().or(z.literal('')),
   service: z.string().optional(),
@@ -22,7 +22,9 @@ const SERVICES = [
   'Mobile App Development',
   'Branding',
   'API Integration',
+  'SEO / Audits',
   'Maintenance & Security',
+  'ADA & WCAG Compliance',
   'Other',
 ];
 
@@ -51,8 +53,8 @@ export default function ContactForm() {
         values: hasErrors ? {} : values,
         errors: hasErrors
           ? Object.fromEntries(
-              Object.entries(errs).map(([k, v]) => [k, { type: 'manual', message: v }])
-            )
+            Object.entries(errs).map(([k, v]) => [k, { type: 'manual', message: v }])
+          )
           : {},
       };
     },
@@ -65,10 +67,16 @@ export default function ContactForm() {
   async function onSubmit(data: FormValues) {
     setStatus('idle');
     try {
-      const res = await fetch('/api/contact', {
+      const res = await fetch('https://formsubmit.co/ajax/info@elantech.in', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: `New Contact Request from ${data.name}`,
+          ...data,
+        }),
       });
       if (res.ok) {
         reset();
@@ -85,7 +93,7 @@ export default function ContactForm() {
   if (status === 'success') {
     return (
       <div className="rounded-xl border border-[var(--accent)]/30 bg-[var(--accent)]/10 p-8 text-center">
-        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[var(--accent)] text-[#0A0E1A]">
+        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[var(--accent)] text-[var(--bg)]">
           <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <polyline points="20 6 9 17 4 12" />
           </svg>
@@ -109,48 +117,51 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
-      {/* Name */}
-      <div>
-        <label htmlFor="cf-name" className="block text-sm font-medium text-[var(--text)] mb-1.5">
-          Name <span aria-hidden="true" className="text-red-400">*</span>
-        </label>
-        <input
-          id="cf-name"
-          type="text"
-          autoComplete="name"
-          aria-required="true"
-          aria-describedby={errors.name ? 'cf-name-error' : undefined}
-          {...register('name')}
-          className={inputClass}
-          placeholder="Your full name"
-        />
-        {errors.name && (
-          <p id="cf-name-error" role="alert" aria-live="polite" className="mt-1 text-xs text-red-400">
-            {errors.name.message}
-          </p>
-        )}
-      </div>
+      {/* Name + Email */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {/* Name */}
+        <div>
+          <label htmlFor="cf-name" className="block text-sm font-medium text-[var(--text)] mb-1.5">
+            Name <span aria-hidden="true" className="text-red-400">*</span>
+          </label>
+          <input
+            id="cf-name"
+            type="text"
+            autoComplete="name"
+            aria-required="true"
+            aria-describedby={errors.name ? 'cf-name-error' : undefined}
+            {...register('name')}
+            className={inputClass}
+            placeholder="Your full name"
+          />
+          {errors.name && (
+            <p id="cf-name-error" role="alert" aria-live="polite" className="mt-1 text-xs text-red-400">
+              {errors.name.message}
+            </p>
+          )}
+        </div>
 
-      {/* Email */}
-      <div>
-        <label htmlFor="cf-email" className="block text-sm font-medium text-[var(--text)] mb-1.5">
-          Email <span aria-hidden="true" className="text-red-400">*</span>
-        </label>
-        <input
-          id="cf-email"
-          type="email"
-          autoComplete="email"
-          aria-required="true"
-          aria-describedby={errors.email ? 'cf-email-error' : undefined}
-          {...register('email')}
-          className={inputClass}
-          placeholder="you@example.com"
-        />
-        {errors.email && (
-          <p id="cf-email-error" role="alert" aria-live="polite" className="mt-1 text-xs text-red-400">
-            {errors.email.message}
-          </p>
-        )}
+        {/* Email */}
+        <div>
+          <label htmlFor="cf-email" className="block text-sm font-medium text-[var(--text)] mb-1.5">
+            Email <span aria-hidden="true" className="text-red-400">*</span>
+          </label>
+          <input
+            id="cf-email"
+            type="email"
+            autoComplete="email"
+            aria-required="true"
+            aria-describedby={errors.email ? 'cf-email-error' : undefined}
+            {...register('email')}
+            className={inputClass}
+            placeholder="you@example.com"
+          />
+          {errors.email && (
+            <p id="cf-email-error" role="alert" aria-live="polite" className="mt-1 text-xs text-red-400">
+              {errors.email.message}
+            </p>
+          )}
+        </div>
       </div>
 
       {/* Phone + Company */}
@@ -260,7 +271,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full rounded-lg bg-[var(--accent)] py-3 font-semibold text-[#0A0E1A] hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] flex items-center justify-center gap-2"
+        className="w-full rounded-lg bg-[var(--accent)] py-3 font-semibold text-[var(--bg)] hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] flex items-center justify-center gap-2"
       >
         {isSubmitting ? (
           <>

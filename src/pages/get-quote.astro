@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { breadcrumbSchema } from '../utils/schema';
+import GetQuoteForm from "../islands/GetQuoteForm";
 
 const schema = breadcrumbSchema([
   { name: 'Home', url: '/' },
@@ -24,7 +25,7 @@ const labelClass = "block text-sm font-medium text-[var(--text)] mb-1.5";
         Tell Us About Your Project
       </h1>
       <p class="mt-6 max-w-2xl mx-auto text-lg text-[var(--text-dim)] leading-relaxed">
-        We respond to every quote request within <strong class="text-[var(--text)]">4 business hours</strong>. No obligation, no pushy sales — just a clear breakdown of what your project will involve.
+        We respond to every quote request within <strong class="text-[var(--text)]">24 hrs</strong>. No obligation, no pushy sales — just a clear breakdown of what your project will involve.
       </p>
 
       <!-- Trust indicators -->
@@ -45,130 +46,7 @@ const labelClass = "block text-sm font-medium text-[var(--text)] mb-1.5";
         Project Quote Request
       </h2>
 
-      <!-- TODO: GetQuoteForm island (Step 3) — 4-step conditional form -->
-      <form action="/api/quote" method="POST" class="space-y-8" novalidate>
-
-        <!-- Step 1: Service Type -->
-        <fieldset class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
-          <legend class="font-heading text-lg font-semibold text-[var(--text)] px-2">
-            <span class="text-[var(--accent)] mr-2">01.</span>Service Type
-          </legend>
-          <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {[
-              { value: 'website-design', label: 'Website Design' },
-              { value: 'web-development', label: 'Web Development' },
-              { value: 'ecommerce', label: 'eCommerce Store' },
-              { value: 'digital-marketing', label: 'Digital Marketing' },
-              { value: 'mobile-app', label: 'Mobile App' },
-              { value: 'branding', label: 'Branding' },
-              { value: 'maintenance', label: 'Maintenance / Security' },
-              { value: 'multiple', label: 'Multiple Services' },
-            ].map(({ value, label }) => (
-              <label class="flex items-center gap-3 cursor-pointer rounded-lg border border-[var(--border)] p-3 hover:border-[var(--accent)] transition-colors has-[:checked]:border-[var(--accent)] has-[:checked]:bg-[var(--accent)]/5">
-                <input type="radio" name="service_type" value={value} class="w-4 h-4 accent-[var(--accent)]" />
-                <span class="text-sm text-[var(--text)]">{label}</span>
-              </label>
-            ))}
-          </div>
-        </fieldset>
-
-        <!-- Step 2: Project Details -->
-        <fieldset class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
-          <legend class="font-heading text-lg font-semibold text-[var(--text)] px-2">
-            <span class="text-[var(--accent)] mr-2">02.</span>Project Details
-          </legend>
-          <div class="mt-4 space-y-5">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div>
-                <label for="quote-name" class={labelClass}>Full Name <span class="text-red-400" aria-hidden="true">*</span></label>
-                <input id="quote-name" name="name" type="text" required autocomplete="name" placeholder="Your full name" class={inputClass} />
-              </div>
-              <div>
-                <label for="quote-email" class={labelClass}>Email <span class="text-red-400" aria-hidden="true">*</span></label>
-                <input id="quote-email" name="email" type="email" required autocomplete="email" placeholder="you@company.com" class={inputClass} />
-              </div>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div>
-                <label for="quote-phone" class={labelClass}>Phone</label>
-                <input id="quote-phone" name="phone" type="tel" autocomplete="tel" placeholder="+91 98765 43210" class={inputClass} />
-              </div>
-              <div>
-                <label for="quote-company" class={labelClass}>Company</label>
-                <input id="quote-company" name="company" type="text" autocomplete="organization" placeholder="Your company name" class={inputClass} />
-              </div>
-            </div>
-            <div>
-              <label for="quote-website" class={labelClass}>Existing Website URL</label>
-              <input id="quote-website" name="website" type="url" placeholder="https://yourwebsite.com (leave blank if new project)" class={inputClass} />
-            </div>
-            <div>
-              <label for="quote-description" class={labelClass}>Project Description <span class="text-red-400" aria-hidden="true">*</span></label>
-              <textarea
-                id="quote-description"
-                name="description"
-                rows={5}
-                required
-                placeholder="Describe your project goals, target audience, key features needed, and anything else that helps us understand what you're building…"
-                class={inputClass}
-              ></textarea>
-            </div>
-          </div>
-        </fieldset>
-
-        <!-- Step 3: Budget & Timeline -->
-        <fieldset class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
-          <legend class="font-heading text-lg font-semibold text-[var(--text)] px-2">
-            <span class="text-[var(--accent)] mr-2">03.</span>Budget &amp; Timeline
-          </legend>
-          <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div>
-              <label for="quote-budget" class={labelClass}>Budget Range</label>
-              <select id="quote-budget" name="budget" class={inputClass}>
-                <option value="">Select a range…</option>
-                <option value="under-25k">Under ₹25,000</option>
-                <option value="25k-75k">₹25,000 – ₹75,000</option>
-                <option value="75k-2l">₹75,000 – ₹2,00,000</option>
-                <option value="2l-plus">₹2,00,000+</option>
-                <option value="not-sure">Not sure yet</option>
-              </select>
-            </div>
-            <div>
-              <label for="quote-timeline" class={labelClass}>Preferred Timeline</label>
-              <select id="quote-timeline" name="timeline" class={inputClass}>
-                <option value="">Select a timeline…</option>
-                <option value="asap">ASAP</option>
-                <option value="1-2-months">1–2 months</option>
-                <option value="2-4-months">2–4 months</option>
-                <option value="4-plus-months">4+ months</option>
-                <option value="flexible">Flexible</option>
-              </select>
-            </div>
-          </div>
-          <div class="mt-5">
-            <label for="quote-additional" class={labelClass}>Additional Notes</label>
-            <textarea
-              id="quote-additional"
-              name="additional"
-              rows={3}
-              placeholder="Any other requirements, preferences, or questions…"
-              class={inputClass}
-            ></textarea>
-          </div>
-        </fieldset>
-
-        <div class="text-center">
-          <button
-            type="submit"
-            class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-10 py-4 text-base font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity"
-          >
-            Submit Quote Request →
-          </button>
-          <p class="text-xs text-[var(--text-muted)] mt-4">
-            Free and no-obligation. We'll respond within 4 business hours.
-          </p>
-        </div>
-      </form>
+      <GetQuoteForm client:visible />
     </div>
   </section>
 
@@ -214,10 +92,10 @@ const labelClass = "block text-sm font-medium text-[var(--text)] mb-1.5";
       <div class="rounded-2xl border border-[var(--accent)] bg-[var(--accent)]/5 p-8">
         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-4" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         <h2 class="font-heading text-xl font-bold text-[var(--text)] mb-2">
-          4-Hour Response Guarantee
+          24 Hrs Response Guarantee
         </h2>
         <p class="text-[var(--text-dim)]">
-          We respond to every quote request within <strong class="text-[var(--text)]">4 business hours</strong> (Mon–Sat, 10am–6pm IST). If we miss that window, we'll extend a 10% discount on your project as an apology.
+          We respond to every quote request within <strong class="text-[var(--text)]">24 hrs</strong> (Mon–Sat, 10am–6pm IST). If we miss that window, we'll extend a 10% discount on your project as an apology.
         </p>
       </div>
     </div>

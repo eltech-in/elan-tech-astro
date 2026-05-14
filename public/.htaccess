@@ -1,0 +1,216 @@
+# ════════════════════════════════════════════════════════════════════════════
+# eLan Technology — .htaccess for Hostinger (Apache + LiteSpeed)
+# ────────────────────────────────────────────────────────────────────────────
+# Policy
+#   • HTTPS only
+#   • Non-www canonical host:        elan-tech.net
+#   • NO trailing slash on any URL   (root "/" is the only exception)
+#   • Custom 404 page                (served from /404/index.html)
+#   • Astro static build is at site root with build.format: 'directory'
+#     so /about resolves to /about/index.html via DirectoryIndex
+# ════════════════════════════════════════════════════════════════════════════
+
+Options -MultiViews -Indexes
+
+# Astro builds with build.format: 'file', so every page is a flat .html file
+# (dist/about.html, dist/blog.html, …). No directory-with-index.html to trip
+# LiteSpeed's mod_dir auto-trailing-slash. The internal rewrite rule near the
+# bottom serves /about as /about.html.
+DirectorySlash Off
+
+RewriteEngine On
+RewriteBase /
+
+# ─── 1. Force HTTPS ─────────────────────────────────────────────────────────
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
+
+# ─── 2. Force non-www (www.elan-tech.net → elan-tech.net) ───────────────────
+RewriteCond %{HTTP_HOST} ^www\.elan-tech\.net$ [NC]
+RewriteRule ^(.*)$ https://elan-tech.net/$1 [L,R=301]
+
+# ─── 3. Strip trailing slash (except root) ──────────────────────────────────
+# Matches any URL with one-or-more chars before a trailing slash.
+# Root "/" alone is not matched because the regex requires (.+) before /.
+RewriteCond %{REQUEST_URI} ^/.+/$
+RewriteRule ^(.+)/$ /$1 [L,R=301]
+
+# ─── 4. Strip query-string variant of /get-quote ────────────────────────────
+# Old internal links used /get-quote?service=ada-emergency. The "?" at the end
+# of the substitution clears the query string from the redirect target.
+RewriteCond %{QUERY_STRING} ^service=ada-emergency$ [NC]
+RewriteRule ^get-quote/?$ /services/ada-compliant-web-design? [L,R=301]
+
+# ─── 5. Old flat blog URLs → new /blog/<category>/<slug> URLs ───────────────
+# Accessibility
+RewriteRule ^blog/ada-compliance-checklist/?$               /blog/accessibility/ada-compliance-checklist                [L,R=301]
+RewriteRule ^blog/ada-lawsuit-emergency-website-remediation/?$ /blog/accessibility/ada-lawsuit-emergency-website-remediation [L,R=301]
+RewriteRule ^blog/ada-wcag-compliance-us-canada-2026/?$     /blog/accessibility/ada-wcag-compliance-us-canada-2026      [L,R=301]
+RewriteRule ^blog/wcag-explained-business-owners/?$         /blog/accessibility/wcag-explained-business-owners          [L,R=301]
+# Nagpur Business
+RewriteRule ^blog/best-web-design-company-raipur-guide/?$   /blog/nagpur-business/best-web-design-company-raipur-guide  [L,R=301]
+RewriteRule ^blog/website-cost-nagpur/?$                    /blog/nagpur-business/website-cost-nagpur                   [L,R=301]
+RewriteRule ^blog/why-nagpur-business-needs-website/?$      /blog/nagpur-business/why-nagpur-business-needs-website     [L,R=301]
+# SEO
+RewriteRule ^blog/seo-guide-small-business-nagpur/?$        /blog/seo/seo-guide-small-business-nagpur                   [L,R=301]
+# Web Design
+RewriteRule ^blog/wordpress-vs-custom-website/?$            /blog/web-design/wordpress-vs-custom-website                [L,R=301]
+# Technology Trends
+RewriteRule ^blog/website-development-trends-april-2026/?$  /blog/technology-trends/website-development-trends-april-2026 [L,R=301]
+
+# ─── 6. WordPress / common attack paths → home (404 alternative) ────────────
+RewriteRule ^wp-admin(/.*)?$        /  [L,R=301]
+RewriteRule ^wp-login\.php$         /  [L,R=301]
+RewriteRule ^wp-content(/.*)?$      /  [L,R=301]
+RewriteRule ^wp-includes(/.*)?$     /  [L,R=301]
+RewriteRule ^wp-json(/.*)?$         /  [L,R=301]
+RewriteRule ^xmlrpc\.php$           /  [L,R=301]
+RewriteRule ^\.env$                 /  [L,R=301]
+RewriteRule ^\.git(/.*)?$           /  [L,R=301]
+
+# ─── 7. Legacy eLan slugs ───────────────────────────────────────────────────
+# About
+RewriteRule ^about-elantech$        /about  [L,R=301]
+RewriteRule ^about-us$              /about  [L,R=301]
+RewriteRule ^who-we-are$            /about  [L,R=301]
+RewriteRule ^our-team$              /about  [L,R=301]
+
+# Services — old slugs → new
+RewriteRule ^services/web-design$                 /services/website-design          [L,R=301]
+RewriteRule ^services/website-design-services$    /services/website-design          [L,R=301]
+RewriteRule ^services/web-designing$              /services/website-design          [L,R=301]
+RewriteRule ^services/seo-services$               /services/digital-marketing       [L,R=301]
+RewriteRule ^services/search-engine-optimization$ /services/digital-marketing       [L,R=301]
+RewriteRule ^services/social-media$               /services/digital-marketing       [L,R=301]
+RewriteRule ^services/social-media-marketing$     /services/digital-marketing       [L,R=301]
+RewriteRule ^services/ppc$                        /services/digital-marketing       [L,R=301]
+RewriteRule ^services/mobile-app$                 /services/mobile-app-development  [L,R=301]
+RewriteRule ^services/app-development$            /services/mobile-app-development  [L,R=301]
+RewriteRule ^services/android-app$                /services/mobile-app-development  [L,R=301]
+RewriteRule ^services/ios-app$                    /services/mobile-app-development  [L,R=301]
+RewriteRule ^services/logo-design$                /services/branding                [L,R=301]
+RewriteRule ^services/graphic-design$             /services/branding                [L,R=301]
+RewriteRule ^services/website-maintenance$        /services/maintenance-security    [L,R=301]
+RewriteRule ^services/security$                   /services/maintenance-security    [L,R=301]
+RewriteRule ^integrations$                        /services/integrations            [L,R=301]
+
+# Old news / articles → /blog
+RewriteRule ^news/(.*)$            /blog/$1   [L,R=301]
+RewriteRule ^articles/(.*)$        /blog/$1   [L,R=301]
+
+# Old location pages
+RewriteRule ^web-design-nagpur$                 /web-design-company-nagpur  [L,R=301]
+RewriteRule ^website-design-nagpur$             /web-design-company-nagpur  [L,R=301]
+RewriteRule ^web-design-company-in-nagpur$      /web-design-company-nagpur  [L,R=301]
+RewriteRule ^website-development-nagpur$        /web-design-company-nagpur  [L,R=301]
+RewriteRule ^website-development-services-nagpur$ /web-design-company-nagpur [L,R=301]
+RewriteRule ^web-design-raipur$                 /web-design-company-raipur  [L,R=301]
+RewriteRule ^website-design-raipur$             /web-design-company-raipur  [L,R=301]
+RewriteRule ^web-design-company-in-raipur$      /web-design-company-raipur  [L,R=301]
+
+# Old policies
+RewriteRule ^privacy$                /privacy-policy              [L,R=301]
+RewriteRule ^terms$                  /terms-conditions            [L,R=301]
+RewriteRule ^terms-and-conditions$   /terms-conditions            [L,R=301]
+RewriteRule ^refund-policy$          /cancellation-refund-policy  [L,R=301]
+RewriteRule ^cancellation-policy$    /cancellation-refund-policy  [L,R=301]
+RewriteRule ^nda$                    /nda-confidentiality-policy  [L,R=301]
+RewriteRule ^accessibility$          /accessibility-statement     [L,R=301]
+
+# Old portfolio / work
+RewriteRule ^portfolio/real-estate$  /portfolio  [L,R=301]
+RewriteRule ^our-work$               /portfolio  [L,R=301]
+RewriteRule ^case-studies$           /portfolio  [L,R=301]
+RewriteRule ^work$                   /portfolio  [L,R=301]
+
+# Old CTAs
+RewriteRule ^free-audit$        /free-website-audit       [L,R=301]
+RewriteRule ^website-audit$     /free-website-audit       [L,R=301]
+RewriteRule ^get-a-quote$       /get-quote                [L,R=301]
+RewriteRule ^request-quote$     /get-quote                [L,R=301]
+RewriteRule ^quote$             /get-quote                [L,R=301]
+RewriteRule ^demo$              /request-demo             [L,R=301]
+RewriteRule ^book-demo$         /request-demo             [L,R=301]
+RewriteRule ^book-call$         /schedule-consultation    [L,R=301]
+RewriteRule ^schedule-call$     /schedule-consultation    [L,R=301]
+RewriteRule ^consultation$      /schedule-consultation    [L,R=301]
+RewriteRule ^thankyou$          /thank-you                [L,R=301]
+RewriteRule ^thank_you$         /thank-you                [L,R=301]
+RewriteRule ^success$           /thank-you                [L,R=301]
+
+# ─── 8. Internal rewrite — serve /foo as /foo.html ──────────────────────────
+# This MUST come after every external 301 rule above, so legacy slugs and
+# trailing-slash strips fire first. The rule fires only when:
+#   • the requested path is not already a real file
+#   • a sibling .html file exists
+# That way /about → /about.html, /blog/category/seo → /blog/category/seo.html,
+# but unmatched paths fall through to the 404 ErrorDocument below.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+)$ /$1.html [L]
+
+# ─── 9. Custom 404 ──────────────────────────────────────────────────────────
+# Astro emits /404.html at the dist root (build.format: 'file').
+ErrorDocument 404 /404.html
+
+# ─── 10. Security headers ───────────────────────────────────────────────────
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+  Header set Cross-Origin-Opener-Policy "same-origin-allow-popups"
+  Header set Cross-Origin-Resource-Policy "same-site"
+  Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net https://www.clarity.ms https://*.clarity.ms; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https: blob:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://*.clarity.ms; frame-src 'self' https://calendly.com https://www.google.com/maps https://maps.google.com; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+  Header unset X-Powered-By
+  Header unset Server
+
+  # noindex on thank-you & api
+  <FilesMatch "^thank-you">
+    Header set X-Robots-Tag "noindex, nofollow"
+    Header set Cache-Control "no-store"
+  </FilesMatch>
+</IfModule>
+
+# ─── 11. Cache control ──────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+  # Hashed Astro assets (content-addressable) — 1 year, immutable
+  <FilesMatch "\.(js|mjs|css|woff2?|ttf|eot|otf)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Images — 30 days + SWR
+  <FilesMatch "\.(jpg|jpeg|png|webp|avif|gif|svg|ico)$">
+    Header set Cache-Control "public, max-age=2592000, stale-while-revalidate=86400"
+  </FilesMatch>
+
+  # HTML — always revalidate (so updates ship instantly)
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+
+  # Sitemap & robots — 1 hour
+  <FilesMatch "(sitemap.*\.xml|robots\.txt)$">
+    Header set Cache-Control "public, max-age=3600"
+  </FilesMatch>
+</IfModule>
+
+# ─── 12. Compression ────────────────────────────────────────────────────────
+# LiteSpeed compresses text resources on the fly. We do NOT pre-serve
+# astro-compressor's .html.br/.html.gz files — LiteSpeed shipped them without
+# Content-Encoding, producing raw garbage in browsers. mod_deflate / mod_brotli
+# below are kept as a fallback for non-LiteSpeed Apache setups.
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json text/xml application/xml application/xml+rss image/svg+xml
+</IfModule>
+
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/css text/javascript application/javascript application/json text/xml application/xml application/xml+rss image/svg+xml
+</IfModule>
+
+# ─── 13. Block sensitive files (URL access only — Apache still reads .htaccess) ─
+<FilesMatch "(^\.|\.(env|git|gitignore|htaccess|yml|yaml|lock|log|sql|bak)$)">
+  Require all denied
+</FilesMatch>

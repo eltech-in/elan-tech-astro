@@ -8,7 +8,6 @@ const AUDIT_ASPECTS = [
   'Security',
   'SEO',
   'Performance',
-  'Accessibility',
   'Mobile-friendliness',
 ];
 
@@ -36,8 +35,16 @@ export default function FreeAuditForm() {
     return Object.keys(errs).length === 0;
   }
 
+  function validateStep2(): boolean {
+    const errs: Record<string, string> = {};
+    if (step2.phone && !/^[\d\s+\-()]{7,20}$/.test(step2.phone.trim())) errs.phone = 'Please enter a valid phone number';
+    setFieldErrors(errs);
+    return Object.keys(errs).length === 0;
+  }
+
   function nextStep() {
     if (step === 1 && !validateStep1()) return;
+    if (step === 2 && !validateStep2()) return;
     setFieldErrors({});
     setStep((s) => s + 1);
   }
@@ -60,10 +67,14 @@ export default function FreeAuditForm() {
     e.preventDefault();
     setStatus('submitting');
     try {
-      const res = await fetch('/api/audit-request', {
+      const res = await fetch('https://formsubmit.co/ajax/info@elantech.in', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify({
+          _subject: `Free Audit Request from ${step1.name}`,
           ...step1,
           ...step2,
           notes: step3.notes,
@@ -83,7 +94,7 @@ export default function FreeAuditForm() {
   if (status === 'success') {
     return (
       <div className="rounded-xl border border-[var(--accent)]/30 bg-[var(--accent)]/10 p-8 text-center">
-        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[var(--accent)] text-[#0A0E1A]">
+        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[var(--accent)] text-[var(--bg)]">
           <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <polyline points="20 6 9 17 4 12" />
           </svg>
@@ -110,7 +121,7 @@ export default function FreeAuditForm() {
           <div
             className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-colors ${
               n === step
-                ? 'bg-[var(--accent)] text-[#0A0E1A]'
+                ? 'bg-[var(--accent)] text-[var(--bg)]'
                 : n < step
                 ? 'bg-[var(--accent)]/40 text-[var(--text)]'
                 : 'border border-[var(--border)] text-[var(--text-muted)]'
@@ -205,9 +216,13 @@ export default function FreeAuditForm() {
                   type="tel"
                   value={step2.phone}
                   onChange={(e) => setStep2((p) => ({ ...p, phone: e.target.value }))}
+                  aria-describedby={fieldErrors.phone ? 'fa-phone-error' : undefined}
                   className={inputClass}
                   placeholder="+1 or +91..."
                 />
+                {fieldErrors.phone && (
+                  <p id="fa-phone-error" role="alert" aria-live="polite" className="mt-1 text-xs text-red-400">{fieldErrors.phone}</p>
+                )}
               </div>
               <div>
                 <label htmlFor="fa-company" className="block text-sm font-medium text-[var(--text)] mb-1.5">Company</label>
@@ -289,7 +304,7 @@ export default function FreeAuditForm() {
           <button
             type="button"
             onClick={nextStep}
-            className="flex-1 rounded-lg bg-[var(--accent)] py-2.5 text-sm font-semibold text-[#0A0E1A] hover:opacity-90 transition-all"
+            className="flex-1 rounded-lg bg-[var(--accent)] py-2.5 text-sm font-semibold text-[var(--bg)] hover:opacity-90 transition-all"
           >
             Next
           </button>
@@ -297,7 +312,7 @@ export default function FreeAuditForm() {
           <button
             type="submit"
             disabled={status === 'submitting'}
-            className="flex-1 rounded-lg bg-[var(--accent)] py-2.5 text-sm font-semibold text-[#0A0E1A] hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+            className="flex-1 rounded-lg bg-[var(--accent)] py-2.5 text-sm font-semibold text-[var(--bg)] hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
           >
             {status === 'submitting' ? (
               <>

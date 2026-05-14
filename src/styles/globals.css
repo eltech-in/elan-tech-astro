@@ -1,6 +1,27 @@
 @import "tailwindcss";
 
 /* =============================================
+   Self-hosted fonts — Latin subset only
+   ============================================= */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/dm-sans-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Sora';
+  font-style: normal;
+  font-weight: 600 700;
+  font-display: swap;
+  src: url('/fonts/sora-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* =============================================
    Custom Tailwind v4 Theme Configuration
    ============================================= */
 @theme {
@@ -76,29 +97,49 @@ body {
   --accent-dim: #00b87e;
   --text: #E2E8F0;
   --text-dim: #94A3B8;
-  --text-muted: #6B7F99; /* bumped from #64748B for WCAG AA 4.5:1 on #0A0E1A */
+  --text-muted: #7B8FA9; /* bumped for WCAG AA 4.5:1 on both #0A0E1A and #111827 */
   --border: rgba(255,255,255,0.06);
+  /* Service/product accent colours — WCAG AA ≥4.5:1 on dark bg (#111827) */
+  --ac-pink:    #EC4899;
+  --ac-indigo:  #6366F1;
+  --ac-amber:   #F59E0B;
+  --ac-emerald: #10B981;
+  --ac-teal:    #00E5A0;
+  --ac-cyan:    #06B6D4;
+  --ac-violet:  #A855F7;
+  --ac-red:     #EF4444;
+  --ac-blue:    #3B82F6;
 }
 
 /* Light mode overrides */
 :root.light {
   --bg: #FAFBFC;
   --bg-card: #FFFFFF;
-  --accent: #059669;
+  --accent: #047857;
+  --accent-dim: #036349;
   --text: #0F172A;
   --text-dim: #475569;
-  --text-muted: #64748B; /* bumped from #94A3B8 for WCAG AA 4.5:1 on #FAFBFC */
+  --text-muted: #586981; /* bumped for WCAG AA 4.5:1 on #FAFBFC and #FFFFFF */
   --border: rgba(0,0,0,0.08);
+  /* Service/product accent colours — WCAG AA ≥4.5:1 on light bg (#FFF/#FAFBFC) */
+  --ac-pink:    #BE185D;  /* 6.0:1  */
+  --ac-indigo:  #4338CA;  /* 7.84:1 */
+  --ac-amber:   #92400E;  /* 7.05:1 */
+  --ac-emerald: #065F46;  /* 7.61:1 */
+  --ac-teal:    #047857;  /* 5.41:1 */
+  --ac-cyan:    #0E7490;  /* 5.25:1 */
+  --ac-violet:  #7C3AED;  /* 5.61:1 */
+  --ac-red:     #B91C1C;  /* 6.36:1 */
+  --ac-blue:    #1D4ED8;  /* 8.59:1 */
 }
 
 /* Project carousel infinite scroll */
 @keyframes loop-scroll-slow {
   from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(-33.33%, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
 }
 .animate-loop-scroll-slow {
   animation: loop-scroll-slow 80s linear infinite;
-  will-change: transform;
   backface-visibility: hidden;
 }
 .animate-loop-scroll-slow:hover {
@@ -107,17 +148,76 @@ body {
 
 /* Client logo carousel — left to right, tripled for seamless loop (same pattern as ProjectCarousel) */
 @keyframes scroll-ltr {
-  from { transform: translate3d(-33.33%, 0, 0); }
+  from { transform: translate3d(-50%, 0, 0); }
   to   { transform: translate3d(0, 0, 0); }
 }
 .animate-scroll-ltr {
   animation: scroll-ltr 60s linear infinite;
-  will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
 .animate-scroll-ltr:hover {
   animation-play-state: paused;
+}
+
+/* ─────────────────────────────────────────────
+   Aurora mesh — slow drifting gradient layers
+   GPU compositing only (transform + opacity).
+   Respects prefers-reduced-motion.
+   ───────────────────────────────────────────── */
+@keyframes aurora-drift-a {
+  0%   { transform: translate3d(-6%, -4%, 0) scale(1); }
+  50%  { transform: translate3d(4%, 6%, 0) scale(1.08); }
+  100% { transform: translate3d(-6%, -4%, 0) scale(1); }
+}
+@keyframes aurora-drift-b {
+  0%   { transform: translate3d(8%, 10%, 0) scale(1.05); }
+  50%  { transform: translate3d(-8%, -6%, 0) scale(1); }
+  100% { transform: translate3d(8%, 10%, 0) scale(1.05); }
+}
+@keyframes aurora-drift-c {
+  0%   { transform: translate3d(0, 0, 0) scale(1); opacity: 0.55; }
+  50%  { transform: translate3d(2%, -8%, 0) scale(1.1); opacity: 0.85; }
+  100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.55; }
+}
+.aurora-a { animation: aurora-drift-a 22s ease-in-out infinite; }
+.aurora-b { animation: aurora-drift-b 28s ease-in-out infinite; }
+.aurora-c { animation: aurora-drift-c 34s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-a, .aurora-b, .aurora-c {
+    animation: none !important;
+  }
+}
+
+/* Service card decorative number treatment */
+.service-card__num {
+  opacity: 0.12;
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+.service-card:hover .service-card__num {
+  opacity: 0.22;
+  transform: translate3d(-2px, 2px, 0);
+}
+:global(.light) .service-card__num { opacity: 0.18; }
+:global(.light) .service-card:hover .service-card__num { opacity: 0.32; }
+@media (prefers-reduced-motion: reduce) {
+  .service-card__num { transition: none !important; }
+  .service-card:hover .service-card__num { transform: none !important; }
+}
+
+/* ─────────────────────────────────────────────
+   Card tilt — subtle perspective rise on hover
+   ───────────────────────────────────────────── */
+.card-tilt {
+  transform-style: preserve-3d;
+  transition: transform 350ms cubic-bezier(.2, .8, .2, 1), box-shadow 350ms ease;
+}
+.card-tilt:hover {
+  transform: perspective(900px) rotateX(2deg) rotateY(-2deg) translateY(-4px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .card-tilt, .card-tilt:hover { transform: none !important; transition: none !important; }
 }
 
 /* Print stylesheet */

@@ -1,0 +1,127 @@
+---
+/**
+ * HeroDashboard.astro
+ * Mini "mission-control" glass card for the split-screen hero right column.
+ * Purely decorative (aria-hidden) — the hero heading and CTAs carry semantics.
+ */
+---
+<div
+  aria-hidden="true"
+  class="hero-dash relative mx-auto w-full max-w-md lg:max-w-none"
+>
+  <!-- Backdrop glow -->
+  <div
+    class="pointer-events-none absolute -inset-6 rounded-[32px] opacity-60 blur-2xl hidden md:block"
+    style="background: radial-gradient(60% 60% at 50% 40%, color-mix(in srgb, var(--ac-teal) 22%, transparent), transparent 70%);"
+  ></div>
+
+  <!-- Card -->
+  <div class="relative rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-5 sm:p-6 shadow-xl backdrop-blur-sm">
+    <!-- Header bar -->
+    <div class="mb-5 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="flex gap-1.5">
+          <span class="h-2.5 w-2.5 rounded-full bg-[#EC4899]"></span>
+          <span class="h-2.5 w-2.5 rounded-full bg-[#F59E0B]"></span>
+          <span class="h-2.5 w-2.5 rounded-full bg-[#10B981]"></span>
+        </span>
+        <span class="text-[11px] font-mono text-[var(--text-muted)] ml-2">mission-control.live</span>
+      </div>
+      <span class="flex items-center gap-1.5 text-[11px] text-[var(--text-muted)]">
+        <span class="h-1.5 w-1.5 rounded-full bg-[var(--ac-teal)] animate-pulse"></span>
+        LIVE
+      </span>
+    </div>
+
+    <!-- Metric tiles row -->
+    <div class="grid grid-cols-3 gap-2.5 mb-5">
+      <!-- Lighthouse -->
+      <div class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-3">
+        <div class="text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-1.5">Lighthouse</div>
+        <div class="flex items-end justify-between">
+          <span class="font-heading text-2xl font-extrabold" style="color: var(--ac-emerald);">98</span>
+          <svg width="28" height="28" viewBox="0 0 36 36" aria-hidden="true">
+            <circle cx="18" cy="18" r="14" fill="none" stroke="var(--ac-emerald)" stroke-opacity="0.18" stroke-width="3"/>
+            <circle cx="18" cy="18" r="14" fill="none" stroke="var(--ac-emerald)" stroke-width="3" stroke-linecap="round" stroke-dasharray="87.96" stroke-dashoffset="1.76" transform="rotate(-90 18 18)"/>
+          </svg>
+        </div>
+      </div>
+      <!-- WCAG -->
+      <div class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-3">
+        <div class="text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-1.5">WCAG 2.2</div>
+        <div class="flex items-end justify-between">
+          <span class="font-heading text-2xl font-extrabold" style="color: var(--ac-teal);">AA</span>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--ac-teal)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+      </div>
+      <!-- LCP -->
+      <div class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-3">
+        <div class="text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-1.5">LCP</div>
+        <div class="flex items-end justify-between">
+          <span class="font-heading text-2xl font-extrabold" style="color: var(--ac-indigo);">1.4<span class="text-sm font-bold">s</span></span>
+          <svg width="28" height="20" viewBox="0 0 28 20" aria-hidden="true">
+            <path d="M 2 16 L 7 12 L 11 14 L 16 8 L 21 10 L 26 4" fill="none" stroke="var(--ac-indigo)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Core Web Vitals bar -->
+    <div class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-4 mb-4">
+      <div class="flex items-center justify-between mb-2.5">
+        <span class="text-[11px] font-semibold uppercase tracking-wider text-[var(--text-muted)]">Core Web Vitals</span>
+        <span class="text-[10px] font-semibold text-[var(--ac-emerald)]">Passing</span>
+      </div>
+      <div class="space-y-2">
+        <div>
+          <div class="flex justify-between text-[10px] text-[var(--text-muted)] mb-1">
+            <span>INP</span><span class="text-[var(--text)] font-semibold">132 ms</span>
+          </div>
+          <div class="h-1.5 rounded-full bg-[var(--border)] overflow-hidden">
+            <div class="hero-dash__bar h-full rounded-full" style="width: 68%; background: var(--ac-teal);"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between text-[10px] text-[var(--text-muted)] mb-1">
+            <span>CLS</span><span class="text-[var(--text)] font-semibold">0.04</span>
+          </div>
+          <div class="h-1.5 rounded-full bg-[var(--border)] overflow-hidden">
+            <div class="hero-dash__bar h-full rounded-full" style="width: 82%; background: var(--ac-indigo); animation-delay: 200ms;"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between text-[10px] text-[var(--text-muted)] mb-1">
+            <span>TTFB</span><span class="text-[var(--text)] font-semibold">186 ms</span>
+          </div>
+          <div class="h-1.5 rounded-full bg-[var(--border)] overflow-hidden">
+            <div class="hero-dash__bar h-full rounded-full" style="width: 74%; background: var(--ac-pink); animation-delay: 400ms;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer pills -->
+    <div class="flex flex-wrap gap-1.5">
+      <span class="rounded-full px-2.5 py-1 text-[10px] font-semibold" style="background: color-mix(in srgb, var(--ac-indigo) 14%, transparent); color: var(--ac-indigo);">Astro</span>
+      <span class="rounded-full px-2.5 py-1 text-[10px] font-semibold" style="background: color-mix(in srgb, var(--ac-teal) 14%, transparent); color: var(--ac-teal);">React 19</span>
+      <span class="rounded-full px-2.5 py-1 text-[10px] font-semibold" style="background: color-mix(in srgb, var(--ac-amber) 14%, transparent); color: var(--ac-amber);">Edge</span>
+      <span class="rounded-full px-2.5 py-1 text-[10px] font-semibold" style="background: color-mix(in srgb, var(--ac-emerald) 14%, transparent); color: var(--ac-emerald);">ADA</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .hero-dash__bar {
+    transform-origin: left center;
+    animation: hero-dash-fill 1.6s cubic-bezier(.2,.8,.2,1) forwards;
+    transform: scaleX(0);
+  }
+  @keyframes hero-dash-fill {
+    to { transform: scaleX(1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-dash__bar { animation: none !important; transform: scaleX(1) !important; }
+  }
+</style>

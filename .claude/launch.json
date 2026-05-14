@@ -4,7 +4,7 @@
     {
       "name": "astro-dev",
       "runtimeExecutable": "/Users/nisheeaaru/.nvm/versions/node/v24.6.0/bin/node",
-      "runtimeArgs": ["/Users/nisheeaaru/.nvm/versions/node/v24.6.0/lib/node_modules/npm/bin/npm-cli.js", "--prefix", "/Users/nisheeaaru/sites/elantechnology/elan-tech-astro", "run", "dev"],
+      "runtimeArgs": ["/Users/nisheeaaru/.nvm/versions/node/v24.6.0/lib/node_modules/npm/bin/npm-cli.js", "--prefix", "/Users/nisheeaaru/Sites/elantech/elan-tech-astro", "run", "dev"],
       "port": 4321
     }
   ]

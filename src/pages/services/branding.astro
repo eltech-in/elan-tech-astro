@@ -64,7 +64,10 @@ const deliverables = [
 >
 
   <!-- ── HERO ─────────────────────────────────────────────────────────────── -->
-  <section class="relative mb-12 overflow-hidden rounded-2xl bg-gradient-to-br from-purple-500/10 via-[var(--bg-card)] to-[var(--bg-card)] p-8 md:p-12 border border-[var(--border)]">
+  <section class="service-card relative mb-12 overflow-hidden rounded-2xl border border-[var(--border)] p-8 md:p-12" style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-teal) 12%, var(--bg-card)) 0%, var(--bg-card) 65%);">
+    <span aria-hidden="true" class="service-card__num pointer-events-none absolute top-4 right-6 font-heading font-black leading-none select-none" style="color: var(--ac-teal); font-size: 7rem;">07</span>
+    <span aria-hidden="true" class="service-card__stripe pointer-events-none absolute -left-12 -bottom-12 h-60 w-60 rotate-[-20deg] opacity-[0.08]" style="background: var(--ac-teal);"></span>
+    <div class="relative">
     <div class="grid gap-10 md:grid-cols-2 md:items-center">
       <div>
         <p class="mb-2 text-sm font-semibold uppercase tracking-widest" style="color: #A855F7;">{service.tagline}</p>
@@ -91,6 +94,7 @@ const deliverables = [
         ))}
       </ul>
     </div>
+  </div>
   </section>
 
   <!-- ── WHAT'S INCLUDED ───────────────────────────────────────────────────── -->
@@ -186,7 +190,7 @@ const deliverables = [
             <span>{question}</span>
             <span class="ml-4 shrink-0 text-[var(--text-muted)] text-lg">+</span>
           </summary>
-          <p class="px-6 pb-5 pt-1 text-sm text-[var(--text-muted)] leading-relaxed">{answer}</p>
+          <p class="px-6 pb-5 pt-1 text-sm text-[var(--text-muted)] leading-relaxed" set:html={answer} />
         </details>
       ))}
     </div>

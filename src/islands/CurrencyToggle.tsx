@@ -43,7 +43,7 @@ export default function CurrencyToggle() {
           onClick={() => selectCurrency(code)}
           className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)] ${
             selected === code
-              ? 'bg-[var(--accent)] text-[#0A0E1A]'
+              ? 'bg-[var(--accent)] text-[var(--bg)]'
               : 'border border-[var(--border)] text-[var(--text-dim)] hover:border-[var(--accent)] hover:text-[var(--accent)]'
           }`}
         >

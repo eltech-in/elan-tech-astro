@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { softwareAppSchema, breadcrumbSchema } from '../../utils/schema';
-import { getProductBySlug } from '../../data/products';
+import { getProductBySlug, products } from '../../data/products';
 
 const product = getProductBySlug('real-estate-portal');
+const others = products.filter(p => p.slug !== product.slug);
 
 const schema = [
   softwareAppSchema({
@@ -19,200 +20,278 @@ const schema = [
   ]),
 ];
 
-// Expanded feature descriptions for the detail page (titles match products.ts features)
 const features = [
-  { title: 'Comprehensive Listings', desc: 'Manage buying, renting, and selling properties with rich listing pages, photo galleries, and floor plans.' },
-  { title: 'Advanced Search Filters', desc: 'Filter by location, budget, BHK configuration, property type, and RERA status.' },
-  { title: 'Verified RERA Listings', desc: 'Display RERA registration badges to build buyer trust and legal compliance.' },
-  { title: 'Joint Ventures Platform', desc: 'Connect land owners with investors through a dedicated JV matching module.' },
-  { title: 'Specialized Categories', desc: 'Handle Agricultural, Commercial, and Residential land with category-specific fields.' },
-  { title: 'Agent & Admin Dashboard', desc: 'Centralized dashboards for agents to manage leads, listings, and client communications.' },
-  { title: 'Lead Capture & CRM', desc: 'Built-in inquiry forms, WhatsApp integration, and lead tracking for follow-up management.' },
-  { title: 'Map Integration', desc: 'Google Maps integration with property pins, neighbourhood overlays, and proximity search.' },
+  { title: 'Comprehensive Listings', desc: 'Buying, renting & selling with rich galleries, floor plans, and RERA-ready listing templates.' },
+  { title: 'Advanced Search & Filters', desc: 'Filter by location, budget, BHK, property type, RERA status, and proximity to schools/metros.' },
+  { title: 'Verified RERA Listings', desc: 'RERA registration badges and compliance fields baked into every listing for buyer trust.' },
+  { title: 'Joint Ventures Platform', desc: 'Connect land owners with investors via a dedicated JV-matching module with NDA flow.' },
+  { title: 'Specialized Categories', desc: 'Agricultural, Commercial, Residential & Land plots with category-specific metadata.' },
+  { title: 'Agent & Admin Dashboard', desc: 'Centralised dashboards for agents to manage leads, listings, and client communications.' },
+  { title: 'Lead Capture & CRM', desc: 'Inquiry forms, WhatsApp integration, and lead tracking with follow-up reminders.' },
+  { title: 'Map Integration', desc: 'Google Maps with property pins, neighbourhood overlays, and radius-based search.' },
 ];
 
 const audience = [
-  { title: 'Real Estate Agencies', desc: 'Manage multiple agents, listings, and inquiries from a single platform.' },
-  { title: 'Property Developers', desc: 'Showcase new projects with phase-wise updates, floor plans, and booking modules.' },
-  { title: 'Builders & Contractors', desc: 'List under-construction and completed properties with progress photo galleries.' },
-  { title: 'Housing Societies', desc: 'Manage resale listings and connect existing owners with prospective buyers.' },
+  { title: 'Real Estate Agencies', desc: 'Multiple agents, listings, and inquiries from one cockpit.' },
+  { title: 'Property Developers', desc: 'Showcase projects phase-wise with plans and booking.' },
+  { title: 'Builders & Contractors', desc: 'Under-construction + completed listings with photo progress.' },
+  { title: 'Housing Societies', desc: 'Resale listings connecting owners with prospective buyers.' },
 ];
 
 const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'AWS S3', 'Google Maps API', 'Razorpay', 'Tailwind CSS', 'TypeScript'];
 ---
 
 <BaseLayout
-  title="Real Estate Portal & Property Management System — eLan Technology"
-  description="Custom real estate portal with property listings, agent dashboards, RERA badges, and lead capture. Built for Indian real estate agencies, developers, and builders."
+  title="Real Estate Portal Development India | RERA-Ready Property Listing Software"
+  description="Custom real estate portal with property listings, advanced search, RERA-verified badges, agent dashboards, lead CRM, and map integration. Built for Indian agencies, developers, and builders."
   schema={schema}
 >
 
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       HERO
-  ════════════════════════════════════════════════════════════════════════ -->
-  <section aria-labelledby="rep-hero-heading" class="relative overflow-hidden bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-24 md:py-36">
-    <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
-      <div class="absolute -top-40 -left-40 h-[600px] w-[600px] rounded-full bg-[#00E5A0]/8 blur-[120px]"></div>
-      <div class="absolute -bottom-40 -right-20 h-[500px] w-[500px] rounded-full bg-[#00E5A0]/5 blur-[100px]"></div>
+  <!-- ═══ FULL-BLEED HERO ═════════════════════════════════════════════════ -->
+  <section class="relative overflow-hidden" aria-labelledby="rep-h1">
+    <div class="absolute inset-0">
+      <div class="absolute inset-0" style={`background: linear-gradient(135deg, color-mix(in srgb, var(${product.cssVar}) 55%, rgba(0,0,0,0.85)) 0%, rgba(0,0,0,0.95) 70%);`}></div>
+      <div class="absolute inset-0 opacity-[0.08] [background-image:linear-gradient(rgba(255,255,255,0.4)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.4)_1px,transparent_1px)] [background-size:56px_56px]"></div>
+      <span aria-hidden="true" class="pointer-events-none absolute -left-20 -bottom-20 h-[28rem] w-[28rem] rotate-[-20deg] opacity-[0.14]" style={`background: var(${product.cssVar});`}></span>
+      <span aria-hidden="true" class="pointer-events-none absolute -right-20 -top-20 h-[24rem] w-[24rem] rounded-full blur-[120px] opacity-40" style={`background: var(${product.cssVar});`}></span>
     </div>
 
-    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-      <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-[#00E5A0]/30 bg-[#00E5A0]/10 px-4 py-2 text-sm font-medium text-[#00E5A0]">
-        Real Estate Software
-      </div>
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 pb-24 sm:pt-28 sm:pb-32">
+      <nav aria-label="Breadcrumb" class="mb-10">
+        <ol class="flex items-center gap-2 text-xs sm:text-sm text-white/70">
+          <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/products" class="hover:text-white transition-colors">Products</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="text-white font-semibold truncate" aria-current="page">{product.title}</li>
+        </ol>
+      </nav>
 
-      <h1
-        id="rep-hero-heading"
-        class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-[var(--text)] mb-6"
-      >
-        Real Estate Portal
-      </h1>
+      <div class="max-w-4xl">
+        <span class="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-white backdrop-blur-sm mb-6">
+          <span class="h-1.5 w-1.5 rounded-full animate-pulse" style={`background: var(${product.cssVar})`} aria-hidden="true"></span>
+          Real Estate Software
+          <span class="text-white/50">·</span>
+          <span class="text-white/85 normal-case tracking-normal">RERA-ready</span>
+        </span>
 
-      <p class="mx-auto mb-4 max-w-2xl text-lg text-[#00E5A0] font-medium">
-        Property Management &amp; Listing Platform
-      </p>
+        <h1 id="rep-h1" class="font-heading text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.05] mb-5 drop-shadow-lg">
+          {product.title}
+        </h1>
 
-      <p class="mx-auto mb-10 max-w-3xl text-lg text-[var(--text-dim)] leading-relaxed">
-        {product.longDesc}
-      </p>
-
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a
-          href="/request-demo"
-          class="inline-flex items-center gap-2 rounded-full bg-[#00E5A0] px-8 py-4 text-base font-semibold text-[#0A0E1A] shadow-lg shadow-[#00E5A0]/25 transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#00E5A0]"
-        >
-          Request Demo
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <a
-          href="/get-quote"
-          class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-transparent px-8 py-4 text-base font-semibold text-[var(--text)] transition-all duration-300 hover:border-[#00E5A0] hover:text-[#00E5A0] hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#00E5A0]"
-        >
-          Get Quote
-        </a>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       FEATURES GRID
-  ════════════════════════════════════════════════════════════════════════ -->
-  <section aria-labelledby="rep-features-heading" class="bg-[var(--bg)] py-16 md:py-20">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <p class="text-center text-sm font-semibold uppercase tracking-widest text-[#00E5A0] mb-3">Key Features</p>
-      <h2 id="rep-features-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] text-center mb-4">
-        Everything a Real Estate Business Needs
-      </h2>
-      <p class="text-center text-[var(--text-dim)] mb-12 max-w-2xl mx-auto">
-        From listing management to lead capture, every feature is purpose-built for the Indian real estate market.
-      </p>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {features.map((f) => (
-          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
-            <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#00E5A0]/10">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00E5A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-            <h3 class="font-semibold text-[var(--text)] mb-2">{f.title}</h3>
-            <p class="text-sm text-[var(--text-dim)] leading-relaxed">{f.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       WHO IT'S FOR
-  ════════════════════════════════════════════════════════════════════════ -->
-  <section aria-labelledby="rep-audience-heading" class="bg-[var(--bg-card)] py-16 md:py-20 border-y border-[var(--border)]">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <p class="text-center text-sm font-semibold uppercase tracking-widest text-[#00E5A0] mb-3">Who It's For</p>
-      <h2 id="rep-audience-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] text-center mb-12">
-        Built for Real Estate Professionals
-      </h2>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {audience.map((a) => (
-          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 text-center">
-            <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#00E5A0]/10">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00E5A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            </div>
-            <h3 class="font-semibold text-[var(--text)] mb-2">{a.title}</h3>
-            <p class="text-sm text-[var(--text-dim)] leading-relaxed">{a.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       SCREENSHOTS PLACEHOLDER
-  ════════════════════════════════════════════════════════════════════════ -->
-  <section aria-labelledby="rep-screenshots-heading" class="bg-[var(--bg)] py-16 md:py-20">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <p class="text-center text-sm font-semibold uppercase tracking-widest text-[#00E5A0] mb-3">Screenshots</p>
-      <h2 id="rep-screenshots-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] text-center mb-12">
-        A Glimpse of the Platform
-      </h2>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {[
-          'Property Listings Page — search, filter, map view',
-          'Agent Dashboard — leads, enquiries, analytics',
-          'Property Detail Page — gallery, floor plan, contact form',
-        ].map((caption) => (
-          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] overflow-hidden">
-            <div class="aspect-video w-full bg-[var(--border)]/30 flex items-center justify-center">
-              <span class="text-[var(--text-muted)] text-sm">Screenshot Coming Soon</span>
-            </div>
-            <p class="p-4 text-sm text-[var(--text-dim)] text-center">{caption}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       TECHNOLOGY STACK
-  ════════════════════════════════════════════════════════════════════════ -->
-  <section aria-labelledby="rep-tech-heading" class="bg-[var(--bg-card)] py-16 md:py-20 border-y border-[var(--border)]">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-      <p class="text-sm font-semibold uppercase tracking-widest text-[#00E5A0] mb-3">Technology Stack</p>
-      <h2 id="rep-tech-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-8">
-        Built With Modern Technology
-      </h2>
-      <div class="flex flex-wrap justify-center gap-3">
-        {techStack.map((tech) => (
-          <span class="rounded-full border border-[#00E5A0]/30 bg-[#00E5A0]/10 px-4 py-2 text-sm font-medium text-[#00E5A0]">
-            {tech}
-          </span>
-        ))}
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       REQUEST DEMO CTA
-  ════════════════════════════════════════════════════════════════════════ -->
-  <section class="bg-[var(--bg)] py-16 md:py-20">
-    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-      <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 text-center">
-        <h2 class="font-heading text-2xl font-bold text-[var(--text)] mb-4">See It In Action</h2>
-        <p class="text-[var(--text-dim)] mb-6">
-          Schedule a 30-minute live demo of the Real Estate Portal and see exactly how it handles your use case.
+        <p class="max-w-2xl text-lg sm:text-xl text-white/85 leading-relaxed mb-8">
+          {product.longDesc}
         </p>
-        <a
-          href="/request-demo"
-          class="inline-flex items-center gap-2 rounded-full bg-[#00E5A0] px-8 py-3 text-base font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity"
-        >
-          Request Demo →
-        </a>
+
+        <div class="flex flex-wrap gap-3 mb-6">
+          {product.demoUrl && (
+            <a href={product.demoUrl} target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all shadow-xl"
+               style={`background: var(${product.cssVar}); box-shadow: 0 12px 30px color-mix(in srgb, var(${product.cssVar}) 40%, transparent);`}
+               aria-label={`Open ${product.title} live demo — opens in new tab`}>
+              Try Live Demo
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          )}
+          <a href="/request-demo" class="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/5 backdrop-blur-sm px-7 py-3.5 text-sm font-bold text-white hover:bg-white/15 transition-all">
+            Book Walkthrough
+          </a>
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+          {techStack.map((tech) => (
+            <span class="px-3 py-1 rounded-full text-xs bg-white/10 border border-white/20 text-white/90 backdrop-blur-sm">{tech}</span>
+          ))}
+        </div>
       </div>
+    </div>
+  </section>
+
+
+  <!-- ═══ TWO-COLUMN LAYOUT ═══════════════════════════════════════════════ -->
+  <section class="bg-[var(--bg)] py-14 md:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+
+        <!-- ── MAIN ── -->
+        <article class="lg:col-span-8 space-y-10">
+          <!-- Features bento -->
+          <div>
+            <header class="mb-6">
+              <p class="text-xs font-bold uppercase tracking-widest mb-1" style={`color: var(${product.cssVar});`}>Key Features</p>
+              <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)]">Everything a real estate business needs</h2>
+              <p class="mt-2 text-[var(--text-dim)]">From listing management to lead capture — purpose-built for the Indian real estate market.</p>
+            </header>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4" role="list">
+              {features.map((f, i) => (
+                <li class="relative overflow-hidden rounded-2xl border border-[var(--border)] p-5 hover:-translate-y-0.5 transition-transform" style={`background: linear-gradient(135deg, color-mix(in srgb, var(${product.cssVar}) 8%, var(--bg-card)) 0%, var(--bg-card) 80%);`}>
+                  <span aria-hidden="true" class="absolute top-2 right-3 font-heading font-black text-4xl leading-none select-none" style={`color: var(${product.cssVar}); opacity: 0.15;`}>{String(i + 1).padStart(2,'0')}</span>
+                  <div class="relative">
+                    <div class="mb-3 flex h-9 w-9 items-center justify-center rounded-xl" style={`background: color-mix(in srgb, var(${product.cssVar}) 18%, transparent);`}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={`var(${product.cssVar})`} stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <h3 class="font-semibold text-[var(--text)] mb-1.5">{f.title}</h3>
+                    <p class="text-sm text-[var(--text-dim)] leading-relaxed">{f.desc}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Audience bento -->
+          <div>
+            <header class="mb-6">
+              <p class="text-xs font-bold uppercase tracking-widest mb-1" style={`color: var(${product.cssVar});`}>Who It's For</p>
+              <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)]">Built for real estate professionals</h2>
+            </header>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4" role="list">
+              {audience.map((a) => (
+                <li class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
+                  <h3 class="font-semibold text-[var(--text)] mb-1.5">{a.title}</h3>
+                  <p class="text-sm text-[var(--text-dim)] leading-relaxed">{a.desc}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Inline CTA -->
+          <div class="relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 text-center">
+            <h3 class="font-heading text-xl sm:text-2xl font-bold text-[var(--text)] mb-3">See it in action</h3>
+            <p class="text-[var(--text-dim)] mb-6">Try the live demo now, or schedule a 30-minute guided walkthrough.</p>
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+              {product.demoUrl && (
+                <a href={product.demoUrl} target="_blank" rel="noopener noreferrer"
+                   class="inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-bold text-white hover:-translate-y-0.5 transition-all"
+                   style={`background: var(${product.cssVar});`}>
+                  Try Live Demo ↗
+                </a>
+              )}
+              <a href="/request-demo" class="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--border)] px-7 py-3 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
+                Book Walkthrough
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- ── STICKY SIDEBAR ── -->
+        <aside class="lg:col-span-4 space-y-5" aria-label="Product details and other products">
+          <div class="lg:sticky lg:top-24 space-y-5">
+            <!-- Product meta -->
+            <div class="relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+              <span aria-hidden="true" class="absolute inset-x-0 top-0 h-[3px]" style={`background: var(${product.cssVar});`}></span>
+              <p class="text-[11px] font-bold uppercase tracking-widest mb-4" style={`color: var(${product.cssVar});`}>Product Details</p>
+              <dl class="space-y-3 text-sm">
+                <div>
+                  <dt class="text-[11px] uppercase tracking-wide text-[var(--text-muted)]">Category</dt>
+                  <dd class="font-semibold text-[var(--text)]">Real Estate Software</dd>
+                </div>
+                <div>
+                  <dt class="text-[11px] uppercase tracking-wide text-[var(--text-muted)]">Licensing</dt>
+                  <dd class="font-semibold text-[var(--text)]">One-time purchase · White-label</dd>
+                </div>
+                <div>
+                  <dt class="text-[11px] uppercase tracking-wide text-[var(--text-muted)]">Delivery</dt>
+                  <dd class="font-semibold text-[var(--text)]">4–8 weeks typical</dd>
+                </div>
+                <div>
+                  <dt class="text-[11px] uppercase tracking-wide text-[var(--text-muted)] mb-1.5">Technology</dt>
+                  <dd class="flex flex-wrap gap-1.5">
+                    {techStack.slice(0, 6).map(tech => (
+                      <span class="px-2 py-0.5 rounded-md text-[11px] border border-[var(--border)] bg-[var(--bg)] text-[var(--text-dim)]">{tech}</span>
+                    ))}
+                  </dd>
+                </div>
+              </dl>
+
+              {product.demoUrl && (
+                <a href={product.demoUrl} target="_blank" rel="noopener noreferrer"
+                   class="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all"
+                   style={`background: var(${product.cssVar});`}
+                   aria-label={`Open ${product.title} live demo — opens in new tab`}>
+                  Try Live Demo ↗
+                </a>
+              )}
+              <a href="/request-demo" class="mt-2 w-full inline-flex items-center justify-center gap-2 rounded-full border border-[var(--border)] px-5 py-2.5 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
+                Book Walkthrough
+              </a>
+            </div>
+
+            <!-- Other Products -->
+            <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+              <div class="flex items-center justify-between mb-4">
+                <p class="text-[11px] font-bold uppercase tracking-widest" style={`color: var(${product.cssVar});`}>Other Products</p>
+                <a href="/products" class="text-[11px] font-semibold text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors">View All →</a>
+              </div>
+              <ul class="space-y-2.5" role="list">
+                {others.map((p) => (
+                  <li>
+                    <a href={`/products/${p.slug}`} class="group flex items-center gap-3 rounded-lg p-2 -mx-2 hover:bg-[var(--bg)] transition-colors">
+                      <span class="h-10 w-10 shrink-0 rounded-lg flex items-center justify-center text-[13px] font-black text-white" style={`background: var(${p.cssVar});`} aria-hidden="true">
+                        {p.title.slice(0,1)}
+                      </span>
+                      <div class="min-w-0 flex-1">
+                        <p class="text-sm font-semibold text-[var(--text)] line-clamp-1 group-hover:text-[var(--accent)] transition-colors">{p.title}</p>
+                        <p class="text-[11px] text-[var(--text-muted)] line-clamp-1">{p.demoUrl ? 'Live demo ready' : 'Demo coming soon'}</p>
+                      </div>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-[var(--text-muted)] group-hover:text-[var(--accent)] transition-colors" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <!-- Mini CTA -->
+            <div class="relative overflow-hidden rounded-2xl p-6 text-center" style={`background: linear-gradient(135deg, color-mix(in srgb, var(${product.cssVar}) 18%, var(--bg-card)) 0%, var(--bg-card) 80%); border: 1px solid color-mix(in srgb, var(${product.cssVar}) 40%, var(--border));`}>
+              <span aria-hidden="true" class="absolute -right-8 -bottom-8 h-28 w-28 rounded-full blur-2xl opacity-40" style={`background: var(${product.cssVar});`}></span>
+              <p class="relative font-heading text-lg font-bold text-[var(--text)] mb-2">Need customizations?</p>
+              <p class="relative text-xs text-[var(--text-dim)] mb-4">Free 20-minute scoping call. No hard sell.</p>
+              <a href="/schedule-consultation" class="relative inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all" style={`background: var(${product.cssVar});`}>
+                Book a Call
+              </a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══ OTHER PRODUCTS STRIP (mobile / secondary discovery) ═══════════════ -->
+  <section class="py-14 bg-[var(--bg-card)] border-t border-[var(--border)]" aria-labelledby="others-h2">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <header class="flex items-end justify-between gap-4 mb-8">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-1">Explore More</p>
+          <h2 id="others-h2" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)]">Other products</h2>
+        </div>
+        <a href="/products" class="text-sm font-semibold text-[var(--accent)] hover:underline">View all →</a>
+      </header>
+
+      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" role="list">
+        {others.map((p) => (
+          <li>
+            <a href={`/products/${p.slug}`}
+               class="group relative block h-full overflow-hidden rounded-2xl border border-[var(--border)] p-6 hover:-translate-y-1 transition-all"
+               style={`background: linear-gradient(135deg, color-mix(in srgb, var(${p.cssVar}) 12%, var(--bg)) 0%, var(--bg) 70%);`}>
+              <span aria-hidden="true" class="absolute inset-x-0 top-0 h-[3px]" style={`background: var(${p.cssVar});`}></span>
+              <div class="flex items-center gap-3 mb-3">
+                <span class="h-10 w-10 rounded-xl flex items-center justify-center text-sm font-black text-white" style={`background: var(${p.cssVar});`} aria-hidden="true">{p.title.slice(0,1)}</span>
+                {p.demoUrl ? (
+                  <span class="inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider" style={`color: var(${p.cssVar}); border-color: color-mix(in srgb, var(${p.cssVar}) 50%, transparent);`}>
+                    <span class="h-1 w-1 rounded-full animate-pulse" style={`background: var(${p.cssVar})`} aria-hidden="true"></span>
+                    Live Demo
+                  </span>
+                ) : (
+                  <span class="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)]">Coming Soon</span>
+                )}
+              </div>
+              <h3 class="font-heading font-bold text-[var(--text)] leading-snug mb-1 group-hover:text-[var(--accent)] transition-colors">{p.title}</h3>
+              <p class="text-xs text-[var(--text-dim)] line-clamp-2">{p.desc}</p>
+              <span class="mt-3 inline-flex items-center gap-1 text-xs font-bold" style={`color: var(${p.cssVar})`}>Learn more →</span>
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 

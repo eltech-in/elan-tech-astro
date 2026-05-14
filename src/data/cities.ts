@@ -127,7 +127,7 @@ export const cities: CityData[] = [
       {
         question: 'Which is the best web design company in Nagpur?',
         answer:
-          "eLan Technology is Nagpur's most experienced web design company, operating since 2002. With 500+ clients across 25+ countries, 1500+ projects delivered, and proprietary products like our Real Estate Portal and Medical Conference Portal, we offer a depth of experience no other Nagpur agency can match.",
+          "eLan Technology is Nagpur's most experienced web design company, operating since 2002. With 500+ clients across 10+ countries, 1500+ projects delivered, and proprietary products like our Real Estate Portal and Medical Conference Portal, we offer a depth of experience no other Nagpur agency can match.",
       },
       {
         question: 'Does eLan Technology have an office in Nagpur?',
@@ -216,7 +216,7 @@ export const cities: CityData[] = [
     introContent:
       "Raipur, the capital of Chhattisgarh, is witnessing a digital transformation driven by the Naya Raipur smart city initiative, a booming steel and mining sector, and an increasingly tech-savvy consumer base. Yet most local businesses still lack professional web presence — creating a massive opportunity for those who invest in quality digital infrastructure now.",
     whyChooseContent:
-      "eLan Technology serves Raipur businesses from our Nagpur headquarters, just 285 km away. With 24+ years of experience and 500+ clients across 25 countries, we bring a level of expertise that exceeds what most local Raipur agencies can offer — at competitive pricing. We understand Chhattisgarh's industrial landscape and government sector requirements.",
+      "eLan Technology serves Raipur businesses from our Nagpur headquarters, just 285 km away. With 24+ years of experience and 500+ clients across 10 countries, we bring a level of expertise that exceeds what most local Raipur agencies can offer — at competitive pricing. We understand Chhattisgarh's industrial landscape and government sector requirements.",
     pricingNote:
       'Website costs for Raipur businesses start at ₹15,000 for basic sites and go up to ₹1,50,000+ for custom applications. Our pricing is transparent and competitive — often 30-40% less than equivalent quality from metro city agencies.',
     faq: [
@@ -821,7 +821,7 @@ export const cities: CityData[] = [
     introContent:
       "Bhopal, Madhya Pradesh's capital, is a city of lakes and growing digital ambition. As the seat of state government, a major education hub, and an emerging IT destination, Bhopal businesses are increasingly recognising the need for professional web presence. Yet the local web design market remains limited in both quality and technological capability.",
     whyChooseContent:
-      "Central India's capital city deserves Central India's best agency. Just 350 km from our Nagpur headquarters, we serve Bhopal's government institutions, educational organisations, and tourism businesses with the same quality we deliver to clients in 25+ countries.",
+      "Central India's capital city deserves Central India's best agency. Just 350 km from our Nagpur headquarters, we serve Bhopal's government institutions, educational organisations, and tourism businesses with the same quality we deliver to clients in 10+ countries.",
     pricingNote:
       'Bhopal web design costs are among the most affordable in India — our packages start at ₹25,000 and deliver enterprise-grade quality that local Bhopal agencies simply cannot match.',
     faq: [
@@ -907,7 +907,7 @@ export const cities: CityData[] = [
       {
         question: 'Do you provide web design services in Indore?',
         answer:
-          "Yes. Indore is 560 km from our Nagpur headquarters. We serve Indore businesses remotely with the same tools and processes we use for clients in 25+ countries. For Indore's growing startup ecosystem, we offer rapid MVP development at competitive pricing.",
+          "Yes. Indore is 560 km from our Nagpur headquarters. We serve Indore businesses remotely with the same tools and processes we use for clients in 10+ countries. For Indore's growing startup ecosystem, we offer rapid MVP development at competitive pricing.",
       },
       {
         question: 'How much does a website cost in Indore?',
@@ -972,14 +972,14 @@ export const cities: CityData[] = [
     introContent:
       "Kolkata — India's cultural capital — is also Eastern India's largest commercial hub. From Salt Lake's IT corridor to Park Street's business district, Kolkata businesses need modern digital presence that reflects the city's unique blend of heritage and innovation. Yet quality web agencies remain concentrated in South and West India.",
     whyChooseContent:
-      "East meets excellence. Heritage city, modern websites. From finance and jute to IT and education — we serve all of Kolkata's industries with the same quality we deliver to clients across 25+ countries.",
+      "East meets excellence. Heritage city, modern websites. From finance and jute to IT and education — we serve all of Kolkata's industries with the same quality we deliver to clients across 10+ countries.",
     pricingNote:
       'Kolkata agencies charge ₹1-3 lakh for standard websites. We deliver equivalent quality at ₹45,000-₹1,50,000 — significant savings for East India businesses.',
     faq: [
       {
         question: 'Can a Central India agency serve Kolkata businesses well?',
         answer:
-          "Absolutely. Distance is irrelevant in modern web development. We work via Slack, Zoom, and Jira — the same tools Kolkata's Salt Lake IT companies use. Our 500+ clients across 25 countries prove that remote collaboration works seamlessly.",
+          "Absolutely. Distance is irrelevant in modern web development. We work via Slack, Zoom, and Jira — the same tools Kolkata's Salt Lake IT companies use. Our 500+ clients across 10 countries prove that remote collaboration works seamlessly.",
       },
       {
         question: 'How much does a website cost compared to Kolkata agencies?',

@@ -53,10 +53,13 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
 >
 
   <!-- ── HERO ─────────────────────────────────────────────────────────────── -->
-  <section class="relative mb-12 overflow-hidden rounded-2xl bg-gradient-to-br from-pink-500/10 via-[var(--bg-card)] to-[var(--bg-card)] p-8 md:p-12 border border-[var(--border)]">
+  <section class="service-card relative mb-12 overflow-hidden rounded-2xl border border-[var(--border)] p-8 md:p-12" style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-pink) 12%, var(--bg-card)) 0%, var(--bg-card) 65%);">
+    <span aria-hidden="true" class="service-card__num pointer-events-none absolute top-4 right-6 font-heading font-black leading-none select-none" style="color: var(--ac-pink); font-size: 7rem;">01</span>
+    <span aria-hidden="true" class="service-card__stripe pointer-events-none absolute -left-12 -bottom-12 h-60 w-60 rotate-[-20deg] opacity-[0.08]" style="background: var(--ac-pink);"></span>
+    <div class="relative">
     <div class="grid gap-10 md:grid-cols-2 md:items-center">
       <div>
-        <p class="mb-2 text-sm font-semibold uppercase tracking-widest" style="color: #EC4899;">{service.tagline}</p>
+        <p class="mb-2 text-sm font-semibold uppercase tracking-widest" style="color: var(--ac-pink);">{service.tagline}</p>
         <h1 class="font-heading text-3xl font-bold leading-tight text-[var(--text)] md:text-4xl lg:text-5xl">
           {service.title} Services — eLan Technology
         </h1>
@@ -64,7 +67,7 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
           {service.description} We approach every project as a unique design challenge, ensuring your website communicates your brand story with clarity and confidence. Whether you're launching a new brand or refreshing an outdated site, our designers create experiences that leave a lasting impression.
         </p>
         <div class="mt-6 flex flex-wrap gap-3">
-          <a href="/schedule-consultation" class="inline-flex items-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white shadow transition hover:opacity-90" style="background: #EC4899;">
+          <a href="/schedule-consultation" class="inline-flex items-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white shadow transition hover:opacity-90" style="background: var(--ac-pink);">
             Get Free Consultation
           </a>
           <a href="/get-quote" class="inline-flex items-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
@@ -80,6 +83,7 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
         ))}
       </ul>
     </div>
+  </div>
   </section>
 
   <!-- ── WHAT'S INCLUDED ───────────────────────────────────────────────────── -->
@@ -98,7 +102,7 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
         { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>', name: 'Brand-Aligned Visual Design', desc: 'We don\'t just design websites — we design brand experiences. Your website will reflect your visual identity, tone of voice, and values, creating a cohesive impression across every page and interaction.' },
       ].map(({ icon, name, desc }) => (
         <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
-          <div class="mb-3 inline-flex h-11 w-11 items-center justify-center rounded-xl" style="background: #EC489920; color: #EC4899;" set:html={icon} />
+          <div class="mb-3 inline-flex h-11 w-11 items-center justify-center rounded-xl" style="background: color-mix(in srgb, var(--ac-pink) 18%, transparent); color: var(--ac-pink);" set:html={icon} />
           <h3 class="font-heading text-base font-semibold text-[var(--text)] mb-2">{name}</h3>
           <p class="text-sm text-[var(--text-muted)] leading-relaxed">{desc}</p>
         </div>
@@ -156,7 +160,7 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
         { n: '4', title: 'Launch & Support', desc: 'We handle deployment, redirect mapping, DNS updates, and post-launch monitoring. Our 30-day support window ensures any post-launch issues are resolved quickly. Maintenance plans available thereafter.' },
       ].map(({ n, title, desc }) => (
         <div class="relative rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
-          <div class="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-full font-heading text-sm font-bold text-white" style="background: #EC4899;">{n}</div>
+          <div class="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-full font-heading text-sm font-bold text-white" style="background: var(--ac-pink);">{n}</div>
           <h3 class="font-heading text-sm font-semibold text-[var(--text)] mb-2">{title}</h3>
           <p class="text-sm text-[var(--text-muted)]">{desc}</p>
         </div>
@@ -174,7 +178,7 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
             <span>{question}</span>
             <span class="ml-4 shrink-0 text-[var(--text-muted)] text-lg">+</span>
           </summary>
-          <p class="px-6 pb-5 pt-1 text-sm text-[var(--text-muted)] leading-relaxed">{answer}</p>
+          <p class="px-6 pb-5 pt-1 text-sm text-[var(--text-muted)] leading-relaxed" set:html={answer} />
         </details>
       ))}
     </div>
@@ -202,7 +206,7 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
     <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-7 flex flex-col">
       <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-2">Ready to Get Started?</h3>
       <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Let us audit your current website for free and show you exactly how we'd improve it. No obligation, no pushy sales calls. * Conditions apply.</p>
-      <a href="/free-website-audit" class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90" style="background: #EC4899;">
+      <a href="/free-website-audit" class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90" style="background: var(--ac-pink);">
         Get Free Audit
       </a>
     </div>

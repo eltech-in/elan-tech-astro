@@ -1,309 +1,636 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { breadcrumbSchema } from '../utils/schema';
-import RazorpayButton from '../islands/RazorpayButton';
+import { breadcrumbSchema, faqSchema } from '../utils/schema';
+import AuditPricingButton from '../islands/AuditPricingButton';
+import FreeAuditForm from '../islands/FreeAuditForm';
 
-const schema = breadcrumbSchema([
+/* ───────────────────────────────────────────────────────────────────────────
+   SEO target keywords (primary + secondary) baked into headings & copy:
+   - free website audit  /  free website audit tool
+   - website seo audit  /  free seo audit
+   - website security audit  /  website vulnerability scan
+   - website speed test  /  core web vitals audit
+   - why is my website not ranking  /  fix low google rankings
+   - website malware scan  /  ssl & https check
+   - ada wcag compliance audit
+   - mobile friendly test  /  responsive website audit
+   - broken links checker  /  404 errors
+   Rich FAQ schema, Service schema and breadcrumb schema attached below.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+const breadcrumbs = breadcrumbSchema([
   { name: 'Home', url: '/' },
   { name: 'Free Website Audit', url: '/free-website-audit' },
 ]);
 
-const inputClass = "w-full rounded-lg border border-[var(--border)] bg-[var(--bg)] px-4 py-2.5 text-sm text-[var(--text)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]";
-const labelClass = "block text-sm font-medium text-[var(--text)] mb-1.5";
-
-const freeAuditCategories = [
+const faqs = [
   {
-    title: 'Security Audit',
-    badge: 'Free',
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
-    items: [
-      'SSL certificate status & validity',
-      'HTTP security headers check',
-      'Malware & blacklist scan',
-      'Known vulnerability detection',
-      'Open ports & exposure check',
-      'Content Security Policy (CSP)',
-    ],
+    question: 'What does the free website audit include?',
+    answer:
+      'The free audit covers three core dimensions: (1) SEO health — technical SEO, on-page optimisation, meta tags, schema, broken links, crawlability and Core Web Vitals; (2) Security — SSL/TLS status, HTTP security headers, known CVEs, malware & blacklist checks, outdated software detection; (3) Performance — Lighthouse scores, LCP/INP/CLS, mobile usability and responsive breakpoints. You receive a PDF report within 24–48 hours with prioritised issues and exact fixes.',
   },
   {
-    title: 'SEO Audit',
-    badge: 'Free',
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
-    items: [
-      'Meta titles & descriptions',
-      'Page speed & Core Web Vitals',
-      'Mobile-friendliness score',
-      'Backlink profile overview',
-      'Broken links & 404 errors',
-      'Schema markup presence',
-    ],
+    question: 'Why is my website not ranking on Google?',
+    answer:
+      'The most common reasons are: slow page speed (failing Core Web Vitals), missing or duplicate meta titles, no schema markup, thin content, poor mobile experience, crawl errors, broken internal links, missing HTTPS, and lack of authoritative backlinks. Our free SEO audit identifies exactly which of these are hurting you and ranks them by impact.',
+  },
+  {
+    question: 'How do I know if my website has security vulnerabilities?',
+    answer:
+      'Most vulnerabilities are invisible until they are exploited — outdated WordPress/plugins, missing security headers (CSP, HSTS, X-Frame-Options), exposed .env files, weak SSL configuration, and unpatched CVEs in your tech stack. Our security audit runs automated scanners (OWASP ZAP, Nikto) plus manual checks and flags every issue with severity and remediation steps.',
+  },
+  {
+    question: 'Is this audit really free? What is the catch?',
+    answer:
+      'Yes — the SEO and security audit is 100% free, with no obligation and no sales pitch. We do it because roughly 30% of audited businesses later engage us for remediation, maintenance or redesign. If you prefer to fix the issues in-house or with another agency, the report is still yours to keep. * Conditions apply — limited to one audit per domain per 90 days.',
+  },
+  {
+    question: 'How long does the audit take?',
+    answer:
+      'You will receive your complete audit PDF by email within 24–48 hours (Monday–Friday). Complex sites (eCommerce, multi-region, 500+ pages) may take up to 72 hours. We will confirm the delivery window within 1 business hour of your submission.',
+  },
+  {
+    question: 'Do you offer ADA and WCAG accessibility audits?',
+    answer:
+      'Yes. WCAG 2.1 / 2.2 AA audits are available as a paid service (₹9,999 flat fee per domain). This covers colour contrast, ARIA roles, keyboard navigation, screen reader compatibility, form accessibility, and image alt text coverage — delivered as a detailed remediation roadmap with code-level fixes. Essential for US and Canadian businesses facing ADA lawsuit risk in 2026.',
+  },
+  {
+    question: 'What tools do you use for the website audit?',
+    answer:
+      'A combination of industry-standard tools and our proprietary checklist: Google Lighthouse, PageSpeed Insights, Screaming Frog, Ahrefs, SEMrush, OWASP ZAP, Mozilla Observatory, SecurityHeaders.com, WAVE (accessibility), axe DevTools, and our 180-point manual review. Every finding is verified by a human auditor — not just a bot report.',
+  },
+  {
+    question: 'Will you fix the issues after the audit?',
+    answer:
+      'That is completely optional. You receive the audit report with full DIY remediation steps. If you would like us to fix the issues, we quote a fixed-price or monthly-maintenance engagement based on scope. Many clients use the audit internally or with their existing developer — that is totally fine.',
   },
 ];
 
-const paidAuditCategory = {
-  title: 'ADA / WCAG Audit',
-  icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>`,
-  items: [
-    'Colour contrast ratios',
-    'ARIA labels & roles',
-    'Keyboard navigation flow',
-    'Screen reader compatibility',
-    'Image alt text completeness',
-    'Form accessibility',
-  ],
+const service = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'Website Audit',
+  name: 'Free Website SEO & Security Audit',
+  provider: {
+    '@type': 'Organization',
+    name: 'eLan Technology',
+    url: 'https://elan-tech.net',
+  },
+  areaServed: { '@type': 'Place', name: 'Worldwide' },
+  description:
+    'Comprehensive free website audit covering SEO issues, security vulnerabilities, Core Web Vitals and performance. Detailed PDF report in 24–48 hours.',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+  },
 };
+
+const schemas = [breadcrumbs, faqSchema(faqs), service];
+
+/* Issue buckets — bento-style cards mirroring the services page aesthetic */
+const issues = [
+  {
+    cssVar: '--ac-emerald',
+    num: '01',
+    eyebrow: 'SEO · Rankings',
+    title: 'Losing traffic & Google rankings?',
+    desc: 'We pinpoint why your pages are buried on page 2+ — broken schema, missing meta, duplicate titles, thin content, keyword cannibalisation and internal-linking gaps.',
+    points: [
+      'Technical SEO audit (robots, sitemap, canonicals)',
+      'On-page optimisation & keyword gaps',
+      'Broken links & 404 / redirect chains',
+      'Schema markup & rich-result eligibility',
+    ],
+    iconSvg:
+      '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><polyline points="11 8 11 11 13 13"/></svg>',
+  },
+  {
+    cssVar: '--ac-red',
+    num: '02',
+    eyebrow: 'Security · Risk',
+    title: 'Vulnerable to hackers & malware?',
+    desc: 'Outdated plugins, missing security headers, weak SSL, exposed files and known CVEs leave your site one breach away from blacklisting and data loss.',
+    points: [
+      'Full OWASP Top-10 vulnerability scan',
+      'SSL/TLS configuration & certificate check',
+      'HTTP security headers (CSP, HSTS, XFO)',
+      'Malware, blacklist & reputation scan',
+    ],
+    iconSvg:
+      '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>',
+  },
+  {
+    cssVar: '--ac-amber',
+    num: '03',
+    eyebrow: 'Speed · Core Web Vitals',
+    title: 'Slow load times killing conversions?',
+    desc: 'Every 1-second delay drops conversions by ~7%. We measure real-user Core Web Vitals (LCP, INP, CLS) and show you exactly what to cut, defer or optimise.',
+    points: [
+      'Lighthouse & PageSpeed Insights deep-dive',
+      'Largest Contentful Paint (LCP) optimisation',
+      'Interaction to Next Paint (INP) fixes',
+      'Image & asset weight audit',
+    ],
+    iconSvg:
+      '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 17a9 9 0 1 1 17 0"/><path d="M12 14l4-4"/><circle cx="12" cy="14" r="1.2"/></svg>',
+  },
+  {
+    cssVar: '--ac-indigo',
+    num: '04',
+    eyebrow: 'Mobile · UX',
+    title: 'Mobile experience driving users away?',
+    desc: 'Google indexes mobile-first. We check tap targets, viewport, font-sizes, responsive breakpoints and real-device rendering on iOS & Android.',
+    points: [
+      'Mobile-friendly test (Google standard)',
+      'Responsive breakpoint audit',
+      'Touch target & tap accuracy',
+      'Real-device iOS + Android testing',
+    ],
+    iconSvg:
+      '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>',
+  },
+  {
+    cssVar: '--ac-cyan',
+    num: '05',
+    eyebrow: 'Technical · Health',
+    title: 'Broken pages, 404s or crawl errors?',
+    desc: 'Dead links, orphan pages, redirect loops and noindex surprises silently bleed authority and budget. We crawl every URL and surface every break.',
+    points: [
+      'Full site crawl (up to 10,000 URLs)',
+      'Broken link & redirect chain detection',
+      'Orphan page & crawl-depth report',
+      'Robots.txt, sitemap & canonical audit',
+    ],
+    iconSvg:
+      '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>',
+  },
+  {
+    cssVar: '--ac-blue',
+    num: '06',
+    eyebrow: 'Accessibility · Compliance',
+    title: 'At risk of an ADA / WCAG lawsuit?',
+    desc: 'US & Canadian lawsuits doubled in 2025. A non-compliant site is a legal liability. Our WCAG 2.2 AA audit covers every guideline with evidence & fixes.',
+    points: [
+      'Colour contrast & typography audit',
+      'ARIA, landmarks & keyboard navigation',
+      'Screen reader compatibility (NVDA/JAWS)',
+      'Form & image alt-text completeness',
+    ],
+    iconSvg:
+      '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="4" r="1"/><path d="m18 19 1-7-6 1"/><path d="m5 8 3-3 5.5 3-2.36 3.5"/><path d="M4.24 14.5a5 5 0 0 0 6.88 6"/><path d="M13.76 17.5a5 5 0 0 0-6.88-6"/></svg>',
+  },
+];
+
+/* Deliverables checklist — appears under the audit form */
+const deliverables = [
+  'Executive summary scored out of 100',
+  'Prioritised action list (Critical / High / Medium / Low)',
+  'Screenshots & code snippets of every issue',
+  'Core Web Vitals & Lighthouse performance scores',
+  'SEO opportunities ranked by estimated traffic lift',
+  'Security CVE list with CVSS severity ratings',
+  'Competitor benchmark (top 3 in your niche)',
+  'Step-by-step remediation guide (DIY or dev-ready)',
+];
 ---
 
 <BaseLayout
-  title="Free Website Security & SEO Audit — eLan Technology"
-  description="Get a free comprehensive website audit covering security vulnerabilities and SEO issues. ADA/WCAG accessibility audit available as a paid service. 500+ websites audited."
-  schema={schema}
+  title="Free Website Audit — SEO, Security & Speed Issues Fixed in 48 Hours"
+  description="Free website audit tool. Find SEO issues, security vulnerabilities, low Google rankings, slow page speed & Core Web Vitals problems. 24–48 hour expert PDF report. 500+ sites audited."
+  schema={schemas}
 >
-  <!-- Hero -->
-  <section class="relative overflow-hidden bg-[var(--bg)] py-20 sm:py-28">
+  <!-- ══════════════════════════════════════════════════════════════════════
+       HERO — primary keyword H1 + trust bar + jump-to-form CTA
+       ══════════════════════════════════════════════════════════════════════ -->
+  <section class="relative overflow-hidden bg-[var(--bg)] py-20 md:py-28">
+    <!-- Aurora backdrop -->
+    <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+      <div class="aurora-a absolute top-0 left-1/4 h-[500px] w-[500px] rounded-full bg-[var(--ac-emerald)]/10 blur-[110px] hidden md:block"></div>
+      <div class="aurora-b absolute bottom-0 right-1/4 h-[500px] w-[500px] rounded-full bg-[var(--ac-red)]/10 blur-[110px] hidden md:block"></div>
+    </div>
+
     <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
-      <p class="text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-4">Free Offer</p>
-      <h1 class="font-heading text-4xl sm:text-5xl font-bold text-[var(--text)] leading-tight">
-        Free Website Audit: Security &amp; SEO
+      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)]/60 px-4 py-2 text-sm text-[var(--text-muted)] backdrop-blur-sm">
+        <span class="h-2 w-2 rounded-full bg-[var(--ac-emerald)] animate-pulse" aria-hidden="true"></span>
+        Free · 180-point audit · Human-reviewed · Report in 48 hours
+      </div>
+
+      <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--text)] leading-[1.05]">
+        Free Website Audit —<br class="hidden sm:block" />
+        Fix <span style="color: var(--ac-emerald);">SEO</span>, <span style="color: var(--ac-red);">Security</span> &amp; <span style="color: var(--ac-amber);">Speed</span> Issues
       </h1>
-      <p class="mt-6 max-w-2xl mx-auto text-lg text-[var(--text-dim)] leading-relaxed">
-        Get a comprehensive, no-obligation audit of your website covering security vulnerabilities and SEO health — completely free.
-        <span class="block mt-2 text-sm text-[var(--text-muted)]">* Conditions apply. ADA/WCAG accessibility audit available as a paid service.</span>
+
+      <p class="mx-auto mt-6 max-w-3xl text-lg md:text-xl text-[var(--text-dim)] leading-relaxed">
+        Low Google rankings, slow pages, security warnings or a drop in traffic? Get a free, expert-reviewed website audit covering <strong class="text-[var(--text)]">SEO, security, Core Web Vitals, mobile UX and accessibility</strong> — with a prioritised fix-list delivered in 24&ndash;48 hours.
       </p>
 
-      <!-- Trust badges -->
-      <div class="flex flex-wrap justify-center gap-4 mt-8">
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a
+          href="#audit-form"
+          class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-7 py-3 text-base font-semibold text-[var(--bg)] shadow-lg hover:opacity-90 transition"
+        >
+          Start My Free Audit
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a
+          href="#what-you-get"
+          class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-7 py-3 text-base font-semibold text-[var(--text)] hover:bg-[var(--bg)] transition"
+        >
+          See What's Checked
+        </a>
+      </div>
+
+      <!-- Trust row -->
+      <div class="mt-10 flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm">
         {[
-          '500+ Websites Audited',
-          'Average 23 Issues Found',
-          'No Obligation, No Sales Pitch',
-          'Report in 24–48 Hours',
-        ].map((badge) => (
-          <span class="px-4 py-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] text-sm text-[var(--text-dim)] font-medium">
-            {badge}
-          </span>
+          { n: '500+', l: 'Websites Audited' },
+          { n: '23', l: 'Avg Issues Found' },
+          { n: '48 hr', l: 'Turnaround' },
+          { n: '10+', l: 'Countries Served' },
+        ].map(({ n, l }) => (
+          <div class="flex items-baseline gap-2">
+            <span class="font-heading text-xl font-bold text-[var(--text)]">{n}</span>
+            <span class="text-[var(--text-muted)]">{l}</span>
+          </div>
         ))}
+      </div>
+      <p class="mt-4 text-xs text-[var(--text-muted)]">* Conditions apply. Limited to one free audit per domain every 90 days.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       PROBLEM / ISSUE BUCKETS — bento grid (SEO · Security · Speed · Mobile · Technical · Accessibility)
+       ══════════════════════════════════════════════════════════════════════ -->
+  <section id="what-you-get" class="relative py-20 md:py-24 bg-[var(--bg)] border-t border-[var(--border)]" aria-labelledby="issues-heading">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center mb-14">
+        <p class="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--text-muted)] mb-3">Common website issues we uncover</p>
+        <h2 id="issues-heading" class="font-heading text-3xl md:text-5xl font-bold text-[var(--text)] leading-tight">
+          Is your website silently losing <span style="color: var(--ac-amber);">traffic</span>, <span style="color: var(--ac-emerald);">leads</span> &amp; <span style="color: var(--ac-red);">trust</span>?
+        </h2>
+        <p class="mt-4 text-lg text-[var(--text-dim)]">
+          Six audit dimensions. One unified report. Every finding ranked by revenue impact so you fix the right things first.
+        </p>
+      </div>
+
+      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-5" role="list">
+        {issues.map((issue, i) => {
+          const featured = i < 2;
+          return (
+            <li class:list={[featured ? 'lg:col-span-3' : 'lg:col-span-2']}>
+              <article
+                class:list={[
+                  'service-card group relative flex flex-col h-full overflow-hidden rounded-2xl border border-[var(--border)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl',
+                  featured ? 'p-7 md:p-8' : 'p-6',
+                ]}
+                style={`background: linear-gradient(135deg, color-mix(in srgb, var(${issue.cssVar}) 10%, var(--bg-card)) 0%, var(--bg-card) 65%); --card-color: var(${issue.cssVar});`}
+              >
+                <span
+                  aria-hidden="true"
+                  class="service-card__num pointer-events-none absolute top-3 right-4 font-heading font-black leading-none select-none"
+                  style={`color: var(${issue.cssVar}); font-size: ${featured ? '5.5rem' : '4rem'};`}
+                >
+                  {issue.num}
+                </span>
+                <span
+                  aria-hidden="true"
+                  class="service-card__stripe pointer-events-none absolute -left-8 -bottom-8 h-40 w-40 rotate-[-20deg] opacity-[0.08]"
+                  style={`background: var(${issue.cssVar});`}
+                ></span>
+
+                <div class="relative flex items-center gap-3 mb-4">
+                  <div
+                    class="flex h-11 w-11 items-center justify-center rounded-xl flex-shrink-0"
+                    style={`background: color-mix(in srgb, var(${issue.cssVar}) 16%, transparent); color: var(${issue.cssVar});`}
+                    aria-hidden="true"
+                    set:html={issue.iconSvg}
+                  />
+                  <span class="text-[10px] font-bold uppercase tracking-[0.2em]" style={`color: var(${issue.cssVar});`}>
+                    {issue.eyebrow}
+                  </span>
+                </div>
+
+                <h3 class:list={['relative font-heading font-bold text-[var(--text)] mb-2', featured ? 'text-xl md:text-2xl' : 'text-lg']}>
+                  {issue.title}
+                </h3>
+                <p class:list={['relative text-[var(--text-dim)] mb-4', featured ? 'text-base' : 'text-sm']}>
+                  {issue.desc}
+                </p>
+
+                <ul class:list={['relative mb-5 space-y-1.5 flex-grow', featured && 'grid grid-cols-2 gap-x-4 gap-y-1.5 space-y-0']} aria-label={`${issue.title} checks`}>
+                  {issue.points.map((pt) => (
+                    <li class="flex items-start gap-2 text-xs text-[var(--text-muted)]">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="mt-0.5 flex-shrink-0" style={`color: var(${issue.cssVar});`}>
+                        <polyline points="20 6 9 17 4 12"/>
+                      </svg>
+                      {pt}
+                    </li>
+                  ))}
+                </ul>
+
+                <a
+                  href="#audit-form"
+                  class="relative mt-auto inline-flex items-center gap-1 text-sm font-semibold transition-transform duration-200 group-hover:translate-x-0.5"
+                  style={`color: var(${issue.cssVar});`}
+                  aria-label={`Request free audit covering ${issue.title}`}
+                >
+                  Check My Site
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </a>
+              </article>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       DELIVERABLES — what's inside the PDF report
+       ══════════════════════════════════════════════════════════════════════ -->
+  <section class="py-20 md:py-24 bg-[var(--bg-card)] border-t border-[var(--border)]" aria-labelledby="deliverables-heading">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--accent)] mb-3">Your audit report</p>
+          <h2 id="deliverables-heading" class="font-heading text-3xl md:text-4xl font-bold text-[var(--text)] leading-tight mb-5">
+            A 20-page PDF report you can actually act on.
+          </h2>
+          <p class="text-lg text-[var(--text-dim)] mb-6">
+            No jargon. No 400-row Lighthouse dump. Just a clear, prioritised plan with screenshots, code snippets and effort estimates — ready for you, your developer, or our team.
+          </p>
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3" role="list">
+            {deliverables.map((d) => (
+              <li class="flex items-start gap-2.5 text-sm text-[var(--text)]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ac-emerald)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 mt-0.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>{d}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Sample report mock -->
+        <div class="relative" aria-hidden="true">
+          <div class="relative rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 shadow-xl">
+            <div class="flex items-center gap-2 mb-5 pb-4 border-b border-[var(--border)]">
+              <span class="h-2.5 w-2.5 rounded-full bg-[var(--ac-red)]"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-[var(--ac-amber)]"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-[var(--ac-emerald)]"></span>
+              <span class="text-[11px] font-mono text-[var(--text-muted)] ml-2">audit-report.pdf · page 3 of 21</span>
+            </div>
+
+            <!-- Score header -->
+            <div class="grid grid-cols-3 gap-3 mb-5">
+              <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-3 text-center">
+                <div class="text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-1">SEO</div>
+                <div class="font-heading text-2xl font-extrabold" style="color: var(--ac-amber);">62</div>
+                <div class="text-[10px] text-[var(--text-muted)]">Needs work</div>
+              </div>
+              <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-3 text-center">
+                <div class="text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-1">Security</div>
+                <div class="font-heading text-2xl font-extrabold" style="color: var(--ac-red);">41</div>
+                <div class="text-[10px] text-[var(--text-muted)]">Critical</div>
+              </div>
+              <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-3 text-center">
+                <div class="text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-1">Speed</div>
+                <div class="font-heading text-2xl font-extrabold" style="color: var(--ac-amber);">58</div>
+                <div class="text-[10px] text-[var(--text-muted)]">Slow LCP</div>
+              </div>
+            </div>
+
+            <!-- Sample finding rows -->
+            <div class="space-y-2">
+              {[
+                { sev: 'CRITICAL', sevColor: '--ac-red', title: 'Missing HSTS header', tag: 'Security' },
+                { sev: 'HIGH', sevColor: '--ac-amber', title: 'LCP 4.8s (mobile)', tag: 'Performance' },
+                { sev: 'HIGH', sevColor: '--ac-amber', title: '12 pages missing H1', tag: 'SEO' },
+                { sev: 'MEDIUM', sevColor: '--ac-indigo', title: 'Image alt-text 71% coverage', tag: 'A11y' },
+                { sev: 'LOW', sevColor: '--ac-emerald', title: 'Robots.txt allows /admin', tag: 'SEO' },
+              ].map(({ sev, sevColor, title, tag }) => (
+                <div class="flex items-center justify-between gap-2 rounded-lg bg-[var(--bg-card)] px-3 py-2 border border-[var(--border)]">
+                  <div class="flex items-center gap-2 min-w-0">
+                    <span
+                      class="text-[9px] font-bold uppercase tracking-wider rounded px-1.5 py-0.5 flex-shrink-0"
+                      style={`background: color-mix(in srgb, var(${sevColor}) 18%, transparent); color: var(${sevColor});`}
+                    >{sev}</span>
+                    <span class="text-xs text-[var(--text)] truncate">{title}</span>
+                  </div>
+                  <span class="text-[10px] text-[var(--text-muted)] flex-shrink-0">{tag}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <!-- glow -->
+          <div class="pointer-events-none absolute -inset-4 rounded-[28px] opacity-50 blur-2xl -z-10" style="background: radial-gradient(60% 60% at 50% 40%, color-mix(in srgb, var(--ac-emerald) 24%, transparent), transparent 70%);"></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- What's included — FREE audits -->
-  <section class="py-16 md:py-20 border-t border-[var(--border)]" aria-labelledby="audit-includes-heading">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 id="audit-includes-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
-          What's Included in Your Free Audit
+  <!-- ══════════════════════════════════════════════════════════════════════
+       AUDIT FORM
+       ══════════════════════════════════════════════════════════════════════ -->
+  <section id="audit-form" class="py-20 md:py-24 bg-[var(--bg)] border-t border-[var(--border)]" aria-labelledby="audit-form-heading">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <p class="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--accent)] mb-3">Request your free audit</p>
+        <h2 id="audit-form-heading" class="font-heading text-3xl md:text-4xl font-bold text-[var(--text)] mb-4">
+          Get my free website audit report
         </h2>
-        <p class="text-[var(--text-dim)] max-w-2xl mx-auto">
-          Our audit team manually reviews your website across two critical dimensions — and delivers a detailed report with actionable recommendations. * Conditions apply.
+        <p class="text-[var(--text-dim)]">
+          60 seconds to submit. Expert PDF delivered to your inbox within 24&ndash;48 hours. No sales calls — just the report.
         </p>
       </div>
+      <FreeAuditForm client:visible />
+    </div>
+  </section>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-        {freeAuditCategories.map((cat) => (
-          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 relative">
-            <span class="absolute top-4 right-4 rounded-full bg-[var(--accent)]/15 text-[var(--accent)] px-3 py-1 text-xs font-bold uppercase tracking-wider">
-              {cat.badge}
-            </span>
-            <div class="w-12 h-12 rounded-xl bg-[var(--accent)]/10 flex items-center justify-center mb-5 text-[var(--accent)]" aria-hidden="true">
-              <Fragment set:html={cat.icon} />
+  <!-- ══════════════════════════════════════════════════════════════════════
+       HOW IT WORKS
+       ══════════════════════════════════════════════════════════════════════ -->
+  <section class="py-20 md:py-24 bg-[var(--bg-card)] border-t border-[var(--border)]" aria-labelledby="how-heading">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <p class="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--text-muted)] mb-3">How it works</p>
+        <h2 id="how-heading" class="font-heading text-3xl md:text-4xl font-bold text-[var(--text)]">
+          From URL to actionable report in 48 hours
+        </h2>
+      </div>
+
+      <ol class="grid grid-cols-1 md:grid-cols-3 gap-6" role="list">
+        {[
+          {
+            n: '01',
+            color: '--ac-emerald',
+            title: 'Submit your URL',
+            desc: 'Paste your website URL, add a contact email and hit submit. Takes less than 60 seconds — no credit card, no account required.',
+          },
+          {
+            n: '02',
+            color: '--ac-amber',
+            title: 'We audit — manually',
+            desc: '180-point checklist across SEO, security, performance, mobile UX, technical health and accessibility. Every finding is verified by a human auditor — not just a bot.',
+          },
+          {
+            n: '03',
+            color: '--ac-indigo',
+            title: 'Receive your report',
+            desc: 'A 20-page PDF lands in your inbox within 24–48 hours. Prioritised fix-list, screenshots, code snippets and competitor benchmarks included.',
+          },
+        ].map(({ n, color, title, desc }) => (
+          <li class="relative rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 overflow-hidden">
+            <span aria-hidden="true" class="pointer-events-none absolute top-3 right-4 font-heading font-black leading-none select-none opacity-[0.14]" style={`color: var(${color}); font-size: 5rem;`}>{n}</span>
+            <div class="relative">
+              <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full font-heading text-sm font-bold" style={`background: color-mix(in srgb, var(${color}) 18%, transparent); color: var(${color});`}>{n}</div>
+              <h3 class="font-heading text-lg font-semibold text-[var(--text)] mb-2">{title}</h3>
+              <p class="text-sm text-[var(--text-dim)] leading-relaxed">{desc}</p>
             </div>
-            <h3 class="font-heading text-lg font-semibold text-[var(--text)] mb-4">{cat.title}</h3>
-            <ul class="space-y-2.5" role="list">
-              {cat.items.map((item) => (
-                <li class="flex items-start gap-2 text-sm text-[var(--text-dim)]">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 mt-0.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  {item}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       LONG-FORM SEO COPY — keyword-dense Q&A block that ranks for long-tail
+       ══════════════════════════════════════════════════════════════════════ -->
+  <section class="py-20 md:py-24 bg-[var(--bg)] border-t border-[var(--border)]" aria-labelledby="why-audit-heading">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 prose-styles">
+      <p class="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--text-muted)] mb-3">Why audit your website</p>
+      <h2 id="why-audit-heading" class="font-heading text-3xl md:text-4xl font-bold text-[var(--text)] leading-tight mb-8">
+        Why your website isn't ranking — and what a professional audit actually fixes
+      </h2>
+
+      <div class="space-y-8 text-[var(--text-dim)] text-base md:text-lg leading-relaxed">
+        <p>
+          If your website traffic is flat, leads have dried up, or Google Search Console is flashing warnings about <strong class="text-[var(--text)]">Core Web Vitals, mobile usability or indexing errors</strong>, you are not alone. Roughly 68% of small and mid-sized business websites we audit have at least one <em>critical</em> issue that is measurably hurting their search visibility or conversion rate — and most owners have no idea.
+        </p>
+
+        <h3 class="font-heading text-xl md:text-2xl font-semibold text-[var(--text)] mt-10 mb-3">Top 7 reasons websites lose Google rankings in 2026</h3>
+        <ol class="list-decimal pl-6 space-y-2">
+          <li><strong class="text-[var(--text)]">Failing Core Web Vitals</strong> — LCP over 2.5s, INP over 200ms or CLS over 0.1 is a ranking penalty on both mobile and desktop.</li>
+          <li><strong class="text-[var(--text)]">Thin, duplicate or AI-slop content</strong> triggered by Google's helpful-content and spam updates.</li>
+          <li><strong class="text-[var(--text)]">Missing or broken schema markup</strong> — losing rich results for products, FAQs, articles and local business.</li>
+          <li><strong class="text-[var(--text)]">Poor mobile UX</strong> — mobile-first indexing means your phone experience <em>is</em> your SEO.</li>
+          <li><strong class="text-[var(--text)]">Orphan pages &amp; broken internal links</strong> that fragment crawl budget and leak PageRank.</li>
+          <li><strong class="text-[var(--text)]">Security warnings</strong> — mixed content, expired SSL or blacklisted domain tanks rankings overnight.</li>
+          <li><strong class="text-[var(--text)]">Slow server response</strong> — TTFB over 600ms suppresses crawl rate and user engagement.</li>
+        </ol>
+
+        <h3 class="font-heading text-xl md:text-2xl font-semibold text-[var(--text)] mt-10 mb-3">Why free automated tools aren't enough</h3>
+        <p>
+          Tools like Lighthouse, PageSpeed Insights and SecurityHeaders.com are great — we use them too. But they only show <em>what</em> is wrong, not <em>why</em> it matters to <em>your</em> business, nor how to fix it without breaking something else. A professional audit translates 400 rows of raw warnings into a prioritised, revenue-weighted action list.
+        </p>
+
+        <h3 class="font-heading text-xl md:text-2xl font-semibold text-[var(--text)] mt-10 mb-3">Security issues that silently kill trust (and rankings)</h3>
+        <p>
+          <strong class="text-[var(--text)]">Outdated WordPress plugins</strong>, <strong class="text-[var(--text)]">missing security headers</strong> (CSP, HSTS, X-Frame-Options), <strong class="text-[var(--text)]">weak TLS configuration</strong>, and <strong class="text-[var(--text)]">exposed admin endpoints</strong> are the four most common findings in our security audits. Any one of them can result in your site being flagged by Google Safe Browsing — or worse, blacklisted. Our audit catches every one of these using OWASP ZAP, Nikto and a 40-point manual review.
+        </p>
+
+        <h3 class="font-heading text-xl md:text-2xl font-semibold text-[var(--text)] mt-10 mb-3">ADA &amp; WCAG compliance: the 2026 lawsuit wave</h3>
+        <p>
+          US federal ADA lawsuits targeting inaccessible websites grew <strong class="text-[var(--text)]">+47% year-over-year</strong>, with 4,000+ filings in 2025. Canada's Accessible Canada Act (ACA) and Ontario's AODA enforce similar obligations. A non-compliant website is now a measurable legal liability — and a baseline WCAG 2.2 AA audit is the cheapest insurance you can buy. We offer it as a flat-fee paid add-on below.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       PAID ADA / WCAG UPSELL — bento style
+       ══════════════════════════════════════════════════════════════════════ -->
+  <section class="py-16 md:py-20 bg-[var(--bg-card)] border-t border-[var(--border)]" aria-labelledby="ada-heading">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <article
+        class="service-card relative overflow-hidden rounded-2xl border border-[var(--border)] p-8 md:p-12"
+        style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-blue) 12%, var(--bg-card)) 0%, var(--bg-card) 65%);"
+      >
+        <span aria-hidden="true" class="service-card__num pointer-events-none absolute top-4 right-6 font-heading font-black leading-none select-none" style="color: var(--ac-blue); font-size: 7rem;">+</span>
+        <span aria-hidden="true" class="service-card__stripe pointer-events-none absolute -left-12 -bottom-12 h-60 w-60 rotate-[-20deg] opacity-[0.08]" style="background: var(--ac-blue);"></span>
+
+        <div class="relative grid md:grid-cols-2 gap-8 items-start">
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-[0.2em]" style="color: var(--ac-blue);">Premium add-on</span>
+            <h2 id="ada-heading" class="font-heading text-2xl md:text-3xl font-bold text-[var(--text)] mt-1 mb-3">
+              ADA &amp; WCAG 2.2 AA Accessibility Audit
+            </h2>
+            <p class="text-[var(--text-dim)] mb-5">
+              Everything the free audit covers — plus a full WCAG 2.2 AA compliance audit with VPAT-ready documentation. Essential for US &amp; Canadian businesses managing ADA lawsuit risk.
+            </p>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-2" role="list">
+              {[
+                'Colour contrast & typography audit',
+                'ARIA, roles & landmark review',
+                'Keyboard navigation flow',
+                'Screen reader testing (NVDA/JAWS)',
+                'Form accessibility',
+                'Image alt-text coverage',
+                'Video captions & transcripts',
+                'VPAT 2.5 documentation',
+              ].map((i) => (
+                <li class="flex items-start gap-2 text-sm text-[var(--text)]">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ac-blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 mt-0.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  {i}
                 </li>
               ))}
             </ul>
           </div>
-        ))}
-      </div>
 
-      <!-- Paid ADA / WCAG Audit -->
-      <div class="mt-12 max-w-4xl mx-auto">
-        <div class="rounded-2xl border border-[#A855F7]/30 bg-gradient-to-br from-[#A855F7]/5 to-[#6366F1]/5 p-6 md:p-8">
-          <div class="flex flex-col md:flex-row md:items-start gap-6">
-            <div class="flex-1">
-              <div class="flex items-center gap-3 mb-4">
-                <div class="w-12 h-12 rounded-xl bg-[#A855F7]/15 flex items-center justify-center text-[#A855F7]" aria-hidden="true">
-                  <Fragment set:html={paidAuditCategory.icon} />
-                </div>
-                <div>
-                  <div class="flex items-center gap-2">
-                    <h3 class="font-heading text-lg font-semibold text-[var(--text)]">{paidAuditCategory.title}</h3>
-                    <span class="rounded-full bg-[#A855F7]/15 text-[#A855F7] px-3 py-1 text-xs font-bold uppercase tracking-wider">
-                      Premium
-                    </span>
-                  </div>
-                  <p class="text-sm text-[var(--text-muted)] mt-1">Comprehensive WCAG 2.1 AA accessibility audit</p>
-                </div>
-              </div>
-              <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" role="list">
-                {paidAuditCategory.items.map((item) => (
-                  <li class="flex items-start gap-2 text-sm text-[var(--text-dim)]">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A855F7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 mt-0.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div class="flex flex-col items-center md:items-end gap-3 md:pt-4">
-              <RazorpayButton
-                client:visible
-                amount={499900}
-                description="ADA / WCAG Accessibility Audit"
-                buttonText="Buy ADA/WCAG Audit"
-              />
-              <p class="text-xs text-[var(--text-muted)] text-center md:text-right">
-                Detailed PDF report with WCAG 2.1 AA<br />compliance findings &amp; remediation plan
-              </p>
-            </div>
+          <div class="md:pl-6 md:border-l md:border-[var(--border)] flex flex-col items-start md:items-center text-center">
+            <AuditPricingButton client:visible />
           </div>
         </div>
-      </div>
+      </article>
     </div>
   </section>
 
-  <!-- Audit form -->
-  <section class="py-16 md:py-20 bg-[var(--bg-card)] border-y border-[var(--border)]" aria-labelledby="audit-form-heading">
-    <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-10">
-        <h2 id="audit-form-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
-          Request Your Free Security &amp; SEO Audit
-        </h2>
-        <p class="text-[var(--text-dim)]">
-          Fill in your details below and our team will analyse your website within 24–48 hours.
-        </p>
-      </div>
-
-      <form action="/api/audit-request" method="POST" class="space-y-5" novalidate>
-        <div>
-          <label for="audit-url" class={labelClass}>Your Website URL <span class="text-red-400" aria-hidden="true">*</span></label>
-          <input
-            id="audit-url"
-            name="url"
-            type="url"
-            required
-            placeholder="https://yourwebsite.com"
-            class={inputClass}
-          />
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <div>
-            <label for="audit-name" class={labelClass}>Your Name <span class="text-red-400" aria-hidden="true">*</span></label>
-            <input
-              id="audit-name"
-              name="name"
-              type="text"
-              required
-              autocomplete="name"
-              placeholder="Your full name"
-              class={inputClass}
-            />
-          </div>
-          <div>
-            <label for="audit-email" class={labelClass}>Email <span class="text-red-400" aria-hidden="true">*</span></label>
-            <input
-              id="audit-email"
-              name="email"
-              type="email"
-              required
-              autocomplete="email"
-              placeholder="you@company.com"
-              class={inputClass}
-            />
-          </div>
-        </div>
-
-        <div>
-          <label for="audit-phone" class={labelClass}>Phone</label>
-          <input
-            id="audit-phone"
-            name="phone"
-            type="tel"
-            autocomplete="tel"
-            placeholder="+91 98765 43210"
-            class={inputClass}
-          />
-        </div>
-
-        <div>
-          <label for="audit-focus" class={labelClass}>Audit Focus</label>
-          <select id="audit-focus" name="focus" class={inputClass}>
-            <option value="">Security & SEO (recommended)</option>
-            <option value="security">Security only</option>
-            <option value="seo">SEO only</option>
-          </select>
-        </div>
-
-        <button
-          type="submit"
-          class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity w-full justify-center"
-        >
-          Get My Free Audit →
-        </button>
-
-        <p class="text-center text-xs text-[var(--text-muted)]">
-          No credit card required. No spam. We respect your privacy. * Conditions apply.
-        </p>
-      </form>
-    </div>
-  </section>
-
-  <!-- How it works -->
-  <section class="py-16 md:py-20" aria-labelledby="how-it-works-heading">
+  <!-- ══════════════════════════════════════════════════════════════════════
+       FAQ — schema-backed long-tail question targeting
+       ══════════════════════════════════════════════════════════════════════ -->
+  <section class="py-20 md:py-24 bg-[var(--bg)] border-t border-[var(--border)]" aria-labelledby="faq-heading">
     <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-      <h2 id="how-it-works-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-10 text-center">
-        How It Works
-      </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
-        {[
-          {
-            step: '01',
-            title: 'Submit Your URL',
-            desc: 'Fill in the form with your website URL and contact details. Takes less than 60 seconds.',
-          },
-          {
-            step: '02',
-            title: 'We Analyse',
-            desc: 'Our team runs automated scans and manual checks across security and SEO. Allow 24–48 hours.',
-          },
-          {
-            step: '03',
-            title: 'Receive Your Report',
-            desc: "You'll receive a detailed PDF report by email with prioritised issues and recommended fixes.",
-          },
-        ].map(({ step, title, desc }) => (
-          <div class="text-center">
-            <div class="w-16 h-16 rounded-2xl bg-[var(--accent)]/10 border border-[var(--accent)]/20 flex items-center justify-center mx-auto mb-4">
-              <span class="text-2xl font-bold text-[var(--accent)]">{step}</span>
-            </div>
-            <h3 class="font-heading text-lg font-semibold text-[var(--text)] mb-2">{title}</h3>
-            <p class="text-sm text-[var(--text-dim)] leading-relaxed">{desc}</p>
-          </div>
+      <div class="text-center mb-10">
+        <p class="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--text-muted)] mb-3">Frequently asked questions</p>
+        <h2 id="faq-heading" class="font-heading text-3xl md:text-4xl font-bold text-[var(--text)]">
+          Website audit FAQ
+        </h2>
+      </div>
+
+      <div class="divide-y divide-[var(--border)] rounded-2xl border border-[var(--border)] overflow-hidden bg-[var(--bg-card)]">
+        {faqs.map(({ question, answer }) => (
+          <details class="group">
+            <summary class="cursor-pointer list-none flex items-center justify-between gap-4 px-6 py-5 font-medium text-[var(--text)] hover:bg-[var(--bg)] transition-colors">
+              <span class="pr-4">{question}</span>
+              <span class="flex-shrink-0 text-[var(--accent)] text-2xl leading-none transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+            </summary>
+            <p class="px-6 pb-6 -mt-1 text-sm md:text-base text-[var(--text-dim)] leading-relaxed" set:html={answer} />
+          </details>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Social proof -->
-  <section class="py-16 md:py-20 bg-[var(--bg-card)] border-t border-[var(--border)]">
+  <!-- ══════════════════════════════════════════════════════════════════════
+       FINAL CTA
+       ══════════════════════════════════════════════════════════════════════ -->
+  <section class="py-20 md:py-24 bg-[var(--bg-card)] border-t border-[var(--border)]">
     <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
-      <p class="text-5xl font-bold text-[var(--accent)] mb-2">500+</p>
-      <p class="text-xl font-semibold text-[var(--text)] mb-4">Websites Audited</p>
-      <p class="text-[var(--text-dim)] text-lg">
-        Average <strong class="text-[var(--text)]">23 issues found</strong> per audit — including critical security vulnerabilities and SEO gaps that most website owners never knew existed.
+      <p class="font-heading text-5xl md:text-6xl font-extrabold text-[var(--accent)] mb-3">500+</p>
+      <p class="text-xl md:text-2xl font-semibold text-[var(--text)] mb-4">websites audited across 10+ countries</p>
+      <p class="text-[var(--text-dim)] text-lg mb-8">
+        Average <strong class="text-[var(--text)]">23 issues uncovered per audit</strong> — including critical security vulnerabilities, SEO blockers and Core Web Vitals failures most owners never knew existed.
       </p>
       <a
-        href="#audit-form-heading"
-        class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity mt-8"
+        href="#audit-form"
+        class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3.5 text-base font-semibold text-[var(--bg)] shadow-lg hover:opacity-90 transition"
       >
-        Get Your Free Audit Now
+        Get My Free Website Audit
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
-      <p class="mt-3 text-xs text-[var(--text-muted)]">* Conditions apply.</p>
+      <p class="mt-4 text-xs text-[var(--text-muted)]">* Conditions apply. One free audit per domain every 90 days.</p>
     </div>
   </section>
 </BaseLayout>

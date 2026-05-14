@@ -49,7 +49,7 @@ export function organizationSchema() {
     },
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: '+91-8788834630',
+      telephone: '+91-9822231642',
       contactType: 'customer service',
       availableLanguage: ['English', 'Hindi', 'Marathi'],
     },
@@ -79,7 +79,7 @@ export function localBusinessSchema(city = 'Nagpur', overrides: LocalBusinessOve
     '@type': 'ProfessionalService',
     name: `${ORG_NAME} — Web Design Company in ${city}`,
     url: overrides.url ?? SITE_URL,
-    telephone: overrides.telephone ?? '+91-8788834630',
+    telephone: overrides.telephone ?? '+91-9822231642',
     email: 'info@elan-tech.net',
     description:
       overrides.description ??
@@ -295,5 +295,63 @@ export function webPageSchema(name: string, description: string, url: string) {
     description,
     url: url.startsWith('http') ? url : `${SITE_URL}${url}`,
     isPartOf: { '@type': 'WebSite', url: SITE_URL, name: ORG_NAME },
+  };
+}
+
+// ─── Speakable (AEO — voice/answer surfaces) ─────────────────────────────────
+// Tells Google Assistant / answer engines which parts of the page are safe to
+// read aloud. Pass CSS selectors that point at the highest-signal answer text:
+// the H1, the lede paragraph, FAQ answers, etc.
+//
+// Usage: speakableSchema(['/services/website-design', ['h1', '.tldr', '.faq-answer']])
+export function speakableSchema(url: string, cssSelectors: string[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    url: url.startsWith('http') ? url : `${SITE_URL}${url}`,
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: cssSelectors,
+    },
+  };
+}
+
+// ─── HowTo (step-by-step guides) ─────────────────────────────────────────────
+// Use on guide-style blog posts where the answer is a sequence of steps
+// (e.g. checklists, "how to fix X", remediation playbooks). LLMs and Google
+// rich results both prefer this format for procedural queries.
+export interface HowToStep {
+  name: string;
+  text: string;
+  url?: string; // anchor to the step section, optional
+}
+
+export function howToSchema(opts: {
+  name: string;
+  description: string;
+  url: string;
+  totalTime?: string; // ISO 8601 duration, e.g. 'PT30M'
+  steps: HowToStep[];
+}) {
+  const fullUrl = opts.url.startsWith('http') ? opts.url : `${SITE_URL}${opts.url}`;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: opts.name,
+    description: opts.description,
+    ...(opts.totalTime ? { totalTime: opts.totalTime } : {}),
+    step: opts.steps.map((s, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+      ...(s.url
+        ? {
+            url: s.url.startsWith('http')
+              ? s.url
+              : `${fullUrl}${s.url.startsWith('#') ? s.url : `#${s.url}`}`,
+          }
+        : {}),
+    })),
   };
 }

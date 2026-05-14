@@ -13,8 +13,8 @@ const services: Array<{ label: string; slug?: string; href?: string }> = [
   { label: 'Mobile Apps', slug: 'mobile-app-development' },
   { label: 'Branding', slug: 'branding' },
   { label: 'Maintenance & Security', slug: 'maintenance-security' },
-  { label: 'API Integrations', href: '/integrations' },
-  { label: 'ADA & WCAG Compliance', href: '/ada-compliant-web-design' },
+  { label: 'API Integrations', href: '/services/integrations' },
+  { label: 'ADA & WCAG Compliance', href: '/services/ada-compliant-web-design' },
 ];
 
 const companyLinks = [
@@ -23,6 +23,7 @@ const companyLinks = [
   { label: 'Portfolio', href: '/portfolio' },
   { label: 'Blog', href: '/blog' },
   { label: 'Pricing', href: '/pricing' },
+  { label: 'Testimonials', href: '/testimonials' },
   { label: 'Contact', href: '/contact' },
   { label: 'Careers', href: '/careers' },
   { label: 'FAQ', href: '/faq' },
@@ -105,14 +106,14 @@ const socialLinks = [
         </p>
 
         <!-- Social icons -->
-        <div class="flex flex-wrap gap-3" role="list" aria-label="Social media links">
+        <ul class="flex flex-wrap gap-3" role="list" aria-label="Social media links">
           {socialLinks.map((social) => (
+            <li>
             <a
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={social.label}
-              role="listitem"
               class="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--border)] text-[var(--text-muted)] transition-colors duration-150 hover:border-[var(--accent)] hover:text-[var(--accent)]"
             >
               <svg
@@ -127,8 +128,9 @@ const socialLinks = [
                 <path d={social.svgPath} />
               </svg>
             </a>
+            </li>
           ))}
-        </div>
+        </ul>
 
         <!-- Compliance badges -->
         <div class="flex flex-col gap-1 text-xs text-[var(--text-muted)]">
@@ -257,6 +259,29 @@ const socialLinks = [
             </li>
             <li>
               <a
+                href="tel:+919822231642"
+                class="flex items-center gap-2 transition-colors duration-150 hover:text-[var(--accent)]"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+                +91 9822231642
+              </a>
+            </li>
+            <li>
+              <a
                 href="mailto:info@elan-tech.net"
                 class="flex items-center gap-2 transition-colors duration-150 hover:text-[var(--accent)]"
               >
@@ -281,7 +306,7 @@ const socialLinks = [
             </li>
             <li>
               <a
-                href="https://maps.google.com/?q=PTG+IT+Park+Plot+No+21+IT+Park+Rd+Gayatri+Nagar+Nagpur+Maharashtra+440022"
+                href="https://maps.app.goo.gl/aUKWqN8b7Mw2mygn8"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="flex items-start gap-2 transition-colors duration-150 hover:text-[var(--accent)]"
@@ -325,7 +350,7 @@ const socialLinks = [
             />
             <button
               type="submit"
-              class="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-[#0A0E1A] transition-opacity duration-150 hover:opacity-90"
+              class="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-[var(--bg)] transition-opacity duration-150 hover:opacity-90"
             >
               Join
             </button>

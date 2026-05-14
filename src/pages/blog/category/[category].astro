@@ -1,0 +1,211 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { breadcrumbSchema } from '../../../utils/schema';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('blog');
+  const published = allPosts.filter((p) => !p.data.draft);
+  const categories = [...new Set(published.map((p) => p.data.category))];
+  return categories.map((category) => ({ params: { category } }));
+}
+
+const { category } = Astro.params;
+
+const allPosts = await getCollection('blog');
+const posts = allPosts
+  .filter((p) => !p.data.draft && p.data.category === category)
+  .sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
+
+const allPublished = allPosts.filter((p) => !p.data.draft);
+const categories = [...new Set(allPublished.map((p) => p.data.category))];
+
+const categoryLabels: Record<string, string> = {
+  'web-design': 'Web Design',
+  'seo': 'SEO',
+  'ecommerce': 'eCommerce',
+  'digital-marketing': 'Digital Marketing',
+  'nagpur-business': 'Nagpur Business',
+  'accessibility': 'Accessibility',
+  'technology-trends': 'Technology',
+};
+
+const categoryLabel = categoryLabels[category] ?? category;
+
+function truncate(str: string, n: number) {
+  return str.length > n ? str.slice(0, n - 1) + '…' : str;
+}
+
+const popularPosts = [...allPublished]
+  .sort((a, b) => (b.data.readTime ?? 0) - (a.data.readTime ?? 0))
+  .slice(0, 4);
+
+const schema = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Blog', url: '/blog' },
+  { name: categoryLabel, url: `/blog/category/${category}` },
+]);
+---
+
+<BaseLayout
+  title={`${categoryLabel} Articles — eLan Technology Blog`}
+  description={`Browse all ${categoryLabel} articles from the eLan Technology team — practical guides, tips and insights.`}
+  schema={schema}
+>
+
+  <!-- HERO -->
+  <section class="relative overflow-hidden bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-20 sm:py-28">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+      <div class="absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full bg-[var(--accent)]/8 blur-[120px]"></div>
+      <div class="absolute -bottom-20 -right-20 h-[400px] w-[400px] rounded-full bg-[#6366F1]/8 blur-[100px]"></div>
+    </div>
+    <div class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-4">Category</p>
+      <h1 class="font-heading text-4xl sm:text-5xl font-bold text-[var(--text)] leading-tight">
+        {categoryLabel}
+      </h1>
+      <p class="mt-4 text-[var(--text-dim)]">{posts.length} article{posts.length !== 1 ? 's' : ''}</p>
+    </div>
+  </section>
+
+  <!-- CATEGORY FILTER PILLS -->
+  <section class="bg-[var(--bg)] py-4 border-b border-[var(--border)] sticky top-[72px] z-30 backdrop-blur-md bg-[var(--bg)]/90">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Blog categories" class="flex flex-wrap gap-2">
+        <a href="/blog" class="px-4 py-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] text-sm text-[var(--text-dim)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
+          All Posts
+        </a>
+        {categories.map((cat) => (
+          <a
+            href={`/blog/category/${cat}`}
+            aria-current={cat === category ? 'page' : undefined}
+            class={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${cat === category ? 'bg-[var(--accent)] text-[var(--bg)]' : 'border border-[var(--border)] bg-[var(--bg-card)] text-[var(--text-dim)] hover:border-[var(--accent)] hover:text-[var(--accent)]'}`}
+          >
+            {categoryLabels[cat] ?? cat}
+          </a>
+        ))}
+      </nav>
+    </div>
+  </section>
+
+  <!-- POSTS GRID + SIDEBAR -->
+  <section class="bg-[var(--bg)] py-14 pb-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-12 items-start">
+
+        <!-- Posts column -->
+        <div>
+          {posts.length === 0 ? (
+            <div class="py-20 text-center">
+              <p class="text-[var(--text-dim)] text-lg">No posts in this category yet.</p>
+              <a href="/blog" class="mt-4 inline-flex items-center gap-2 text-[var(--accent)] font-semibold hover:underline">← Back to all posts</a>
+            </div>
+          ) : (
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {posts.map((post) => {
+                const date = new Date(post.data.publishDate);
+                const formattedDate = date.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
+                return (
+                  <article class="group rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] overflow-hidden flex flex-col hover:border-[var(--accent)]/40 hover:-translate-y-0.5 transition-all duration-300 shadow-sm hover:shadow-lg">
+                    {post.data.featuredImage?.src && (
+                      <a href={`/blog/${post.data.category}/${post.id}`} aria-hidden="true" tabindex="-1" class="block aspect-video overflow-hidden">
+                        <img
+                          src={post.data.featuredImage.src}
+                          alt={post.data.featuredImage.alt}
+                          width="480"
+                          height="270"
+                          loading="lazy"
+                          decoding="async"
+                          class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </a>
+                    )}
+                    <div class="p-5 flex flex-col flex-1">
+                      <span class="self-start mb-3 inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[var(--accent)]/10 text-[var(--accent)]">
+                        {categoryLabel}
+                      </span>
+                      <h2 class="font-heading text-base font-semibold text-[var(--text)] mb-2 leading-snug flex-1">
+                        <a href={`/blog/${post.data.category}/${post.id}`} class="hover:text-[var(--accent)] transition-colors">
+                          {post.data.title}
+                        </a>
+                      </h2>
+                      <p class="text-sm text-[var(--text-dim)] leading-relaxed mb-4">
+                        {truncate(post.data.description, 120)}
+                      </p>
+                      <div class="flex items-center justify-between text-xs text-[var(--text-muted)] mt-auto pt-4 border-t border-[var(--border)]">
+                        <time datetime={date.toISOString()}>{formattedDate}</time>
+                        <span>{post.data.readTime} min read</span>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          )}
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="hidden lg:flex flex-col gap-8 sticky top-[120px]">
+
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+            <h3 class="font-heading text-base font-bold text-[var(--text)] mb-5 flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--accent)]" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              Popular Posts
+            </h3>
+            <ul class="space-y-4">
+              {popularPosts.map((p, i) => (
+                <li>
+                  <a href={`/blog/${p.data.category}/${p.id}`} class="flex items-start gap-3 group">
+                    <span class="shrink-0 flex h-7 w-7 items-center justify-center rounded-full bg-[var(--accent)]/10 text-xs font-bold text-[var(--accent)]">
+                      {i + 1}
+                    </span>
+                    <span class="text-sm text-[var(--text-dim)] leading-snug group-hover:text-[var(--accent)] transition-colors">
+                      {truncate(p.data.title, 70)}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+            <h3 class="font-heading text-base font-bold text-[var(--text)] mb-5">Browse by Category</h3>
+            <ul class="space-y-2">
+              {categories.map((cat) => {
+                const count = allPublished.filter((p) => p.data.category === cat).length;
+                return (
+                  <li>
+                    <a
+                      href={`/blog/category/${cat}`}
+                      aria-current={cat === category ? 'page' : undefined}
+                      class={`flex items-center justify-between rounded-xl px-3 py-2 text-sm transition-colors ${cat === category ? 'bg-[var(--accent)]/10 text-[var(--accent)] font-semibold' : 'text-[var(--text-dim)] hover:bg-[var(--accent)]/5 hover:text-[var(--accent)]'}`}
+                    >
+                      <span>{categoryLabels[cat] ?? cat}</span>
+                      <span class="text-xs font-semibold bg-[var(--accent)]/10 text-[var(--accent)] rounded-full px-2 py-0.5">{count}</span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          <div class="rounded-2xl border border-[var(--accent)]/20 bg-gradient-to-br from-[var(--accent)]/10 to-[#6366F1]/10 p-6 text-center">
+            <h3 class="font-heading text-base font-bold text-[var(--text)] mb-2">Ready to Grow Online?</h3>
+            <p class="text-sm text-[var(--text-dim)] mb-4 leading-relaxed">
+              Get a free website audit covering SEO & security. * Conditions apply.
+            </p>
+            <a
+              href="/free-website-audit"
+              class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-5 py-2.5 text-sm font-semibold text-[var(--bg)] hover:brightness-110 transition-all"
+            >
+              Get Free Audit
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+        </aside>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

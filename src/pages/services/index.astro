@@ -18,7 +18,7 @@ const schemas = [
 ---
 <BaseLayout
   title="Web Design & Digital Services | eLan Technology"
-  description="eLan Technology offers full-service web design, development, eCommerce, digital marketing, mobile app development, branding, and website maintenance across India."
+  description="Full-service web design, development, eCommerce, SEO, digital marketing, mobile apps & branding services across India."
   schema={schemas}
 >
   <!-- ── HERO ─────────────────────────────────────────────────────────────── -->
@@ -56,74 +56,243 @@ const schemas = [
         <h2 class="font-heading text-3xl font-bold text-[var(--text)] md:text-4xl">Our Services</h2>
         <p class="mt-4 text-[var(--text-muted)] max-w-2xl mx-auto">Everything your business needs to establish, grow, and dominate online — under one roof.</p>
       </div>
-      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-        {services.map((service) => (
-          <a
-            href={`/services/${service.slug}`}
-            aria-label={`Learn more about ${service.title}`}
-            class="group flex flex-col rounded-2xl border border-[var(--border)] p-6 transition hover:border-[var(--accent)]/50 hover:shadow-lg overflow-hidden"
-            style={`background: linear-gradient(135deg, ${service.accent}08, var(--bg) 60%);`}
+      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-5" role="list">
+        {services.slice(0, -1).map((service, i) => {
+          const featured = i < 2;
+          const num = String(i + 1).padStart(2, '0');
+          return (
+            <li class:list={[featured ? 'lg:col-span-3' : 'lg:col-span-2']}>
+              <article
+                class:list={[
+                  'service-card group relative flex flex-col h-full overflow-hidden rounded-2xl border border-[var(--border)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl',
+                  featured ? 'p-7 md:p-8' : 'p-6',
+                ]}
+                style={`background: linear-gradient(135deg, color-mix(in srgb, var(${service.cssVar}) 10%, var(--bg-card)) 0%, var(--bg-card) 65%); --card-color: var(${service.cssVar});`}
+              >
+                <span
+                  aria-hidden="true"
+                  class="service-card__num pointer-events-none absolute top-3 right-4 font-heading font-black leading-none select-none"
+                  style={`color: var(${service.cssVar}); font-size: ${featured ? '5.5rem' : '4rem'};`}
+                >
+                  {num}
+                </span>
+                <span
+                  aria-hidden="true"
+                  class="service-card__stripe pointer-events-none absolute -left-8 -bottom-8 h-40 w-40 rotate-[-20deg] opacity-[0.08]"
+                  style={`background: var(${service.cssVar});`}
+                ></span>
+
+                <div class="relative flex items-center gap-3 mb-4">
+                  <div
+                    class="flex h-11 w-11 items-center justify-center rounded-xl flex-shrink-0"
+                    style={`background: color-mix(in srgb, var(${service.cssVar}) 16%, transparent); color: var(${service.cssVar});`}
+                    aria-hidden="true"
+                  >
+                    <div set:html={service.iconSvg} />
+                  </div>
+                  <span
+                    class="text-[10px] font-bold uppercase tracking-[0.2em]"
+                    style={`color: var(${service.cssVar});`}
+                  >
+                    {featured ? 'Flagship' : 'Service'} · {num}
+                  </span>
+                </div>
+
+                <h3 class:list={['relative font-heading font-bold text-[var(--text)] mb-2', featured ? 'text-xl md:text-2xl' : 'text-lg']}>
+                  {service.title}
+                </h3>
+                <p class:list={['relative text-[var(--text-dim)] mb-4', featured ? 'text-base' : 'text-sm']}>
+                  {service.tagline}
+                </p>
+                {featured && (
+                  <p class="relative text-sm text-[var(--text-muted)] mb-4 flex-grow">
+                    {service.description}
+                  </p>
+                )}
+
+                {featured ? (
+                  <ul class="relative mb-5 grid grid-cols-2 gap-x-4 gap-y-1.5" aria-label={`${service.title} features`}>
+                    {service.features.slice(0, 4).map(feature => (
+                      <li class="flex items-center gap-2 text-xs text-[var(--text-muted)]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style={`color: var(${service.cssVar});`}>
+                          <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <ul class="relative mb-5 space-y-1.5 flex-grow" aria-label={`${service.title} features`}>
+                    {service.features.slice(0, 3).map(feature => (
+                      <li class="flex items-center gap-2 text-xs text-[var(--text-muted)]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style={`color: var(${service.cssVar});`}>
+                          <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                <a
+                  href={`/services/${service.slug}`}
+                  class="relative mt-auto inline-flex items-center gap-1 text-sm font-semibold transition-transform duration-200 group-hover:translate-x-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
+                  style={`color: var(${service.cssVar});`}
+                  aria-label={`Learn more about ${service.title}`}
+                >
+                  Learn More
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </a>
+              </article>
+            </li>
+          );
+        })}
+
+        <!-- Integrations Card (matching bento style) -->
+        <li class="lg:col-span-2">
+          <article
+            class="service-card group relative flex flex-col h-full overflow-hidden rounded-2xl border border-[var(--border)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl p-6"
+            style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-cyan) 10%, var(--bg-card)) 0%, var(--bg-card) 65%); --card-color: var(--ac-cyan);"
           >
-            <div
-              class="mb-4 h-12 w-12 rounded-xl flex items-center justify-center text-2xl"
-              style={`background: ${service.accent}20;`}
+            <span
+              aria-hidden="true"
+              class="service-card__num pointer-events-none absolute top-3 right-4 font-heading font-black leading-none select-none"
+              style="color: var(--ac-cyan); font-size: 4rem;"
             >
-              <div style={`color: ${service.accent};`} aria-hidden="true" set:html={service.iconSvg} />
-            </div>
-            <h3 class="font-heading text-xl font-semibold text-[var(--text)] group-hover:text-[var(--accent)] transition-colors">
-              {service.title}
-            </h3>
-            <p class="mt-1 text-sm font-medium text-[var(--accent)]">{service.tagline}</p>
-            <p class="mt-3 text-sm text-[var(--text-muted)] flex-1">{service.description}</p>
-            <ul class="mt-4 space-y-1">
-              {service.features.slice(0, 3).map((f) => (
-                <li class="flex items-center gap-2 text-sm text-[var(--text-dim)]">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-green-400 shrink-0" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <span class="mt-5 inline-flex items-center text-sm font-semibold text-[var(--accent)] group-hover:gap-2 transition-all" aria-hidden="true">
-              Learn More <span class="ml-1">→</span>
+              09
             </span>
-          </a>
-        ))}
-        <!-- Integrations Card -->
-        <a
-          href="/integrations"
-          aria-label="Learn more about API Integrations"
-          class="group flex flex-col rounded-2xl border border-[var(--border)] p-6 transition hover:border-[var(--accent)]/50 hover:shadow-lg overflow-hidden"
-          style="background: linear-gradient(135deg, #0EA5E908, var(--bg) 60%);"
-        >
-          <div
-            class="mb-4 h-12 w-12 rounded-xl flex items-center justify-center text-2xl"
-            style="background: #0EA5E920; color: #0EA5E9;"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
-          </div>
-          <h3 class="font-heading text-xl font-semibold text-[var(--text)] group-hover:text-[var(--accent)] transition-colors">
-            API & Integrations
-          </h3>
-          <p class="mt-1 text-sm font-medium text-[var(--accent)]">Seamless third-party connections</p>
-          <p class="mt-3 text-sm text-[var(--text-muted)] flex-1">Connect your website seamlessly with major payment gateways, carrier APIs, eCommerce tools, and external CRMs to automate workflows.</p>
-          <ul class="mt-4 space-y-1">
-            <li class="flex items-center gap-2 text-sm text-[var(--text-dim)]">
-              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-green-400 shrink-0" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Global Payment Gateways
+            <span
+              aria-hidden="true"
+              class="service-card__stripe pointer-events-none absolute -left-8 -bottom-8 h-40 w-40 rotate-[-20deg] opacity-[0.08]"
+              style="background: var(--ac-cyan);"
+            ></span>
+            <div class="relative flex items-center gap-3 mb-4">
+              <div
+                class="flex h-11 w-11 items-center justify-center rounded-xl flex-shrink-0"
+                style="background: color-mix(in srgb, var(--ac-cyan) 16%, transparent); color: var(--ac-cyan);"
+                aria-hidden="true"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+              </div>
+              <span class="text-[10px] font-bold uppercase tracking-[0.2em]" style="color: var(--ac-cyan);">Service · 09</span>
+            </div>
+            <h3 class="relative font-heading font-bold text-[var(--text)] mb-2 text-lg">API &amp; Integrations</h3>
+            <p class="relative text-sm text-[var(--text-dim)] mb-4">Seamless third-party connections</p>
+            <ul class="relative mb-5 space-y-1.5 flex-grow" aria-label="API & Integrations features">
+              <li class="flex items-center gap-2 text-xs text-[var(--text-muted)]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--ac-cyan);"><polyline points="20 6 9 17 4 12"/></svg>
+                Global Payment Gateways
+              </li>
+              <li class="flex items-center gap-2 text-xs text-[var(--text-muted)]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--ac-cyan);"><polyline points="20 6 9 17 4 12"/></svg>
+                Shipping &amp; Courier APIs
+              </li>
+              <li class="flex items-center gap-2 text-xs text-[var(--text-muted)]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--ac-cyan);"><polyline points="20 6 9 17 4 12"/></svg>
+                Custom Software Integration
+              </li>
+            </ul>
+            <a
+              href="/services/integrations"
+              class="relative mt-auto inline-flex items-center gap-1 text-sm font-semibold transition-transform duration-200 group-hover:translate-x-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
+              style="color: var(--ac-cyan);"
+              aria-label="Learn more about API & Integrations"
+            >
+              View Integrations
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </article>
+        </li>
+
+        <!-- ADA & WCAG Compliance — spans 4 cols, sits next to API Integrations -->
+        {(() => {
+          const ada = services[services.length - 1];
+          return (
+            <li class="lg:col-span-4">
+              <article
+                class="service-card group relative flex h-full flex-col md:flex-row items-stretch gap-6 overflow-hidden rounded-2xl border border-[var(--border)] p-6 md:p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                style={`background: linear-gradient(135deg, color-mix(in srgb, var(${ada.cssVar}) 10%, var(--bg-card)) 0%, var(--bg-card) 65%); --card-color: var(${ada.cssVar});`}
+              >
+                <span
+                  aria-hidden="true"
+                  class="service-card__num pointer-events-none absolute top-3 right-6 font-heading font-black leading-none select-none"
+                  style={`color: var(${ada.cssVar}); font-size: 5rem;`}
+                >
+                  10
+                </span>
+                <span
+                  aria-hidden="true"
+                  class="service-card__stripe pointer-events-none absolute -left-10 -bottom-10 h-48 w-48 rotate-[-20deg] opacity-[0.08]"
+                  style={`background: var(${ada.cssVar});`}
+                ></span>
+                <div
+                  class="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-xl md:self-start"
+                  style={`background: color-mix(in srgb, var(${ada.cssVar}) 16%, transparent); color: var(${ada.cssVar});`}
+                  aria-hidden="true"
+                >
+                  <div set:html={ada.iconSvg} />
+                </div>
+                <div class="relative flex flex-1 flex-col">
+                  <span class="text-[10px] font-bold uppercase tracking-[0.2em]" style={`color: var(${ada.cssVar});`}>Compliance · 10</span>
+                  <h3 class="font-heading text-xl font-semibold text-[var(--text)] mt-1 mb-1">{ada.title}</h3>
+                  <p class="text-sm mb-2" style={`color: var(${ada.cssVar});`}>{ada.tagline}</p>
+                  <p class="text-sm text-[var(--text-muted)] mb-3">{ada.description}</p>
+                  <ul class="flex flex-wrap gap-x-5 gap-y-1 mb-4">
+                    {ada.features.slice(0, 4).map(f => (
+                      <li class="flex items-center gap-1.5 text-sm text-[var(--text-dim)]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0" aria-hidden="true" style={`color: var(${ada.cssVar});`}><polyline points="20 6 9 17 4 12"/></svg>
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    href={`/services/${ada.slug}`}
+                    class="relative mt-auto inline-flex items-center gap-1 text-sm font-semibold transition-transform duration-200 group-hover:translate-x-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
+                    style={`color: var(${ada.cssVar});`}
+                    aria-label={`Learn more about ${ada.title}`}
+                  >
+                    Learn More
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </a>
+                </div>
+              </article>
             </li>
-            <li class="flex items-center gap-2 text-sm text-[var(--text-dim)]">
-              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-green-400 shrink-0" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Shipping & Courier APIs
+          );
+        })()}
+      </ul>
+
+      <!-- Specialist Capabilities — focused sub-service cards (mirrors homepage) -->
+      <div class="mt-10">
+        <p class="text-center text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)] mb-5">Specialist Capabilities</p>
+        <ul class="grid grid-cols-2 lg:grid-cols-4 gap-4" role="list">
+          {[
+            { name: 'Headless CMS & Jamstack', desc: 'Composable Astro, Next.js & Sanity front ends decoupled from the back office', cssVar: '--ac-indigo', href: '/services/web-development', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 14h4"/></svg>' },
+            { name: 'Security Audits & Hardening', desc: 'OWASP reviews, CSP tuning, secret rotation & automated patch pipelines', cssVar: '--ac-red', href: '/services/maintenance-security', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg>' },
+            { name: 'Core Web Vitals Engineering', desc: 'Budget-driven LCP, INP & CLS tuning enforced in continuous integration', cssVar: '--ac-amber', href: '/services/web-development', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14l4-4"/><path d="M3.5 17a9 9 0 1 1 17 0"/><circle cx="12" cy="14" r="1"/></svg>' },
+            { name: 'ADA & WCAG Remediation', desc: 'Hybrid audits, VPAT 2.5 documentation & WCAG 2.2 AA conformance', cssVar: '--ac-emerald', href: '/blog/accessibility/ada-wcag-compliance-us-canada-2026', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M5 9h14"/><path d="M12 9v5"/><path d="M8 20l4-6 4 6"/></svg>' },
+          ].map(cap => (
+            <li>
+              <a
+                href={cap.href}
+                class="card-tilt group flex flex-col items-center text-center h-full rounded-2xl p-5 border border-[var(--border)] bg-[var(--bg-card)] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)]"
+                style={`--cap-color: var(${cap.cssVar});`}
+              >
+                <div
+                  class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl"
+                  style={`background: color-mix(in srgb, var(${cap.cssVar}) 14%, transparent); color: var(${cap.cssVar});`}
+                  aria-hidden="true"
+                  set:html={cap.icon}
+                />
+                <h3 class="font-heading text-sm font-bold text-[var(--text)] mb-1" style={`color: var(${cap.cssVar});`}>{cap.name}</h3>
+                <p class="text-xs text-[var(--text-muted)] leading-relaxed">{cap.desc}</p>
+              </a>
             </li>
-            <li class="flex items-center gap-2 text-sm text-[var(--text-dim)]">
-              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-green-400 shrink-0" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Custom Software Integration
-            </li>
-          </ul>
-          <span class="mt-5 inline-flex items-center text-sm font-semibold text-[var(--accent)] group-hover:gap-2 transition-all" aria-hidden="true">
-            View Integrations <span class="ml-1">→</span>
-          </span>
-        </a>
+          ))}
+        </ul>
       </div>
     </div>
   </section>

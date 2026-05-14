@@ -38,13 +38,31 @@ const schema = [
   ]),
 ];
 
-// Feature comparison table
 const comparisonFeatures = [
   { label: 'Number of Pages', starter: 'Up to 5', professional: 'Up to 15', enterprise: 'Unlimited' },
   { label: 'Custom Design', starter: true, professional: true, enterprise: true },
   { label: 'CMS Integration', starter: false, professional: true, enterprise: true },
   { label: 'WCAG AA Accessibility', starter: false, professional: false, enterprise: true },
   { label: 'Post-Launch Support', starter: '30 days', professional: '90 days', enterprise: '1 year' },
+];
+
+const tierColors = ['--ac-emerald', '--ac-amber', '--ac-indigo'];
+const tierNums = ['01', '02', '03'];
+
+const currencies = [
+  { symbol: '₹', label: 'INR' },
+  { symbol: '$', label: 'USD' },
+  { symbol: 'A$', label: 'AUD' },
+  { symbol: '£', label: 'GBP' },
+  { symbol: 'AED', label: 'AED' },
+  { symbol: '¥', label: 'JPY' },
+];
+
+const guarantees = [
+  { title: 'Fixed-Price Projects', desc: 'No surprise invoices. Every cost itemised upfront.', cssVar: '--ac-emerald', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>' },
+  { title: 'Milestone Billing', desc: '3-instalment payment structure — pay as we deliver.', cssVar: '--ac-amber', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>' },
+  { title: 'Local Currency Quotes', desc: 'We quote in INR, USD, AUD, GBP, AED, JPY — no conversion surprises.', cssVar: '--ac-cyan', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>' },
+  { title: 'Startup & NGO Discounts', desc: 'Special pricing available for registered startups and non-profits.', cssVar: '--ac-violet', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>' },
 ];
 ---
 
@@ -55,7 +73,12 @@ const comparisonFeatures = [
 >
   <!-- Hero -->
   <section class="relative overflow-hidden bg-[var(--bg)] py-20 sm:py-28">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
+    <div class="pointer-events-none absolute inset-0 opacity-[0.04] dark:opacity-[0.06]" aria-hidden="true"
+      style="background-image: radial-gradient(var(--text) 1px, transparent 1px); background-size: 28px 28px;"></div>
+    <div class="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 h-96 w-[40rem] rounded-full opacity-[0.12]"
+      aria-hidden="true"
+      style="background: radial-gradient(ellipse at center, var(--accent), transparent 70%); filter: blur(60px);"></div>
+    <div class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
       <p class="text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-4">Pricing</p>
       <h1 class="font-heading text-4xl sm:text-5xl font-bold text-[var(--text)] leading-tight">
         Transparent, Value-Based Pricing
@@ -63,81 +86,144 @@ const comparisonFeatures = [
       <p class="mt-6 max-w-2xl mx-auto text-lg text-[var(--text-dim)] leading-relaxed">
         Every business is different. Our packages are starting points — all projects receive a custom quote based on your specific requirements, timeline, and goals.
       </p>
-
-      <!-- Currency indicator — pricing is quote-based and tailored per currency -->
-      <div class="flex flex-wrap gap-2 mt-8 justify-center" aria-label="Currencies we quote in">
-        <span class="px-3 py-1 rounded-full border border-[var(--border)] text-sm text-[var(--text-muted)]">₹ INR</span>
-        <span class="px-3 py-1 rounded-full border border-[var(--border)] text-sm text-[var(--text-muted)]">$ USD</span>
-        <span class="px-3 py-1 rounded-full border border-[var(--border)] text-sm text-[var(--text-muted)]">A$ AUD</span>
-        <span class="px-3 py-1 rounded-full border border-[var(--border)] text-sm text-[var(--text-muted)]">£ GBP</span>
-        <span class="px-3 py-1 rounded-full border border-[var(--border)] text-sm text-[var(--text-muted)]">AED</span>
-        <span class="px-3 py-1 rounded-full border border-[var(--border)] text-sm text-[var(--text-muted)]">¥ JPY</span>
+      <!-- Currency bento pills -->
+      <div class="flex flex-wrap gap-2 mt-10 justify-center" aria-label="Currencies we quote in">
+        {currencies.map((c) => (
+          <span class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] text-sm font-semibold text-[var(--text-dim)]">
+            <span class="text-[var(--accent)]">{c.symbol}</span> {c.label}
+          </span>
+        ))}
       </div>
       <p class="mt-3 text-xs text-[var(--text-muted)]">We quote in your local currency — no conversion surprises.</p>
     </div>
   </section>
 
-  <!-- Pricing tiers -->
+  <!-- Pricing tier bento -->
   <section class="py-16 md:py-20 border-t border-[var(--border)]" aria-labelledby="tiers-heading">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <h2 id="tiers-heading" class="sr-only">Pricing Tiers</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-        {pricingTiers.map((tier) => (
-          <div class={`rounded-2xl border p-8 flex flex-col relative ${tier.highlighted ? 'border-[var(--accent)] bg-[var(--bg-card)] shadow-lg shadow-[var(--accent)]/10' : 'border-[var(--border)] bg-[var(--bg-card)]'}`}>
-            {tier.highlighted && (
-              <div class="absolute -top-4 left-1/2 -translate-x-1/2">
-                <span class="px-4 py-1.5 rounded-full bg-[var(--accent)] text-[#0A0E1A] text-xs font-bold tracking-wide whitespace-nowrap">
-                  Most Popular
-                </span>
-              </div>
-            )}
+      <ul class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch" role="list">
+        {pricingTiers.map((tier, i) => {
+          const cssVar = tierColors[i];
+          const num = tierNums[i];
+          return (
+            <li class="relative">
+              {tier.highlighted && (
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
+                  <span class="px-4 py-1.5 rounded-full text-xs font-bold tracking-wide whitespace-nowrap"
+                    style={`background: var(${cssVar}); color: var(--bg);`}>
+                    Most Popular
+                  </span>
+                </div>
+              )}
+              <article
+                class="relative overflow-hidden rounded-2xl border h-full flex flex-col p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                style={`border-color: ${tier.highlighted ? `var(${cssVar})` : 'var(--border)'}; background: linear-gradient(135deg, color-mix(in srgb, var(${cssVar}) 10%, var(--bg-card)) 0%, var(--bg-card) 65%);`}
+              >
+                <!-- Decorative number -->
+                <span aria-hidden="true" class="pointer-events-none absolute top-3 right-4 font-heading font-black leading-none select-none text-[5rem] opacity-[0.08]"
+                  style={`color: var(${cssVar});`}>{num}</span>
+                <!-- Diagonal accent stripe -->
+                <span aria-hidden="true" class="pointer-events-none absolute -left-8 -bottom-8 h-40 w-40 rotate-[-20deg] opacity-[0.07]"
+                  style={`background: var(${cssVar});`}></span>
 
-            <div class="mb-6">
-              <h3 class="font-heading text-2xl font-bold text-[var(--text)]">{tier.name}</h3>
-              <p class="text-sm text-[var(--text-dim)] mt-1">{tier.tagline}</p>
-            </div>
+                <!-- Icon tile + tier label -->
+                <div class="relative flex items-center gap-3 mb-5">
+                  <div class="flex h-11 w-11 items-center justify-center rounded-xl flex-shrink-0"
+                    style={`background: color-mix(in srgb, var(${cssVar}) 16%, transparent); color: var(${cssVar});`}
+                    aria-hidden="true">
+                    {i === 0 && <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>}
+                    {i === 1 && <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>}
+                    {i === 2 && <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>}
+                  </div>
+                  <span class="text-[10px] font-bold uppercase tracking-[0.2em]" style={`color: var(${cssVar});`}>
+                    {tier.highlighted ? 'Most Popular' : 'Package'} · {num}
+                  </span>
+                </div>
 
-            <div class="mb-6">
-              <p class="text-xs text-[var(--text-muted)]">
-                {tier.deliveryDays}-day delivery · {tier.revisions === 'Unlimited' ? 'Unlimited' : `${tier.revisions}`} revisions · {tier.support} support
-              </p>
-            </div>
+                <h3 class="relative font-heading text-2xl font-bold text-[var(--text)] mb-1">{tier.name}</h3>
+                <p class="relative text-sm text-[var(--text-dim)] mb-5">{tier.tagline}</p>
 
-            <ul class="space-y-3 mb-8 flex-1" role="list">
-              {tier.features.map((feature) => (
-                <li class="flex items-start gap-2.5 text-sm text-[var(--text-dim)]">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 mt-0.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  {feature}
-                </li>
-              ))}
-            </ul>
+                <!-- Stats mini row -->
+                <div class="relative flex flex-wrap gap-x-4 gap-y-1 mb-6 pb-6 border-b border-[var(--border)]">
+                  <span class="text-xs text-[var(--text-muted)]">
+                    <strong class="text-[var(--text)]">{tier.deliveryDays}</strong>-day delivery
+                  </span>
+                  <span class="text-xs text-[var(--text-muted)]">
+                    <strong class="text-[var(--text)]">{tier.revisions === 'Unlimited' ? '∞' : tier.revisions}</strong> revisions
+                  </span>
+                  <span class="text-xs text-[var(--text-muted)]">
+                    <strong class="text-[var(--text)]">{tier.support}</strong> support
+                  </span>
+                </div>
 
-            <a
-              href={tier.ctaHref}
-              class={`text-center rounded-full px-6 py-3 text-sm font-semibold transition-all ${tier.highlighted ? 'bg-[var(--accent)] text-[#0A0E1A] hover:opacity-90' : 'border border-[var(--border)] text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)]'}`}
-            >
-              {tier.cta}
-            </a>
-          </div>
-        ))}
-      </div>
+                <ul class="relative space-y-3 mb-8 flex-1" role="list">
+                  {tier.features.map((feature) => (
+                    <li class="flex items-start gap-2.5 text-sm text-[var(--text-dim)]">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 mt-0.5" aria-hidden="true" style={`stroke: var(${cssVar});`}><polyline points="20 6 9 17 4 12"/></svg>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+
+                <a
+                  href={tier.ctaHref}
+                  class="relative mt-auto text-center rounded-xl px-6 py-3 text-sm font-semibold transition-all duration-200 hover:opacity-90"
+                  style={tier.highlighted
+                    ? `background: var(${cssVar}); color: var(--bg);`
+                    : `border: 1.5px solid color-mix(in srgb, var(${cssVar}) 40%, var(--border)); color: var(${cssVar}); background: color-mix(in srgb, var(${cssVar}) 6%, transparent);`}
+                >
+                  {tier.cta}
+                </a>
+              </article>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   </section>
 
-  <!-- Feature comparison table -->
-  <section class="py-16 md:py-20 bg-[var(--bg-card)] border-y border-[var(--border)]" aria-labelledby="comparison-heading">
+  <!-- Guarantees bento -->
+  <section class="py-16 md:py-20 bg-[var(--bg-card)] border-y border-[var(--border)]" aria-label="Pricing guarantees">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-3">Our Promise</p>
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)]">What You Can Always Count On</h2>
+      </div>
+      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" role="list">
+        {guarantees.map((g) => (
+          <li class="relative overflow-hidden rounded-2xl border border-[var(--border)] p-6"
+            style={`background: linear-gradient(135deg, color-mix(in srgb, var(${g.cssVar}) 10%, var(--bg)) 0%, var(--bg) 70%);`}>
+            <span aria-hidden="true" class="pointer-events-none absolute -right-6 -bottom-6 h-28 w-28 rotate-[-20deg] opacity-[0.07]"
+              style={`background: var(${g.cssVar});`}></span>
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4 relative"
+              style={`background: color-mix(in srgb, var(${g.cssVar}) 16%, transparent); color: var(${g.cssVar});`}
+              aria-hidden="true" set:html={g.icon} />
+            <h3 class="relative font-semibold text-[var(--text)] mb-2">{g.title}</h3>
+            <p class="relative text-xs text-[var(--text-dim)] leading-relaxed">{g.desc}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Feature comparison -->
+  <section class="py-16 md:py-20" aria-labelledby="comparison-heading">
     <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-      <h2 id="comparison-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-8 text-center">
-        Feature Comparison
-      </h2>
+      <div class="text-center mb-10">
+        <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-3">Compare</p>
+        <h2 id="comparison-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)]">
+          Feature Comparison
+        </h2>
+      </div>
       <div class="overflow-x-auto rounded-2xl border border-[var(--border)]">
         <table class="w-full text-sm">
           <thead>
             <tr class="border-b border-[var(--border)]">
-              <th class="text-left p-4 text-[var(--text)] font-semibold bg-[var(--bg)]">Feature</th>
-              <th class="text-center p-4 text-[var(--text)] font-semibold bg-[var(--bg)]">Starter</th>
-              <th class="text-center p-4 text-[var(--accent)] font-semibold bg-[var(--accent)]/5">Professional</th>
-              <th class="text-center p-4 text-[var(--text)] font-semibold bg-[var(--bg)]">Enterprise</th>
+              <th class="text-left p-4 text-[var(--text)] font-semibold bg-[var(--bg-card)]">Feature</th>
+              <th class="text-center p-4 font-semibold bg-[var(--bg-card)]" style="color: var(--ac-emerald);">Starter</th>
+              <th class="text-center p-4 font-semibold" style="color: var(--ac-amber); background: color-mix(in srgb, var(--ac-amber) 6%, var(--bg-card));">Professional</th>
+              <th class="text-center p-4 font-semibold bg-[var(--bg-card)]" style="color: var(--ac-indigo);">Enterprise</th>
             </tr>
           </thead>
           <tbody>
@@ -146,36 +232,24 @@ const comparisonFeatures = [
                 <td class="p-4 font-medium text-[var(--text)]">{row.label}</td>
                 <td class="p-4 text-center">
                   {typeof row.starter === 'boolean' ? (
-                    row.starter ? (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mx-auto" aria-label="Included"><polyline points="20 6 9 17 4 12"/></svg>
-                    ) : (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto" aria-label="Not included"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                    )
-                  ) : (
-                    <span class="text-[var(--text-dim)]">{row.starter}</span>
-                  )}
+                    row.starter
+                      ? <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mx-auto" aria-label="Included" style="stroke: var(--ac-emerald);"><polyline points="20 6 9 17 4 12"/></svg>
+                      : <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto" aria-label="Not included"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  ) : <span class="text-[var(--text-dim)]">{row.starter}</span>}
                 </td>
-                <td class="p-4 text-center bg-[var(--accent)]/5">
+                <td class="p-4 text-center" style="background: color-mix(in srgb, var(--ac-amber) 4%, transparent);">
                   {typeof row.professional === 'boolean' ? (
-                    row.professional ? (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mx-auto" aria-label="Included"><polyline points="20 6 9 17 4 12"/></svg>
-                    ) : (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto" aria-label="Not included"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                    )
-                  ) : (
-                    <span class="text-[var(--text-dim)]">{row.professional}</span>
-                  )}
+                    row.professional
+                      ? <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mx-auto" aria-label="Included" style="stroke: var(--ac-amber);"><polyline points="20 6 9 17 4 12"/></svg>
+                      : <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto" aria-label="Not included"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  ) : <span class="text-[var(--text-dim)]">{row.professional}</span>}
                 </td>
                 <td class="p-4 text-center">
                   {typeof row.enterprise === 'boolean' ? (
-                    row.enterprise ? (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mx-auto" aria-label="Included"><polyline points="20 6 9 17 4 12"/></svg>
-                    ) : (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto" aria-label="Not included"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                    )
-                  ) : (
-                    <span class="text-[var(--text-dim)]">{row.enterprise}</span>
-                  )}
+                    row.enterprise
+                      ? <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mx-auto" aria-label="Included" style="stroke: var(--ac-indigo);"><polyline points="20 6 9 17 4 12"/></svg>
+                      : <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto" aria-label="Not included"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  ) : <span class="text-[var(--text-dim)]">{row.enterprise}</span>}
                 </td>
               </tr>
             ))}
@@ -186,42 +260,59 @@ const comparisonFeatures = [
   </section>
 
   <!-- Pricing FAQs -->
-  <section class="py-16 md:py-20" aria-labelledby="faq-heading">
+  <section class="py-16 md:py-20 bg-[var(--bg-card)] border-y border-[var(--border)]" aria-labelledby="faq-heading">
     <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-      <h2 id="faq-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-8 text-center">
-        Pricing FAQs
-      </h2>
+      <div class="text-center mb-10">
+        <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-3">FAQ</p>
+        <h2 id="faq-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)]">Pricing FAQs</h2>
+      </div>
       <div class="space-y-3">
-        {pricingFaqs.map((faq) => (
-          <details class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] group">
-            <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-semibold text-[var(--text)] hover:text-[var(--accent)] transition-colors">
-              {faq.question}
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 ml-4 transition-transform group-open:rotate-180" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <div class="px-6 pb-6 text-[var(--text-dim)] leading-relaxed text-sm">
-              {faq.answer}
-            </div>
-          </details>
-        ))}
+        {pricingFaqs.map((faq, i) => {
+          const colors = ['--ac-indigo','--ac-amber','--ac-emerald','--ac-cyan','--ac-violet','--ac-pink'];
+          const c = colors[i % colors.length];
+          return (
+            <details class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] group overflow-hidden">
+              <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-semibold text-[var(--text)] hover:text-[var(--accent)] transition-colors">
+                <span class="flex items-center gap-3">
+                  <span class="flex-shrink-0 w-6 h-6 rounded-lg flex items-center justify-center text-[10px] font-black"
+                    style={`background: color-mix(in srgb, var(${c}) 16%, transparent); color: var(${c});`}
+                    aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                  {faq.question}
+                </span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 ml-4 transition-transform group-open:rotate-180" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+              </summary>
+              <div class="px-6 pb-6 text-[var(--text-dim)] leading-relaxed text-sm border-t border-[var(--border)] pt-4" set:html={faq.answer} />
+            </details>
+          );
+        })}
       </div>
     </div>
   </section>
 
-  <!-- Custom quote CTA -->
-  <section class="py-16 md:py-20 bg-[var(--bg-card)] border-t border-[var(--border)]">
-    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
-        Need something specific?
-      </h2>
-      <p class="text-[var(--text-dim)] mb-8 text-lg">
-        Our packages are starting points. Tell us about your project and we'll give you a detailed, no-obligation custom quote within 4 business hours.
-      </p>
-      <a
-        href="/get-quote"
-        class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity"
-      >
-        Get a Custom Quote
-      </a>
+  <!-- CTA -->
+  <section class="py-16 md:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="relative overflow-hidden rounded-3xl border border-[var(--border)] p-10 sm:p-16 text-center"
+        style="background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 12%, var(--bg-card)) 0%, var(--bg-card) 65%);">
+        <div aria-hidden="true" class="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-64 w-64 rounded-full opacity-20"
+          style="background: radial-gradient(circle, var(--accent), transparent 70%); filter: blur(40px);"></div>
+        <span aria-hidden="true" class="pointer-events-none absolute -right-16 -bottom-16 h-64 w-64 rotate-[-20deg] opacity-[0.06]"
+          style="background: var(--accent);"></span>
+        <div class="relative">
+          <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+            Need something specific?
+          </h2>
+          <p class="text-[var(--text-dim)] mb-8 text-lg max-w-xl mx-auto">
+            Our packages are starting points. Tell us about your project and we'll give you a detailed, no-obligation custom quote within 24 hrs.
+          </p>
+          <a
+            href="/get-quote"
+            class="inline-flex items-center gap-2 rounded-xl bg-[var(--accent)] px-8 py-4 text-base font-semibold text-[var(--bg)] hover:opacity-90 transition-opacity"
+          >
+            Get a Custom Quote
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 </BaseLayout>

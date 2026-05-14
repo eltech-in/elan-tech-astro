@@ -48,7 +48,7 @@ export default function BlogFilter({ posts }: Props) {
             onClick={() => setActiveCategory(cat)}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)] ${
               activeCategory === cat
-                ? 'bg-[var(--accent)] text-[#0A0E1A] font-bold'
+                ? 'bg-[var(--accent)] text-[var(--bg)] font-bold'
                 : 'border border-[var(--border)] text-[var(--text-dim)] hover:border-[var(--accent)] hover:text-[var(--accent)]'
             }`}
           >

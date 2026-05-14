@@ -2,7 +2,7 @@
 // Portfolio project images for the infinite-scroll carousel
 // Source: /public/portfolio/*.avif/.png (all real client projects)
 const projects = [
-  { name: 'Ribolator USA',            image: '/portfolio/ribolator.png' },
+  { name: 'Ribolator USA',            image: '/portfolio/ribolator.avif' },
   { name: 'CIPL Corporate Portal',    image: '/portfolio/cipl.avif' },
   { name: 'CSRI-BSB International',   image: '/portfolio/csri.avif' },
   { name: 'Trimit Architects',        image: '/portfolio/trimitarch.avif' },
@@ -24,7 +24,7 @@ const projects = [
   { name: 'Merraki Expert',           image: '/portfolio/merraki-expert.avif' },
   { name: 'NEI',                      image: '/portfolio/nei.avif' },
   { name: 'Patel RCM',               image: '/portfolio/patelrcm.avif' },
-  { name: 'Resort Management Portal', image: '/portfolio/resort-management.png' },
+  { name: 'Resort Management Portal', image: '/portfolio/resort-management.avif' },
   { name: 'Rudra',                    image: '/portfolio/rudra.avif' },
   { name: 'Sheabm',                   image: '/portfolio/sheabm.avif' },
   { name: 'STDA',                     image: '/portfolio/stda.avif' },
@@ -35,7 +35,7 @@ const projects = [
 ];
 
 // Triple for seamless loop (33.33% = one full set)
-const items = [...projects, ...projects, ...projects];
+const items = [...projects, ...projects];
 ---
 
 <section
@@ -45,7 +45,7 @@ const items = [...projects, ...projects, ...projects];
   <!-- Header row -->
   <div class="relative z-10 mx-auto mb-12 max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
     <div class="text-center md:text-left">
-      <p class="text-xs font-bold uppercase tracking-[0.4em] text-[var(--accent)] mb-4 opacity-80">
+      <p class="text-xs font-bold uppercase tracking-[0.4em] text-[var(--text-muted)] mb-4">
         Our Recent Work
       </p>
       <h2

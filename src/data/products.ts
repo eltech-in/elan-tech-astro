@@ -9,8 +9,10 @@ export interface Product {
   desc: string;
   /** Full prose description (used on individual product page hero) */
   longDesc: string;
-  /** Brand accent hex colour for this product */
+  /** Brand accent hex colour for this product (dark-mode decorative use only) */
   accent: string;
+  /** CSS custom property — WCAG AA on both dark & light bg */
+  cssVar: string;
   /** Feature list — short strings shown as bullet points */
   features: string[];
   /** Why-choose-us bullet points */
@@ -19,6 +21,8 @@ export interface Product {
   targetAudience: string[];
   /** applicationCategory for SoftwareApplication schema */
   schemaCategory: string;
+  /** Live demo URL — undefined means "coming soon" */
+  demoUrl?: string;
 }
 
 export const products: Product[] = [
@@ -30,6 +34,7 @@ export const products: Product[] = [
     longDesc:
       'Our Real Estate Portal is a high-performance solution designed to streamline property transactions. It features a robust search engine, verified listing management, and a dedicated portal for joint ventures, ensuring a secure and transparent experience for all stakeholders.',
     accent: '#00E5A0',
+    cssVar: '--ac-teal',
     features: [
       'Comprehensive Listings for buying, renting, and selling properties.',
       'Advanced Search filters by location, budget, BHK, and property type.',
@@ -44,6 +49,7 @@ export const products: Product[] = [
     ],
     targetAudience: ['Home buyers', 'Renters', 'Property developers', 'Real estate investors'],
     schemaCategory: 'RealEstateApplication',
+    demoUrl: 'https://propertycab.elantech.cloud/',
   },
   {
     id: 'medical-conference-portal',
@@ -53,6 +59,7 @@ export const products: Product[] = [
     longDesc:
       'eLanCON is a specialized national medical conference portal designed to handle the complexities of academic events. From multi-tiered registrations to abstract submissions and scientific program management, it provides a seamless experience for organizers and delegates alike.',
     accent: '#6366F1',
+    cssVar: '--ac-indigo',
     features: [
       'Multi-tier Registration (Delegates, PG Students, AC Members).',
       'Online Abstract Submission for speakers.',
@@ -72,6 +79,7 @@ export const products: Product[] = [
       'Pharmaceutical sponsors',
     ],
     schemaCategory: 'HealthApplication',
+    demoUrl: 'https://elanconf.elantech.cloud/',
   },
   {
     id: 'ima-society-portal',
@@ -81,17 +89,18 @@ export const products: Product[] = [
     longDesc:
       'The IMA Society Portal is a comprehensive membership management platform built for medical associations. It integrates career opportunities, professional networking, and advocacy tools into a single, unified digital ecosystem.',
     accent: '#EC4899',
+    cssVar: '--ac-pink',
     features: [
-      'Exclusive Job Portal for IMA members.',
-      'Member e-Connect for membership and profile management.',
-      'News, Media, and Journal (JIMA) access.',
-      'Professional wings and social security schemes.',
-      'Policy and advocacy updates for the medical community.',
+      'Online Membership Management with e-Cards & renewals.',
+      'Event & CME Management with online registration and certificates.',
+      'Photo Gallery and society news publishing.',
+      'Online Fee & Dues Payment with Razorpay integration.',
+      'Executive Committee, Circulars & Document Library.',
     ],
     benefits: [
-      'Unified representation for modern medicine practitioners in India.',
-      'Access to career opportunities and continuous medical education.',
-      'Social security and professional protection for member doctors.',
+      'Unified digital identity for specialty medical societies in India.',
+      'Paperless membership, elections, and CME credit tracking.',
+      'Transparent governance with circulars, policies, and AGM records online.',
     ],
     targetAudience: [
       'Allopathic doctors',
@@ -99,6 +108,7 @@ export const products: Product[] = [
       'Indian healthcare policy makers',
     ],
     schemaCategory: 'BusinessApplication',
+    // Live demo coming soon
   },
   {
     id: 'resort-management-system',
@@ -108,12 +118,13 @@ export const products: Product[] = [
     longDesc:
       'Our Resort Management System offers a complete, white-labelled solution to manage every aspect of your hospitality business. From an intuitive online booking engine for direct reservations to deep operational tools for housekeeping and dining POS, it provides full control over your guest experience and business logic.',
     accent: '#F59E0B',
+    cssVar: '--ac-amber',
     features: [
-      'Online Room Booking Engine with Payment Gateway.',
-      'Staff scheduling and Housekeeping management dashboard.',
-      'Dining & Restaurant Inventory / POS integration.',
-      'Customer Relationship Management (CRM) for guests.',
-      'Automated email/SMS notifications for bookings.',
+      'Online Room Booking Engine with Razorpay Payment Gateway.',
+      'Occupancy Dashboard with live check-in/check-out tracking.',
+      'GST-compliant Billing, Invoicing & Multi-payment Settlement.',
+      'Staff Scheduling & Housekeeping Management Dashboard.',
+      'Automated Email/SMS Booking & Reminder Notifications.',
     ],
     benefits: [
       'Increase direct bookings and reduce commissions.',
@@ -127,6 +138,7 @@ export const products: Product[] = [
       'Hospitality Groups',
     ],
     schemaCategory: 'TravelApplication',
+    demoUrl: 'https://resort.elantech.cloud/auth',
   },
 ];
 

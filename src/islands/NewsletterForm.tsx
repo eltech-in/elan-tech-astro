@@ -59,7 +59,7 @@ export default function NewsletterForm() {
           <button
             type="submit"
             disabled={status === 'submitting'}
-            className="rounded-lg bg-[var(--accent)] px-5 py-2 text-sm font-bold text-[#0A0E1A] hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed transition-all whitespace-nowrap flex items-center gap-2"
+            className="rounded-lg bg-[var(--accent)] px-5 py-2 text-sm font-bold text-[var(--bg)] hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed transition-all whitespace-nowrap flex items-center gap-2"
           >
             {status === 'submitting' ? (
               <>

@@ -41,7 +41,7 @@ export const countries: CountryData[] = [
     costComparison: { localCost: '₹15,000–₹1,50,000', eLanCost: '₹15,000–₹1,50,000', savings: 'HQ pricing — best rates' },
     faq: [
       { question: 'Where is eLan Technology located in India?', answer: 'Our headquarters is in Nagpur, Maharashtra. We serve clients across all major Indian cities including Mumbai, Delhi, Bangalore, Hyderabad, Pune, Chennai, and 10+ more cities.' },
-      { question: 'What makes eLan different from other Indian web agencies?', answer: 'With 24+ years in business since 2002, 500+ clients across 25+ countries, and WCAG 2.1 AA compliance as standard, eLan Technology offers a depth of experience and accessibility focus that most Indian agencies cannot match.' },
+      { question: 'What makes eLan different from other Indian web agencies?', answer: 'With 24+ years in business since 2002, 500+ clients across 10+ countries, and WCAG 2.1 AA compliance as standard, eLan Technology offers a depth of experience and accessibility focus that most Indian agencies cannot match.' },
     ],
     hasLandingPage: true,
     isFeatured: true,

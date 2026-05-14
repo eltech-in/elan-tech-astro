@@ -134,7 +134,7 @@ const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${enc
           <h1 class="font-heading text-3xl font-bold leading-tight text-[var(--text)] sm:text-4xl lg:text-5xl mb-4">
             {title}
           </h1>
-          <p class="text-[var(--text-dim)] text-lg leading-relaxed mb-6">{description}</p>
+          <p class="lede text-[var(--text-dim)] text-lg leading-relaxed mb-6">{description}</p>
           <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-[var(--text-muted)]">
             <time datetime={publishDate} class="flex items-center gap-1.5">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
@@ -181,16 +181,7 @@ const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${enc
             </a>
           </div>
 
-          <article class="prose prose-lg prose-invert max-w-none
-            prose-headings:font-heading prose-headings:text-[var(--text)]
-            prose-p:text-[var(--text-dim)] prose-p:leading-relaxed
-            prose-a:text-[var(--accent)] prose-a:no-underline hover:prose-a:underline
-            prose-strong:text-[var(--text)]
-            prose-code:text-[var(--accent)] prose-code:bg-[var(--bg-card)] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
-            prose-pre:bg-[var(--bg-card)] prose-pre:border prose-pre:border-[var(--border)]
-            prose-blockquote:border-l-[var(--accent)] prose-blockquote:text-[var(--text-dim)]
-            prose-li:text-[var(--text-dim)]
-            prose-hr:border-[var(--border)]">
+          <article class="blog-article">
             <slot />
           </article>
 
@@ -216,7 +207,7 @@ const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${enc
               </p>
               <a
                 href="/contact"
-                class="inline-flex shrink-0 items-center gap-2 rounded-full bg-[var(--accent)] px-6 py-2.5 text-sm font-semibold text-[#0A0E1A] hover:brightness-110 transition-all"
+                class="inline-flex shrink-0 items-center gap-2 rounded-full bg-[var(--accent)] px-6 py-2.5 text-sm font-semibold text-[var(--bg)] hover:brightness-110 transition-all"
               >
                 Talk to Our Team →
               </a>
@@ -259,7 +250,7 @@ const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${enc
             </p>
             <a
               href="/free-website-audit"
-              class="block w-full rounded-xl bg-[var(--accent)] px-4 py-2.5 text-center text-sm font-semibold text-[#0A0E1A] hover:brightness-110 transition-all"
+              class="block w-full rounded-xl bg-[var(--accent)] px-4 py-2.5 text-center text-sm font-semibold text-[var(--bg)] hover:brightness-110 transition-all"
             >
               Claim Free Audit
             </a>
@@ -302,3 +293,253 @@ const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${enc
   </div>
 
 </BaseLayout>
+
+<style>
+  /* ── Blog article typography — no prose plugin required ── */
+  .blog-article {
+    color: var(--text-dim);
+    font-size: 1.0625rem;
+    line-height: 1.85;
+  }
+
+  /* Headings */
+  .blog-article :global(h1),
+  .blog-article :global(h2),
+  .blog-article :global(h3),
+  .blog-article :global(h4),
+  .blog-article :global(h5) {
+    font-family: var(--font-heading, 'Sora', system-ui, sans-serif);
+    color: var(--text);
+    line-height: 1.3;
+    margin-top: 2.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .blog-article :global(h2) {
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .blog-article :global(h3) {
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+
+  .blog-article :global(h4) {
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  /* First heading — no extra top margin */
+  .blog-article :global(h2:first-child),
+  .blog-article :global(h3:first-child) {
+    margin-top: 0;
+  }
+
+  /* Paragraphs */
+  .blog-article :global(p) {
+    margin-bottom: 1.2rem;
+  }
+
+  /* Links */
+  .blog-article :global(a) {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .blog-article :global(a:hover) {
+    border-bottom-color: var(--accent);
+  }
+
+  /* Strong / bold */
+  .blog-article :global(strong) {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* Emphasis / italic */
+  .blog-article :global(em) {
+    font-style: italic;
+    color: var(--text-dim);
+  }
+
+  /* Unordered lists */
+  .blog-article :global(ul) {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .blog-article :global(ul li) {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding: 0.6rem 0.85rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+
+  .blog-article :global(ul li::before) {
+    content: "▸";
+    color: var(--accent);
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+  }
+
+  /* Ordered lists */
+  .blog-article :global(ol) {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1.4rem;
+    counter-reset: blog-counter;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .blog-article :global(ol li) {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.6rem 0.85rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    counter-increment: blog-counter;
+  }
+
+  .blog-article :global(ol li::before) {
+    content: counter(blog-counter);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.6rem;
+    height: 1.6rem;
+    background: var(--accent);
+    color: var(--bg);
+    border-radius: 50%;
+    font-size: 0.7rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* Nested lists */
+  .blog-article :global(li ul),
+  .blog-article :global(li ol) {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+  }
+
+  /* Inline code */
+  .blog-article :global(code) {
+    font-family: 'ui-monospace', 'SFMono-Regular', 'Fira Code', monospace;
+    font-size: 0.875em;
+    background: var(--bg-card);
+    color: var(--accent);
+    padding: 0.15em 0.45em;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+
+  /* Code block */
+  .blog-article :global(pre) {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    overflow-x: auto;
+    margin-bottom: 1.4rem;
+  }
+
+  .blog-article :global(pre code) {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--text-dim);
+    font-size: 0.875rem;
+  }
+
+  /* Blockquote */
+  .blog-article :global(blockquote) {
+    border-left: 3px solid var(--accent);
+    margin: 1.75rem 0;
+    padding: 1rem 1.5rem;
+    background: var(--bg-card);
+    border-radius: 0 0.75rem 0.75rem 0;
+    font-style: italic;
+    color: var(--text-dim);
+  }
+
+  .blog-article :global(blockquote p:last-child) {
+    margin-bottom: 0;
+  }
+
+  /* Images */
+  .blog-article :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    border: 1px solid var(--border);
+    margin: 1.5rem 0;
+  }
+
+  /* Figure / figcaption */
+  .blog-article :global(figcaption) {
+    text-align: center;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin-top: -0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Horizontal rule */
+  .blog-article :global(hr) {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2.5rem 0;
+  }
+
+  /* Tables */
+  .blog-article :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  .blog-article :global(th) {
+    background: var(--bg-card);
+    color: var(--text);
+    font-weight: 600;
+    text-align: left;
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .blog-article :global(td) {
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dim);
+  }
+
+  .blog-article :global(tr:last-child td) {
+    border-bottom: none;
+  }
+</style>
+

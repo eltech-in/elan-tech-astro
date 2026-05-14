@@ -1,0 +1,44 @@
+---
+/**
+ * ChapterLabel.astro
+ * Decorative magazine-style section eyebrow: giant faded number + small uppercase label.
+ * The number is aria-hidden (decorative); the label is read by assistive tech.
+ */
+interface Props {
+  number: string;     // e.g. "01"
+  label: string;      // e.g. "Services"
+  align?: 'left' | 'center';
+  class?: string;
+}
+const { number, label, align = 'center', class: className = '' } = Astro.props;
+---
+<div
+  class:list={[
+    'chapter-label flex flex-col gap-1 select-none',
+    align === 'center' ? 'items-center text-center' : 'items-start text-left',
+    className,
+  ]}
+>
+  <span
+    aria-hidden="true"
+    class="chapter-label__num font-heading font-black leading-none text-[56px] sm:text-[72px] md:text-[88px] tracking-tight"
+  >
+    {number}
+  </span>
+  <span class="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.28em] text-[var(--text-muted)]">
+    {label}
+  </span>
+</div>
+
+<style>
+  .chapter-label__num {
+    background: linear-gradient(180deg, var(--text) 0%, transparent 85%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0.14;
+  }
+  :global(.light) .chapter-label__num {
+    opacity: 0.18;
+  }
+</style>

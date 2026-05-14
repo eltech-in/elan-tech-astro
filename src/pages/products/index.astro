@@ -7,239 +7,273 @@ const schema = breadcrumbSchema([
   { name: 'Home', url: '/' },
   { name: 'Products', url: '/products' },
 ]);
+
+// Bento slot pattern for 4 products: big · tall · wide · small
+const bentoSlots = [
+  'lg:col-span-4 lg:row-span-2',   // 0 – hero product
+  'lg:col-span-2 lg:row-span-2',   // 1 – tall
+  'lg:col-span-4 lg:row-span-1',   // 2 – wide
+  'lg:col-span-2 lg:row-span-1',   // 3 – compact
+];
 ---
 
 <BaseLayout
-  title="Proprietary Business Software Products — eLan Technology"
-  description="Explore eLan Technology's proprietary software products: Real Estate Portal, Medical Conference Portal, IMA Society Portal, and Resort Management System. Own your platform, not rent it."
+  title="Proprietary Software Products | Own Your Platform — eLan Technology"
+  description="White-labelled software: Real Estate, Medical Conference, IMA Society & Resort PMS portals. Own it once — no SaaS fees."
   schema={schema}
 >
 
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       HERO
-  ════════════════════════════════════════════════════════════════════════ -->
-  <section
-    aria-labelledby="products-hero-heading"
-    class="relative overflow-hidden bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-24 md:py-36"
-  >
-    <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
-      <div class="absolute -top-40 -left-40 h-[600px] w-[600px] rounded-full bg-[#00E5A0]/8 blur-[120px]"></div>
-      <div class="absolute -bottom-40 -right-20 h-[500px] w-[500px] rounded-full bg-[#6366F1]/8 blur-[120px]"></div>
-    </div>
+  <!-- ═══ HERO BENTO ═══════════════════════════════════════════════════════ -->
+  <section class="relative overflow-hidden bg-[var(--bg)] pt-16 pb-14 sm:pt-20 sm:pb-20" aria-labelledby="products-hero-h1">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:linear-gradient(var(--text)_1px,transparent_1px),linear-gradient(90deg,var(--text)_1px,transparent_1px)] [background-size:56px_56px]"></div>
+    <div aria-hidden="true" class="pointer-events-none absolute -top-40 -left-40 h-[520px] w-[520px] rounded-full bg-[var(--ac-teal)]/15 blur-[120px]"></div>
+    <div aria-hidden="true" class="pointer-events-none absolute -bottom-40 -right-40 h-[520px] w-[520px] rounded-full bg-[var(--ac-indigo)]/15 blur-[120px]"></div>
 
-    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)]/60 px-4 py-2 text-sm text-[var(--text-muted)] backdrop-blur-sm">
-        <span class="h-2 w-2 rounded-full bg-[#00E5A0] animate-pulse" aria-hidden="true"></span>
-        4 Proprietary Software Products
-      </div>
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <!-- Title card -->
+        <div class="lg:col-span-8 relative overflow-hidden rounded-3xl border border-[var(--border)] p-8 sm:p-12" style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-teal) 10%, var(--bg-card)) 0%, var(--bg-card) 60%);">
+          <span aria-hidden="true" class="absolute -left-10 -bottom-10 h-72 w-72 rotate-[-20deg] opacity-[0.07]" style="background: var(--ac-indigo);"></span>
+          <span class="relative inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg)]/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[var(--ac-teal)] backdrop-blur-sm">
+            <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--ac-teal)]" aria-hidden="true"></span>
+            4 Proprietary Products
+          </span>
+          <h1 id="products-hero-h1" class="relative mt-5 font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--text)] leading-[1.05]">
+            Own Your<br/>
+            <span style="background:linear-gradient(90deg,var(--ac-teal),var(--ac-indigo),var(--ac-pink),var(--ac-amber));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Business Platform.</span>
+          </h1>
+          <p class="relative mt-5 max-w-2xl text-base sm:text-lg text-[var(--text-dim)] leading-relaxed">
+            Why rent SaaS forever? We build white-labelled, fully custom products you own outright — real estate portals, medical conference platforms, society management, and hospitality PMS. One investment, your servers, your data.
+          </p>
+          <div class="relative mt-7 flex flex-wrap gap-3">
+            <a href="#products-grid" class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[var(--accent)]/25 hover:brightness-110 transition-all">
+              Explore Products
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+            </a>
+            <a href="/get-quote" class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] px-6 py-3 text-sm font-semibold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
+              Discuss a Custom Build
+            </a>
+          </div>
+        </div>
 
-      <h1
-        id="products-hero-heading"
-        class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-[var(--text)] mb-6"
-      >
-        Own Your
-        <span class="bg-gradient-to-r from-[#00E5A0] to-[#6366F1] bg-clip-text text-transparent">
-          Business Platform
-        </span>
-      </h1>
-
-      <p class="mx-auto mb-10 max-w-3xl text-lg sm:text-xl text-[var(--text-dim)] leading-relaxed">
-        Why pay monthly SaaS subscriptions forever? eLan Technology builds white-labelled,
-        fully custom software products you own outright. One investment — unlimited value.
-        No vendor lock-in. No recurring fees. Just a platform built for your exact needs.
-      </p>
-
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a
-          href="/get-quote"
-          class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-4 text-base font-semibold text-[var(--bg)] shadow-lg shadow-[var(--accent)]/25 transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
-        >
-          Discuss a Custom Product
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <a
-          href="/request-demo"
-          class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-transparent px-8 py-4 text-base font-semibold text-[var(--text)] transition-all duration-300 hover:border-[var(--accent)] hover:text-[var(--accent)] hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
-        >
-          Request a Live Demo
-        </a>
+        <!-- Stat bento -->
+        {[
+          { value: '4',     label: 'Production Products', token: '--ac-teal' },
+          { value: '3',     label: 'Live Demos Available', token: '--ac-amber' },
+          { value: '0',     label: 'Monthly SaaS Fees',    token: '--ac-emerald' },
+          { value: '100%',  label: 'Source Code Yours',    token: '--ac-violet' },
+        ].map(stat => (
+          <div class="lg:col-span-2 relative overflow-hidden rounded-2xl border border-[var(--border)] p-5" style={`background: linear-gradient(140deg, color-mix(in srgb, var(${stat.token}) 14%, var(--bg-card)) 0%, var(--bg-card) 75%);`}>
+            <span aria-hidden="true" class="absolute -right-4 -top-4 h-16 w-16 rounded-full opacity-[0.18]" style={`background: var(${stat.token});`}></span>
+            <div class="relative">
+              <div class="font-heading text-3xl sm:text-4xl font-black" style={`color: var(${stat.token});`}>{stat.value}</div>
+              <div class="mt-1 text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">{stat.label}</div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
 
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       PRODUCTS GRID
-  ════════════════════════════════════════════════════════════════════════ -->
-  <section aria-labelledby="products-grid-heading" class="bg-[var(--bg)] py-16 md:py-24">
+  <!-- ═══ PRODUCTS BENTO MOSAIC ═══════════════════════════════════════════ -->
+  <section id="products-grid" class="py-16 md:py-24 bg-[var(--bg)]" aria-labelledby="products-grid-h2">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <p class="text-center text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-3">
-        Our Products
-      </p>
-      <h2
-        id="products-grid-heading"
-        class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] text-center mb-4"
-      >
-        4 Battle-Tested Software Products
-      </h2>
-      <p class="text-lg text-[var(--text-dim)] text-center mb-14 max-w-2xl mx-auto">
-        Each product is refined across multiple real-world deployments. Buy, white-label, and launch faster.
-      </p>
 
-      <ul class="grid grid-cols-1 lg:grid-cols-2 gap-8" role="list">
-        {products.map((product) => (
-          <li
-            class="group relative rounded-2xl border bg-[var(--bg-card)] p-8 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-            style={`border-color: ${product.accent}33;`}
-          >
-            <!-- Accent top border -->
-            <div
-              class="absolute inset-x-0 top-0 h-1 rounded-t-2xl"
-              style={`background: linear-gradient(to right, ${product.accent}, ${product.accent}88);`}
-              aria-hidden="true"
-            ></div>
+      <header class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-2">Battle-Tested Products</p>
+          <h2 id="products-grid-h2" class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)]">
+            4 Platforms You Can Own
+          </h2>
+          <p class="mt-2 text-[var(--text-dim)] max-w-xl">
+            Each product is refined across multiple real-world deployments. Buy, white-label, deploy.
+          </p>
+        </div>
+        <span class="shrink-0 text-sm text-[var(--text-muted)] border border-[var(--border)] rounded-full px-4 py-1.5">
+          {products.length} products · 3 live demos
+        </span>
+      </header>
 
-            <div class="mb-4">
-              <h2 class="font-heading text-2xl font-bold text-[var(--text)] mb-1" style={`color: var(--text)`}>
-                {product.title}
-              </h2>
-              <p class="text-sm font-medium mb-3" style={`color: ${product.accent}`}>{product.tagline}</p>
-              <p class="text-[var(--text-dim)] leading-relaxed">{product.desc}</p>
-            </div>
-
-            <ul class="mb-8 space-y-2 flex-1" role="list" aria-label={`Key features of ${product.title}`}>
-              {product.features.map((feat) => (
-                <li class="flex items-start gap-2 text-sm text-[var(--text-dim)]">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0" style={`color: ${product.accent}`} aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  {feat}
-                </li>
-              ))}
-            </ul>
-
-            <div class="flex flex-col sm:flex-row gap-3 mt-auto">
-              <a
-                href={`/products/${product.slug}`}
-                aria-label={`Learn more about ${product.title}`}
-                class="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-[var(--bg)] transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2"
-                style={`background-color: ${product.accent}; --tw-shadow-color: ${product.accent}40; outline-color: ${product.accent};`}
+      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-5 auto-rows-[minmax(260px,auto)]" role="list">
+        {products.map((product, i) => {
+          const slot = bentoSlots[i] ?? 'lg:col-span-2 lg:row-span-1';
+          const isHero = i === 0;
+          const isTall = slot.includes('row-span-2');
+          const num = String(i + 1).padStart(2, '0');
+          return (
+            <li class={slot}>
+              <article
+                class="service-card group relative h-full overflow-hidden rounded-2xl border border-[var(--border)] transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+                style={`background: linear-gradient(135deg, color-mix(in srgb, var(${product.cssVar}) 14%, var(--bg-card)) 0%, var(--bg-card) 65%);`}
               >
-                Learn More
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
-              <a
-                href="/request-demo"
-                class="inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3 text-sm font-semibold text-[var(--text)] transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2"
-                style={`border-color: ${product.accent}55; hover:border-color: ${product.accent}; outline-color: ${product.accent};`}
-              >
-                Request Demo
-              </a>
-            </div>
-          </li>
-        ))}
+                <span aria-hidden="true" class="pointer-events-none absolute -left-12 -bottom-12 h-60 w-60 rotate-[-20deg] opacity-[0.1]" style={`background: var(${product.cssVar});`}></span>
+                <span aria-hidden="true" class="pointer-events-none absolute top-3 right-5 font-heading font-black leading-none select-none" style={`color: var(${product.cssVar}); font-size: ${isHero ? '9rem' : isTall ? '7rem' : '5rem'}; opacity: 0.16;`}>{num}</span>
+                <span aria-hidden="true" class="absolute inset-x-0 top-0 h-[3px]" style={`background: var(${product.cssVar});`}></span>
+                <span aria-hidden="true" class="pointer-events-none absolute -top-10 -right-10 h-48 w-48 rounded-full blur-3xl opacity-30 group-hover:opacity-50 transition-opacity" style={`background: var(${product.cssVar});`}></span>
+
+                <div class="relative h-full flex flex-col justify-between p-6 sm:p-8">
+                  <div>
+                    <div class="flex items-center gap-2 mb-4">
+                      {product.demoUrl ? (
+                        <span class="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-widest" style={`color: var(${product.cssVar}); border-color: color-mix(in srgb, var(${product.cssVar}) 50%, transparent); background: color-mix(in srgb, var(${product.cssVar}) 10%, transparent);`}>
+                          <span class="h-1.5 w-1.5 rounded-full animate-pulse" style={`background: var(${product.cssVar});`} aria-hidden="true"></span>
+                          Live Demo
+                        </span>
+                      ) : (
+                        <span class="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] bg-[var(--bg)]/60 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-widest text-[var(--text-muted)]">
+                          Coming Soon
+                        </span>
+                      )}
+                    </div>
+
+                    <h3 class={`font-heading font-bold text-[var(--text)] leading-tight ${isHero ? 'text-3xl sm:text-4xl' : 'text-xl sm:text-2xl'}`}>
+                      {product.title}
+                    </h3>
+                    <p class="mt-2 text-sm text-[var(--text-dim)] leading-relaxed">
+                      {product.desc}
+                    </p>
+
+                    {(isHero || isTall) && (
+                      <ul class="mt-5 space-y-1.5" role="list">
+                        {product.features.slice(0, isHero ? 4 : 3).map(feat => (
+                          <li class="flex items-start gap-2 text-[13px] text-[var(--text-dim)]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0" style={`color: var(${product.cssVar})`} aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>{feat}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+
+                  <div class="mt-6 flex flex-wrap items-center gap-3">
+                    <a
+                      href={`/products/${product.slug}`}
+                      class="inline-flex items-center gap-1.5 rounded-full px-5 py-2.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all"
+                      style={`background: var(${product.cssVar}); box-shadow: 0 8px 20px color-mix(in srgb, var(${product.cssVar}) 30%, transparent);`}
+                    >
+                      Learn More
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                    {product.demoUrl && (
+                      <a
+                        href={product.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Open live demo of ${product.title} — opens in new tab`}
+                        class="inline-flex items-center gap-1.5 rounded-full border px-4 py-2.5 text-sm font-semibold hover:-translate-y-0.5 transition-all"
+                        style={`color: var(${product.cssVar}); border-color: color-mix(in srgb, var(${product.cssVar}) 45%, transparent);`}
+                      >
+                        Try Demo ↗
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </article>
+            </li>
+          );
+        })}
       </ul>
     </div>
   </section>
 
 
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       WHY OWN VS SUBSCRIBE
-  ════════════════════════════════════════════════════════════════════════ -->
-  <section aria-labelledby="own-vs-sub-heading" class="bg-[var(--bg-card)] py-16 md:py-24 border-y border-[var(--border)]">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <p class="text-center text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-3">
-        The Case for Ownership
-      </p>
-      <h2
-        id="own-vs-sub-heading"
-        class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] text-center mb-12"
-      >
-        Own Your Platform vs. Renting SaaS Forever
-      </h2>
+  <!-- ═══ OWN vs SUBSCRIBE — BENTO PAIR ═══════════════════════════════════ -->
+  <section class="py-16 md:py-24 bg-[var(--bg-card)] border-y border-[var(--border)]" aria-labelledby="own-vs-sub-h2">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <header class="text-center mb-12">
+        <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-2">The Case for Ownership</p>
+        <h2 id="own-vs-sub-h2" class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)]">
+          Own Your Platform, Don't Rent It
+        </h2>
+        <p class="mt-3 max-w-2xl mx-auto text-[var(--text-dim)]">
+          SaaS is rented software with rented margins. Ownership flips the maths.
+        </p>
+      </header>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-        <!-- SaaS Subscription -->
-        <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-8">
-          <div class="mb-4 flex items-center gap-3">
-            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-red-500/10">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- SaaS card -->
+        <article class="relative overflow-hidden rounded-2xl border border-[var(--border)] p-8" style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-red) 10%, var(--bg)) 0%, var(--bg) 70%);">
+          <span aria-hidden="true" class="absolute top-4 right-5 font-heading font-black text-[5.5rem] leading-none select-none" style="color: var(--ac-red); opacity: 0.16;">✕</span>
+          <div class="relative">
+            <div class="mb-4 flex items-center gap-3">
+              <div class="flex h-11 w-11 items-center justify-center rounded-xl" style="background: color-mix(in srgb, var(--ac-red) 18%, transparent);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--ac-red)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              </div>
+              <h3 class="font-heading text-xl font-bold text-[var(--text)]">SaaS Subscription</h3>
             </div>
-            <h3 class="font-heading text-lg font-bold text-[var(--text)]">SaaS Subscription</h3>
+            <ul class="space-y-2.5" role="list">
+              {[
+                'Pay $200–$2,000/month forever',
+                'Limited customization',
+                'Vendor can raise prices or shut down',
+                'Your data lives on their servers',
+                'Generic features — not your workflow',
+                'No competitive moat',
+              ].map(item => (
+                <li class="flex items-start gap-2.5 text-sm text-[var(--text-dim)]">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ac-red)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul class="space-y-3" role="list">
-            {[
-              'Pay $200–$2,000/month forever',
-              'Limited customization options',
-              'Vendor can change pricing or shut down',
-              'Your data on their servers',
-              'Generic features — not your workflow',
-              'No competitive advantage',
-            ].map((item) => (
-              <li class="flex items-start gap-2 text-sm text-[var(--text-dim)]">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
+        </article>
 
-        <!-- One-time Custom Product -->
-        <div class="rounded-2xl border bg-[var(--bg)] p-8" style="border-color: #00E5A033;">
-          <div class="mb-4 flex items-center gap-3">
-            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-[#00E5A0]/10">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00E5A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        <!-- Own card -->
+        <article class="relative overflow-hidden rounded-2xl border p-8" style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-emerald) 14%, var(--bg)) 0%, var(--bg) 70%); border-color: color-mix(in srgb, var(--ac-emerald) 35%, var(--border));">
+          <span aria-hidden="true" class="absolute top-4 right-5 font-heading font-black text-[5.5rem] leading-none select-none" style="color: var(--ac-emerald); opacity: 0.2;">✓</span>
+          <div class="relative">
+            <div class="mb-4 flex items-center gap-3">
+              <div class="flex h-11 w-11 items-center justify-center rounded-xl" style="background: color-mix(in srgb, var(--ac-emerald) 18%, transparent);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--ac-emerald)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <h3 class="font-heading text-xl font-bold text-[var(--text)]">One-time Custom Product</h3>
             </div>
-            <h3 class="font-heading text-lg font-bold text-[var(--text)]">One-time Custom Product</h3>
+            <ul class="space-y-2.5" role="list">
+              {[
+                'Pay once — own forever',
+                'Fully customised to your business',
+                'Hosted on your own servers',
+                'Your data, your control',
+                'Built around your exact workflow',
+                'Unique competitive advantage',
+              ].map(item => (
+                <li class="flex items-start gap-2.5 text-sm text-[var(--text-dim)]">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ac-emerald)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul class="space-y-3" role="list">
-            {[
-              'Pay once — own forever',
-              'Fully customized to your business',
-              'Hosted on your own servers',
-              'Your data, your control',
-              'Built around your exact workflow',
-              'Unique competitive advantage',
-            ].map((item) => (
-              <li class="flex items-start gap-2 text-sm text-[var(--text-dim)]">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00E5A0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
+        </article>
       </div>
     </div>
   </section>
 
 
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       CTA
-  ════════════════════════════════════════════════════════════════════════ -->
-  <section aria-labelledby="products-cta-heading" class="bg-[var(--bg)] py-16 md:py-24">
-    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
-      <h2
-        id="products-cta-heading"
-        class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] mb-4"
-      >
-        Ready to Build Your Own Platform?
-      </h2>
-      <p class="text-lg text-[var(--text-dim)] mb-8 leading-relaxed">
-        Whether you want to white-label one of our existing products or build something entirely custom,
-        let's talk about making it happen.
-      </p>
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a
-          href="/get-quote"
-          class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-4 text-base font-semibold text-[var(--bg)] shadow-lg shadow-[var(--accent)]/25 transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
-        >
-          Discuss a Custom Product
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <a
-          href="/request-demo"
-          class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-transparent px-8 py-4 text-base font-semibold text-[var(--text)] transition-all duration-300 hover:border-[var(--accent)] hover:text-[var(--accent)] hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
-        >
-          See a Live Demo
-        </a>
+  <!-- ═══ CTA ══════════════════════════════════════════════════════════════ -->
+  <section class="py-20 bg-[var(--bg)]" aria-labelledby="products-cta-h2">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+      <div class="relative">
+        <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-[var(--ac-teal)] via-[var(--ac-indigo)] to-[var(--ac-pink)] opacity-20 blur-xl" aria-hidden="true"></div>
+        <div class="relative rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-10">
+          <h2 id="products-cta-h2" class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] mb-4">
+            Ready to Build Your Own Platform?
+          </h2>
+          <p class="text-lg text-[var(--text-dim)] mb-8 leading-relaxed max-w-xl mx-auto">
+            White-label one of our products or build something entirely custom — we deliver in 4-12 weeks.
+          </p>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="/get-quote" class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3.5 text-sm font-bold text-white shadow-lg shadow-[var(--accent)]/25 hover:brightness-110 transition-all">
+              Discuss a Custom Product
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="/request-demo" class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] px-8 py-3.5 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
+              Request a Live Demo
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </section>

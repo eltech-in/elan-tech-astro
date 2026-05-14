@@ -7,7 +7,8 @@ export interface Service {
   features: string[];
   icon: string; // lucide icon name as string
   iconSvg: string; // inline SVG string for rendering
-  accent: string; // hex color
+  accent: string; // hex color (dark-mode decorative use only)
+  cssVar: string; // CSS custom property — WCAG AA on both dark & light bg
 }
 
 export const services: Service[] = [
@@ -30,6 +31,7 @@ export const services: Service[] = [
     icon: 'Palette',
     iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>`,
     accent: '#EC4899',
+    cssVar: '--ac-pink',
   },
   {
     slug: 'web-development',
@@ -40,6 +42,9 @@ export const services: Service[] = [
       'From simple business websites to complex web applications, we engineer solutions using modern stacks — React, Next.js, MERN, WordPress, and more.',
     features: [
       'React / Next.js',
+      'Node.js / Express.js',
+      'PostgreSQL / Supabase',
+      'Headless CMS (Jamstack)',
       'MERN Stack',
       'WordPress',
       'Custom CMS',
@@ -50,6 +55,7 @@ export const services: Service[] = [
     icon: 'Code2',
     iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
     accent: '#6366F1',
+    cssVar: '--ac-indigo',
   },
   {
     slug: 'ecommerce',
@@ -70,6 +76,7 @@ export const services: Service[] = [
     icon: 'ShoppingCart',
     iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>`,
     accent: '#F59E0B',
+    cssVar: '--ac-amber',
   },
   {
     slug: 'seo',
@@ -90,6 +97,7 @@ export const services: Service[] = [
     icon: 'Search',
     iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><polyline points="11 8 11 11 13 13"/></svg>`,
     accent: '#10B981',
+    cssVar: '--ac-emerald',
   },
   {
     slug: 'digital-marketing',
@@ -109,7 +117,8 @@ export const services: Service[] = [
     ],
     icon: 'TrendingUp',
     iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
-    accent: '#00E5A0',
+    accent: '#06B6D4',
+    cssVar: '--ac-cyan',
   },
   {
     slug: 'mobile-app-development',
@@ -129,7 +138,8 @@ export const services: Service[] = [
     ],
     icon: 'Smartphone',
     iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>`,
-    accent: '#06B6D4',
+    accent: '#A855F7',
+    cssVar: '--ac-violet',
   },
   {
     slug: 'branding',
@@ -149,7 +159,8 @@ export const services: Service[] = [
     ],
     icon: 'Paintbrush',
     iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>`,
-    accent: '#A855F7',
+    accent: '#00E5A0',
+    cssVar: '--ac-teal',
   },
   {
     slug: 'maintenance-security',
@@ -170,5 +181,27 @@ export const services: Service[] = [
     icon: 'Shield',
     iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
     accent: '#EF4444',
+    cssVar: '--ac-red',
+  },
+  {
+    slug: 'ada-compliant-web-design',
+    title: 'ADA & WCAG Compliance',
+    shortTitle: 'Accessibility',
+    tagline: 'Inclusive and legally compliant digital experiences',
+    description:
+      'We audit, remediate, and build websites that meet WCAG standards, ensuring your platform is fully accessible and protected from legal liabilities.',
+    features: [
+      'WCAG 2.1 & 2.2 Audits',
+      'Accessibility Remediation',
+      'ADA Compliant UI Design',
+      'Screen Reader Support',
+      'Assistive Tech Testing',
+      'Legal Compliance Reports',
+      'Ongoing Monitoring',
+    ],
+    icon: 'Accessibility',
+    iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="4" r="1"/><path d="m18 19 1-7-6 1"/><path d="m5 8 3-3 5.5 3-2.36 3.5"/><path d="M4.24 14.5a5 5 0 0 0 6.88 6"/><path d="M13.76 17.5a5 5 0 0 0-6.88-6"/></svg>`,
+    accent: '#3B82F6',
+    cssVar: '--ac-blue',
   },
 ];

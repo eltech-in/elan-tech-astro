@@ -72,7 +72,7 @@ const industries = ['Healthcare', 'Real Estate', 'Hospitality', 'Education', 'Ma
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-16">
         <div class="text-center">
-          <div class="font-heading text-6xl font-bold text-[var(--accent)]" aria-label="4.9 out of 5 stars">4.9</div>
+          <p class="font-heading text-6xl font-bold text-[var(--accent)]" role="img" aria-label="4.9 out of 5 stars">4.9</p>
           <div class="flex gap-1 justify-center my-2" aria-hidden="true">
             {"★★★★★".split('').map(() => (
               <span class="text-[var(--accent)] text-2xl">★</span>
@@ -113,7 +113,7 @@ const industries = ['Healthcare', 'Real Estate', 'Hospitality', 'Education', 'Ma
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {featured.map((t) => (
           <blockquote class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 flex flex-col">
-            <div class="flex gap-0.5 mb-6" aria-label={`${t.rating} out of 5 stars`}>
+            <div class="flex gap-0.5 mb-6" role="img" aria-label={`${t.rating} out of 5 stars`}>
               {Array.from({ length: t.rating }).map(() => (
                 <span class="text-[var(--accent)] text-lg" aria-hidden="true">★</span>
               ))}
@@ -162,7 +162,7 @@ const industries = ['Healthcare', 'Real Estate', 'Hospitality', 'Education', 'Ma
                 <cite class="font-semibold text-[var(--text)] not-italic text-sm block truncate">{t.author}</cite>
                 <p class="text-xs text-[var(--text-muted)] truncate">{t.role}, {t.company}</p>
               </div>
-              <div class="ml-auto flex gap-0.5 shrink-0" aria-label={`${t.rating} stars`}>
+              <div class="ml-auto flex gap-0.5 shrink-0" role="img" aria-label={`${t.rating} stars`}>
                 {Array.from({ length: t.rating }).map(() => (
                   <span class="text-[var(--accent)] text-sm" aria-hidden="true">★</span>
                 ))}
@@ -210,7 +210,7 @@ const industries = ['Healthcare', 'Real Estate', 'Hospitality', 'Education', 'Ma
       </p>
       <a
         href="/get-quote"
-        class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-4 text-base font-semibold text-[#0A0E1A] shadow-lg shadow-[var(--accent)]/25 transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5"
+        class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-4 text-base font-semibold text-[var(--bg)] shadow-lg shadow-[var(--accent)]/25 transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5"
       >
         Get a Free Quote
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>

@@ -14,7 +14,7 @@ interface Props {
 
 function StarRating({ rating }: { rating: number }) {
   return (
-    <div aria-label={`${rating} out of 5 stars`} className="flex gap-0.5">
+    <div role="img" aria-label={`${rating} out of 5 stars`} className="flex gap-0.5">
       {[1, 2, 3, 4, 5].map((star) => (
         <svg
           key={star}
@@ -80,7 +80,6 @@ export default function TestimonialCarousel({ testimonials }: Props) {
 
   return (
     <section
-      role="region"
       aria-label="Customer testimonials"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
@@ -118,25 +117,14 @@ export default function TestimonialCarousel({ testimonials }: Props) {
           </svg>
         </button>
 
-        {/* Dots */}
-        <div className="flex gap-2" role="tablist" aria-label="Testimonial navigation">
-          {testimonials.map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              role="tab"
-              aria-label={`Go to testimonial ${i + 1}`}
-              aria-selected={i === current}
-              aria-current={i === current ? 'true' : undefined}
-              onClick={() => goTo(i)}
-              className={`w-2.5 h-2.5 rounded-full transition-all duration-200 ${
-                i === current
-                  ? 'bg-[var(--accent)] scale-125'
-                  : 'bg-[var(--border)] hover:bg-[var(--text-muted)]'
-              }`}
-            />
-          ))}
-        </div>
+        {/* Slide counter — e.g. "1 / 3" */}
+        <span
+          aria-live="polite"
+          aria-atomic="true"
+          className="min-w-[3rem] text-center text-sm font-medium text-[var(--text-muted)] tabular-nums"
+        >
+          {current + 1} / {total}
+        </span>
 
         {/* Next */}
         <button

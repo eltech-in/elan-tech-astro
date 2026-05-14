@@ -58,7 +58,7 @@ const steps = [
         {steps.map((s, i) => (
           <>
             <div class="flex items-start sm:items-center gap-4 sm:flex-col sm:text-center sm:max-w-[180px]">
-              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--accent)] font-bold text-[#0A0E1A] text-sm">
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--accent)] font-bold text-[var(--bg)] text-sm">
                 {s.step}
               </div>
               <div>
@@ -85,7 +85,7 @@ const steps = [
         Book Your Free Demo
       </h2>
       <p class="text-center text-[var(--text-dim)] mb-8">
-        Fill in the form and we'll confirm your session within 4 business hours.
+        Fill in the form and we'll confirm your session within 24 hrs.
       </p>
 
       <!-- TODO: RequestDemoForm island (Step 3) -->
@@ -170,7 +170,7 @@ const steps = [
 
         <button
           type="submit"
-          class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity w-full justify-center"
+          class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[var(--bg)] hover:opacity-90 transition-opacity w-full justify-center"
         >
           Request My Demo →
         </button>

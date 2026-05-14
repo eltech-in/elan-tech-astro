@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { faqs } from '../data/faq';
-import { faqSchema, breadcrumbSchema } from '../utils/schema';
+import { faqSchema, breadcrumbSchema, speakableSchema } from '../utils/schema';
 
 const schema = [
   faqSchema(faqs),
@@ -9,6 +9,8 @@ const schema = [
     { name: 'Home', url: '/' },
     { name: 'FAQ', url: '/faq' },
   ]),
+  // AEO: every FAQ answer block is fair game for voice/featured snippets.
+  speakableSchema('/faq', ['h1', '.faq-question', '.faq-answer']),
 ];
 
 const categoryLabels: Record<string, string> = {
@@ -73,7 +75,7 @@ const categories = [...new Set(faqs.map((f) => f.category))];
             <div class="divide-y divide-[var(--border)]">
               {items.map((item) => (
                 <details class="border-b border-[var(--border)] py-4 group">
-                  <summary class="cursor-pointer list-none flex items-center justify-between font-medium text-[var(--text)] py-1 hover:text-[var(--accent)] transition-colors">
+                  <summary class="faq-question cursor-pointer list-none flex items-center justify-between font-medium text-[var(--text)] py-1 hover:text-[var(--accent)] transition-colors">
                     {item.question}
                     <svg
                       class="h-5 w-5 shrink-0 transition-transform duration-200 group-open:rotate-180 ml-4 text-[var(--text-muted)]"
@@ -89,9 +91,7 @@ const categories = [...new Set(faqs.map((f) => f.category))];
                       <polyline points="6 9 12 15 18 9"/>
                     </svg>
                   </summary>
-                  <div class="pt-3 pb-1 text-[var(--text-dim)] text-sm leading-relaxed">
-                    {item.answer}
-                  </div>
+                  <div class="faq-answer pt-3 pb-1 text-[var(--text-dim)] text-sm leading-relaxed" set:html={item.answer} />
                 </details>
               ))}
             </div>
@@ -118,7 +118,7 @@ const categories = [...new Set(faqs.map((f) => f.category))];
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a
             href="/contact"
-            class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity"
+            class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[var(--bg)] hover:opacity-90 transition-opacity"
           >
             Contact Us Directly
           </a>

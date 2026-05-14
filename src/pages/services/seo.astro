@@ -53,7 +53,10 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
 >
 
   <!-- HERO -->
-  <section class="relative mb-12 overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-500/10 via-[var(--bg-card)] to-[var(--bg-card)] p-8 md:p-12 border border-[var(--border)]">
+  <section class="service-card relative mb-12 overflow-hidden rounded-2xl border border-[var(--border)] p-8 md:p-12" style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-emerald) 12%, var(--bg-card)) 0%, var(--bg-card) 65%);">
+    <span aria-hidden="true" class="service-card__num pointer-events-none absolute top-4 right-6 font-heading font-black leading-none select-none" style="color: var(--ac-emerald); font-size: 7rem;">04</span>
+    <span aria-hidden="true" class="service-card__stripe pointer-events-none absolute -left-12 -bottom-12 h-60 w-60 rotate-[-20deg] opacity-[0.08]" style="background: var(--ac-emerald);"></span>
+    <div class="relative">
     <div class="grid gap-10 md:grid-cols-2 md:items-center">
       <div>
         <p class="mb-2 text-sm font-semibold uppercase tracking-widest" style={`color: ${service.accent};`}>{service.tagline}</p>
@@ -80,6 +83,7 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
         ))}
       </ul>
     </div>
+  </div>
   </section>
 
   <!-- WHAT'S INCLUDED -->
@@ -98,7 +102,7 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
         { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>', name: 'Competitor Analysis', desc: 'We analyse your top 5-10 competitors — their keyword targets, backlink profiles, content strategies, and technical advantages. This intelligence directly informs our strategy, helping you find gaps and opportunities they have missed.' },
       ].map(({ icon, name, desc }) => (
         <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
-          <div class="mb-3 inline-flex h-11 w-11 items-center justify-center rounded-xl" style="background: #10B98120; color: #10B981;" set:html={icon} />
+          <div class="mb-3 inline-flex h-11 w-11 items-center justify-center rounded-xl" style="background: color-mix(in srgb, var(--ac-emerald) 18%, transparent); color: var(--ac-emerald);" set:html={icon} />
           <h3 class="font-heading text-base font-semibold text-[var(--text)] mb-2">{name}</h3>
           <p class="text-sm text-[var(--text-muted)] leading-relaxed">{desc}</p>
         </div>
@@ -148,7 +152,7 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
             <span>{question}</span>
             <span class="ml-4 shrink-0 text-[var(--text-muted)] text-lg">+</span>
           </summary>
-          <p class="px-6 pb-5 pt-1 text-sm text-[var(--text-muted)] leading-relaxed">{answer}</p>
+          <p class="px-6 pb-5 pt-1 text-sm text-[var(--text-muted)] leading-relaxed" set:html={answer} />
         </details>
       ))}
     </div>

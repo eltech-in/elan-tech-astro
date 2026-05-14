@@ -45,9 +45,42 @@ const { title, description, canonical, ogImage, ogType, noindex, schema, geo } =
       schema={schema}
       geo={geo}
     />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EC0W1VE3NS"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-EC0W1VE3NS');
+    </script>
+
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="IdIodnKz_eIT0o2_-Gqgs_o-jQTYPXBUu41aalM_E7o" />
+
+    <!-- Google Tag Manager -->
+    <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-5H7FHGJ');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript" is:inline>
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "ff08posqyo");
+    </script>
   </head>
   <body class="bg-[var(--bg)] text-[var(--text)] font-sans antialiased">
-    <SkipLink />
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5H7FHGJ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <nav aria-label="Skip navigation"><SkipLink /></nav>
     <Header />
     <main id="main-content" tabindex="-1">
       <slot />
@@ -56,7 +89,8 @@ const { title, description, canonical, ogImage, ogType, noindex, schema, geo } =
     <!-- Desktop: floating WhatsApp. Mobile: sticky bottom bar (Call + WhatsApp) -->
     <WhatsAppFloat />
     <StickyContactBar />
-    <!-- Mobile bottom bar spacer so footer content isn't hidden behind sticky bar -->
-    <div class="h-14 lg:hidden" aria-hidden="true"></div>
+    <!-- Mobile bottom bar spacer so footer content isn't hidden behind the
+         floating island contact bar (~48px tall + 12px bottom gap + safe-area). -->
+    <div class="h-20 lg:hidden" aria-hidden="true"></div>
   </body>
 </html>

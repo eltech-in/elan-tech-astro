@@ -62,7 +62,7 @@ export default function CookieConsent() {
           <button
             type="button"
             onClick={() => accept('all')}
-            className="rounded-lg bg-[var(--accent)] px-4 py-2 text-xs font-semibold text-[#0A0E1A] hover:opacity-90 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
+            className="rounded-lg bg-[var(--accent)] px-4 py-2 text-xs font-semibold text-[var(--bg)] hover:opacity-90 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
           >
             Accept All
           </button>

@@ -35,7 +35,6 @@ const services: { label: string; slug: string; subpages: SubPage[] }[] = [
       'Custom Design',
       'Responsive Design',
       'Landing Pages',
-      { label: 'ADA & WCAG Compliance', href: '/ada-compliant-web-design' },
     ],
   },
   {
@@ -188,10 +187,10 @@ export default function MegaMenu() {
       aria-label={`${activeMenu} mega menu`}
       onMouseEnter={() => { if (hoverTimeout.current) clearTimeout(hoverTimeout.current); }}
       onMouseLeave={closeMenu}
-      className="absolute left-0 top-full z-40 w-full bg-[var(--bg-card)] shadow-2xl border-t border-[var(--border)]"
+      className="absolute left-0 right-0 top-full z-40 mt-2 w-full overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] shadow-2xl shadow-black/20"
     >
-      {/* Invisible hover bridge */}
-      <div className="absolute left-0 -top-6 w-full h-6 bg-transparent" />
+      {/* Invisible hover bridge — covers the gap between island and dropdown */}
+      <div className="absolute left-0 -top-3 w-full h-3 bg-transparent" />
 
       {activeMenu === 'services' ? (
         <div className="mx-auto max-w-7xl px-6 py-8">
@@ -239,7 +238,15 @@ export default function MegaMenu() {
             })}
           </div>
 
-          <div className="mt-6 pt-4 border-t border-[var(--border)] flex justify-end">
+          <div className="mt-6 pt-4 border-t border-[var(--border)] flex justify-between items-center">
+            <a
+              href="/services/ada-compliant-web-design"
+              onClick={() => setActiveMenu(null)}
+              className="text-xs font-semibold text-[var(--text)] hover:text-[var(--accent)] transition-colors flex items-center gap-1"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              ADA & WCAG Compliance
+            </a>
             <a
               href="/services"
               onClick={() => setActiveMenu(null)}
@@ -287,7 +294,7 @@ export default function MegaMenu() {
               <a
                 href="/get-quote"
                 onClick={() => setActiveMenu(null)}
-                className="mt-4 block rounded-lg bg-[var(--accent)] px-4 py-2.5 text-center text-sm font-bold text-[#0A0E1A] hover:opacity-90 transition-opacity"
+                className="mt-4 block rounded-lg bg-[var(--accent)] px-4 py-2.5 text-center text-sm font-bold text-[var(--bg)] hover:opacity-90 transition-opacity"
               >
                 Discuss a Product
               </a>

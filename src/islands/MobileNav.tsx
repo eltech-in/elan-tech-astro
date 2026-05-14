@@ -17,7 +17,7 @@ const navLinks = [
       { label: 'Mobile App Development', href: '/services/mobile-app-development' },
       { label: 'Branding', href: '/services/branding' },
       { label: 'Maintenance & Security', href: '/services/maintenance-security' },
-      { label: 'ADA & WCAG Compliance', href: '/ada-compliant-web-design' },
+      { label: 'ADA & WCAG Compliance', href: '/services/ada-compliant-web-design' },
     ],
   },
   {

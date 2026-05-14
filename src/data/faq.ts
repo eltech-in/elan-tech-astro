@@ -33,7 +33,7 @@ export const faqs: FAQItem[] = [
   {
     question: 'Can I see examples of your previous work?',
     answer:
-      'Absolutely. You can browse our portfolio at elantechnology.com/portfolio to see case studies for projects including Ribolator USA, CIPL Corporate Portal, Aasthaa Hospital, D\'FYNE Magazine, and more. We are happy to share additional relevant work samples on request.',
+      'Absolutely. You can browse our portfolio at <a href="https://elan-tech.net/portfolio" class="text-[var(--accent)] underline hover:opacity-80" target="_blank" rel="noopener noreferrer">elan-tech.net/portfolio</a> to see case studies for projects including Ribolator USA, CIPL Corporate Portal, Aasthaa Hospital, D\'FYNE Magazine, and more. We are happy to share additional relevant work samples on request.',
     category: 'general',
   },
 
@@ -195,7 +195,7 @@ export const faqs: FAQItem[] = [
   {
     question: 'How can a Raipur business get started with eLan Technology?',
     answer:
-      'Getting started is simple. Fill out our contact form at elantechnology.com/contact, send us an email at hello@elantechnology.com, or call us directly. We will schedule a discovery call to understand your business goals and send you a detailed proposal within 48 hours.',
+      'Getting started is simple. Fill out our contact form at <a href="https://elan-tech.net/contact" class="text-[var(--accent)] underline hover:opacity-80" target="_blank" rel="noopener noreferrer">elan-tech.net/contact</a>, send us an email at <a href="mailto:hello@elan-tech.net" class="text-[var(--accent)] underline hover:opacity-80">hello@elan-tech.net</a>, or call us directly. We will schedule a discovery call to understand your business goals and send you a detailed proposal within 48 hours.',
     category: 'city-raipur',
   },
 ];

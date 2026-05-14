@@ -11,6 +11,29 @@ export function getStaticPaths() {
 }
 
 const { project } = Astro.props;
+
+// Accent token per category
+const categoryToken: Record<string, string> = {
+  'eCommerce': '--ac-amber',
+  'Website Design': '--ac-pink',
+  'Web Development': '--ac-indigo',
+  'Portal': '--ac-cyan',
+  'Branding': '--ac-teal',
+  'Mobile App': '--ac-violet',
+};
+const token = categoryToken[project.category] ?? '--ac-teal';
+
+// Related (same category or group) – cap at 6 for sidebar
+const related = projects
+  .filter(p => p.slug !== project.slug && (p.category === project.category || p.group === project.group))
+  .slice(0, 6);
+
+// Index of current project in its group (for prev/next inside sidebar)
+const allInGroup = projects.filter(p => (p.group ?? 'Other') === (project.group ?? 'Other'));
+const idx = allInGroup.findIndex(p => p.slug === project.slug);
+const prevProject = idx > 0 ? allInGroup[idx - 1] : null;
+const nextProject = idx >= 0 && idx < allInGroup.length - 1 ? allInGroup[idx + 1] : null;
+
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'Portfolio', url: '/portfolio' },
@@ -27,161 +50,338 @@ const caseStudySchema = {
   genre: project.category,
 };
 const schema = [breadcrumbSchema(breadcrumbs), caseStudySchema];
+
+const hasNarrative = project.challenge && project.solution && project.result;
 ---
 
 <BaseLayout
-  title={`${project.title} — Web Design Case Study | eLan Technology`}
-  description={`Case study: ${project.description.slice(0, 140)}…`}
+  title={`${project.title} — ${project.category} Case Study | eLan Technology`}
+  description={`${project.description.slice(0, 155)}`}
   schema={schema}
 >
-  <!-- Hero -->
-  <section class="relative overflow-hidden bg-[var(--bg)] py-20 sm:py-28">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-      <!-- Breadcrumb -->
-      <nav aria-label="Breadcrumb" class="mb-8">
-        <ol class="flex items-center gap-2 text-sm text-[var(--text-muted)]">
-          <li><a href="/" class="hover:text-[var(--accent)] transition-colors">Home</a></li>
+
+  <!-- ═══ FULL-BLEED HERO ═══════════════════════════════════════════════════ -->
+  <section class="relative overflow-hidden" aria-labelledby="cs-hero-h1">
+    <!-- Background image -->
+    <div class="absolute inset-0">
+      <img
+        src={project.image}
+        alt=""
+        width="1600" height="900"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        class="w-full h-full object-cover"
+        onerror="this.style.display='none'"
+        aria-hidden="true"
+      />
+      <!-- Color-mix overlay -->
+      <div class="absolute inset-0" style={`background: linear-gradient(135deg, color-mix(in srgb, var(${token}) 55%, rgba(0,0,0,0.7)) 0%, rgba(0,0,0,0.9) 70%);`}></div>
+      <!-- grid texture -->
+      <div class="absolute inset-0 opacity-[0.08] [background-image:linear-gradient(rgba(255,255,255,0.4)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.4)_1px,transparent_1px)] [background-size:56px_56px]"></div>
+      <!-- diagonal stripe -->
+      <span aria-hidden="true" class="pointer-events-none absolute -left-20 -bottom-20 h-96 w-96 rotate-[-20deg] opacity-[0.12]" style={`background: var(${token});`}></span>
+    </div>
+
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 pb-24 sm:pt-28 sm:pb-32">
+      <!-- Breadcrumb (white on dark) -->
+      <nav aria-label="Breadcrumb" class="mb-10">
+        <ol class="flex items-center gap-2 text-xs sm:text-sm text-white/70">
+          <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
           <li aria-hidden="true">/</li>
-          <li><a href="/portfolio" class="hover:text-[var(--accent)] transition-colors">Portfolio</a></li>
+          <li><a href="/portfolio" class="hover:text-white transition-colors">Portfolio</a></li>
           <li aria-hidden="true">/</li>
-          <li class="text-[var(--text-dim)]" aria-current="page">{project.title}</li>
+          <li class="text-white font-semibold truncate" aria-current="page">{project.title}</li>
         </ol>
       </nav>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div>
-          <!-- Category badge -->
-          <span
-            class="inline-block px-3 py-1 rounded-full text-xs font-semibold border mb-4"
-            style={`border-color: ${project.accent}; color: ${project.accent}`}
-          >
-            {project.category}
-          </span>
+      <div class="max-w-4xl">
+        <span
+          class="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-white backdrop-blur-sm mb-6"
+        >
+          <span class="h-1.5 w-1.5 rounded-full animate-pulse" style={`background: var(${token})`} aria-hidden="true"></span>
+          {project.category}
+          <span class="text-white/50">·</span>
+          <span class="text-white/80 normal-case tracking-normal">{project.industry}</span>
+        </span>
 
-          <h1 class="font-heading text-4xl sm:text-5xl font-bold text-[var(--text)] leading-tight mb-4">
-            {project.title}
-          </h1>
+        <h1 id="cs-hero-h1" class="font-heading text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.05] mb-5 drop-shadow-lg">
+          {project.title}
+        </h1>
 
-          <dl class="flex flex-wrap gap-6 text-sm mb-6">
-            <div>
-              <dt class="text-[var(--text-muted)] uppercase tracking-wide text-xs mb-1">Client</dt>
-              <dd class="font-semibold text-[var(--text)]">{project.client}</dd>
-            </div>
-            <div>
-              <dt class="text-[var(--text-muted)] uppercase tracking-wide text-xs mb-1">Industry</dt>
-              <dd class="font-semibold text-[var(--text)]">{project.industry}</dd>
-            </div>
-          </dl>
+        <p class="max-w-2xl text-lg sm:text-xl text-white/85 leading-relaxed mb-8">
+          {project.description}
+        </p>
 
-          <p class="text-lg text-[var(--text-dim)] leading-relaxed mb-6">
-            {project.description}
-          </p>
-
-          <!-- Technologies -->
-          <div class="flex flex-wrap gap-2">
-            {project.technologies.map((tech) => (
-              <span class="px-3 py-1 rounded-full text-sm bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text-dim)]">
-                {tech}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <!-- Project image -->
-        <div class="rounded-2xl overflow-hidden border border-[var(--border)] aspect-video bg-[var(--bg-card)]">
-          <img
-            src={project.image}
-            alt={`${project.title} — project screenshot`}
-            width="640"
-            height="360"
-            loading="eager"
-            decoding="async"
-            class="w-full h-full object-cover"
-            onerror="this.style.display='none'"
-          />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Challenge -->
-  <section class="py-16 md:py-20 border-t border-[var(--border)]" aria-labelledby="challenge-heading">
-    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-      <h2 id="challenge-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-6">
-        The Challenge
-      </h2>
-      <p class="text-lg text-[var(--text-dim)] leading-relaxed">
-        {project.challenge}
-      </p>
-    </div>
-  </section>
-
-  <!-- Solution -->
-  <section class="py-16 md:py-20 bg-[var(--bg-card)] border-y border-[var(--border)]" aria-labelledby="solution-heading">
-    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-      <h2 id="solution-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-6">
-        Our Solution
-      </h2>
-      <p class="text-lg text-[var(--text-dim)] leading-relaxed">
-        {project.solution}
-      </p>
-    </div>
-  </section>
-
-  <!-- Results -->
-  <section class="py-16 md:py-20" aria-labelledby="results-heading">
-    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-      <h2 id="results-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-6">
-        Results &amp; Outcomes
-      </h2>
-      <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
-        <div class="flex gap-4">
-          <span class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center" style={`background-color: ${project.accent}20`} aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={project.accent} stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          </span>
-          <p class="text-[var(--text-dim)] leading-relaxed">{project.result}</p>
-        </div>
-      </div>
-
-      {project.liveUrl && (
-        <div class="mt-8">
+        <div class="flex flex-wrap gap-3 mb-6">
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all shadow-xl"
+              style={`background: var(${token}); box-shadow: 0 12px 30px color-mix(in srgb, var(${token}) 40%, transparent);`}
+              aria-label={`Visit live ${project.title} site — opens in new tab`}
+            >
+              Visit Live Site
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          )}
           <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-8 py-3 text-base font-semibold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+            href="/get-quote"
+            class="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/5 backdrop-blur-sm px-7 py-3.5 text-sm font-bold text-white hover:bg-white/15 transition-all"
           >
-            View Live Site
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Build Something Similar
           </a>
         </div>
-      )}
-    </div>
-  </section>
 
-  <!-- CTA -->
-  <section class="py-16 md:py-20 bg-[var(--bg-card)] border-t border-[var(--border)]">
-    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
-        Ready to Start Your Project?
-      </h2>
-      <p class="text-[var(--text-dim)] mb-8 text-lg">
-        Let's build something remarkable together. Get a free, no-obligation quote today.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a
-          href="/get-quote"
-          class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[#0A0E1A] hover:opacity-90 transition-opacity"
-        >
-          Start Your Project
-        </a>
-        <a
-          href="/portfolio"
-          class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-8 py-3 text-base font-semibold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
-        >
-          ← Back to Portfolio
-        </a>
+        <!-- Tech chips -->
+        <div class="flex flex-wrap gap-2">
+          {project.technologies.map((tech) => (
+            <span class="px-3 py-1 rounded-full text-xs bg-white/10 border border-white/20 text-white/90 backdrop-blur-sm">
+              {tech}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   </section>
+
+
+  <!-- ═══ TWO-COLUMN LAYOUT ═════════════════════════════════════════════════ -->
+  <section class="bg-[var(--bg)] py-14 md:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+
+        <!-- ── MAIN CONTENT ── -->
+        <article class="lg:col-span-8 space-y-6">
+
+          {hasNarrative ? (
+            <>
+              <!-- Challenge -->
+              <div class="relative overflow-hidden rounded-2xl border border-[var(--border)] p-7 sm:p-9" style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-red) 10%, var(--bg-card)) 0%, var(--bg-card) 75%);">
+                <span aria-hidden="true" class="absolute top-5 right-6 font-heading font-black text-[6rem] leading-none select-none" style="color: var(--ac-red); opacity: 0.15;">01</span>
+                <div class="relative">
+                  <p class="text-xs font-bold uppercase tracking-widest mb-2" style="color: var(--ac-red);">The Challenge</p>
+                  <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">What we set out to solve</h2>
+                  <p class="text-[var(--text-dim)] leading-relaxed text-base sm:text-lg">{project.challenge}</p>
+                </div>
+              </div>
+
+              <!-- Solution -->
+              <div class="relative overflow-hidden rounded-2xl border border-[var(--border)] p-7 sm:p-9" style={`background: linear-gradient(135deg, color-mix(in srgb, var(${token}) 12%, var(--bg-card)) 0%, var(--bg-card) 75%);`}>
+                <span aria-hidden="true" class="absolute top-5 right-6 font-heading font-black text-[6rem] leading-none select-none" style={`color: var(${token}); opacity: 0.18;`}>02</span>
+                <div class="relative">
+                  <p class="text-xs font-bold uppercase tracking-widest mb-2" style={`color: var(${token});`}>Our Solution</p>
+                  <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">How we delivered</h2>
+                  <p class="text-[var(--text-dim)] leading-relaxed text-base sm:text-lg">{project.solution}</p>
+                </div>
+              </div>
+
+              <!-- Result -->
+              <div class="relative overflow-hidden rounded-2xl border border-[var(--border)] p-7 sm:p-9" style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-emerald) 12%, var(--bg-card)) 0%, var(--bg-card) 75%);">
+                <span aria-hidden="true" class="absolute top-5 right-6 font-heading font-black text-[6rem] leading-none select-none" style="color: var(--ac-emerald); opacity: 0.2;">03</span>
+                <div class="relative">
+                  <p class="text-xs font-bold uppercase tracking-widest mb-2" style="color: var(--ac-emerald);">Results &amp; Outcomes</p>
+                  <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">Business impact</h2>
+                  <p class="text-[var(--text-dim)] leading-relaxed text-base sm:text-lg">{project.result}</p>
+                </div>
+              </div>
+            </>
+          ) : (
+            <!-- Minimal variant for projects without narrative -->
+            <div class="relative overflow-hidden rounded-2xl border border-[var(--border)] p-7 sm:p-9" style={`background: linear-gradient(135deg, color-mix(in srgb, var(${token}) 10%, var(--bg-card)) 0%, var(--bg-card) 75%);`}>
+              <p class="text-xs font-bold uppercase tracking-widest mb-2" style={`color: var(${token});`}>Project Overview</p>
+              <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">About this project</h2>
+              <p class="text-[var(--text-dim)] leading-relaxed text-base sm:text-lg">{project.description}</p>
+              {project.liveUrl && (
+                <p class="mt-6 text-sm text-[var(--text-muted)]">
+                  Live at <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="font-semibold hover:underline" style={`color: var(${token})`}>{project.liveUrl.replace(/^https?:\/\//, '').replace(/\/$/, '')}</a>
+                </p>
+              )}
+            </div>
+          )}
+
+          <!-- Final CTA (end of article body) -->
+          <div class="mt-10 relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 text-center">
+            <h3 class="font-heading text-xl sm:text-2xl font-bold text-[var(--text)] mb-3">
+              Inspired by this build?
+            </h3>
+            <p class="text-[var(--text-dim)] mb-6">Let's create something remarkable for your brand — get a proposal in 24 hours.</p>
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+              <a href="/get-quote" class="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--accent)] px-7 py-3 text-sm font-bold text-white hover:brightness-110 transition-all">Start Your Project</a>
+              <a href="/portfolio" class="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--border)] px-7 py-3 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">← All Projects</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- ── STICKY SIDEBAR ── -->
+        <aside class="lg:col-span-4 space-y-5" aria-label="Project information and related work">
+          <div class="lg:sticky lg:top-24 space-y-5">
+
+            <!-- Project meta card -->
+            <div class="relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+              <span aria-hidden="true" class="absolute inset-x-0 top-0 h-[3px]" style={`background: var(${token});`}></span>
+              <p class="text-[11px] font-bold uppercase tracking-widest mb-4" style={`color: var(${token});`}>Project Details</p>
+              <dl class="space-y-3 text-sm">
+                <div>
+                  <dt class="text-[11px] uppercase tracking-wide text-[var(--text-muted)]">Client</dt>
+                  <dd class="font-semibold text-[var(--text)]">{project.client}</dd>
+                </div>
+                <div>
+                  <dt class="text-[11px] uppercase tracking-wide text-[var(--text-muted)]">Industry</dt>
+                  <dd class="font-semibold text-[var(--text)]">{project.industry}</dd>
+                </div>
+                <div>
+                  <dt class="text-[11px] uppercase tracking-wide text-[var(--text-muted)]">Category</dt>
+                  <dd class="font-semibold text-[var(--text)]">{project.category}</dd>
+                </div>
+                <div>
+                  <dt class="text-[11px] uppercase tracking-wide text-[var(--text-muted)] mb-1.5">Technology</dt>
+                  <dd class="flex flex-wrap gap-1.5">
+                    {project.technologies.map(tech => (
+                      <span class="px-2 py-0.5 rounded-md text-[11px] border border-[var(--border)] bg-[var(--bg)] text-[var(--text-dim)]">{tech}</span>
+                    ))}
+                  </dd>
+                </div>
+              </dl>
+
+              {project.liveUrl && (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all"
+                  style={`background: var(${token});`}
+                  aria-label={`Visit live ${project.title} site — opens in new tab`}
+                >
+                  Visit Live Site ↗
+                </a>
+              )}
+            </div>
+
+            <!-- Prev / Next project in group -->
+            {(prevProject || nextProject) && (
+              <div class="grid grid-cols-2 gap-2">
+                {prevProject ? (
+                  <a href={`/portfolio/case-study/${prevProject.slug}`} class="group rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-3 hover:border-[var(--accent)] transition-colors">
+                    <p class="text-[10px] uppercase tracking-widest text-[var(--text-muted)] mb-1">← Previous</p>
+                    <p class="text-xs font-semibold text-[var(--text)] line-clamp-1 group-hover:text-[var(--accent)] transition-colors">{prevProject.title}</p>
+                  </a>
+                ) : <span></span>}
+                {nextProject ? (
+                  <a href={`/portfolio/case-study/${nextProject.slug}`} class="group rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-3 text-right hover:border-[var(--accent)] transition-colors">
+                    <p class="text-[10px] uppercase tracking-widest text-[var(--text-muted)] mb-1">Next →</p>
+                    <p class="text-xs font-semibold text-[var(--text)] line-clamp-1 group-hover:text-[var(--accent)] transition-colors">{nextProject.title}</p>
+                  </a>
+                ) : <span></span>}
+              </div>
+            )}
+
+            <!-- Related projects -->
+            {related.length > 0 && (
+              <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+                <div class="flex items-center justify-between mb-4">
+                  <p class="text-[11px] font-bold uppercase tracking-widest" style={`color: var(${token});`}>Related Work</p>
+                  <a href="/portfolio" class="text-[11px] font-semibold text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors">View All →</a>
+                </div>
+                <ul class="space-y-3" role="list">
+                  {related.map((p) => (
+                    <li>
+                      <a
+                        href={`/portfolio/case-study/${p.slug}`}
+                        class="group flex items-center gap-3 rounded-lg p-2 -mx-2 hover:bg-[var(--bg)] transition-colors"
+                      >
+                        <div class="h-14 w-20 shrink-0 overflow-hidden rounded-lg border border-[var(--border)] bg-[var(--bg)]">
+                          <img
+                            src={p.image}
+                            alt=""
+                            width="80" height="56"
+                            loading="lazy"
+                            decoding="async"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            onerror="this.style.display='none'"
+                            aria-hidden="true"
+                          />
+                        </div>
+                        <div class="min-w-0 flex-1">
+                          <p class="text-sm font-semibold text-[var(--text)] line-clamp-1 group-hover:text-[var(--accent)] transition-colors">{p.title}</p>
+                          <p class="text-[11px] text-[var(--text-muted)] line-clamp-1">{p.category} · {p.industry}</p>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-[var(--text-muted)] group-hover:text-[var(--accent)] transition-colors" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <!-- Mini CTA in sidebar -->
+            <div class="relative overflow-hidden rounded-2xl p-6 text-center" style={`background: linear-gradient(135deg, color-mix(in srgb, var(${token}) 18%, var(--bg-card)) 0%, var(--bg-card) 80%); border: 1px solid color-mix(in srgb, var(${token}) 40%, var(--border));`}>
+              <span aria-hidden="true" class="absolute -right-8 -bottom-8 h-28 w-28 rounded-full blur-2xl opacity-40" style={`background: var(${token});`}></span>
+              <p class="relative font-heading text-lg font-bold text-[var(--text)] mb-2">Have a similar project?</p>
+              <p class="relative text-xs text-[var(--text-dim)] mb-4">Free 20-minute consultation. No hard sell.</p>
+              <a href="/schedule-consultation" class="relative inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all" style={`background: var(${token});`}>
+                Book a Call
+              </a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══ BOTTOM STRIP: MORE CASE STUDIES (for mobile + secondary discovery) -->
+  {related.length > 0 && (
+    <section class="py-14 bg-[var(--bg-card)] border-t border-[var(--border)]" aria-labelledby="more-case-h2">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <header class="flex items-end justify-between gap-4 mb-8">
+          <div>
+            <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-1">Keep Exploring</p>
+            <h2 id="more-case-h2" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)]">More case studies</h2>
+          </div>
+          <a href="/portfolio" class="text-sm font-semibold text-[var(--accent)] hover:underline">View all →</a>
+        </header>
+
+        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" role="list">
+          {related.slice(0, 3).map((p, i) => {
+            const tokens = ['--ac-teal', '--ac-indigo', '--ac-pink', '--ac-amber', '--ac-violet', '--ac-cyan'];
+            const rToken = tokens[i % tokens.length];
+            return (
+              <li>
+                <a
+                  href={`/portfolio/case-study/${p.slug}`}
+                  class="group relative block h-full overflow-hidden rounded-2xl border border-[var(--border)] hover:-translate-y-1 transition-all"
+                  style={`background: linear-gradient(135deg, color-mix(in srgb, var(${rToken}) 12%, var(--bg)) 0%, var(--bg) 70%);`}
+                >
+                  <span aria-hidden="true" class="absolute inset-x-0 top-0 h-[3px]" style={`background: var(${rToken});`}></span>
+                  <div class="aspect-video overflow-hidden bg-[var(--bg-card)]">
+                    <img
+                      src={p.image}
+                      alt={`${p.title} thumbnail`}
+                      width="400" height="225"
+                      loading="lazy"
+                      decoding="async"
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      onerror="this.style.display='none'"
+                    />
+                  </div>
+                  <div class="p-5">
+                    <p class="text-[11px] uppercase tracking-wide font-semibold mb-1" style={`color: var(${rToken});`}>{p.category}</p>
+                    <h3 class="font-heading font-bold text-[var(--text)] leading-snug mb-1">{p.title}</h3>
+                    <p class="text-xs text-[var(--text-dim)] line-clamp-2">{p.description}</p>
+                    <span class="mt-3 inline-flex items-center gap-1 text-xs font-bold" style={`color: var(${rToken})`}>
+                      Read case study →
+                    </span>
+                  </div>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
+  )}
+
 </BaseLayout>

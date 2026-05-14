@@ -1,0 +1,171 @@
+---
+/**
+ * BlogPreview.astro
+ * Asymmetric editorial showcase of the 3 most recent blog posts.
+ * Left: 1 feature card. Right: 2 stacked compact cards.
+ * All cards are single <a> elements for simple keyboard navigation.
+ */
+import { getCollection } from 'astro:content';
+
+const CATEGORY_LABELS: Record<string, string> = {
+  'web-design': 'Web Design',
+  seo: 'SEO',
+  ecommerce: 'eCommerce',
+  'digital-marketing': 'Digital Marketing',
+  'nagpur-business': 'Nagpur Business',
+  accessibility: 'Accessibility',
+  'technology-trends': 'Technology Trends',
+};
+
+const all = await getCollection('blog', ({ data }) => data.draft !== true);
+const sorted = all.sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+const [feature, ...rest] = sorted.slice(0, 3);
+const secondary = rest.slice(0, 2);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+
+<section
+  aria-labelledby="blog-preview-heading"
+  class="relative py-20 md:py-28 bg-[var(--bg)]"
+>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Heading row -->
+    <div class="mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <div class="max-w-2xl">
+        <h2
+          id="blog-preview-heading"
+          class="font-heading text-3xl md:text-5xl font-bold text-[var(--text)] leading-tight"
+        >
+          Fresh thinking from the team.
+        </h2>
+        <p class="mt-4 text-lg text-[var(--text-muted)]">
+          Field notes on accessibility, performance, and the craft of shipping modern websites.
+        </p>
+      </div>
+      <a
+        href="/blog"
+        class="inline-flex items-center gap-2 self-start rounded-full border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition-colors hover:bg-[var(--bg-card)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)]"
+      >
+        View all posts
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Asymmetric grid -->
+    <div class="grid gap-6 lg:grid-cols-5">
+      <!-- Feature card (spans 3) -->
+      {feature && (
+        <a
+          href={`/blog/${feature.data.category}/${feature.id}`}
+          aria-labelledby={`blog-${feature.id}-title`}
+          class="group relative flex flex-col overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)] lg:col-span-3"
+        >
+          <div class="relative aspect-[3/2] overflow-hidden bg-[var(--bg)]">
+            <img
+              src={feature.data.featuredImage.src}
+              alt={feature.data.featuredImage.alt}
+              loading="lazy"
+              decoding="async"
+              width="1400"
+              height="933"
+              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            />
+          </div>
+          <div class="flex flex-1 flex-col p-6 md:p-8">
+            <div class="mb-4 flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-wider">
+              <span
+                class="rounded-full px-3 py-1"
+                style="background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent);"
+              >
+                {CATEGORY_LABELS[feature.data.category] ?? feature.data.category}
+              </span>
+              <span class="text-[var(--text-muted)]">
+                <time datetime={feature.data.publishDate.toISOString()}>
+                  {fmt(feature.data.publishDate)}
+                </time>
+                <span aria-hidden="true"> &middot; </span>
+                {feature.data.readTime} min read
+              </span>
+            </div>
+            <h3
+              id={`blog-${feature.id}-title`}
+              class="font-heading text-2xl md:text-3xl font-semibold text-[var(--text)] leading-snug mb-3"
+            >
+              {feature.data.title}
+            </h3>
+            <p class="text-base text-[var(--text-muted)] line-clamp-3 mb-5">
+              {feature.data.description}
+            </p>
+            <span class="mt-auto inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--accent)] transition-transform group-hover:translate-x-0.5">
+              Read article
+              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+      )}
+
+      <!-- Secondary column (spans 2) -->
+      <div class="flex flex-col gap-6 lg:col-span-2">
+        {secondary.map((post) => (
+          <a
+            href={`/blog/${post.data.category}/${post.id}`}
+            aria-labelledby={`blog-${post.id}-title`}
+            class="group flex flex-1 flex-col overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)] sm:flex-row"
+          >
+            <div class="relative sm:w-[44%] aspect-[3/2] sm:aspect-auto overflow-hidden bg-[var(--bg)] flex-shrink-0">
+              <img
+                src={post.data.featuredImage.src}
+                alt={post.data.featuredImage.alt}
+                loading="lazy"
+                decoding="async"
+                width="600"
+                height="400"
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              />
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <div class="mb-2 text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">
+                <span style="color: var(--accent);">
+                  {CATEGORY_LABELS[post.data.category] ?? post.data.category}
+                </span>
+                <span aria-hidden="true"> &middot; </span>
+                {post.data.readTime} min
+              </div>
+              <h3
+                id={`blog-${post.id}-title`}
+                class="font-heading text-lg font-semibold text-[var(--text)] leading-snug mb-2 line-clamp-3"
+              >
+                {post.data.title}
+              </h3>
+              <time
+                datetime={post.data.publishDate.toISOString()}
+                class="mt-auto text-xs text-[var(--text-muted)]"
+              >
+                {fmt(post.data.publishDate)}
+              </time>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @media (prefers-reduced-motion: reduce) {
+    a.group { transition: none !important; }
+    a.group:hover { transform: none !important; }
+    a.group img { transition: none !important; }
+    a.group:hover img { transform: none !important; }
+  }
+</style>

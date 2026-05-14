@@ -15,9 +15,9 @@ const navLinks = [
 const currentPath = Astro.url.pathname;
 ---
 <header
-  class="sticky top-0 z-50 w-full border-b border-[var(--border)] bg-[var(--bg-card)]/95 backdrop-blur-md"
+  class="header-island sticky top-3 sm:top-4 z-50 w-full px-3 sm:px-4 pointer-events-none"
 >
-  <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+  <div class="header-island__inner relative mx-auto flex max-w-6xl items-center justify-between gap-3 rounded-full border border-[var(--border)] bg-[var(--bg-card)] shadow-xl shadow-black/10 px-3 py-2 sm:px-4 sm:py-2.5 pointer-events-auto">
 
     <!-- Logo (dual: full logo ↔ horizontal stamp on scroll) -->
     <a href="/" class="flex shrink-0 items-center gap-2" aria-label="eLan Technology — home">
@@ -31,6 +31,7 @@ const currentPath = Astro.url.pathname;
           height="40"
           loading="eager"
           decoding="async"
+          fetchpriority="high"
           class="absolute inset-0 h-10 w-auto transition-all duration-500 ease-in-out"
           style="opacity:1;transform:scale(1);"
         />
@@ -155,7 +156,7 @@ const currentPath = Astro.url.pathname;
     <!-- Right-side actions -->
     <div class="flex items-center gap-2">
       <!-- Island: ThemeToggle -->
-      <ThemeToggle client:load />
+      <ThemeToggle client:idle />
 
       <!-- Get Quote — desktop -->
       <a
@@ -168,26 +169,29 @@ const currentPath = Astro.url.pathname;
       <!-- Get Free Audit CTA — desktop -->
       <a
         href="/free-website-audit"
-        class="hidden sm:inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-[#0A0E1A] transition-opacity duration-150 hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
+        class="hidden sm:inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-[var(--bg)] transition-opacity duration-150 hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
       >
         Get Free Audit
       </a>
 
       <!-- Island: MobileNav -->
-      <MobileNav client:load />
+      <MobileNav client:media="(max-width: 1023px)" />
     </div>
-  </div>
 
-  <!-- Island: MegaMenu -->
-  <MegaMenu client:load />
+    <!-- Island: MegaMenu — kept INSIDE the inner island so its absolute
+         positioning anchors to the island's bounds (not the full-width
+         outer wrapper). Without this, the dropdown would stretch the full
+         viewport width and look detached from the island. -->
+    <MegaMenu client:media="(min-width: 1024px)" />
+  </div>
 </header>
 
 <script>
   (function () {
-    const header = document.querySelector('header') as HTMLElement | null;
+    const island = document.querySelector('.header-island__inner') as HTMLElement | null;
     const logoFull = document.getElementById('logo-full') as HTMLImageElement | null;
     const logoScrolled = document.getElementById('logo-scrolled') as HTMLImageElement | null;
-    if (!header || !logoFull || !logoScrolled) return;
+    if (!island || !logoFull || !logoScrolled) return;
 
     let ticking = false;
 
@@ -195,11 +199,10 @@ const currentPath = Astro.url.pathname;
       if (!ticking) {
         requestAnimationFrame(() => {
           const scrolled = window.scrollY > 20;
-          // Header background transition
           if (scrolled) {
-            header!.classList.add('header--scrolled');
+            island!.classList.add('header-island__inner--scrolled');
           } else {
-            header!.classList.remove('header--scrolled');
+            island!.classList.remove('header-island__inner--scrolled');
           }
           // Logo swap
           logoFull!.style.opacity = scrolled ? '0' : '1';
@@ -217,10 +220,8 @@ const currentPath = Astro.url.pathname;
 </script>
 
 <style>
-  header.header--scrolled {
-    background-color: color-mix(in srgb, var(--bg-card) 92%, transparent);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+  /* Boost shadow once scrolled past hero so the island feels lifted off the page */
+  .header-island__inner--scrolled {
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.2);
   }
 </style>

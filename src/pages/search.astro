@@ -1,0 +1,302 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { services } from '../data/services';
+import { cities } from '../data/cities';
+import { countries } from '../data/countries';
+import { products } from '../data/products';
+import { projects } from '../data/portfolio';
+import { breadcrumbSchema } from '../utils/schema';
+
+// ─── Build-time search index ─────────────────────────────────────────────────
+interface IndexEntry {
+  t: string;  // title
+  d: string;  // description
+  u: string;  // url
+  c: string;  // category label
+}
+
+const blogPosts = await getCollection('blog');
+
+const staticPages: IndexEntry[] = [
+  { t: 'Home', d: 'Web Design & Development Company — Trusted by 500+ Businesses since 2002. WCAG/ADA compliant websites.', u: '/', c: 'Page' },
+  { t: 'About eLan Technology', d: 'Web design agency in Nagpur, India since 2002. Meet the team, our story, milestones, and values.', u: '/about', c: 'Page' },
+  { t: 'Contact eLan Technology', d: 'Get in touch with our team — phone, WhatsApp, email, office location in Nagpur.', u: '/contact', c: 'Page' },
+  { t: 'Pricing', d: 'Transparent pricing for web design, development, eCommerce, and digital marketing services.', u: '/pricing', c: 'Page' },
+  { t: 'Free Website Audit', d: 'Free SEO, security, accessibility and speed audit of your website — 48-hour turnaround.', u: '/free-website-audit', c: 'Audit' },
+  { t: 'FAQ', d: 'Frequently asked questions about our services, process, pricing, and timelines.', u: '/faq', c: 'Page' },
+  { t: 'Careers', d: 'Join the eLan Technology team in Nagpur — open positions for designers, developers, and marketers.', u: '/careers', c: 'Page' },
+  { t: 'Portfolio', d: '500+ projects delivered across web design, development, eCommerce, and custom software.', u: '/portfolio', c: 'Portfolio' },
+  { t: 'Testimonials', d: 'Reviews from our clients in India, the United States, and worldwide.', u: '/testimonials', c: 'Page' },
+  { t: 'Get a Project Quote', d: 'Tell us about your project and receive a detailed quote within 24 hours.', u: '/get-quote', c: 'Page' },
+  { t: 'Schedule a Free Strategy Consultation', d: 'Book a free 30-minute strategy call with our team.', u: '/schedule-consultation', c: 'Page' },
+  { t: 'Request a Product Demo', d: 'See our proprietary software products in action.', u: '/request-demo', c: 'Page' },
+  { t: 'Blog', d: 'Insights on web design, SEO, accessibility, eCommerce, and digital marketing.', u: '/blog', c: 'Blog' },
+  { t: 'Accessibility Statement', d: 'How eLan Technology meets WCAG 2.2 AA standards on this site.', u: '/accessibility-statement', c: 'Legal' },
+];
+
+const serviceEntries: IndexEntry[] = services.map((s) => ({
+  t: s.title,
+  d: s.tagline + ' — ' + s.description,
+  u: `/services/${s.slug}`,
+  c: 'Service',
+}));
+serviceEntries.unshift({
+  t: 'All Services',
+  d: 'Web design, development, eCommerce, SEO, digital marketing, mobile apps, branding, and maintenance.',
+  u: '/services',
+  c: 'Service',
+});
+
+const cityEntries: IndexEntry[] = cities
+  .filter((c) => c.hasLandingPage)
+  .map((c) => ({
+    t: `Web Design Company in ${c.name}`,
+    d: c.tagline,
+    u: `/web-design-company-${c.slug}`,
+    c: 'City',
+  }));
+
+const countryEntries: IndexEntry[] = countries
+  .filter((c) => c.hasLandingPage)
+  .map((c) => ({
+    t: `Outsource Web Design to India from ${c.name}`,
+    d: `${c.primaryKeyword}. Save ${c.costComparison.savings} vs local agencies. Timezone: ${c.timezone}.`,
+    u: `/web-design-company-${c.slug}`,
+    c: 'Country',
+  }));
+
+const productEntries: IndexEntry[] = products.map((p) => ({
+  t: p.title,
+  d: p.desc,
+  u: `/products/${p.slug}`,
+  c: 'Product',
+}));
+productEntries.unshift({
+  t: 'Proprietary Software Products',
+  d: 'Own your platform — proprietary business software products by eLan Technology.',
+  u: '/products',
+  c: 'Product',
+});
+
+const portfolioEntries: IndexEntry[] = projects.map((p) => ({
+  t: `${p.title} — ${p.category} Case Study`,
+  d: p.description,
+  u: `/portfolio/case-study/${p.slug}`,
+  c: 'Case Study',
+}));
+
+const blogEntries: IndexEntry[] = blogPosts
+  .filter((p) => !p.data.draft)
+  .map((p) => ({
+    t: p.data.title,
+    d: p.data.description,
+    u: `/blog/${p.data.category}/${p.id.replace(/\.mdx?$/, '')}`,
+    c: 'Blog',
+  }));
+
+const searchIndex: IndexEntry[] = [
+  ...staticPages,
+  ...serviceEntries,
+  ...productEntries,
+  ...cityEntries,
+  ...countryEntries,
+  ...portfolioEntries,
+  ...blogEntries,
+];
+
+const schema = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Search', url: '/search' },
+]);
+---
+
+<BaseLayout
+  title="Search — eLan Technology"
+  description="Search across eLan Technology services, case studies, products, city pages, and blog articles."
+  noindex={true}
+  schema={schema}
+>
+  <section class="relative bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-20 sm:py-28">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <h1 class="font-heading text-4xl sm:text-5xl font-bold text-[var(--text)] mb-4">
+        Search eLan Technology
+      </h1>
+      <p class="text-lg text-[var(--text-dim)] mb-10">
+        Find services, case studies, products, city pages, and articles.
+      </p>
+
+      <form id="search-form" role="search" class="relative" action="/search">
+        <label for="search-input" class="sr-only">Search the site</label>
+        <input
+          id="search-input"
+          name="q"
+          type="search"
+          autocomplete="off"
+          autofocus
+          placeholder="Try “ADA compliance”, “Nagpur”, “WordPress vs custom”…"
+          class="w-full rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-6 py-4 pr-14 text-base text-[var(--text)] placeholder-[var(--text-muted)] shadow-sm focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/30"
+        />
+        <button
+          type="submit"
+          aria-label="Search"
+          class="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-[var(--accent)] p-3 text-[var(--bg)] transition hover:brightness-110"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+          </svg>
+        </button>
+      </form>
+
+      <div id="search-status" class="mt-8 text-sm text-[var(--text-muted)]" aria-live="polite"></div>
+
+      <ul id="search-results" class="mt-6 space-y-3" role="list"></ul>
+
+      <div id="search-empty" class="mt-10 hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 text-center">
+        <p class="text-lg font-semibold text-[var(--text)] mb-2">No matches found</p>
+        <p class="text-[var(--text-dim)] mb-6">Try a broader keyword, or browse popular pages below.</p>
+        <div class="flex flex-wrap justify-center gap-2">
+          <a href="/services" class="rounded-full border border-[var(--border)] px-4 py-2 text-sm hover:border-[var(--accent)]">Services</a>
+          <a href="/portfolio" class="rounded-full border border-[var(--border)] px-4 py-2 text-sm hover:border-[var(--accent)]">Portfolio</a>
+          <a href="/blog" class="rounded-full border border-[var(--border)] px-4 py-2 text-sm hover:border-[var(--accent)]">Blog</a>
+          <a href="/free-website-audit" class="rounded-full border border-[var(--border)] px-4 py-2 text-sm hover:border-[var(--accent)]">Free Audit</a>
+          <a href="/contact" class="rounded-full border border-[var(--border)] px-4 py-2 text-sm hover:border-[var(--accent)]">Contact</a>
+        </div>
+      </div>
+
+      <div id="search-initial" class="mt-10 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8">
+        <p class="text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-4">Popular searches</p>
+        <div class="flex flex-wrap gap-2">
+          <a href="/search?q=ada" class="rounded-full border border-[var(--border)] px-4 py-2 text-sm hover:border-[var(--accent)]">ADA compliance</a>
+          <a href="/search?q=wcag" class="rounded-full border border-[var(--border)] px-4 py-2 text-sm hover:border-[var(--accent)]">WCAG remediation</a>
+          <a href="/search?q=ecommerce" class="rounded-full border border-[var(--border)] px-4 py-2 text-sm hover:border-[var(--accent)]">eCommerce</a>
+          <a href="/search?q=seo" class="rounded-full border border-[var(--border)] px-4 py-2 text-sm hover:border-[var(--accent)]">SEO</a>
+          <a href="/search?q=nagpur" class="rounded-full border border-[var(--border)] px-4 py-2 text-sm hover:border-[var(--accent)]">Nagpur</a>
+          <a href="/search?q=audit" class="rounded-full border border-[var(--border)] px-4 py-2 text-sm hover:border-[var(--accent)]">Audit</a>
+          <a href="/search?q=mobile" class="rounded-full border border-[var(--border)] px-4 py-2 text-sm hover:border-[var(--accent)]">Mobile app</a>
+          <a href="/search?q=portfolio" class="rounded-full border border-[var(--border)] px-4 py-2 text-sm hover:border-[var(--accent)]">Portfolio</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script id="search-index" type="application/json" set:html={JSON.stringify(searchIndex)} is:inline />
+
+  <script is:inline>
+    (function () {
+      const indexEl = document.getElementById('search-index');
+      const input = document.getElementById('search-input');
+      const form = document.getElementById('search-form');
+      const resultsEl = document.getElementById('search-results');
+      const statusEl = document.getElementById('search-status');
+      const emptyEl = document.getElementById('search-empty');
+      const initialEl = document.getElementById('search-initial');
+      if (!indexEl || !input || !form || !resultsEl || !statusEl || !emptyEl || !initialEl) return;
+
+      const index = JSON.parse(indexEl.textContent || '[]');
+
+      function escapeHtml(s) {
+        return s.replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
+
+      function highlight(text, terms) {
+        let out = escapeHtml(text);
+        terms.forEach(function (term) {
+          if (!term) return;
+          const re = new RegExp('(' + term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+          out = out.replace(re, '<mark class="bg-[var(--accent)]/20 text-[var(--text)] rounded px-0.5">$1</mark>');
+        });
+        return out;
+      }
+
+      function score(entry, terms) {
+        const title = entry.t.toLowerCase();
+        const desc = entry.d.toLowerCase();
+        let s = 0;
+        terms.forEach(function (term) {
+          if (!term) return;
+          if (title === term) s += 100;
+          if (title.startsWith(term)) s += 30;
+          if (title.includes(term)) s += 15;
+          if (desc.includes(term)) s += 3;
+        });
+        return s;
+      }
+
+      function search(q) {
+        const query = q.trim().toLowerCase();
+        if (!query) {
+          resultsEl.innerHTML = '';
+          statusEl.textContent = '';
+          emptyEl.classList.add('hidden');
+          initialEl.classList.remove('hidden');
+          return;
+        }
+        initialEl.classList.add('hidden');
+        const terms = query.split(/\s+/).filter(Boolean);
+        const matches = index
+          .map(function (e) { return { e: e, s: score(e, terms) }; })
+          .filter(function (m) { return m.s > 0; })
+          .sort(function (a, b) { return b.s - a.s; })
+          .slice(0, 30);
+
+        if (matches.length === 0) {
+          resultsEl.innerHTML = '';
+          statusEl.textContent = '0 results for "' + q + '"';
+          emptyEl.classList.remove('hidden');
+          return;
+        }
+        emptyEl.classList.add('hidden');
+        statusEl.textContent = matches.length + (matches.length === 30 ? '+' : '') + ' result' + (matches.length === 1 ? '' : 's') + ' for "' + q + '"';
+        resultsEl.innerHTML = matches.map(function (m) {
+          const e = m.e;
+          return (
+            '<li class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5 transition hover:border-[var(--accent)]">' +
+              '<a href="' + escapeHtml(e.u) + '" class="block focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] rounded">' +
+                '<div class="flex items-center gap-2 mb-1">' +
+                  '<span class="text-[10px] font-bold uppercase tracking-widest text-[var(--accent)]">' + escapeHtml(e.c) + '</span>' +
+                  '<span class="text-xs text-[var(--text-muted)]">' + escapeHtml(e.u) + '</span>' +
+                '</div>' +
+                '<h2 class="font-heading text-lg font-semibold text-[var(--text)] mb-1">' + highlight(e.t, terms) + '</h2>' +
+                '<p class="text-sm text-[var(--text-dim)] line-clamp-2">' + highlight(e.d, terms) + '</p>' +
+              '</a>' +
+            '</li>'
+          );
+        }).join('');
+      }
+
+      function syncFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        const q = params.get('q') || '';
+        input.value = q;
+        search(q);
+      }
+
+      let debounceTimer;
+      input.addEventListener('input', function () {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(function () {
+          const q = input.value;
+          const url = new URL(window.location.href);
+          if (q) url.searchParams.set('q', q); else url.searchParams.delete('q');
+          window.history.replaceState({}, '', url);
+          search(q);
+        }, 120);
+      });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const q = input.value;
+        const url = new URL(window.location.href);
+        if (q) url.searchParams.set('q', q); else url.searchParams.delete('q');
+        window.history.pushState({}, '', url);
+        search(q);
+      });
+
+      window.addEventListener('popstate', syncFromUrl);
+      syncFromUrl();
+    })();
+  </script>
+</BaseLayout>
