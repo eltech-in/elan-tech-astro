@@ -150,6 +150,60 @@ export function localBusinessSchema(city = 'Nagpur', overrides: LocalBusinessOve
   };
 }
 
+// ─── Service-area (non-HQ city landing pages) ────────────────────────────────
+// Use this on every city page that ISN'T the Nagpur HQ. Declares we serve the
+// area without claiming a physical address there — avoids NAP pollution that
+// would otherwise tell Google our office exists in every city.
+export interface ServiceAreaOverrides {
+  url?: string;
+  description?: string;
+  geo?: { latitude: number; longitude: number };
+}
+
+export function serviceAreaBusinessSchema(
+  city: string,
+  state: string,
+  overrides: ServiceAreaOverrides = {}
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: `${ORG_NAME} — Web Design Company serving ${city}`,
+    url: overrides.url ?? SITE_URL,
+    telephone: OFFICE_PHONE,
+    email: 'info@elan-tech.net',
+    description:
+      overrides.description ??
+      `Professional web design & digital marketing services for businesses in ${city}, ${state}. Remote delivery from our Nagpur HQ. WCAG/ADA compliant. Since 2002.`,
+    priceRange: '₹₹',
+    image: `${SITE_URL}/images/elan-tech-logo.svg`,
+    areaServed: {
+      '@type': 'City',
+      name: city,
+      containedInPlace: { '@type': 'AdministrativeArea', name: state },
+    },
+    provider: {
+      '@type': 'Organization',
+      '@id': `${SITE_URL}/#localbusiness`,
+      name: ORG_NAME,
+      url: SITE_URL,
+    },
+    ...(overrides.geo
+      ? {
+          geo: {
+            '@type': 'GeoCoordinates',
+            latitude: overrides.geo.latitude,
+            longitude: overrides.geo.longitude,
+          },
+        }
+      : {}),
+    sameAs: [
+      'https://www.linkedin.com/company/elan-technology',
+      'https://www.facebook.com/eLanTechnology',
+    ],
+  };
+}
+
 // ─── FAQPage ──────────────────────────────────────────────────────────────────
 export interface FAQItem {
   question: string;

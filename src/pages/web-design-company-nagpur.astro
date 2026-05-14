@@ -9,6 +9,7 @@ import CityPortfolio from '../components/city/CityPortfolio.astro';
 import CityPricing from '../components/city/CityPricing.astro';
 import CityFAQ from '../components/city/CityFAQ.astro';
 import CityContact from '../components/city/CityContact.astro';
+import CityHQSection from '../components/city/CityHQSection.astro';
 import CityAlsoServing from '../components/city/CityAlsoServing.astro';
 import { getCityBySlug } from '../data/cities';
 
@@ -22,6 +23,7 @@ const city = getCityBySlug('nagpur')!;
   <CityIndustries city={city} />
   <CityProcess city={city} />
   <CityPortfolio city={city} />
+  <CityHQSection />
   <CityPricing city={city} />
   <CityFAQ city={city} />
   <CityContact city={city} />

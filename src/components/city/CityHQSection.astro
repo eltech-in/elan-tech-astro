@@ -1,0 +1,210 @@
+---
+// HQ-only section. Renders on the Nagpur city page to reinforce the
+// canonical LocalBusiness signal: full NAP with microdata, embedded GMB map,
+// business hours, and a direct "Get Directions" CTA to the Google Business
+// Profile. Do NOT use on non-HQ city pages — it would imply a physical
+// office in those cities.
+---
+
+<section
+  id="visit-nagpur-office"
+  class="py-16 md:py-20 border-t border-[var(--border)] bg-[var(--bg)]"
+  aria-labelledby="visit-nagpur-heading"
+  itemscope
+  itemtype="https://schema.org/LocalBusiness"
+>
+  <meta itemprop="name" content="eLan Technology" />
+  <meta itemprop="telephone" content="+91-9822231642" />
+  <meta itemprop="email" content="info@elan-tech.net" />
+  <meta itemprop="url" content="https://elan-tech.net/web-design-company-nagpur" />
+  <meta itemprop="priceRange" content="₹₹" />
+
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-10 text-center">
+      <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-3">
+        Headquarters
+      </p>
+      <h2
+        id="visit-nagpur-heading"
+        class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)]"
+      >
+        Visit Our Nagpur Office
+      </h2>
+      <p class="mt-3 max-w-2xl mx-auto text-[var(--text-dim)]">
+        eLan Technology has been operating from our Gayatri Nagar office in Nagpur
+        since 2002 — central India's longest-running web design studio.
+      </p>
+    </div>
+
+    <div class="grid gap-6 lg:grid-cols-2">
+      <!-- LEFT: NAP block + hours + CTA -->
+      <div class="flex flex-col gap-5">
+        <!-- Address -->
+        <div
+          class="relative overflow-hidden rounded-2xl border border-[var(--border)] p-6"
+          style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-cyan) 10%, var(--bg-card)) 0%, var(--bg-card) 65%);"
+        >
+          <span
+            aria-hidden="true"
+            class="pointer-events-none absolute -right-4 -bottom-4 h-24 w-24 rotate-[-20deg] opacity-[0.07]"
+            style="background: var(--ac-cyan);"
+          ></span>
+          <div class="flex items-start gap-4 relative">
+            <div
+              class="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
+              style="background: color-mix(in srgb, var(--ac-cyan) 16%, transparent); color: var(--ac-cyan);"
+              aria-hidden="true"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+            </div>
+            <div>
+              <p class="font-semibold text-[var(--text)] text-sm mb-1">Office Address</p>
+              <address
+                class="not-italic text-sm text-[var(--text-dim)] leading-relaxed"
+                itemprop="address"
+                itemscope
+                itemtype="https://schema.org/PostalAddress"
+              >
+                <span itemprop="streetAddress">Basement Floor, PTG IT Park, Plot No. 21, IT Park Road</span><br />
+                <span itemprop="streetAddress">Gayatri Nagar</span>,
+                <span itemprop="addressLocality">Nagpur</span>
+                <span itemprop="postalCode">440022</span><br />
+                <span itemprop="addressRegion">Maharashtra</span>,
+                <span itemprop="addressCountry">India</span>
+              </address>
+              <a
+                href="https://maps.app.goo.gl/aUKWqN8b7Mw2mygn8"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-3 inline-flex items-center gap-1 text-xs font-semibold"
+                style="color: var(--ac-cyan);"
+              >
+                Get directions on Google Maps
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phone + WhatsApp -->
+        <div
+          class="relative overflow-hidden rounded-2xl border border-[var(--border)] p-6"
+          style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-amber) 10%, var(--bg-card)) 0%, var(--bg-card) 65%);"
+        >
+          <span
+            aria-hidden="true"
+            class="pointer-events-none absolute -right-4 -bottom-4 h-24 w-24 rotate-[-20deg] opacity-[0.07]"
+            style="background: var(--ac-amber);"
+          ></span>
+          <div class="flex items-start gap-4 relative">
+            <div
+              class="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
+              style="background: color-mix(in srgb, var(--ac-amber) 16%, transparent); color: var(--ac-amber);"
+              aria-hidden="true"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="font-semibold text-[var(--text)] text-sm mb-1">Talk to Our Nagpur Team</p>
+              <div class="flex flex-col gap-1.5 text-sm">
+                <a
+                  href="tel:+919822231642"
+                  class="font-medium hover:underline"
+                  style="color: var(--ac-amber);"
+                >
+                  Phone: +91 98222 31642
+                </a>
+                <a
+                  href="https://wa.me/918788834630?text=Hi%20eLan%20Technology%2C%20I%20want%20to%20visit%20your%20Nagpur%20office"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-[var(--text-dim)] hover:underline"
+                >
+                  WhatsApp: +91 87888 34630
+                </a>
+                <a
+                  href="mailto:info@elan-tech.net"
+                  class="text-[var(--text-dim)] hover:underline"
+                >
+                  Email: info@elan-tech.net
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Business hours -->
+        <div
+          class="relative overflow-hidden rounded-2xl border border-[var(--border)] p-6"
+          style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-violet) 10%, var(--bg-card)) 0%, var(--bg-card) 65%);"
+        >
+          <span
+            aria-hidden="true"
+            class="pointer-events-none absolute -right-4 -bottom-4 h-24 w-24 rotate-[-20deg] opacity-[0.07]"
+            style="background: var(--ac-violet);"
+          ></span>
+          <div class="flex items-start gap-4 relative">
+            <div
+              class="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
+              style="background: color-mix(in srgb, var(--ac-violet) 16%, transparent); color: var(--ac-violet);"
+              aria-hidden="true"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <div>
+              <p class="font-semibold text-[var(--text)] text-sm mb-1">Business Hours</p>
+              <p class="text-sm text-[var(--text-dim)]">Monday – Saturday</p>
+              <p class="text-sm font-semibold text-[var(--text)]">10:00 AM – 7:00 PM IST</p>
+              <p class="text-xs text-[var(--text-muted)] mt-1">Closed Sundays & public holidays</p>
+              <meta itemprop="openingHours" content="Mo-Sa 10:00-19:00" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Embedded GMB map -->
+      <div class="overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] min-h-[420px]">
+        <iframe
+          title="eLan Technology Nagpur office on Google Maps — PTG IT Park, Gayatri Nagar"
+          src="https://maps.google.com/maps?q=PTG%20IT%20Park%2C%20Plot%20No.%2021%2C%20IT%20Park%20Rd%2C%20Gayatri%20Nagar%2C%20Nagpur%2C%20Maharashtra%20440022&t=m&z=15&ie=UTF8&iwloc=B&output=embed"
+          width="100%"
+          height="100%"
+          style="border:0; display:block; min-height: 420px;"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          aria-label="Map showing eLan Technology Nagpur office"
+        ></iframe>
+      </div>
+    </div>
+
+    <!-- Footer CTA: GMB profile -->
+    <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+      <a
+        href="https://maps.app.goo.gl/aUKWqN8b7Mw2mygn8"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-7 py-3 text-sm font-semibold text-[var(--bg)] shadow-lg hover:opacity-90 transition-opacity"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+        View on Google Business Profile
+      </a>
+      <a
+        href="/schedule-consultation"
+        class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-7 py-3 text-sm font-semibold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+      >
+        Schedule a Visit
+      </a>
+    </div>
+  </div>
+</section>

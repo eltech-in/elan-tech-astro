@@ -2,7 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import type { CityData } from '../data/cities';
-import { localBusinessSchema, faqSchema, breadcrumbSchema } from '../utils/schema';
+import { localBusinessSchema, serviceAreaBusinessSchema, faqSchema, breadcrumbSchema } from '../utils/schema';
 
 // Support both new CityData-based props AND legacy string-based props
 interface Props {
@@ -76,19 +76,25 @@ const breadcrumbs = city
   : legacyBreadcrumbs;
 
 // Build schemas for new mode
+// HQ (Nagpur) gets the canonical LocalBusiness with full street address + @id anchor.
+// Every other city gets a service-area variant with NO street address, to avoid
+// telling Google our office physically exists in dozens of cities (NAP pollution).
 let allSchemas: any = legacySchema;
 if (city) {
-  const localBiz = localBusinessSchema(city.name, {
-    city: city.name,
-    geo: { latitude: city.geo.lat, longitude: city.geo.lng },
-    url: `https://elan-tech.net${pageUrl}`,
-    description: `Professional web design & digital marketing services in ${city.name}. WCAG/ADA compliant websites. Since 2002.`,
-  });
+  const cityBusinessSchema = city.isHQ
+    ? localBusinessSchema(city.name, {
+        url: `https://elan-tech.net${pageUrl}`,
+        description: `Professional web design & digital marketing services in ${city.name}. WCAG/ADA compliant websites. Since 2002.`,
+      })
+    : serviceAreaBusinessSchema(city.name, city.state, {
+        url: `https://elan-tech.net${pageUrl}`,
+        geo: { latitude: city.geo.lat, longitude: city.geo.lng },
+      });
   const faq = city.faq.length > 0 ? faqSchema(city.faq) : null;
   const crumbSchema = breadcrumbSchema(
     breadcrumbs.map((b) => ({ name: b.name, url: b.href }))
   );
-  allSchemas = [localBiz, crumbSchema, ...(faq ? [faq] : []), ...(props.extraSchema ?? [])];
+  allSchemas = [cityBusinessSchema, crumbSchema, ...(faq ? [faq] : []), ...(props.extraSchema ?? [])];
 }
 
 const trustLine = city
