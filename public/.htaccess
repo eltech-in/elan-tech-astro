@@ -7,15 +7,16 @@
 #   • NO trailing slash on any URL   (root "/" is the only exception)
 #   • Custom 404 page                (served from /404/index.html)
 #   • Astro static build is at site root with build.format: 'directory'
-#     so /about resolves to /about/index.html via DirectoryIndex
+#     so /about resolves to /about/index.html via the internal rewrite below
 # ════════════════════════════════════════════════════════════════════════════
 
 Options -MultiViews -Indexes
 
-# Astro builds with build.format: 'file', so every page is a flat .html file
-# (dist/about.html, dist/blog.html, …). No directory-with-index.html to trip
-# LiteSpeed's mod_dir auto-trailing-slash. The internal rewrite rule near the
-# bottom serves /about as /about.html.
+# Astro builds with build.format: 'directory', so every page is a folder with
+# an index.html (dist/about/index.html, dist/blog/index.html, …). We turn off
+# LiteSpeed/Apache's mod_dir auto-trailing-slash so /about does NOT get a
+# 301 to /about/ — instead the internal rewrite at the bottom serves
+# /about → /about/index.html silently.
 DirectorySlash Off
 
 RewriteEngine On
@@ -139,19 +140,22 @@ RewriteRule ^thankyou$          /thank-you                [L,R=301]
 RewriteRule ^thank_you$         /thank-you                [L,R=301]
 RewriteRule ^success$           /thank-you                [L,R=301]
 
-# ─── 8. Internal rewrite — serve /foo as /foo.html ──────────────────────────
+# ─── 8. Internal rewrite — serve /foo as /foo/index.html ────────────────────
 # This MUST come after every external 301 rule above, so legacy slugs and
 # trailing-slash strips fire first. The rule fires only when:
 #   • the requested path is not already a real file
-#   • a sibling .html file exists
-# That way /about → /about.html, /blog/category/seo → /blog/category/seo.html,
+#   • the requested path is not already a real directory
+#   • a matching /foo/index.html exists on disk
+# That way /about → /about/index.html, /blog/category/seo → /blog/category/seo/index.html,
 # but unmatched paths fall through to the 404 ErrorDocument below.
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME}.html -f
-RewriteRule ^(.+)$ /$1.html [L]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
+RewriteRule ^(.+?)/?$ /$1/index.html [L]
 
 # ─── 9. Custom 404 ──────────────────────────────────────────────────────────
-# Astro emits /404.html at the dist root (build.format: 'file').
+# Astro emits /404.html at the dist root even with build.format: 'directory'
+# (it's a special-cased file Astro keeps flat so Apache can resolve it).
 ErrorDocument 404 /404.html
 
 # ─── 10. Security headers ───────────────────────────────────────────────────

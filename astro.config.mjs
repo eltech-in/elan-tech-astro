@@ -8,15 +8,15 @@ import compressor from 'astro-compressor'
 
 export default defineConfig({
   site: 'https://elan-tech.net',
-  trailingSlash: 'never',
+  trailingSlash: 'ignore',
   output: 'static',
 
-  // 'file' emits flat .html files (dist/about.html) instead of directories
-  // (dist/about/index.html). Combined with `trailingSlash: 'never'`, this
-  // prevents Hostinger / LiteSpeed mod_dir from auto-301-ing /about → /about/
-  // (which fights our trailing-slash-strip rule and causes a redirect loop).
+  // 'directory' emits dist/about/index.html (folder per page). Combined with
+  // `trailingSlash: 'ignore'`, Astro accepts both /about and /about/ as valid
+  // canonical URLs, which lets Hostinger / LiteSpeed serve nested routes
+  // (e.g. /services/website-design) cleanly without 404s.
   build: {
-    format: 'file',
+    format: 'directory',
   },
 
   integrations: [
