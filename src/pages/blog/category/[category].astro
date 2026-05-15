@@ -32,6 +32,48 @@ const categoryLabels: Record<string, string> = {
 
 const categoryLabel = categoryLabels[category] ?? category;
 
+// SEO descriptions: each category page needs real prose above the post grid
+// or Google treats it as thin content and skips indexing.
+const categoryHeadings: Record<string, { h1: string; intro: string }> = {
+  'web-design': {
+    h1: 'Web Design Resources — Design That Converts',
+    intro:
+      "Guides on building websites that look great and actually convert visitors into customers. Topics include WordPress vs custom development, mobile-first design principles, UX best practices for Indian businesses, conversion rate optimisation, colour theory and branding, and real-world case studies from the eLan Technology portfolio. Practical design advice for business owners and marketing managers.",
+  },
+  'seo': {
+    h1: 'SEO Guides for Small & Mid-Size Businesses',
+    intro:
+      "Search engine optimisation strategies tailored for businesses across India and international markets. Our SEO team shares step-by-step guides on keyword research, local SEO for Nagpur and other Indian cities, technical SEO audits, Google Business Profile optimisation, and proven ranking tactics for competitive niches. Updated regularly with algorithm change insights.",
+  },
+  'technology-trends': {
+    h1: 'Web Technology Trends — What Matters for Your Business',
+    intro:
+      "Cutting through the hype to explain which web technology trends actually matter for business owners in 2026 and beyond. Covering AI in web development, Core Web Vitals and page speed, modern frameworks like Astro and Next.js, progressive web apps, and what the latest Google updates mean for your website's visibility. Written for business owners, not just developers.",
+  },
+  'nagpur-business': {
+    h1: 'Nagpur Business Blog — Web Design & Digital Growth',
+    intro:
+      "Practical guides and insights for Nagpur businesses looking to grow online. Covering web design costs in Nagpur, why local businesses need professional websites, the best web design companies in Central India, and how Nagpur's business landscape is evolving digitally. From MIDC industrialists to Dharampeth retailers — real advice for real Nagpur businesses.",
+  },
+  'accessibility': {
+    h1: 'Accessibility — ADA & WCAG Compliance for Websites',
+    intro:
+      "Plain-English guides to website accessibility, ADA compliance, and WCAG 2.1/2.2 standards. Why accessibility matters for SEO, the business case for inclusive design, lawsuit-driven remediation playbooks, and step-by-step audits you can run on your own website. Written for business owners and product managers — not just developers.",
+  },
+  'ecommerce': {
+    h1: 'eCommerce Strategy & Implementation',
+    intro:
+      "Build, optimise and scale your online store. Guides on platform selection (Shopify, WooCommerce, Magento, custom), product page conversion tactics, checkout optimisation, payment gateway integrations, and cross-border eCommerce for Indian sellers targeting global markets.",
+  },
+  'digital-marketing': {
+    h1: 'Digital Marketing for Service Businesses',
+    intro:
+      "Performance marketing, content strategy, and lead generation for B2B and service businesses. Real playbooks on Google Ads, LinkedIn, content marketing funnels, and attribution. Less theory, more numbers you can act on.",
+  },
+};
+
+const heading = categoryHeadings[category];
+
 function truncate(str: string, n: number) {
   return str.length > n ? str.slice(0, n - 1) + '…' : str;
 }
@@ -62,9 +104,14 @@ const schema = breadcrumbSchema([
     <div class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
       <p class="text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-4">Category</p>
       <h1 class="font-heading text-4xl sm:text-5xl font-bold text-[var(--text)] leading-tight">
-        {categoryLabel}
+        {heading?.h1 ?? categoryLabel}
       </h1>
-      <p class="mt-4 text-[var(--text-dim)]">{posts.length} article{posts.length !== 1 ? 's' : ''}</p>
+      {heading?.intro && (
+        <p class="mx-auto mt-6 max-w-3xl text-base sm:text-lg leading-relaxed text-[var(--text-dim)] text-left sm:text-center">
+          {heading.intro}
+        </p>
+      )}
+      <p class="mt-6 text-sm text-[var(--text-muted)]">{posts.length} article{posts.length !== 1 ? 's' : ''}</p>
     </div>
   </section>
 

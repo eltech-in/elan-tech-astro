@@ -51,6 +51,25 @@
 /blog/*
   Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
 
+# Blog media files live at /blog/<image>.<ext> for historical reasons.
+# Tell Googlebot not to index them as standalone URLs — they appear in the
+# GSC "Crawled — currently not indexed" report when treated as pages.
+# (The HTML pages at /blog/<category>/<slug> are indexable and unaffected.)
+/blog/*.avif
+  X-Robots-Tag: noindex, nofollow
+/blog/*.webp
+  X-Robots-Tag: noindex, nofollow
+/blog/*.jpg
+  X-Robots-Tag: noindex, nofollow
+/blog/*.jpeg
+  X-Robots-Tag: noindex, nofollow
+/blog/*.png
+  X-Robots-Tag: noindex, nofollow
+/blog/*.gif
+  X-Robots-Tag: noindex, nofollow
+/blog/*.svg
+  X-Robots-Tag: noindex, nofollow
+
 /team/*
   Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
 

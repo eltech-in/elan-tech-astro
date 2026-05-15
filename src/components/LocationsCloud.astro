@@ -1,0 +1,76 @@
+---
+// Cross-link block: lists every city + country landing page.
+// Drop into a layout's slot tail to give every page a static, SSR-rendered
+// inbound link to all 24+ location pages — the strongest internal-link
+// signal for the GSC "discovered not indexed" report.
+
+import { citiesWithPages } from '../data/cities';
+import { internationalCountries } from '../data/countries';
+
+interface Props {
+  heading?: string;
+  intro?: string;
+}
+
+const { heading = 'Available Across India & Internationally', intro } = Astro.props;
+---
+<section
+  aria-labelledby="locations-cloud-heading"
+  class="border-t border-[var(--border)] bg-[var(--bg-card)] px-4 py-12 sm:px-6 lg:px-8"
+>
+  <div class="mx-auto max-w-7xl">
+    <h2
+      id="locations-cloud-heading"
+      class="font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl"
+    >
+      {heading}
+    </h2>
+    {intro && (
+      <p class="mt-3 max-w-3xl text-base text-[var(--text-dim)]">
+        {intro}
+      </p>
+    )}
+
+    <div class="mt-6 grid gap-6 md:grid-cols-2">
+      <div>
+        <h3 class="mb-3 font-heading text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">
+          India
+        </h3>
+        <nav aria-label="Indian city landing pages">
+          <ul class="flex flex-wrap gap-x-3 gap-y-2 text-sm">
+            {citiesWithPages.map((city) => (
+              <li>
+                <a
+                  href={`/web-design-company-${city.slug}`}
+                  class="text-[var(--text-dim)] transition-colors duration-150 hover:text-[var(--accent)]"
+                >
+                  {city.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+
+      <div>
+        <h3 class="mb-3 font-heading text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">
+          International
+        </h3>
+        <nav aria-label="International country landing pages">
+          <ul class="flex flex-wrap gap-x-3 gap-y-2 text-sm">
+            {internationalCountries.map((country) => (
+              <li>
+                <a
+                  href={`/web-design-company-${country.slug}`}
+                  class="text-[var(--text-dim)] transition-colors duration-150 hover:text-[var(--accent)]"
+                >
+                  <span aria-hidden="true">{country.flag}</span> {country.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>

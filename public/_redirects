@@ -3,13 +3,10 @@
 # Place more-specific rules before wildcards
 
 # ─── WordPress & Common Attack Paths ────────────────────────────────────────
-/wp-admin/*           /  301
-/wp-admin             /  301
-/wp-login.php         /  301
-/wp-content/*         /  301
-/wp-includes/*        /  301
-/xmlrpc.php           /  301
-/wp-json/*            /  301
+# NOTE: /wp-admin, /wp-content, /wp-includes, /wp-json, /wp-login.php, and
+# /xmlrpc.php now return HTTP 410 Gone via functions/_middleware.ts (scoped
+# by public/_routes.json). 410 de-indexes faster in GSC than 301 → /.
+# Only non-WP attack paths remain here.
 /.env                 /  301
 /.git/*               /  301
 
@@ -53,9 +50,64 @@
 /free-website-audit/                /free-website-audit                 301
 /schedule-consultation/             /schedule-consultation              301
 /request-demo/                      /request-demo                       301
+/search/                            /search                             301
 
-# ─── Old Blog URLs ────────────────────────────────────────────────────────────
-/blog/web-design/*                  /blog/:splat                        301
+# GSC-flagged service trailing-slash variants (May 2026 alternate-canonical report)
+/services/mobile-app-development/       /services/mobile-app-development      301
+/services/ada-compliant-web-design/     /services/ada-compliant-web-design    301
+/services/website-design/               /services/website-design              301
+/services/web-development/              /services/web-development             301
+/services/ecommerce/                    /services/ecommerce                   301
+/services/digital-marketing/            /services/digital-marketing           301
+/services/seo/                          /services/seo                         301
+/services/branding/                     /services/branding                    301
+/services/maintenance-security/         /services/maintenance-security        301
+/services/integrations/                 /services/integrations                301
+
+# Blog category trailing slash
+/blog/category/accessibility/       /blog/category/accessibility        301
+/blog/category/seo/                 /blog/category/seo                  301
+/blog/category/web-design/          /blog/category/web-design           301
+/blog/category/technology-trends/   /blog/category/technology-trends    301
+/blog/category/nagpur-business/     /blog/category/nagpur-business      301
+/blog/category/ecommerce/           /blog/category/ecommerce            301
+/blog/category/digital-marketing/   /blog/category/digital-marketing    301
+
+# Blog post trailing slash + flat-URL migration (old CMS shape → new category path)
+# Each post: BOTH /blog/<slug>/ and /blog/<slug> redirect to /blog/<category>/<slug>
+/blog/website-development-trends-april-2026/  /blog/technology-trends/website-development-trends-april-2026  301
+/blog/website-development-trends-april-2026   /blog/technology-trends/website-development-trends-april-2026  301
+/blog/ai-web-development-2026/                /blog/technology-trends/ai-web-development-2026                301
+/blog/ai-web-development-2026                 /blog/technology-trends/ai-web-development-2026                301
+/blog/ada-compliance-checklist/               /blog/accessibility/ada-compliance-checklist                   301
+/blog/ada-compliance-checklist                /blog/accessibility/ada-compliance-checklist                   301
+/blog/ada-wcag-compliance-us-canada-2026/     /blog/accessibility/ada-wcag-compliance-us-canada-2026         301
+/blog/ada-wcag-compliance-us-canada-2026      /blog/accessibility/ada-wcag-compliance-us-canada-2026         301
+/blog/ada-lawsuit-emergency-website-remediation/  /blog/accessibility/ada-lawsuit-emergency-website-remediation  301
+/blog/ada-lawsuit-emergency-website-remediation   /blog/accessibility/ada-lawsuit-emergency-website-remediation  301
+/blog/wcag-explained-business-owners/         /blog/accessibility/wcag-explained-business-owners             301
+/blog/wcag-explained-business-owners          /blog/accessibility/wcag-explained-business-owners             301
+/blog/seo-guide-small-business-nagpur/        /blog/seo/seo-guide-small-business-nagpur                      301
+/blog/seo-guide-small-business-nagpur         /blog/seo/seo-guide-small-business-nagpur                      301
+/blog/best-web-design-company-raipur-guide/   /blog/nagpur-business/best-web-design-company-raipur-guide     301
+/blog/best-web-design-company-raipur-guide    /blog/nagpur-business/best-web-design-company-raipur-guide     301
+/blog/website-cost-nagpur/                    /blog/nagpur-business/website-cost-nagpur                      301
+/blog/website-cost-nagpur                     /blog/nagpur-business/website-cost-nagpur                      301
+/blog/why-nagpur-business-needs-website/      /blog/nagpur-business/why-nagpur-business-needs-website        301
+/blog/why-nagpur-business-needs-website       /blog/nagpur-business/why-nagpur-business-needs-website        301
+/blog/wordpress-vs-custom-website/            /blog/web-design/wordpress-vs-custom-website                   301
+/blog/wordpress-vs-custom-website             /blog/web-design/wordpress-vs-custom-website                   301
+
+# Catch trailing slashes on already-correct category blog URLs
+/blog/technology-trends/*/      /blog/technology-trends/:splat      301
+/blog/accessibility/*/          /blog/accessibility/:splat          301
+/blog/seo/*/                    /blog/seo/:splat                    301
+/blog/web-design/*/             /blog/web-design/:splat             301
+/blog/nagpur-business/*/        /blog/nagpur-business/:splat        301
+/blog/ecommerce/*/              /blog/ecommerce/:splat              301
+/blog/digital-marketing/*/      /blog/digital-marketing/:splat      301
+
+# Legacy aliases (kept)
 /news/*                             /blog/:splat                        301
 /articles/*                         /blog/:splat                        301
 

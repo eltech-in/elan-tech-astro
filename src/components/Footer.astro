@@ -198,17 +198,30 @@ const socialLinks = [
                   </a>
                 </li>
               ))}
-              <li>
-                <span class="text-xs text-[var(--text-muted)]">
-                  + {citiesWithPages.length - featuredCities.length} more cities
-                </span>
-              </li>
             </ul>
+            {citiesWithPages.length > featuredCities.length && (
+              <nav aria-label="More Indian cities" class="mt-2">
+                <ul class="flex flex-wrap gap-x-2 gap-y-1 text-xs text-[var(--text-muted)]">
+                  {citiesWithPages
+                    .filter((c) => !c.isFeatured)
+                    .map((city) => (
+                      <li>
+                        <a
+                          href={`/web-design-company-${city.slug}`}
+                          class="transition-colors duration-150 hover:text-[var(--accent)]"
+                        >
+                          {city.name}
+                        </a>
+                      </li>
+                    ))}
+                </ul>
+              </nav>
+            )}
           </div>
           <div>
             <h4 class="mb-2 text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">International</h4>
             <ul class="flex flex-col gap-1.5 text-sm">
-              {internationalCountries.slice(0, 6).map((country) => (
+              {internationalCountries.map((country) => (
                 <li>
                   <a
                     href={`/web-design-company-${country.slug}`}
@@ -218,14 +231,11 @@ const socialLinks = [
                   </a>
                 </li>
               ))}
-              {internationalCountries.length > 6 && (
-                <li>
-                  <span class="text-xs text-[var(--text-muted)]">
-                    + {internationalCountries.length - 6} more countries
-                  </span>
-                </li>
-              )}
             </ul>
+          </div>
+          <div class="pt-2 text-xs">
+            <a href="/portfolio" class="block text-[var(--text-muted)] transition-colors duration-150 hover:text-[var(--accent)]">View All Projects →</a>
+            <a href="/blog" class="block text-[var(--text-muted)] transition-colors duration-150 hover:text-[var(--accent)]">Read Our Blog →</a>
           </div>
         </div>
       </div>

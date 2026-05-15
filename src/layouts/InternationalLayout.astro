@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
+import ServicesCloud from '../components/ServicesCloud.astro';
 import type { CountryData } from '../data/countries';
 import { serviceSchema, faqSchema, breadcrumbSchema } from '../utils/schema';
 
@@ -111,4 +112,7 @@ const allSchemas = [svc, crumbSchema, ...(faq ? [faq] : []), ...extraSchema];
 
   <!-- Page content -->
   <slot />
+
+  {/* Cross-link block — every country page links to all services. */}
+  <ServicesCloud location={country.name} />
 </BaseLayout>
