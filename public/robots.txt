@@ -8,19 +8,40 @@ Disallow: /api/
 Disallow: /admin/
 Disallow: /admin
 
-# Block thank-you (conversion tracking — no indexing)
+# Block conversion / thank-you pages (no SEO value — save crawl budget)
 Disallow: /thank-you
+Disallow: /get-quote
+Disallow: /schedule-consultation
+Disallow: /request-demo
 
-# Block legacy WordPress paths
+# Block legacy WordPress ghost paths (now served as 410 Gone by functions/_middleware.ts).
+# These do NOT exist as Astro pages — they are old WordPress CMS URLs that
+# survived the migration and still appear in the GSC "Crawled — currently
+# not indexed" report. Blocking here stops Googlebot from re-checking them
+# on the regular crawl schedule.
+#
+# Important: /category/ is the WordPress category archive. Our valid
+# blog category index lives at /blog/category/* and is NOT blocked.
+Disallow: /tag/
+Disallow: /category/
+Disallow: /author/
+Disallow: /page/
+Disallow: /feed/
+Disallow: /feed
+Disallow: /comments/
+Disallow: /trackback/
 Disallow: /wp-admin/
 Disallow: /wp-login.php
 Disallow: /wp-content/
 Disallow: /wp-includes/
+Disallow: /wp-json/
 Disallow: /xmlrpc.php
 Disallow: /?author=
 Disallow: /?s=
-Disallow: /feed/
-Disallow: /comments/feed/
+Disallow: /?id=
+Disallow: /?p=
+Disallow: /?page_id=
+Disallow: /?attachment_id=
 
 # Block query strings
 Disallow: /*?*utm_source=

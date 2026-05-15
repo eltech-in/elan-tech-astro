@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
+import LocationsCloud from '../components/LocationsCloud.astro';
 
 interface Props {
   title: string;
@@ -103,4 +104,10 @@ const currentPath = Astro.url.pathname;
       <slot />
     </div>
   </div>
+
+  <!-- Cross-link block — gives every city/country landing page an inbound
+       link from every service page (crawl-budget signal for GSC). -->
+  <LocationsCloud
+    intro="We deliver this service for businesses across India and internationally — from our Nagpur HQ to clients in the USA, UAE, Canada, Australia and beyond."
+  />
 </BaseLayout>

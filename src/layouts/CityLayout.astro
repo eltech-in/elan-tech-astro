@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
+import ServicesCloud from '../components/ServicesCloud.astro';
 import type { CityData } from '../data/cities';
 import { localBusinessSchema, serviceAreaBusinessSchema, faqSchema, breadcrumbSchema } from '../utils/schema';
 
@@ -168,4 +169,8 @@ const badge = city
   </section>
 
   <slot />
+
+  {/* Cross-link block — every city/country page links back to every service.
+      Provides 24+ inbound links per service page for crawl-budget signals. */}
+  <ServicesCloud location={city ? city.name : legacyCity} />
 </BaseLayout>
