@@ -3,38 +3,39 @@ import { createPortal } from 'react-dom';
 
 const navLinks = [
   { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
+  { label: 'About', href: '/about/' },
   {
     label: 'Services',
-    href: '/services',
+    href: '/services/',
     hasMegaMenu: true,
     subLinks: [
-      { label: 'Website Design', href: '/services/website-design' },
-      { label: 'Web Development', href: '/services/web-development' },
-      { label: 'eCommerce', href: '/services/ecommerce' },
-      { label: 'SEO', href: '/services/seo' },
-      { label: 'Digital Marketing', href: '/services/digital-marketing' },
-      { label: 'Mobile App Development', href: '/services/mobile-app-development' },
-      { label: 'Branding', href: '/services/branding' },
-      { label: 'Maintenance & Security', href: '/services/maintenance-security' },
-      { label: 'ADA & WCAG Compliance', href: '/services/ada-compliant-web-design' },
+      { label: 'Website Design', href: '/services/website-design/' },
+      { label: 'Web Development', href: '/services/web-development/' },
+      { label: 'eCommerce', href: '/services/ecommerce/' },
+      { label: 'SEO', href: '/services/seo/' },
+      { label: 'Digital Marketing', href: '/services/digital-marketing/' },
+      { label: 'Mobile App Development', href: '/services/mobile-app-development/' },
+      { label: 'Branding', href: '/services/branding/' },
+      { label: 'Maintenance & Security', href: '/services/maintenance-security/' },
+      { label: 'ADA & WCAG Compliance', href: '/services/ada-compliant-web-design/' },
     ],
   },
   {
     label: 'Products',
-    href: '/products',
+    href: '/products/',
     hasMegaMenu: true,
     subLinks: [
-      { label: 'Real Estate Portal', href: '/products/real-estate-portal' },
-      { label: 'Medical Conference Portal', href: '/products/medical-conference-portal' },
-      { label: 'IMA Society Portal', href: '/products/ima-society-portal' },
-      { label: 'Resort Management Portal', href: '/products/resort-management-system' },
+      { label: 'Real Estate Portal', href: '/products/real-estate-portal/' },
+      { label: 'Medical Conference Portal', href: '/products/medical-conference-portal/' },
+      { label: 'IMA Society Portal', href: '/products/ima-society-portal/' },
+      { label: 'Resort Management Portal', href: '/products/resort-management-system/' },
     ],
   },
-  { label: 'Portfolio', href: '/portfolio' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Pricing', href: '/pricing' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'Portfolio', href: '/portfolio/' },
+  { label: 'Blog', href: '/blog/' },
+  { label: 'Pricing', href: '/pricing/' },
+  { label: 'Contact', href: '/contact/' },
+  { label: '🔍 Search', href: '/search/' },
 ];
 
 export default function MobileNav() {
@@ -308,7 +309,7 @@ export default function MobileNav() {
               }}
             >
               <a
-                href="/free-website-audit"
+                href="/free-website-audit/"
                 onClick={close}
                 style={{
                   display: 'block',
@@ -324,7 +325,7 @@ export default function MobileNav() {
                 Get Free Audit
               </a>
               <a
-                href="/get-quote"
+                href="/get-quote/"
                 onClick={close}
                 style={{
                   display: 'block',

@@ -6,6 +6,30 @@ const SITE_URL = 'https://elan-tech.net';
 
 const faqs = [
   {
+    question: 'What should I look for in ADA website remediation providers?',
+    answer: 'The best ADA website remediation providers share three traits: (1) code-level fixes, not overlay widgets — 22.64% of sites sued in 2025 already had an accessibility widget installed, and the FTC fined accessiBe $1 million for misleading compliance claims; (2) WCAG 2.1 AA conformance testing with documented VPAT/ACR reports your attorney can submit as evidence of a good-faith remediation effort; (3) fast turnaround — emergency audits within 24 hours when a demand-letter deadline is on the clock. eLan Technology is an ADA website remediation provider offering exactly this: 24-hour emergency audits, fixed pricing from $1,500, full code-level remediation, and VPAT documentation — at 60-70% less than the $15,000-$50,000 typically charged by US accessibility agencies.',
+  },
+  {
+    question: 'What is the ADA website compliance checklist?',
+    answer: 'An ADA website compliance checklist is the practical set of fixes that brings a site in line with WCAG 2.1 Level AA — the standard US courts treat as the benchmark for ADA Title III. In plain English, the checklist boils down to: every image needs alt text, every form field needs a label, text needs at least 4.5:1 contrast against its background, every interactive element must work with a keyboard alone, focus indicators must be visible, headings must follow a logical order, the page language must be declared, and any video needs captions or a transcript. Six of these account for 96% of all real-world lawsuits — low contrast, missing alt text, missing form labels, empty links, missing document language, and empty buttons. We publish a deeper walkthrough in our <a href="/blog/accessibility/ada-compliance-checklist/">ADA compliance checklist guide</a>, and our audit hands you the same checklist scored against your live pages.',
+  },
+  {
+    question: 'What are the ADA compliance requirements for a website in 2026?',
+    answer: 'There is no single federal statute that says "your website must meet X" — instead, ADA Title III says public accommodations must be accessible, and the DOJ + federal courts have made WCAG 2.1 Level AA the de facto technical bar. Practically, that means your site needs to be perceivable (alt text, captions, contrast), operable (keyboard-friendly, no seizure triggers, enough time to read), understandable (clear labels, predictable navigation, helpful errors), and robust (clean semantic HTML that assistive tech can parse). The DOJ\'s April 24, 2026 Title II rule formalised WCAG 2.1 AA for state and local governments — and that decision is the standard plaintiff attorneys are already citing in private-sector cases.',
+  },
+  {
+    question: 'What are the WCAG 2.1 AA standards?',
+    answer: 'WCAG 2.1 (Web Content Accessibility Guidelines) is published by the W3C and organised under four principles — Perceivable, Operable, Understandable, Robust, abbreviated POUR. Each principle breaks down into success criteria, rated A (basic), AA (industry standard), or AAA (gold standard). The WCAG 2.1 AA accessibility standards add 50 testable criteria covering text contrast, resize behaviour, keyboard traps, focus visibility, error identification, language of parts, and more. AA is the conformance level cited by the ADA, Section 508, the European Accessibility Act, and most procurement contracts. We break the criteria down without jargon in our <a href="/blog/accessibility/wcag-explained-business-owners/">WCAG explained for business owners</a> post.',
+  },
+  {
+    question: 'What are the actual requirements for an ADA-compliant website?',
+    answer: 'Stripped of legalese, ADA-compliant website requirements are: (1) every meaningful image carries descriptive alt text; (2) every form input has a programmatically associated label and clear error messaging; (3) all functionality works with keyboard alone — no mouse required; (4) text contrast is at least 4.5:1 for body copy and 3:1 for large text; (5) focus is always visible and follows a logical order; (6) headings (H1, H2, H3) describe the page structure honestly; (7) page language is declared in the HTML; (8) audio and video have captions or transcripts; (9) nothing flashes more than three times per second; (10) users have enough time to read and interact, with no auto-advancing carousels that can\'t be paused. A WCAG 2.1 AA audit verifies all of this against your live site and tells you exactly what to fix.',
+  },
+  {
+    question: 'Is there a free way to check my site against the ADA compliance checklist?',
+    answer: 'Yes — start with a quick automated scan. Tools like axe DevTools, WAVE, and Google Lighthouse will flag the most obvious violations in a few minutes (missing alt text, low contrast, empty buttons). They are good for a first pass but typically catch only 30–40% of issues; the rest — keyboard traps, focus order, screen-reader logic, form-error flows — require manual testing by someone trained in WCAG. That is the gap our <a href="/free-website-audit/">free website audit</a> closes: a real human runs the checklist against your homepage and three key pages, and gives you a plain-English report with the priorities ranked. If you want the full WCAG 2.1 AA audit across every page with VPAT documentation, that starts at $1,500.',
+  },
+  {
     question: 'Is my website required to be ADA compliant?',
     answer: 'If your business serves US customers, yes. ADA Title III applies to "places of public accommodation," and US courts have consistently ruled that websites qualify. In 2025 alone, 5,100+ digital accessibility lawsuits were filed — and 67% targeted businesses with under $25M in annual revenue. Any business with a website that serves the US can be a target.',
   },
@@ -49,17 +73,18 @@ const faqs = [
 
 const breadcrumbs = [
   { name: 'Home', href: '/' },
-  { name: 'Services', href: '/services' },
-  { name: 'ADA-Compliant Web Design', href: '/services/ada-compliant-web-design' },
+  { name: 'Services', href: '/services/' },
+  { name: 'ADA-Compliant Web Design', href: '/services/ada-compliant-web-design/' },
 ];
 
 const serviceSchemaObj = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: 'ADA-Compliant Web Design',
+  name: 'ADA Website Remediation',
+  alternateName: 'ADA-Compliant Web Design',
   description:
-    'WCAG 2.1 AA compliant website design and development services that protect US businesses from ADA website lawsuits.',
-  url: `${SITE_URL}/services/ada-compliant-web-design`,
+    'ADA website remediation and WCAG 2.1 AA compliant website design and development services that protect US businesses from ADA website lawsuits.',
+  url: `${SITE_URL}/services/ada-compliant-web-design/`,
   provider: {
     '@type': 'Organization',
     name: 'eLan Technology',
@@ -82,9 +107,9 @@ const schemaBreadcrumbs = breadcrumbs.map(b => ({ name: b.name, url: b.href }));
 const schemas = [serviceSchemaObj, faqSchema(faqs), breadcrumbSchema(schemaBreadcrumbs)];
 ---
 <ServiceLayout
-  title="Emergency ADA Website Remediation Specialists — Facing a Lawsuit? | eLan Technology"
-  description="Facing an ADA digital accessibility lawsuit? eLan Technology specialises in emergency WCAG 2.2 AA website remediation — audit in 24 hrs, code-level fixes, VPAT documentation. Stop the lawsuit before it escalates."
-  canonical="/services/ada-compliant-web-design"
+  title="ADA Website Remediation Services | WCAG 2.1 AA Compliance | eLan Technology"
+  description="Searching for trusted ADA website remediation providers? Get a WCAG 2.1 AA audit with code-level remediation, VPAT documentation & 24-hour turnaround. Fixed price from $1,500."
+  canonical="/services/ada-compliant-web-design/"
   schema={schemas}
   breadcrumbs={breadcrumbs}
 >
@@ -111,6 +136,19 @@ const schemas = [serviceSchemaObj, faqSchema(faqs), breadcrumbSchema(schemaBread
       </div>
     </div>
   </section>
+
+    <!-- ── INTRO: HUMANISED CONTEXT ────────────────────────────────────────── -->
+    <section class="mb-16 max-w-3xl">
+      <p class="text-base text-[var(--text-muted)] md:text-lg leading-relaxed mb-4">
+        ADA compliance for a website sounds like a legal puzzle, but it really comes down to one thing: can a person who can't see a screen, can't use a mouse, or processes information differently still use your site? If the answer is yes, you've already met the spirit of the law. The work is in proving it, page by page, against a checklist the courts actually recognise — and that checklist is <a href="/blog/accessibility/wcag-explained-business-owners/" class="text-red-500 underline hover:no-underline">WCAG 2.1 Level AA</a>.
+      </p>
+      <p class="text-base text-[var(--text-muted)] md:text-lg leading-relaxed mb-4">
+        We've built websites for 24 years. Accessibility isn't a service line we bolted on when lawsuits started trending — it's how we've shipped sites since 2002. What's changed in the last two years is the speed and scale of enforcement: AI tools let any plaintiff file a competent complaint in minutes, automated scanners crawl thousands of sites a night, and 67% of new cases now target small businesses, not Fortune 500s.
+      </p>
+      <p class="text-base text-[var(--text-muted)] md:text-lg leading-relaxed">
+        If you're researching what compliance actually requires — start with our <a href="/blog/accessibility/ada-compliance-checklist/" class="text-red-500 underline hover:no-underline">plain-English ADA compliance checklist</a>. If you've already received a demand letter, skip to the emergency section below — every day matters.
+      </p>
+    </section>
 
     <!-- ── SECTION 1: LAWSUIT CRISIS ───────────────────────────────────────── -->
     <section class="mb-16">
@@ -327,7 +365,7 @@ const schemas = [serviceSchemaObj, faqSchema(faqs), breadcrumbSchema(schemaBread
         <li class="flex gap-3 rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-3"><span class="text-green-500 shrink-0">✓</span>Ongoing accessibility monitoring in maintenance plans</li>
       </ul>
       <p class="mt-5 text-[var(--text-muted)]">US accessibility agencies charge $15,000-$50,000 for remediation projects. We deliver the same quality — tested against the same WCAG standards, using the same tools (axe-core, Lighthouse, NVDA, VoiceOver) — at 60-70% less.</p>
-      <p class="mt-4 text-sm text-[var(--text-muted)]">Related: <a href="/wcag-accessibility-audit" class="text-red-500 underline hover:no-underline">WCAG accessibility audit service</a> · <a href="/web-design-company-usa" class="text-red-500 underline hover:no-underline">Outsource web design to USA</a> · <a href="/accessibility-statement" class="text-red-500 underline hover:no-underline">Our accessibility statement</a></p>
+      <p class="mt-4 text-sm text-[var(--text-muted)]">Related reading: <a href="/blog/accessibility/ada-compliance-checklist/" class="text-red-500 underline hover:no-underline">ADA compliance checklist</a> · <a href="/blog/accessibility/wcag-explained-business-owners/" class="text-red-500 underline hover:no-underline">WCAG 2.1 AA explained for business owners</a> · <a href="/blog/accessibility/ada-wcag-compliance-us-canada-2026/" class="text-red-500 underline hover:no-underline">ADA &amp; WCAG compliance 2026</a> · <a href="/web-design-company-usa/" class="text-red-500 underline hover:no-underline">Outsource web design to USA</a> · <a href="/accessibility-statement/" class="text-red-500 underline hover:no-underline">Our accessibility statement</a></p>
     </section>
 
     <!-- ── SECTION 8: FAQ ──────────────────────────────────────────────────── -->

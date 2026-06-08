@@ -1,0 +1,83 @@
+---
+// InclusionGrid — "Every Plan Includes" 8-item feature grid.
+// Pure Astro, zero JavaScript. Emoji aria-hidden, titles use Sora 700.
+// WCAG: all text ≥ 4.5:1 contrast on both --bg and --bg-card backgrounds.
+
+const items = [
+  {
+    emoji: '🌐',
+    title: 'Professional Website',
+    desc: 'Custom HTML, not a template. Loads in under 1 second.',
+  },
+  {
+    emoji: '🔗',
+    title: 'Domain in Your Name',
+    desc: '.in or .co.in registered in your name at NIXI. You own it.',
+  },
+  {
+    emoji: '⚡',
+    title: 'Fast, Secure Hosting',
+    desc: 'Hostinger Mumbai servers. Fast, reliable, managed by eLan Tech.',
+  },
+  {
+    emoji: '🔧',
+    title: '4 Years Maintenance',
+    desc: '1–2 updates/month (plan-dependent). Security monitoring. 5-day response time.',
+  },
+  {
+    emoji: '📍',
+    title: 'Google Maps',
+    desc: 'Your location embedded correctly for local customers.',
+  },
+  {
+    emoji: '📊',
+    title: 'Analytics Setup',
+    desc: 'Google Analytics 4 configured from day one.',
+  },
+  {
+    emoji: '🔒',
+    title: 'Free SSL Certificate',
+    desc: 'https:// secured. Essential for trust and Google ranking.',
+  },
+  {
+    emoji: '📱',
+    title: 'WhatsApp Chat Button',
+    desc: 'Floating button on every page. Proven to increase enquiries.',
+  },
+] as const;
+---
+
+<ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4" role="list">
+  {items.map((item) => (
+    <li>
+      <div class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--border)] p-5 md:p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+           style="background: linear-gradient(135deg, rgba(242,103,34,0.06) 0%, var(--bg-card) 70%);">
+        <!-- Decorative glow blob -->
+        <span
+          aria-hidden="true"
+          class="pointer-events-none absolute -right-5 -bottom-5 h-20 w-20 rounded-full opacity-[0.06]"
+          style="background:#F26722;"
+        ></span>
+
+        <!-- Emoji icon container -->
+        <div
+          class="relative mb-3 flex h-11 w-11 items-center justify-center rounded-xl text-xl"
+          style="background:rgba(242,103,34,0.10);"
+          aria-hidden="true"
+        >
+          {item.emoji}
+        </div>
+
+        <!-- Title -->
+        <h3 class="relative font-heading text-sm md:text-base font-bold text-[var(--text)] mb-1.5">
+          {item.title}
+        </h3>
+
+        <!-- Description -->
+        <p class="relative text-xs md:text-sm text-[var(--text-dim)] leading-relaxed">
+          {item.desc}
+        </p>
+      </div>
+    </li>
+  ))}
+</ul>

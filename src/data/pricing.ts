@@ -20,7 +20,7 @@ export const pricingTiers: PricingTier[] = [
     name: 'Starter',
     tagline: 'Perfect for small businesses and startups',
     prices: {
-      INR: 25000,
+      INR: 16999,
       USD: 300,
       AUD: 450,
       AED: 1100,
@@ -49,7 +49,7 @@ export const pricingTiers: PricingTier[] = [
     name: 'Professional',
     tagline: 'The complete package for growing businesses',
     prices: {
-      INR: 60000,
+      INR: 29999,
       USD: 720,
       AUD: 1080,
       AED: 2640,
@@ -81,7 +81,7 @@ export const pricingTiers: PricingTier[] = [
     name: 'Enterprise',
     tagline: 'Full-scale solutions for large organizations',
     prices: {
-      INR: 120000,
+      INR: 49999,
       USD: 1440,
       AUD: 2160,
       AED: 5280,

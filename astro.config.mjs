@@ -8,13 +8,12 @@ import compressor from 'astro-compressor'
 
 export default defineConfig({
   site: 'https://elan-tech.net',
-  trailingSlash: 'ignore',
+  // Apache mod_dir (DirectorySlash on) 301-redirects /foo → /foo/ for Astro's
+  // directory-format build. trailingSlash: 'always' keeps canonical tags and
+  // sitemap URLs in sync with the server's canonical form.
+  trailingSlash: 'always',
   output: 'static',
 
-  // 'directory' emits dist/about/index.html (folder per page). Combined with
-  // `trailingSlash: 'ignore'`, Astro accepts both /about and /about/ as valid
-  // canonical URLs, which lets Hostinger / LiteSpeed serve nested routes
-  // (e.g. /services/website-design) cleanly without 404s.
   build: {
     format: 'directory',
   },
@@ -38,10 +37,12 @@ export default defineConfig({
       changefreq: 'weekly',
       priority: 0.7,
       serialize(item) {
-        const url = item.url
+        // Strip trailing slash for pattern matching; the emitted item.url
+        // retains it (trailingSlash: 'always' is the canonical form).
+        const url = item.url.replace(/\/$/, '')
 
         // Homepage — highest priority
-        if (url === 'https://elan-tech.net/' || url === 'https://elan-tech.net') {
+        if (url === 'https://elan-tech.net' || item.url === 'https://elan-tech.net/') {
           item.priority = 1.0
           item.changefreq = 'daily'
           return item
@@ -103,6 +104,13 @@ export default defineConfig({
         if (url.includes('/portfolio/case-study/')) {
           item.priority = 0.7
           item.changefreq = 'monthly'
+          return item
+        }
+
+        // Digital Launchpad landing page — campaign priority
+        if (url.endsWith('/pricing/digital-launchpad')) {
+          item.priority = 0.9
+          item.changefreq = 'weekly'
           return item
         }
 
@@ -192,10 +200,10 @@ export default defineConfig({
   },
 
   redirects: {
-    '/about-elantech': '/about',
-    '/services/web-design': '/services/website-design',
-    '/services/social-media': '/services/digital-marketing',
-    '/services/mobile-app': '/services/mobile-app-development',
-    '/integrations': '/services/integrations',
+    '/about-elantech': '/about/',
+    '/services/web-design': '/services/website-design/',
+    '/services/social-media': '/services/digital-marketing/',
+    '/services/mobile-app': '/services/mobile-app-development/',
+    '/integrations': '/services/integrations/',
   },
 })

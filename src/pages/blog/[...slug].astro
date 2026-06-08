@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BlogLayout from '../../layouts/BlogLayout.astro';
-import { articleSchema, breadcrumbSchema, speakableSchema, howToSchema } from '../../utils/schema';
+import { articleSchema, breadcrumbSchema, speakableSchema, howToSchema, faqSchema } from '../../utils/schema';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -21,11 +21,11 @@ const toISO = (d: unknown) => (d instanceof Date ? d.toISOString() : String(d));
 const publishDateStr = toISO(post.data.publishDate);
 const updatedDateStr = post.data.updatedDate ? toISO(post.data.updatedDate) : publishDateStr;
 
-const postUrl = `/blog/${post.data.category}/${post.id}`;
+const postUrl = `/blog/${post.data.category}/${post.id}/`;
 
 const breadcrumbs = [
   { name: 'Home', url: '/' },
-  { name: 'Blog', url: '/blog' },
+  { name: 'Blog', url: '/blog/' },
   { name: post.data.title, url: postUrl },
 ];
 
@@ -54,6 +54,8 @@ const schemas = [
         }),
       ]
     : []),
+  // AEO: emit FAQPage when the post declares an faq block.
+  ...(post.data.faq && post.data.faq.length > 0 ? [faqSchema(post.data.faq)] : []),
 ];
 ---
 

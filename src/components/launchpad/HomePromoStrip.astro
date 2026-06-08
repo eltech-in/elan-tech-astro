@@ -1,0 +1,96 @@
+---
+// HomePromoStrip — server-side date-gated promo strip for the homepage.
+// Renders nothing after OFFER_END; no client JS required.
+// Placed after the Stats section, before the logo carousel.
+
+import { PLANS, OFFER_END } from '../../data/digitalLaunchpad';
+
+const now = new Date();
+const isActive = now <= OFFER_END;
+
+// Format with Indian comma style
+function fmt(n: number) {
+  return n.toLocaleString('en-IN');
+}
+
+// Days remaining (rough, server-side)
+const msLeft = OFFER_END.getTime() - now.getTime();
+const daysLeft = Math.max(0, Math.ceil(msLeft / (1000 * 60 * 60 * 24)));
+---
+
+{isActive && (
+  <section
+    aria-label="Digital Launchpad limited-time offer"
+    class="relative overflow-hidden border-y"
+    style="border-color: rgba(242,103,34,0.30); background: linear-gradient(135deg, rgba(242,103,34,0.10) 0%, rgba(29,59,109,0.12) 50%, rgba(242,103,34,0.08) 100%);"
+  >
+    <!-- Decorative blobs -->
+    <span
+      aria-hidden="true"
+      class="pointer-events-none absolute -left-20 top-1/2 -translate-y-1/2 h-48 w-48 rounded-full opacity-[0.08] blur-3xl"
+      style="background:#F26722;"
+    ></span>
+    <span
+      aria-hidden="true"
+      class="pointer-events-none absolute -right-20 top-1/2 -translate-y-1/2 h-48 w-48 rounded-full opacity-[0.06] blur-3xl"
+      style="background:#3B82F6;"
+    ></span>
+
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-7 md:py-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+
+        <!-- Left: label + headline -->
+        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left">
+          <!-- Fire pill -->
+          <div
+            class="shrink-0 flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold uppercase tracking-widest"
+            style="background:#F26722; color:#1a0800;"
+          >
+            🔥 <span>New</span>
+          </div>
+          <div>
+            <p class="font-heading text-base sm:text-lg font-bold text-[var(--text)] leading-snug">
+              Digital Launchpad — Complete Website from ₹{fmt(PLANS[0].price)}
+            </p>
+            <p class="mt-0.5 text-sm text-[var(--text-dim)]">
+              Domain · Hosting · SSL · 4-year maintenance · WhatsApp button.
+              <span class="font-semibold" style="color:var(--orange-text);">
+                {daysLeft} day{daysLeft !== 1 ? 's' : ''} left · Offer ends 30 Jun 2026.
+              </span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Centre: plan price pills -->
+        <div class="flex flex-wrap justify-center gap-2 shrink-0">
+          {PLANS.map((plan) => (
+            <a
+              href="/pricing/digital-launchpad/"
+              class="flex flex-col items-center rounded-xl border px-4 py-2.5 text-center transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
+              style={plan.featured
+                ? 'border-color:rgba(242,103,34,0.7); background:rgba(242,103,34,0.12);'
+                : 'border-color:rgba(242,103,34,0.25); background:rgba(242,103,34,0.05);'}
+            >
+              <span class="text-base" aria-hidden="true">{plan.emoji}</span>
+              <span class="text-[10px] font-semibold text-[var(--text-muted)] mt-0.5 whitespace-nowrap">{plan.name.replace('eLan ', '')}</span>
+              <span class="font-heading text-sm font-bold mt-0.5" style="color:var(--orange-text);">₹{fmt(plan.price)}</span>
+              {plan.featured && (
+                <span class="mt-1 rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider" style="background:#F26722;color:#1a0800;">Popular</span>
+              )}
+            </a>
+          ))}
+        </div>
+
+        <!-- Right: CTA -->
+        <a
+          href="/pricing/digital-launchpad/"
+          class="shrink-0 rounded-full px-6 py-3 text-sm font-bold transition-all duration-200 hover:opacity-90 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 whitespace-nowrap"
+          style="background:#F26722;color:#1a0800;min-height:44px;display:inline-flex;align-items:center;outline-color:#1a0800;"
+        >
+          Reserve a Slot →
+        </a>
+
+      </div>
+    </div>
+  </section>
+)}

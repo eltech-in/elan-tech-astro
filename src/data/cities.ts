@@ -31,6 +31,8 @@ export interface CityData {
 
   // SEO
   tagline: string;
+  seoTitle?: string;
+  seoDescription?: string;
   primaryKeyword: string;
   secondaryKeywords: string[];
   searchVolume: number;
@@ -71,6 +73,8 @@ export const cities: CityData[] = [
     knownFor: 'Orange City, MIDC industrial hub, geographical centre of India',
     distanceFromNagpur: 'HQ',
     tagline: "Nagpur's Most Experienced Web Design Agency — Since 2002",
+    seoTitle: 'Web Design Company in Nagpur | Website Development – eLan Technology',
+    seoDescription: "Nagpur's most experienced web design & development company since 2002. 500+ clients, 10+ countries. Custom websites, mobile apps, WCAG 2.1 AA. Free audit at our Gayatri Nagar office.",
     primaryKeyword: 'web design company Nagpur',
     secondaryKeywords: [
       'website design Nagpur',
@@ -120,44 +124,39 @@ export const cities: CityData[] = [
       'Website costs in Nagpur range from ₹15,000 for a basic 5-page site to ₹1,50,000+ for enterprise solutions. Our Professional package starts at ₹4x,xxx and includes custom design, SEO setup, and WCAG accessibility compliance.',
     faq: [
       {
-        question: 'How much does a website cost in Nagpur?',
-        answer:
-          'Website costs in Nagpur range from ₹15,000 for a basic business website to ₹2,00,000+ for custom web applications. A standard business website with 5–10 pages typically costs ₹25,000–₹60,000. eCommerce websites start from ₹40,000. We offer flexible packages tailored to Nagpur businesses of all sizes.',
-      },
-      {
         question: 'Which is the best web design company in Nagpur?',
         answer:
-          "eLan Technology is Nagpur's most experienced web design company, operating since 2002. With 500+ clients across 10+ countries, 1500+ projects delivered, and proprietary products like our Real Estate Portal and Medical Conference Portal, we offer a depth of experience no other Nagpur agency can match.",
+          "eLan Technology is Nagpur's most experienced web design company, operating since 2002. With 500+ clients across 10+ countries, 1,500+ projects delivered, and proprietary products like our Real Estate Portal and Medical Conference Portal, we offer depth no other Nagpur agency can match. We are also the only web design company in Nagpur to offer WCAG 2.1 AA accessibility as standard — not an upsell — on every project.",
+      },
+      {
+        question: 'How much does website development cost in Nagpur?',
+        answer:
+          'Website development costs in Nagpur range from ₹15,000 for a basic 5-page site to ₹2,00,000+ for custom web applications. A standard business website typically costs ₹25,000–₹60,000. eCommerce stores start at ₹40,000. Our fixed-price packages include design, development, mobile responsiveness, basic SEO setup, and a 30-day post-launch support window — no surprise add-ons.',
       },
       {
         question: 'Does eLan Technology have an office in Nagpur?',
         answer:
-          "Yes, our headquarters is in Nagpur, Maharashtra at PTG IT Park, Gayatri Nagar. We've been based here since our founding in 2002. You can visit our office for in-person consultations, or we're happy to connect via video call.",
+          "Yes — our headquarters is at PTG IT Park, Gayatri Nagar, Nagpur, Maharashtra. We have been based here since 2002. Walk in for a face-to-face consultation, or connect over video call. We are the only web design company in Nagpur with 24+ years of continuous operations from the same city.",
       },
       {
-        question: 'Do you build WCAG and ADA compliant websites in Nagpur?',
+        question: 'How long does it take to build a website for a Nagpur business?',
         answer:
-          'Yes — eLan Technology is the only web design company in Nagpur that offers WCAG 2.1 AA and ADA compliance as standard on most project. This is critical for businesses serving international clients, especially in the USA.',
+          'A standard business website takes 2–4 weeks from kick-off to launch. eCommerce stores typically take 4–8 weeks. Complex web applications or portals — government, healthcare, real estate — may take 3–6 months. We share a milestone calendar at project start, and delays on our end come with credit guarantees.',
       },
       {
-        question: 'How long does it take to build a website in Nagpur?',
+        question: 'Do you provide local SEO and digital marketing services in Nagpur?',
         answer:
-          'A standard business website takes 2-6 weeks. eCommerce stores take 3-10 weeks. Complex web applications may take 3-6 months. Timelines depend on scope, content readiness, and feedback speed.',
+          "Yes. Our local SEO service targets customers in Sitabuldi, Dharampeth, Wardha Road, and the MIDC industrial corridors. We combine Google Business Profile optimisation, on-page SEO, and content strategy to rank your business on page 1. SEO packages start at ₹12,000/month. We've helped 200+ businesses rank on page 1 of Google for competitive Nagpur keywords.",
       },
       {
-        question: 'Do you provide SEO services in Nagpur?',
+        question: 'Can you redesign my existing Nagpur business website?',
         answer:
-          "Yes, we offer comprehensive SEO services including local SEO, national SEO, Google Ads management, and social media marketing. Our SEO packages start at ₹12,000/month. We've helped 200+ businesses rank on page 1 of Google.",
+          'Absolutely — website redesign is one of our most requested services. We migrate your existing content to a modern, fast, mobile-first design while preserving SEO rankings and improving Core Web Vitals and accessibility. Most redesigns are completed in 3–5 weeks. We audit your old site first so you know exactly what is being improved.',
       },
       {
-        question: 'Can you redesign my existing website?',
+        question: 'Do you build WCAG 2.1 AA and ADA compliant websites in Nagpur?',
         answer:
-          'Absolutely. Website redesign is one of our most popular services. We migrate your existing content to a modern, fast, mobile-first design while preserving your SEO rankings and improving accessibility.',
-      },
-      {
-        question: 'What technologies do you use for web development?',
-        answer:
-          'We work with React, Next.js, Astro, Node.js, MongoDB, WordPress, Shopify, WooCommerce, Flutter, and more. We recommend the best technology stack based on your specific project requirements and budget.',
+          'Yes. eLan Technology is the only web design company in Nagpur that offers WCAG 2.1 AA and ADA compliance as standard on most projects. This is critical for Nagpur businesses exporting services to the USA, UK, Canada, or EU, where ADA and EAA accessibility laws apply. We provide VPAT 2.5 documentation and optional automated monitoring.',
       },
     ],
     portfolio: [
@@ -192,11 +191,19 @@ export const cities: CityData[] = [
     knownFor: 'Steel capital, Naya Raipur smart city, industrial hub',
     distanceFromNagpur: '285 km (5 hours drive)',
     tagline: "Raipur's Trusted Web Design Partner — Powered by Nagpur's Best Agency",
+    seoTitle: 'Website Design Company in Raipur | Web Designer & Developer | eLan Technology',
+    seoDescription: "Website design company in Raipur — experienced web designers & a web development company team serving Chhattisgarh's steel, government & healthcare sectors. WCAG 2.1 AA. Fixed pricing. Free audit.",
     primaryKeyword: 'web design company Raipur',
     secondaryKeywords: [
       'website design Raipur',
+      'website design in Raipur',
       'best web design company Raipur',
+      'website design company Raipur',
+      'web designer Raipur',
+      'web designer in Raipur',
       'web developer Raipur',
+      'web development company Raipur',
+      'website development company Raipur',
       'digital marketing Raipur',
       'SEO company Raipur',
     ],
@@ -221,34 +228,39 @@ export const cities: CityData[] = [
       'Website costs for Raipur businesses start at ₹15,000 for basic sites and go up to ₹1,50,000+ for custom applications. Our pricing is transparent and competitive — often 30-40% less than equivalent quality from metro city agencies.',
     faq: [
       {
-        question: 'Is there a good web design company serving Raipur?',
+        question: 'Which website design company in Raipur do you recommend?',
         answer:
-          'eLan Technology serves Raipur businesses from our Nagpur headquarters, just 285 km away. With 24+ years of experience and 500+ clients across 5+ countries, we bring a level of expertise that exceeds what most local Raipur agencies can offer — at competitive pricing.',
+          "eLan Technology is a top-rated website design company serving Raipur businesses from our Nagpur headquarters, just 285 km away. With 24+ years of experience, 500+ clients across 10+ countries, and deep knowledge of Chhattisgarh's steel, government, and healthcare sectors, we deliver results that exceed most local Raipur agencies — at competitive, fixed pricing.",
       },
       {
-        question: 'How much does a website cost in Raipur?',
+        question: 'Which website development company in Raipur handles Chhattisgarh industry clients?',
         answer:
-          "Website costs for Raipur businesses start at ₹15,000 for basic sites and go up to ₹1,50,000+ for custom applications. Our pricing is transparent and competitive — often 30-40% less than equivalent quality from metro city agencies.",
+          "eLan Technology is the website development company in Raipur's extended market with the deepest experience across Chhattisgarh's key sectors: steel & mining, power & energy, Naya Raipur smart city projects, government institutions, and healthcare networks. We understand the procurement, compliance, and language requirements unique to CG clients.",
       },
       {
-        question: 'Do you offer in-person meetings for Raipur clients?',
+        question: 'Can I hire an experienced web designer in Raipur for a custom project?',
         answer:
-          'While our office is in Nagpur (285 km from Raipur), we conduct regular video consultations and can arrange in-person meetings for larger projects. Many of our clients work with us entirely remotely via Slack, Zoom, and project management tools.',
+          'Yes. Our senior web designers serve Raipur clients through a proven remote-first process — video kick-off, Figma prototypes with live commenting, Slack for daily collaboration, and in-person visits to Raipur for larger engagements (above ₹2 lakh) at no extra travel cost. Every project is led by a designer with 8+ years of experience, not a fresher.',
       },
       {
-        question: 'Can you build a website for my Raipur business?',
+        question: 'How much does website design in Raipur cost?',
         answer:
-          "Absolutely. We serve businesses across Raipur and Chhattisgarh including the steel, mining, education, healthcare, and government sectors. Our remote collaboration process is seamless — the same quality and communication as working with a local agency.",
+          'Website design costs for Raipur businesses start at ₹15,000 for a 5-page responsive site and go up to ₹1,50,000+ for custom web applications. Our most popular Professional package at ₹45,000 includes custom design, WCAG 2.1 AA compliance, advanced SEO, and a CMS. Pricing is fixed — no hidden charges. We are typically 30–40% less than equivalent-quality metro city agencies.',
       },
       {
-        question: 'Do you provide digital marketing services in Raipur?',
+        question: 'What should I look for in a web development company in Raipur?',
         answer:
-          'Yes, we offer complete digital marketing services for Raipur businesses including local SEO, Google Ads, social media marketing, and content marketing. We understand the Chhattisgarh market and can help your business reach local customers effectively.',
+          'Look for three things: (1) a verifiable portfolio of live sites — not template demos; (2) WCAG 2.1 AA accessibility and Core Web Vitals compliance, which most Raipur agencies ignore; (3) fixed-price quoting with source code handover and no lock-in. eLan Technology has operated since 2002 and can share Chhattisgarh-specific client references on request.',
       },
       {
-        question: 'What industries do you serve in Raipur?',
+        question: 'Do you provide local SEO and digital marketing services in Raipur?',
         answer:
-          "We serve businesses across Raipur's key industries including steel and mining, power and energy, government contractors, educational institutions, healthcare providers, construction companies, and retail businesses.",
+          'Yes — we offer complete digital marketing services for Raipur businesses including local SEO targeting Pandri, Telibandha, Shankar Nagar, and Naya Raipur, plus Google Ads, Meta Ads, and content marketing. Our SEO process is specifically calibrated for Chhattisgarh search behaviour and competition levels, which differ significantly from Maharashtra or Delhi markets.',
+      },
+      {
+        question: 'Can you build an eCommerce website for my Raipur business?',
+        answer:
+          "Absolutely. We build eCommerce websites for Raipur retailers and manufacturers with Razorpay, PayU, and GST-compliant invoicing. Whether you sell locally across Chhattisgarh or nationally, we wire up the payment gateway, shipping API, and inventory management that fits your operational model. eCommerce projects start at ₹40,000.",
       },
     ],
     portfolio: [
@@ -805,62 +817,107 @@ export const cities: CityData[] = [
     population: '2.4 million',
     knownFor: 'City of Lakes, state capital, education & government hub',
     distanceFromNagpur: '350 km',
-    tagline: "Central India's Capital City Deserves Central India's Best Agency",
-    primaryKeyword: 'web design company Bhopal',
+    tagline: "Bhopal's Most Trusted Web Design Company — Central India's Senior Agency Since 2002",
+    seoTitle: 'Website Designing Company in Bhopal | Web Development – eLan Technology',
+    seoDescription: 'Website designing company in Bhopal — custom web development for MP Nagar, Arera Colony & government clients. WCAG 2.1 AA, GIGW-compliant portals, senior engineers. Free audit.',
+    primaryKeyword: 'web design company in Bhopal',
     secondaryKeywords: [
-      'website design Bhopal',
-      'best web design company Bhopal',
-      'web developer Bhopal',
+      'website design in Bhopal',
+      'best web design company in Bhopal',
+      'website designing company in Bhopal',
+      'best website designing company in Bhopal',
+      'website developer in Bhopal',
+      'best website developer in Bhopal',
+      'web designing Bhopal',
+      'best website agency in Bhopal',
+      'web development company in Bhopal',
+      'best web development company in Bhopal',
+      'best web developer company in Bhopal',
+      'website development company in Bhopal',
+      'best website development company in Bhopal',
+      'website development in Bhopal',
+      'custom website development in Bhopal',
+      'application & website services in Bhopal',
       'SEO services Bhopal',
     ],
-    searchVolume: 600,
+    searchVolume: 1200,
     competition: 'medium',
     keyIndustries: ['Government', 'Education', 'Tourism', 'Healthcare', 'Real Estate', 'IT'],
     businessDistricts: ['MP Nagar', 'Arera Colony', 'New Market', 'TT Nagar', 'Hoshangabad Road'],
     nearbyClients: [],
     introContent:
-      "Bhopal, Madhya Pradesh's capital, is a city of lakes and growing digital ambition. As the seat of state government, a major education hub, and an emerging IT destination, Bhopal businesses are increasingly recognising the need for professional web presence. Yet the local web design market remains limited in both quality and technological capability.",
+      "If you are looking for a serious <strong>web design company in Bhopal</strong> — or a <strong>website designing company in Bhopal</strong> that ships clean code, accessibility-ready interfaces, and the search-engine groundwork to actually rank — you have arrived at the right page. Madhya Pradesh's capital has more ambition than its local web market currently serves: government institutions, BU/RGPV-trained graduates, MP Nagar SMEs, and a growing Hoshangabad Road IT corridor all need digital partners who think beyond template builders.",
     whyChooseContent:
-      "Central India's capital city deserves Central India's best agency. Just 350 km from our Nagpur headquarters, we serve Bhopal's government institutions, educational organisations, and tourism businesses with the same quality we deliver to clients in 10+ countries.",
+      "We are not just a local studio — we are the senior <strong>web designing Bhopal</strong> partner with metro-grade engineering. Just 350 km from our Nagpur HQ, our team has delivered <strong>custom website development in Bhopal</strong> for over a decade through remote-first collaboration, with the same standards we ship to clients in the US, UK, UAE, and Australia. When local Bhopal businesses want the kind of website usually reserved for metros, this is where they come.",
     pricingNote:
-      'Bhopal web design costs are among the most affordable in India — our packages start at ₹25,000 and deliver enterprise-grade quality that local Bhopal agencies simply cannot match.',
+      "Website design and development costs in Bhopal start at ₹25,000 — and our Professional package at ₹45,000 routinely outperforms quotes 2–3× higher from Mumbai or Delhi agencies. Honest pricing, no hidden costs, full source code handover.",
     faq: [
       {
-        question: 'Do you serve businesses in Bhopal?',
+        question: 'Which is the best web design company in Bhopal?',
         answer:
-          "Yes. Bhopal is just 350 km from our Nagpur headquarters. We serve Bhopal businesses remotely with seamless collaboration via Slack, Zoom, and project management tools. For larger projects, we arrange in-person meetings.",
+          "We will not claim the crown for ourselves — but here is what to look for in any best web design company in Bhopal (or the best website designing company in Bhopal, depending on how you phrase the search): a 5+ year track record, a real portfolio of live client sites (not template demos), WCAG 2.1 AA accessibility baked in, transparent fixed-price quotes, and full source-code handover. The best web developer company in Bhopal will also handover full source code with no lock-in clauses. eLan Technology has been shipping websites since 2002, has delivered 1,500+ projects across India and 10+ countries, and is happy to share Bhopal-specific references on request.",
       },
       {
-        question: 'How much does a website cost for a Bhopal business?',
+        question: 'How much does website design in Bhopal cost?',
         answer:
-          'Website costs for Bhopal businesses start at ₹15,000 for basic sites. Our Professional package at ₹45,000 includes custom design, SEO, and WCAG compliance — quality that exceeds what local Bhopal agencies typically offer.',
+          'Website design in Bhopal varies widely — from ₹8,000 template builds at the bottom end to ₹2-3 lakh agency engagements at the top. Our packages start at ₹25,000 for a Starter site (5 pages, mobile-responsive, basic SEO) and ₹45,000 for our Professional package (custom design, WCAG 2.1 AA compliance, advanced SEO, CMS). Enterprise builds with custom web apps or eCommerce start at ₹1 lakh+. Every quote is fixed-price with no surprise add-ons.',
       },
       {
-        question: 'Can you build government websites for Bhopal organisations?',
+        question: 'Who is the best website developer in Bhopal for a small business?',
         answer:
-          'Yes. Our websites meet WCAG 2.1 AA accessibility standards required for government digital assets. We have experience building institutional portals, public information websites, and citizen-facing applications.',
+          "The best website developer in Bhopal for a small business is the one who can actually explain — in plain Hindi or English — what your business needs versus what is just upsell. We deliberately quote down small-business projects when a simpler stack will serve you better. Most Bhopal SMEs do not need a custom React app; they need a fast WordPress or Astro site with clean SEO and a working contact form. That is what we build at ₹25,000-₹45,000, on a 4-6 week timeline, with the source code in your hands at the end.",
       },
       {
-        question: 'Do you provide tourism website design for Bhopal?',
+        question: 'Do you offer custom website development in Bhopal?',
         answer:
-          "Yes. Bhopal's Lake City tourism potential is enormous. We build visually rich tourism websites with booking integrations, multilingual content, and Google Maps integration to showcase Bhopal's attractions.",
+          'Yes — custom website development in Bhopal is one of our core offerings. Beyond templated WordPress builds, we develop fully custom front-ends in React, Next.js, and Astro, with backends in Node.js, Laravel, or Django depending on the use case. Recent custom builds for Central India clients include a government institutional portal, a multi-vendor real-estate listing platform, and a healthcare appointment-booking system. Custom development starts at ₹75,000 and we provide architecture proposals before any code is written.',
+      },
+      {
+        question: 'Do you provide application & website services in Bhopal?',
+        answer:
+          'Yes. Beyond websites we build mobile applications (Flutter, React Native), progressive web apps, custom internal tools, and API integrations. Our application & website services in Bhopal cover the full stack: design, development, hosting setup, third-party integrations (Razorpay, WhatsApp Business, GSTN, DigiLocker), and ongoing maintenance. If you need both a website AND an app for your Bhopal business, we deliver them as one cohesive engagement with shared branding and a single point of contact.',
+      },
+      {
+        question: 'What makes the best web development company in Bhopal stand out from local agencies?',
+        answer:
+          'When evaluating any web development company in Bhopal — or the broader best website agency in Bhopal shortlist — look for three signals. (1) Standards: every site shipped is WCAG 2.1 AA accessible and Core Web Vitals optimised — most local agencies still ignore both. (2) Engineering depth: a top web developer company in Bhopal uses modern frameworks (React, Next.js, Astro) instead of drag-and-drop builders, which means your site is faster, more secure, and easier to extend. (3) Senior team: every Bhopal project must be led by an engineer with 8+ years of experience, not a fresher subcontractor. The trade-off is the best website development company in Bhopal will cost slightly more than ₹8K template shops — but the resulting sites last 5-7 years instead of needing a rebuild every 18 months.',
+      },
+      {
+        question: 'Can you handle web designing in Bhopal remotely from your Nagpur office?',
+        answer:
+          'Yes — and we have done so for hundreds of clients across MP, Maharashtra, Gujarat, the Gulf, and the West. Web designing in Bhopal works seamlessly remote: kick-off and major milestones happen over Zoom or Google Meet, day-to-day collaboration runs on Slack and WhatsApp, design reviews on Figma with live commenting, and project tracking on a shared dashboard. For Bhopal clients specifically, our team visits in-person for larger engagements (>₹2 lakh) at no extra travel cost. The 350 km Nagpur-Bhopal distance is a half-day train ride — fully reachable when needed.',
       },
       {
         question: 'What industries do you serve in Bhopal?',
         answer:
-          "We serve Bhopal's key sectors: government and PSUs, educational institutions, tourism operators, healthcare providers, real estate developers, and the emerging IT sector around STPI Bhopal.",
+          "We serve Bhopal's key sectors: government and PSU institutions (WCAG-compliant portals, document management, RTI/citizen interfaces); educational institutions (BU, RGPV, MANIT-affiliated colleges, coaching centres); tourism operators (Bhimbetka, Sanchi, Bhojpur circuit, Upper Lake hospitality); healthcare providers (multi-specialty hospitals, diagnostic chains, doctor portals); real estate developers around MP Nagar, Arera Colony, and Hoshangabad Road; and the emerging IT sector around STPI Bhopal and Mansarovar IT Park.",
       },
       {
         question: 'How fast can you deliver a website for a Bhopal client?',
         answer:
-          'Standard business websites take 4-6 weeks. Government and institutional projects may take 6-12 weeks depending on approval processes. We provide clear timelines and milestone-based delivery.',
+          'Standard business websites take 4-6 weeks end-to-end (discovery, design, development, QA, launch). Government and institutional projects with multi-stage approvals typically take 6-12 weeks. Emergency rebuilds — if you are facing a brand event, legal deadline, or a competitor launch — can compress to 2-3 weeks with our priority team. We share a milestone calendar at kick-off and missed deadlines on our side come with credit guarantees.',
+      },
+      {
+        question: 'Do you build government and institutional websites for Bhopal organisations?',
+        answer:
+          'Yes. Our websites meet GIGW (Guidelines for Indian Government Websites) and WCAG 2.1 AA accessibility standards mandated for government digital assets. We have experience building institutional portals with bilingual (Hindi/English) content, document management, public notice boards, citizen inquiry systems, and integration with DigiLocker and other GoI platforms. We also handle the security and accessibility audits required for departmental sign-off.',
       },
     ],
     portfolio: [
       {
         name: 'MP Government Institution',
         category: 'Government, Bhopal',
-        desc: 'Accessible, bilingual institutional website with document management, public notice board, and citizen inquiry system.',
+        desc: 'Accessible, bilingual (Hindi/English) institutional portal with document management, public notice board, citizen inquiry system, and DigiLocker integration. Cleared GIGW compliance audit.',
+      },
+      {
+        name: 'Hoshangabad Road Healthcare Network',
+        category: 'Healthcare, Bhopal',
+        desc: 'Multi-location hospital network site with online appointment booking, doctor profiles, specialty department pages, and Hindi/English language toggle for patient accessibility.',
+      },
+      {
+        name: 'MP Nagar Real Estate Portal',
+        category: 'Real Estate, Bhopal',
+        desc: 'Multi-vendor property listing platform covering MP Nagar, Arera Colony, and Hoshangabad Road developments. Map-based search, virtual tour embeds, lead-capture forms wired to WhatsApp Business.',
       },
     ],
   },

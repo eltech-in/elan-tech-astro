@@ -52,26 +52,26 @@ if (isLegacy) {
   var legacyHeroSubtext = props.heroSubtext ?? '';
   var legacyBreadcrumbs = [
     { name: 'Home', href: '/' },
-    { name: 'Services', href: '/services' },
+    { name: 'Services', href: '/services/' },
     { name: legacyCity, href: Astro.url.pathname },
   ];
 }
 
 // ── New mode (CityData object) ────────────────────────────────────────
 const city = !isLegacy ? (props.city as CityData) : null;
-const pageUrl = city ? `/web-design-company-${city.slug}` : '';
+const pageUrl = city ? `/web-design-company-${city.slug}/` : '';
 
 const title = city
-  ? (props.title ?? `Best Web Design Company in ${city.name} | eLan Technology`)
+  ? (props.title ?? city.seoTitle ?? `Best Web Design Company in ${city.name} | eLan Technology`)
   : legacyTitle;
 const description = city
-  ? (props.description ?? `Top-rated web design & development company in ${city.name}, ${city.state}. ${city.tagline}. WCAG 2.1 AA compliant. 500+ clients. Since 2002.`)
+  ? (props.description ?? city.seoDescription ?? `Top-rated web design & development company in ${city.name}, ${city.state}. ${city.tagline}. WCAG 2.1 AA compliant. 500+ clients. Since 2002.`)
   : legacyDescription;
 
 const breadcrumbs = city
   ? [
       { name: 'Home', href: '/' },
-      { name: 'Web Design Company', href: '/services' },
+      { name: 'Web Design Company', href: '/services/' },
       { name: city.name, href: pageUrl },
     ]
   : legacyBreadcrumbs;
@@ -152,14 +152,14 @@ const badge = city
 
       <div class="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
         <a
-          href="/free-website-audit"
+          href="/free-website-audit/"
           class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[var(--bg)] shadow-lg transition-opacity duration-150 hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)] focus-visible:outline-offset-2"
         >
           Get Free Audit
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
         <a
-          href="/get-quote"
+          href="/get-quote/"
           class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-8 py-3 text-base font-semibold text-[var(--text)] transition-colors duration-150 hover:border-[var(--accent)] hover:text-[var(--accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)] focus-visible:outline-offset-2"
         >
           Get Quote

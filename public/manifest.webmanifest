@@ -1,0 +1,22 @@
+{
+  "name": "eLan Technology",
+  "short_name": "eLan Tech",
+  "description": "Web design & development company in Nagpur. Custom websites, mobile apps, ADA/WCAG compliance. Since 2002.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0f1a",
+  "theme_color": "#00E5A0",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

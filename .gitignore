@@ -25,3 +25,4 @@ pnpm-debug.log*
 
 # Claude Code worktrees (linked clones, not submodules)
 .claude/worktrees/
+.env.deploy

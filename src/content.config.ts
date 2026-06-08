@@ -56,6 +56,17 @@ const blog = defineCollection({
         ),
       })
       .optional(),
+    // Optional: emit FAQPage JSON-LD on this post. Use for posts whose intent
+    // overlaps with conversational/People-Also-Ask queries (e.g. checklists,
+    // explainers). Each entry's answer may include inline HTML.
+    faq: z
+      .array(
+        z.object({
+          question: z.string(),
+          answer: z.string(),
+        })
+      )
+      .optional(),
   }),
 })
 

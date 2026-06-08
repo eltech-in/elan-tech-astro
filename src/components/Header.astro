@@ -5,19 +5,20 @@ import MegaMenu from '../islands/MegaMenu';
 
 const navLinks = [
   { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Portfolio', href: '/portfolio' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Pricing', href: '/pricing' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'About', href: '/about/' },
+  { label: 'Portfolio', href: '/portfolio/' },
+  { label: 'Blog', href: '/blog/' },
+  { label: 'Pricing', href: '/pricing/' },
+  { label: 'Contact', href: '/contact/' },
 ];
 
 const currentPath = Astro.url.pathname;
+const offerActive = new Date() <= new Date('2026-06-30T18:29:59Z');
 ---
 <header
   class="header-island sticky top-3 sm:top-4 z-50 w-full px-3 sm:px-4 pointer-events-none"
 >
-  <div class="header-island__inner relative mx-auto flex max-w-6xl items-center justify-between gap-3 rounded-full border border-[var(--border)] bg-[var(--bg-card)] shadow-xl shadow-black/10 px-3 py-2 sm:px-4 sm:py-2.5 pointer-events-auto">
+  <div class="header-island__inner relative mx-auto flex max-w-7xl items-center justify-between gap-3 rounded-full border border-[var(--border)] bg-[var(--bg-card)] shadow-xl shadow-black/10 px-3 py-2 sm:px-4 sm:py-2.5 pointer-events-auto">
 
     <!-- Logo (dual: full logo ↔ horizontal stamp on scroll) -->
     <a href="/" class="flex shrink-0 items-center gap-2" aria-label="eLan Technology — home">
@@ -65,10 +66,10 @@ const currentPath = Astro.url.pathname;
       </a>
 
       <a
-        href="/about"
+        href="/about/"
         class:list={[
           'px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150',
-          currentPath === '/about'
+          currentPath === '/about/' || currentPath === '/about'
             ? 'text-[var(--accent)]'
             : 'text-[var(--text-dim)] hover:text-[var(--text)]',
         ]}
@@ -78,7 +79,7 @@ const currentPath = Astro.url.pathname;
 
       <!-- Services — triggers MegaMenu island -->
       <a
-        href="/services"
+        href="/services/"
         data-mega="services"
         aria-haspopup="true"
         aria-expanded="false"
@@ -109,7 +110,7 @@ const currentPath = Astro.url.pathname;
 
       <!-- Products — triggers MegaMenu island -->
       <a
-        href="/products"
+        href="/products/"
         data-mega="products"
         aria-haspopup="true"
         aria-expanded="false"
@@ -142,25 +143,46 @@ const currentPath = Astro.url.pathname;
         <a
           href={link.href}
           class:list={[
-            'px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150',
+            'relative flex items-center gap-1.5 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150',
             currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
               ? 'text-[var(--accent)]'
               : 'text-[var(--text-dim)] hover:text-[var(--text)]',
           ]}
         >
           {link.label}
+          {link.href === '/pricing/' && offerActive && (
+            <span
+              class="inline-flex items-center rounded-full px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white leading-none"
+              style="background:#F26722;"
+              aria-label="New offer available"
+            >
+              NEW
+            </span>
+          )}
         </a>
       ))}
     </nav>
 
     <!-- Right-side actions -->
     <div class="flex items-center gap-2">
+      <!-- Search -->
+      <a
+        href="/search/"
+        class="flex h-9 w-9 items-center justify-center rounded-md text-[var(--text-muted)] hover:text-[var(--text)] transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
+        aria-label="Search site"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </a>
+
       <!-- Island: ThemeToggle -->
       <ThemeToggle client:idle />
 
       <!-- Get Quote — desktop -->
       <a
-        href="/get-quote"
+        href="/get-quote/"
         class="hidden lg:inline-flex items-center gap-2 rounded-full border border-[var(--border)] px-4 py-2 text-sm font-semibold text-[var(--text-dim)] transition-all duration-150 hover:border-[var(--accent)] hover:text-[var(--accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
       >
         Get Quote
@@ -168,7 +190,7 @@ const currentPath = Astro.url.pathname;
 
       <!-- Get Free Audit CTA — desktop -->
       <a
-        href="/free-website-audit"
+        href="/free-website-audit/"
         class="hidden sm:inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-[var(--bg)] transition-opacity duration-150 hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
       >
         Get Free Audit

@@ -83,11 +83,12 @@ export const countries: CountryData[] = [
     timezoneOverlap: '3-4 hours morning overlap (same as US)',
     language: 'English, French',
     primaryKeyword: 'outsource web design India Canada',
-    secondaryKeywords: ['hire Indian web developer Canada', 'affordable website design Canada', 'offshore web development Canada', 'AODA compliant web design'],
+    secondaryKeywords: ['hire Indian web developer Canada', 'affordable website design Canada', 'offshore web development Canada', 'AODA compliant web design', 'WCAG audit Canada', 'WCAG 2.1 AA audit Canada'],
     accessibilityLaw: 'AODA (Accessibility for Ontarians with Disabilities Act) & ACA',
     keyIndustries: ['Natural Resources', 'Finance', 'Technology', 'Healthcare', 'Education', 'Real Estate', 'Agriculture'],
     costComparison: { localCost: 'C$6,000–C$60,000', eLanCost: 'C$1,000–C$6,500', savings: '70-85%' },
     faq: [
+      { question: 'Do you provide a WCAG audit for Canadian businesses?', answer: 'Yes — a WCAG audit is one of our most-requested services for Canada. We run full WCAG 2.1 AA audits that map directly to AODA (Accessibility for Ontarians with Disabilities Act), the federal Accessible Canada Act (ACA), and provincial accessibility laws in BC, Manitoba, and Nova Scotia. Our Canada WCAG audit checks colour contrast, keyboard navigation, screen-reader compatibility, form labels, focus order, and image alt-text, and is delivered as a prioritised, code-level remediation roadmap with VPAT/ACR documentation your compliance officer or legal team can file directly. Audits start at C$1,999 (≈US$1,500) with results in 24-48 hours — far below the C$8,000+ typically charged by Canadian accessibility consultancies.' },
       { question: 'Can you build AODA-compliant websites for Canadian businesses?', answer: 'Yes. We build websites that meet WCAG 2.1 AA standards, which satisfies AODA requirements for Ontario businesses and the broader Accessible Canada Act. Accessibility compliance is included in every project — not an add-on.' },
       { question: 'How much does web design cost in Canada vs outsourcing to India?', answer: 'Canadian web agencies typically charge C$6,000-C$60,000 for a business website. With eLan Technology, the same quality website costs C$1,000-C$6,500 — a 70-85% savings with no compromise on technology or standards.' },
       { question: 'Do you serve clients across all Canadian provinces?', answer: 'Yes, we serve businesses across Canada including Ontario (Toronto, Ottawa), British Columbia (Vancouver), Alberta (Calgary, Edmonton), Quebec (Montreal), and all other provinces. Our remote collaboration process works seamlessly across all timezones.' },

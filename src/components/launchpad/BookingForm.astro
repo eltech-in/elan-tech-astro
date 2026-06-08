@@ -1,0 +1,298 @@
+---
+// BookingForm — WhatsApp-submit form. No backend required.
+// On submit, constructs a wa.me URL from form fields and opens it in a new tab.
+// WCAG 2.1 AA: every input has a visible <label> with for/id association,
+// required fields use aria-required="true", inline errors use role="alert",
+// submit button is ≥ 44px height.
+---
+
+<form
+  id="lp-form"
+  role="form"
+  aria-label="Book your Digital Launchpad slot"
+  novalidate
+  class="space-y-5"
+>
+  <!-- Row 1: Name + Business -->
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div class="flex flex-col gap-1.5">
+      <label for="lp-name" class="text-sm font-semibold text-[var(--text)]">
+        Full Name <span aria-hidden="true" class="text-[#F26722]">*</span>
+      </label>
+      <input
+        type="text"
+        id="lp-name"
+        name="name"
+        autocomplete="name"
+        required
+        aria-required="true"
+        aria-describedby="lp-name-err"
+        placeholder="Ramesh Sharma"
+        class="lp-input rounded-xl border border-[var(--border)] bg-[var(--bg)] px-4 py-3 text-sm text-[var(--text)] placeholder-[var(--text-muted)] transition-colors focus:border-[#F26722] focus:outline-none focus:ring-2 focus:ring-[#F26722]/30"
+      />
+      <span id="lp-name-err" role="alert" class="lp-error hidden text-xs text-[#EF4444]">
+        Please enter your full name.
+      </span>
+    </div>
+
+    <div class="flex flex-col gap-1.5">
+      <label for="lp-biz" class="text-sm font-semibold text-[var(--text)]">
+        Business Name <span aria-hidden="true" class="text-[#F26722]">*</span>
+      </label>
+      <input
+        type="text"
+        id="lp-biz"
+        name="business"
+        autocomplete="organization"
+        required
+        aria-required="true"
+        aria-describedby="lp-biz-err"
+        placeholder="Sharma Clinic"
+        class="lp-input rounded-xl border border-[var(--border)] bg-[var(--bg)] px-4 py-3 text-sm text-[var(--text)] placeholder-[var(--text-muted)] transition-colors focus:border-[#F26722] focus:outline-none focus:ring-2 focus:ring-[#F26722]/30"
+      />
+      <span id="lp-biz-err" role="alert" class="lp-error hidden text-xs text-[#EF4444]">
+        Please enter your business name.
+      </span>
+    </div>
+  </div>
+
+  <!-- Row 2: Phone + Email -->
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div class="flex flex-col gap-1.5">
+      <label for="lp-phone" class="text-sm font-semibold text-[var(--text)]">
+        WhatsApp Number <span aria-hidden="true" class="text-[#F26722]">*</span>
+      </label>
+      <input
+        type="tel"
+        id="lp-phone"
+        name="phone"
+        autocomplete="tel"
+        required
+        aria-required="true"
+        aria-describedby="lp-phone-err"
+        placeholder="+91 98765 43210"
+        class="lp-input rounded-xl border border-[var(--border)] bg-[var(--bg)] px-4 py-3 text-sm text-[var(--text)] placeholder-[var(--text-muted)] transition-colors focus:border-[#F26722] focus:outline-none focus:ring-2 focus:ring-[#F26722]/30"
+      />
+      <span id="lp-phone-err" role="alert" class="lp-error hidden text-xs text-[#EF4444]">
+        Please enter your WhatsApp number.
+      </span>
+    </div>
+
+    <div class="flex flex-col gap-1.5">
+      <label for="lp-email" class="text-sm font-semibold text-[var(--text)]">
+        Email Address <span aria-hidden="true" class="text-[#F26722]">*</span>
+      </label>
+      <input
+        type="email"
+        id="lp-email"
+        name="email"
+        autocomplete="email"
+        required
+        aria-required="true"
+        aria-describedby="lp-email-err"
+        placeholder="ramesh@clinic.in"
+        class="lp-input rounded-xl border border-[var(--border)] bg-[var(--bg)] px-4 py-3 text-sm text-[var(--text)] placeholder-[var(--text-muted)] transition-colors focus:border-[#F26722] focus:outline-none focus:ring-2 focus:ring-[#F26722]/30"
+      />
+      <span id="lp-email-err" role="alert" class="lp-error hidden text-xs text-[#EF4444]">
+        Please enter a valid email address.
+      </span>
+    </div>
+  </div>
+
+  <!-- Row 3: Plan + Domain -->
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div class="flex flex-col gap-1.5">
+      <label for="lp-plan" class="text-sm font-semibold text-[var(--text)]">
+        Plan <span aria-hidden="true" class="text-[#F26722]">*</span>
+      </label>
+      <select
+        id="lp-plan"
+        name="plan"
+        required
+        aria-required="true"
+        aria-describedby="lp-plan-err"
+        class="lp-input rounded-xl border border-[var(--border)] bg-[var(--bg)] px-4 py-3 text-sm text-[var(--text)] transition-colors focus:border-[#F26722] focus:outline-none focus:ring-2 focus:ring-[#F26722]/30 appearance-none"
+        style="background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E\"); background-repeat:no-repeat; background-position:right 14px center;"
+      >
+        <option value="" disabled selected>Select a plan…</option>
+        <option value="eLan Starter — ₹24,000">🌱 eLan Starter — ₹24,000</option>
+        <option value="eLan Business — ₹31,200">🏪 eLan Business — ₹31,200 (Most Popular)</option>
+        <option value="eLan Complete — ₹38,400">🎯 eLan Complete — ₹38,400</option>
+      </select>
+      <span id="lp-plan-err" role="alert" class="lp-error hidden text-xs text-[#EF4444]">
+        Please select a plan.
+      </span>
+    </div>
+
+    <div class="flex flex-col gap-1.5">
+      <label for="lp-domain" class="text-sm font-semibold text-[var(--text)]">
+        Preferred Domain Name
+        <span class="ml-1 text-xs font-normal text-[var(--text-muted)]">(optional)</span>
+      </label>
+      <input
+        type="text"
+        id="lp-domain"
+        name="domain"
+        placeholder="yourbusiness.in"
+        class="rounded-xl border border-[var(--border)] bg-[var(--bg)] px-4 py-3 text-sm text-[var(--text)] placeholder-[var(--text-muted)] transition-colors focus:border-[#F26722] focus:outline-none focus:ring-2 focus:ring-[#F26722]/30"
+      />
+    </div>
+  </div>
+
+  <!-- Row 4: City + Business Type -->
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div class="flex flex-col gap-1.5">
+      <label for="lp-city" class="text-sm font-semibold text-[var(--text)]">
+        City
+        <span class="ml-1 text-xs font-normal text-[var(--text-muted)]">(optional)</span>
+      </label>
+      <input
+        type="text"
+        id="lp-city"
+        name="city"
+        autocomplete="address-level2"
+        placeholder="Nagpur / Raipur / Mumbai…"
+        class="rounded-xl border border-[var(--border)] bg-[var(--bg)] px-4 py-3 text-sm text-[var(--text)] placeholder-[var(--text-muted)] transition-colors focus:border-[#F26722] focus:outline-none focus:ring-2 focus:ring-[#F26722]/30"
+      />
+    </div>
+
+    <div class="flex flex-col gap-1.5">
+      <label for="lp-type" class="text-sm font-semibold text-[var(--text)]">
+        Business Type
+        <span class="ml-1 text-xs font-normal text-[var(--text-muted)]">(optional)</span>
+      </label>
+      <input
+        type="text"
+        id="lp-type"
+        name="biztype"
+        placeholder="Clinic / School / Retail…"
+        class="rounded-xl border border-[var(--border)] bg-[var(--bg)] px-4 py-3 text-sm text-[var(--text)] placeholder-[var(--text-muted)] transition-colors focus:border-[#F26722] focus:outline-none focus:ring-2 focus:ring-[#F26722]/30"
+      />
+    </div>
+  </div>
+
+  <!-- Submit -->
+  <button
+    type="submit"
+    aria-label="Submit your details via WhatsApp"
+    class="w-full rounded-full py-4 text-base font-bold text-white transition-all duration-200 hover:opacity-90 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#F26722] flex items-center justify-center gap-2"
+    style="background:#F26722; min-height:44px;"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+    </svg>
+    💬 Reserve Slot via WhatsApp
+  </button>
+
+  <!-- Trust note below submit -->
+  <p class="text-center text-xs text-[var(--text-muted)] leading-relaxed">
+    We confirm slot availability within 4 business hours.<br />
+    Payment link sent after confirmation.
+  </p>
+</form>
+
+<script>
+(function () {
+  const form = document.getElementById('lp-form') as HTMLFormElement | null;
+  if (!form) return;
+
+  // ── Validation helpers ──────────────────────────────────────────────────
+  function showErr(id: string) {
+    const el = document.getElementById(id);
+    if (el) { el.classList.remove('hidden'); }
+  }
+  function hideErr(id: string) {
+    const el = document.getElementById(id);
+    if (el) { el.classList.add('hidden'); }
+  }
+  function markInvalid(inputId: string, errId: string) {
+    const input = document.getElementById(inputId) as HTMLInputElement | null;
+    if (input) {
+      input.setAttribute('aria-invalid', 'true');
+      input.classList.add('border-[#EF4444]');
+    }
+    showErr(errId);
+  }
+  function clearInvalid(inputId: string, errId: string) {
+    const input = document.getElementById(inputId) as HTMLInputElement | null;
+    if (input) {
+      input.removeAttribute('aria-invalid');
+      input.classList.remove('border-[#EF4444]');
+    }
+    hideErr(errId);
+  }
+
+  // ── Clear error on input ────────────────────────────────────────────────
+  [
+    ['lp-name',  'lp-name-err'],
+    ['lp-biz',   'lp-biz-err'],
+    ['lp-phone', 'lp-phone-err'],
+    ['lp-email', 'lp-email-err'],
+    ['lp-plan',  'lp-plan-err'],
+  ].forEach(([inputId, errId]) => {
+    const el = document.getElementById(inputId);
+    if (el) el.addEventListener('input', () => clearInvalid(inputId, errId));
+  });
+
+  // ── Submit ──────────────────────────────────────────────────────────────
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const name   = (document.getElementById('lp-name')   as HTMLInputElement).value.trim();
+    const biz    = (document.getElementById('lp-biz')    as HTMLInputElement).value.trim();
+    const phone  = (document.getElementById('lp-phone')  as HTMLInputElement).value.trim();
+    const email  = (document.getElementById('lp-email')  as HTMLInputElement).value.trim();
+    const plan   = (document.getElementById('lp-plan')   as HTMLSelectElement).value.trim();
+    const domain = (document.getElementById('lp-domain') as HTMLInputElement).value.trim();
+    const city   = (document.getElementById('lp-city')   as HTMLInputElement).value.trim();
+    const type   = (document.getElementById('lp-type')   as HTMLInputElement).value.trim();
+
+    // ── Validate required fields ──────────────────────────────────────────
+    let valid = true;
+    if (!name)  { markInvalid('lp-name',  'lp-name-err');  valid = false; }
+    else        { clearInvalid('lp-name', 'lp-name-err'); }
+
+    if (!biz)   { markInvalid('lp-biz',   'lp-biz-err');   valid = false; }
+    else        { clearInvalid('lp-biz',  'lp-biz-err'); }
+
+    if (!phone) { markInvalid('lp-phone', 'lp-phone-err'); valid = false; }
+    else        { clearInvalid('lp-phone','lp-phone-err'); }
+
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRe.test(email)) {
+      markInvalid('lp-email', 'lp-email-err'); valid = false;
+    } else { clearInvalid('lp-email', 'lp-email-err'); }
+
+    if (!plan)  { markInvalid('lp-plan',  'lp-plan-err');  valid = false; }
+    else        { clearInvalid('lp-plan', 'lp-plan-err'); }
+
+    if (!valid) {
+      // Focus first invalid input
+      const first = form.querySelector('[aria-invalid="true"]') as HTMLElement | null;
+      first?.focus();
+      return;
+    }
+
+    // ── Build WhatsApp message ────────────────────────────────────────────
+    const msg = encodeURIComponent(
+      `Hi eLan Technology! I want to book a Digital Launchpad slot.\n\n` +
+      `Name: ${name}\n` +
+      `Business: ${biz}\n` +
+      `Phone: ${phone}\n` +
+      `Email: ${email}\n` +
+      `Plan: ${plan}\n` +
+      `Domain: ${domain || 'To be decided'}\n` +
+      `City: ${city || 'Not specified'}\n` +
+      `Business Type: ${type || 'Not specified'}`
+    );
+    window.open(`https://wa.me/918788834630?text=${msg}`, '_blank', 'noopener,noreferrer');
+  });
+})();
+</script>
+
+<style>
+  /* Input focus ring colour matches brand orange in both themes */
+  .lp-input:focus {
+    border-color: #F26722;
+  }
+</style>

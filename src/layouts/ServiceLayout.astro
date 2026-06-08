@@ -49,10 +49,12 @@ const currentPath = Astro.url.pathname;
   noindex={noindex}
   schema={schema}
 >
-  <!-- Breadcrumb bar — uses body bg (NOT card bg) so it doesn't visually
-       merge with the floating-island header above it (both used to share
-       --bg-card and looked like one continuous element). -->
-  <div class="border-b border-[var(--border)] bg-[var(--bg)] px-4 py-3 sm:px-6 lg:px-8">
+  <!-- Breadcrumb bar — sticky just below the floating header pill.
+       top-[68px] on mobile (header pill ~56px + top-3 12px gap = 68px).
+       sm:top-[76px] on ≥640px (pill ~60px + top-4 16px gap = 76px).
+       z-40 keeps it below the header's z-50 so dropdowns still layer correctly.
+       Uses body bg so it doesn't visually merge with the header island. -->
+  <div class="sticky top-[68px] sm:top-[76px] z-40 border-b border-[var(--border)] bg-[var(--bg)] px-4 py-3 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-7xl">
       <Breadcrumb items={breadcrumbs} />
     </div>

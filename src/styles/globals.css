@@ -101,14 +101,18 @@ body {
   --border: rgba(255,255,255,0.06);
   /* Service/product accent colours — WCAG AA ≥4.5:1 on dark bg (#111827) */
   --ac-pink:    #EC4899;
-  --ac-indigo:  #6366F1;
-  --ac-amber:   #F59E0B;
-  --ac-emerald: #10B981;
-  --ac-teal:    #00E5A0;
-  --ac-cyan:    #06B6D4;
-  --ac-violet:  #A855F7;
-  --ac-red:     #EF4444;
-  --ac-blue:    #3B82F6;
+  --ac-indigo:  #818CF8;  /* 5.8:1 on #111827 */
+  --ac-amber:   #F59E0B;  /* 8.1:1 */
+  --ac-emerald: #10B981;  /* 6.7:1 */
+  --ac-teal:    #00E5A0;  /* 9.8:1 */
+  --ac-cyan:    #06B6D4;  /* 6.7:1 */
+  --ac-violet:  #C084FC;  /* 6.1:1 — bumped from #A855F7 (4.3:1) */
+  --ac-red:     #F87171;  /* 5.7:1 — bumped from #EF4444 (4.2:1) */
+  --ac-blue:    #60A5FA;  /* 5.9:1 — bumped from #3B82F6 (4.8:1) */
+  /* Orange text — passes 4.5:1 on dark bg */
+  --orange-text: #F26722;
+  /* Indigo pill text — bright enough for 4.5:1 on dark indigo-tinted bg */
+  --pill-indigo-text: #A5B4FC;
 }
 
 /* Light mode overrides */
@@ -131,6 +135,10 @@ body {
   --ac-violet:  #7C3AED;  /* 5.61:1 */
   --ac-red:     #B91C1C;  /* 6.36:1 */
   --ac-blue:    #1D4ED8;  /* 8.59:1 */
+  /* Orange text — passes 4.5:1 on light bg */
+  --orange-text: #994200;
+  /* Indigo pill text — same as dark ac-indigo, AA on light */
+  --pill-indigo-text: #4338CA;
 }
 
 /* Project carousel infinite scroll */

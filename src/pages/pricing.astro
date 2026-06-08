@@ -2,8 +2,18 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { pricingTiers } from '../data/pricing';
 import { breadcrumbSchema, faqSchema } from '../utils/schema';
+import PlanCard from '../components/launchpad/PlanCard.astro';
+import { PLANS } from '../data/digitalLaunchpad';
 
 const pricingFaqs = [
+  {
+    question: 'What is the Digital Launchpad plan?',
+    answer: 'The Digital Launchpad is a limited-time all-inclusive package — website, domain (.in / .co.in), hosting, SSL, WhatsApp button, Google Maps, Analytics, and 4 years of maintenance — for a single one-time price starting at ₹24,000. No annual renewals until 2030. <a href="/pricing/digital-launchpad/" style="color:#F26722;text-decoration:underline;text-underline-offset:2px;">View full plan details →</a>',
+  },
+  {
+    question: 'Does the Digital Launchpad include a .com domain?',
+    answer: 'No. The Digital Launchpad includes .in or .co.in domains only — registered at NIXI in your name. If you specifically need a .com, .net, or other TLD, contact us and we\'ll quote separately outside the Launchpad package.',
+  },
   {
     question: 'Do you offer monthly payment plans?',
     answer: 'Yes, we offer flexible milestone-based and monthly payment terms for all projects. We typically structure payments in 3 instalments: 50% upfront, 25% at midpoint, and 25% on delivery.',
@@ -48,6 +58,14 @@ const comparisonFeatures = [
 
 const tierColors = ['--ac-emerald', '--ac-amber', '--ac-indigo'];
 const tierNums = ['01', '02', '03'];
+
+const inrFormatter = new Intl.NumberFormat('en-IN');
+
+// Razorpay hosted Payment Button IDs (created in Razorpay dashboard).
+// The payment-button.js script renders a button at each <script> tag's
+// location based on its data-payment_button_id.
+const RAZORPAY_BUTTON_INR_9999 = 'pl_Sqm5fZAebJ6xx7';
+const RAZORPAY_BUTTON_USD_99 = 'pl_FdcrA4b2oE0mIl';
 
 const currencies = [
   { symbol: '₹', label: 'INR' },
@@ -98,6 +116,90 @@ const guarantees = [
     </div>
   </section>
 
+  <!-- 4A: Digital Launchpad offer banner -->
+  {(() => {
+    const now = new Date();
+    const end = new Date('2026-06-30T23:59:59+05:30');
+    if (now > end) return null;
+    return (
+      <div role="alert" aria-label="Limited time offer" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
+        <div
+          class="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border px-6 py-5"
+          style="background: linear-gradient(135deg, rgba(242,103,34,0.12), rgba(29,59,109,0.15)); border-color: rgba(242,103,34,0.4);"
+        >
+          <div class="flex items-start gap-4">
+            <span aria-hidden="true" class="text-3xl shrink-0">🔥</span>
+            <div>
+              <p class="font-heading text-base font-bold text-[var(--text)]">
+                Digital Launchpad — All-In Website from ₹24,000
+              </p>
+              <p class="text-sm text-[var(--text-dim)] mt-0.5">
+                Domain · Hosting · SSL · 4-year maintenance · WhatsApp button. One price, no renewals till 2030.
+                <span class="font-semibold" style="color:#F26722;">Limited slots — offer ends 30 Jun 2026.</span>
+              </p>
+            </div>
+          </div>
+          <a
+            href="/pricing/digital-launchpad/"
+            class="shrink-0 rounded-full px-5 py-2.5 text-sm font-bold text-white transition-all duration-200 hover:opacity-90 hover:-translate-y-0.5 whitespace-nowrap"
+            style="background:#F26722;"
+          >
+            View Offer →
+          </a>
+        </div>
+      </div>
+    );
+  })()}
+
+  <!-- 4B: Digital Launchpad plan cards -->
+  {(() => {
+    const now = new Date();
+    const end = new Date('2026-06-30T23:59:59+05:30');
+    if (now > end) return null;
+    return (
+      <section aria-label="Digital Launchpad limited offer plans" class="py-14 md:py-16 border-t border-[var(--border)]">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="text-center mb-10">
+            <p class="text-xs font-bold uppercase tracking-widest mb-3" style="color:#F26722;">Limited-Time Offer</p>
+            <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)]">
+              Digital Launchpad — 4-Year All-In Plan
+            </h2>
+            <p class="mt-3 text-[var(--text-dim)] max-w-xl mx-auto text-sm">
+              Website + domain + hosting + maintenance — one payment, everything sorted till 2030.
+            </p>
+          </div>
+
+          <ul class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch pt-6" role="list">
+            {PLANS.map((plan) => (
+              <li>
+                <PlanCard plan={plan} showAllFeatures={false} />
+              </li>
+            ))}
+          </ul>
+
+          <p class="text-center mt-8">
+            <a
+              href="/pricing/digital-launchpad/"
+              class="inline-flex items-center gap-1.5 text-sm font-semibold underline underline-offset-2 transition-colors hover:opacity-80"
+              style="color:#F26722;"
+            >
+              See Full Plan Details, Inclusions & FAQ →
+            </a>
+          </p>
+        </div>
+      </section>
+    );
+  })()}
+
+  <!-- Divider: standard packages -->
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center gap-4">
+      <span class="flex-1 border-t border-[var(--border)]"></span>
+      <span class="text-xs font-bold uppercase tracking-[0.2em] text-[var(--text-muted)] whitespace-nowrap">Our Standard Packages</span>
+      <span class="flex-1 border-t border-[var(--border)]"></span>
+    </div>
+  </div>
+
   <!-- Pricing tier bento -->
   <section class="py-16 md:py-20 border-t border-[var(--border)]" aria-labelledby="tiers-heading">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -142,7 +244,15 @@ const guarantees = [
                 </div>
 
                 <h3 class="relative font-heading text-2xl font-bold text-[var(--text)] mb-1">{tier.name}</h3>
-                <p class="relative text-sm text-[var(--text-dim)] mb-5">{tier.tagline}</p>
+                <p class="relative text-sm text-[var(--text-dim)] mb-4">{tier.tagline}</p>
+
+                <!-- Starting price -->
+                <div class="relative mb-5">
+                  <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--text-muted)] mb-1">Starting from</p>
+                  <p class="font-heading font-bold text-[var(--text)] leading-none">
+                    <span class="text-3xl sm:text-4xl" style={`color: var(${cssVar});`}>₹{inrFormatter.format(tier.prices.INR)}</span>
+                  </p>
+                </div>
 
                 <!-- Stats mini row -->
                 <div class="relative flex flex-wrap gap-x-4 gap-y-1 mb-6 pb-6 border-b border-[var(--border)]">
@@ -166,15 +276,40 @@ const guarantees = [
                   ))}
                 </ul>
 
-                <a
-                  href={tier.ctaHref}
-                  class="relative mt-auto text-center rounded-xl px-6 py-3 text-sm font-semibold transition-all duration-200 hover:opacity-90"
-                  style={tier.highlighted
-                    ? `background: var(${cssVar}); color: var(--bg);`
-                    : `border: 1.5px solid color-mix(in srgb, var(${cssVar}) 40%, var(--border)); color: var(${cssVar}); background: color-mix(in srgb, var(${cssVar}) 6%, transparent);`}
-                >
-                  {tier.cta}
-                </a>
+                <div class="relative mt-auto flex flex-col gap-2.5">
+                  <a
+                    href={tier.ctaHref}
+                    class="text-center rounded-xl px-6 py-3 text-sm font-semibold transition-all duration-200 hover:opacity-90"
+                    style={tier.highlighted
+                      ? `background: var(${cssVar}); color: var(--bg);`
+                      : `border: 1.5px solid color-mix(in srgb, var(${cssVar}) 40%, var(--border)); color: var(${cssVar}); background: color-mix(in srgb, var(${cssVar}) 6%, transparent);`}
+                  >
+                    {tier.cta}
+                  </a>
+                  <p class="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--text-muted)] text-center mt-1">
+                    Pay advance to book
+                  </p>
+                  <div class="rzp-button-slot flex justify-center">
+                    <form>
+                      <script
+                        src="https://checkout.razorpay.com/v1/payment-button.js"
+                        data-payment_button_id={RAZORPAY_BUTTON_INR_9999}
+                        async
+                        is:inline
+                      ></script>
+                    </form>
+                  </div>
+                  <div class="rzp-button-slot flex justify-center">
+                    <form>
+                      <script
+                        src="https://checkout.razorpay.com/v1/payment-button.js"
+                        data-payment_button_id={RAZORPAY_BUTTON_USD_99}
+                        async
+                        is:inline
+                      ></script>
+                    </form>
+                  </div>
+                </div>
               </article>
             </li>
           );

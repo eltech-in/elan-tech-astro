@@ -7,6 +7,7 @@ import FreeAuditForm from '../islands/FreeAuditForm';
 /* ───────────────────────────────────────────────────────────────────────────
    SEO target keywords (primary + secondary) baked into headings & copy:
    - free website audit  /  free website audit tool
+   - free website audit in florida  /  free website audit florida
    - website seo audit  /  free seo audit
    - website security audit  /  website vulnerability scan
    - website speed test  /  core web vitals audit
@@ -20,7 +21,7 @@ import FreeAuditForm from '../islands/FreeAuditForm';
 
 const breadcrumbs = breadcrumbSchema([
   { name: 'Home', url: '/' },
-  { name: 'Free Website Audit', url: '/free-website-audit' },
+  { name: 'Free Website Audit', url: '/free-website-audit/' },
 ]);
 
 const faqs = [
@@ -63,6 +64,31 @@ const faqs = [
     question: 'Will you fix the issues after the audit?',
     answer:
       'That is completely optional. You receive the audit report with full DIY remediation steps. If you would like us to fix the issues, we quote a fixed-price or monthly-maintenance engagement based on scope. Many clients use the audit internally or with their existing developer — that is totally fine.',
+  },
+  {
+    question: 'How do I fix common issues found in a website audit?',
+    answer:
+      'Start by sorting findings by severity, not by where they appear in the report. Critical security headers and HTTPS issues come first (they can be fixed in minutes via your server config). Next, Core Web Vitals — most LCP failures are solved by preloading the hero image and deferring third-party scripts. Then SEO basics: add a unique title and meta description to every page, fix broken internal links, and add structured data for your top page types. Accessibility comes alongside SEO — alt text, form labels, focus indicators. Save content rewrites for last because they take longest. Our PDF report ranks every finding by impact + effort, so you can knock out 10 quick wins in an afternoon and tackle the big rewrites over the next sprint.',
+  },
+  {
+    question: 'How do I diagnose and fix website speed issues with a website audit?',
+    answer:
+      'Speed problems almost always come down to four culprits, and an audit tells you which one is yours. (1) Heavy images — if your LCP element is an image over 200 KB, that is the first fix; serve modern formats (AVIF/WebP), preload the hero, and lazy-load below the fold. (2) Render-blocking JavaScript — inline critical CSS, defer or async non-critical JS, and remove anything you can. (3) Slow server response — if TTFB is over 600 ms, you need server caching, a CDN, or a faster host. (4) Layout shifts — reserve space for images and embeds with explicit width/height to keep CLS under 0.1. The audit pinpoints exactly which one is hurting you with real-user data from PageSpeed Insights and CrUX, so you fix the right thing first instead of guessing.',
+  },
+  {
+    question: 'Can you explain WCAG 2.2 AA requirements in plain English for a non-technical store owner?',
+    answer:
+      'WCAG 2.2 AA is the accessibility standard US courts treat as the benchmark for ADA website lawsuits. Stripped of jargon, it means: (1) every image needs a written description so screen readers can read it; (2) text must be readable — at least 4.5:1 contrast against its background; (3) every button, form and link must work with the keyboard alone (no mouse required); (4) the focus outline must always be visible when tabbing; (5) videos need captions, audio needs transcripts; (6) error messages must explain what went wrong and how to fix it; (7) target sizes for buttons and links must be at least 24×24 pixels (the new 2.2 requirement); (8) drag actions must have a non-drag alternative. For an eCommerce store, the highest-risk areas are product photos without alt text, checkout forms without labels, and modal popups that trap keyboard focus. Our audit checks all of these and gives you the exact code to fix each one.',
+  },
+  {
+    question: 'Do you offer a free website audit for businesses in Florida?',
+    answer:
+      'Yes — we run free website audits for businesses across Florida, including Miami, Orlando, Tampa, Jacksonville, and Fort Lauderdale. Florida\'s Southern and Middle federal districts are among the busiest in the country for ADA digital-accessibility lawsuits, so a free website audit in Florida from us weighs WCAG 2.1 AA / ADA risk alongside the standard SEO, security and Core Web Vitals checks. Submit your URL and you will receive a prioritised PDF report — covering rankings, security vulnerabilities, performance, and accessibility risk — within 24-48 hours, completely free, with no obligation.',
+  },
+  {
+    question: 'I need to fix my eCommerce accessibility before a lawsuit deadline — who can help fast?',
+    answer:
+      'If you have already received a demand letter or court summons, time is the lever. The fastest path is: (1) book an emergency WCAG audit today — we deliver in 24 hours; (2) start visible remediation immediately, even before completion, because courts treat active remediation as a mitigating factor in settlement negotiations; (3) obtain VPAT documentation as formal evidence of compliance work. Demand letters typically settle near $5,000 when you respond fast with a remediation plan, versus $30,000–$85,000 if ignored. eLan Technology provides 24-hour emergency audits with VPAT-ready documentation specifically for businesses on a deadline. <a href="/services/ada-compliant-web-design/">See our emergency ADA remediation service</a> or jump straight to the paid WCAG 2.2 AA audit below.',
   },
 ];
 
@@ -180,6 +206,8 @@ const issues = [
     ],
     iconSvg:
       '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="4" r="1"/><path d="m18 19 1-7-6 1"/><path d="m5 8 3-3 5.5 3-2.36 3.5"/><path d="M4.24 14.5a5 5 0 0 0 6.88 6"/><path d="M13.76 17.5a5 5 0 0 0-6.88-6"/></svg>',
+    ctaHref: '#paid-wcag-audit',
+    ctaLabel: 'Get WCAG 2.2 AA Audit',
   },
 ];
 
@@ -241,6 +269,18 @@ const deliverables = [
           See What's Checked
         </a>
       </div>
+
+      <!-- Paid ADA/WCAG audit jump-link — for high-intent lawsuit-risk visitors -->
+      <a
+        href="#paid-wcag-audit"
+        class="mt-5 inline-flex items-center gap-2 rounded-full border px-5 py-2 text-sm font-semibold transition hover:opacity-90"
+        style="border-color: color-mix(in srgb, var(--ac-blue) 35%, transparent); background: color-mix(in srgb, var(--ac-blue) 10%, transparent); color: var(--ac-blue);"
+        aria-label="Jump to paid ADA and WCAG 2.2 AA accessibility audit section"
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="16" cy="4" r="1"/><path d="m18 19 1-7-6 1"/><path d="m5 8 3-3 5.5 3-2.36 3.5"/><path d="M4.24 14.5a5 5 0 0 0 6.88 6"/><path d="M13.76 17.5a5 5 0 0 0-6.88-6"/></svg>
+        Facing an ADA lawsuit? Get the paid WCAG 2.2 AA audit + VPAT
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
 
       <!-- Trust row -->
       <div class="mt-10 flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm">
@@ -331,12 +371,12 @@ const deliverables = [
                 </ul>
 
                 <a
-                  href="#audit-form"
+                  href={issue.ctaHref ?? '#audit-form'}
                   class="relative mt-auto inline-flex items-center gap-1 text-sm font-semibold transition-transform duration-200 group-hover:translate-x-0.5"
                   style={`color: var(${issue.cssVar});`}
-                  aria-label={`Request free audit covering ${issue.title}`}
+                  aria-label={issue.ctaHref ? `${issue.ctaLabel} — ${issue.title}` : `Request free audit covering ${issue.title}`}
                 >
-                  Check My Site
+                  {issue.ctaLabel ?? 'Check My Site'}
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
                   </svg>
@@ -542,7 +582,7 @@ const deliverables = [
   <!-- ══════════════════════════════════════════════════════════════════════
        PAID ADA / WCAG UPSELL — bento style
        ══════════════════════════════════════════════════════════════════════ -->
-  <section class="py-16 md:py-20 bg-[var(--bg-card)] border-t border-[var(--border)]" aria-labelledby="ada-heading">
+  <section id="paid-wcag-audit" class="py-16 md:py-20 bg-[var(--bg-card)] border-t border-[var(--border)] scroll-mt-20" aria-labelledby="ada-heading">
     <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
       <article
         class="service-card relative overflow-hidden rounded-2xl border border-[var(--border)] p-8 md:p-12"

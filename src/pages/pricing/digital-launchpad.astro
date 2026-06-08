@@ -1,0 +1,544 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CountdownTimer from '../../components/launchpad/CountdownTimer';
+import PlanCard from '../../components/launchpad/PlanCard.astro';
+import InclusionGrid from '../../components/launchpad/InclusionGrid.astro';
+import BookingForm from '../../components/launchpad/BookingForm.astro';
+import { PLANS, FAQS, WHATSAPP_URL, TOTAL_SLOTS } from '../../data/digitalLaunchpad';
+import { faqSchema, breadcrumbSchema } from '../../utils/schema';
+
+// ── Schemas ────────────────────────────────────────────────────────────────
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Digital Launchpad — 4-Year Website Plan',
+  description:
+    'All-inclusive website package: custom website + .in domain + hosting + 4-year maintenance. One upfront payment. No renewals.',
+  provider: {
+    '@type': 'Organization',
+    name: 'eLan Technology',
+    url: 'https://elan-tech.net',
+  },
+  areaServed: 'Nagpur, Maharashtra, India',
+  offers: PLANS.map((p) => ({
+    '@type': 'Offer',
+    name: p.name,
+    price: p.price,
+    priceCurrency: 'INR',
+    validFrom: '2026-06-01',
+    validThrough: '2026-06-30',
+    availability: 'https://schema.org/LimitedAvailability',
+    url: 'https://elan-tech.net/pricing/digital-launchpad/',
+  })),
+};
+
+const schemas = [
+  serviceSchema,
+  faqSchema(FAQS),
+  breadcrumbSchema([
+    { name: 'Home',    url: '/' },
+    { name: 'Pricing', url: '/pricing/' },
+    { name: 'Digital Launchpad', url: '/pricing/digital-launchpad/' },
+  ]),
+];
+
+// ── Reframe stats bar data ─────────────────────────────────────────────────
+const reframeStats = [
+  { value: '₹500/mo',    label: 'eLan Starter' },
+  { value: '₹650/mo',    label: 'eLan Business' },
+  { value: '₹800/mo',    label: 'eLan Complete' },
+  { value: '4 Years',    label: 'Zero renewal stress' },
+  { value: `${TOTAL_SLOTS} Slots`, label: 'Total available' },
+];
+
+// ── Comparison table rows ──────────────────────────────────────────────────
+const compareRows = [
+  { feature: 'Design type',       elan: 'Custom UI/UX',     freelancer: 'Maybe custom',  wix: 'Template only' },
+  { feature: 'Domain included',   elan: '.in / 4 years',    freelancer: 'Extra cost',     wix: 'Year 1 only' },
+  { feature: 'Hosting included',  elan: '4 years paid',     freelancer: 'Extra cost',     wix: 'Bundled (limited)' },
+  { feature: 'Maintenance incl.', elan: '4 years',          freelancer: 'Extra cost',     wix: 'DIY only' },
+  { feature: 'Single payment',    elan: 'One payment',      freelancer: 'Annual invoice', wix: 'Monthly billing' },
+  { feature: 'Who manages it',    elan: 'eLan Tech (24yr)', freelancer: 'You do',         wix: 'You do' },
+  { feature: 'Real 4-year cost',  elan: '₹31,200 total',   freelancer: '₹35,000–60,000+', wix: '₹40,000–70,000+' },
+];
+---
+
+<BaseLayout
+  title="4-Year All-In Website Plan from ₹24,000 — eLan Technology"
+  description="Professional website + .in domain + hosting + 4 years maintenance. One payment. No renewals. eLan Starter ₹24K · Business ₹31.2K · Complete ₹38.4K. Offer ends June 30, 2026."
+  canonical="/pricing/digital-launchpad/"
+  schema={schemas}
+>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SECTION 1: OFFER BANNER (thin strip above hero)
+════════════════════════════════════════════════════════════════════════════ -->
+<div
+  role="banner"
+  aria-label="Limited time offer announcement"
+  class="w-full py-2.5 px-4 text-center"
+  style="background:#F26722;"
+>
+  <p class="font-heading text-xs sm:text-sm font-bold uppercase tracking-[0.15em] text-white">
+    🔥 Limited Time Offer — June 1 to June 30, 2026 · {TOTAL_SLOTS} Slots Only
+  </p>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SECTION 2: HERO
+════════════════════════════════════════════════════════════════════════════ -->
+<section
+  aria-labelledby="lp-hero-heading"
+  class="relative overflow-hidden py-16 md:py-24"
+  style="background: linear-gradient(160deg, rgba(242,103,34,0.08) 0%, var(--bg) 50%, rgba(29,59,109,0.08) 100%);"
+>
+  <!-- Aurora blobs -->
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+    <div class="absolute -top-32 -left-32 h-[500px] w-[500px] rounded-full opacity-[0.07] blur-[100px]" style="background:#F26722;"></div>
+    <div class="absolute -bottom-32 -right-32 h-[400px] w-[400px] rounded-full opacity-[0.06] blur-[80px]" style="background:#1D3B6D;"></div>
+  </div>
+
+  <div class="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+
+    <!-- Eyebrow badges -->
+    <div class="mb-6 flex flex-wrap items-center justify-center gap-2">
+      {[
+        { icon: '🔥', text: 'Limited Time' },
+        { icon: '📦', text: '4-Year All-Inclusive' },
+        { icon: '✅', text: `${TOTAL_SLOTS} Slots Only` },
+      ].map((b) => (
+        <span
+          class="inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-xs font-semibold"
+          style="border-color:rgba(242,103,34,0.4); background:rgba(242,103,34,0.08); color:#F26722;"
+        >
+          <span aria-hidden="true">{b.icon}</span>
+          {b.text}
+        </span>
+      ))}
+    </div>
+
+    <!-- H1 -->
+    <h1
+      id="lp-hero-heading"
+      class="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.08] text-[var(--text)] mb-6"
+    >
+      Your Business Website.<br class="hidden sm:block" />
+      4 Years. One Payment.<br class="hidden sm:block" />
+      <span style="color:#F26722;">Zero Headaches.</span>
+    </h1>
+
+    <!-- Subheading -->
+    <p class="mx-auto mb-8 max-w-2xl text-base sm:text-lg text-[var(--text-dim)] leading-relaxed">
+      Professional website + .in domain + hosting + 4-year maintenance.<br class="hidden sm:block" />
+      All managed by eLan Technology. <strong class="text-[var(--text)]">You do nothing — we do everything.</strong>
+    </p>
+
+    <!-- Countdown timer -->
+    <div class="mb-8 flex justify-center">
+      <CountdownTimer client:visible />
+    </div>
+
+    <!-- CTAs -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mb-4">
+      <a
+        href="#plans"
+        class="inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-base font-bold text-white transition-all duration-200 hover:opacity-90 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#F26722]"
+        style="background:#F26722; min-height:44px;"
+      >
+        🚀 Book My Website Slot
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a
+        href={WHATSAPP_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center gap-2 rounded-full border px-8 py-4 text-base font-bold transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#F26722]"
+        style="border-color:rgba(242,103,34,0.5); color:#F26722; background:rgba(242,103,34,0.07); min-height:44px;"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        💬 WhatsApp Us
+      </a>
+    </div>
+    <p class="text-xs text-[var(--text-muted)]">
+      No technical knowledge needed · Full advance payment only
+    </p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SECTION 3: REFRAME BAR
+════════════════════════════════════════════════════════════════════════════ -->
+<section
+  aria-label="Cost reframe — per month equivalent"
+  class="border-y border-[var(--border)] py-8 md:py-10"
+  style="background: linear-gradient(90deg, rgba(242,103,34,0.07) 0%, rgba(29,59,109,0.09) 100%);"
+>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <ul class="flex flex-wrap items-center justify-center gap-6 sm:gap-10 lg:gap-14" role="list">
+      {reframeStats.map((s) => (
+        <li class="flex flex-col items-center text-center">
+          <span class="font-heading text-2xl sm:text-3xl font-black" style="color:#F26722;">{s.value}</span>
+          <span class="mt-0.5 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-muted)]">{s.label}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SECTION 4: PLANS
+════════════════════════════════════════════════════════════════════════════ -->
+<section id="plans" aria-labelledby="lp-plans-heading" class="py-16 md:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+    <!-- Section label + heading -->
+    <p class="mb-3 text-center text-[11px] font-bold uppercase tracking-[0.2em]" style="color:#F26722;">
+      Choose Your Plan
+    </p>
+    <h2 id="lp-plans-heading" class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--text)] text-center mb-3">
+      Three Plans. One Promise. Zero Surprises.
+    </h2>
+    <p class="text-center text-[var(--text-dim)] mb-8 max-w-2xl mx-auto">
+      All plans: .in domain + hosting + maintenance for 4 years.<br />
+      Full advance only. Offer ends June 30, 2026.
+    </p>
+
+    <!-- Deadline pill -->
+    <div class="mb-10 flex justify-center">
+      <div
+        class="inline-flex flex-wrap items-center justify-center gap-3 rounded-2xl border px-6 py-3"
+        style="border-color:rgba(242,103,34,0.4); background:rgba(242,103,34,0.07);"
+      >
+        <span class="text-sm font-semibold text-[var(--text-dim)]">
+          ⏰ Offer closes June 30, 2026
+        </span>
+        <a
+          href="#booking"
+          class="rounded-full px-4 py-1.5 text-sm font-bold text-white transition-opacity hover:opacity-90"
+          style="background:#F26722; min-height:36px; display:inline-flex; align-items:center;"
+        >
+          Reserve My Slot →
+        </a>
+      </div>
+    </div>
+
+    <!-- Plan cards grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+      {PLANS.map((plan) => (
+        <PlanCard plan={plan} showAllFeatures={true} />
+      ))}
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SECTION 5: WHAT'S INCLUDED
+════════════════════════════════════════════════════════════════════════════ -->
+<section
+  aria-labelledby="lp-included-heading"
+  class="border-y border-[var(--border)] py-16 md:py-24"
+  style="background: var(--bg-card);"
+>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <p class="mb-3 text-center text-[11px] font-bold uppercase tracking-[0.2em]" style="color:#F26722;">
+      What You Get
+    </p>
+    <h2 id="lp-included-heading" class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--text)] text-center mb-3">
+      Every Plan Includes These 4-Year Promises
+    </h2>
+    <p class="text-center text-[var(--text-dim)] mb-12 max-w-2xl mx-auto">
+      We manage it all. You focus on your business.
+    </p>
+    <InclusionGrid />
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SECTION 6: COMPARISON TABLE
+════════════════════════════════════════════════════════════════════════════ -->
+<section aria-labelledby="lp-compare-heading" class="py-16 md:py-24">
+  <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+    <p class="mb-3 text-center text-[11px] font-bold uppercase tracking-[0.2em]" style="color:#F26722;">
+      Why This Plan
+    </p>
+    <h2 id="lp-compare-heading" class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] text-center mb-12">
+      How We Compare
+    </h2>
+
+    <div class="overflow-x-auto rounded-2xl border border-[var(--border)]">
+      <table class="w-full text-sm" role="table">
+        <caption class="sr-only">Cost and feature comparison: eLan Business vs Freelancer vs DIY Wix</caption>
+        <thead>
+          <tr class="border-b border-[var(--border)]" style="background:rgba(242,103,34,0.08);">
+            <th scope="col" class="px-4 py-4 text-left text-xs font-bold uppercase tracking-[0.12em] text-[var(--text-muted)]">Feature</th>
+            <th scope="col" class="px-4 py-4 text-center">
+              <span class="inline-flex flex-col items-center gap-1">
+                <span class="rounded-full px-3 py-0.5 text-xs font-bold text-white" style="background:#F26722;">eLan Business</span>
+                <span class="text-xs font-semibold text-[var(--text)]">₹31,200</span>
+              </span>
+            </th>
+            <th scope="col" class="px-4 py-4 text-center text-sm font-bold text-[var(--text-dim)]">Freelancer</th>
+            <th scope="col" class="px-4 py-4 text-center text-sm font-bold text-[var(--text-dim)]">DIY Wix</th>
+          </tr>
+        </thead>
+        <tbody>
+          {compareRows.map((row, i) => (
+            <tr
+              class:list={[
+                'border-b border-[var(--border)] transition-colors hover:bg-[var(--bg-card)]',
+                i % 2 === 0 ? '' : '',
+              ]}
+            >
+              <td class="px-4 py-3.5 text-sm font-medium text-[var(--text-dim)]">{row.feature}</td>
+              <td class="px-4 py-3.5 text-center">
+                <span class="text-sm font-semibold" style="color:#F26722;">{row.elan}</span>
+              </td>
+              <td class="px-4 py-3.5 text-center text-sm text-[var(--text-muted)]">{row.freelancer}</td>
+              <td class="px-4 py-3.5 text-center text-sm text-[var(--text-muted)]">{row.wix}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SECTION 7: WHAT'S NOT INCLUDED (transparency / trust)
+════════════════════════════════════════════════════════════════════════════ -->
+<section
+  aria-labelledby="lp-notincluded-heading"
+  class="border-y border-[var(--border)] py-16 md:py-20"
+  style="background:var(--bg-card);"
+>
+  <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+    <h2 id="lp-notincluded-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] text-center mb-3">
+      What's NOT in This Plan
+    </h2>
+    <p class="text-center text-sm text-[var(--text-muted)] mb-8">
+      Transparency matters. Here's what requires a separate quote.
+    </p>
+    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3" role="list">
+      {[
+        { text: 'eCommerce / payment gateway integration', note: 'See our eCommerce packages' },
+        { text: 'Logo design', note: 'Included in eLan Complete, or ₹3,999 add-on' },
+        { text: 'Content / copywriting', note: 'Included in eLan Complete, or ₹4,999 add-on' },
+        { text: 'SEO campaign or Google Ads management', note: 'Available as separate service' },
+        { text: '.com domain', note: 'Extra charges apply — contact us' },
+        { text: 'New pages after launch', note: '₹999 per additional page' },
+        { text: 'Social media management', note: 'Available as separate service' },
+        { text: 'Complex integrations (CRM, booking system)', note: 'Custom quote available' },
+      ].map((item) => (
+        <li class="flex items-start gap-3 rounded-xl border border-[var(--border)] bg-[var(--bg)] p-4">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="mt-0.5 shrink-0"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          <div>
+            <span class="text-sm font-medium text-[var(--text)]">{item.text}</span>
+            <span class="block text-xs text-[var(--text-muted)] mt-0.5">{item.note}</span>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SECTION 8: WHO IS THIS FOR
+════════════════════════════════════════════════════════════════════════════ -->
+<section aria-labelledby="lp-who-heading" class="py-16 md:py-24">
+  <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+    <h2 id="lp-who-heading" class="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--text)] text-center mb-12">
+      Is This Plan Right for You?
+    </h2>
+
+    <div class="grid gap-6 md:grid-cols-2">
+
+      <!-- YES column -->
+      <div class="rounded-2xl border p-6 md:p-8" style="border-color:rgba(34,197,94,0.3); background:rgba(34,197,94,0.05);">
+        <h3 class="font-heading text-lg font-bold mb-5" style="color:#22C55E;">
+          ✅ This plan is for you if…
+        </h3>
+        <ul class="space-y-3">
+          {[
+            'Local Nagpur / central India business (Raipur, Bhopal, Indore)',
+            'First-time website owner — no technical knowledge needed',
+            'You want one payment and zero ongoing stress for 4 years',
+            'Clinic, salon, coaching centre, retailer, NGO, consultant',
+            'Primarily targeting Indian / local customers (.in ranks well)',
+            'Budget-conscious but want agency quality, not a freelancer',
+          ].map((item) => (
+            <li class="flex items-start gap-2.5 text-sm text-[var(--text-dim)]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="mt-0.5 shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- ELSEWHERE column -->
+      <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 md:p-8">
+        <h3 class="font-heading text-lg font-bold text-[var(--text-dim)] mb-5">
+          → Consider something else if…
+        </h3>
+        <ul class="space-y-3">
+          {[
+            { text: 'You need an online store', note: 'See our eCommerce packages' },
+            { text: 'You want to target international customers', note: 'Need .com — contact us' },
+            { text: 'You need a self-managed blog CMS', note: 'See our Professional plan' },
+            { text: 'You need CRM, booking system, or payment gateway', note: 'Custom quote available' },
+          ].map((item) => (
+            <li class="flex items-start gap-2.5 text-sm text-[var(--text-dim)]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="mt-0.5 shrink-0"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              <div>
+                <span class="font-medium text-[var(--text)]">{item.text}</span>
+                <span class="block text-xs text-[var(--text-muted)] mt-0.5">{item.note}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <div class="mt-6 pt-5 border-t border-[var(--border)]">
+          <a href="/contact/" class="text-sm font-semibold hover:underline" style="color:#F26722;">
+            Not sure? Let's talk first →
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SECTION 9: BOOKING FORM
+════════════════════════════════════════════════════════════════════════════ -->
+<section
+  id="booking"
+  aria-labelledby="lp-booking-heading"
+  class="border-y border-[var(--border)] py-16 md:py-24"
+  style="background:var(--bg-card);"
+>
+  <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
+    <p class="mb-3 text-center text-[11px] font-bold uppercase tracking-[0.2em]" style="color:#F26722;">
+      Reserve Your Slot
+    </p>
+    <h2 id="lp-booking-heading" class="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--text)] text-center mb-3">
+      Lock In Your Spot Today
+    </h2>
+    <p class="text-center text-[var(--text-dim)] mb-10">
+      Fill in your details. We confirm via WhatsApp within 4 hours.
+    </p>
+
+    <BookingForm />
+
+    <!-- Trust signals -->
+    <ul class="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2" role="list">
+      {[
+        { icon: '🔒', text: 'Secure · 100% Advance · No Hidden Charges' },
+        { icon: '⚡', text: 'Slot confirmed within 4 business hours' },
+        { icon: '📱', text: 'We respond on WhatsApp · Mon–Sat 10am–6pm IST' },
+      ].map((t) => (
+        <li class="flex items-center gap-1.5 text-xs text-[var(--text-muted)]">
+          <span aria-hidden="true">{t.icon}</span>
+          {t.text}
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SECTION 10: FAQ
+════════════════════════════════════════════════════════════════════════════ -->
+<section aria-labelledby="lp-faq-heading" class="py-16 md:py-24">
+  <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+    <h2 id="lp-faq-heading" class="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--text)] text-center mb-12">
+      Frequently Asked Questions
+    </h2>
+
+    <div class="space-y-3">
+      {FAQS.map((faq, i) => (
+        <details
+          class="group rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] overflow-hidden transition-all"
+          name="lp-faq"
+        >
+          <summary
+            class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-sm font-semibold text-[var(--text)] hover:text-[var(--text)] [&::-webkit-details-marker]:hidden"
+            style="min-height:44px;"
+          >
+            <span>{faq.question}</span>
+            <!-- Chevron: rotates on open -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              class="shrink-0 text-[var(--text-muted)] transition-transform duration-200 group-open:rotate-180"
+            >
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </summary>
+          <div class="px-5 pb-5 pt-1 text-sm text-[var(--text-dim)] leading-relaxed border-t border-[var(--border)]">
+            {faq.answer}
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SECTION 11: FINAL CTA STRIP
+════════════════════════════════════════════════════════════════════════════ -->
+<section
+  aria-labelledby="lp-finalcta-heading"
+  class="py-14 md:py-20"
+  style="background:#F26722;"
+>
+  <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+    <p class="mb-2 text-sm font-bold uppercase tracking-[0.18em] text-white/80">
+      First Come, First Served
+    </p>
+    <h2 id="lp-finalcta-heading" class="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">
+      Ready to get started? {TOTAL_SLOTS} slots. That's it.
+    </h2>
+    <p class="mb-8 text-white/80 text-sm sm:text-base">
+      Offer ends June 30, 2026. After that, this price is gone.
+    </p>
+
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+      <a
+        href={`https://wa.me/918788834630?text=Hi%20eLan%20Technology%21%20I%20want%20to%20book%20a%20Digital%20Launchpad%20slot.`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-base font-bold transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+        style="color:#F26722; min-height:44px;"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        💬 WhatsApp +91 87888 34630
+      </a>
+      <a
+        href="#booking"
+        class="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white px-8 py-4 text-base font-bold text-white transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+        style="min-height:44px;"
+      >
+        🚀 Book Slot Now
+      </a>
+    </div>
+  </div>
+</section>
+
+</BaseLayout>

@@ -1,0 +1,175 @@
+---
+title: "The European Accessibility Act Is Now Live — What Indian Agencies Selling to Europe Need to Know"
+description: "EAA went live June 28, 2025. Selling to EU customers? You're legally required to be accessible. Complete compliance guide for non-EU businesses."
+publishDate: 2026-05-16
+author: "eLan Technology Team"
+category: "accessibility"
+tags: ["European Accessibility Act", "EAA 2025", "EU accessibility law", "EN 301 549", "WCAG 2.1", "accessibility for EU customers", "EAA penalties"]
+readTime: 10
+featuredImage:
+  src: "/blog/european-accessibility-act-eaa-compliance-guide.avif"
+  alt: "European Accessibility Act — Now in effect across all 27 EU member states"
+draft: false
+seo:
+  focusKeyword: "European Accessibility Act compliance"
+  metaTitle: "European Accessibility Act 2026 — Complete Compliance Guide"
+  metaDescription: "EAA went live June 28, 2025. Selling to EU customers? You're legally required to be accessible. Complete compliance guide for non-EU businesses."
+---
+
+As of June 28, 2025, the **European Accessibility Act (EAA)** is live across all 27 EU member states. If your business sells anything to customers inside the European Union — whether you operate out of Mumbai, Manchester, or Manhattan — you are now subject to its requirements. The reach of this law extends far beyond Europe's borders, and the most dangerous misconception about it is that "we're not in Europe, so it doesn't apply to us."
+
+It does. The EAA reaches every e-commerce site, mobile app, banking interface, transport booking system, and digital service that a European consumer can access. Indian agencies serving European clients are already being asked for accessibility certification. Indian e-commerce brands shipping orders to Germany or France are now squarely inside the enforcement perimeter.
+
+This guide explains exactly what the EAA is, who it applies to, what the technical requirements look like in plain language, what the penalties are by member state, and how to bring a website into durable compliance. If you sell anything digitally to the EU, the next ten minutes are essential reading.
+
+## What the European Accessibility Act Actually Is
+
+### The Short Version
+
+- EU directive **2019/882** was adopted in 2019.
+- Member states translated it into national law by **June 2022**.
+- Enforcement began **June 28, 2025**.
+- The Act covers products and services sold to EU consumers.
+- Crucially, it applies to **non-EU businesses** selling into the EU — there is no geographic loophole based on where your company is headquartered.
+
+The Act exists because the EU's single market needs harmonised accessibility rules. Until 2025, every member state had its own version, with wildly different standards. The EAA replaces that patchwork with one rulebook.
+
+### Who Must Comply
+
+The EAA applies to:
+
+- E-commerce websites and mobile apps
+- Banking and financial services (consumer-facing)
+- Electronic communications services
+- Audiovisual media services
+- Transportation services (booking and ticketing)
+- E-books and reading software
+- ATMs, payment terminals, ticketing kiosks
+- Self-service technologies
+
+**Exemption:** Microenterprises — defined as businesses with fewer than 10 employees **and** turnover under €2 million — are exempt for services. Most agencies and SMEs exceed this threshold quickly.
+
+## The Technical Standard — EN 301 549 and WCAG 2.1
+
+The EAA points to a European harmonised standard called **EN 301 549**, which itself adopts **WCAG 2.1 Level AA** as the baseline conformance target for websites and mobile apps. In practical terms, the legal text says "be accessible," and the technical standard says "do this by following WCAG 2.1 AA."
+
+### What WCAG Level AA Actually Means
+
+WCAG is built on four principles, often called **POUR**:
+
+- **Perceivable** — Everyone can see, hear, or feel your content. This is alt text on images, captions on video, sufficient colour contrast, and content that adapts when zoomed.
+- **Operable** — Everyone can navigate your site. The site must be fully usable by keyboard, give users enough time, and avoid content that could trigger seizures.
+- **Understandable** — Content is readable and predictable. Language is declared, navigation is consistent, errors are explained clearly.
+- **Robust** — The site works with assistive technologies. This means valid HTML, correct ARIA roles, and components that screen readers can parse.
+
+### The 6 Most Common Violations (94.8% of websites fail at least one)
+
+According to the **WebAIM Million 2025** report — the largest annual accessibility scan of the world's top one million homepages — six issues account for the vast majority of failures:
+
+1. **Low contrast text** — 79.1% of homepages fail
+2. **Missing alt text** — 55.5%
+3. **Missing form labels** — 48.2%
+4. **Empty links** — 44.6%
+5. **Missing document language** — 37.1%
+6. **Empty buttons** — 26.3%
+
+These six violations alone are responsible for the vast majority of EAA non-compliance findings. They are also the cheapest to fix when caught early, and the most expensive to fix after a complaint is filed.
+
+## Penalties for Non-Compliance
+
+Penalties vary by member state, and the EAA itself sets only a minimum — leaving the upper bound to each national legislature. Some published examples:
+
+- **Germany:** Up to €100,000 per violation
+- **France:** Up to €250,000 for repeat offenders, plus monthly fines until remediation
+- **Spain:** €30,000 to €1 million depending on severity
+- **Italy:** Administrative penalties and court orders
+- **Netherlands:** Fines plus product or service withdrawal orders
+
+Beyond direct fines, non-compliant businesses face:
+
+- Mandatory removal of products or services from the EU market
+- Court orders requiring expensive emergency remediation on short deadlines
+- Reputational damage in a region where accessibility is publicly tracked
+- Loss of EU contracts — most public procurement now requires accessibility certification, and a growing number of private B2B buyers do too
+
+## Why Your Indian Agency or Business Cannot Ignore This
+
+### The "I'm Not in Europe" Argument Doesn't Work
+
+The EAA explicitly applies to:
+
+- Any business selling to EU consumers, regardless of where the business is based
+- Online services that can be accessed from EU member states
+- Mobile apps distributed via EU app stores
+
+If your e-commerce site accepts orders from Germany, it is subject to German enforcement. If your SaaS platform has even one paying customer in France, French regulators have jurisdiction over its accessibility. The location of your servers, your office, or your team is not the test — the location of the consumer is.
+
+### The Cascading Effect
+
+The EAA isn't only enforced by regulators. It is being enforced contractually, throughout the supply chain:
+
+- B2B clients in the EU now require their vendors to be EAA-compliant
+- Indian agencies serving EU clients must deliver compliant websites or risk losing the account
+- This is why every web project for international clients should include accessibility from day one, not as a paid bolt-on at the end
+
+We are now in the phase where a single non-compliant project can put an entire vendor relationship at risk.
+
+## The 6-Step EAA Compliance Roadmap
+
+For most websites, durable compliance follows the same six-step path:
+
+1. **Audit** — Use automated tools like axe-core, Lighthouse, and WAVE for an initial scan. These catch roughly 30–40% of real issues — enough to know whether the site is in trouble.
+2. **Manual review** — Test with real screen readers (NVDA on Windows, VoiceOver on Mac), keyboard-only navigation, and 200% zoom. Automation cannot tell you whether your site is *usable*.
+3. **Remediation** — Fix violations at the code level. Add alt text, fix contrast, label forms, restructure headings. Overlay widgets are not a fix (see below).
+4. **Documentation** — Publish an accessibility statement. The EAA explicitly requires this — it must list the standard you target (WCAG 2.1 AA), known limitations, and a contact channel for feedback.
+5. **Ongoing monitoring** — New content, new components, and CMS edits can introduce new violations. Schedule a quarterly re-audit at minimum.
+6. **Staff training** — Designers, developers, and content creators all need to understand accessibility basics. Most violations are introduced by people who simply weren't trained to spot them.
+
+## The Overlay Trap — Why Accessibility Widgets Don't Comply
+
+A growing industry of "accessibility overlay" widgets promises one-line, AI-powered compliance. The reality is the opposite:
+
+- **22.64%** of ADA lawsuits in 2025 targeted sites that had an accessibility widget installed
+- The FTC fined **accessiBe $1 million** in 2025 for misleading compliance claims
+- Wikipedia's official EAA page explicitly states that overlays are **not sufficient**
+- EU regulators have publicly stated overlays do not constitute compliance
+- The only durable path is code-level remediation
+
+If a vendor offers "instant" or "automatic" compliance for €99 a month, treat that claim the same way you would treat "instant" tax compliance. It does not exist.
+
+## How eLan Technology Helps Indian Businesses Achieve EAA Compliance
+
+- Every website we build meets **WCAG 2.1 AA** standards by default
+- Free **EAA-aligned accessibility audit** available on request
+- Code-level remediation — we do not sell or install overlay widgets
+- Accessibility statement template provided and customised to your site
+- Ongoing compliance monitoring through our maintenance plans
+- Specialised experience serving Indian businesses with EU customers
+
+## FAQs
+
+**Q: My business is in Nagpur. Why does the EAA apply to me?**
+A: If even one of your customers is in the EU and uses your website, you are subject to the EAA. Indian B2B agencies often discover this when their European clients ask for accessibility certification as part of vendor onboarding.
+
+**Q: How long does EAA compliance take?**
+A: For a typical SME website, expect **2–6 weeks** of remediation work. Larger e-commerce sites can take **3–6 months**. The earlier you start, the lower the cost — emergency remediation under a regulator deadline is significantly more expensive.
+
+**Q: What happens if I'm reported for non-compliance?**
+A: Each EU member state has appointed enforcement bodies. Consumers and competitors can both file complaints. The body investigates, requests remediation, and issues fines if you fail to comply within deadlines, which are typically **30–90 days**.
+
+**Q: Are there any exemptions?**
+A: Microenterprises (under 10 employees **and** under €2 million turnover) are exempt from service requirements. Pre-recorded media published before June 2025, archived content not updated after June 2025, and third-party content outside your control are also exempt.
+
+## The Three Major Accessibility Laws You Should Know
+
+| Law | Region | WCAG Level | Penalties |
+| --- | --- | --- | --- |
+| ADA Title III | USA | WCAG 2.1 AA (de facto) | Avg $30K settlement, up to $400K class action |
+| AODA + ACA | Canada | WCAG 2.0 AA / 2.1 AA | Up to CAD $100K/day (AODA), $250K (ACA) |
+| EAA | EU | WCAG 2.1 AA via EN 301 549 | Up to €1M (varies by state) |
+
+Three regions, three frameworks, one shared technical standard. A site built to WCAG 2.1 AA from the start meets the substantive technical requirements of all three.
+
+---
+
+**Selling to customers in the US, EU, or Canada?** Your website needs to be accessible — and most aren't. Get your free WCAG compliance audit at [elan-tech.net/free-website-audit](/free-website-audit). Results in 24 hours, no credit card required.

@@ -1,0 +1,71 @@
+---
+// SSR announcement bar — no React island, no CLS.
+// Dismiss via localStorage is handled by the inline script below.
+// Dark text (#1a0800) on #F26722 orange passes WCAG AA (6.25:1).
+const OFFER_END = new Date('2026-06-30T23:59:59+05:30');
+const offerActive = new Date() <= OFFER_END;
+---
+
+{offerActive && (
+  <div
+    id="ann-bar"
+    role="region"
+    aria-label="Digital Launchpad limited-time offer"
+    class="relative z-[60] flex items-center justify-center gap-3 px-10 py-2.5 text-sm"
+    style="background: #F26722; color: #1a0800;"
+  >
+    <span aria-hidden="true" class="hidden sm:inline text-base leading-none">🔥</span>
+
+    <p class="text-center leading-snug">
+      <strong class="font-bold">Digital Launchpad</strong>
+      {' — '}All-in website from ₹24,000.{' '}
+      <a
+        href="/pricing/digital-launchpad/"
+        class="font-semibold underline underline-offset-2 hover:opacity-70 transition-opacity focus-visible:outline focus-visible:outline-2 rounded-sm"
+        style="color: #1a0800; outline-color: #1a0800;"
+      >
+        Reserve your slot →
+      </a>
+      <span class="ml-2 hidden sm:inline text-xs font-medium">
+        Offer ends 30 Jun 2026.
+      </span>
+    </p>
+
+    <button
+      id="ann-dismiss"
+      type="button"
+      aria-label="Dismiss this announcement"
+      class="absolute right-3 top-1/2 -translate-y-1/2 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full opacity-70 hover:opacity-100 hover:bg-black/10 transition-all duration-150 focus-visible:outline focus-visible:outline-2"
+      style="min-width:28px;min-height:28px;color:#1a0800;outline-color:#1a0800;"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    </button>
+  </div>
+)}
+
+<script is:inline>
+  (function () {
+    var bar = document.getElementById('ann-bar');
+    if (!bar) return;
+    try { if (localStorage.getItem('lp-bar-v1') === '1') { bar.style.display = 'none'; return; } } catch (e) {}
+    var btn = document.getElementById('ann-dismiss');
+    if (btn) btn.addEventListener('click', function () {
+      bar.style.display = 'none';
+      try { localStorage.setItem('lp-bar-v1', '1'); } catch (e) {}
+    });
+  })();
+</script>

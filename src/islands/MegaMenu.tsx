@@ -200,7 +200,7 @@ export default function MegaMenu() {
               return (
                 <div key={svc.slug} className="group/col">
                   <a
-                    href={`/services/${svc.slug}`}
+                    href={`/services/${svc.slug}/`}
                     onClick={() => setActiveMenu(null)}
                     className="flex items-center gap-2.5 mb-3 group"
                   >
@@ -219,7 +219,7 @@ export default function MegaMenu() {
                   <ul className="space-y-1.5 pl-9">
                     {svc.subpages.map((sub) => {
                       const subLabel = typeof sub === 'string' ? sub : sub.label;
-                      const subHref = typeof sub === 'string' ? `/services/${svc.slug}` : sub.href;
+                      const subHref = typeof sub === 'string' ? `/services/${svc.slug}/` : sub.href;
                       return (
                         <li key={subLabel}>
                           <a
@@ -240,7 +240,7 @@ export default function MegaMenu() {
 
           <div className="mt-6 pt-4 border-t border-[var(--border)] flex justify-between items-center">
             <a
-              href="/services/ada-compliant-web-design"
+              href="/services/ada-compliant-web-design/"
               onClick={() => setActiveMenu(null)}
               className="text-xs font-semibold text-[var(--text)] hover:text-[var(--accent)] transition-colors flex items-center gap-1"
             >
@@ -248,7 +248,7 @@ export default function MegaMenu() {
               ADA & WCAG Compliance
             </a>
             <a
-              href="/services"
+              href="/services/"
               onClick={() => setActiveMenu(null)}
               className="text-xs font-semibold text-[var(--accent)] hover:underline"
             >
@@ -262,7 +262,7 @@ export default function MegaMenu() {
             {products.map((prod) => (
               <div key={prod.slug}>
                 <a
-                  href={`/products/${prod.slug}`}
+                  href={`/products/${prod.slug}/`}
                   onClick={() => setActiveMenu(null)}
                   className="flex items-center gap-2 font-semibold text-[var(--text)] hover:text-[var(--accent)] mb-3 transition-colors text-sm"
                 >
@@ -272,7 +272,7 @@ export default function MegaMenu() {
                   {prod.features.map((feature) => (
                     <li key={feature}>
                       <a
-                        href={`/products/${prod.slug}`}
+                        href={`/products/${prod.slug}/`}
                         onClick={() => setActiveMenu(null)}
                         className="text-xs text-[var(--text-dim)] hover:text-[var(--accent)] transition-colors"
                       >
@@ -292,7 +292,7 @@ export default function MegaMenu() {
                 </p>
               </div>
               <a
-                href="/get-quote"
+                href="/get-quote/"
                 onClick={() => setActiveMenu(null)}
                 className="mt-4 block rounded-lg bg-[var(--accent)] px-4 py-2.5 text-center text-sm font-bold text-[var(--bg)] hover:opacity-90 transition-opacity"
               >
@@ -303,7 +303,7 @@ export default function MegaMenu() {
 
           <div className="mt-6 pt-4 border-t border-[var(--border)]">
             <a
-              href="/products"
+              href="/products/"
               onClick={() => setActiveMenu(null)}
               className="text-xs font-semibold text-[var(--accent)] hover:underline"
             >

@@ -8,46 +8,69 @@ Disallow: /api/
 Disallow: /admin/
 Disallow: /admin
 
-# Block conversion / thank-you pages (no SEO value — save crawl budget)
+# Block internal / thank-you pages (no SEO value — save crawl budget)
 Disallow: /thank-you
-Disallow: /get-quote
 Disallow: /schedule-consultation
 Disallow: /request-demo
+Disallow: /search
+Disallow: /search/
 
-# Block legacy WordPress ghost paths (now served as 410 Gone by functions/_middleware.ts).
-# These do NOT exist as Astro pages — they are old WordPress CMS URLs that
-# survived the migration and still appear in the GSC "Crawled — currently
-# not indexed" report. Blocking here stops Googlebot from re-checking them
-# on the regular crawl schedule.
-#
-# Important: /category/ is the WordPress category archive. Our valid
-# blog category index lives at /blog/category/* and is NOT blocked.
-Disallow: /tag/
-Disallow: /category/
-Disallow: /author/
-Disallow: /page/
-Disallow: /feed/
-Disallow: /feed
-Disallow: /comments/
-Disallow: /trackback/
+# Block WP attack paths — these return 410 Gone via .htaccess but blocking
+# here saves crawl budget so Googlebot doesn't waste quota on dead paths.
 Disallow: /wp-admin/
 Disallow: /wp-login.php
 Disallow: /wp-content/
 Disallow: /wp-includes/
 Disallow: /wp-json/
 Disallow: /xmlrpc.php
-Disallow: /?author=
-Disallow: /?s=
-Disallow: /?id=
-Disallow: /?p=
-Disallow: /?page_id=
-Disallow: /?attachment_id=
 
 # Block query strings
 Disallow: /*?*utm_source=
 Disallow: /*?*utm_medium=
 Disallow: /*?*utm_campaign=
 Disallow: /*?*ref=
+
+# Explicitly welcome AI search / answer-engine crawlers — we want our
+# pricing, services, and accessibility content cited in AI Overviews,
+# ChatGPT, Claude, Perplexity, and other AI-search surfaces.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
 
 # Crawl delay for aggressive bots
 User-agent: AhrefsBot
@@ -61,3 +84,7 @@ Disallow: /
 
 # Sitemap
 Sitemap: https://elan-tech.net/sitemap-index.xml
+
+# Agent-readable summary (services, pricing, key pages) for AI crawlers/agents
+# See: https://llmstxt.org
+# Llms: https://elan-tech.net/llms.txt

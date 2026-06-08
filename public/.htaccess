@@ -4,20 +4,14 @@
 # Policy
 #   • HTTPS only
 #   • Non-www canonical host:        elan-tech.net
-#   • NO trailing slash on any URL   (root "/" is the only exception)
-#   • Custom 404 page                (served from /404/index.html)
+#   • Trailing slash on all page URLs (matches Astro trailingSlash: 'always')
+#     Apache mod_dir handles /about → /about/ automatically (no custom rule)
+#   • Custom 404 page                (served from /404.html)
 #   • Astro static build is at site root with build.format: 'directory'
-#     so /about resolves to /about/index.html via the internal rewrite below
+#     so /about/ is served from /about/index.html via DirectoryIndex
 # ════════════════════════════════════════════════════════════════════════════
 
 Options -MultiViews -Indexes
-
-# Astro builds with build.format: 'directory', so every page is a folder with
-# an index.html (dist/about/index.html, dist/blog/index.html, …). We turn off
-# LiteSpeed/Apache's mod_dir auto-trailing-slash so /about does NOT get a
-# 301 to /about/ — instead the internal rewrite at the bottom serves
-# /about → /about/index.html silently.
-DirectorySlash Off
 
 RewriteEngine On
 RewriteBase /
@@ -31,36 +25,56 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
 RewriteCond %{HTTP_HOST} ^www\.elan-tech\.net$ [NC]
 RewriteRule ^(.*)$ https://elan-tech.net/$1 [L,R=301]
 
-# ─── 3. Strip trailing slash (except root) ──────────────────────────────────
-# Matches any URL with one-or-more chars before a trailing slash.
-# Root "/" alone is not matched because the regex requires (.+) before /.
-RewriteCond %{REQUEST_URI} ^/.+/$
-RewriteRule ^(.+)/$ /$1 [L,R=301]
-
-# ─── 4. Strip query-string variant of /get-quote ────────────────────────────
+# ─── 3. Redirect /get-quote?service=ada-emergency ───────────────────────────
 # Old internal links used /get-quote?service=ada-emergency. The "?" at the end
 # of the substitution clears the query string from the redirect target.
 RewriteCond %{QUERY_STRING} ^service=ada-emergency$ [NC]
 RewriteRule ^get-quote/?$ /services/ada-compliant-web-design? [L,R=301]
 
-# ─── 5. Old flat blog URLs → new /blog/<category>/<slug> URLs ───────────────
+# ─── 4. Old flat blog URLs → new /blog/<category>/<slug>/ URLs ──────────────
+# Trailing slash on destinations avoids a second mod_dir hop.
 # Accessibility
-RewriteRule ^blog/ada-compliance-checklist/?$               /blog/accessibility/ada-compliance-checklist                [L,R=301]
-RewriteRule ^blog/ada-lawsuit-emergency-website-remediation/?$ /blog/accessibility/ada-lawsuit-emergency-website-remediation [L,R=301]
-RewriteRule ^blog/ada-wcag-compliance-us-canada-2026/?$     /blog/accessibility/ada-wcag-compliance-us-canada-2026      [L,R=301]
-RewriteRule ^blog/wcag-explained-business-owners/?$         /blog/accessibility/wcag-explained-business-owners          [L,R=301]
+RewriteRule ^blog/ada-compliance-checklist/?$               /blog/accessibility/ada-compliance-checklist/                [L,R=301]
+RewriteRule ^blog/ada-lawsuit-emergency-website-remediation/?$ /blog/accessibility/ada-lawsuit-emergency-website-remediation/ [L,R=301]
+RewriteRule ^blog/ada-wcag-compliance-us-canada-2026/?$     /blog/accessibility/ada-wcag-compliance-us-canada-2026/      [L,R=301]
+RewriteRule ^blog/wcag-explained-business-owners/?$         /blog/accessibility/wcag-explained-business-owners/          [L,R=301]
 # Nagpur Business
-RewriteRule ^blog/best-web-design-company-raipur-guide/?$   /blog/nagpur-business/best-web-design-company-raipur-guide  [L,R=301]
-RewriteRule ^blog/website-cost-nagpur/?$                    /blog/nagpur-business/website-cost-nagpur                   [L,R=301]
-RewriteRule ^blog/why-nagpur-business-needs-website/?$      /blog/nagpur-business/why-nagpur-business-needs-website     [L,R=301]
+RewriteRule ^blog/best-web-design-company-raipur-guide/?$   /blog/nagpur-business/best-web-design-company-raipur-guide/  [L,R=301]
+RewriteRule ^blog/website-cost-nagpur/?$                    /blog/nagpur-business/website-cost-nagpur/                   [L,R=301]
+RewriteRule ^blog/why-nagpur-business-needs-website/?$      /blog/nagpur-business/why-nagpur-business-needs-website/     [L,R=301]
 # SEO
-RewriteRule ^blog/seo-guide-small-business-nagpur/?$        /blog/seo/seo-guide-small-business-nagpur                   [L,R=301]
+RewriteRule ^blog/seo-guide-small-business-nagpur/?$        /blog/seo/seo-guide-small-business-nagpur/                   [L,R=301]
 # Web Design
-RewriteRule ^blog/wordpress-vs-custom-website/?$            /blog/web-design/wordpress-vs-custom-website                [L,R=301]
+RewriteRule ^blog/wordpress-vs-custom-website/?$            /blog/web-design/wordpress-vs-custom-website/                [L,R=301]
 # Technology Trends
-RewriteRule ^blog/website-development-trends-april-2026/?$  /blog/technology-trends/website-development-trends-april-2026 [L,R=301]
+RewriteRule ^blog/website-development-trends-april-2026/?$  /blog/technology-trends/website-development-trends-april-2026/ [L,R=301]
+RewriteRule ^blog/ai-web-development-2026/?$                /blog/technology-trends/ai-web-development-2026/             [L,R=301]
 
-# ─── 6. WordPress / common attack paths → home (404 alternative) ────────────
+# ─── 5. Dead pages — redirects & 410 Gone ───────────────────────────────────
+# Removed service page (was at /wcag-accessibility-audit, now part of ADA service)
+RewriteRule ^wcag-accessibility-audit/?$  /services/ada-compliant-web-design/ [L,R=301]
+
+# India page never existed — send to Nagpur HQ
+RewriteRule ^web-design-company-india/?$  /web-design-company-nagpur/ [L,R=301]
+
+# Portfolio case studies: renamed or removed
+RewriteRule ^portfolio/case-study/stems/?$       /portfolio/case-study/stems-flower-studio/ [L,R=301]
+RewriteRule ^portfolio/case-study/meme-hub/?$    /portfolio/ [L,R=301]
+RewriteRule ^portfolio/case-study/sheabm/?$      /portfolio/ [L,R=301]
+RewriteRule ^portfolio/case-study/zest/?$        /portfolio/ [L,R=301]
+RewriteRule ^portfolio/case-study/anirwan/?$     /portfolio/ [L,R=301]
+
+# Cloudflare email-protection artifact (CF is DNS-only; this path never exists on Hostinger)
+RewriteRule ^cdn-cgi(/.*)?$  /contact/ [L,R=301]
+
+# WordPress legacy content — 410 Gone (tells Google to drop these permanently)
+# These were WP social/festival posts & tag archives; no equivalents exist.
+RewriteRule ^social-media(/.*)?$   -  [G,L]
+RewriteRule ^festivals(/.*)?$      -  [G,L]
+RewriteRule ^appointments/?$       -  [G,L]
+RewriteRule ^tag(/.*)?$            -  [G,L]
+
+# ─── 6. WordPress / common attack paths → home ──────────────────────────────
 RewriteRule ^wp-admin(/.*)?$        /  [L,R=301]
 RewriteRule ^wp-login\.php$         /  [L,R=301]
 RewriteRule ^wp-content(/.*)?$      /  [L,R=301]
@@ -72,7 +86,7 @@ RewriteRule ^\.git(/.*)?$           /  [L,R=301]
 
 # ─── 7. Legacy eLan slugs ───────────────────────────────────────────────────
 # About
-RewriteRule ^about-elantech$        /about  [L,R=301]
+RewriteRule ^about-elantech/?$      /about/ [L,R=301]
 RewriteRule ^about-us$              /about  [L,R=301]
 RewriteRule ^who-we-are$            /about  [L,R=301]
 RewriteRule ^our-team$              /about  [L,R=301]
@@ -125,9 +139,14 @@ RewriteRule ^our-work$               /portfolio  [L,R=301]
 RewriteRule ^case-studies$           /portfolio  [L,R=301]
 RewriteRule ^work$                   /portfolio  [L,R=301]
 
+# Digital Launchpad short URLs (campaign — temporary 302, remove after 15 Aug 2026)
+RewriteRule ^launchpad/?$       /pricing/digital-launchpad/  [L,R=302]
+RewriteRule ^4year/?$           /pricing/digital-launchpad/  [L,R=302]
+RewriteRule ^offer/?$           /pricing/digital-launchpad/  [L,R=302]
+
 # Old CTAs
-RewriteRule ^free-audit$        /free-website-audit       [L,R=301]
-RewriteRule ^website-audit$     /free-website-audit       [L,R=301]
+RewriteRule ^free-audit/?$      /free-website-audit/      [L,R=301]
+RewriteRule ^website-audit/?$   /free-website-audit/      [L,R=301]
 RewriteRule ^get-a-quote$       /get-quote                [L,R=301]
 RewriteRule ^request-quote$     /get-quote                [L,R=301]
 RewriteRule ^quote$             /get-quote                [L,R=301]
@@ -140,14 +159,20 @@ RewriteRule ^thankyou$          /thank-you                [L,R=301]
 RewriteRule ^thank_you$         /thank-you                [L,R=301]
 RewriteRule ^success$           /thank-you                [L,R=301]
 
-# ─── 8. Internal rewrite — serve /foo as /foo/index.html ────────────────────
-# This MUST come after every external 301 rule above, so legacy slugs and
-# trailing-slash strips fire first. The rule fires only when:
-#   • the requested path is not already a real file
-#   • the requested path is not already a real directory
-#   • a matching /foo/index.html exists on disk
-# That way /about → /about/index.html, /blog/category/seo → /blog/category/seo/index.html,
-# but unmatched paths fall through to the 404 ErrorDocument below.
+# ─── 8a. GSC 403 fixes ──────────────────────────────────────────────────────
+# LiteSpeed returns 403 (Forbidden) instead of 301 for no-trailing-slash
+# requests to real directories when Options -Indexes is set. Explicit rules
+# take priority over the mod_dir trailing-slash redirect.
+RewriteRule ^blog/web-design/wordpress-vs-custom-website$    /blog/web-design/wordpress-vs-custom-website/   [L,R=301]
+RewriteRule ^portfolio/case-study/abhirama$                  /portfolio/case-study/abhirama-international/   [L,R=301]
+RewriteRule ^portfolio/case-study/aastha-hospital$           /portfolio/case-study/aastha-hospital/          [L,R=301]
+RewriteRule ^portfolio/case-study/meme-hub$                  /portfolio/                                      [L,R=301]
+RewriteRule ^web-design-company-hyderabad$                   /web-design-company-hyderabad/                   [L,R=301]
+
+# ─── 8. Fallback rewrite — serve /foo/index.html for non-directory paths ────
+# Primary mechanism: Apache mod_dir (DirectorySlash on by default) 301s /foo
+# to /foo/ for real directories, then DirectoryIndex serves index.html.
+# This rule handles edge cases where the request is neither a file nor a dir.
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f

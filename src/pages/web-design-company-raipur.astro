@@ -1,29 +1,687 @@
 ---
 import CityLayout from '../layouts/CityLayout.astro';
-import CityIntro from '../components/city/CityIntro.astro';
-import CityServices from '../components/city/CityServices.astro';
-import CityWhyChoose from '../components/city/CityWhyChoose.astro';
-import CityIndustries from '../components/city/CityIndustries.astro';
-import CityProcess from '../components/city/CityProcess.astro';
-import CityPortfolio from '../components/city/CityPortfolio.astro';
-import CityPricing from '../components/city/CityPricing.astro';
+import ChapterLabel from '../components/ChapterLabel.astro';
 import CityFAQ from '../components/city/CityFAQ.astro';
-import CityContact from '../components/city/CityContact.astro';
 import CityAlsoServing from '../components/city/CityAlsoServing.astro';
 import { getCityBySlug } from '../data/cities';
 
 const city = getCityBySlug('raipur')!;
+
+// ── Services bento (2 flagship + 4 standard + 1 full-width ADA) ────────
+const services = [
+  {
+    title: `Website Design in ${city.name}`,
+    tagline: `Custom, mobile-first website design built for Raipur & Chhattisgarh businesses. Visually compelling sites engineered to convert.`,
+    href: '/services/website-design',
+    cssVar: '--ac-cyan',
+    iconSvg: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><circle cx="11" cy="11" r="2"/></svg>',
+    features: ['Figma prototypes', 'Responsive layouts', 'WCAG 2.1 AA baked in', 'Brand-aligned UI'],
+  },
+  {
+    title: `Web Development ${city.name}`,
+    tagline: `Full-stack engineering in React, Next.js, Astro, and Node — production-grade and SEO-ready.`,
+    href: '/services/web-development',
+    cssVar: '--ac-indigo',
+    iconSvg: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
+    features: ['Headless & Jamstack', 'CI/CD pipelines', 'Core Web Vitals budgets', 'API & integrations'],
+  },
+  {
+    title: 'eCommerce',
+    tagline: 'Razorpay, PayU, GST invoicing & logistics — wired for Raipur retailers & manufacturers.',
+    href: '/services/ecommerce',
+    cssVar: '--ac-emerald',
+    iconSvg: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>',
+    features: ['Shopify & WooCommerce', 'Indian payment gateways', 'GST-ready checkout'],
+  },
+  {
+    title: 'SEO & Digital Marketing',
+    tagline: 'Local SEO for Raipur, Google Ads, Meta Ads, and content engines tuned for Chhattisgarh.',
+    href: '/services/seo',
+    cssVar: '--ac-amber',
+    iconSvg: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>',
+    features: ['Local map pack', 'Technical SEO', 'Performance content'],
+  },
+  {
+    title: 'Mobile Apps',
+    tagline: 'iOS & Android apps — bookings, deliveries, ops tools for Raipur companies.',
+    href: '/services/mobile-app-development',
+    cssVar: '--ac-violet',
+    iconSvg: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>',
+    features: ['Flutter & React Native', 'Push notifications', 'Offline-first sync'],
+  },
+  {
+    title: 'Branding & Identity',
+    tagline: 'Logo systems, palettes, typography, and brand guidelines that scale.',
+    href: '/services/branding',
+    cssVar: '--ac-pink',
+    iconSvg: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+    features: ['Logo & marks', 'Design system', 'Brand guidelines'],
+  },
+];
+
+const ada = {
+  title: 'ADA & WCAG 2.1 AA Compliance',
+  tagline: 'Accessibility-compliant websites by default — VPAT 2.5 docs included for clients with international or government obligations.',
+  features: ['Hybrid audits', 'VPAT 2.5 reports', 'Remediation sprints', 'Ongoing monitoring'],
+  href: '/blog/accessibility/ada-wcag-compliance-us-canada-2026',
+  cssVar: '--ac-teal',
+  iconSvg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M5 9h14"/><path d="M12 9v5"/><path d="M8 20l4-6 4 6"/></svg>',
+};
+
+// ── Why Choose bento (1 hero stat card + 3 reason cards) ───────────────
+const stats = [
+  { num: '24+', label: 'Years of experience', cssVar: '--ac-cyan' },
+  { num: '1500+', label: 'Projects delivered', cssVar: '--ac-amber' },
+  { num: '500+', label: 'Clients · 10+ countries', cssVar: '--ac-violet' },
+  { num: 'AA', label: 'WCAG 2.1 standard', cssVar: '--ac-emerald' },
+];
+
+const reasons = [
+  {
+    title: 'Senior team — Nagpur HQ, 285 km away',
+    desc: `A remote-first process built for Raipur: video kick-offs, Figma prototypes with live commenting, and daily Slack collaboration — plus in-person visits for larger engagements at no extra travel cost.`,
+    cssVar: '--ac-cyan',
+    iconSvg: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+  },
+  {
+    title: "Chhattisgarh's industries, internalised",
+    desc: `We understand the steel & mining belt, power & energy sector, Naya Raipur smart-city projects, and the procurement and compliance requirements unique to CG government and healthcare clients.`,
+    cssVar: '--ac-violet',
+    iconSvg: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+  },
+  {
+    title: '30–40% less than metro agencies',
+    desc: `Fixed-price quoting with full source-code handover and no lock-in. Metro-city quality and standards at transparent Raipur pricing — no hidden charges, ever.`,
+    cssVar: '--ac-amber',
+    iconSvg: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
+  },
+  {
+    title: 'Accessibility as a default, not an upsell',
+    desc: `Every website ships WCAG 2.1 AA and ADA-aligned — critical for Naya Raipur government portals (GIGW) and Chhattisgarh exporters serving international clients with compliance obligations.`,
+    cssVar: '--ac-emerald',
+    iconSvg: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+  },
+];
+
+// ── Industries bento (icon tile + label, mixed sizes) ──────────────────
+const industries = [
+  { name: 'Steel & Mining', cssVar: '--ac-amber', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></svg>' },
+  { name: 'Power & Energy', cssVar: '--ac-violet', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>' },
+  { name: 'Government', cssVar: '--ac-cyan', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7 12 2"/></svg>' },
+  { name: 'Education', cssVar: '--ac-indigo', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>' },
+  { name: 'Healthcare', cssVar: '--ac-red', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>' },
+  { name: 'Construction', cssVar: '--ac-emerald', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>' },
+  { name: 'Retail', cssVar: '--ac-pink', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>' },
+  { name: 'Smart City & IT', cssVar: '--ac-teal', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="8" height="13" rx="1"/><rect x="14" y="3" width="8" height="17" rx="1"/><line x1="5" y1="11" x2="7" y2="11"/><line x1="5" y1="15" x2="7" y2="15"/><line x1="17" y1="7" x2="19" y2="7"/><line x1="17" y1="11" x2="19" y2="11"/></svg>' },
+];
+
+// ── Process steps ───────────────────────────────────────────────────────
+const steps = [
+  { num: '01', title: 'Discovery & strategy', desc: 'Video kick-off with your Raipur team — goals, audience, competitors, success metrics. On-site for larger engagements.', cssVar: '--ac-cyan' },
+  { num: '02', title: 'Design & prototyping', desc: 'Wireframes and high-fidelity Figma mockups with live commenting. You approve every screen before code is written.', cssVar: '--ac-violet' },
+  { num: '03', title: 'Development & QA', desc: 'Clean engineering, cross-device tests, WCAG audits, Core Web Vitals tuning — all under one roof.', cssVar: '--ac-amber' },
+  { num: '04', title: 'Launch & support', desc: 'Deploy, instrument analytics, hand off Search Console & source code — and stick around for the long term.', cssVar: '--ac-emerald' },
+];
+
+// ── Portfolio (featured + standard tiles) ──────────────────────────────
+const portfolio = city.portfolio;
+const portfolioAccents = ['--ac-cyan', '--ac-violet', '--ac-amber'];
+
+// ── Pricing packages with accent gradients ─────────────────────────────
+const packages = [
+  {
+    name: 'Starter',
+    price: '₹1x,xxx',
+    desc: 'Small businesses & startups',
+    cssVar: '--ac-cyan',
+    features: ['5 Pages', 'Mobile responsive', 'Basic SEO setup', 'Contact form', 'SSL certificate'],
+  },
+  {
+    name: 'Professional',
+    price: '₹4x,xxx',
+    desc: 'Growing businesses that need more',
+    cssVar: '--ac-amber',
+    features: ['10–15 Pages', 'Custom design', 'Advanced SEO', 'WCAG 2.1 AA compliant', 'CMS integration', 'Analytics setup'],
+    popular: true,
+  },
+  {
+    name: 'Enterprise',
+    price: '₹1x,xxx+',
+    desc: 'Custom solutions for large teams',
+    cssVar: '--ac-violet',
+    features: ['Unlimited pages', 'Custom web app', 'eCommerce ready', 'API integrations', 'Priority support', 'Performance budgets'],
+  },
+];
 ---
 
 <CityLayout city={city}>
-  <CityIntro city={city} />
-  <CityServices city={city} />
-  <CityWhyChoose city={city} />
-  <CityIndustries city={city} />
-  <CityProcess city={city} />
-  <CityPortfolio city={city} />
-  <CityPricing city={city} />
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 1: INTRO + KEY STATS BENTO
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="raipur-intro-heading" class="py-16 md:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <ChapterLabel number="01" label="Why Raipur, why us" class="mb-6" />
+      <div class="grid gap-8 lg:grid-cols-12">
+        <div class="lg:col-span-7">
+          <h2 id="raipur-intro-heading" class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--text)] mb-6 leading-tight">
+            Raipur's web design partner — powered by Nagpur's best.
+          </h2>
+          <div class="space-y-5 text-[var(--text-dim)] leading-relaxed text-base md:text-lg">
+            <p set:html={city.introContent} />
+            <p>
+              {city.whyChooseContent}
+            </p>
+          </div>
+        </div>
+
+        <!-- Stats bento -->
+        <ul role="list" class="lg:col-span-5 grid grid-cols-2 gap-4 self-start">
+          {stats.map((s) => (
+            <li
+              class="relative overflow-hidden rounded-2xl border border-[var(--border)] p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              style={`background: linear-gradient(135deg, color-mix(in srgb, var(${s.cssVar}) 12%, var(--bg-card)) 0%, var(--bg-card) 65%);`}
+            >
+              <span
+                aria-hidden="true"
+                class="pointer-events-none absolute -left-6 -bottom-6 h-28 w-28 rotate-[-20deg] opacity-[0.08]"
+                style={`background: var(${s.cssVar});`}
+              ></span>
+              <span class="relative block font-heading text-4xl md:text-5xl font-black" style={`color: var(${s.cssVar});`}>
+                {s.num}
+              </span>
+              <span class="relative mt-2 block text-xs md:text-sm font-semibold text-[var(--text-dim)]">
+                {s.label}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 2: SERVICES — BENTO GRID
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="raipur-services-heading" class="bg-[var(--bg-card)] py-16 md:py-24 border-y border-[var(--border)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <ChapterLabel number="02" label="What we build" class="mb-6" />
+      <h2 id="raipur-services-heading" class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--text)] text-center mb-4">
+        Web design & development services in Raipur
+      </h2>
+      <p class="text-lg text-[var(--text-dim)] text-center mb-12 max-w-2xl mx-auto">
+        End-to-end digital — design, engineering, growth — for Raipur & Chhattisgarh businesses.
+      </p>
+
+      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-5" role="list">
+        {services.map((service, i) => {
+          const featured = i < 2;
+          const num = String(i + 1).padStart(2, '0');
+          return (
+            <li class:list={[featured ? 'lg:col-span-6' : 'lg:col-span-3']}>
+              <article
+                class:list={[
+                  'group relative flex flex-col h-full overflow-hidden rounded-2xl border border-[var(--border)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl',
+                  featured ? 'p-7 md:p-8' : 'p-6',
+                ]}
+                style={`background: linear-gradient(135deg, color-mix(in srgb, var(${service.cssVar}) 10%, var(--bg)) 0%, var(--bg) 65%);`}
+              >
+                <span
+                  aria-hidden="true"
+                  class="pointer-events-none absolute top-3 right-4 font-heading font-black leading-none select-none"
+                  style={`color: var(${service.cssVar}); opacity: 0.18; font-size: ${featured ? '5.5rem' : '4rem'};`}
+                >
+                  {num}
+                </span>
+                <span
+                  aria-hidden="true"
+                  class="pointer-events-none absolute -left-8 -bottom-8 h-40 w-40 rotate-[-20deg] opacity-[0.08]"
+                  style={`background: var(${service.cssVar});`}
+                ></span>
+
+                <div class="relative flex items-center gap-3 mb-4">
+                  <div
+                    class="flex h-11 w-11 items-center justify-center rounded-xl flex-shrink-0"
+                    style={`background: color-mix(in srgb, var(${service.cssVar}) 16%, transparent); color: var(${service.cssVar});`}
+                    aria-hidden="true"
+                    set:html={service.iconSvg}
+                  />
+                  <span class="text-[10px] font-bold uppercase tracking-[0.2em]" style={`color: var(${service.cssVar});`}>
+                    {featured ? 'Flagship' : 'Service'} · {num}
+                  </span>
+                </div>
+
+                <h3 class:list={['relative font-heading font-bold text-[var(--text)] mb-2', featured ? 'text-xl md:text-2xl' : 'text-lg']}>
+                  {service.title}
+                </h3>
+                <p class:list={['relative text-[var(--text-dim)] mb-4 flex-grow', featured ? 'text-base' : 'text-sm']}>
+                  {service.tagline}
+                </p>
+
+                <ul
+                  class:list={['relative mb-5', featured ? 'grid grid-cols-2 gap-x-4 gap-y-1.5' : 'space-y-1.5']}
+                  aria-label={`${service.title} features`}
+                >
+                  {service.features.slice(0, featured ? 4 : 3).map((feature) => (
+                    <li class="flex items-center gap-2 text-xs text-[var(--text-muted)]">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style={`color: var(${service.cssVar});`}>
+                        <polyline points="20 6 9 17 4 12"/>
+                      </svg>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+
+                <a
+                  href={service.href}
+                  class="relative mt-auto inline-flex items-center gap-1 text-sm font-semibold transition-transform duration-200 group-hover:translate-x-0.5"
+                  style={`color: var(${service.cssVar});`}
+                  aria-label={`Learn more about ${service.title}`}
+                >
+                  Learn more
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </a>
+              </article>
+            </li>
+          );
+        })}
+      </ul>
+
+      <!-- ADA full-width card -->
+      <a
+        href={ada.href}
+        class="group mt-6 flex flex-col md:flex-row items-center gap-6 rounded-2xl border border-[var(--border)] p-6 md:p-8 hover:border-[var(--accent)]/40 hover:-translate-y-1 transition-all duration-300 hover:shadow-lg overflow-hidden relative"
+        style={`background: linear-gradient(135deg, color-mix(in srgb, var(${ada.cssVar}) 12%, var(--bg)) 0%, var(--bg) 65%);`}
+        aria-label={`Learn more about ${ada.title}`}
+      >
+        <span
+          aria-hidden="true"
+          class="pointer-events-none absolute -right-10 -bottom-10 h-48 w-48 rotate-[-20deg] opacity-[0.07]"
+          style={`background: var(${ada.cssVar});`}
+        ></span>
+        <div
+          class="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-xl"
+          style={`background: color-mix(in srgb, var(${ada.cssVar}) 18%, transparent); color: var(${ada.cssVar});`}
+          aria-hidden="true"
+          set:html={ada.iconSvg}
+        />
+        <div class="relative flex-1 text-center md:text-left">
+          <h3 class="font-heading text-lg md:text-xl font-bold text-[var(--text)] mb-1">{ada.title}</h3>
+          <p class="text-sm text-[var(--text-dim)] mb-3">{ada.tagline}</p>
+          <ul class="flex flex-wrap justify-center md:justify-start gap-x-5 gap-y-1">
+            {ada.features.map((feature) => (
+              <li class="flex items-center gap-1.5 text-xs text-[var(--text-muted)]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style={`color: var(${ada.cssVar});`}>
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <span class="relative inline-flex items-center gap-1 text-sm font-semibold shrink-0" style={`color: var(${ada.cssVar});`}>
+          Learn more →
+        </span>
+      </a>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 3: WHY CHOOSE — BENTO (1 large + 3 smaller)
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="raipur-why-heading" class="py-16 md:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <ChapterLabel number="03" label="Why Raipur businesses choose us" class="mb-6" />
+      <h2 id="raipur-why-heading" class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--text)] text-center mb-4">
+        Metro-city quality at Raipur pricing.
+      </h2>
+      <p class="text-lg text-[var(--text-dim)] text-center mb-12 max-w-2xl mx-auto">
+        24 years of experience. 1,500+ projects across India, the Gulf, and the West — now serving Chhattisgarh.
+      </p>
+
+      <ul class="grid grid-cols-1 lg:grid-cols-6 gap-5" role="list">
+        {reasons.map((r, i) => {
+          const featured = i === 0;
+          return (
+            <li class:list={[featured ? 'lg:col-span-3' : 'lg:col-span-3', i > 0 ? 'lg:col-span-3' : '']}>
+              <article
+                class:list={[
+                  'relative flex flex-col h-full overflow-hidden rounded-2xl border border-[var(--border)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl',
+                  featured ? 'p-8 md:p-10' : 'p-6 md:p-7',
+                ]}
+                style={`background: linear-gradient(135deg, color-mix(in srgb, var(${r.cssVar}) 10%, var(--bg-card)) 0%, var(--bg-card) 65%);`}
+              >
+                <span
+                  aria-hidden="true"
+                  class="pointer-events-none absolute -right-10 -bottom-10 h-44 w-44 rotate-[-20deg] opacity-[0.08]"
+                  style={`background: var(${r.cssVar});`}
+                ></span>
+                <div
+                  class="relative mb-4 flex h-12 w-12 items-center justify-center rounded-xl"
+                  style={`background: color-mix(in srgb, var(${r.cssVar}) 16%, transparent); color: var(${r.cssVar});`}
+                  aria-hidden="true"
+                  set:html={r.iconSvg}
+                />
+                <h3 class:list={['relative font-heading font-bold text-[var(--text)] mb-3', featured ? 'text-xl md:text-2xl' : 'text-lg']}>
+                  {r.title}
+                </h3>
+                <p class:list={['relative text-[var(--text-dim)] leading-relaxed', featured ? 'text-base' : 'text-sm']}>
+                  {r.desc}
+                </p>
+              </article>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 4: INDUSTRIES BENTO
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="raipur-industries-heading" class="bg-[var(--bg-card)] py-16 md:py-24 border-y border-[var(--border)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <ChapterLabel number="04" label="Industries we serve" class="mb-6" />
+      <h2 id="raipur-industries-heading" class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--text)] text-center mb-4">
+        The sectors that power Chhattisgarh's economy.
+      </h2>
+      <p class="text-lg text-[var(--text-dim)] text-center mb-12 max-w-2xl mx-auto">
+        From the Bhilai–Raipur steel belt to Naya Raipur's smart-city portals — we ship websites tuned to how each industry actually sells.
+      </p>
+
+      <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4" role="list">
+        {industries.map((ind) => (
+          <li>
+            <div
+              class="group relative flex h-full flex-col items-center text-center overflow-hidden rounded-2xl border border-[var(--border)] p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+              style={`background: linear-gradient(135deg, color-mix(in srgb, var(${ind.cssVar}) 10%, var(--bg)) 0%, var(--bg) 70%);`}
+            >
+              <span
+                aria-hidden="true"
+                class="pointer-events-none absolute -right-6 -bottom-6 h-24 w-24 rotate-[-20deg] opacity-[0.07]"
+                style={`background: var(${ind.cssVar});`}
+              ></span>
+              <div
+                class="relative mb-3 flex h-12 w-12 items-center justify-center rounded-xl"
+                style={`background: color-mix(in srgb, var(${ind.cssVar}) 16%, transparent); color: var(${ind.cssVar});`}
+                aria-hidden="true"
+                set:html={ind.icon}
+              />
+              <h3 class="relative font-heading text-sm md:text-base font-bold text-[var(--text)]">
+                {ind.name}
+              </h3>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 5: PROCESS — NUMBERED EDITORIAL CARDS
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="raipur-process-heading" class="py-16 md:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <ChapterLabel number="05" label="How we work" class="mb-6" />
+      <h2 id="raipur-process-heading" class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--text)] text-center mb-4">
+        Four phases. One senior team.
+      </h2>
+      <p class="text-lg text-[var(--text-dim)] text-center mb-12 max-w-2xl mx-auto">
+        Predictable cadence. Approvals at every gate. Remote-first for Raipur — with on-site visits for larger engagements.
+      </p>
+
+      <ol class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4" role="list">
+        {steps.map((s) => (
+          <li>
+            <article
+              class="relative h-full overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 md:p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              style={`--step-color: var(${s.cssVar});`}
+            >
+              <span
+                aria-hidden="true"
+                class="pointer-events-none absolute top-2 right-3 font-heading font-black leading-none select-none text-[5rem]"
+                style={`color: var(${s.cssVar}); opacity: 0.16;`}
+              >
+                {s.num}
+              </span>
+              <span
+                aria-hidden="true"
+                class="pointer-events-none absolute -left-6 -bottom-6 h-28 w-28 rotate-[-20deg] opacity-[0.08]"
+                style={`background: var(${s.cssVar});`}
+              ></span>
+              <span class="relative text-[10px] font-bold uppercase tracking-[0.22em]" style={`color: var(${s.cssVar});`}>
+                Phase · {s.num}
+              </span>
+              <h3 class="relative mt-3 font-heading font-bold text-[var(--text)] text-lg mb-2">
+                {s.title}
+              </h3>
+              <p class="relative text-sm text-[var(--text-dim)] leading-relaxed">
+                {s.desc}
+              </p>
+            </article>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 6: PORTFOLIO BENTO
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="raipur-portfolio-heading" class="bg-[var(--bg-card)] py-16 md:py-24 border-y border-[var(--border)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <ChapterLabel number="06" label="Recent Chhattisgarh work" class="mb-6" />
+      <h2 id="raipur-portfolio-heading" class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--text)] text-center mb-4">
+        Built for Chhattisgarh. Engineered to global standards.
+      </h2>
+      <p class="text-lg text-[var(--text-dim)] text-center mb-12 max-w-2xl mx-auto">
+        A snapshot of work for clients across Raipur and the wider Chhattisgarh region.
+      </p>
+
+      <ul class="grid grid-cols-1 lg:grid-cols-6 gap-5" role="list">
+        {portfolio.map((p, i) => {
+          const featured = i === 0;
+          const cssVar = portfolioAccents[i % portfolioAccents.length];
+          return (
+            <li class:list={[featured ? 'lg:col-span-3' : 'lg:col-span-3']}>
+              <article
+                class:list={[
+                  'relative h-full overflow-hidden rounded-2xl border border-[var(--border)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl',
+                  featured ? 'p-7 md:p-8' : 'p-6',
+                ]}
+                style={`background: linear-gradient(135deg, color-mix(in srgb, var(${cssVar}) 10%, var(--bg)) 0%, var(--bg) 65%);`}
+              >
+                <span
+                  aria-hidden="true"
+                  class="pointer-events-none absolute -right-8 -bottom-8 h-36 w-36 rotate-[-20deg] opacity-[0.08]"
+                  style={`background: var(${cssVar});`}
+                ></span>
+                <div class="relative text-[10px] font-bold uppercase tracking-[0.22em] mb-3" style={`color: var(${cssVar});`}>
+                  {p.category}
+                </div>
+                <h3 class:list={['relative font-heading font-bold text-[var(--text)] mb-3', featured ? 'text-xl md:text-2xl' : 'text-lg']}>
+                  {p.name}
+                </h3>
+                <p class:list={['relative text-[var(--text-dim)] leading-relaxed', featured ? 'text-base' : 'text-sm']}>
+                  {p.desc}
+                </p>
+              </article>
+            </li>
+          );
+        })}
+      </ul>
+
+      <div class="mt-10 text-center">
+        <a
+          href="/portfolio"
+          class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg)] px-8 py-3 font-semibold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+        >
+          View full portfolio
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 7: PRICING BENTO
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="raipur-pricing-heading" class="py-16 md:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <ChapterLabel number="07" label="Investment" class="mb-6" />
+      <h2 id="raipur-pricing-heading" class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--text)] text-center mb-4">
+        Website design cost in Raipur
+      </h2>
+      <p class="text-lg text-[var(--text-dim)] text-center mb-12 max-w-2xl mx-auto">
+        {city.pricingNote}
+      </p>
+
+      <ul class="grid gap-6 sm:grid-cols-3" role="list">
+        {packages.map((pkg) => (
+          <li class:list={[pkg.popular ? 'sm:-translate-y-2' : '']}>
+            <article
+              class:list={[
+                'relative h-full overflow-hidden rounded-2xl border p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl',
+                pkg.popular ? 'border-[var(--accent)] shadow-lg shadow-[var(--accent)]/10' : 'border-[var(--border)]',
+              ]}
+              style={`background: linear-gradient(135deg, color-mix(in srgb, var(${pkg.cssVar}) 12%, var(--bg)) 0%, var(--bg) 70%);`}
+            >
+              {pkg.popular && (
+                <div
+                  class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-xs font-bold text-[var(--bg)]"
+                  style={`background: var(${pkg.cssVar});`}
+                >
+                  Most popular
+                </div>
+              )}
+              <span
+                aria-hidden="true"
+                class="pointer-events-none absolute -right-10 -bottom-10 h-48 w-48 rotate-[-20deg] opacity-[0.07]"
+                style={`background: var(${pkg.cssVar});`}
+              ></span>
+
+              <div class="relative">
+                <span class="text-[10px] font-bold uppercase tracking-[0.22em]" style={`color: var(${pkg.cssVar});`}>
+                  Package
+                </span>
+                <h3 class="font-heading text-2xl font-bold text-[var(--text)] mt-2 mb-1">
+                  {pkg.name}
+                </h3>
+                <p class="text-sm text-[var(--text-muted)] mb-5">{pkg.desc}</p>
+                <div class="mb-6 font-heading text-4xl font-black" style={`color: var(${pkg.cssVar});`}>
+                  {pkg.price}
+                </div>
+                <ul class="space-y-3 mb-8" role="list">
+                  {pkg.features.map((f) => (
+                    <li class="flex items-center gap-2 text-sm text-[var(--text-dim)]">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0" aria-hidden="true" style={`color: var(${pkg.cssVar});`}>
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="/get-quote"
+                  class:list={[
+                    'block w-full rounded-full py-3 text-center font-semibold transition-opacity',
+                    pkg.popular ? 'text-[var(--bg)] hover:opacity-90' : 'border border-[var(--border)] hover:opacity-90',
+                  ]}
+                  style={pkg.popular ? `background: var(${pkg.cssVar}); color: #fff;` : `color: var(${pkg.cssVar}); border-color: color-mix(in srgb, var(${pkg.cssVar}) 50%, var(--border));`}
+                >
+                  Get quote
+                </a>
+              </div>
+            </article>
+          </li>
+        ))}
+      </ul>
+
+      <div class="mt-10 text-center">
+        <a href="/pricing" class="text-sm text-[var(--accent)] hover:underline">
+          View all packages & compare features →
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 8: FAQ
+  ════════════════════════════════════════════════════════════════════════ -->
   <CityFAQ city={city} />
-  <CityContact city={city} />
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 9: CTA BENTO
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="raipur-cta-heading" class="bg-[var(--bg-card)] py-16 md:py-24 border-t border-[var(--border)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div
+        class="relative overflow-hidden rounded-3xl border border-[var(--border)] p-8 md:p-12 lg:p-16"
+        style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-cyan) 14%, var(--bg)) 0%, color-mix(in srgb, var(--ac-violet) 8%, var(--bg)) 100%);"
+      >
+        <span
+          aria-hidden="true"
+          class="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full opacity-[0.10]"
+          style="background: var(--ac-cyan);"
+        ></span>
+        <span
+          aria-hidden="true"
+          class="pointer-events-none absolute -left-20 -bottom-20 h-72 w-72 rounded-full opacity-[0.10]"
+          style="background: var(--ac-violet);"
+        ></span>
+
+        <div class="relative grid gap-8 lg:grid-cols-12 lg:items-center">
+          <div class="lg:col-span-7">
+            <p class="text-xs font-bold uppercase tracking-[0.22em] text-[var(--accent)] mb-3">
+              Ready when you are
+            </p>
+            <h2 id="raipur-cta-heading" class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--text)] mb-4 leading-tight">
+              Let's build Raipur's next great website.
+            </h2>
+            <p class="text-[var(--text-dim)] text-base md:text-lg max-w-xl">
+              Hop on a Zoom, send us a brief, or WhatsApp us. We'll send a free audit of your current site within 48 hours.
+            </p>
+          </div>
+
+          <div class="lg:col-span-5 flex flex-col gap-3">
+            <a
+              href="/free-website-audit"
+              class="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--accent)] px-8 py-4 text-base font-semibold text-[var(--bg)] shadow-lg hover:opacity-90 transition-opacity"
+            >
+              Get a free website audit
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <a
+              href="/schedule-consultation"
+              class="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg)] px-8 py-4 text-base font-semibold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+            >
+              Schedule a consultation
+            </a>
+            <a
+              href="https://wa.me/918788834630?text=Hi%20eLan%20Technology%2C%20I'm%20a%20Raipur%20business%20interested%20in%20web%20design"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center gap-2 text-sm font-semibold text-[var(--text-dim)] hover:text-[var(--accent)] transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              Or WhatsApp +91 87888 34630
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
   <CityAlsoServing currentSlug="raipur" />
 </CityLayout>

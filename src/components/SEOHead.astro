@@ -27,23 +27,22 @@ const SITE_URL = 'https://elan-tech.net';
 
 /**
  * Canonical URL resolution
- * Policy: NO trailing slash on any URL except root "/", NO .html extension.
+ * Policy: ALL URLs end with a trailing slash (matches Hostinger LiteSpeed's
+ * 301 behavior). NO .html extension.
  * Accepts:
  *   - absolute URL (https://...): used as-is
- *   - path (/foo/bar or foo/bar): prefixed with SITE_URL
+ *   - path (/foo/bar or foo/bar/): prefixed with SITE_URL
  *   - undefined: derived from Astro.url.pathname
- * Always strips trailing slash, .html, and any query string for stability.
- *
- * The .html strip matters under `build.format: 'file'` — Astro.url.pathname
- * during build is "/about.html", but the canonical URL we expose is "/about".
+ * Always strips .html and any query string for stability, then enforces a
+ * single trailing slash.
  */
 function normalizePath(p: string): string {
-  // Strip trailing slash (except root) and trailing .html
-  let out = p === '/' ? '/' : p.replace(/\/+$/, '');
-  out = out.replace(/\.html$/i, '');
+  let out = p.replace(/\.html$/i, '');
   // /index → / (Astro emits index.html for root)
-  if (out === '/index') out = '/';
-  return out || '/';
+  if (out === '/index' || out === '/index/') return '/';
+  // Collapse repeated trailing slashes, then ensure exactly one
+  out = out.replace(/\/+$/, '');
+  return (out || '') + '/';
 }
 
 function buildCanonical(input?: string): string {
@@ -74,6 +73,7 @@ const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogI
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="icon" href="/favicon.ico" sizes="32x32" />
 <link rel="apple-touch-icon" href="/images/et-sym.png" />
+<link rel="manifest" href="/manifest.webmanifest" />
 
 <!-- Open Graph -->
 <meta property="og:title" content={pageTitle} />
