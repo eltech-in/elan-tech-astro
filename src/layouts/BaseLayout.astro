@@ -49,34 +49,75 @@ const { title, description, canonical, ogImage, ogType, noindex, schema, geo } =
       schema={schema}
       geo={geo}
     />
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EC0W1VE3NS"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-EC0W1VE3NS');
-    </script>
-
     <!-- Google Site Verification -->
     <meta name="google-site-verification" content="IdIodnKz_eIT0o2_-Gqgs_o-jQTYPXBUu41aalM_E7o" />
 
-    <!-- Google Tag Manager -->
-    <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-5H7FHGJ');</script>
-    <!-- End Google Tag Manager -->
+    <!-- Third-party tags (GA4 gtag.js, Google Tag Manager, Microsoft Clarity)
+         are loaded lazily: on the first real user interaction, or after an idle
+         fallback so bounced / no-interaction visitors are still tracked. This
+         keeps ~hundreds of KB of third-party JS off the critical path and out
+         of the main-thread blocking window that mobile PageSpeed measures. -->
+    <script is:inline>
+      (function () {
+        var loaded = false;
+        // dataLayer + gtag shim available immediately so any early calls queue.
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        window.gtag = window.gtag || gtag;
 
-    <!-- Microsoft Clarity -->
-    <script type="text/javascript" is:inline>
-        (function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "ff08posqyo");
+        function loadTags() {
+          if (loaded) return;
+          loaded = true;
+
+          // --- GA4 (gtag.js) ---
+          var ga = document.createElement('script');
+          ga.async = true;
+          ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-EC0W1VE3NS';
+          document.head.appendChild(ga);
+          gtag('js', new Date());
+          gtag('config', 'G-EC0W1VE3NS');
+
+          // --- Google Tag Manager ---
+          (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+            var f = d.getElementsByTagName(s)[0],
+              j = d.createElement(s),
+              dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+          })(window, document, 'script', 'dataLayer', 'GTM-5H7FHGJ');
+
+          // --- Microsoft Clarity ---
+          (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+            t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+          })(window, document, 'clarity', 'script', 'ff08posqyo');
+
+          // Stop listening once tags are loaded.
+          interactionEvents.forEach(function (evt) {
+            window.removeEventListener(evt, loadTags, listenerOpts);
+          });
+        }
+
+        var interactionEvents = ['scroll', 'mousemove', 'touchstart', 'keydown', 'click'];
+        var listenerOpts = { once: true, passive: true };
+        interactionEvents.forEach(function (evt) {
+          window.addEventListener(evt, loadTags, listenerOpts);
+        });
+
+        // Idle fallback: ensures analytics still fires for users who never
+        // interact (bounces). ~4s lands after a fast static page is interactive,
+        // so it stays out of the initial blocking window Lighthouse scores.
+        var fallback = function () { setTimeout(loadTags, 4000); };
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(fallback);
+        } else {
+          window.addEventListener('load', fallback);
+        }
+      })();
     </script>
   </head>
   <body class="bg-[var(--bg)] text-[var(--text)] font-sans antialiased">
