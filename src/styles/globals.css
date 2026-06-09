@@ -125,14 +125,15 @@ body {
   --text-dim: #475569;
   --text-muted: #586981; /* bumped for WCAG AA 4.5:1 on #FAFBFC and #FFFFFF */
   --border: rgba(0,0,0,0.08);
-  /* Service/product accent colours — WCAG AA ≥4.5:1 on light bg (#FFF/#FAFBFC) */
-  --ac-pink:    #BE185D;  /* 6.0:1  */
+  /* Service/product accent colours — WCAG AA ≥4.5:1 as text on white AND on their own
+     color-mix tint backgrounds (pills use 14–18% same-colour tints, which lower contrast). */
+  --ac-pink:    #9D174D;  /* 7.88:1 — darkened so it clears AA on its own 18% pill tint (#BE185D only hit 4.44:1 there) */
   --ac-indigo:  #4338CA;  /* 7.84:1 */
   --ac-amber:   #92400E;  /* 7.05:1 */
   --ac-emerald: #065F46;  /* 7.61:1 */
-  --ac-teal:    #047857;  /* 5.41:1 */
-  --ac-cyan:    #0E7490;  /* 5.25:1 */
-  --ac-violet:  #7C3AED;  /* 5.61:1 */
+  --ac-teal:    #03684D;  /* 6.79:1 — darkened so it clears AA on its own 14% pill tint (#047857 only hit 4.49:1 there) */
+  --ac-cyan:    #155E75;  /* 7.27:1 — darkened so it clears AA on its own 14% pill tint (#0E7490 only hit 4.42:1 there) */
+  --ac-violet:  #6D28D9;  /* 7.10:1 — darkened so it clears AA on its own 16–18% pill tint (#7C3AED only hit 4.47:1 there) */
   --ac-red:     #B91C1C;  /* 6.36:1 */
   --ac-blue:    #1D4ED8;  /* 8.59:1 */
   /* Orange text — passes 4.5:1 on light bg */
