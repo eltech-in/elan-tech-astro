@@ -318,7 +318,7 @@ export default function MobileNav() {
                   padding: '10px 16px',
                   textAlign: 'center',
                   fontWeight: 600,
-                  color: '#0A0E1A',
+                  color: 'var(--bg)',
                   textDecoration: 'none',
                 }}
               >
