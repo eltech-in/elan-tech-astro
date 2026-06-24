@@ -41,7 +41,7 @@ export const faqs: FAQItem[] = [
   {
     question: 'How much does a website cost?',
     answer:
-      'Website costs vary based on complexity, number of pages, and required features. Our Starter package begins at ₹25,000 (approx. $300 USD) for a 5-page responsive business website. Our Professional package starts at ₹60,000 for up to 15 pages with CMS and SEO. Enterprise custom projects start at ₹1,20,000. Visit our Pricing page for detailed information.',
+      'Website costs vary based on complexity, number of pages, and required features. Our Starter package begins at ₹21,000 (approx. $250 USD) for a 5-page responsive business website. Our Professional package starts at ₹45,000 for up to 15 pages with CMS and SEO. Enterprise custom projects start at ₹1,50,000+. Visit our Pricing page for detailed information.',
     category: 'pricing',
   },
   {

@@ -27,7 +27,7 @@ export interface CityPricingTiers {
 // NOTE: Nagpur HQ Professional price is assumed equal to the ladder (₹45,000);
 // confirm with the owner if HQ pricing differs.
 export const DEFAULT_CITY_PRICING: CityPricingTiers = {
-  starter: '₹15,000',
+  starter: '₹21,000',
   professional: '₹45,000',
   enterprise: '₹1,50,000+',
 };
@@ -145,7 +145,7 @@ export const cities: CityData[] = [
     whyChooseContent:
       'eLan Technology has been designing websites for Nagpur businesses since 2002. We understand the unique commercial ecosystems of areas like Sitabuldi\'s retail district, Dharampeth\'s professional services corridor, Wardha Road\'s industrial belt, and Ramdaspeth\'s growing corporate sector. Visit our office at PTG IT Park for a face-to-face consultation.',
     pricingNote:
-      'Website costs in Nagpur range from ₹15,000 for a basic 5-page site to ₹1,50,000+ for enterprise solutions. Our Professional package starts at ₹45,000 and includes custom design, SEO setup, and WCAG accessibility compliance.',
+      'Website costs in Nagpur range from ₹21,000 for a basic 5-page site to ₹1,50,000+ for enterprise solutions. Our Professional package starts at ₹45,000 and includes custom design, SEO setup, and WCAG accessibility compliance.',
     faq: [
       {
         question: 'Which is the best web design company in Nagpur?',
@@ -155,7 +155,7 @@ export const cities: CityData[] = [
       {
         question: 'How much does website development cost in Nagpur?',
         answer:
-          'Website development costs in Nagpur range from ₹15,000 for a basic 5-page site to ₹2,00,000+ for custom web applications. A standard business website typically costs ₹25,000–₹60,000. eCommerce stores start at ₹40,000. Our fixed-price packages include design, development, mobile responsiveness, basic SEO setup, and a 30-day post-launch support window — no surprise add-ons.',
+          'Website development costs in Nagpur range from ₹21,000 for a basic 5-page site to ₹2,00,000+ for custom web applications. A standard business website typically costs ₹25,000–₹60,000. eCommerce stores start at ₹40,000. Our fixed-price packages include design, development, mobile responsiveness, basic SEO setup, and a 30-day post-launch support window — no surprise add-ons.',
       },
       {
         question: 'Does eLan Technology have an office in Nagpur?',
@@ -216,7 +216,7 @@ export const cities: CityData[] = [
     distanceFromNagpur: '285 km (5 hours drive)',
     tagline: "Raipur's Trusted Web Design Partner — Powered by Nagpur's Best Agency",
     seoTitle: 'Website Design & Development Company in Raipur | eLan Technology',
-    seoDescription: "Raipur's web design & development company — 24+ yrs, 500+ clients. Custom sites for steel, government & healthcare. WCAG 2.1 AA, fixed pricing from ₹15,000. Free audit.",
+    seoDescription: "Raipur's web design & development company — 24+ yrs, 500+ clients. Custom sites for steel, government & healthcare. WCAG 2.1 AA, fixed pricing from ₹21,000. Free audit.",
     primaryKeyword: 'web design company Raipur',
     secondaryKeywords: [
       'website design Raipur',
@@ -249,7 +249,7 @@ export const cities: CityData[] = [
     whyChooseContent:
       "eLan Technology serves Raipur businesses from our Nagpur headquarters, just 285 km away. With 24+ years of experience and 500+ clients across 10 countries, we bring a level of expertise that exceeds what most local Raipur agencies can offer — at competitive pricing. We understand Chhattisgarh's industrial landscape and government sector requirements.",
     pricingNote:
-      'Website costs for Raipur businesses start at ₹15,000 for basic sites and go up to ₹1,50,000+ for custom applications. Our pricing is transparent and competitive — often 30-40% less than equivalent quality from metro city agencies.',
+      'Website costs for Raipur businesses start at ₹21,000 for basic sites and go up to ₹1,50,000+ for custom applications. Our pricing is transparent and competitive — often 30-40% less than equivalent quality from metro city agencies.',
     faq: [
       {
         question: 'Which website design company in Raipur do you recommend?',
@@ -269,7 +269,7 @@ export const cities: CityData[] = [
       {
         question: 'How much does website design in Raipur cost?',
         answer:
-          'Website design costs for Raipur businesses start at ₹15,000 for a 5-page responsive site and go up to ₹1,50,000+ for custom web applications. Our most popular Professional package at ₹45,000 includes custom design, WCAG 2.1 AA compliance, advanced SEO, and a CMS. Pricing is fixed — no hidden charges. We are typically 30–40% less than equivalent-quality metro city agencies.',
+          'Website design costs for Raipur businesses start at ₹21,000 for a 5-page responsive site and go up to ₹1,50,000+ for custom web applications. Our most popular Professional package at ₹45,000 includes custom design, WCAG 2.1 AA compliance, advanced SEO, and a CMS. Pricing is fixed — no hidden charges. We are typically 30–40% less than equivalent-quality metro city agencies.',
       },
       {
         question: 'What should I look for in a web development company in Raipur?',
@@ -843,7 +843,7 @@ export const cities: CityData[] = [
     distanceFromNagpur: '350 km',
     tagline: "Bhopal's Most Trusted Web Design Company — Central India's Senior Agency Since 2002",
     seoTitle: 'Web Design & Development Company in Bhopal | eLan Technology',
-    seoDescription: 'Web design & development company in Bhopal — custom sites for MP Nagar, Arera Colony & government clients. WCAG 2.1 AA, GIGW portals, fixed pricing from ₹25,000. Free audit.',
+    seoDescription: 'Web design & development company in Bhopal — custom sites for MP Nagar, Arera Colony & government clients. WCAG 2.1 AA, GIGW portals, fixed pricing from ₹21,000. Free audit.',
     primaryKeyword: 'web design company in Bhopal',
     secondaryKeywords: [
       'website design in Bhopal',
@@ -874,8 +874,8 @@ export const cities: CityData[] = [
     whyChooseContent:
       "We are not just a local studio — we are the senior <strong>web designing Bhopal</strong> partner with metro-grade engineering. Just 350 km from our Nagpur HQ, our team has delivered <strong>custom website development in Bhopal</strong> for over a decade through remote-first collaboration, with the same standards we ship to clients in the US, UK, UAE, and Australia. When local Bhopal businesses want the kind of website usually reserved for metros, this is where they come.",
     pricingNote:
-      "Website design and development costs in Bhopal start at ₹25,000 — and our Professional package at ₹45,000 routinely outperforms quotes 2–3× higher from Mumbai or Delhi agencies. Honest pricing, no hidden costs, full source code handover.",
-    pricing: { starter: '₹25,000', professional: '₹45,000', enterprise: '₹1,00,000+' },
+      "Website design and development costs in Bhopal start at ₹21,000 — and our Professional package at ₹45,000 routinely outperforms quotes 2–3× higher from Mumbai or Delhi agencies. Honest pricing, no hidden costs, full source code handover.",
+    pricing: { starter: '₹21,000', professional: '₹45,000', enterprise: '₹1,00,000+' },
     faq: [
       {
         question: 'Which is the best web design company in Bhopal?',
@@ -885,12 +885,12 @@ export const cities: CityData[] = [
       {
         question: 'How much does website design in Bhopal cost?',
         answer:
-          'Website design in Bhopal varies widely — from ₹8,000 template builds at the bottom end to ₹2-3 lakh agency engagements at the top. Our packages start at ₹25,000 for a Starter site (5 pages, mobile-responsive, basic SEO) and ₹45,000 for our Professional package (custom design, WCAG 2.1 AA compliance, advanced SEO, CMS). Enterprise builds with custom web apps or eCommerce start at ₹1 lakh+. Every quote is fixed-price with no surprise add-ons.',
+          'Website design in Bhopal varies widely — from ₹8,000 template builds at the bottom end to ₹2-3 lakh agency engagements at the top. Our packages start at ₹21,000 for a Starter site (5 pages, mobile-responsive, basic SEO) and ₹45,000 for our Professional package (custom design, WCAG 2.1 AA compliance, advanced SEO, CMS). Enterprise builds with custom web apps or eCommerce start at ₹1 lakh+. Every quote is fixed-price with no surprise add-ons.',
       },
       {
         question: 'Who is the best website developer in Bhopal for a small business?',
         answer:
-          "The best website developer in Bhopal for a small business is the one who can actually explain — in plain Hindi or English — what your business needs versus what is just upsell. We deliberately quote down small-business projects when a simpler stack will serve you better. Most Bhopal SMEs do not need a custom React app; they need a fast WordPress or Astro site with clean SEO and a working contact form. That is what we build at ₹25,000-₹45,000, on a 4-6 week timeline, with the source code in your hands at the end.",
+          "The best website developer in Bhopal for a small business is the one who can actually explain — in plain Hindi or English — what your business needs versus what is just upsell. We deliberately quote down small-business projects when a simpler stack will serve you better. Most Bhopal SMEs do not need a custom React app; they need a fast WordPress or Astro site with clean SEO and a working contact form. That is what we build at ₹21,000-₹45,000, on a 4-6 week timeline, with the source code in your hands at the end.",
       },
       {
         question: 'Do you offer custom website development in Bhopal?',
@@ -984,7 +984,7 @@ export const cities: CityData[] = [
     whyChooseContent:
       "MP's commercial capital is going digital — from Vijay Nagar startups to Pithampur industrialists. eLan Technology bridges the gap between Indore's ambition and available local digital talent, delivering metro-quality websites at Central India pricing.",
     pricingNote:
-      'Indore businesses get exceptional value with our pricing. Starting at ₹25,000 for business websites, we deliver quality that typically costs 2-3x more from Pune or Mumbai agencies.',
+      'Indore businesses get exceptional value with our pricing. Starting at ₹21,000 for business websites, we deliver quality that typically costs 2-3x more from Pune or Mumbai agencies.',
     faq: [
       {
         question: 'Do you provide web design services in Indore?',
@@ -994,7 +994,7 @@ export const cities: CityData[] = [
       {
         question: 'How much does a website cost in Indore?',
         answer:
-          'Business websites for Indore companies start at ₹15,000. Our Professional package at ₹45,000 delivers custom design, SEO setup, and WCAG compliance — quality that matches any metro city agency.',
+          'Business websites for Indore companies start at ₹21,000. Our Professional package at ₹45,000 delivers custom design, SEO setup, and WCAG compliance — quality that matches any metro city agency.',
       },
       {
         question: 'Can you build eCommerce sites for Indore businesses?',
@@ -1135,7 +1135,7 @@ export const cities: CityData[] = [
     whyChooseContent:
       "Gujarat's entrepreneurial spirit needs a digital partner. Textile, pharma, GIFT City fintech — we serve Ahmedabad's diverse industries with enterprise-grade web solutions at Central India prices. Think of it as Gujarati value meets global quality.",
     pricingNote:
-      'Ahmedabad businesses benefit from our competitive pricing starting at ₹25,000. We deliver the same quality as SG Highway agencies at 40-50% less cost.',
+      'Ahmedabad businesses benefit from our competitive pricing starting at ₹21,000. We deliver the same quality as SG Highway agencies at 40-50% less cost.',
     faq: [
       {
         question: 'Do you serve Ahmedabad and Gujarat businesses?',
@@ -1214,7 +1214,7 @@ export const cities: CityData[] = [
     whyChooseContent:
       "Pink City. Vibrant businesses. Stunning websites. Tourism, gems, handicrafts — we showcase your Jaipur brand online with the same visual richness that makes the city famous. Our tourism website expertise is especially relevant for Rajasthan's hospitality sector.",
     pricingNote:
-      'Jaipur businesses get excellent value — our packages start at ₹25,000 for business websites and ₹40,000 for tourism and eCommerce sites with booking integrations.',
+      'Jaipur businesses get excellent value — our packages start at ₹21,000 for business websites and ₹40,000 for tourism and eCommerce sites with booking integrations.',
     faq: [
       {
         question: 'Do you build tourism websites for Jaipur businesses?',
@@ -1224,7 +1224,7 @@ export const cities: CityData[] = [
       {
         question: 'How much does a website cost in Jaipur?',
         answer:
-          'Business websites start at ₹15,000. Tourism and hospitality websites with booking systems start at ₹40,000. eCommerce for gems and handicrafts starts at ₹50,000. All include responsive design, SEO, and WCAG compliance.',
+          'Business websites start at ₹21,000. Tourism and hospitality websites with booking systems start at ₹40,000. eCommerce for gems and handicrafts starts at ₹50,000. All include responsive design, SEO, and WCAG compliance.',
       },
       {
         question: 'Can you build eCommerce for Jaipur gems and handicrafts?',
@@ -1286,7 +1286,7 @@ export const cities: CityData[] = [
     whyChooseContent:
       "UP's IT city is growing fast. Government portals, education websites, startup MVPs — we serve Lucknow's key sectors with 24+ years of experience and enterprise-grade quality at Central India pricing.",
     pricingNote:
-      'Lucknow businesses benefit from our competitive Central India pricing. Professional websites starting at ₹25,000 — significantly more affordable than hiring from Delhi NCR.',
+      'Lucknow businesses benefit from our competitive Central India pricing. Professional websites starting at ₹21,000 — significantly more affordable than hiring from Delhi NCR.',
     faq: [
       {
         question: 'Do you serve Lucknow businesses?',
@@ -1296,7 +1296,7 @@ export const cities: CityData[] = [
       {
         question: 'How much does a website cost for a Lucknow business?',
         answer:
-          'Business websites start at ₹15,000. Our Professional package at ₹45,000 includes custom design, SEO, and WCAG compliance — quality comparable to Delhi NCR agencies at 60% less cost.',
+          'Business websites start at ₹21,000. Our Professional package at ₹45,000 includes custom design, SEO, and WCAG compliance — quality comparable to Delhi NCR agencies at 60% less cost.',
       },
       {
         question: 'Can you build government portals for Lucknow organisations?',
@@ -1368,7 +1368,7 @@ export const cities: CityData[] = [
       {
         question: 'How much does a website cost in Chandigarh?',
         answer:
-          'Business websites start at ₹15,000. Our Professional package at ₹45,000 includes custom design, SEO, and WCAG compliance — less than half the cost of comparable Delhi NCR agencies.',
+          'Business websites start at ₹21,000. Our Professional package at ₹45,000 includes custom design, SEO, and WCAG compliance — less than half the cost of comparable Delhi NCR agencies.',
       },
       {
         question: 'Can you serve Chandigarh defence sector clients?',
@@ -1452,7 +1452,7 @@ export const cities: CityData[] = [
       {
         question: 'How much does a website cost for a Kochi business?',
         answer:
-          'Business websites start at ₹15,000. Tourism websites with booking systems start at ₹50,000. eCommerce for spice and export businesses starts at ₹40,000. All include responsive design, SEO, and WCAG compliance.',
+          'Business websites start at ₹21,000. Tourism websites with booking systems start at ₹50,000. eCommerce for spice and export businesses starts at ₹40,000. All include responsive design, SEO, and WCAG compliance.',
       },
       {
         question: 'Do you work with Infopark and SmartCity companies?',
