@@ -9,13 +9,13 @@ export const faqs: FAQItem[] = [
   {
     question: 'What is eLan Technology and where are you based?',
     answer:
-      'eLan Technology is a full-service web design and digital marketing agency founded in Nagpur, Maharashtra, India. We serve clients across India (Nagpur, Raipur, Mumbai, Pune) and internationally (USA, Canada, Australia, UAE, UK). Our team of designers, developers, and marketers has been delivering digital solutions since 2015.',
+      'eLan Technology is a full-service web design and digital marketing agency founded in Nagpur, Maharashtra, India. We serve clients across India (Nagpur, Raipur, Mumbai, Pune) and internationally (USA, Canada, Australia, UAE, UK). Our team of designers, developers, and marketers has been delivering digital solutions since 2002.',
     category: 'general',
   },
   {
     question: 'How many years of experience does eLan Technology have?',
     answer:
-      'eLan Technology has over 9 years of experience in web design, web development, eCommerce, and digital marketing. We have delivered 200+ projects for clients across healthcare, education, manufacturing, hospitality, NGOs, and more.',
+      'eLan Technology has 24+ years of experience in web design, web development, eCommerce, and digital marketing. We have delivered 1,500+ projects for 500+ clients across healthcare, education, manufacturing, hospitality, NGOs, and more.',
     category: 'general',
   },
   {
@@ -163,7 +163,7 @@ export const faqs: FAQItem[] = [
   {
     question: 'Are you a web design company based in Nagpur?',
     answer:
-      'Yes, eLan Technology is headquartered in Nagpur, Maharashtra. We have been serving Nagpur businesses since 2015 — from small local shops to large corporate organizations. Being a local agency means we understand the Nagpur market, its industries, and the digital behaviour of Central Indian audiences.',
+      'Yes, eLan Technology is headquartered in Nagpur, Maharashtra. We have been serving Nagpur businesses since 2002 — from small local shops to large corporate organizations. Being a local agency means we understand the Nagpur market, its industries, and the digital behaviour of Central Indian audiences.',
     category: 'city-nagpur',
   },
   {

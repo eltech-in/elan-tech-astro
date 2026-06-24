@@ -1,5 +1,6 @@
 ---
 import type { CityData } from "../../data/cities";
+import { DEFAULT_CITY_PRICING } from "../../data/cities";
 
 interface Props {
   city: CityData;
@@ -7,10 +8,14 @@ interface Props {
 
 const { city } = Astro.props;
 
+// Real prices come from the city's `pricing` field, falling back to the
+// verified default ladder when a city does not override it.
+const prices = city.pricing ?? DEFAULT_CITY_PRICING;
+
 const packages = [
   {
     name: "Starter",
-    price: "₹1x,xxx",
+    price: prices.starter,
     desc: "Perfect for small businesses and startups",
     features: [
       "5 Pages",
@@ -22,7 +27,7 @@ const packages = [
   },
   {
     name: "Professional",
-    price: "₹4x,xxx",
+    price: prices.professional,
     desc: "For growing businesses that need more",
     features: [
       "10-15 Pages",
@@ -36,7 +41,7 @@ const packages = [
   },
   {
     name: "Enterprise",
-    price: "₹1x,xxx+",
+    price: prices.enterprise,
     desc: "Custom solutions for large businesses",
     features: [
       "Unlimited Pages",

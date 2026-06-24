@@ -1,12 +1,12 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // Digital Launchpad — Single source of truth for all plan data, FAQs & config.
 // NEVER hardcode plan data inside component or page files — import from here.
-// Offer period: June 1 – June 30, 2026 · 12 slots total
+// Offer period: June 1 – June 30, 2026 · 9 slots total
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const OFFER_START  = new Date('2026-06-01T00:00:00+05:30');
 export const OFFER_END    = new Date('2026-06-30T23:59:59+05:30');
-export const TOTAL_SLOTS  = 12;
+export const TOTAL_SLOTS  = 9;
 export const WHATSAPP_URL =
   'https://wa.me/918788834630?text=Hi%20I%27m%20interested%20in%20the%20Digital%20Launchpad%20plan';
 
@@ -154,7 +154,7 @@ export const FAQS = [
   {
     question: 'Why is this offer only until June 30, 2026?',
     answer:
-      'We purchased a shared hosting plan with capacity for exactly 12 websites. The plan pricing is fixed for 4 years. Once all 12 slots are filled, this price point is no longer possible. The June 30 deadline ensures we can onboard and launch all client sites within the year.',
+      'We purchased a shared hosting plan with capacity for exactly 9 websites. The plan pricing is fixed for 4 years. Once all 9 slots are filled, this price point is no longer possible. The June 30 deadline ensures we can onboard and launch all client sites within the year.',
   },
   {
     question: 'Can I upgrade to a larger plan later?',

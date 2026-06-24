@@ -205,5 +205,23 @@ export default defineConfig({
     '/services/social-media': '/services/digital-marketing/',
     '/services/mobile-app': '/services/mobile-app-development/',
     '/integrations': '/services/integrations/',
+
+    // ── Reclaim equity from indexed URLs now 404ing (GSC 404 report, Jun 2026) ──
+    // Old flat blog URLs → current /blog/<category>/<slug>/ structure
+    '/blog/website-development-trends-april-2026': '/blog/technology-trends/website-development-trends-april-2026/',
+    '/blog/ai-web-development-2026': '/blog/technology-trends/ai-web-development-2026/',
+    '/blog/wcag-explained-business-owners': '/blog/accessibility/wcag-explained-business-owners/',
+    // Renamed / removed case-study slugs
+    '/portfolio/case-study/abhirama': '/portfolio/case-study/abhirama-international/',
+    '/portfolio/case-study/stems': '/portfolio/case-study/stems-flower-studio/',
+    '/portfolio/case-study/sheabm': '/portfolio/',
+    '/portfolio/case-study/zest': '/portfolio/',
+    '/portfolio/case-study/anirwan': '/portfolio/',
+    // Old service / audit URLs
+    '/wcag-accessibility-audit': '/services/ada-compliant-web-design/',
+    '/website-audit': '/free-website-audit/',
+    '/appointments': '/schedule-consultation/',
+    // No India national page yet — send to flagship Nagpur HQ page
+    '/web-design-company-india': '/web-design-company-nagpur/',
   },
 })

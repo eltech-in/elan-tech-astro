@@ -13,6 +13,25 @@ export interface CityPortfolioItem {
   desc: string;
 }
 
+// Display prices for the three pricing cards. Strings so they can carry the
+// ₹ symbol, Indian digit grouping, and a trailing "+".
+export interface CityPricingTiers {
+  starter: string;
+  professional: string;
+  enterprise: string;
+}
+
+// Verified eLan price ladder (from city FAQ copy, confirmed 2026-06). Used by
+// every city page that does not set its own `pricing`. Change in one place to
+// reprice all cities at once.
+// NOTE: Nagpur HQ Professional price is assumed equal to the ladder (₹45,000);
+// confirm with the owner if HQ pricing differs.
+export const DEFAULT_CITY_PRICING: CityPricingTiers = {
+  starter: '₹15,000',
+  professional: '₹45,000',
+  enterprise: '₹1,50,000+',
+};
+
 export interface CityData {
   // Core identity
   name: string;
@@ -45,6 +64,11 @@ export interface CityData {
   introContent: string;
   whyChooseContent: string;
   pricingNote: string;
+
+  // Real package prices shown on the pricing cards. Optional — when omitted,
+  // CityPricing falls back to DEFAULT_CITY_PRICING (the verified eLan ladder).
+  // Override per city only when that city's published pricing differs.
+  pricing?: CityPricingTiers;
 
   // FAQ data for FAQPage schema
   faq: CityFAQ[];
@@ -121,7 +145,7 @@ export const cities: CityData[] = [
     whyChooseContent:
       'eLan Technology has been designing websites for Nagpur businesses since 2002. We understand the unique commercial ecosystems of areas like Sitabuldi\'s retail district, Dharampeth\'s professional services corridor, Wardha Road\'s industrial belt, and Ramdaspeth\'s growing corporate sector. Visit our office at PTG IT Park for a face-to-face consultation.',
     pricingNote:
-      'Website costs in Nagpur range from ₹15,000 for a basic 5-page site to ₹1,50,000+ for enterprise solutions. Our Professional package starts at ₹4x,xxx and includes custom design, SEO setup, and WCAG accessibility compliance.',
+      'Website costs in Nagpur range from ₹15,000 for a basic 5-page site to ₹1,50,000+ for enterprise solutions. Our Professional package starts at ₹45,000 and includes custom design, SEO setup, and WCAG accessibility compliance.',
     faq: [
       {
         question: 'Which is the best web design company in Nagpur?',
@@ -191,8 +215,8 @@ export const cities: CityData[] = [
     knownFor: 'Steel capital, Naya Raipur smart city, industrial hub',
     distanceFromNagpur: '285 km (5 hours drive)',
     tagline: "Raipur's Trusted Web Design Partner — Powered by Nagpur's Best Agency",
-    seoTitle: 'Website Design Company in Raipur | Web Designer & Developer | eLan Technology',
-    seoDescription: "Website design company in Raipur — experienced web designers & a web development company team serving Chhattisgarh's steel, government & healthcare sectors. WCAG 2.1 AA. Fixed pricing. Free audit.",
+    seoTitle: 'Website Design & Development Company in Raipur | eLan Technology',
+    seoDescription: "Raipur's web design & development company — 24+ yrs, 500+ clients. Custom sites for steel, government & healthcare. WCAG 2.1 AA, fixed pricing from ₹15,000. Free audit.",
     primaryKeyword: 'web design company Raipur',
     secondaryKeywords: [
       'website design Raipur',
@@ -818,8 +842,8 @@ export const cities: CityData[] = [
     knownFor: 'City of Lakes, state capital, education & government hub',
     distanceFromNagpur: '350 km',
     tagline: "Bhopal's Most Trusted Web Design Company — Central India's Senior Agency Since 2002",
-    seoTitle: 'Website Designing Company in Bhopal | Web Development – eLan Technology',
-    seoDescription: 'Website designing company in Bhopal — custom web development for MP Nagar, Arera Colony & government clients. WCAG 2.1 AA, GIGW-compliant portals, senior engineers. Free audit.',
+    seoTitle: 'Web Design & Development Company in Bhopal | eLan Technology',
+    seoDescription: 'Web design & development company in Bhopal — custom sites for MP Nagar, Arera Colony & government clients. WCAG 2.1 AA, GIGW portals, fixed pricing from ₹25,000. Free audit.',
     primaryKeyword: 'web design company in Bhopal',
     secondaryKeywords: [
       'website design in Bhopal',
@@ -851,6 +875,7 @@ export const cities: CityData[] = [
       "We are not just a local studio — we are the senior <strong>web designing Bhopal</strong> partner with metro-grade engineering. Just 350 km from our Nagpur HQ, our team has delivered <strong>custom website development in Bhopal</strong> for over a decade through remote-first collaboration, with the same standards we ship to clients in the US, UK, UAE, and Australia. When local Bhopal businesses want the kind of website usually reserved for metros, this is where they come.",
     pricingNote:
       "Website design and development costs in Bhopal start at ₹25,000 — and our Professional package at ₹45,000 routinely outperforms quotes 2–3× higher from Mumbai or Delhi agencies. Honest pricing, no hidden costs, full source code handover.",
+    pricing: { starter: '₹25,000', professional: '₹45,000', enterprise: '₹1,00,000+' },
     faq: [
       {
         question: 'Which is the best web design company in Bhopal?',
