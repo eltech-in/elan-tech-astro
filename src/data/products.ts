@@ -23,6 +23,8 @@ export interface Product {
   schemaCategory: string;
   /** Live demo URL — undefined means "coming soon" */
   demoUrl?: string;
+  /** If true, replace "Try Demo" with call/contact CTA instead of linking to demoUrl */
+  contactForDemo?: boolean;
 }
 
 export const products: Product[] = [
@@ -80,6 +82,7 @@ export const products: Product[] = [
     ],
     schemaCategory: 'HealthApplication',
     demoUrl: 'https://elanconf.elantech.cloud/',
+    contactForDemo: true,
   },
   {
     id: 'ima-society-portal',
@@ -139,6 +142,7 @@ export const products: Product[] = [
     ],
     schemaCategory: 'TravelApplication',
     demoUrl: 'https://resort.elantech.cloud/auth',
+    contactForDemo: true,
   },
 ];
 

@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useState, useEffect, type FormEvent } from 'react';
 
 const PROJECT_TYPES = [
   'Website Design',
@@ -40,6 +40,13 @@ const REFERRALS = [
   'Other',
 ];
 
+// Maps a ?service= URL param to a pre-selected project type, so links like
+// /get-quote/?service=ada-emergency skip straight to the contact step
+// instead of leaving the visitor on an unrelated step-1 selection.
+const SERVICE_PARAM_MAP: Record<string, string> = {
+  'ada-emergency': 'ADA & WCAG Compliance',
+};
+
 const inputClass =
   'w-full rounded-lg border border-[var(--border)] bg-[var(--bg)] px-4 py-2.5 text-sm text-[var(--text)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] transition-all';
 
@@ -52,8 +59,21 @@ export default function GetQuoteForm() {
   const [contact, setContact] = useState({ name: '', email: '', phone: '', company: '' });
   const [project, setProject] = useState({ budget: '', timeline: '', description: '' });
   const [referral, setReferral] = useState('');
+  const [urgent, setUrgent] = useState(false);
 
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+
+  // Pre-fill from ?service=<key> so links like /get-quote/?service=ada-emergency
+  // land the visitor on the right project type instead of an inert query param.
+  useEffect(() => {
+    const service = new URLSearchParams(window.location.search).get('service');
+    const mapped = service ? SERVICE_PARAM_MAP[service] : undefined;
+    if (mapped) {
+      setProjectType(mapped);
+      setUrgent(true);
+      setStep(2);
+    }
+  }, []);
 
   function validateStep(n: number): boolean {
     const errs: Record<string, string> = {};
@@ -91,7 +111,8 @@ export default function GetQuoteForm() {
           'Accept': 'application/json'
         },
         body: JSON.stringify({
-          _subject: `New Quote Request for ${projectType}`,
+          _subject: urgent ? `EMERGENCY ADA — Quote request from ${contact.name || 'website'}` : `New Quote Request for ${projectType}`,
+          priority: urgent ? 'Emergency ADA' : 'Standard',
           projectType,
           ...contact,
           ...project,
@@ -155,6 +176,11 @@ export default function GetQuoteForm() {
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-5">
+      {urgent && (
+        <div role="status" className="rounded-lg border border-red-400/30 bg-red-400/10 px-4 py-2.5 text-xs font-semibold text-red-400">
+          Flagged as Emergency ADA — we triage these first.
+        </div>
+      )}
       <StepIndicator />
 
       {step === 1 && (

@@ -107,8 +107,8 @@ const schemaBreadcrumbs = breadcrumbs.map(b => ({ name: b.name, url: b.href }));
 const schemas = [serviceSchemaObj, faqSchema(faqs), breadcrumbSchema(schemaBreadcrumbs)];
 ---
 <ServiceLayout
-  title="ADA Website Remediation Services | WCAG 2.1 AA Compliance | eLan Technology"
-  description="Searching for trusted ADA website remediation providers? Get a WCAG 2.1 AA audit with code-level remediation, VPAT documentation & 24-hour turnaround. Fixed price from $1,500."
+  title="ADA Website Remediation Providers | WCAG 2.1 AA Audit & Fix | eLan Technology"
+  description="Facing an ADA demand letter? Trusted ADA website remediation — WCAG 2.1 AA code-level audit, emergency 24-hr turnaround, VPAT documentation. Fixed price from $1,500. Free consult."
   canonical="/services/ada-compliant-web-design/"
   schema={schemas}
   breadcrumbs={breadcrumbs}
@@ -127,13 +127,16 @@ const schemas = [serviceSchemaObj, faqSchema(faqs), breadcrumbSchema(schemaBread
         5,100+ ADA digital accessibility lawsuits were filed in 2025 — a 37% increase YoY. If you've received a demand letter or court summons, eLan Technology provides emergency WCAG 2.2 AA audits within 24 hours and full code-level remediation to support your legal defence, including VPAT documentation.
       </p>
       <div class="mt-7 flex flex-wrap gap-3">
-        <a href="/get-quote?service=ada-emergency" class="inline-flex items-center rounded-lg bg-red-500 px-5 py-2.5 text-sm font-semibold text-white shadow transition hover:bg-red-600">
+        <a href="/get-quote/?service=ada-emergency" class="inline-flex items-center rounded-lg bg-red-500 px-5 py-2.5 text-sm font-semibold text-white shadow transition hover:bg-red-600">
           Emergency ADA Audit — 24hr Response
         </a>
         <a href="/get-quote" class="inline-flex items-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
           Get a Quote
         </a>
       </div>
+      <p class="mt-4 text-sm text-[var(--text-muted)]">
+        On a lawsuit or demand-letter deadline? See our <a href="/services/ada-compliant-web-design/emergency-remediation/" class="font-semibold text-red-500 underline hover:no-underline">emergency / deadline remediation</a> — Shopify &amp; ecommerce sites fixed in under 30 days.
+      </p>
     </div>
   </section>
 
@@ -232,10 +235,15 @@ const schemas = [serviceSchemaObj, faqSchema(faqs), breadcrumbSchema(schemaBread
           </div>
         </div>
 
-        <a href="/get-quote?service=ada-emergency" class="inline-flex items-center gap-2 rounded-lg bg-red-500 px-6 py-3 text-sm font-semibold text-white shadow transition hover:bg-red-600">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          Request Emergency ADA Audit — 24-Hour Response
-        </a>
+        <div class="flex flex-wrap items-center gap-4">
+          <a href="/get-quote/?service=ada-emergency" class="inline-flex items-center gap-2 rounded-lg bg-red-500 px-6 py-3 text-sm font-semibold text-white shadow transition hover:bg-red-600">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            Request Emergency ADA Audit — 24-Hour Response
+          </a>
+          <a href="/services/ada-compliant-web-design/emergency-remediation/" class="text-sm font-semibold text-red-500 underline hover:no-underline">
+            Emergency / deadline remediation: the 30-day track →
+          </a>
+        </div>
       </div>
     </section>
 

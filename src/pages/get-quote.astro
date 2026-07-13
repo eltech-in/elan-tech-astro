@@ -47,7 +47,12 @@ const labelClass = "block text-sm font-medium text-[var(--text)] mb-1.5";
         Project Quote Request
       </h2>
 
-      <GetQuoteForm client:visible />
+      <GetQuoteForm client:load />
+
+      <p class="mt-6 text-center text-sm text-[var(--text-muted)]">
+        Prefer to talk live?
+        <a href="/schedule-consultation/" class="font-semibold text-[var(--accent)] hover:underline">Schedule a meeting →</a>
+      </p>
     </div>
   </section>
 

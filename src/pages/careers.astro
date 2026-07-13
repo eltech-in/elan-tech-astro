@@ -30,29 +30,110 @@ const perks = [
   },
 ];
 
-const jobs = [
+// Splits a job's labeled sections into an always-visible preview (first
+// `previewCount` items) and the remainder, grouped back into their
+// original labeled sections for the "show more" details panel.
+const PREVIEW_COUNT = 5;
+function splitJobContent(sections: { label?: string; items: string[] }[], previewCount: number) {
+  let remaining = previewCount;
+  const preview: string[] = [];
+  const rest: { label?: string; items: string[]; continuesPreview: boolean }[] = [];
+  for (const section of sections) {
+    if (remaining > 0) {
+      const take = Math.min(remaining, section.items.length);
+      preview.push(...section.items.slice(0, take));
+      remaining -= take;
+      const leftover = section.items.slice(take);
+      if (leftover.length) rest.push({ label: section.label, items: leftover, continuesPreview: take > 0 });
+    } else {
+      rest.push({ label: section.label, items: section.items, continuesPreview: false });
+    }
+  }
+  return { preview, rest, previewLabel: sections[0]?.label };
+}
+
+const rawJobs = [
   {
-    title: 'Frontend Developer (React/Astro)',
+    title: 'SEO Executive',
+    experience: '2+ Years Experience',
     type: 'Full-time',
     location: 'Nagpur / Remote',
-    desc: 'Work on modern Astro and React projects for clients across India and internationally. Build fast, accessible, and beautifully crafted websites.',
-    skills: ['React', 'TypeScript', 'Tailwind CSS', 'Astro'],
+    desc: "Are you passionate about ranking websites, driving organic traffic, and staying ahead of Google's ever-changing algorithms? Join eLan Technology and work on exciting national and international projects.",
+    sections: [
+      {
+        items: [
+          '2+ years of hands-on SEO experience',
+          'Strong knowledge of On-Page, Off-Page & Technical SEO',
+          'Experience with keyword research, competitor analysis & content optimization',
+          'Proficiency in Google Search Console, Google Analytics (GA4), Google Tag Manager & Looker Studio',
+          'Hands-on experience with SEO tools like Ahrefs, SEMrush, Screaming Frog, Moz or similar',
+          'Ability to perform website SEO audits and recommend actionable improvements',
+          'Knowledge of Core Web Vitals, PageSpeed optimization, Schema Markup & XML Sitemaps',
+          'Experience in local SEO, Google Business Profile optimization & citation building',
+          'Understanding of WordPress SEO, HTML/CSS basics, canonical tags, robots.txt & redirects',
+          'Familiarity with AEO (Answer Engine Optimization), GEO (Generative Engine Optimization) and AI-powered search trends is a strong advantage',
+          'Excellent analytical, reporting and communication skills',
+        ],
+      },
+    ],
+    bonus: 'Experience with Google Ads, content writing, backlink outreach, AI tools (ChatGPT, Gemini, Claude), and basic graphic/video editing.',
+    closing: "If you're data-driven, growth-focused, and love improving search rankings, we'd love to have you on our team!",
+    cssVar: '--ac-amber',
   },
   {
-    title: 'Digital Marketing Specialist',
+    title: 'Digital Marketing Executive',
+    experience: '1–2 Years Experience',
     type: 'Full-time',
     location: 'Nagpur',
-    desc: 'Drive organic growth through SEO strategy and content marketing. Own keyword rankings and grow client traffic month over month.',
-    skills: ['SEO', 'Google Analytics', 'Content Strategy', 'Google Ads'],
-  },
-  {
-    title: 'UI/UX Designer',
-    type: 'Full-time / Contract',
-    location: 'Nagpur / Remote',
-    desc: 'Design intuitive, WCAG-compliant interfaces for web and mobile applications. From wireframes to polished high-fidelity prototypes.',
-    skills: ['Figma', 'Accessibility', 'Prototyping', 'User Research'],
+    desc: 'We are seeking a dynamic and results-driven Digital Marketing Executive with 1–2 years of hands-on experience in social media management, creative content development, and paid advertising. The ideal candidate should be both creative and analytical, capable of executing impactful campaigns across multiple digital platforms.',
+    sections: [
+      {
+        label: 'Key Responsibilities',
+        items: [
+          'Plan, create, and publish engaging social media posts across platforms such as Instagram, Facebook, LinkedIn, and others',
+          'Design basic creatives, banners, and marketing visuals using tools like Canva, Photoshop, or similar',
+          'Manage day-to-day activities of social media accounts including posting, engagement, and performance tracking',
+          'Execute and optimize paid advertising campaigns on platforms like Meta Ads (Facebook & Instagram), LinkedIn Ads, and others',
+          'Monitor campaign performance, analyze metrics, and provide actionable insights to improve ROI',
+          'Coordinate with internal teams for content, branding, and campaign alignment',
+          'Stay updated with the latest digital marketing trends, tools, and best practices',
+        ],
+      },
+      {
+        label: 'Required Skills & Qualifications',
+        items: [
+          '1–2 years of experience in digital marketing or social media management',
+          'Strong understanding of social media platforms and content strategies',
+          'Hands-on experience with paid ad campaigns (Meta Ads is a must; Google Ads is a plus)',
+          'Basic graphic design skills (Canva / Adobe tools preferred)',
+          'Good written and verbal communication skills',
+          'Analytical mindset with the ability to interpret campaign data',
+          'Ability to manage multiple campaigns and meet deadlines',
+        ],
+      },
+      {
+        label: 'Preferred Qualifications',
+        items: [
+          'Experience working with agencies or handling multiple client accounts',
+          'Familiarity with SEO basics and content marketing',
+          'Knowledge of marketing automation tools is an added advantage',
+        ],
+      },
+      {
+        label: 'What We Offer',
+        items: [
+          'Opportunity to work on diverse projects and brands',
+          'Growth-oriented and collaborative work environment',
+          'Hands-on exposure to advanced marketing strategies',
+          'Competitive salary based on experience',
+        ],
+      },
+    ],
+    cssVar: '--ac-cyan',
   },
 ];
+
+const jobs = rawJobs.map((job) => ({ ...job, ...splitJobContent(job.sections, PREVIEW_COUNT) }));
 ---
 
 <BaseLayout
@@ -116,47 +197,118 @@ const jobs = [
        OPEN POSITIONS
   ════════════════════════════════════════════════════════════════════════ -->
   <section aria-labelledby="positions-heading" class="bg-[var(--bg-card)] py-16 md:py-20 border-y border-[var(--border)]">
-    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <p class="text-center text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-3">Open Positions</p>
       <h2 id="positions-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] text-center mb-12">
         We're Hiring
       </h2>
 
-      <div class="space-y-6">
-        {jobs.map((job) => (
-          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 sm:p-8">
-            <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
-              <div>
-                <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-2">{job.title}</h3>
-                <div class="flex flex-wrap gap-2">
-                  <span class="inline-flex items-center rounded-full bg-[var(--accent)]/10 px-3 py-1 text-xs font-semibold text-[var(--accent)]">
-                    {job.type}
-                  </span>
-                  <span class="inline-flex items-center rounded-full bg-[var(--bg-card)] border border-[var(--border)] px-3 py-1 text-xs font-medium text-[var(--text-muted)]">
-                    {job.location}
-                  </span>
+      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-5" role="list">
+        {jobs.map((job, i) => (
+          <li class="lg:col-span-3">
+            <article
+              class="group relative h-full overflow-hidden rounded-2xl border border-[var(--border)] p-6 sm:p-7 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+              style={`background: linear-gradient(135deg, color-mix(in srgb, var(${job.cssVar}) 14%, var(--bg)) 0%, var(--bg) 60%);`}
+            >
+              <span aria-hidden="true" class="absolute inset-x-0 top-0 h-[3px]" style={`background: var(${job.cssVar});`}></span>
+              <span
+                aria-hidden="true"
+                class="font-heading font-black absolute top-1 right-4 select-none pointer-events-none leading-none"
+                style={`color: var(${job.cssVar}); opacity: 0.12; font-size: 6rem;`}
+              >
+                {String(i + 1).padStart(2, '0')}
+              </span>
+
+              <div class="relative z-10 flex flex-col h-full">
+                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
+                  <div>
+                    <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-2">{job.title}</h3>
+                    <div class="flex flex-wrap gap-2">
+                      <span
+                        class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold"
+                        style={`background: color-mix(in srgb, var(${job.cssVar}) 16%, transparent); color: var(${job.cssVar});`}
+                      >
+                        {job.type}
+                      </span>
+                      {job.experience && (
+                        <span class="inline-flex items-center rounded-full bg-[var(--bg-card)] border border-[var(--border)] px-3 py-1 text-xs font-medium text-[var(--text-muted)]">
+                          {job.experience}
+                        </span>
+                      )}
+                      <span class="inline-flex items-center rounded-full bg-[var(--bg-card)] border border-[var(--border)] px-3 py-1 text-xs font-medium text-[var(--text-muted)]">
+                        {job.location}
+                      </span>
+                    </div>
+                  </div>
+                  <a
+                    href={`mailto:careers@elan-tech.net?subject=Application: ${encodeURIComponent(job.title)}`}
+                    class="inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition-opacity hover:opacity-90 shrink-0"
+                    style={`background: var(${job.cssVar}); color: var(--bg);`}
+                  >
+                    Apply Now
+                  </a>
+                </div>
+
+                <p class="text-[var(--text-dim)] text-sm leading-relaxed mb-4">{job.desc}</p>
+
+                <div class="mt-1">
+                  {job.previewLabel && (
+                    <p class="text-xs font-semibold uppercase tracking-wide mb-2" style={`color: var(${job.cssVar});`}>
+                      {job.previewLabel}
+                    </p>
+                  )}
+                  <ul class="space-y-1.5 mb-3">
+                    {job.preview.map((item) => (
+                      <li class="flex items-start gap-2 text-sm text-[var(--text-dim)] leading-relaxed">
+                        <span aria-hidden="true" class="mt-0.5 shrink-0" style={`color: var(${job.cssVar});`}>✔</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {job.rest.length > 0 && (
+                    <details>
+                      <summary
+                        class="cursor-pointer list-none text-sm font-semibold [&::-webkit-details-marker]:hidden"
+                        style={`color: var(${job.cssVar});`}
+                      >
+                        + {job.rest.reduce((sum, group) => sum + group.items.length, 0)} more details
+                      </summary>
+                      <div class="mt-3 space-y-4">
+                        {job.rest.map((group) => (
+                          <div>
+                            {group.label && !group.continuesPreview && (
+                              <p class="text-xs font-semibold uppercase tracking-wide mb-2" style={`color: var(${job.cssVar});`}>
+                                {group.label}
+                              </p>
+                            )}
+                            <ul class="space-y-1.5">
+                              {group.items.map((item) => (
+                                <li class="flex items-start gap-2 text-sm text-[var(--text-dim)] leading-relaxed">
+                                  <span aria-hidden="true" class="mt-0.5 shrink-0" style={`color: var(${job.cssVar});`}>✔</span>
+                                  <span>{item}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                        {job.bonus && (
+                          <p class="text-sm text-[var(--text-dim)] leading-relaxed">
+                            <span class="font-semibold" style={`color: var(${job.cssVar});`}>✨ Bonus Skills:</span> {job.bonus}
+                          </p>
+                        )}
+                        {job.closing && (
+                          <p class="text-sm text-[var(--text-muted)] italic leading-relaxed">{job.closing}</p>
+                        )}
+                      </div>
+                    </details>
+                  )}
                 </div>
               </div>
-              <a
-                href={`mailto:careers@elan-tech.net?subject=Application: ${encodeURIComponent(job.title)}`}
-                class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-6 py-2.5 text-sm font-semibold text-[var(--bg)] hover:opacity-90 transition-opacity shrink-0"
-              >
-                Apply Now
-              </a>
-            </div>
-
-            <p class="text-[var(--text-dim)] text-sm leading-relaxed mb-4">{job.desc}</p>
-
-            <div class="flex flex-wrap gap-2">
-              {job.skills.map((skill) => (
-                <span class="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-3 py-1 text-xs font-medium text-[var(--text-dim)]">
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
+            </article>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   </section>
 

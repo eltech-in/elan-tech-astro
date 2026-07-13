@@ -97,8 +97,8 @@ export const cities: CityData[] = [
     knownFor: 'Orange City, MIDC industrial hub, geographical centre of India',
     distanceFromNagpur: 'HQ',
     tagline: "Nagpur's Most Experienced Web Design Agency — Since 2002",
-    seoTitle: 'Web Design Company in Nagpur | Website Development – eLan Technology',
-    seoDescription: "Nagpur's most experienced web design & development company since 2002. 500+ clients, 10+ countries. Custom websites, mobile apps, WCAG 2.1 AA. Free audit at our Gayatri Nagar office.",
+    seoTitle: 'Web Design Company in Nagpur | Custom Websites, Apps & SEO | eLan Technology',
+    seoDescription: "Nagpur's #1 web design company since 2002 — 500+ clients, 1,500+ projects. Custom websites from ₹21,000. Mobile apps, SEO, WCAG 2.1 AA. Free audit at our Gayatri Nagar office.",
     primaryKeyword: 'web design company Nagpur',
     secondaryKeywords: [
       'website design Nagpur',
@@ -215,8 +215,8 @@ export const cities: CityData[] = [
     knownFor: 'Steel capital, Naya Raipur smart city, industrial hub',
     distanceFromNagpur: '285 km (5 hours drive)',
     tagline: "Raipur's Trusted Web Design Partner — Powered by Nagpur's Best Agency",
-    seoTitle: 'Website Design & Development Company in Raipur | eLan Technology',
-    seoDescription: "Raipur's web design & development company — 24+ yrs, 500+ clients. Custom sites for steel, government & healthcare. WCAG 2.1 AA, fixed pricing from ₹21,000. Free audit.",
+    seoTitle: 'Website Design & Development Company in Raipur, Chhattisgarh | eLan Technology',
+    seoDescription: "Top web design & development company in Raipur — custom sites for steel, Naya Raipur smart city & healthcare. 24+ yrs, 500+ clients. Fixed pricing from ₹21,000. Free audit.",
     primaryKeyword: 'web design company Raipur',
     secondaryKeywords: [
       'website design Raipur',

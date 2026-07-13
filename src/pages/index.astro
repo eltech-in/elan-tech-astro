@@ -76,11 +76,23 @@ const schemas = [
 
 const year = new Date().getFullYear();
 const yearsExp = year - 2002;
+
+// Derives a per-logo alt string from its filename so the client-logo carousel
+// doesn't repeat generic "Client logo" 100+ times. Filenames carry the real
+// client name; this just turns hyphens into spaces for readable alt text.
+function logoAlt(filename: string): string {
+  const stem = filename
+    .replace(/\.(avif|svg|webp|png|jpe?g)$/i, '')
+    .replace(/^cl-/i, '')
+    .replace(/-logo$/i, '');
+  const words = stem.split(/[-_]/).filter(Boolean).map((w) => w.charAt(0).toUpperCase() + w.slice(1));
+  return `${words.join(' ')} — eLan Technology client`;
+}
 ---
 
 <BaseLayout
-  title="Web Design & Development Company Since 2002 | eLan Technology"
-  description="Award-winning web design, development & digital marketing agency. 500+ clients in 10+ countries. WCAG/ADA compliant. Get your free website audit today."
+  title="Web Design Company in Nagpur | eLan Technology"
+  description="Nagpur's trusted web design & development company since 2002. 500+ clients across India & 10+ countries. Custom websites, eCommerce, WCAG/ADA compliant. Free website audit."
   schema={schemas}
 >
 
@@ -232,26 +244,29 @@ const yearsExp = year - 2002;
       <div class="flex w-fit animate-scroll-ltr items-center">
         {(() => {
           const logos = [
-            'cl-ta-logo.avif', 'nei-logo.svg', 'cl-dfm-logo.avif', 'merraki-expert-logo.svg',
-            'cl-hc-logo.avif', 'abc-wiindo-logo.svg', 'GNC-logo.avif', 'trimit-arch-logo.avif',
-            'cl-ah-logo.avif', 'gokhale-insurance.svg', 'patel-rcm-logo.svg', 'cl-cbbf-logo.avif',
-            'hmh-logo.avif', 'nexus-cowork.svg', 'cl-w4c-logo.avif', 'jpdata-logo.avif',
-            'am-logo.svg', 'cl-isancb-logo.avif', 'sakhi-logo02.avif', 'lotus-care-exim.svg',
-            'cl-pr-logo.avif', 'ss360.avif', 'dizviz-logoh.webp', 'cl-gss-logo.avif',
-            'msmehub-logo.svg', 'icon-hospital-logo.avif', 'cl-sp-logo.avif', 'pdm-logo.svg',
-            'cl-rr-logo.avif', '77mp-logo.webp', 'cl-iapm-logo.avif', 'silaris-logo.avif',
-            'apd-logo.svg', 'ia-logo.avif', 'cl-cambian-logo.avif', 'yfy-logo.avif',
-            'tmp-logo.svg', 'cl-pmi-logo.avif', 'logo-3dots.avif', 'cl-psn-logo.avif',
-            'h2ms-sloglogo-wh.webp', 'cl-oafa-logo.avif', 'arp-logo.avif', 'navsamaj-logo.avif',
-            'cl-bl-logo.avif', 'pmindustries-logo.avif', 'svsss-logo.avif', 'cl-ci-logo.avif',
-            'cl-geg-logo.avif', 'tnf-logo.avif', 'cl-iv-logo.avif', 'cl-rg-logo.avif',
-            'mm-logo.avif', 'cl-iep-logo.avif', 'cl-aa-logo.avif', 'e-t.avif',
+            '6simplex.avif', '77mishti-packaging.webp', 'Aarch-Meraki.svg', 'Abhirama.svg',
+            'Alessandra-Ramos.avif', 'Astha-Hospital.avif', 'Avani-Associates.avif', 'Bakre-Associates.svg',
+            'Blue-Ladder.avif', 'CBBF.avif', 'Cambian.avif', 'Chandak-Instruments.avif',
+            'DFyne.avif', 'Geo-Spatial-Studio.avif', 'GlenEGrant.avif', 'Guru-Nanak-College.avif',
+            'IAPM.avif', 'IFBB-Elite-PRO.avif', 'ISA-Nagpur.avif', 'Indo-Advisors.avif',
+            'Mahavir-Mevawala.avif', 'Ontario-Amateur-Fitness-Association.avif', 'Opthalmological-Society-Nagpur.avif', 'PM-Industries.avif',
+            'Pinakk-Digital-Media.svg', 'Pradnyalok.avif', 'Production-Modeling-India.avif', 'PropertyCab.png',
+            'Psychiatric-Society-Nagpur.avif', 'Puritas.svg', 'SS-Carmen.avif', 'Sakhi-Products.avif',
+            'Silaris.avif', 'The-Material-Palette.svg', 'The-Natural-Farms.avif', 'The-People.avif',
+            'YogForYourself.avif', 'ZestRenew.png', 'abc-wiindo.svg', 'brandear.avif',
+            'Rushmore-Group.avif', 'deetya-allaboutinteriors.svg', 'dizviz.webp', 'elite-wealth.avif',
+            'eminent-tech.avif', 'gokhale-insurance.svg', 'hotel-manomay-homes.avif', 'icon-hospital.avif',
+            'jpdata.avif', 'lotus-care-exim.svg', 'media-flow-house.svg', 'merraki-expert.svg',
+            'msmehub.svg', 'navsamaj.avif', 'new-earth-infra.svg', 'nexus-cowork.svg',
+            'patel-rcm-analytics.svg', 'rangresha.avif', 'shrikrupa-prakashan.avif', 'Swami-Vivekanand.avif',
+            'team-agrotech.avif', 'the-core-pench.avif', 'the-free-media.avif', 'trimit-architects.avif',
+            'vasundhara-pariwar.avif', 'we4change.avif', 'yashoda-maternity.avif',
           ];
           return [...logos, ...logos].map((logo, i) => (
             <div class="mx-3 md:mx-5 shrink-0 flex items-center justify-center h-12 md:h-14 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300">
               <img
                 src={`/elan-client-logos/${logo}`}
-                alt="Client logo"
+                alt={logoAlt(logo)}
                 width="120"
                 height="48"
                 loading="lazy"

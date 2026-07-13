@@ -1,14 +1,49 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // Digital Launchpad — Single source of truth for all plan data, FAQs & config.
 // NEVER hardcode plan data inside component or page files — import from here.
-// Offer period: June 1 – June 30, 2026 · 9 slots total
+// Offer period: June 1 – August 15, 2026 · 9 slots total
+// Price phases:
+//   Phase 1 — Jun  1 – Jun 30 23:59:59 IST : base price (×1.00)
+//   Phase 2 — Jul  1 – Jul 12 23:59:59 IST : +10%       (×1.10)
+//   Phase 3 — Jul 13 – Aug 15 23:59:59 IST : +20%       (×1.20)
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const OFFER_START  = new Date('2026-06-01T00:00:00+05:30');
-export const OFFER_END    = new Date('2026-06-30T23:59:59+05:30');
-export const TOTAL_SLOTS  = 9;
-export const WHATSAPP_URL =
+export const OFFER_START   = new Date('2026-06-01T00:00:00+05:30');
+export const PHASE1_END    = new Date('2026-06-30T23:59:59+05:30');
+export const PHASE2_END    = new Date('2026-07-12T23:59:59+05:30');
+export const OFFER_END     = new Date('2026-08-15T23:59:59+05:30');
+export const TOTAL_SLOTS   = 9;
+export const WHATSAPP_URL  =
   'https://wa.me/918788834630?text=Hi%20I%27m%20interested%20in%20the%20Digital%20Launchpad%20plan';
+
+// ─── Pricing phase at build time ─────────────────────────────────────────────
+
+function getPriceMultiplier(): number {
+  const now = Date.now();
+  if (now <= PHASE1_END.getTime()) return 1.00;
+  if (now <= PHASE2_END.getTime()) return 1.10;
+  if (now <= OFFER_END.getTime())  return 1.20;
+  return 1.20; // offer over but still show final price
+}
+
+export const PRICE_MULTIPLIER = getPriceMultiplier();
+
+// Returns the label for the current pricing phase
+export function getPricePhaseLabel(): string {
+  const now = Date.now();
+  if (now <= PHASE1_END.getTime()) return 'Launch Price — valid till 30 Jun 2026';
+  if (now <= PHASE2_END.getTime()) return '+10% — valid till 12 Jul 2026';
+  return '+20% — final price, closes 15 Aug 2026 (our 21st anniversary)';
+}
+
+// Applies current multiplier and rounds to nearest 100
+function phasePrice(base: number): number {
+  return Math.round((base * PRICE_MULTIPLIER) / 100) * 100;
+}
+
+function monthlyReframe(price: number): string {
+  return `₹${Math.round(price / 48).toLocaleString('en-IN')}/month`;
+}
 
 // ─── Interfaces ──────────────────────────────────────────────────────────────
 
@@ -46,9 +81,9 @@ export const PLANS: LaunchpadPlan[] = [
     emoji:          '🌱',
     name:           'eLan Starter',
     tagline:        'Freelancers, consultants, solo professionals',
-    price:          24000,
+    price:          phasePrice(24000),
     pages:          '5–6 pages',
-    monthlyReframe: '₹500/month',
+    monthlyReframe: monthlyReframe(phasePrice(24000)),
     featured:       false,
     features: [
       '5–6 page custom HTML website',
@@ -62,16 +97,16 @@ export const PLANS: LaunchpadPlan[] = [
     ],
     baseFeatures: BASE_FEATURES,
     whatsappText:
-      'Hi%2C%20I%27m%20interested%20in%20the%20eLan%20Starter%20plan%20%28%E2%82%B924%2C000%29.%20Please%20share%20details.',
+      `Hi%2C%20I%27m%20interested%20in%20the%20eLan%20Starter%20plan%20%28%E2%82%B9${phasePrice(24000).toLocaleString('en-IN')}%29.%20Please%20share%20details.`,
   },
   {
     id:             'business',
     emoji:          '🏪',
     name:           'eLan Business',
     tagline:        'Clinics, salons, retailers, NGOs, coaching centres',
-    price:          31200,
+    price:          phasePrice(31200),
     pages:          '8–10 pages',
-    monthlyReframe: '₹650/month',
+    monthlyReframe: monthlyReframe(phasePrice(31200)),
     featured:       true,
     features: [
       '8–10 page custom UI/UX designed website',
@@ -91,16 +126,16 @@ export const PLANS: LaunchpadPlan[] = [
     ],
     baseFeatures: BASE_FEATURES,
     whatsappText:
-      'Hi%2C%20I%27m%20interested%20in%20the%20eLan%20Business%20plan%20%28%E2%82%B931%2C200%29.%20Please%20share%20details.',
+      `Hi%2C%20I%27m%20interested%20in%20the%20eLan%20Business%20plan%20%28%E2%82%B9${phasePrice(31200).toLocaleString('en-IN')}%29.%20Please%20share%20details.`,
   },
   {
     id:             'complete',
     emoji:          '🎯',
     name:           'eLan Complete',
     tagline:        'Professional services, manufacturers, B2B companies',
-    price:          38400,
+    price:          phasePrice(38400),
     pages:          'Up to 20 pages',
-    monthlyReframe: '₹800/month',
+    monthlyReframe: monthlyReframe(phasePrice(38400)),
     featured:       false,
     features: [
       'Everything in eLan Business',
@@ -119,7 +154,7 @@ export const PLANS: LaunchpadPlan[] = [
     ],
     baseFeatures: BASE_FEATURES,
     whatsappText:
-      'Hi%2C%20I%27m%20interested%20in%20the%20eLan%20Complete%20plan%20%28%E2%82%B938%2C400%29.%20Please%20share%20details.',
+      `Hi%2C%20I%27m%20interested%20in%20the%20eLan%20Complete%20plan%20%28%E2%82%B9${phasePrice(38400).toLocaleString('en-IN')}%29.%20Please%20share%20details.`,
   },
 ];
 
@@ -152,9 +187,9 @@ export const FAQS = [
       'On day one, we purchase your domain and 4 years of hosting — costs that are non-refundable from our suppliers. Full advance payment ensures we can deliver and maintain your site uninterrupted for the complete 4-year period without billing disputes.',
   },
   {
-    question: 'Why is this offer only until June 30, 2026?',
+    question: 'Why does the price increase on July 1 and July 13?',
     answer:
-      'We purchased a shared hosting plan with capacity for exactly 9 websites. The plan pricing is fixed for 4 years. Once all 9 slots are filled, this price point is no longer possible. The June 30 deadline ensures we can onboard and launch all client sites within the year.',
+      'We purchased a shared hosting plan with capacity for exactly 9 websites. The plan pricing is fixed for 4 years. To reward early commitment, we launched at the lowest price on June 1. As slots fill and the offer window narrows, we apply a 10% increase from July 1 (till July 12) and a 20% increase from July 13 (till August 15). August 15 is eLan Technology\'s official founding anniversary — we were officially launched on August 15, 2005 (though in operation since 2002). The offer closes on that milestone date. After August 15, this package is no longer available at any price.',
   },
   {
     question: 'Can I upgrade to a larger plan later?',

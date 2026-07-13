@@ -4,7 +4,7 @@ import CountdownTimer from '../../components/launchpad/CountdownTimer';
 import PlanCard from '../../components/launchpad/PlanCard.astro';
 import InclusionGrid from '../../components/launchpad/InclusionGrid.astro';
 import BookingForm from '../../components/launchpad/BookingForm.astro';
-import { PLANS, FAQS, WHATSAPP_URL, TOTAL_SLOTS } from '../../data/digitalLaunchpad';
+import { PLANS, FAQS, WHATSAPP_URL, TOTAL_SLOTS, getPricePhaseLabel } from '../../data/digitalLaunchpad';
 import { faqSchema, breadcrumbSchema } from '../../utils/schema';
 
 // ── Schemas ────────────────────────────────────────────────────────────────
@@ -26,7 +26,7 @@ const serviceSchema = {
     price: p.price,
     priceCurrency: 'INR',
     validFrom: '2026-06-01',
-    validThrough: '2026-06-30',
+    validThrough: '2026-08-15',
     availability: 'https://schema.org/LimitedAvailability',
     url: 'https://elan-tech.net/pricing/digital-launchpad/',
   })),
@@ -44,9 +44,9 @@ const schemas = [
 
 // ── Reframe stats bar data ─────────────────────────────────────────────────
 const reframeStats = [
-  { value: '₹500/mo',    label: 'eLan Starter' },
-  { value: '₹650/mo',    label: 'eLan Business' },
-  { value: '₹800/mo',    label: 'eLan Complete' },
+  { value: PLANS[0].monthlyReframe.replace('/month', '/mo'), label: 'eLan Starter' },
+  { value: PLANS[1].monthlyReframe.replace('/month', '/mo'), label: 'eLan Business' },
+  { value: PLANS[2].monthlyReframe.replace('/month', '/mo'), label: 'eLan Complete' },
   { value: '4 Years',    label: 'Zero renewal stress' },
   { value: `${TOTAL_SLOTS} Slots`, label: 'Total available' },
 ];
@@ -59,13 +59,13 @@ const compareRows = [
   { feature: 'Maintenance incl.', elan: '4 years',          freelancer: 'Extra cost',     wix: 'DIY only' },
   { feature: 'Single payment',    elan: 'One payment',      freelancer: 'Annual invoice', wix: 'Monthly billing' },
   { feature: 'Who manages it',    elan: 'eLan Tech (24yr)', freelancer: 'You do',         wix: 'You do' },
-  { feature: 'Real 4-year cost',  elan: '₹31,200 total',   freelancer: '₹35,000–60,000+', wix: '₹40,000–70,000+' },
+  { feature: 'Real 4-year cost',  elan: `₹${PLANS[1].price.toLocaleString('en-IN')} total`,   freelancer: '₹35,000–60,000+', wix: '₹40,000–70,000+' },
 ];
 ---
 
 <BaseLayout
   title="4-Year All-In Website Plan from ₹24,000 — eLan Technology"
-  description="Professional website + .in domain + hosting + 4 years maintenance. One payment. No renewals. eLan Starter ₹24K · Business ₹31.2K · Complete ₹38.4K. Offer ends June 30, 2026."
+  description="Professional website + .in domain + hosting + 4 years maintenance. One payment. No renewals. eLan Starter ₹24K · Business ₹31.2K · Complete ₹38.4K. Prices rise Jul 1 — offer ends Aug 15, 2026."
   canonical="/pricing/digital-launchpad/"
   schema={schemas}
 >
@@ -80,7 +80,7 @@ const compareRows = [
   style="background:#F26722;"
 >
   <p class="font-heading text-xs sm:text-sm font-bold uppercase tracking-[0.15em] text-white">
-    🔥 Limited Time Offer — June 1 to June 30, 2026 · {TOTAL_SLOTS} Slots Only
+    🎉 Anniversary Offer — {getPricePhaseLabel()} · {TOTAL_SLOTS} Slots Only
   </p>
 </div>
 
@@ -203,7 +203,7 @@ const compareRows = [
     </h2>
     <p class="text-center text-[var(--text-dim)] mb-8 max-w-2xl mx-auto">
       All plans: .in domain + hosting + maintenance for 4 years.<br />
-      Full advance only. Offer ends June 30, 2026.
+      Full advance only. {getPricePhaseLabel()}.
     </p>
 
     <!-- Deadline pill -->
@@ -213,7 +213,7 @@ const compareRows = [
         style="border-color:rgba(242,103,34,0.4); background:rgba(242,103,34,0.07);"
       >
         <span class="text-sm font-semibold text-[var(--text-dim)]">
-          ⏰ Offer closes June 30, 2026
+          ⏰ {getPricePhaseLabel()}
         </span>
         <a
           href="#booking"
@@ -221,6 +221,13 @@ const compareRows = [
           style="background:#F26722; min-height:36px; display:inline-flex; align-items:center;"
         >
           Reserve My Slot →
+        </a>
+        <a
+          href="/schedule-consultation/"
+          class="rounded-full border px-4 py-1.5 text-sm font-bold transition-opacity hover:opacity-90"
+          style="border-color:rgba(242,103,34,0.5); color:var(--text); min-height:36px; display:inline-flex; align-items:center;"
+        >
+          Schedule a Meeting
         </a>
       </div>
     </div>
@@ -279,7 +286,7 @@ const compareRows = [
             <th scope="col" class="px-4 py-4 text-center">
               <span class="inline-flex flex-col items-center gap-1">
                 <span class="rounded-full px-3 py-0.5 text-xs font-bold text-white" style="background:#F26722;">eLan Business</span>
-                <span class="text-xs font-semibold text-[var(--text)]">₹31,200</span>
+                <span class="text-xs font-semibold text-[var(--text)]">₹{PLANS[1].price.toLocaleString('en-IN')}</span>
               </span>
             </th>
             <th scope="col" class="px-4 py-4 text-center text-sm font-bold text-[var(--text-dim)]">Freelancer</th>
@@ -510,13 +517,13 @@ const compareRows = [
 >
   <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
     <p class="mb-2 text-sm font-bold uppercase tracking-[0.18em] text-white/80">
-      First Come, First Served
+      🎉 21 Years of Building for India — First Come, First Served
     </p>
     <h2 id="lp-finalcta-heading" class="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">
-      Ready to get started? {TOTAL_SLOTS} slots. That's it.
+      Ready to get started? {TOTAL_SLOTS} slots. Closes on our Anniversary.
     </h2>
     <p class="mb-8 text-white/80 text-sm sm:text-base">
-      Offer ends June 30, 2026. After that, this price is gone.
+      {getPricePhaseLabel()}. Offer closes Aug 15, 2026 — our 21st anniversary &amp; final deadline. Only {TOTAL_SLOTS} slots.
     </p>
 
     <div class="flex flex-col sm:flex-row items-center justify-center gap-3">

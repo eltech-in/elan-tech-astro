@@ -108,17 +108,15 @@ const afterSteps = [
   ════════════════════════════════════════════════════════════════════════ -->
   <section aria-labelledby="booking-heading" class="bg-[var(--bg)] py-16 md:py-20">
     <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
-      <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 text-center">
+      <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-4 sm:p-8 text-center">
         <h2 id="booking-heading" class="font-heading text-2xl font-bold text-[var(--text)] mb-4">Book Your Free Call</h2>
-        <p class="text-[var(--text-dim)] mb-6">Use Calendly to pick a time that works for you:</p>
-        <a
-          href="https://calendly.com/elantech"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[var(--bg)] hover:opacity-90 transition-opacity"
-        >
-          Open Calendly Scheduler →
-        </a>
+        <p class="text-[var(--text-dim)] mb-6">Pick a time that works for you:</p>
+
+        <!-- Calendly inline widget begin -->
+        <div class="calendly-inline-widget" data-url="https://calendly.com/elantech/biz-meet?hide_event_type_details=1&hide_gdpr_banner=1" style="min-width:320px;height:700px;"></div>
+        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async is:inline></script>
+        <!-- Calendly inline widget end -->
+
         <p class="mt-4 text-sm text-[var(--text-muted)]">Or reach us directly:</p>
         <div class="flex flex-col sm:flex-row gap-3 justify-center mt-3">
           <a
