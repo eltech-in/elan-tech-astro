@@ -31,14 +31,14 @@ const serviceFaqs = [
 
 const breadcrumbs = [
   { name: 'Home', href: '/' },
-  { name: 'Services', href: '/services' },
-  { name: service.title, href: `/services/${service.slug}` },
+  { name: 'Services', href: '/services/' },
+  { name: service.title, href: `/services/${service.slug}/` },
 ];
 
 const schemaBreadcrumbs = breadcrumbs.map((b) => ({ name: b.name, url: b.href }));
 
 const schemas = [
-  serviceSchema(service.title, service.description, `/services/${service.slug}`),
+  serviceSchema(service.title, service.description, `/services/${service.slug}/`),
   faqSchema(serviceFaqs),
   breadcrumbSchema(schemaBreadcrumbs),
 ];
@@ -78,10 +78,10 @@ const deliverables = [
           {service.description} Your brand is the most valuable asset in your business — it shapes how customers perceive, trust, and remember you. We build brand identities with strategic purpose, ensuring every visual decision reinforces your positioning and creates a lasting emotional connection with your audience.
         </p>
         <div class="mt-6 flex flex-wrap gap-3">
-          <a href="/schedule-consultation" class="inline-flex items-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white shadow transition hover:opacity-90" style="background: #A855F7;">
+          <a href="/schedule-consultation/" class="inline-flex items-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white shadow transition hover:opacity-90" style="background: #A855F7;">
             Get Free Consultation
           </a>
-          <a href="/get-quote" class="inline-flex items-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
+          <a href="/get-quote/" class="inline-flex items-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
             Get a Quote
           </a>
         </div>
@@ -203,7 +203,7 @@ const deliverables = [
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
       {featuredCities.map((city) => (
         <a
-          href={city.hasLandingPage ? `/web-design-company-${city.slug}` : `/services/branding`}
+          href={city.hasLandingPage ? `/web-design-company-${city.slug}/` : `/services/branding/`}
           class="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-3 hover:border-purple-500/50 transition-colors"
         >
           <p class="font-medium text-sm text-[var(--text)]">{city.name}</p>
@@ -218,14 +218,14 @@ const deliverables = [
     <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-7 flex flex-col">
       <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-2">Ready to Get Started?</h3>
       <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Share your existing brand materials with us for a free brand audit. We'll identify gaps, inconsistencies, and opportunities — and show you what a refreshed identity could look like for your business. * Conditions apply.</p>
-      <a href="/free-website-audit" class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90" style="background: #A855F7;">
+      <a href="/free-website-audit/" class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90" style="background: #A855F7;">
         Get Free Audit
       </a>
     </div>
     <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-7 flex flex-col">
       <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-2">Have Questions?</h3>
       <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Wondering whether you need a full rebrand or just a logo refresh? Speak to one of our brand strategists and get a clear, honest assessment of where your brand stands today and what it needs to grow.</p>
-      <a href="/schedule-consultation" class="inline-flex items-center justify-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
+      <a href="/schedule-consultation/" class="inline-flex items-center justify-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
         Schedule a Call
       </a>
     </div>

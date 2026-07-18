@@ -6,13 +6,13 @@ import TechStackCarousel from '../../components/TechStackCarousel.astro';
 
 const breadcrumbs = [
   { name: 'Home', url: '/' },
-  { name: 'Services', url: '/services' },
+  { name: 'Services', url: '/services/' },
 ];
 
 const schemas = [
   breadcrumbSchema(breadcrumbs),
   ...services.map((s) =>
-    serviceSchema(s.title, s.description, `/services/${s.slug}`)
+    serviceSchema(s.title, s.description, `/services/${s.slug}/`)
   ),
 ];
 ---
@@ -33,10 +33,10 @@ const schemas = [
         From pixel-perfect designs to high-performing eCommerce stores, data-driven marketing campaigns to mobile applications — eLan Technology is your end-to-end digital partner. We deliver measurable results for businesses across India and beyond.
       </p>
       <div class="mt-8 flex flex-wrap justify-center gap-4">
-        <a href="/schedule-consultation" class="inline-flex items-center rounded-lg bg-[var(--accent)] px-6 py-3 text-sm font-semibold text-white shadow transition hover:opacity-90">
+        <a href="/schedule-consultation/" class="inline-flex items-center rounded-lg bg-[var(--accent)] px-6 py-3 text-sm font-semibold text-white shadow transition hover:opacity-90">
           Get Free Consultation
         </a>
-        <a href="/get-quote" class="inline-flex items-center rounded-lg border border-[var(--border)] px-6 py-3 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg-card)]">
+        <a href="/get-quote/" class="inline-flex items-center rounded-lg border border-[var(--border)] px-6 py-3 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg-card)]">
           Get a Quote
         </a>
       </div>
@@ -135,7 +135,7 @@ const schemas = [
                 )}
 
                 <a
-                  href={`/services/${service.slug}`}
+                  href={`/services/${service.slug}/`}
                   class="relative mt-auto inline-flex items-center gap-1 text-sm font-semibold transition-transform duration-200 group-hover:translate-x-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
                   style={`color: var(${service.cssVar});`}
                   aria-label={`Learn more about ${service.title}`}
@@ -195,7 +195,7 @@ const schemas = [
               </li>
             </ul>
             <a
-              href="/services/integrations"
+              href="/services/integrations/"
               class="relative mt-auto inline-flex items-center gap-1 text-sm font-semibold transition-transform duration-200 group-hover:translate-x-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
               style="color: var(--ac-cyan);"
               aria-label="Learn more about API & Integrations"
@@ -250,7 +250,7 @@ const schemas = [
                     ))}
                   </ul>
                   <a
-                    href={`/services/${ada.slug}`}
+                    href={`/services/${ada.slug}/`}
                     class="relative mt-auto inline-flex items-center gap-1 text-sm font-semibold transition-transform duration-200 group-hover:translate-x-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
                     style={`color: var(${ada.cssVar});`}
                     aria-label={`Learn more about ${ada.title}`}
@@ -270,10 +270,10 @@ const schemas = [
         <p class="text-center text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)] mb-5">Specialist Capabilities</p>
         <ul class="grid grid-cols-2 lg:grid-cols-4 gap-4" role="list">
           {[
-            { name: 'Headless CMS & Jamstack', desc: 'Composable Astro, Next.js & Sanity front ends decoupled from the back office', cssVar: '--ac-indigo', href: '/services/web-development', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 14h4"/></svg>' },
-            { name: 'Security Audits & Hardening', desc: 'OWASP reviews, CSP tuning, secret rotation & automated patch pipelines', cssVar: '--ac-red', href: '/services/maintenance-security', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg>' },
-            { name: 'Core Web Vitals Engineering', desc: 'Budget-driven LCP, INP & CLS tuning enforced in continuous integration', cssVar: '--ac-amber', href: '/services/web-development', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14l4-4"/><path d="M3.5 17a9 9 0 1 1 17 0"/><circle cx="12" cy="14" r="1"/></svg>' },
-            { name: 'ADA & WCAG Remediation', desc: 'Hybrid audits, VPAT 2.5 documentation & WCAG 2.1 AA conformance', cssVar: '--ac-emerald', href: '/blog/accessibility/ada-wcag-compliance-us-canada-2026', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M5 9h14"/><path d="M12 9v5"/><path d="M8 20l4-6 4 6"/></svg>' },
+            { name: 'Headless CMS & Jamstack', desc: 'Composable Astro, Next.js & Sanity front ends decoupled from the back office', cssVar: '--ac-indigo', href: '/services/web-development/', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 14h4"/></svg>' },
+            { name: 'Security Audits & Hardening', desc: 'OWASP reviews, CSP tuning, secret rotation & automated patch pipelines', cssVar: '--ac-red', href: '/services/maintenance-security/', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg>' },
+            { name: 'Core Web Vitals Engineering', desc: 'Budget-driven LCP, INP & CLS tuning enforced in continuous integration', cssVar: '--ac-amber', href: '/services/web-development/', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14l4-4"/><path d="M3.5 17a9 9 0 1 1 17 0"/><circle cx="12" cy="14" r="1"/></svg>' },
+            { name: 'ADA & WCAG Remediation', desc: 'Hybrid audits, VPAT 2.5 documentation & WCAG 2.1 AA conformance', cssVar: '--ac-emerald', href: '/blog/accessibility/ada-wcag-compliance-us-canada-2026/', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M5 9h14"/><path d="M12 9v5"/><path d="M8 20l4-6 4 6"/></svg>' },
           ].map(cap => (
             <li>
               <a
@@ -374,10 +374,10 @@ const schemas = [
       <h2 class="font-heading text-3xl font-bold text-[var(--text)] md:text-4xl">Not Sure Which Service You Need?</h2>
       <p class="mt-4 text-lg text-[var(--text-muted)]">Book a free 30-minute consultation with our strategists. We'll review your current digital presence, understand your goals, and recommend the services that will make the biggest impact — with no obligation to proceed.</p>
       <div class="mt-8 flex flex-wrap justify-center gap-4">
-        <a href="/schedule-consultation" class="inline-flex items-center rounded-lg bg-[var(--accent)] px-8 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:opacity-90">
+        <a href="/schedule-consultation/" class="inline-flex items-center rounded-lg bg-[var(--accent)] px-8 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:opacity-90">
           Get Free Consultation
         </a>
-        <a href="/get-quote" class="inline-flex items-center rounded-lg border border-[var(--border)] px-8 py-3.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg-card)]">
+        <a href="/get-quote/" class="inline-flex items-center rounded-lg border border-[var(--border)] px-8 py-3.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg-card)]">
           Get a Quote
         </a>
       </div>

@@ -83,7 +83,7 @@ export default function LoadMorePosts({ allPosts, initialCount = 6 }: Props) {
             <div className="p-5 flex flex-col flex-1">
               <h3 className="font-bold text-[var(--text)] text-base leading-snug line-clamp-2 mb-2 group-hover:text-[var(--accent)] transition-colors">
                 <a
-                  href={`/blog/${post.slug}`}
+                  href={`/blog/${post.slug}/`}
                   className="focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] before:absolute before:inset-0"
                 >
                   {post.title}

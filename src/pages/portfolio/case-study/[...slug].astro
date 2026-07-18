@@ -36,8 +36,8 @@ const nextProject = idx >= 0 && idx < allInGroup.length - 1 ? allInGroup[idx + 1
 
 const breadcrumbs = [
   { name: 'Home', url: '/' },
-  { name: 'Portfolio', url: '/portfolio' },
-  { name: project.title, url: `/portfolio/case-study/${project.slug}` },
+  { name: 'Portfolio', url: '/portfolio/' },
+  { name: project.title, url: `/portfolio/case-study/${project.slug}/` },
 ];
 
 const caseStudySchema = {
@@ -45,7 +45,7 @@ const caseStudySchema = {
   '@type': 'CreativeWork',
   name: project.title,
   description: project.description,
-  url: `https://elan-tech.net/portfolio/case-study/${project.slug}`,
+  url: `https://elan-tech.net/portfolio/case-study/${project.slug}/`,
   author: { '@type': 'Organization', name: 'eLan Technology', url: 'https://elan-tech.net' },
   genre: project.category,
 };
@@ -89,7 +89,7 @@ const hasNarrative = project.challenge && project.solution && project.result;
         <ol class="flex items-center gap-2 text-xs sm:text-sm text-white/70">
           <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
           <li aria-hidden="true">/</li>
-          <li><a href="/portfolio" class="hover:text-white transition-colors">Portfolio</a></li>
+          <li><a href="/portfolio/" class="hover:text-white transition-colors">Portfolio</a></li>
           <li aria-hidden="true">/</li>
           <li class="text-white font-semibold truncate" aria-current="page">{project.title}</li>
         </ol>
@@ -128,7 +128,7 @@ const hasNarrative = project.challenge && project.solution && project.result;
             </a>
           )}
           <a
-            href="/get-quote"
+            href="/get-quote/"
             class="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/5 backdrop-blur-sm px-7 py-3.5 text-sm font-bold text-white hover:bg-white/15 transition-all"
           >
             Build Something Similar
@@ -189,7 +189,7 @@ const hasNarrative = project.challenge && project.solution && project.result;
               </div>
             </>
           ) : (
-            <!-- Minimal variant for projects without narrative -->
+            /* Minimal variant for projects without narrative */
             <div class="relative overflow-hidden rounded-2xl border border-[var(--border)] p-7 sm:p-9" style={`background: linear-gradient(135deg, color-mix(in srgb, var(${token}) 10%, var(--bg-card)) 0%, var(--bg-card) 75%);`}>
               <p class="text-xs font-bold uppercase tracking-widest mb-2" style={`color: var(${token});`}>Project Overview</p>
               <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">About this project</h2>
@@ -209,8 +209,8 @@ const hasNarrative = project.challenge && project.solution && project.result;
             </h3>
             <p class="text-[var(--text-dim)] mb-6">Let's create something remarkable for your brand — get a proposal in 24 hours.</p>
             <div class="flex flex-col sm:flex-row gap-3 justify-center">
-              <a href="/get-quote" class="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--accent)] px-7 py-3 text-sm font-bold text-white hover:brightness-110 transition-all">Start Your Project</a>
-              <a href="/portfolio" class="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--border)] px-7 py-3 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">← All Projects</a>
+              <a href="/get-quote/" class="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--accent)] px-7 py-3 text-sm font-bold text-white hover:brightness-110 transition-all">Start Your Project</a>
+              <a href="/portfolio/" class="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--border)] px-7 py-3 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">← All Projects</a>
             </div>
           </div>
         </article>
@@ -264,13 +264,13 @@ const hasNarrative = project.challenge && project.solution && project.result;
             {(prevProject || nextProject) && (
               <div class="grid grid-cols-2 gap-2">
                 {prevProject ? (
-                  <a href={`/portfolio/case-study/${prevProject.slug}`} class="group rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-3 hover:border-[var(--accent)] transition-colors">
+                  <a href={`/portfolio/case-study/${prevProject.slug}/`} class="group rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-3 hover:border-[var(--accent)] transition-colors">
                     <p class="text-[10px] uppercase tracking-widest text-[var(--text-muted)] mb-1">← Previous</p>
                     <p class="text-xs font-semibold text-[var(--text)] line-clamp-1 group-hover:text-[var(--accent)] transition-colors">{prevProject.title}</p>
                   </a>
                 ) : <span></span>}
                 {nextProject ? (
-                  <a href={`/portfolio/case-study/${nextProject.slug}`} class="group rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-3 text-right hover:border-[var(--accent)] transition-colors">
+                  <a href={`/portfolio/case-study/${nextProject.slug}/`} class="group rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-3 text-right hover:border-[var(--accent)] transition-colors">
                     <p class="text-[10px] uppercase tracking-widest text-[var(--text-muted)] mb-1">Next →</p>
                     <p class="text-xs font-semibold text-[var(--text)] line-clamp-1 group-hover:text-[var(--accent)] transition-colors">{nextProject.title}</p>
                   </a>
@@ -283,13 +283,13 @@ const hasNarrative = project.challenge && project.solution && project.result;
               <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
                 <div class="flex items-center justify-between mb-4">
                   <p class="text-[11px] font-bold uppercase tracking-widest" style={`color: var(${token});`}>Related Work</p>
-                  <a href="/portfolio" class="text-[11px] font-semibold text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors">View All →</a>
+                  <a href="/portfolio/" class="text-[11px] font-semibold text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors">View All →</a>
                 </div>
                 <ul class="space-y-3" role="list">
                   {related.map((p) => (
                     <li>
                       <a
-                        href={`/portfolio/case-study/${p.slug}`}
+                        href={`/portfolio/case-study/${p.slug}/`}
                         class="group flex items-center gap-3 rounded-lg p-2 -mx-2 hover:bg-[var(--bg)] transition-colors"
                       >
                         <div class="h-14 w-20 shrink-0 overflow-hidden rounded-lg border border-[var(--border)] bg-[var(--bg)]">
@@ -321,7 +321,7 @@ const hasNarrative = project.challenge && project.solution && project.result;
               <span aria-hidden="true" class="absolute -right-8 -bottom-8 h-28 w-28 rounded-full blur-2xl opacity-40" style={`background: var(${token});`}></span>
               <p class="relative font-heading text-lg font-bold text-[var(--text)] mb-2">Have a similar project?</p>
               <p class="relative text-xs text-[var(--text-dim)] mb-4">Free 20-minute consultation. No hard sell.</p>
-              <a href="/schedule-consultation" class="relative inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all" style={`background: var(${token});`}>
+              <a href="/schedule-consultation/" class="relative inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all" style={`background: var(${token});`}>
                 Book a Call
               </a>
             </div>
@@ -341,7 +341,7 @@ const hasNarrative = project.challenge && project.solution && project.result;
             <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-1">Keep Exploring</p>
             <h2 id="more-case-h2" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)]">More case studies</h2>
           </div>
-          <a href="/portfolio" class="text-sm font-semibold text-[var(--accent)] hover:underline">View all →</a>
+          <a href="/portfolio/" class="text-sm font-semibold text-[var(--accent)] hover:underline">View all →</a>
         </header>
 
         <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" role="list">
@@ -351,7 +351,7 @@ const hasNarrative = project.challenge && project.solution && project.result;
             return (
               <li>
                 <a
-                  href={`/portfolio/case-study/${p.slug}`}
+                  href={`/portfolio/case-study/${p.slug}/`}
                   class="group relative block h-full overflow-hidden rounded-2xl border border-[var(--border)] hover:-translate-y-1 transition-all"
                   style={`background: linear-gradient(135deg, color-mix(in srgb, var(${rToken}) 12%, var(--bg)) 0%, var(--bg) 70%);`}
                 >

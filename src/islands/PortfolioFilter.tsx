@@ -107,7 +107,7 @@ export default function PortfolioFilter({ projects }: Props) {
               </div>
 
               <a
-                href={`/portfolio/${project.slug}`}
+                href={`/portfolio/${project.slug}/`}
                 className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent)] hover:gap-2 transition-all duration-150"
               >
                 View Case Study →

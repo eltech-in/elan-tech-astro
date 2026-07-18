@@ -84,8 +84,8 @@ const popularPosts = [...allPublished]
 
 const schema = breadcrumbSchema([
   { name: 'Home', url: '/' },
-  { name: 'Blog', url: '/blog' },
-  { name: categoryLabel, url: `/blog/category/${category}` },
+  { name: 'Blog', url: '/blog/' },
+  { name: categoryLabel, url: `/blog/category/${category}/` },
 ]);
 ---
 
@@ -119,12 +119,12 @@ const schema = breadcrumbSchema([
   <section class="bg-[var(--bg)] py-4 border-b border-[var(--border)] sticky top-[72px] z-30 backdrop-blur-md bg-[var(--bg)]/90">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <nav aria-label="Blog categories" class="flex flex-wrap gap-2">
-        <a href="/blog" class="px-4 py-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] text-sm text-[var(--text-dim)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
+        <a href="/blog/" class="px-4 py-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] text-sm text-[var(--text-dim)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
           All Posts
         </a>
         {categories.map((cat) => (
           <a
-            href={`/blog/category/${cat}`}
+            href={`/blog/category/${cat}/`}
             aria-current={cat === category ? 'page' : undefined}
             class={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${cat === category ? 'bg-[var(--accent)] text-[var(--bg)]' : 'border border-[var(--border)] bg-[var(--bg-card)] text-[var(--text-dim)] hover:border-[var(--accent)] hover:text-[var(--accent)]'}`}
           >
@@ -145,7 +145,7 @@ const schema = breadcrumbSchema([
           {posts.length === 0 ? (
             <div class="py-20 text-center">
               <p class="text-[var(--text-dim)] text-lg">No posts in this category yet.</p>
-              <a href="/blog" class="mt-4 inline-flex items-center gap-2 text-[var(--accent)] font-semibold hover:underline">← Back to all posts</a>
+              <a href="/blog/" class="mt-4 inline-flex items-center gap-2 text-[var(--accent)] font-semibold hover:underline">← Back to all posts</a>
             </div>
           ) : (
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -155,7 +155,7 @@ const schema = breadcrumbSchema([
                 return (
                   <article class="group rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] overflow-hidden flex flex-col hover:border-[var(--accent)]/40 hover:-translate-y-0.5 transition-all duration-300 shadow-sm hover:shadow-lg">
                     {post.data.featuredImage?.src && (
-                      <a href={`/blog/${post.data.category}/${post.id}`} aria-hidden="true" tabindex="-1" class="block aspect-video overflow-hidden">
+                      <a href={`/blog/${post.data.category}/${post.id}/`} aria-hidden="true" tabindex="-1" class="block aspect-video overflow-hidden">
                         <img
                           src={post.data.featuredImage.src}
                           alt={post.data.featuredImage.alt}
@@ -172,7 +172,7 @@ const schema = breadcrumbSchema([
                         {categoryLabel}
                       </span>
                       <h2 class="font-heading text-base font-semibold text-[var(--text)] mb-2 leading-snug flex-1">
-                        <a href={`/blog/${post.data.category}/${post.id}`} class="hover:text-[var(--accent)] transition-colors">
+                        <a href={`/blog/${post.data.category}/${post.id}/`} class="hover:text-[var(--accent)] transition-colors">
                           {post.data.title}
                         </a>
                       </h2>
@@ -202,7 +202,7 @@ const schema = breadcrumbSchema([
             <ul class="space-y-4">
               {popularPosts.map((p, i) => (
                 <li>
-                  <a href={`/blog/${p.data.category}/${p.id}`} class="flex items-start gap-3 group">
+                  <a href={`/blog/${p.data.category}/${p.id}/`} class="flex items-start gap-3 group">
                     <span class="shrink-0 flex h-7 w-7 items-center justify-center rounded-full bg-[var(--accent)]/10 text-xs font-bold text-[var(--accent)]">
                       {i + 1}
                     </span>
@@ -223,7 +223,7 @@ const schema = breadcrumbSchema([
                 return (
                   <li>
                     <a
-                      href={`/blog/category/${cat}`}
+                      href={`/blog/category/${cat}/`}
                       aria-current={cat === category ? 'page' : undefined}
                       class={`flex items-center justify-between rounded-xl px-3 py-2 text-sm transition-colors ${cat === category ? 'bg-[var(--accent)]/10 text-[var(--accent)] font-semibold' : 'text-[var(--text-dim)] hover:bg-[var(--accent)]/5 hover:text-[var(--accent)]'}`}
                     >
@@ -242,7 +242,7 @@ const schema = breadcrumbSchema([
               Get a free website audit covering SEO & security. * Conditions apply.
             </p>
             <a
-              href="/free-website-audit"
+              href="/free-website-audit/"
               class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-5 py-2.5 text-sm font-semibold text-[var(--bg)] hover:brightness-110 transition-all"
             >
               Get Free Audit

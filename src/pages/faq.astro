@@ -7,10 +7,10 @@ const schema = [
   faqSchema(faqs),
   breadcrumbSchema([
     { name: 'Home', url: '/' },
-    { name: 'FAQ', url: '/faq' },
+    { name: 'FAQ', url: '/faq/' },
   ]),
   // AEO: every FAQ answer block is fair game for voice/featured snippets.
-  speakableSchema('/faq', ['h1', '.faq-question', '.faq-answer']),
+  speakableSchema('/faq/', ['h1', '.faq-question', '.faq-answer']),
 ];
 
 const categoryLabels: Record<string, string> = {
@@ -117,13 +117,13 @@ const categories = [...new Set(faqs.map((f) => f.category))];
         </p>
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a
-            href="/contact"
+            href="/contact/"
             class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[var(--bg)] hover:opacity-90 transition-opacity"
           >
             Contact Us Directly
           </a>
           <a
-            href="/schedule-consultation"
+            href="/schedule-consultation/"
             class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-8 py-3 text-base font-semibold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
           >
             Schedule a Call

@@ -151,7 +151,7 @@ function logoAlt(filename: string): string {
           <!-- CTA Buttons -->
           <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-10">
             <a
-              href="/free-website-audit"
+              href="/free-website-audit/"
               class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-4 text-base font-semibold text-[var(--bg)] shadow-lg shadow-[var(--accent)]/25 transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
             >
               Get Free Website Audit
@@ -160,7 +160,7 @@ function logoAlt(filename: string): string {
               </svg>
             </a>
             <a
-              href="/portfolio"
+              href="/portfolio/"
               class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-transparent px-8 py-4 text-base font-semibold text-[var(--text)] transition-all duration-300 hover:border-[var(--accent)] hover:text-[var(--accent)] hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
             >
               View Our Work
@@ -393,7 +393,7 @@ function logoAlt(filename: string): string {
                 )}
 
                 <a
-                  href={`/services/${service.slug}`}
+                  href={`/services/${service.slug}/`}
                   class="relative mt-auto inline-flex items-center gap-1 text-sm font-semibold transition-transform duration-200 group-hover:translate-x-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
                   style={`color: var(${service.cssVar});`}
                   aria-label={`Learn more about ${service.title}`}
@@ -414,7 +414,7 @@ function logoAlt(filename: string): string {
         const ada = services[services.length - 1];
         return (
           <a
-            href={`/services/${ada.slug}`}
+            href={`/services/${ada.slug}/`}
             class="group mt-6 flex flex-col md:flex-row items-center gap-6 rounded-2xl border border-[var(--border)] p-6 md:p-8 hover:border-[var(--accent)]/40 hover:-translate-y-1 transition-all duration-300 hover:shadow-lg hover:shadow-[var(--accent)]/5 overflow-hidden"
             style={`background: linear-gradient(135deg, ${ada.accent}10, var(--bg-card) 60%);`}
           >
@@ -451,10 +451,10 @@ function logoAlt(filename: string): string {
         <p class="text-center text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)] mb-5">Specialist Capabilities</p>
         <ul class="grid grid-cols-2 lg:grid-cols-4 gap-4" role="list">
           {[
-            { name: 'Headless CMS & Jamstack', desc: 'Composable Astro, Next.js & Sanity front ends decoupled from the back office', cssVar: '--ac-indigo', href: '/services/web-development', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 14h4"/></svg>' },
-            { name: 'Security Audits & Hardening', desc: 'OWASP reviews, CSP tuning, secret rotation & automated patch pipelines', cssVar: '--ac-red', href: '/services/maintenance-security', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg>' },
-            { name: 'Core Web Vitals Engineering', desc: 'Budget-driven LCP, INP & CLS tuning enforced in continuous integration', cssVar: '--ac-amber', href: '/services/web-development', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14l4-4"/><path d="M3.5 17a9 9 0 1 1 17 0"/><circle cx="12" cy="14" r="1"/></svg>' },
-            { name: 'ADA & WCAG Remediation', desc: 'Hybrid audits, VPAT 2.5 documentation & WCAG 2.1 AA conformance', cssVar: '--ac-emerald', href: '/blog/accessibility/ada-wcag-compliance-us-canada-2026', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M5 9h14"/><path d="M12 9v5"/><path d="M8 20l4-6 4 6"/></svg>' },
+            { name: 'Headless CMS & Jamstack', desc: 'Composable Astro, Next.js & Sanity front ends decoupled from the back office', cssVar: '--ac-indigo', href: '/services/web-development/', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 14h4"/></svg>' },
+            { name: 'Security Audits & Hardening', desc: 'OWASP reviews, CSP tuning, secret rotation & automated patch pipelines', cssVar: '--ac-red', href: '/services/maintenance-security/', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg>' },
+            { name: 'Core Web Vitals Engineering', desc: 'Budget-driven LCP, INP & CLS tuning enforced in continuous integration', cssVar: '--ac-amber', href: '/services/web-development/', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14l4-4"/><path d="M3.5 17a9 9 0 1 1 17 0"/><circle cx="12" cy="14" r="1"/></svg>' },
+            { name: 'ADA & WCAG Remediation', desc: 'Hybrid audits, VPAT 2.5 documentation & WCAG 2.1 AA conformance', cssVar: '--ac-emerald', href: '/blog/accessibility/ada-wcag-compliance-us-canada-2026/', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M5 9h14"/><path d="M12 9v5"/><path d="M8 20l4-6 4 6"/></svg>' },
           ].map(cap => (
             <li>
               <a
@@ -505,7 +505,7 @@ function logoAlt(filename: string): string {
             We'll analyse your existing website and identify critical issues — completely free, no strings attached.
           </p>
           <a
-            href="/free-website-audit"
+            href="/free-website-audit/"
             class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-10 py-4 text-base font-semibold text-white shadow-lg shadow-[var(--accent)]/25 transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
           >
             Claim Free Audit
@@ -562,7 +562,7 @@ function logoAlt(filename: string): string {
                   {product.desc}
                 </p>
                 <a
-                  href={`/products/${product.slug}`}
+                  href={`/products/${product.slug}/`}
                   class="mt-auto inline-flex items-center gap-1 text-sm font-semibold transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
                   style={`color: var(${product.cssVar});`}
                   aria-label={`Learn more about ${product.title}`}
@@ -635,7 +635,7 @@ function logoAlt(filename: string): string {
             {featuredCities.map(city => (
               <li>
                 <a
-                  href={city.hasLandingPage ? `/web-design-company-${city.slug}` : '/contact'}
+                  href={city.hasLandingPage ? `/web-design-company-${city.slug}/` : '/contact/'}
                   class="group flex items-center gap-3 rounded-xl border border-[var(--border)] bg-[var(--bg)] p-4 transition-all duration-200 hover:border-[var(--accent)]/40 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
                 >
                   <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--accent)]/10 text-[var(--accent)] font-bold text-sm flex-shrink-0" aria-hidden="true">
@@ -666,7 +666,7 @@ function logoAlt(filename: string): string {
             {featuredCountries.map(country => (
               <li>
                 <a
-                  href={country.hasLandingPage ? `/web-design-company-${country.slug}` : '/contact'}
+                  href={country.hasLandingPage ? `/web-design-company-${country.slug}/` : '/contact/'}
                   class="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] px-4 py-2 text-sm text-[var(--text-muted)] transition-all duration-200 hover:border-[#6366F1]/50 hover:text-[var(--text)] hover:bg-[#6366F1]/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
                 >
                   <span class="text-base leading-none" aria-hidden="true">{flagEmoji(country.code)}</span>
@@ -677,7 +677,7 @@ function logoAlt(filename: string): string {
             {moreCountries.map(country => (
               <li>
                 <a
-                  href={`/web-design-company-${country.slug}`}
+                  href={`/web-design-company-${country.slug}/`}
                   class="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] px-4 py-2 text-sm text-[var(--text-muted)] transition-all duration-200 hover:border-[#6366F1]/50 hover:text-[var(--text)] hover:bg-[#6366F1]/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
                 >
                   <span class="text-base leading-none" aria-hidden="true">{flagEmoji(country.code)}</span>
@@ -703,7 +703,7 @@ function logoAlt(filename: string): string {
               {moreCities.map(city => (
                 <li>
                   <a
-                    href={`/web-design-company-${city.slug}`}
+                    href={`/web-design-company-${city.slug}/`}
                     class="inline-block py-1 text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors duration-150"
                   >
                     {city.name}
@@ -806,7 +806,7 @@ function logoAlt(filename: string): string {
                 Get a comprehensive report on your site's security &amp; SEO health
               </p>
               <a
-                href="/free-website-audit"
+                href="/free-website-audit/"
                 class="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#00E5A0] to-[#00B4D8] px-6 py-3 text-sm font-semibold text-[var(--bg)] shadow-lg shadow-[#00E5A0]/25 transition-all duration-300 hover:shadow-xl hover:shadow-[#00E5A0]/30 hover:-translate-y-0.5"
               >
                 Get Free Audit
@@ -833,7 +833,7 @@ function logoAlt(filename: string): string {
                 Tell us about your project and receive a detailed proposal within 24 hours
               </p>
               <a
-                href="/get-quote"
+                href="/get-quote/"
                 class="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#818CF8] to-[#C084FC] px-6 py-3 text-sm font-semibold text-[var(--bg)] shadow-lg shadow-[#818CF8]/25 transition-all duration-300 hover:shadow-xl hover:shadow-[#818CF8]/30 hover:-translate-y-0.5"
               >
                 Request a Quote
@@ -860,7 +860,7 @@ function logoAlt(filename: string): string {
                 Book a free 30-minute consultation with our team
               </p>
               <a
-                href="/schedule-consultation"
+                href="/schedule-consultation/"
                 class="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#F472B6] to-[#FB923C] px-6 py-3 text-sm font-semibold text-[var(--bg)] shadow-lg shadow-[#F472B6]/25 transition-all duration-300 hover:shadow-xl hover:shadow-[#F472B6]/30 hover:-translate-y-0.5"
               >
                 Book a Consultation

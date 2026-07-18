@@ -31,14 +31,14 @@ const serviceFaqs = [
 
 const breadcrumbs = [
   { name: 'Home', href: '/' },
-  { name: 'Services', href: '/services' },
-  { name: service.title, href: `/services/${service.slug}` },
+  { name: 'Services', href: '/services/' },
+  { name: service.title, href: `/services/${service.slug}/` },
 ];
 
 const schemaBreadcrumbs = breadcrumbs.map((b) => ({ name: b.name, url: b.href }));
 
 const schemas = [
-  serviceSchema(service.title, service.description, `/services/${service.slug}`),
+  serviceSchema(service.title, service.description, `/services/${service.slug}/`),
   faqSchema(serviceFaqs),
   breadcrumbSchema(schemaBreadcrumbs),
 ];
@@ -74,10 +74,10 @@ const technologies = [
           {service.description} We build with performance, maintainability, and scalability as first-class requirements. Your website or application will score well on Core Web Vitals, handle real-world traffic, and be easy for your team to manage and extend over time.
         </p>
         <div class="mt-6 flex flex-wrap gap-3">
-          <a href="/schedule-consultation" class="inline-flex items-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white shadow transition hover:opacity-90" style="background: var(--ac-indigo);">
+          <a href="/schedule-consultation/" class="inline-flex items-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white shadow transition hover:opacity-90" style="background: var(--ac-indigo);">
             Get Free Consultation
           </a>
-          <a href="/get-quote" class="inline-flex items-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
+          <a href="/get-quote/" class="inline-flex items-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
             Get a Quote
           </a>
         </div>
@@ -206,7 +206,7 @@ const technologies = [
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
       {featuredCities.map((city) => (
         <a
-          href={city.hasLandingPage ? `/web-design-company-${city.slug}` : `/services/web-development`}
+          href={city.hasLandingPage ? `/web-design-company-${city.slug}/` : `/services/web-development/`}
           class="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-3 hover:border-indigo-500/50 transition-colors"
         >
           <p class="font-medium text-sm text-[var(--text)]">{city.name}</p>
@@ -221,14 +221,14 @@ const technologies = [
     <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-7 flex flex-col">
       <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-2">Ready to Get Started?</h3>
       <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Get a free technical audit of your existing website or application. We'll identify performance bottlenecks, security vulnerabilities, and scalability limitations with actionable recommendations. * Conditions apply.</p>
-      <a href="/free-website-audit" class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90" style="background: var(--ac-indigo);">
+      <a href="/free-website-audit/" class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90" style="background: var(--ac-indigo);">
         Get Free Audit
       </a>
     </div>
     <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-7 flex flex-col">
       <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-2">Have Questions?</h3>
       <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Not sure which technology stack is right for your project? Book a free 30-minute call with one of our senior engineers to discuss your requirements and get honest advice.</p>
-      <a href="/schedule-consultation" class="inline-flex items-center justify-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
+      <a href="/schedule-consultation/" class="inline-flex items-center justify-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
         Schedule a Call
       </a>
     </div>

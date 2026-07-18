@@ -45,7 +45,7 @@ export default function CookieConsent() {
           <p className="text-xs text-[var(--text-dim)] leading-relaxed">
             We use cookies to improve your experience, analyze traffic, and personalize content.
             You can choose to accept only essential cookies or all cookies.{' '}
-            <a href="/privacy-policy" className="underline hover:text-[var(--accent)] transition-colors">
+            <a href="/privacy-policy/" className="underline hover:text-[var(--accent)] transition-colors">
               Privacy Policy
             </a>
           </p>

@@ -20,31 +20,31 @@ const blogPosts = await getCollection('blog');
 
 const staticPages: IndexEntry[] = [
   { t: 'Home', d: 'Web Design & Development Company — Trusted by 500+ Businesses since 2002. WCAG/ADA compliant websites.', u: '/', c: 'Page' },
-  { t: 'About eLan Technology', d: 'Web design agency in Nagpur, India since 2002. Meet the team, our story, milestones, and values.', u: '/about', c: 'Page' },
-  { t: 'Contact eLan Technology', d: 'Get in touch with our team — phone, WhatsApp, email, office location in Nagpur.', u: '/contact', c: 'Page' },
-  { t: 'Pricing', d: 'Transparent pricing for web design, development, eCommerce, and digital marketing services.', u: '/pricing', c: 'Page' },
-  { t: 'Free Website Audit', d: 'Free SEO, security, accessibility and speed audit of your website — 48-hour turnaround.', u: '/free-website-audit', c: 'Audit' },
-  { t: 'FAQ', d: 'Frequently asked questions about our services, process, pricing, and timelines.', u: '/faq', c: 'Page' },
-  { t: 'Careers', d: 'Join the eLan Technology team in Nagpur — open positions for designers, developers, and marketers.', u: '/careers', c: 'Page' },
-  { t: 'Portfolio', d: '500+ projects delivered across web design, development, eCommerce, and custom software.', u: '/portfolio', c: 'Portfolio' },
-  { t: 'Testimonials', d: 'Reviews from our clients in India, the United States, and worldwide.', u: '/testimonials', c: 'Page' },
-  { t: 'Get a Project Quote', d: 'Tell us about your project and receive a detailed quote within 24 hours.', u: '/get-quote', c: 'Page' },
-  { t: 'Schedule a Free Strategy Consultation', d: 'Book a free 30-minute strategy call with our team.', u: '/schedule-consultation', c: 'Page' },
-  { t: 'Request a Product Demo', d: 'See our proprietary software products in action.', u: '/request-demo', c: 'Page' },
-  { t: 'Blog', d: 'Insights on web design, SEO, accessibility, eCommerce, and digital marketing.', u: '/blog', c: 'Blog' },
-  { t: 'Accessibility Statement', d: 'How eLan Technology meets WCAG 2.2 AA standards on this site.', u: '/accessibility-statement', c: 'Legal' },
+  { t: 'About eLan Technology', d: 'Web design agency in Nagpur, India since 2002. Meet the team, our story, milestones, and values.', u: '/about/', c: 'Page' },
+  { t: 'Contact eLan Technology', d: 'Get in touch with our team — phone, WhatsApp, email, office location in Nagpur.', u: '/contact/', c: 'Page' },
+  { t: 'Pricing', d: 'Transparent pricing for web design, development, eCommerce, and digital marketing services.', u: '/pricing/', c: 'Page' },
+  { t: 'Free Website Audit', d: 'Free SEO, security, accessibility and speed audit of your website — 48-hour turnaround.', u: '/free-website-audit/', c: 'Audit' },
+  { t: 'FAQ', d: 'Frequently asked questions about our services, process, pricing, and timelines.', u: '/faq/', c: 'Page' },
+  { t: 'Careers', d: 'Join the eLan Technology team in Nagpur — open positions for designers, developers, and marketers.', u: '/careers/', c: 'Page' },
+  { t: 'Portfolio', d: '500+ projects delivered across web design, development, eCommerce, and custom software.', u: '/portfolio/', c: 'Portfolio' },
+  { t: 'Testimonials', d: 'Reviews from our clients in India, the United States, and worldwide.', u: '/testimonials/', c: 'Page' },
+  { t: 'Get a Project Quote', d: 'Tell us about your project and receive a detailed quote within 24 hours.', u: '/get-quote/', c: 'Page' },
+  { t: 'Schedule a Free Strategy Consultation', d: 'Book a free 30-minute strategy call with our team.', u: '/schedule-consultation/', c: 'Page' },
+  { t: 'Request a Product Demo', d: 'See our proprietary software products in action.', u: '/request-demo/', c: 'Page' },
+  { t: 'Blog', d: 'Insights on web design, SEO, accessibility, eCommerce, and digital marketing.', u: '/blog/', c: 'Blog' },
+  { t: 'Accessibility Statement', d: 'How eLan Technology meets WCAG 2.2 AA standards on this site.', u: '/accessibility-statement/', c: 'Legal' },
 ];
 
 const serviceEntries: IndexEntry[] = services.map((s) => ({
   t: s.title,
   d: s.tagline + ' — ' + s.description,
-  u: `/services/${s.slug}`,
+  u: `/services/${s.slug}/`,
   c: 'Service',
 }));
 serviceEntries.unshift({
   t: 'All Services',
   d: 'Web design, development, eCommerce, SEO, digital marketing, mobile apps, branding, and maintenance.',
-  u: '/services',
+  u: '/services/',
   c: 'Service',
 });
 
@@ -53,7 +53,7 @@ const cityEntries: IndexEntry[] = cities
   .map((c) => ({
     t: `Web Design Company in ${c.name}`,
     d: c.tagline,
-    u: `/web-design-company-${c.slug}`,
+    u: `/web-design-company-${c.slug}/`,
     c: 'City',
   }));
 
@@ -62,27 +62,27 @@ const countryEntries: IndexEntry[] = countries
   .map((c) => ({
     t: `Outsource Web Design to India from ${c.name}`,
     d: `${c.primaryKeyword}. Save ${c.costComparison.savings} vs local agencies. Timezone: ${c.timezone}.`,
-    u: `/web-design-company-${c.slug}`,
+    u: `/web-design-company-${c.slug}/`,
     c: 'Country',
   }));
 
 const productEntries: IndexEntry[] = products.map((p) => ({
   t: p.title,
   d: p.desc,
-  u: `/products/${p.slug}`,
+  u: `/products/${p.slug}/`,
   c: 'Product',
 }));
 productEntries.unshift({
   t: 'Proprietary Software Products',
   d: 'Own your platform — proprietary business software products by eLan Technology.',
-  u: '/products',
+  u: '/products/',
   c: 'Product',
 });
 
 const portfolioEntries: IndexEntry[] = projects.map((p) => ({
   t: `${p.title} — ${p.category} Case Study`,
   d: p.description,
-  u: `/portfolio/case-study/${p.slug}`,
+  u: `/portfolio/case-study/${p.slug}/`,
   c: 'Case Study',
 }));
 
@@ -91,7 +91,7 @@ const blogEntries: IndexEntry[] = blogPosts
   .map((p) => ({
     t: p.data.title,
     d: p.data.description,
-    u: `/blog/${p.data.category}/${p.id.replace(/\.mdx?$/, '')}`,
+    u: `/blog/${p.data.category}/${p.id.replace(/\.mdx?$/, '')}/`,
     c: 'Blog',
   }));
 
@@ -107,7 +107,7 @@ const searchIndex: IndexEntry[] = [
 
 const schema = breadcrumbSchema([
   { name: 'Home', url: '/' },
-  { name: 'Search', url: '/search' },
+  { name: 'Search', url: '/search/' },
 ]);
 ---
 
@@ -126,7 +126,7 @@ const schema = breadcrumbSchema([
         Find services, case studies, products, city pages, and articles.
       </p>
 
-      <form id="search-form" role="search" class="relative" action="/search">
+      <form id="search-form" role="search" class="relative" action="/search/">
         <label for="search-input" class="sr-only">Search the site</label>
         <input
           id="search-input"
@@ -156,11 +156,11 @@ const schema = breadcrumbSchema([
         <p class="text-lg font-semibold text-[var(--text)] mb-2">No matches found</p>
         <p class="text-[var(--text-dim)] mb-6">Try a broader keyword, or browse popular pages below.</p>
         <div class="flex flex-wrap justify-center gap-2">
-          <a href="/services" class="rounded-full border border-[var(--border)] px-4 py-2 text-sm hover:border-[var(--accent)]">Services</a>
-          <a href="/portfolio" class="rounded-full border border-[var(--border)] px-4 py-2 text-sm hover:border-[var(--accent)]">Portfolio</a>
-          <a href="/blog" class="rounded-full border border-[var(--border)] px-4 py-2 text-sm hover:border-[var(--accent)]">Blog</a>
-          <a href="/free-website-audit" class="rounded-full border border-[var(--border)] px-4 py-2 text-sm hover:border-[var(--accent)]">Free Audit</a>
-          <a href="/contact" class="rounded-full border border-[var(--border)] px-4 py-2 text-sm hover:border-[var(--accent)]">Contact</a>
+          <a href="/services/" class="rounded-full border border-[var(--border)] px-4 py-2 text-sm hover:border-[var(--accent)]">Services</a>
+          <a href="/portfolio/" class="rounded-full border border-[var(--border)] px-4 py-2 text-sm hover:border-[var(--accent)]">Portfolio</a>
+          <a href="/blog/" class="rounded-full border border-[var(--border)] px-4 py-2 text-sm hover:border-[var(--accent)]">Blog</a>
+          <a href="/free-website-audit/" class="rounded-full border border-[var(--border)] px-4 py-2 text-sm hover:border-[var(--accent)]">Free Audit</a>
+          <a href="/contact/" class="rounded-full border border-[var(--border)] px-4 py-2 text-sm hover:border-[var(--accent)]">Contact</a>
         </div>
       </div>
 

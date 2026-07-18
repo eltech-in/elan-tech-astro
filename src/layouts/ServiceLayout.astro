@@ -34,9 +34,9 @@ const services: Array<{ label: string; slug?: string; href?: string }> = [
   { label: 'Mobile Apps', slug: 'mobile-app-development' },
   { label: 'Branding', slug: 'branding' },
   { label: 'Maintenance & Security', slug: 'maintenance-security' },
-  { label: 'API Integrations', href: '/services/integrations' },
-  { label: 'ADA & WCAG Compliance', href: '/services/ada-compliant-web-design' },
-  { label: 'Emergency ADA Remediation', href: '/services/ada-compliant-web-design/emergency-remediation' },
+  { label: 'API Integrations', href: '/services/integrations/' },
+  { label: 'ADA & WCAG Compliance', href: '/services/ada-compliant-web-design/' },
+  { label: 'Emergency ADA Remediation', href: '/services/ada-compliant-web-design/emergency-remediation/' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -72,7 +72,7 @@ const currentPath = Astro.url.pathname;
         </h2>
         <ul class="flex flex-col gap-1">
           {services.map((service) => {
-            const href = service.href || `/services/${service.slug}`;
+            const href = service.href || `/services/${service.slug}/`;
             const isActive =
               currentPath === href || currentPath === `${href}/`;
             return (

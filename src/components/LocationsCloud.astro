@@ -41,7 +41,7 @@ const { heading = 'Available Across India & Internationally', intro } = Astro.pr
             {citiesWithPages.map((city) => (
               <li>
                 <a
-                  href={`/web-design-company-${city.slug}`}
+                  href={`/web-design-company-${city.slug}/`}
                   class="text-[var(--text-dim)] transition-colors duration-150 hover:text-[var(--accent)]"
                 >
                   {city.name}
@@ -61,7 +61,7 @@ const { heading = 'Available Across India & Internationally', intro } = Astro.pr
             {internationalCountries.map((country) => (
               <li>
                 <a
-                  href={`/web-design-company-${country.slug}`}
+                  href={`/web-design-company-${country.slug}/`}
                   class="text-[var(--text-dim)] transition-colors duration-150 hover:text-[var(--accent)]"
                 >
                   <span aria-hidden="true">{country.flag}</span> {country.name}

@@ -10,13 +10,13 @@ const schema = [
   softwareAppSchema({
     name: product.title,
     description: product.desc,
-    url: `/products/${product.slug}`,
+    url: `/products/${product.slug}/`,
     applicationCategory: product.schemaCategory,
   }),
   breadcrumbSchema([
     { name: 'Home', url: '/' },
-    { name: 'Products', url: '/products' },
-    { name: product.title, url: `/products/${product.slug}` },
+    { name: 'Products', url: '/products/' },
+    { name: product.title, url: `/products/${product.slug}/` },
   ]),
 ];
 
@@ -61,7 +61,7 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'Razorpa
         <ol class="flex items-center gap-2 text-xs sm:text-sm text-white/70">
           <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
           <li aria-hidden="true">/</li>
-          <li><a href="/products" class="hover:text-white transition-colors">Products</a></li>
+          <li><a href="/products/" class="hover:text-white transition-colors">Products</a></li>
           <li aria-hidden="true">/</li>
           <li class="text-white font-semibold truncate" aria-current="page">{product.title}</li>
         </ol>
@@ -90,7 +90,7 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'Razorpa
              style={`background: var(${product.cssVar}); box-shadow: 0 12px 30px color-mix(in srgb, var(${product.cssVar}) 40%, transparent);`}>
             📞 WhatsApp for Demo
           </a>
-          <a href="/contact" class="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/5 backdrop-blur-sm px-7 py-3.5 text-sm font-bold text-white hover:bg-white/15 transition-all">
+          <a href="/contact/" class="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/5 backdrop-blur-sm px-7 py-3.5 text-sm font-bold text-white hover:bg-white/15 transition-all">
             Contact Us
           </a>
         </div>
@@ -163,7 +163,7 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'Razorpa
                   Try Live Demo ↗
                 </a>
               )}
-              <a href="/request-demo" class="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--border)] px-7 py-3 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
+              <a href="/request-demo/" class="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--border)] px-7 py-3 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
                 Book Walkthrough
               </a>
             </div>
@@ -208,7 +208,7 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'Razorpa
                   Try Live Demo ↗
                 </a>
               )}
-              <a href="/request-demo" class="mt-2 w-full inline-flex items-center justify-center gap-2 rounded-full border border-[var(--border)] px-5 py-2.5 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
+              <a href="/request-demo/" class="mt-2 w-full inline-flex items-center justify-center gap-2 rounded-full border border-[var(--border)] px-5 py-2.5 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
                 Book Walkthrough
               </a>
             </div>
@@ -217,12 +217,12 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'Razorpa
             <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
               <div class="flex items-center justify-between mb-4">
                 <p class="text-[11px] font-bold uppercase tracking-widest" style={`color: var(${product.cssVar});`}>Other Products</p>
-                <a href="/products" class="text-[11px] font-semibold text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors">View All →</a>
+                <a href="/products/" class="text-[11px] font-semibold text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors">View All →</a>
               </div>
               <ul class="space-y-2.5" role="list">
                 {others.map((p) => (
                   <li>
-                    <a href={`/products/${p.slug}`} class="group flex items-center gap-3 rounded-lg p-2 -mx-2 hover:bg-[var(--bg)] transition-colors">
+                    <a href={`/products/${p.slug}/`} class="group flex items-center gap-3 rounded-lg p-2 -mx-2 hover:bg-[var(--bg)] transition-colors">
                       <span class="h-10 w-10 shrink-0 rounded-lg flex items-center justify-center text-[13px] font-black text-white" style={`background: var(${p.cssVar});`} aria-hidden="true">
                         {p.title.slice(0,1)}
                       </span>
@@ -242,7 +242,7 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'Razorpa
               <span aria-hidden="true" class="absolute -right-8 -bottom-8 h-28 w-28 rounded-full blur-2xl opacity-40" style={`background: var(${product.cssVar});`}></span>
               <p class="relative font-heading text-lg font-bold text-[var(--text)] mb-2">Need customizations?</p>
               <p class="relative text-xs text-[var(--text-dim)] mb-4">Free 20-minute scoping call. No hard sell.</p>
-              <a href="/schedule-consultation" class="relative inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all" style={`background: var(${product.cssVar});`}>
+              <a href="/schedule-consultation/" class="relative inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all" style={`background: var(${product.cssVar});`}>
                 Book a Call
               </a>
             </div>
@@ -261,13 +261,13 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'Razorpa
           <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-1">Explore More</p>
           <h2 id="others-h2" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)]">Other products</h2>
         </div>
-        <a href="/products" class="text-sm font-semibold text-[var(--accent)] hover:underline">View all →</a>
+        <a href="/products/" class="text-sm font-semibold text-[var(--accent)] hover:underline">View all →</a>
       </header>
 
       <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" role="list">
         {others.map((p) => (
           <li>
-            <a href={`/products/${p.slug}`}
+            <a href={`/products/${p.slug}/`}
                class="group relative block h-full overflow-hidden rounded-2xl border border-[var(--border)] p-6 hover:-translate-y-1 transition-all"
                style={`background: linear-gradient(135deg, color-mix(in srgb, var(${p.cssVar}) 12%, var(--bg)) 0%, var(--bg) 70%);`}>
               <span aria-hidden="true" class="absolute inset-x-0 top-0 h-[3px]" style={`background: var(${p.cssVar});`}></span>

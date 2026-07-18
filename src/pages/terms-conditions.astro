@@ -4,8 +4,8 @@ import SchemaMarkup from '../components/SchemaMarkup.astro';
 import { webPageSchema, breadcrumbSchema } from '../utils/schema';
 
 const schema = [
-  webPageSchema('Terms and Conditions', 'eLan Technology terms and conditions — rules governing use of our website and services.', '/terms-conditions'),
-  breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Terms and Conditions', url: '/terms-conditions' }]),
+  webPageSchema('Terms and Conditions', 'eLan Technology terms and conditions — rules governing use of our website and services.', '/terms-conditions/'),
+  breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Terms and Conditions', url: '/terms-conditions/' }]),
 ];
 ---
 <LegalLayout
@@ -97,7 +97,7 @@ const schema = [
   <p>
     Both parties agree to treat all project-related information as confidential and not to disclose
     it to unauthorised third parties. For full details of our confidentiality commitments, please see
-    our <a href="/nda-confidentiality-policy">NDA &amp; Confidentiality Policy</a>.
+    our <a href="/nda-confidentiality-policy/">NDA &amp; Confidentiality Policy</a>.
   </p>
 
   <h2>Termination</h2>

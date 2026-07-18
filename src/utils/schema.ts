@@ -393,7 +393,7 @@ export function webPageSchema(name: string, description: string, url: string) {
 // read aloud. Pass CSS selectors that point at the highest-signal answer text:
 // the H1, the lede paragraph, FAQ answers, etc.
 //
-// Usage: speakableSchema(['/services/website-design', ['h1', '.tldr', '.faq-answer']])
+// Usage: speakableSchema(['/services/website-design/', ['h1', '.tldr', '.faq-answer']])
 export function speakableSchema(url: string, cssSelectors: string[]) {
   return {
     '@context': 'https://schema.org',
