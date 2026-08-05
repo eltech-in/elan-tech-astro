@@ -33,7 +33,7 @@ export interface LaunchpadPlan {
 
 // ─── Base features - common to ALL tiers ─────────────────────────────────────
 
-export const BASE_FEATURES: string[] = [
+const BASE_FEATURES: string[] = [
   '.in or .co.in domain registered in <strong>YOUR NAME</strong> - 4 years paid (.com / .org at actual cost)',
   'Free SSL certificate (https://)',
   'Contact form with email notifications',

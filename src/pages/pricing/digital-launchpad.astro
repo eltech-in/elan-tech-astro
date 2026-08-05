@@ -294,13 +294,8 @@ const compareRows = [
           </tr>
         </thead>
         <tbody>
-          {compareRows.map((row, i) => (
-            <tr
-              class:list={[
-                'border-b border-[var(--border)] transition-colors hover:bg-[var(--bg-card)]',
-                i % 2 === 0 ? '' : '',
-              ]}
-            >
+          {compareRows.map((row) => (
+            <tr class="border-b border-[var(--border)] transition-colors hover:bg-[var(--bg-card)]">
               <td class="px-4 py-3.5 text-sm font-medium text-[var(--text-dim)]">{row.feature}</td>
               <td class="px-4 py-3.5 text-center">
                 <span class="text-sm font-semibold" style="color:#F26722;">{row.elan}</span>
@@ -470,7 +465,7 @@ const compareRows = [
     </h2>
 
     <div class="space-y-3">
-      {FAQS.map((faq, i) => (
+      {FAQS.map((faq) => (
         <details
           class="group rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] overflow-hidden transition-all"
           name="lp-faq"

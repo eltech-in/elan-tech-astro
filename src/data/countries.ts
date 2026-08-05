@@ -1,4 +1,4 @@
-export interface CountryFAQ {
+interface CountryFAQ {
   question: string;
   answer: string;
 }
@@ -296,9 +296,6 @@ export const countries: CountryData[] = [
   },
 ];
 
-// Helper exports
-export const countriesWithPages = countries.filter((c) => c.hasLandingPage);
-export const featuredCountries = countries.filter((c) => c.isFeatured);
 export const internationalCountries = countries.filter((c) => c.code !== 'IN' && c.hasLandingPage);
 
 export function getCountryBySlug(slug: string): CountryData | undefined {

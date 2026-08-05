@@ -2,19 +2,19 @@
 // Each city ha s full SEO, content, and schema data for its landing page.
 // Cities are grouped into tiers by priority and search volume.
 
-export interface CityFAQ {
+interface CityFAQ {
   question: string;
   answer: string;
 }
 
-export interface CityPortfolioItem {
+interface CityPortfolioItem {
   name: string;
   category: string;
   desc: string;
   href?: string;
 }
 
-export interface CityMarketNeed {
+interface CityMarketNeed {
   audience: string;
   need: string;
   deliverables: string[];
@@ -85,9 +85,6 @@ export interface CityData {
   // Portfolio highlights for this city
   portfolio: CityPortfolioItem[];
 }
-
-// Re-export the simple City interface for backward compatibility
-export type City = CityData;
 
 export const cities: CityData[] = [
   // ═══════════════════════════════════════════════════════════════════════════
@@ -1640,11 +1637,6 @@ export const citiesWithPages = cities.filter((c) => c.hasLandingPage);
 
 /** Featured cities for homepage/footer display */
 export const featuredCities = cities.filter((c) => c.isFeatured);
-
-/** Cities grouped by tier */
-export const tier1Cities = cities.filter((c) => c.tier === 1);
-export const tier2Cities = cities.filter((c) => c.tier === 2);
-export const tier3Cities = cities.filter((c) => c.tier === 3);
 
 /** Get a city by slug */
 export function getCityBySlug(slug: string): CityData | undefined {

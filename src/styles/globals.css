@@ -208,8 +208,8 @@ body {
   opacity: 0.22;
   transform: translate3d(-2px, 2px, 0);
 }
-:global(.light) .service-card__num { opacity: 0.18; }
-:global(.light) .service-card:hover .service-card__num { opacity: 0.32; }
+.light .service-card__num { opacity: 0.18; }
+.light .service-card:hover .service-card__num { opacity: 0.32; }
 @media (prefers-reduced-motion: reduce) {
   .service-card__num { transition: none !important; }
   .service-card:hover .service-card__num { transform: none !important; }

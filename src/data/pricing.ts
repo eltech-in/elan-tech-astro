@@ -1,4 +1,4 @@
-export type Currency = 'INR' | 'USD' | 'AUD' | 'AED' | 'GBP' | 'JPY';
+type Currency = 'INR' | 'USD' | 'AUD' | 'AED' | 'GBP' | 'JPY';
 
 export interface PricingTier {
   id: string;
@@ -111,21 +111,3 @@ export const pricingTiers: PricingTier[] = [
     support: '1 year',
   },
 ];
-
-export const currencySymbols: Record<Currency, string> = {
-  INR: '₹',
-  USD: '$',
-  AUD: 'A$',
-  AED: 'AED ',
-  GBP: '£',
-  JPY: '¥',
-};
-
-export const currencyNames: Record<Currency, string> = {
-  INR: 'Indian Rupee',
-  USD: 'US Dollar',
-  AUD: 'Australian Dollar',
-  AED: 'UAE Dirham',
-  GBP: 'British Pound',
-  JPY: 'Japanese Yen',
-};

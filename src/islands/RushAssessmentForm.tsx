@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useState, type SubmitEvent } from 'react';
 
 // Rush assessment form for the Emergency ADA Remediation page.
 // Submits to the same FormSubmit endpoint as the Free Website Audit form,
@@ -35,7 +35,7 @@ export default function RushAssessmentForm() {
     return Object.keys(errs).length === 0;
   }
 
-  async function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!validate()) return;
     setStatus('submitting');

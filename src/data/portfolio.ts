@@ -794,15 +794,3 @@ export const projects: Project[] = [
   },
 
 ];
-
-export const filterCategories = [
-  'All',
-  'Website Design',
-  'Web Development',
-  'eCommerce',
-  'Healthcare',
-  'Architecture & Design',
-  'Creative & Agencies',
-] as const;
-
-export type FilterCategory = (typeof filterCategories)[number];

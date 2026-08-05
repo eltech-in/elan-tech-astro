@@ -4,10 +4,10 @@ import { z } from 'zod';
 
 const schema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Please enter a valid email'),
+  email: z.email('Please enter a valid email'),
   phone: z.string().refine((val) => val === undefined || val === '' || /^[\d\s+\-()]{7,20}$/.test(val), { message: 'Please enter a valid phone number' }).optional(),
   company: z.string().optional(),
-  website: z.string().url('Please enter a valid URL').optional().or(z.literal('')),
+  website: z.url('Please enter a valid URL').optional().or(z.literal('')),
   service: z.string().optional(),
   message: z.string().min(10, 'Message must be at least 10 characters'),
 });
@@ -288,4 +288,3 @@ export default function ContactForm() {
     </form>
   );
 }
-

@@ -29,7 +29,6 @@ const DIST = resolve(process.cwd(), 'dist');
 
 const PASS  = '\x1b[32m✔\x1b[0m';
 const FAIL  = '\x1b[31m✘\x1b[0m';
-const WARN  = '\x1b[33m⚠\x1b[0m';
 const BOLD  = '\x1b[1m';
 const RESET = '\x1b[0m';
 const DIM   = '\x1b[2m';

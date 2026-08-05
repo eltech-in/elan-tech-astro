@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useState, type SubmitEvent } from 'react';
 
 type Step1 = { url: string; name: string; email: string };
 type Step2 = { phone: string; company: string; aspects: string[] };
@@ -63,7 +63,7 @@ export default function FreeAuditForm() {
     }));
   }
 
-  async function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus('submitting');
     try {

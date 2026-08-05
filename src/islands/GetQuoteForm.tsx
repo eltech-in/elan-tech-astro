@@ -1,4 +1,4 @@
-import { useState, useEffect, type FormEvent } from 'react';
+import { useState, useEffect, type SubmitEvent } from 'react';
 
 const PROJECT_TYPES = [
   'Website Design',
@@ -100,7 +100,7 @@ export default function GetQuoteForm() {
     setStep((s) => s - 1);
   }
 
-  async function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus('submitting');
     try {
