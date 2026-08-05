@@ -47,7 +47,12 @@ const GONE_HTML = `<!DOCTYPE html>
 </body>
 </html>`;
 
-export const onRequest: PagesFunction = async (context) => {
+interface PagesContext {
+  request: Request;
+  next(): Promise<Response>;
+}
+
+export const onRequest = async (context: PagesContext): Promise<Response> => {
   const url = new URL(context.request.url);
   const pathname = url.pathname;
 

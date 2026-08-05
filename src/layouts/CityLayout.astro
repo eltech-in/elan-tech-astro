@@ -36,26 +36,18 @@ const props = Astro.props;
 const isLegacy = typeof props.city === 'string' || !props.city;
 
 // ── Legacy mode (existing pages that pass string props) ──────────────
-if (isLegacy) {
-  // Just pass through to BaseLayout with legacy props
-  var legacyMode = true;
-  var legacyTitle = props.title ?? '';
-  var legacyDescription = props.description ?? '';
-  var legacyCanonical = props.canonical;
-  var legacyOgImage = props.ogImage;
-  var legacyOgType = props.ogType;
-  var legacyNoindex = props.noindex;
-  var legacySchema = props.schema;
-  var legacyCity = (props.city as string) ?? '';
-  var legacyState = props.state ?? '';
-  var legacyHeroHeading = props.heroHeading ?? '';
-  var legacyHeroSubtext = props.heroSubtext ?? '';
-  var legacyBreadcrumbs = [
-    { name: 'Home', href: '/' },
-    { name: 'Services', href: '/services/' },
-    { name: legacyCity, href: Astro.url.pathname },
-  ];
-}
+const legacyTitle = props.title ?? '';
+const legacyDescription = props.description ?? '';
+const legacySchema = props.schema;
+const legacyCity = typeof props.city === 'string' ? props.city : '';
+const legacyState = props.state ?? '';
+const legacyHeroHeading = props.heroHeading ?? '';
+const legacyHeroSubtext = props.heroSubtext ?? '';
+const legacyBreadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: '/services/' },
+  { name: legacyCity, href: Astro.url.pathname },
+];
 
 // ── New mode (CityData object) ────────────────────────────────────────
 const city = !isLegacy ? (props.city as CityData) : null;

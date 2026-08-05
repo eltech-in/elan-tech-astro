@@ -2,7 +2,7 @@
 import { defineConfig } from 'astro/config'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@astrojs/react'
-import sitemap from '@astrojs/sitemap'
+import sitemap, { ChangeFreqEnum } from '@astrojs/sitemap'
 import mdx from '@astrojs/mdx'
 import compressor from 'astro-compressor'
 
@@ -16,6 +16,7 @@ export default defineConfig({
 
   build: {
     format: 'directory',
+    inlineStylesheets: 'always',
   },
 
   integrations: [
@@ -44,7 +45,7 @@ export default defineConfig({
         // Homepage — highest priority
         if (url === 'https://elan-tech.net' || item.url === 'https://elan-tech.net/') {
           item.priority = 1.0
-          item.changefreq = 'daily'
+          item.changefreq = ChangeFreqEnum.DAILY
           return item
         }
 
@@ -59,68 +60,68 @@ export default defineConfig({
           url.endsWith('/services/ecommerce/medusa-js-development')
         ) {
           item.priority = 0.95
-          item.changefreq = 'weekly'
+          item.changefreq = ChangeFreqEnum.WEEKLY
           return item
         }
 
         // All other service subpages
         if (url.includes('/services/')) {
           item.priority = 0.9
-          item.changefreq = 'weekly'
+          item.changefreq = ChangeFreqEnum.WEEKLY
           return item
         }
 
         // City + country landing pages
         if (url.includes('/web-design-company-')) {
           item.priority = 0.9
-          item.changefreq = 'monthly'
+          item.changefreq = ChangeFreqEnum.MONTHLY
           return item
         }
 
         // Product pages
         if (url.endsWith('/products') || url.includes('/products/')) {
           item.priority = 0.85
-          item.changefreq = 'monthly'
+          item.changefreq = ChangeFreqEnum.MONTHLY
           return item
         }
 
         // Blog posts: /blog/<category>/<slug>
         if (url.match(/\/blog\/[a-z-]+\/[a-z0-9-]+$/)) {
           item.priority = 0.8
-          item.changefreq = 'monthly'
+          item.changefreq = ChangeFreqEnum.MONTHLY
           return item
         }
 
         // Blog index + category pages
         if (url.endsWith('/blog') || url.includes('/blog/category/')) {
           item.priority = 0.7
-          item.changefreq = 'weekly'
+          item.changefreq = ChangeFreqEnum.WEEKLY
           return item
         }
 
         // Portfolio index + case studies
         if (url.endsWith('/portfolio')) {
           item.priority = 0.75
-          item.changefreq = 'weekly'
+          item.changefreq = ChangeFreqEnum.WEEKLY
           return item
         }
         if (url.includes('/portfolio/case-study/')) {
           item.priority = 0.7
-          item.changefreq = 'monthly'
+          item.changefreq = ChangeFreqEnum.MONTHLY
           return item
         }
 
         // Digital Launchpad landing page — campaign priority
         if (url.endsWith('/pricing/digital-launchpad')) {
           item.priority = 0.9
-          item.changefreq = 'weekly'
+          item.changefreq = ChangeFreqEnum.WEEKLY
           return item
         }
 
         // High-value utility pages
         if (url.endsWith('/pricing') || url.endsWith('/faq')) {
           item.priority = 0.7
-          item.changefreq = 'monthly'
+          item.changefreq = ChangeFreqEnum.MONTHLY
           return item
         }
 
@@ -133,7 +134,7 @@ export default defineConfig({
           url.endsWith('/testimonials')
         ) {
           item.priority = 0.8
-          item.changefreq = 'monthly'
+          item.changefreq = ChangeFreqEnum.MONTHLY
           return item
         }
 
@@ -149,12 +150,12 @@ export default defineConfig({
         ]
         if (legalPaths.some((p) => url.endsWith(p))) {
           item.priority = 0.3
-          item.changefreq = 'yearly'
+          item.changefreq = ChangeFreqEnum.YEARLY
           return item
         }
 
         item.priority = 0.5
-        item.changefreq = 'monthly'
+        item.changefreq = ChangeFreqEnum.MONTHLY
         return item
       },
     }),
@@ -172,9 +173,8 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
-    build: { 
+    build: {
       cssMinify: true,
-      inlineStylesheets: 'always'
     },
 
     resolve: {

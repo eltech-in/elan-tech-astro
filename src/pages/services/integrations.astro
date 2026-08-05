@@ -185,7 +185,7 @@ const schema = [
     <div class="flex flex-wrap gap-3">
       {featuredCities.map((city) => (
         <a
-          href={city.landingPage || '/contact/'}
+          href={city.hasLandingPage ? `/web-design-company-${city.slug}/` : '/services/integrations/'}
           class="inline-flex items-center rounded-full border border-[var(--border)] px-4 py-2 text-sm text-[var(--text-muted)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
         >
           API Integration in {city.name}
