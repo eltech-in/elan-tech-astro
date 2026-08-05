@@ -49,8 +49,37 @@ const categoryLabels: Record<string, string> = {
   'nagpur-business': 'Nagpur Business',
   'accessibility': 'Accessibility',
   'technology-trends': 'Technology',
+  'company-news': 'Company News',
 };
 const categoryLabel = category ? (categoryLabels[category] ?? category) : null;
+const isAccessibility = category === 'accessibility';
+const isEcommerce = category === 'ecommerce';
+
+const accessibilityResources = [
+  {
+    label: 'Accessibility hub',
+    href: '/blog/accessibility/web-accessibility-ada-compliance-hub/',
+  },
+  {
+    label: 'WCAG explained',
+    href: '/blog/accessibility/wcag-explained-business-owners/',
+  },
+  {
+    label: 'Compliance checklist',
+    href: '/blog/accessibility/ada-compliance-checklist/',
+  },
+  {
+    label: 'Audit & remediation',
+    href: '/services/ada-compliant-web-design/',
+  },
+];
+
+const ecommerceResources = [
+  { label: 'eCommerce hub', href: '/services/ecommerce/' },
+  { label: 'Shopify development', href: '/services/ecommerce/shopify-development/' },
+  { label: 'Medusa.js development', href: '/services/ecommerce/medusa-js-development/' },
+  { label: 'Commerce case studies', href: '/portfolio/' },
+];
 
 // Build social share URLs from canonical/current path
 const currentUrl = canonical ?? '';
@@ -69,7 +98,7 @@ const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${enc
 >
 
   <!-- ═══════════════════════════════════════════════════════════════════════
-       HERO — full-width with cover image background + overlay
+       HERO - full-width with cover image background + overlay
   ════════════════════════════════════════════════════════════════════════ -->
   <header class="relative overflow-hidden bg-[var(--bg-card)]">
     {coverImage ? (
@@ -181,6 +210,46 @@ const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${enc
             </a>
           </div>
 
+          {isAccessibility && (
+            <nav
+              aria-label="ADA and WCAG resources"
+              class="mb-8 border-y border-[var(--border)] py-4"
+            >
+              <p class="mb-3 text-xs font-semibold uppercase text-[var(--text-muted)]">
+                ADA &amp; WCAG resource path
+              </p>
+              <ul class="flex flex-wrap gap-x-5 gap-y-2">
+                {accessibilityResources.map((resource) => (
+                  <li>
+                    <a
+                      href={resource.href}
+                      class="text-sm font-semibold text-[var(--accent)] hover:underline"
+                    >
+                      {resource.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
+
+          {isEcommerce && (
+            <nav aria-label="eCommerce resources" class="mb-8 border-y border-[var(--border)] py-4">
+              <p class="mb-3 text-xs font-semibold uppercase text-[var(--text-muted)]">
+                eCommerce resource path
+              </p>
+              <ul class="flex flex-wrap gap-x-5 gap-y-2">
+                {ecommerceResources.map((resource) => (
+                  <li>
+                    <a href={resource.href} class="text-sm font-semibold text-[var(--accent)] hover:underline">
+                      {resource.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
+
           <article class="blog-article">
             <slot />
           </article>
@@ -202,16 +271,43 @@ const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${enc
           <!-- Social share + CTA (bottom of article) -->
           <div class="mt-10 pt-8 border-t border-[var(--border)]">
             <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <p class="text-[var(--text-dim)] text-sm">
-                Need help implementing these ideas?
-              </p>
+              <div>
+                <p class="font-semibold text-[var(--text)]">
+                  {isAccessibility
+                    ? 'Need a defensible accessibility plan?'
+                    : isEcommerce
+                      ? 'Planning a Shopify or Medusa.js build?'
+                      : 'Need help implementing these ideas?'}
+                </p>
+                {isAccessibility && (
+                  <p class="mt-1 text-sm text-[var(--text-dim)]">
+                    Get a hybrid WCAG audit, priority-ranked fixes, and code-level remediation.
+                  </p>
+                )}
+                {isEcommerce && (
+                  <p class="mt-1 text-sm text-[var(--text-dim)]">
+                    Start with a platform-fit and commerce architecture conversation.
+                  </p>
+                )}
+              </div>
               <a
-                href="/contact/"
+                href={isAccessibility ? '/get-quote/?service=ada-audit' : isEcommerce ? '/schedule-consultation/' : '/contact/'}
                 class="inline-flex shrink-0 items-center gap-2 rounded-full bg-[var(--accent)] px-6 py-2.5 text-sm font-semibold text-[var(--bg)] hover:brightness-110 transition-all"
               >
-                Talk to Our Team →
+                {isAccessibility ? 'Request an Accessibility Audit →' : isEcommerce ? 'Plan Your eCommerce Build →' : 'Talk to Our Team →'}
               </a>
             </div>
+            {isAccessibility && (
+              <p class="mt-3 text-center text-xs text-[var(--text-muted)]">
+                Already facing a deadline?{' '}
+                <a
+                  href="/services/ada-compliant-web-design/emergency-remediation/"
+                  class="font-semibold text-[var(--accent)] hover:underline"
+                >
+                  Use the emergency remediation route.
+                </a>
+              </p>
+            )}
           </div>
         </div>
 
@@ -243,16 +339,18 @@ const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${enc
           <!-- Sticky CTA: Free Audit -->
           <div class="rounded-2xl border border-[var(--accent)]/20 bg-gradient-to-br from-[var(--accent)]/10 to-[#6366F1]/10 p-6">
             <h3 class="font-heading text-sm font-bold text-[var(--text)] mb-2">
-              Free Website Audit
+              {isAccessibility ? 'ADA & WCAG Audit' : 'Free Website Audit'}
             </h3>
             <p class="text-xs text-[var(--text-dim)] mb-4 leading-relaxed">
-              Get a free SEO & security audit for your website. * Conditions apply.
+              {isAccessibility
+                ? 'Find barriers automated scanners miss. Get a manual and automated audit with a remediation roadmap.'
+                : 'Get a free SEO & security audit for your website. * Conditions apply.'}
             </p>
             <a
-              href="/free-website-audit/"
+              href={isAccessibility ? '/services/ada-compliant-web-design/' : '/free-website-audit/'}
               class="block w-full rounded-xl bg-[var(--accent)] px-4 py-2.5 text-center text-sm font-semibold text-[var(--bg)] hover:brightness-110 transition-all"
             >
-              Claim Free Audit
+              {isAccessibility ? 'Explore Audit & Remediation' : 'Claim Free Audit'}
             </a>
           </div>
 
@@ -260,6 +358,14 @@ const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${enc
           <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
             <h3 class="font-heading text-sm font-bold text-[var(--text)] mb-4">More Articles</h3>
             <ul class="space-y-3">
+              {isAccessibility && (
+                <li>
+                  <a href="/blog/accessibility/web-accessibility-ada-compliance-hub/" class="flex items-center gap-2 text-xs text-[var(--text-dim)] hover:text-[var(--accent)] transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-[var(--accent)]" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    ADA &amp; WCAG resource hub
+                  </a>
+                </li>
+              )}
               <li>
                 <a href="/blog/" class="flex items-center gap-2 text-xs text-[var(--text-dim)] hover:text-[var(--accent)] transition-colors">
                   <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-[var(--accent)]" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -295,7 +401,7 @@ const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${enc
 </BaseLayout>
 
 <style>
-  /* ── Blog article typography — no prose plugin required ── */
+  /* ── Blog article typography - no prose plugin required ── */
   .blog-article {
     color: var(--text-dim);
     font-size: 1.0625rem;
@@ -332,7 +438,7 @@ const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${enc
     font-weight: 600;
   }
 
-  /* First heading — no extra top margin */
+  /* First heading - no extra top margin */
   .blog-article :global(h2:first-child),
   .blog-article :global(h3:first-child) {
     margin-top: 0;
@@ -542,4 +648,3 @@ const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${enc
     border-bottom: none;
   }
 </style>
-

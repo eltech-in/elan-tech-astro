@@ -53,7 +53,10 @@ export default defineConfig({
           url.endsWith('/services') ||
           url.endsWith('/services/website-design') ||
           url.endsWith('/services/mobile-app-development') ||
-          url.endsWith('/services/ada-compliant-web-design')
+          url.endsWith('/services/ada-compliant-web-design') ||
+          url.endsWith('/services/ecommerce') ||
+          url.endsWith('/services/ecommerce/shopify-development') ||
+          url.endsWith('/services/ecommerce/medusa-js-development')
         ) {
           item.priority = 0.95
           item.changefreq = 'weekly'

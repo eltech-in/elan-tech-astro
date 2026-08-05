@@ -1,6 +1,5 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Breadcrumb from '../../../components/Breadcrumb.astro';
+import ServiceLayout from '../../../layouts/ServiceLayout.astro';
 import ChapterLabel from '../../../components/ChapterLabel.astro';
 import LocationsCloud from '../../../components/LocationsCloud.astro';
 import RushAssessmentForm from '../../../islands/RushAssessmentForm';
@@ -25,35 +24,35 @@ const breadcrumbs = [
   { name: 'Emergency Remediation', href: PAGE_URL },
 ];
 
-// ── FAQ — questions taken from real GSC queries; wording kept close ──────
+// ── FAQ - questions taken from real GSC queries; wording kept close ──────
 const faqs = [
   {
-    question: 'My scan found 10,000+ accessibility issues — is that even fixable in 30 days?',
+    question: 'My scan found 10,000+ accessibility issues - is that even fixable in 30 days?',
     answer:
-      "Almost always, yes. Scanners count every instance on every page, so a handful of repeating template, theme, and component problems inflate into thousands of flags. We fix the underlying source — one corrected component can clear thousands of counted errors. After the rush assessment we'll tell you honestly whether your specific deadline is realistic.",
+      "Almost always, yes. Scanners count every instance on every page, so a handful of repeating template, theme, and component problems inflate into thousands of flags. We fix the underlying source - one corrected component can clear thousands of counted errors. After the rush assessment we'll tell you honestly whether your specific deadline is realistic.",
   },
   {
     question: "What's a realistic budget to remediate a Shopify site before a deadline?",
     answer:
-      'A scoped rapid audit starts at a $1,500 flat fee (credited toward the work if you proceed). Full 30-day code-level remediation is a fixed price quoted after the audit — based on page count, theme complexity, custom apps, and the number of unique issue types, not the raw scanner number. You approve the price before any work starts.',
+      'A scoped rapid audit starts at a $1,500 flat fee (credited toward the work if you proceed). Full 30-day code-level remediation is a fixed price quoted after the audit - based on page count, theme complexity, custom apps, and the number of unique issue types, not the raw scanner number. You approve the price before any work starts.',
   },
   {
     question: 'Will an accessibility overlay or widget make me compliant faster?',
     answer:
-      'No — and it can increase your legal risk. Overlays have themselves been named in ADA lawsuits and are frequently rejected by the assistive-technology users plaintiffs rely on. Courts look for genuine conformance and documentation. We remediate the actual code and give you a defensible VPAT.',
+      'An overlay cannot establish WCAG conformance by itself. Many barriers must be corrected in the source content, HTML, styles, and interaction design and then verified manually. We preserve evidence, remediate the source, retest the affected journeys, and document the result.',
   },
   {
     question: "Can you help if I've already received a lawsuit or demand letter?",
     answer:
-      "Yes — this page exists for exactly that. We can begin an emergency assessment within 24 hours and produce a documented remediation plan, often the single most useful thing to show you're acting in good faith. We're not a law firm and don't give legal advice; we work alongside your attorney and provide the technical remediation and documentation they need.",
+      "Yes - this page exists for exactly that. We can begin an emergency assessment within 24 hours and produce a documented remediation plan, often the single most useful thing to show you're acting in good faith. We're not a law firm and don't give legal advice; we work alongside your attorney and provide the technical remediation and documentation they need.",
   },
   {
     question: 'Do you cover standards beyond US ADA?',
     answer:
-      "Yes. The same remediation gives multi-standard coverage: WCAG 2.1/2.2 AA, US ADA Title III & Section 508, the EU's European Accessibility Act (EAA), Canada's AODA/ACA, and Australia's DDA. One properly remediated store satisfies all of them.",
+      "Yes. We can test against WCAG 2.1 or 2.2 AA and map findings to the technical baseline identified by your legal or procurement team. Different laws have different scope, documentation, and sector requirements, so WCAG remediation should not be presented as automatic certification under every framework.",
   },
   {
-    question: "I'm in the US — can your team really support my timeline?",
+    question: "I'm in the US - can your team really support my timeline?",
     answer:
       "Yes. We've delivered for US, Canadian, UK, and Australian clients since 2002, with overlapping US business-hours coverage, USD invoicing, and daily standups during emergency engagements. You get a named team, not a ticket queue.",
   },
@@ -66,7 +65,7 @@ const serviceSchemaObj = {
   name: 'Emergency ADA & WCAG Website Remediation',
   alternateName: 'ADA Lawsuit Website Fix',
   description:
-    'Emergency ADA website remediation for Shopify and ecommerce stores facing a demand letter or lawsuit deadline. Code-level WCAG 2.1/2.2 AA fixes in under 30 days, with VPAT 2.5 documentation.',
+    'Emergency website accessibility assessment and code-level remediation for Shopify and ecommerce teams facing an ADA demand letter or complaint.',
   url: `${SITE_URL}${PAGE_URL}`,
   provider: {
     '@type': 'Organization',
@@ -84,27 +83,27 @@ const serviceSchemaObj = {
     '@type': 'Offer',
     price: '1500',
     priceCurrency: 'USD',
-    description: 'Rapid Audit + Plan — flat fee, delivered in 24–72 hours, credited toward remediation',
+    description: 'Rapid Audit + Plan - flat fee, delivered in 24–72 hours, credited toward remediation',
   },
 };
 
 const schemaBreadcrumbs = breadcrumbs.map((b) => ({ name: b.name, url: b.href }));
 const schemas = [serviceSchemaObj, faqSchema(faqs), breadcrumbSchema(schemaBreadcrumbs)];
 
-// ── Section 01 — hero stat chips ──────────────────────────────────────────
+// ── Section 01 - hero stat chips ──────────────────────────────────────────
 const heroChips = [
   '24-hr start on emergencies',
   '<30 days to conformance',
-  'WCAG 2.1 / 2.2 AA + VPAT 2.5',
+  'WCAG 2.1 / 2.2 AA testing and retest report',
   'Code-level fixes, not overlays',
 ];
 
-// ── Section 02 — why speed matters cards ─────────────────────────────────
+// ── Section 02 - why speed matters cards ─────────────────────────────────
 const speedCards = [
   {
     cssVar: '--ac-red',
     title: 'Demand letters escalate fast',
-    desc: 'Ignoring a letter, or relying on a quick-fix widget, is what turns a letter into a filed lawsuit. A documented remediation plan is your strongest response.',
+    desc: 'Send the document to counsel, preserve the current technical evidence, and begin a scoped audit of the affected journeys.',
     iconSvg:
       '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
   },
@@ -118,29 +117,29 @@ const speedCards = [
   {
     cssVar: '--ac-violet',
     title: 'Overlays make it worse',
-    desc: 'Accessibility overlay/widget tools have been named in lawsuits themselves. We remediate the actual code and give you a VPAT you can hand to opposing counsel.',
+    desc: 'We remediate the source code and provide criterion-level findings and retest status for your team and counsel.',
     iconSvg:
       '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
   },
 ];
 
-// ── Section 03 — overlay vs remediation comparison ────────────────────────
+// ── Section 03 - overlay vs remediation comparison ────────────────────────
 const overlaySide = [
-  "Sits on top of broken code — doesn't fix it",
+  "Sits on top of broken code - doesn't fix it",
   'Repeatedly named in ADA lawsuits',
   'Fails with the screen readers users actually rely on',
-  'No defensible documentation for court',
+  'No criterion-level remediation evidence',
   'Monthly fee forever; the problem never goes away',
 ];
 const remediationSide = [
   'Fixes the source HTML, ARIA, contrast & keyboard flow',
   'Manual testing with real assistive tech, not just scanners',
   'WCAG 2.1 / 2.2 AA conformance',
-  'VPAT 2.5 / ACR documentation for your legal team',
+  'ACR preparation using a VPAT template when scoped',
   'Fixed price, defined deadline, done once',
 ];
 
-// ── Section 04 — the 30-day emergency process ─────────────────────────────
+// ── Section 04 - the 30-day emergency process ─────────────────────────────
 const steps = [
   {
     num: '01',
@@ -162,24 +161,24 @@ const steps = [
   },
   {
     num: '04',
-    title: 'VPAT & handoff',
-    desc: 'You receive a VPAT 2.5 / ACR and remediation report to share with counsel — plus optional ongoing monitoring.',
+    title: 'Retest & handoff',
+    desc: 'You receive criterion-level retest status, known limitations, and a remediation record to share with counsel - plus optional ongoing monitoring.',
     cssVar: '--ac-emerald',
   },
 ];
 
-// ── Section 05 — emergency pricing tiers ──────────────────────────────────
+// ── Section 05 - emergency pricing tiers ──────────────────────────────────
 const packages = [
   {
     name: 'Rapid Audit + Plan',
     price: 'from $1,500',
     priceNote: 'flat · delivered 24–72 hrs',
-    desc: 'Know exactly where you stand — fast',
+    desc: 'Know exactly where you stand - fast',
     cssVar: '--ac-cyan',
     features: [
       'Hybrid automated + manual audit',
       'Prioritized, scoped remediation plan',
-      'VPAT-ready findings summary',
+      'Criterion-level findings summary',
       'Credited toward remediation if you proceed',
     ],
     cta: 'Start here',
@@ -195,7 +194,7 @@ const packages = [
       'Full code-level WCAG 2.1/2.2 AA remediation',
       'Theme, checkout, forms, media, PDFs',
       'Manual AT testing + re-test',
-      'VPAT 2.5 / ACR documentation',
+      'ACR preparation when separately scoped',
       'Priority daily-standup communication',
     ],
     cta: 'Get my fixed quote',
@@ -230,21 +229,15 @@ const standardsBadges = [
 ];
 ---
 
-<BaseLayout
+<ServiceLayout
   title="Emergency ADA & Shopify Remediation in 30 Days | eLan Technology"
-  description="ADA demand letter or lawsuit deadline? We remediate Shopify & ecommerce sites with 10,000+ WCAG issues in under 30 days — code-level fixes, VPAT included."
+  description="ADA demand letter or complaint? Get an urgent accessibility assessment, code-level WCAG remediation, retesting, and criterion-level documentation."
   canonical={`${SITE_URL}${PAGE_URL}`}
   schema={schemas}
+  breadcrumbs={breadcrumbs}
 >
-  <!-- Breadcrumb bar — same sticky pattern as service pages -->
-  <div class="sticky top-[68px] sm:top-[76px] z-40 border-b border-[var(--border)] bg-[var(--bg)] px-4 py-3 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-7xl">
-      <Breadcrumb items={breadcrumbs} />
-    </div>
-  </div>
-
   <!-- ═══════════════════════════════════════════════════════════════════════
-       SECTION 01: HERO — kicker pill → H1 → subhead → context → chips → CTAs
+       SECTION 01: HERO - kicker pill → H1 → subhead → context → chips → CTAs
   ════════════════════════════════════════════════════════════════════════ -->
   <section aria-labelledby="emergency-hero-heading" class="relative overflow-hidden bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] px-4 py-16 md:py-24 sm:px-6 lg:px-8">
     <div
@@ -259,15 +252,15 @@ const standardsBadges = [
       </div>
 
       <h1 id="emergency-hero-heading" class="font-heading text-4xl font-bold leading-tight text-[var(--text)] sm:text-5xl lg:text-6xl">
-        Fix your website accessibility before the deadline — not after the lawsuit.
+        Urgent Accessibility Help for a Legal Deadline
       </h1>
 
       <p class="mx-auto mt-5 max-w-3xl text-lg leading-relaxed text-[var(--text-dim)]">
-        Facing an ADA demand letter or a lawsuit deadline on your Shopify or ecommerce store? We remediate sites with 10,000+ WCAG issues in under 30 days.
+        If you have received an ADA demand letter or complaint, we can quickly review the pages involved, fix accessibility barriers, retest the important tasks, and provide a clear record of the work completed.
       </p>
 
       <p class="mt-3 text-sm text-[var(--text-muted)]">
-        Real code-level fixes — not an overlay widget that gets you sued anyway. Accessibility-first studio since 2002.
+        We make changes in the website itself. We do not rely on an overlay widget. eLan Technology has built and supported websites since 2002.
       </p>
 
       <!-- Stat chips -->
@@ -298,10 +291,10 @@ const standardsBadges = [
     </div>
   </section>
 
-  <!-- Urgency strip — page-specific, directly under the hero -->
+  <!-- Urgency strip - page-specific, directly under the hero -->
   <div class="border-y px-4 py-3 sm:px-6 lg:px-8 text-center" style="border-color: color-mix(in srgb, var(--ac-red) 30%, transparent); background: color-mix(in srgb, var(--ac-red) 8%, var(--bg));">
     <p class="mx-auto max-w-4xl text-sm font-medium text-[var(--text)]">
-      Received a demand letter or lawsuit deadline? <strong>We start emergency remediations within 24 hours</strong> — with US business-hours coverage.
+      Received a demand letter or lawsuit deadline? <strong>We start emergency remediations within 24 hours</strong> - with US business-hours coverage.
     </p>
   </div>
 
@@ -315,7 +308,7 @@ const standardsBadges = [
         If you've received a letter, the clock is already running.
       </h2>
       <p class="text-lg text-[var(--text-dim)] text-center mb-12 max-w-3xl mx-auto">
-        ADA web-accessibility demand letters typically give a short window to respond before litigation escalates. Overlay widgets won't save you — courts and plaintiffs' firms have repeatedly shown they don't make a site compliant. You need documented, code-level remediation, fast.
+        Share the document with qualified legal counsel and preserve the current technical evidence. We provide the parallel engineering response: scoped testing, code-level remediation, retesting, and accurate documentation.
       </p>
 
       <ul class="grid grid-cols-1 md:grid-cols-3 gap-5" role="list">
@@ -556,7 +549,7 @@ const standardsBadges = [
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════════════
-       SECTION 07: FAQ — emits FAQPage schema (see frontmatter)
+       SECTION 07: FAQ - emits FAQPage schema (see frontmatter)
   ════════════════════════════════════════════════════════════════════════ -->
   <section aria-labelledby="faq-heading" class="bg-[var(--bg-card)] py-16 md:py-24 border-y border-[var(--border)]">
     <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
@@ -583,7 +576,7 @@ const standardsBadges = [
        SECTION 08: GEO INTERLINK BLOCK
   ════════════════════════════════════════════════════════════════════════ -->
   <LocationsCloud
-    intro="Emergency ADA & WCAG remediation is delivered remotely with US business-hours coverage — our primary markets for this service are the USA, Canada, the UK, the EU, and Australia, where web-accessibility law is enforced. We also serve businesses across India and beyond."
+    intro="Emergency ADA & WCAG remediation is delivered remotely with US business-hours coverage - our primary markets for this service are the USA, Canada, the UK, the EU, and Australia, where web-accessibility law is enforced. We also serve businesses across India and beyond."
   />
 
   <!-- ═══════════════════════════════════════════════════════════════════════
@@ -615,7 +608,7 @@ const standardsBadges = [
               Don't wait for the deadline to pass.
             </h2>
             <p class="text-[var(--text-dim)] text-base md:text-lg max-w-xl">
-              Send us your store URL and your deadline. Within a few business hours you'll have a scope, a timeline, and a fixed price — and the fastest path to a defensible, compliant site.
+              Send us your store URL and deadline. We will confirm the assessment scope, testing methods, timeline, deliverables, and fixed price before remediation begins.
             </p>
           </div>
 
@@ -648,8 +641,8 @@ const standardsBadges = [
 
       <!-- Page-specific legal note -->
       <p class="mt-8 text-center text-xs text-[var(--text-muted)] max-w-2xl mx-auto">
-        eLan Technology provides technical website remediation services and accessibility documentation. We are not a law firm, and nothing on this page constitutes legal advice — consult your attorney regarding any demand letter or lawsuit.
+        eLan Technology provides technical website remediation services and accessibility documentation. We are not a law firm, and nothing on this page constitutes legal advice - consult your attorney regarding any demand letter or lawsuit.
       </p>
     </div>
   </section>
-</BaseLayout>
+</ServiceLayout>

@@ -13,7 +13,7 @@ export const testimonials: Testimonial[] = [
   {
     id: 1,
     quote:
-      "Our patient inquiry form submissions went up 200% after eLan redesigned our hospital website. The new site is clean, professional, and ranks on page one for local searches. Patients frequently tell us they found us on Google — something that never happened before. The team was thorough, responsive, and genuinely understood what a healthcare audience needs.",
+      "Our patient inquiry form submissions went up 200% after eLan redesigned our hospital website. The new site is clean, professional, and ranks on page one for local searches. Patients frequently tell us they found us on Google - something that never happened before. The team was thorough, responsive, and genuinely understood what a healthcare audience needs.",
     author: 'Dr. Pawan A.',
     role: 'Managing Director',
     company: 'Aastha Hospital',
@@ -24,7 +24,7 @@ export const testimonials: Testimonial[] = [
   {
     id: 2,
     quote:
-      "eLan Technology built our B2B portal from scratch and delivered it ahead of schedule. The custom MERN stack solution they developed handles our international dealer network with ease — multi-currency, real-time quotes, and a beautiful front-end. We've been generating qualified leads from the US, Canada, and Australia consistently since launch.",
+      "eLan Technology built our B2B portal from scratch and delivered it ahead of schedule. The custom MERN stack solution they developed handles our international dealer network with ease - multi-currency, real-time quotes, and a beautiful front-end. We've been generating qualified leads from the US, Canada, and Australia consistently since launch.",
     author: 'Bob G.',
     role: 'President',
     company: 'Ribolator USA',
@@ -57,7 +57,7 @@ export const testimonials: Testimonial[] = [
   {
     id: 5,
     quote:
-      "Our architecture studio website needed to be as impressive as our projects. eLan delivered exactly that — a full-screen, immersive portfolio site that has genuinely impressed our clients and helped us win new commissions. Inquiries through the website have tripled since the redesign, and several clients mentioned the website specifically when hiring us.",
+      "Our architecture studio website needed to be as impressive as our projects. eLan delivered exactly that - a full-screen, immersive portfolio site that has genuinely impressed our clients and helped us win new commissions. Inquiries through the website have tripled since the redesign, and several clients mentioned the website specifically when hiring us.",
     author: 'Siddharth Trivedi',
     role: 'Principal Architect',
     company: 'Trimit Architects',
@@ -68,7 +68,7 @@ export const testimonials: Testimonial[] = [
   {
     id: 6,
     quote:
-      "Transitioning D'FYNE Magazine to a digital subscription model was a significant undertaking, and eLan made it seamless. The WordPress and WooCommerce platform they built handles subscriptions, single-issue purchases, and editorial content publishing beautifully. We crossed 1,200 digital subscribers within 6 months — far ahead of our targets.",
+      "Transitioning D'FYNE Magazine to a digital subscription model was a significant undertaking, and eLan made it seamless. The WordPress and WooCommerce platform they built handles subscriptions, single-issue purchases, and editorial content publishing beautifully. We crossed 1,200 digital subscribers within 6 months - far ahead of our targets.",
     author: 'Natasha Johal',
     role: 'Publisher & Editor-in-Chief',
     company: "D'FYNE Magazine",
@@ -79,7 +79,7 @@ export const testimonials: Testimonial[] = [
   {
     id: 7,
     quote:
-      "eLan built our school ERP system and it has genuinely changed how we operate. Attendance tracking, fee management, timetables, and parent communication — everything is now digital and automated. Our fee collection default rate dropped dramatically, and parents appreciate the real-time updates about their children. The team was patient, thorough, and professional throughout.",
+      "eLan built our school ERP system and it has genuinely changed how we operate. Attendance tracking, fee management, timetables, and parent communication - everything is now digital and automated. Our fee collection default rate dropped dramatically, and parents appreciate the real-time updates about their children. The team was patient, thorough, and professional throughout.",
     author: 'Sunita Mehrotra',
     role: 'Principal',
     company: 'BrightMinds International School',

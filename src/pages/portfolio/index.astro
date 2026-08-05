@@ -28,20 +28,20 @@ const tokenFor = (g?: string) => groupTokens[g ?? 'Other'] ?? '--ac-teal';
 // Bento size pattern for featured (6 items): huge hero + mosaic
 // slots: [col-span × row-span on lg]
 const bentoSlots = [
-  'lg:col-span-4 lg:row-span-2',   // 0 — hero
+  'lg:col-span-4 lg:row-span-2',   // 0 - hero
   'lg:col-span-2 lg:row-span-1',   // 1
   'lg:col-span-2 lg:row-span-1',   // 2
-  'lg:col-span-2 lg:row-span-2',   // 3 — tall
+  'lg:col-span-2 lg:row-span-2',   // 3 - tall
   'lg:col-span-2 lg:row-span-1',   // 4
   'lg:col-span-2 lg:row-span-1',   // 5
 ];
 
-// Category filter chips (anchor scroll — purely visual cue)
+// Category filter chips (anchor scroll - purely visual cue)
 const categories = [...new Set(projects.map(p => p.category))];
 ---
 
 <BaseLayout
-  title="Web Design & Development Portfolio — eLan Technology"
+  title="Web Design & Development Portfolio - eLan Technology"
   description="500+ projects across WordPress, Next.js, eCommerce & enterprise portals for clients in India, USA, UAE, and beyond."
   schema={schema}
 >
@@ -57,7 +57,7 @@ const categories = [...new Set(projects.map(p => p.category))];
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <!-- title + stats bento -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        <!-- Title card — spans 8 -->
+        <!-- Title card - spans 8 -->
         <div class="lg:col-span-8 relative overflow-hidden rounded-3xl border border-[var(--border)] p-8 sm:p-12" style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-teal) 10%, var(--bg-card)) 0%, var(--bg-card) 60%);">
           <span aria-hidden="true" class="absolute -left-10 -bottom-10 h-72 w-72 rotate-[-20deg] opacity-[0.07]" style="background: var(--ac-indigo);"></span>
           <span class="relative inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg)]/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[var(--ac-teal)] backdrop-blur-sm">
@@ -69,7 +69,7 @@ const categories = [...new Set(projects.map(p => p.category))];
             <span style="background:linear-gradient(90deg,var(--ac-teal),var(--ac-indigo),var(--ac-pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">One consistent standard.</span>
           </h1>
           <p class="relative mt-5 max-w-2xl text-base sm:text-lg text-[var(--text-dim)] leading-relaxed">
-            WordPress sites for local businesses. Headless Next.js platforms for international clients. eCommerce. Portals. Every project built with precision — shipped since 2002.
+            WordPress sites for local businesses. Headless Next.js platforms for international clients. eCommerce. Portals. Every project built with precision - shipped since 2002.
           </p>
           <div class="relative mt-7 flex flex-wrap gap-3">
             <a href="#featured" class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[var(--accent)]/25 hover:brightness-110 transition-all">
@@ -82,7 +82,7 @@ const categories = [...new Set(projects.map(p => p.category))];
           </div>
         </div>
 
-        <!-- Stat cards — each spans 2 -->
+        <!-- Stat cards - each spans 2 -->
         {[
           { value: '500+', label: 'Projects Delivered', token: '--ac-pink' },
           { value: '10+',  label: 'Countries Served',   token: '--ac-amber' },
@@ -112,7 +112,7 @@ const categories = [...new Set(projects.map(p => p.category))];
   </section>
 
 
-  <!-- ═══ SECTION 1 — FEATURED CASE STUDIES (TRUE BENTO MOSAIC) ═════════════ -->
+  <!-- ═══ SECTION 1 - FEATURED CASE STUDIES (TRUE BENTO MOSAIC) ═════════════ -->
   <section id="featured" class="py-16 md:py-24 bg-[var(--bg)]" aria-labelledby="case-studies-h2">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
@@ -191,7 +191,7 @@ const categories = [...new Set(projects.map(p => p.category))];
                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </a>
                     {project.liveUrl && (
-                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs font-semibold text-[var(--text-muted)] hover:text-[var(--text)] transition-colors" aria-label={`Visit live site for ${project.title} — opens in new tab`}>
+                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs font-semibold text-[var(--text-muted)] hover:text-[var(--text)] transition-colors" aria-label={`Visit live site for ${project.title} - opens in new tab`}>
                         Live ↗
                       </a>
                     )}
@@ -206,7 +206,7 @@ const categories = [...new Set(projects.map(p => p.category))];
   </section>
 
 
-  <!-- ═══ SECTION 2 — MODERN STACK BENTO (Next.js / Headless) ═══════════════ -->
+  <!-- ═══ SECTION 2 - MODERN STACK BENTO (Next.js / Headless) ═══════════════ -->
   <section class="py-16 md:py-24 bg-[var(--bg-card)] border-y border-[var(--border)]" aria-labelledby="modern-stack-h2">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
@@ -237,7 +237,7 @@ const categories = [...new Set(projects.map(p => p.category))];
               rel={project.liveUrl ? 'noopener noreferrer' : undefined}
               class={`${span} group relative overflow-hidden rounded-2xl border border-[var(--border)] flex flex-col justify-between p-6 hover:-translate-y-1 transition-all duration-300 focus-visible:outline focus-visible:outline-2`}
               style={`background: linear-gradient(135deg, color-mix(in srgb, var(${token}) 14%, var(--bg)) 0%, var(--bg) 65%); outline-color: var(${token});`}
-              aria-label={project.liveUrl ? `Visit ${project.title} — opens in new tab` : `Case study: ${project.title}`}
+              aria-label={project.liveUrl ? `Visit ${project.title} - opens in new tab` : `Case study: ${project.title}`}
             >
               <span aria-hidden="true" class="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full blur-3xl opacity-40 group-hover:opacity-70 transition-opacity" style={`background: var(${token});`}></span>
               <span aria-hidden="true" class="absolute inset-x-0 top-0 h-[3px]" style={`background: var(${token});`}></span>
@@ -273,7 +273,7 @@ const categories = [...new Set(projects.map(p => p.category))];
   </section>
 
 
-  <!-- ═══ SECTION 3 — MORE WORKS (MASONRY BY CATEGORY) ══════════════════════ -->
+  <!-- ═══ SECTION 3 - MORE WORKS (MASONRY BY CATEGORY) ══════════════════════ -->
   <section class="py-16 md:py-24 bg-[var(--bg)]" aria-labelledby="more-works-h2">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
@@ -284,7 +284,7 @@ const categories = [...new Set(projects.map(p => p.category))];
             More of Our Work
           </h2>
           <p class="mt-3 text-[var(--text-dim)] max-w-2xl">
-            A curated cross-section from our portfolio — organised by industry.
+            A curated cross-section from our portfolio - organised by industry.
           </p>
         </div>
         <span class="shrink-0 text-sm text-[var(--text-muted)] border border-[var(--border)] rounded-full px-4 py-1.5">
@@ -317,7 +317,7 @@ const categories = [...new Set(projects.map(p => p.category))];
                       rel={project.liveUrl ? 'noopener noreferrer' : undefined}
                       class="group relative flex items-center gap-3 h-full rounded-xl border border-[var(--border)] bg-[var(--bg-card)] px-3 py-3 hover:-translate-y-0.5 transition-all focus-visible:outline focus-visible:outline-2"
                       style={`outline-color: var(${token});`}
-                      aria-label={project.liveUrl ? `Visit ${project.title} — opens in new tab` : `Case study: ${project.title}`}
+                      aria-label={project.liveUrl ? `Visit ${project.title} - opens in new tab` : `Case study: ${project.title}`}
                     >
                       <span class="h-9 w-9 shrink-0 rounded-lg flex items-center justify-center text-[12px] font-extrabold text-white" style={`background: var(${token});`} aria-hidden="true">
                         {project.title.slice(0,1).toUpperCase()}
@@ -351,7 +351,7 @@ const categories = [...new Set(projects.map(p => p.category))];
             Ready to be our next success story?
           </h2>
           <p class="text-[var(--text-dim)] mb-8 text-lg max-w-xl mx-auto">
-            Tell us about your project and we'll put together a detailed proposal — usually within 24 hours.
+            Tell us about your project and we'll put together a detailed proposal - usually within 24 hours.
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="/get-quote/" class="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3.5 text-base font-semibold text-white hover:brightness-110 transition-all shadow-lg shadow-[var(--accent)]/25">

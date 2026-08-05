@@ -4,13 +4,13 @@ import SchemaMarkup from '../components/SchemaMarkup.astro';
 import { webPageSchema, breadcrumbSchema } from '../utils/schema';
 
 const schema = [
-  webPageSchema('Accessibility Statement', 'eLan Technology accessibility statement — our WCAG 2.1 AA, ADA, and Section 508 compliance commitment.', '/accessibility-statement/'),
+  webPageSchema('Accessibility Statement', 'eLan Technology accessibility statement - our WCAG 2.1 AA, ADA, and Section 508 compliance commitment.', '/accessibility-statement/'),
   breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Accessibility Statement', url: '/accessibility-statement/' }]),
 ];
 ---
 <LegalLayout
   title="Accessibility Statement"
-  description="eLan Technology accessibility statement — our WCAG 2.1 AA, ADA, and Section 508 compliance commitment."
+  description="eLan Technology accessibility statement - our WCAG 2.1 AA, ADA, and Section 508 compliance commitment."
   lastUpdated="2025-01-01"
 >
   <SchemaMarkup schema={schema} />
@@ -27,16 +27,16 @@ const schema = [
   <p>We aim to conform to the following accessibility standards:</p>
   <ul>
     <li>
-      <strong>WCAG 2.1 Level AA</strong> — Web Content Accessibility Guidelines 2.1 published by the
+      <strong>WCAG 2.1 Level AA</strong> - Web Content Accessibility Guidelines 2.1 published by the
       World Wide Web Consortium (W3C). Our goal is full conformance with all Level A and Level AA
       success criteria.
     </li>
     <li>
-      <strong>ADA (Americans with Disabilities Act)</strong> — Our website follows ADA web
+      <strong>ADA (Americans with Disabilities Act)</strong> - Our website follows ADA web
       accessibility guidelines to ensure equitable access for users in the United States.
     </li>
     <li>
-      <strong>Section 508 of the Rehabilitation Act of 1973</strong> — We apply Section 508
+      <strong>Section 508 of the Rehabilitation Act of 1973</strong> - We apply Section 508
       standards to support users who rely on assistive technologies.
     </li>
   </ul>
@@ -49,8 +49,8 @@ const schema = [
   <ul>
     <li>HTML5</li>
     <li>CSS3 / Tailwind CSS v4</li>
-    <li>JavaScript (Astro Islands architecture — minimal and purposeful)</li>
-    <li>WAI-ARIA (Web Accessibility Initiative — Accessible Rich Internet Applications)</li>
+    <li>JavaScript (Astro Islands architecture - minimal and purposeful)</li>
+    <li>WAI-ARIA (Web Accessibility Initiative - Accessible Rich Internet Applications)</li>
   </ul>
 
   <h2>Measures Taken</h2>
@@ -78,7 +78,7 @@ const schema = [
     </li>
     <li>
       <strong>Full keyboard navigation:</strong> all interactive elements (links, buttons, forms,
-      modals) are fully operable using only a keyboard — no mouse is required.
+      modals) are fully operable using only a keyboard - no mouse is required.
     </li>
     <li>
       <strong>Visible focus indicators:</strong> all interactive elements display a clearly visible
@@ -175,19 +175,19 @@ const schema = [
   </p>
   <ul>
     <li>
-      <strong>axe DevTools</strong> browser extension — automated accessibility scanning integrated
+      <strong>axe DevTools</strong> browser extension - automated accessibility scanning integrated
       into our development workflow.
     </li>
     <li>
-      <strong>Google Lighthouse</strong> accessibility audits — run against all key pages during
+      <strong>Google Lighthouse</strong> accessibility audits - run against all key pages during
       development and before deployment.
     </li>
     <li>
-      <strong>Manual keyboard testing</strong> — all pages and interactive components are tested
+      <strong>Manual keyboard testing</strong> - all pages and interactive components are tested
       using keyboard-only navigation to verify tab order, focus management, and operability.
     </li>
     <li>
-      <strong>Screen reader testing</strong> — we test with NVDA on Windows and VoiceOver on macOS
+      <strong>Screen reader testing</strong> - we test with NVDA on Windows and VoiceOver on macOS
       to verify that content is correctly announced and navigable for screen reader users.
     </li>
   </ul>

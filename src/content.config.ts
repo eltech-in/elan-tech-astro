@@ -10,7 +10,7 @@ const blog = defineCollection({
     description: z.string(),
     publishDate: z.coerce.date(),
     // Optional; falls back to publishDate when omitted. Update this whenever
-    // the post body is materially revised — answer engines (ChatGPT, Gemini,
+    // the post body is materially revised - answer engines (ChatGPT, Gemini,
     // Perplexity) weigh freshness heavily when picking citations.
     updatedDate: z.coerce.date().optional(),
     author: z.string(),
@@ -22,6 +22,7 @@ const blog = defineCollection({
       'nagpur-business',
       'accessibility',
       'technology-trends',
+      'company-news',
     ]),
     tags: z.array(z.string()).default([]),
     readTime: z.number(),

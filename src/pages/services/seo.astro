@@ -25,7 +25,7 @@ const serviceFaqs = [
   },
   {
     question: 'Do you provide monthly SEO reports?',
-    answer: 'Yes — detailed monthly reports are standard for all SEO retainer clients. Reports cover organic keyword rankings, organic traffic growth, backlink acquisition, technical health changes, content performance, and recommendations for the next month. We also schedule a monthly strategy call to walk through results and discuss adjustments.',
+    answer: 'Yes - detailed monthly reports are standard for all SEO retainer clients. Reports cover organic keyword rankings, organic traffic growth, backlink acquisition, technical health changes, content performance, and recommendations for the next month. We also schedule a monthly strategy call to walk through results and discuss adjustments.',
   },
 ];
 
@@ -60,11 +60,9 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
     <div class="grid gap-10 md:grid-cols-2 md:items-center">
       <div>
         <p class="mb-2 text-sm font-semibold uppercase tracking-widest" style={`color: ${service.accent};`}>{service.tagline}</p>
-        <h1 class="font-heading text-3xl font-bold leading-tight text-[var(--text)] md:text-4xl lg:text-5xl">
-          SEO Services — eLan Technology
-        </h1>
+        <h1 class="font-heading text-3xl font-bold leading-tight text-[var(--text)] md:text-4xl lg:text-5xl">SEO That Helps Customers Find You</h1>
         <p class="mt-4 text-base text-[var(--text-muted)] md:text-lg">
-          {service.description} Whether you are a local business in Nagpur seeking more foot traffic or an international brand targeting global keywords, our SEO team delivers measurable, sustainable results through white-hat strategies that stand the test of algorithm updates.
+          {service.description} We focus on searches that matter to your business and show you what changed in a straightforward monthly report.
         </p>
         <div class="mt-6 flex flex-wrap gap-3">
           <a href="/free-website-audit/" class="inline-flex items-center rounded-lg px-5 py-2.5 text-sm font-semibold shadow transition hover:opacity-90" style={`background: ${service.accent}; color: #000;`}>
@@ -89,7 +87,7 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
   <!-- WHAT'S INCLUDED -->
   <section class="mb-16">
     <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-2">What's Included in Our SEO Services</h2>
-    <p class="text-[var(--text-muted)] mb-8">A comprehensive SEO service covering every aspect of search engine optimisation — from technical foundations to content strategy and authority building.</p>
+    <p class="text-[var(--text-muted)] mb-8">A comprehensive SEO service covering every aspect of search engine optimisation - from technical foundations to content strategy and authority building.</p>
     <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
       {[
         { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>', name: 'Technical SEO', desc: 'Site speed optimisation, Core Web Vitals improvements, crawlability fixes, XML sitemap management, robots.txt configuration, structured data implementation, and mobile-friendliness audits. We ensure search engines can efficiently crawl and index every important page.' },
@@ -99,7 +97,7 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
         { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>', name: 'Local SEO', desc: 'Google Business Profile setup and optimisation, local citation building (Justdial, Sulekha, IndiaMART), review management strategy, and geo-targeted content. Essential for businesses serving Nagpur, Raipur, and other Indian cities.' },
         { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>', name: 'Content SEO', desc: 'Blog posts, pillar pages, FAQ sections, and resource guides written to rank. Every piece is keyword-researched, strategically structured with proper headings and schema, and designed to earn featured snippets and answer boxes.' },
         { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>', name: 'SEO Reporting & Analytics', desc: 'Monthly reports covering organic rankings, traffic trends, backlink growth, Core Web Vitals scores, and conversion tracking. GA4 and Search Console dashboards give you real-time visibility into your SEO performance.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>', name: 'Competitor Analysis', desc: 'We analyse your top 5-10 competitors — their keyword targets, backlink profiles, content strategies, and technical advantages. This intelligence directly informs our strategy, helping you find gaps and opportunities they have missed.' },
+        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>', name: 'Competitor Analysis', desc: 'We analyse your top 5-10 competitors - their keyword targets, backlink profiles, content strategies, and technical advantages. This intelligence directly informs our strategy, helping you find gaps and opportunities they have missed.' },
       ].map(({ icon, name, desc }) => (
         <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
           <div class="mb-3 inline-flex h-11 w-11 items-center justify-center rounded-xl" style="background: color-mix(in srgb, var(--ac-emerald) 18%, transparent); color: var(--ac-emerald);" set:html={icon} />
@@ -113,7 +111,7 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
   <!-- OUR SEO PROCESS -->
   <section class="mb-16 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 md:p-10">
     <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-3">Our SEO Process</h2>
-    <p class="text-[var(--text-muted)] mb-8">We follow a structured, data-driven SEO process that builds sustainable organic growth — no shortcuts, no black-hat techniques.</p>
+    <p class="text-[var(--text-muted)] mb-8">We follow a structured, data-driven SEO process that builds sustainable organic growth - no shortcuts, no black-hat techniques.</p>
     <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
       {[
         { n: '1', step: 'Audit & Discovery', desc: 'Comprehensive technical audit, keyword gap analysis, backlink review, and competitor benchmarking. We identify every issue and opportunity before writing a single line of strategy.' },
@@ -144,7 +142,7 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
 
   <!-- FAQ -->
   <section class="mb-16">
-    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-8">SEO — Frequently Asked Questions</h2>
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-8">SEO - Frequently Asked Questions</h2>
     <div class="divide-y divide-[var(--border)] rounded-xl border border-[var(--border)] overflow-hidden">
       {serviceFaqs.map(({ question, answer }) => (
         <details class="bg-[var(--bg-card)] py-0">
@@ -161,7 +159,7 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
   <!-- CITY LINKS -->
   <section class="mb-16">
     <h2 class="font-heading text-xl font-bold text-[var(--text)] md:text-2xl mb-2">SEO Services Across India</h2>
-    <p class="text-sm text-[var(--text-muted)] mb-6">We provide SEO services for businesses in Nagpur, Raipur, Mumbai, Pune, Hyderabad, Delhi, and across India — with deep knowledge of local search behaviour and competitive landscapes in each market.</p>
+    <p class="text-sm text-[var(--text-muted)] mb-6">We provide SEO services for businesses in Nagpur, Raipur, Mumbai, Pune, Hyderabad, Delhi, and across India - with deep knowledge of local search behaviour and competitive landscapes in each market.</p>
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
       {featuredCities.map((city) => (
         <a
@@ -179,14 +177,14 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
   <section class="grid gap-5 md:grid-cols-2 mb-4">
     <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-7 flex flex-col">
       <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-2">Get a Free SEO Audit</h3>
-      <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Find out exactly where your competitors are outranking you, what technical issues are holding your site back, and how to fix them — with no obligation to proceed. * Conditions apply.</p>
+      <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Find out exactly where your competitors are outranking you, what technical issues are holding your site back, and how to fix them - with no obligation to proceed. * Conditions apply.</p>
       <a href="/free-website-audit/" class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-black transition hover:opacity-90" style={`background: ${service.accent};`}>
         Get Free Audit
       </a>
     </div>
     <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-7 flex flex-col">
       <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-2">Have SEO Questions?</h3>
-      <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Not sure where to start with SEO? Schedule a free strategy call with one of our SEO specialists and walk away with clarity on your priorities — regardless of whether you engage us.</p>
+      <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Not sure where to start with SEO? Schedule a free strategy call with one of our SEO specialists and walk away with clarity on your priorities - regardless of whether you engage us.</p>
       <a href="/schedule-consultation/" class="inline-flex items-center justify-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
         Schedule a Call
       </a>

@@ -7,6 +7,7 @@ import { countries } from '../data/countries';
 import { products } from '../data/products';
 import { projects } from '../data/portfolio';
 import { breadcrumbSchema } from '../utils/schema';
+import { isPublishedPost } from '../utils/blog';
 
 // ─── Build-time search index ─────────────────────────────────────────────────
 interface IndexEntry {
@@ -19,13 +20,13 @@ interface IndexEntry {
 const blogPosts = await getCollection('blog');
 
 const staticPages: IndexEntry[] = [
-  { t: 'Home', d: 'Web Design & Development Company — Trusted by 500+ Businesses since 2002. WCAG/ADA compliant websites.', u: '/', c: 'Page' },
+  { t: 'Home', d: 'Web Design & Development Company - Trusted by 500+ Businesses since 2002. WCAG/ADA compliant websites.', u: '/', c: 'Page' },
   { t: 'About eLan Technology', d: 'Web design agency in Nagpur, India since 2002. Meet the team, our story, milestones, and values.', u: '/about/', c: 'Page' },
-  { t: 'Contact eLan Technology', d: 'Get in touch with our team — phone, WhatsApp, email, office location in Nagpur.', u: '/contact/', c: 'Page' },
+  { t: 'Contact eLan Technology', d: 'Get in touch with our team - phone, WhatsApp, email, office location in Nagpur.', u: '/contact/', c: 'Page' },
   { t: 'Pricing', d: 'Transparent pricing for web design, development, eCommerce, and digital marketing services.', u: '/pricing/', c: 'Page' },
-  { t: 'Free Website Audit', d: 'Free SEO, security, accessibility and speed audit of your website — 48-hour turnaround.', u: '/free-website-audit/', c: 'Audit' },
+  { t: 'Free Website Audit', d: 'Free SEO, security, accessibility and speed audit of your website - 48-hour turnaround.', u: '/free-website-audit/', c: 'Audit' },
   { t: 'FAQ', d: 'Frequently asked questions about our services, process, pricing, and timelines.', u: '/faq/', c: 'Page' },
-  { t: 'Careers', d: 'Join the eLan Technology team in Nagpur — open positions for designers, developers, and marketers.', u: '/careers/', c: 'Page' },
+  { t: 'Careers', d: 'Join the eLan Technology team in Nagpur - open positions for designers, developers, and marketers.', u: '/careers/', c: 'Page' },
   { t: 'Portfolio', d: '500+ projects delivered across web design, development, eCommerce, and custom software.', u: '/portfolio/', c: 'Portfolio' },
   { t: 'Testimonials', d: 'Reviews from our clients in India, the United States, and worldwide.', u: '/testimonials/', c: 'Page' },
   { t: 'Get a Project Quote', d: 'Tell us about your project and receive a detailed quote within 24 hours.', u: '/get-quote/', c: 'Page' },
@@ -37,10 +38,24 @@ const staticPages: IndexEntry[] = [
 
 const serviceEntries: IndexEntry[] = services.map((s) => ({
   t: s.title,
-  d: s.tagline + ' — ' + s.description,
+  d: s.tagline + ' - ' + s.description,
   u: `/services/${s.slug}/`,
   c: 'Service',
 }));
+serviceEntries.push(
+  {
+    t: 'Custom Shopify Design & Development',
+    d: 'Bespoke Shopify storefront design, Liquid theme development, Shopify Plus, B2B, migrations, integrations, accessibility, performance, and conversion optimisation.',
+    u: '/services/ecommerce/shopify-development/',
+    c: 'Service',
+  },
+  {
+    t: 'Medusa.js eCommerce Development',
+    d: 'Custom Medusa.js storefronts, modules, workflows, subscriptions, Razorpay, PhonePe, shipping, B2B, marketplaces, and ERP integrations.',
+    u: '/services/ecommerce/medusa-js-development/',
+    c: 'Service',
+  }
+);
 serviceEntries.unshift({
   t: 'All Services',
   d: 'Web design, development, eCommerce, SEO, digital marketing, mobile apps, branding, and maintenance.',
@@ -74,20 +89,20 @@ const productEntries: IndexEntry[] = products.map((p) => ({
 }));
 productEntries.unshift({
   t: 'Proprietary Software Products',
-  d: 'Own your platform — proprietary business software products by eLan Technology.',
+  d: 'Own your platform - proprietary business software products by eLan Technology.',
   u: '/products/',
   c: 'Product',
 });
 
 const portfolioEntries: IndexEntry[] = projects.map((p) => ({
-  t: `${p.title} — ${p.category} Case Study`,
+  t: `${p.title} - ${p.category} Case Study`,
   d: p.description,
   u: `/portfolio/case-study/${p.slug}/`,
   c: 'Case Study',
 }));
 
 const blogEntries: IndexEntry[] = blogPosts
-  .filter((p) => !p.data.draft)
+  .filter((p) => isPublishedPost(p.data))
   .map((p) => ({
     t: p.data.title,
     d: p.data.description,
@@ -112,7 +127,7 @@ const schema = breadcrumbSchema([
 ---
 
 <BaseLayout
-  title="Search — eLan Technology"
+  title="Search - eLan Technology"
   description="Search across eLan Technology services, case studies, products, city pages, and blog articles."
   noindex={true}
   schema={schema}

@@ -1,0 +1,203 @@
+---
+import ServiceLayout from '../../../layouts/ServiceLayout.astro';
+import { serviceSchema, faqSchema, breadcrumbSchema } from '../../../utils/schema';
+
+const title = 'Custom Shopify Design & Development Company';
+const description =
+  'Custom Shopify website design and development for D2C, retail, B2B, and international brands. Bespoke themes, Shopify Plus, migrations, integrations, accessibility, performance, and conversion optimisation.';
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: '/services/' },
+  { name: 'eCommerce Development', href: '/services/ecommerce/' },
+  { name: 'Shopify Development', href: '/services/ecommerce/shopify-development/' },
+];
+
+const faqs = [
+  {
+    question: 'Do you build custom Shopify themes or customise templates?',
+    answer:
+      'Our preferred approach is a custom, modular theme designed around the brand, catalogue, and customer journey. We can also improve an existing theme when that is the more commercially sensible option. In both cases, we keep everyday content and merchandising editable in the Shopify theme editor.',
+  },
+  {
+    question: 'Can you migrate an existing store to Shopify without losing SEO?',
+    answer:
+      'Yes. We inventory valuable URLs, products, collections, content, metadata, and backlinks; create a redirect map; migrate structured content; preserve canonical signals; and monitor Search Console after launch. Rankings cannot be guaranteed, but careful migration substantially reduces avoidable loss.',
+  },
+  {
+    question: 'Do you support Shopify Plus and B2B?',
+    answer:
+      'Yes. We can design and implement Shopify Plus storefronts, company and buyer experiences, market-specific content, custom integrations, checkout extensions, and operational workflows. Platform features and plan requirements are confirmed during discovery.',
+  },
+  {
+    question: 'Can Shopify be headless?',
+    answer:
+      'Yes. Shopify can power a custom storefront when the desired experience or system architecture cannot be delivered efficiently through a conventional theme. We recommend headless only when its benefits justify the additional engineering and operational complexity.',
+  },
+];
+
+const schemas = [
+  serviceSchema(title, description, '/services/ecommerce/shopify-development/'),
+  faqSchema(faqs),
+  breadcrumbSchema(breadcrumbs.map(({ name, href }) => ({ name, url: href }))),
+];
+
+const services = [
+  ['Shopify strategy & architecture', 'Platform fit, catalogue design, markets, apps, integrations, migration, analytics, and delivery planning.'],
+  ['Custom storefront design', 'Original mobile-first UX for home, collection, product, cart, search, accounts, editorial content, and high-intent landing pages.'],
+  ['Liquid theme development', 'Reusable sections and blocks, accessible components, clean CSS and JavaScript, metafields, metaobjects, and maintainable theme architecture.'],
+  ['Shopify Plus & B2B', 'Company accounts, buyer journeys, market-specific experiences, checkout extensibility, automation, and complex integrations.'],
+  ['Apps & integrations', 'Payments, shipping, ERP, CRM, PIM, subscriptions, reviews, loyalty, email marketing, analytics, and custom APIs.'],
+  ['Migration, SEO & optimisation', 'URL mapping, permanent redirects, product data, structured data, Merchant Center, Core Web Vitals, and post-launch CRO.'],
+];
+---
+
+<ServiceLayout
+  title={title}
+  description={description}
+  canonical="/services/ecommerce/shopify-development/"
+  ogImage="/images/ecommerce-og-2026.png"
+  breadcrumbs={breadcrumbs}
+  schema={schemas}
+>
+  <section class="relative mb-14 overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-8 md:p-12">
+    <div class="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-emerald-400/10 blur-3xl" aria-hidden="true"></div>
+    <div class="service-hero-grid relative">
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-emerald-400">Custom Shopify design and development</p>
+        <h1 class="mt-3 font-heading text-4xl font-bold leading-tight text-[var(--text)] md:text-5xl lg:text-6xl">
+          A Shopify Store That Feels Like Your Brand
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg leading-relaxed text-[var(--text-dim)]">
+          We design the store around your products and customers, then build it so your team can update content, manage orders, and run promotions without depending on a developer for every change.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/schedule-consultation/" class="rounded-full bg-emerald-400 px-6 py-3 text-sm font-bold text-slate-950 hover:brightness-110">Discuss Your Shopify Store</a>
+          <a href="/portfolio/case-study/rangresha/" class="rounded-full border border-[var(--border)] px-6 py-3 text-sm font-semibold text-[var(--text)] hover:border-emerald-400">See the Rangresha build</a>
+        </div>
+      </div>
+      <aside class="service-hero-aside" aria-label="Shopify delivery layers">
+        <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-400">How we help</p>
+        <h2 class="mt-1 font-heading text-xl font-bold text-[var(--text)]">From first idea to daily sales</h2>
+        <div class="mt-5 grid gap-2 sm:grid-cols-2">
+          {[
+            ['01', 'Plan the journey', 'Make products easier to discover and buy'],
+            ['02', 'Create the design', 'Give the store a look that is clearly yours'],
+            ['03', 'Set up selling', 'Payments, shipping, offers, and business tools'],
+            ['04', 'Prepare for growth', 'Search, speed, reporting, and ongoing support'],
+          ].map(([number, heading, text]) => (
+            <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-3.5">
+              <span class="text-[10px] font-bold text-emerald-400">{number}</span>
+              <strong class="mt-1 block text-sm text-[var(--text)]">{heading}</strong>
+              <span class="mt-1 block text-xs leading-snug text-[var(--text-muted)]">{text}</span>
+            </div>
+          ))}
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="mb-16 grid gap-8 rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-7 md:p-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+    <div>
+      <p class="text-sm font-semibold uppercase tracking-wider text-emerald-400">Featured Shopify project</p>
+      <h2 class="mt-2 font-heading text-3xl font-bold text-[var(--text)]">Rangresha</h2>
+      <p class="mt-4 leading-relaxed text-[var(--text-dim)]">
+        A custom Shopify storefront for an Indian sustainable-handicrafts brand, shaped around product discovery, brand storytelling, mobile shopping, corporate gifting, and bulk-order enquiries.
+      </p>
+      <a href="/portfolio/case-study/rangresha/" class="mt-6 inline-flex font-semibold text-emerald-400 hover:underline">Read the case study →</a>
+    </div>
+    <div class="grid gap-3 sm:grid-cols-2">
+      {['Custom visual design', 'Shopify theme development', 'Collection and product UX', 'Corporate gifting journeys', 'Mobile-first experience', 'Migration planning'].map((item) => (
+        <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-4 text-sm font-semibold text-[var(--text)]">✓ {item}</div>
+      ))}
+    </div>
+  </section>
+
+  <section class="mb-16">
+    <div class="max-w-3xl">
+      <p class="text-sm font-semibold uppercase tracking-wider text-[var(--accent)]">Full-cycle Shopify delivery</p>
+      <h2 class="mt-2 font-heading text-3xl font-bold text-[var(--text)]">More than a theme installation</h2>
+      <p class="mt-3 text-[var(--text-dim)]">We connect brand, merchandising, technology, operations, and measurement into one launch plan.</p>
+    </div>
+    <div class="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+      {services.map(([heading, text]) => (
+        <article class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+          <h3 class="font-heading text-lg font-bold text-[var(--text)]">{heading}</h3>
+          <p class="mt-3 text-sm leading-relaxed text-[var(--text-dim)]">{text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="mb-16 rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-7 md:p-10">
+    <div class="grid gap-10 lg:grid-cols-2">
+      <div>
+        <h2 class="font-heading text-3xl font-bold text-[var(--text)]">When Shopify is the right fit</h2>
+        <ul class="mt-6 space-y-3 text-[var(--text-dim)]">
+          <li>✓ You want a stable hosted commerce platform with lower infrastructure overhead.</li>
+          <li>✓ Your team needs an intuitive admin and mature merchant ecosystem.</li>
+          <li>✓ You want to launch or migrate without building every commerce primitive.</li>
+          <li>✓ Your differentiation is primarily the brand experience, catalogue, merchandising, and integrations.</li>
+          <li>✓ You need reliable multi-channel or international selling capabilities.</li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="font-heading text-3xl font-bold text-[var(--text)]">When to consider Medusa.js</h2>
+        <ul class="mt-6 space-y-3 text-[var(--text-dim)]">
+          <li>→ Your core business model depends on custom pricing, subscriptions, fulfilment, or data models.</li>
+          <li>→ You require complete control over backend workflows and infrastructure.</li>
+          <li>→ Marketplace, B2B, or multi-entity logic cannot be modelled cleanly in Shopify.</li>
+          <li>→ Platform constraints create ongoing app cost or operational workarounds.</li>
+        </ul>
+        <a href="/services/ecommerce/medusa-js-development/" class="mt-6 inline-flex font-semibold text-cyan-400 hover:underline">Compare our Medusa.js practice →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-16">
+    <h2 class="font-heading text-3xl font-bold text-[var(--text)]">Our Shopify delivery process</h2>
+    <div class="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+      {[
+        ['01', 'Commerce discovery', 'Goals, catalogue, audience, operations, migration, integrations, and measurement.'],
+        ['02', 'UX and visual design', 'Wireframes and high-fidelity design for the journeys that influence revenue.'],
+        ['03', 'Theme engineering', 'Modular Liquid development, configuration, integrations, content, and analytics.'],
+        ['04', 'Launch and growth', 'Migration, transaction testing, redirects, training, monitoring, and optimisation.'],
+      ].map(([number, heading, text]) => (
+        <article class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+          <span class="text-2xl font-bold text-emerald-400">{number}</span>
+          <h3 class="mt-4 font-heading text-lg font-bold text-[var(--text)]">{heading}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">{text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="mb-16 grid gap-4 md:grid-cols-2">
+    <a href="/blog/ecommerce/agentic-commerce-2026/" class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 transition hover:border-emerald-400">
+      <span class="text-xs font-semibold uppercase text-emerald-400">AI & commerce</span>
+      <strong class="mt-2 block text-lg text-[var(--text)]">Agentic commerce in 2026</strong>
+    </a>
+    <a href="/blog/ecommerce/is-your-shopify-store-ready-for-ai-shopping-agents/" class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 transition hover:border-emerald-400">
+      <span class="text-xs font-semibold uppercase text-emerald-400">Readiness checklist</span>
+      <strong class="mt-2 block text-lg text-[var(--text)]">Is your Shopify store ready for AI shopping agents?</strong>
+    </a>
+  </section>
+
+  <section class="mb-16">
+    <h2 class="font-heading text-3xl font-bold text-[var(--text)]">Shopify development FAQs</h2>
+    <div class="mt-7 divide-y divide-[var(--border)] overflow-hidden rounded-2xl border border-[var(--border)]">
+      {faqs.map((faq) => (
+        <details class="bg-[var(--bg-card)] p-6">
+          <summary class="cursor-pointer font-semibold text-[var(--text)]">{faq.question}</summary>
+          <p class="mt-3 text-sm leading-relaxed text-[var(--text-dim)]">{faq.answer}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <section class="rounded-3xl bg-emerald-400 p-8 text-slate-950 md:p-12">
+    <p class="text-sm font-bold uppercase tracking-wider">Custom Shopify, without the template look</p>
+    <h2 class="mt-2 max-w-3xl font-heading text-3xl font-bold md:text-4xl">Build a storefront your customers remember and your team can run.</h2>
+    <a href="/schedule-consultation/" class="mt-7 inline-flex rounded-full bg-slate-950 px-6 py-3 text-sm font-bold text-white">Plan your Shopify project</a>
+  </section>
+</ServiceLayout>

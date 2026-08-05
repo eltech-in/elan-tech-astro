@@ -1,7 +1,8 @@
 ---
 title: "Web Accessibility and ADA Compliance: The Complete 2026 Hub"
-description: "Your starting point for web accessibility and ADA/WCAG compliance in 2026 — what the laws require, what WCAG 2.2 changed, what it costs, and how to get and stay compliant. A guided index to our full accessibility library."
-publishDate: 2026-06-24
+description: "Your starting point for web accessibility in 2026: WCAG 2.2, legal frameworks, audits, source-level remediation, accessibility statements, and ongoing testing."
+publishDate: 2026-06-09
+updatedDate: 2026-07-24
 author: "eLan Technology Team"
 category: "accessibility"
 tags: ["web accessibility", "ADA compliance", "WCAG 2.2", "accessibility hub", "Section 508", "European Accessibility Act", "VPAT"]
@@ -13,25 +14,25 @@ draft: false
 seo:
   focusKeyword: "web accessibility ADA compliance"
   metaTitle: "Web Accessibility & ADA Compliance Hub (2026) | eLan Technology"
-  metaDescription: "The complete 2026 guide to web accessibility and ADA/WCAG compliance — laws, WCAG 2.2 changes, costs, lawsuits, and remediation. A curated index to our full accessibility library."
+  metaDescription: "Explore WCAG 2.2, ADA, AODA, EAA, accessibility audits, code-level remediation, accessibility statements and ongoing testing."
 faq:
   - question: "What is web accessibility?"
-    answer: "Web accessibility is the practice of designing and building websites so that people with disabilities — including those who use screen readers, keyboard navigation, magnification, or captioning — can perceive, understand, navigate, and interact with them. The internationally recognised technical standard is the Web Content Accessibility Guidelines (WCAG), and most laws require conformance to WCAG Level AA."
+    answer: "Web accessibility is the practice of designing and building websites so that people with disabilities - including those who use screen readers, keyboard navigation, magnification, or captioning - can perceive, understand, navigate, and interact with them. The internationally recognised technical standard is the Web Content Accessibility Guidelines (WCAG), and most laws require conformance to WCAG Level AA."
   - question: "Which accessibility standard should my business follow in 2026?"
-    answer: "WCAG 2.2 Level AA is the right baseline for 2026. It is the latest stable W3C recommendation, it adds nine success criteria beyond WCAG 2.1, and regulators and procurement teams across the US, Canada, and Europe are steadily migrating their requirements to it. Adopting WCAG 2.2 AA across your whole site is the safest single decision you can make."
+    answer: "WCAG 2.2 Level AA is a sensible current engineering baseline. However, some laws and contracts name WCAG 2.0 or 2.1. Record the version required by the applicable obligation and test against WCAG 2.2 where broader current coverage is appropriate."
   - question: "Is my business legally required to have an accessible website?"
     answer: "Very likely, yes. In the US the ADA, Section 508, and several state laws apply; in Canada the Accessible Canada Act and AODA apply; and in Europe the European Accessibility Act now applies to many products and services sold to EU customers, including by non-EU businesses. The specific obligations depend on where you operate and who you sell to, which the guides linked below explain in detail."
   - question: "Where should I start if I have never audited my website?"
-    answer: "Start with an honest audit that combines automated scanning with manual screen-reader and keyboard testing, then triage the findings by legal risk and user impact. Our free website audit is a sensible first step, and the WCAG explainer linked below will help you understand the results."
+    answer: "Start with an audit that combines automated checks with manual keyboard, screen-reader, zoom, and task testing, then prioritise findings by user impact and shared source component. The WCAG explainer and checklist below will help you understand the results."
 ---
 
-Web accessibility has moved from a nice-to-have to a legal, commercial, and ethical baseline. Around one in four adults lives with a disability, regulators on three continents now treat inaccessible websites as discrimination, and accessibility lawsuits in the United States alone run into the thousands every year. This hub is the starting point for understanding all of it — what the law requires, what the WCAG standard actually asks of you, what compliance costs, and how to get there and stay there.
+Web accessibility has moved from a nice-to-have to a legal, commercial, and ethical baseline. Around one in four adults lives with a disability, regulators on three continents now treat inaccessible websites as discrimination, and accessibility lawsuits in the United States alone run into the thousands every year. This hub is the starting point for understanding all of it - what the law requires, what the WCAG standard actually asks of you, what compliance costs, and how to get there and stay there.
 
 Below is a guided index to our complete accessibility library. Each section explains what a topic covers and links to the full guide, so you can move from a high-level map to deep detail wherever you need it.
 
 ## Start Here: Understand the Standard
 
-Before the laws make sense, the standard has to. The Web Content Accessibility Guidelines are the technical foundation that nearly every accessibility law points to, organised around four principles — perceivable, operable, understandable, and robust — and three conformance levels.
+Before the laws make sense, the standard has to. The Web Content Accessibility Guidelines are the technical foundation that nearly every accessibility law points to, organised around four principles - perceivable, operable, understandable, and robust - and three conformance levels.
 
 Our explainer translates WCAG out of specification language and into plain terms a business owner can act on. If you are new to accessibility, read this first.
 
@@ -39,13 +40,13 @@ Our explainer translates WCAG out of specification language and into plain terms
 
 ## Know the Laws That Apply to You
 
-Accessibility obligations depend on where you operate and who your customers are. The major frameworks converge on the same technical standard — WCAG Level AA — but differ in scope, enforcement, and documentation.
+Accessibility obligations depend on where you operate and who your customers are. The major frameworks converge on the same technical standard - WCAG Level AA - but differ in scope, enforcement, and documentation.
 
 For businesses serving North America, our practical guide covers the ADA, Section 508, Ontario's AODA, and the Accessible Canada Act, including what changed in WCAG 2.2 and the financial risk of inaction.
 
 → **[ADA and WCAG Website Compliance for US and Canadian Businesses](/blog/accessibility/ada-wcag-compliance-us-canada-2026/)**
 
-If you sell to customers in the European Union — even from outside it — the European Accessibility Act now reaches you. Our guide explains the law, the EN 301 549 standard it relies on, who is in scope, and the penalties for non-compliance.
+If you offer a covered product or consumer service on the EU market, the European Accessibility Act may apply even when your business is headquartered elsewhere. Our guide explains covered categories, exemptions, the role of WCAG and EN 301 549, and the technical assessment process.
 
 → **[The European Accessibility Act: What Non-EU Businesses Need to Know](/blog/accessibility/european-accessibility-act-eaa-compliance-guide/)**
 
@@ -57,28 +58,28 @@ Understanding the standard and the law is the groundwork; the next step is measu
 
 ## Avoid the Overlay Trap
 
-If you have been pitched a one-line accessibility widget that promises instant compliance, pause before you buy. Overlays do not fix the underlying code, they often break assistive technology, and in 2025 nearly a quarter of accessibility lawsuits targeted sites that already had one installed. This guide explains why overlays fail and what genuinely works instead.
+If you have been pitched a one-line accessibility widget that promises instant compliance, pause before you buy. An overlay cannot establish conformance across the underlying content, semantics, forms, components, documents, and task flows. This guide explains what the FTC's accessiBe action established and what source-level remediation includes.
 
 → **[Accessibility Overlay Widgets Won't Stop an ADA Lawsuit](/blog/accessibility/accessibility-overlays-wont-stop-ada-lawsuit/)**
 
 ## If You Have Already Received a Demand Letter
 
-When a legal demand or lawsuit lands, the priorities change: you need a fast, documented, defensible response. Our emergency remediation guide explains the immediate steps, the role of a rapid audit and VPAT documentation, and how to demonstrate good-faith progress to legal counsel.
+When a legal demand or complaint arrives, legal counsel should direct the response while the technical team preserves evidence, audits the affected journeys, remediates the source, and documents retest results.
 
 → **[ADA Lawsuit Emergency Website Remediation](/blog/accessibility/ada-lawsuit-emergency-website-remediation/)**
 
 ## The Through-Line: Build It In, Then Keep It Healthy
 
-Read across the whole library and one message repeats. Accessibility is not a product you install or a box you tick once. It is a property of well-built code, verified by proper testing, and maintained continuously as your site changes. Conform to WCAG 2.2 Level AA in the HTML your server actually delivers, verify with a hybrid audit that pairs automated scanning with manual screen-reader and keyboard testing, publish an accessibility statement, and re-check after every significant change. Do those things and you meet the technical expectations of regulators in every major jurisdiction at once.
+Read across the whole library and one message repeats. Accessibility is not a product you install or a box you tick once. It is a property of well-built content and code, verified by appropriate testing and maintained as the site changes. Define the applicable baseline, test representative journeys, fix source components, publish an accurate accessibility statement, and re-check after significant changes.
 
 ## How eLan Technology Helps
 
-eLan Technology has engineered WCAG and ADA compliant websites since 2002, for clients across the United States, Canada, the UK, the UAE, and Australia. Accessibility is not an upsell on our projects — it is standard on every build.
+eLan Technology has engineered WCAG and ADA compliant websites since 2002, for clients across the United States, Canada, the UK, the UAE, and Australia. Accessibility is not an upsell on our projects - it is standard on every build.
 
-We run hybrid audits combining automated tooling with manual testing by trained specialists, deliver remediation plans sequenced by legal risk and user impact, and produce the VPAT 2.5 conformance reports, accessibility statements, and evidence artefacts your legal and procurement teams need. We remediate across React, Next.js, Astro, WordPress, Shopify, and headless stacks, and we build new sites that are accessible by design, with accessibility checks running inside our continuous integration pipeline.
+We run hybrid audits combining automated tooling with manual testing, deliver remediation plans sequenced by user impact and shared source component, and provide criterion-level findings, retest records, accessibility statements, and ACR preparation using an appropriate VPAT template when scoped. We remediate across React, Next.js, Astro, WordPress, Shopify, and headless stacks.
 
-The fastest way to find out where you stand is our [free website audit](/free-website-audit/). When you are ready for full audit, remediation, and documentation, our [ADA-compliant web design service](/services/ada-compliant-web-design/) covers the complete engagement.
+When you are ready for audit, remediation, and documentation, our [ADA and WCAG accessibility service](/services/ada-compliant-web-design/) covers the complete engagement.
 
 ## Final Thoughts
 
-Accessibility rewards the businesses that treat it as craft rather than compliance theatre. The legal exposure shrinks, search and conversion performance improves, and — most importantly — your website starts serving the quarter of the population that inaccessible sites quietly turn away. Use this hub as your map: start with the standard, learn the laws that apply to you, measure your site, avoid the overlay trap, and build accessibility in for good.
+Accessibility rewards the businesses that treat it as craft rather than compliance theatre. The legal exposure shrinks, search and conversion performance improves, and - most importantly - your website starts serving the quarter of the population that inaccessible sites quietly turn away. Use this hub as your map: start with the standard, learn the laws that apply to you, measure your site, avoid the overlay trap, and build accessibility in for good.

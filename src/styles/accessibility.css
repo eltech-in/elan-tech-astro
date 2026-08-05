@@ -26,7 +26,7 @@ textarea {
   min-height: 44px;
 }
 
-/* Except inline text links — only block/prominent links need 44px */
+/* Except inline text links - only block/prominent links need 44px */
 p a, li a, td a {
   min-height: auto;
 }

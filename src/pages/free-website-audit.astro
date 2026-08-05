@@ -28,7 +28,7 @@ const faqs = [
   {
     question: 'What does the free website audit include?',
     answer:
-      'The free audit covers three core dimensions: (1) SEO health — technical SEO, on-page optimisation, meta tags, schema, broken links, crawlability and Core Web Vitals; (2) Security — SSL/TLS status, HTTP security headers, known CVEs, malware & blacklist checks, outdated software detection; (3) Performance — Lighthouse scores, LCP/INP/CLS, mobile usability and responsive breakpoints. You receive a PDF report within 24–48 hours with prioritised issues and exact fixes.',
+      'The free audit covers three core dimensions: (1) SEO health - technical SEO, on-page optimisation, meta tags, schema, broken links, crawlability and Core Web Vitals; (2) Security - SSL/TLS status, HTTP security headers, known CVEs, malware & blacklist checks, outdated software detection; (3) Performance - Lighthouse scores, LCP/INP/CLS, mobile usability and responsive breakpoints. You receive a PDF report within 24–48 hours with prioritised issues and exact fixes.',
   },
   {
     question: 'Why is my website not ranking on Google?',
@@ -38,12 +38,12 @@ const faqs = [
   {
     question: 'How do I know if my website has security vulnerabilities?',
     answer:
-      'Most vulnerabilities are invisible until they are exploited — outdated WordPress/plugins, missing security headers (CSP, HSTS, X-Frame-Options), exposed .env files, weak SSL configuration, and unpatched CVEs in your tech stack. Our security audit runs automated scanners (OWASP ZAP, Nikto) plus manual checks and flags every issue with severity and remediation steps.',
+      'Most vulnerabilities are invisible until they are exploited - outdated WordPress/plugins, missing security headers (CSP, HSTS, X-Frame-Options), exposed .env files, weak SSL configuration, and unpatched CVEs in your tech stack. Our security audit runs automated scanners (OWASP ZAP, Nikto) plus manual checks and flags every issue with severity and remediation steps.',
   },
   {
     question: 'Is this audit really free? What is the catch?',
     answer:
-      'Yes — the SEO and security audit is 100% free, with no obligation and no sales pitch. We do it because roughly 30% of audited businesses later engage us for remediation, maintenance or redesign. If you prefer to fix the issues in-house or with another agency, the report is still yours to keep. * Conditions apply — limited to one audit per domain per 90 days.',
+      'Yes - the SEO and security audit is 100% free, with no obligation and no sales pitch. We do it because roughly 30% of audited businesses later engage us for remediation, maintenance or redesign. If you prefer to fix the issues in-house or with another agency, the report is still yours to keep. * Conditions apply - limited to one audit per domain per 90 days.',
   },
   {
     question: 'How long does the audit take?',
@@ -53,42 +53,42 @@ const faqs = [
   {
     question: 'Do you offer ADA and WCAG accessibility audits?',
     answer:
-      'Yes. WCAG 2.1 / 2.2 AA audits are available as a paid service (₹9,999 flat fee per domain). This covers colour contrast, ARIA roles, keyboard navigation, screen reader compatibility, form accessibility, and image alt text coverage — delivered as a detailed remediation roadmap with code-level fixes. Essential for US and Canadian businesses facing ADA lawsuit risk in 2026.',
+      'Yes. WCAG 2.1 / 2.2 AA audits are available as a paid service (₹9,999 flat fee per domain). This covers colour contrast, ARIA roles, keyboard navigation, screen reader compatibility, form accessibility, and image alt text coverage - delivered as a detailed remediation roadmap with code-level fixes. Essential for US and Canadian businesses facing ADA lawsuit risk in 2026.',
   },
   {
     question: 'What tools do you use for the website audit?',
     answer:
-      'A combination of industry-standard tools and our proprietary checklist: Google Lighthouse, PageSpeed Insights, Screaming Frog, Ahrefs, SEMrush, OWASP ZAP, Mozilla Observatory, SecurityHeaders.com, WAVE (accessibility), axe DevTools, and our 180-point manual review. Every finding is verified by a human auditor — not just a bot report.',
+      'A combination of industry-standard tools and our proprietary checklist: Google Lighthouse, PageSpeed Insights, Screaming Frog, Ahrefs, SEMrush, OWASP ZAP, Mozilla Observatory, SecurityHeaders.com, WAVE (accessibility), axe DevTools, and our 180-point manual review. Every finding is verified by a human auditor - not just a bot report.',
   },
   {
     question: 'Will you fix the issues after the audit?',
     answer:
-      'That is completely optional. You receive the audit report with full DIY remediation steps. If you would like us to fix the issues, we quote a fixed-price or monthly-maintenance engagement based on scope. Many clients use the audit internally or with their existing developer — that is totally fine.',
+      'That is completely optional. You receive the audit report with full DIY remediation steps. If you would like us to fix the issues, we quote a fixed-price or monthly-maintenance engagement based on scope. Many clients use the audit internally or with their existing developer - that is totally fine.',
   },
   {
     question: 'How do I fix common issues found in a website audit?',
     answer:
-      'Start by sorting findings by severity, not by where they appear in the report. Critical security headers and HTTPS issues come first (they can be fixed in minutes via your server config). Next, Core Web Vitals — most LCP failures are solved by preloading the hero image and deferring third-party scripts. Then SEO basics: add a unique title and meta description to every page, fix broken internal links, and add structured data for your top page types. Accessibility comes alongside SEO — alt text, form labels, focus indicators. Save content rewrites for last because they take longest. Our PDF report ranks every finding by impact + effort, so you can knock out 10 quick wins in an afternoon and tackle the big rewrites over the next sprint.',
+      'Start by sorting findings by severity, not by where they appear in the report. Critical security headers and HTTPS issues come first (they can be fixed in minutes via your server config). Next, Core Web Vitals - most LCP failures are solved by preloading the hero image and deferring third-party scripts. Then SEO basics: add a unique title and meta description to every page, fix broken internal links, and add structured data for your top page types. Accessibility comes alongside SEO - alt text, form labels, focus indicators. Save content rewrites for last because they take longest. Our PDF report ranks every finding by impact + effort, so you can knock out 10 quick wins in an afternoon and tackle the big rewrites over the next sprint.',
   },
   {
     question: 'How do I diagnose and fix website speed issues with a website audit?',
     answer:
-      'Speed problems almost always come down to four culprits, and an audit tells you which one is yours. (1) Heavy images — if your LCP element is an image over 200 KB, that is the first fix; serve modern formats (AVIF/WebP), preload the hero, and lazy-load below the fold. (2) Render-blocking JavaScript — inline critical CSS, defer or async non-critical JS, and remove anything you can. (3) Slow server response — if TTFB is over 600 ms, you need server caching, a CDN, or a faster host. (4) Layout shifts — reserve space for images and embeds with explicit width/height to keep CLS under 0.1. The audit pinpoints exactly which one is hurting you with real-user data from PageSpeed Insights and CrUX, so you fix the right thing first instead of guessing.',
+      'Speed problems almost always come down to four culprits, and an audit tells you which one is yours. (1) Heavy images - if your LCP element is an image over 200 KB, that is the first fix; serve modern formats (AVIF/WebP), preload the hero, and lazy-load below the fold. (2) Render-blocking JavaScript - inline critical CSS, defer or async non-critical JS, and remove anything you can. (3) Slow server response - if TTFB is over 600 ms, you need server caching, a CDN, or a faster host. (4) Layout shifts - reserve space for images and embeds with explicit width/height to keep CLS under 0.1. The audit pinpoints exactly which one is hurting you with real-user data from PageSpeed Insights and CrUX, so you fix the right thing first instead of guessing.',
   },
   {
     question: 'Can you explain WCAG 2.2 AA requirements in plain English for a non-technical store owner?',
     answer:
-      'WCAG 2.2 AA is the accessibility standard US courts treat as the benchmark for ADA website lawsuits. Stripped of jargon, it means: (1) every image needs a written description so screen readers can read it; (2) text must be readable — at least 4.5:1 contrast against its background; (3) every button, form and link must work with the keyboard alone (no mouse required); (4) the focus outline must always be visible when tabbing; (5) videos need captions, audio needs transcripts; (6) error messages must explain what went wrong and how to fix it; (7) target sizes for buttons and links must be at least 24×24 pixels (the new 2.2 requirement); (8) drag actions must have a non-drag alternative. For an eCommerce store, the highest-risk areas are product photos without alt text, checkout forms without labels, and modal popups that trap keyboard focus. Our audit checks all of these and gives you the exact code to fix each one.',
+      'WCAG 2.2 AA is the accessibility standard US courts treat as the benchmark for ADA website lawsuits. Stripped of jargon, it means: (1) every image needs a written description so screen readers can read it; (2) text must be readable - at least 4.5:1 contrast against its background; (3) every button, form and link must work with the keyboard alone (no mouse required); (4) the focus outline must always be visible when tabbing; (5) videos need captions, audio needs transcripts; (6) error messages must explain what went wrong and how to fix it; (7) target sizes for buttons and links must be at least 24×24 pixels (the new 2.2 requirement); (8) drag actions must have a non-drag alternative. For an eCommerce store, the highest-risk areas are product photos without alt text, checkout forms without labels, and modal popups that trap keyboard focus. Our audit checks all of these and gives you the exact code to fix each one.',
   },
   {
     question: 'Do you offer a free website audit for businesses in Florida?',
     answer:
-      'Yes — we run free website audits for businesses across Florida, including Miami, Orlando, Tampa, Jacksonville, and Fort Lauderdale. Florida\'s Southern and Middle federal districts are among the busiest in the country for ADA digital-accessibility lawsuits, so a free website audit in Florida from us weighs WCAG 2.1 AA / ADA risk alongside the standard SEO, security and Core Web Vitals checks. Submit your URL and you will receive a prioritised PDF report — covering rankings, security vulnerabilities, performance, and accessibility risk — within 24-48 hours, completely free, with no obligation.',
+      'Yes - we run free website audits for businesses across Florida, including Miami, Orlando, Tampa, Jacksonville, and Fort Lauderdale. Florida\'s Southern and Middle federal districts are among the busiest in the country for ADA digital-accessibility lawsuits, so a free website audit in Florida from us weighs WCAG 2.1 AA / ADA risk alongside the standard SEO, security and Core Web Vitals checks. Submit your URL and you will receive a prioritised PDF report - covering rankings, security vulnerabilities, performance, and accessibility risk - within 24-48 hours, completely free, with no obligation.',
   },
   {
-    question: 'I need to fix my eCommerce accessibility before a lawsuit deadline — who can help fast?',
+    question: 'I need to fix my eCommerce accessibility before a lawsuit deadline - who can help fast?',
     answer:
-      'If you have already received a demand letter or court summons, time is the lever. The fastest path is: (1) book an emergency WCAG audit today — we deliver in 24 hours; (2) start visible remediation immediately, even before completion, because courts treat active remediation as a mitigating factor in settlement negotiations; (3) obtain VPAT documentation as formal evidence of compliance work. Demand letters typically settle near $5,000 when you respond fast with a remediation plan, versus $30,000–$85,000 if ignored. eLan Technology provides 24-hour emergency audits with VPAT-ready documentation specifically for businesses on a deadline. <a href="/services/ada-compliant-web-design/">See our emergency ADA remediation service</a> or jump straight to the paid WCAG 2.2 AA audit below.',
+      'If you have already received a demand letter or court summons, time is the lever. The fastest path is: (1) book an emergency WCAG audit today - we deliver in 24 hours; (2) start visible remediation immediately, even before completion, because courts treat active remediation as a mitigating factor in settlement negotiations; (3) obtain VPAT documentation as formal evidence of compliance work. Demand letters typically settle near $5,000 when you respond fast with a remediation plan, versus $30,000–$85,000 if ignored. eLan Technology provides 24-hour emergency audits with VPAT-ready documentation specifically for businesses on a deadline. <a href="/services/ada-compliant-web-design/">See our emergency ADA remediation service</a> or jump straight to the paid WCAG 2.2 AA audit below.',
   },
 ];
 
@@ -115,14 +115,14 @@ const service = {
 
 const schemas = [breadcrumbs, faqSchema(faqs), service];
 
-/* Issue buckets — bento-style cards mirroring the services page aesthetic */
+/* Issue buckets - bento-style cards mirroring the services page aesthetic */
 const issues = [
   {
     cssVar: '--ac-emerald',
     num: '01',
     eyebrow: 'SEO · Rankings',
     title: 'Losing traffic & Google rankings?',
-    desc: 'We pinpoint why your pages are buried on page 2+ — broken schema, missing meta, duplicate titles, thin content, keyword cannibalisation and internal-linking gaps.',
+    desc: 'We pinpoint why your pages are buried on page 2+ - broken schema, missing meta, duplicate titles, thin content, keyword cannibalisation and internal-linking gaps.',
     points: [
       'Technical SEO audit (robots, sitemap, canonicals)',
       'On-page optimisation & keyword gaps',
@@ -211,7 +211,7 @@ const issues = [
   },
 ];
 
-/* Deliverables checklist — appears under the audit form */
+/* Deliverables checklist - appears under the audit form */
 const deliverables = [
   'Executive summary scored out of 100',
   'Prioritised action list (Critical / High / Medium / Low)',
@@ -225,12 +225,12 @@ const deliverables = [
 ---
 
 <BaseLayout
-  title="Get a Free Website Audit | SEO, Speed & Security Report in 48 Hours | eLan Technology"
-  description="Free expert website audit — uncover SEO gaps, slow Core Web Vitals, security issues & ranking drops. PDF report delivered in 24–48 hrs. 500+ audits done. No credit card needed."
+  title="Free Website Audit: SEO, Speed & Security"
+  description="Get a free, human-reviewed website audit covering SEO, ranking drops, Core Web Vitals, mobile usability and security. Prioritized PDF report in 24–48 hours."
   schema={schemas}
 >
   <!-- ══════════════════════════════════════════════════════════════════════
-       HERO — primary keyword H1 + trust bar + jump-to-form CTA
+       HERO - primary keyword H1 + trust bar + jump-to-form CTA
        ══════════════════════════════════════════════════════════════════════ -->
   <section class="relative overflow-hidden bg-[var(--bg)] py-20 md:py-28">
     <!-- Aurora backdrop -->
@@ -246,12 +246,12 @@ const deliverables = [
       </div>
 
       <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--text)] leading-[1.05]">
-        Free Website Audit —<br class="hidden sm:block" />
+        Free Website Audit - <br class="hidden sm:block" />
         Fix <span style="color: var(--ac-emerald);">SEO</span>, <span style="color: var(--ac-red);">Security</span> &amp; <span style="color: var(--ac-amber);">Speed</span> Issues
       </h1>
 
       <p class="mx-auto mt-6 max-w-3xl text-lg md:text-xl text-[var(--text-dim)] leading-relaxed">
-        Low Google rankings, slow pages, security warnings or a drop in traffic? Get a free, expert-reviewed website audit covering <strong class="text-[var(--text)]">SEO, security, Core Web Vitals, mobile UX and accessibility</strong> — with a prioritised fix-list delivered in 24&ndash;48 hours.
+        Low Google rankings, slow pages, security warnings or a drop in traffic? Get a free, expert-reviewed website audit covering <strong class="text-[var(--text)]">SEO, security, Core Web Vitals, mobile UX and accessibility</strong> - with a prioritised fix-list delivered in 24&ndash;48 hours.
       </p>
 
       <div class="mt-8 flex flex-wrap justify-center gap-3">
@@ -270,7 +270,7 @@ const deliverables = [
         </a>
       </div>
 
-      <!-- Paid ADA/WCAG audit jump-link — for high-intent lawsuit-risk visitors -->
+      <!-- Paid ADA/WCAG audit jump-link - for high-intent lawsuit-risk visitors -->
       <a
         href="#paid-wcag-audit"
         class="mt-5 inline-flex items-center gap-2 rounded-full border px-5 py-2 text-sm font-semibold transition hover:opacity-90"
@@ -301,7 +301,7 @@ const deliverables = [
   </section>
 
   <!-- ══════════════════════════════════════════════════════════════════════
-       PROBLEM / ISSUE BUCKETS — bento grid (SEO · Security · Speed · Mobile · Technical · Accessibility)
+       PROBLEM / ISSUE BUCKETS - bento grid (SEO · Security · Speed · Mobile · Technical · Accessibility)
        ══════════════════════════════════════════════════════════════════════ -->
   <section id="what-you-get" class="relative py-20 md:py-24 bg-[var(--bg)] border-t border-[var(--border)]" aria-labelledby="issues-heading">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -374,7 +374,7 @@ const deliverables = [
                   href={issue.ctaHref ?? '#audit-form'}
                   class="relative mt-auto inline-flex items-center gap-1 text-sm font-semibold transition-transform duration-200 group-hover:translate-x-0.5"
                   style={`color: var(${issue.cssVar});`}
-                  aria-label={issue.ctaHref ? `${issue.ctaLabel} — ${issue.title}` : `Request free audit covering ${issue.title}`}
+                  aria-label={issue.ctaHref ? `${issue.ctaLabel} - ${issue.title}` : `Request free audit covering ${issue.title}`}
                 >
                   {issue.ctaLabel ?? 'Check My Site'}
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -390,7 +390,7 @@ const deliverables = [
   </section>
 
   <!-- ══════════════════════════════════════════════════════════════════════
-       DELIVERABLES — what's inside the PDF report
+       DELIVERABLES - what's inside the PDF report
        ══════════════════════════════════════════════════════════════════════ -->
   <section class="py-20 md:py-24 bg-[var(--bg-card)] border-t border-[var(--border)]" aria-labelledby="deliverables-heading">
     <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -401,7 +401,7 @@ const deliverables = [
             A 20-page PDF report you can actually act on.
           </h2>
           <p class="text-lg text-[var(--text-dim)] mb-6">
-            No jargon. No 400-row Lighthouse dump. Just a clear, prioritised plan with screenshots, code snippets and effort estimates — ready for you, your developer, or our team.
+            No jargon. No 400-row Lighthouse dump. Just a clear, prioritised plan with screenshots, code snippets and effort estimates - ready for you, your developer, or our team.
           </p>
           <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3" role="list">
             {deliverables.map((d) => (
@@ -482,7 +482,7 @@ const deliverables = [
           Get my free website audit report
         </h2>
         <p class="text-[var(--text-dim)]">
-          60 seconds to submit. Expert PDF delivered to your inbox within 24&ndash;48 hours. No sales calls — just the report.
+          60 seconds to submit. Expert PDF delivered to your inbox within 24&ndash;48 hours. No sales calls - just the report.
         </p>
       </div>
       <FreeAuditForm client:visible />
@@ -512,13 +512,13 @@ const deliverables = [
             n: '01',
             color: '--ac-emerald',
             title: 'Submit your URL',
-            desc: 'Paste your website URL, add a contact email and hit submit. Takes less than 60 seconds — no credit card, no account required.',
+            desc: 'Paste your website URL, add a contact email and hit submit. Takes less than 60 seconds - no credit card, no account required.',
           },
           {
             n: '02',
             color: '--ac-amber',
-            title: 'We audit — manually',
-            desc: '180-point checklist across SEO, security, performance, mobile UX, technical health and accessibility. Every finding is verified by a human auditor — not just a bot.',
+            title: 'We audit - manually',
+            desc: '180-point checklist across SEO, security, performance, mobile UX, technical health and accessibility. Every finding is verified by a human auditor - not just a bot.',
           },
           {
             n: '03',
@@ -541,51 +541,51 @@ const deliverables = [
   </section>
 
   <!-- ══════════════════════════════════════════════════════════════════════
-       LONG-FORM SEO COPY — keyword-dense Q&A block that ranks for long-tail
+       LONG-FORM SEO COPY - keyword-dense Q&A block that ranks for long-tail
        ══════════════════════════════════════════════════════════════════════ -->
   <section class="py-20 md:py-24 bg-[var(--bg)] border-t border-[var(--border)]" aria-labelledby="why-audit-heading">
     <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 prose-styles">
       <p class="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--text-muted)] mb-3">Why audit your website</p>
       <h2 id="why-audit-heading" class="font-heading text-3xl md:text-4xl font-bold text-[var(--text)] leading-tight mb-8">
-        Why your website isn't ranking — and what a professional audit actually fixes
+        Why your website isn't ranking - and what a professional audit actually fixes
       </h2>
 
       <div class="space-y-8 text-[var(--text-dim)] text-base md:text-lg leading-relaxed">
         <p>
-          If your website traffic is flat, leads have dried up, or Google Search Console is flashing warnings about <strong class="text-[var(--text)]">Core Web Vitals, mobile usability or indexing errors</strong>, you are not alone. Roughly 68% of small and mid-sized business websites we audit have at least one <em>critical</em> issue that is measurably hurting their search visibility or conversion rate — and most owners have no idea.
+          If your website traffic is flat, leads have dried up, or Google Search Console is flashing warnings about <strong class="text-[var(--text)]">Core Web Vitals, mobile usability or indexing errors</strong>, you are not alone. Roughly 68% of small and mid-sized business websites we audit have at least one <em>critical</em> issue that is measurably hurting their search visibility or conversion rate - and most owners have no idea.
         </p>
 
         <h3 class="font-heading text-xl md:text-2xl font-semibold text-[var(--text)] mt-10 mb-3">Top 7 reasons websites lose Google rankings in 2026</h3>
         <ol class="list-decimal pl-6 space-y-2">
-          <li><strong class="text-[var(--text)]">Failing Core Web Vitals</strong> — LCP over 2.5s, INP over 200ms or CLS over 0.1 is a ranking penalty on both mobile and desktop.</li>
+          <li><strong class="text-[var(--text)]">Failing Core Web Vitals</strong> - LCP over 2.5s, INP over 200ms or CLS over 0.1 is a ranking penalty on both mobile and desktop.</li>
           <li><strong class="text-[var(--text)]">Thin, duplicate or AI-slop content</strong> triggered by Google's helpful-content and spam updates.</li>
-          <li><strong class="text-[var(--text)]">Missing or broken schema markup</strong> — losing rich results for products, FAQs, articles and local business.</li>
-          <li><strong class="text-[var(--text)]">Poor mobile UX</strong> — mobile-first indexing means your phone experience <em>is</em> your SEO.</li>
+          <li><strong class="text-[var(--text)]">Missing or broken schema markup</strong> - losing rich results for products, FAQs, articles and local business.</li>
+          <li><strong class="text-[var(--text)]">Poor mobile UX</strong> - mobile-first indexing means your phone experience <em>is</em> your SEO.</li>
           <li><strong class="text-[var(--text)]">Orphan pages &amp; broken internal links</strong> that fragment crawl budget and leak PageRank.</li>
-          <li><strong class="text-[var(--text)]">Security warnings</strong> — mixed content, expired SSL or blacklisted domain tanks rankings overnight.</li>
-          <li><strong class="text-[var(--text)]">Slow server response</strong> — TTFB over 600ms suppresses crawl rate and user engagement.</li>
+          <li><strong class="text-[var(--text)]">Security warnings</strong> - mixed content, expired SSL or blacklisted domain tanks rankings overnight.</li>
+          <li><strong class="text-[var(--text)]">Slow server response</strong> - TTFB over 600ms suppresses crawl rate and user engagement.</li>
         </ol>
 
         <h3 class="font-heading text-xl md:text-2xl font-semibold text-[var(--text)] mt-10 mb-3">Why free automated tools aren't enough</h3>
         <p>
-          Tools like Lighthouse, PageSpeed Insights and SecurityHeaders.com are great — we use them too. But they only show <em>what</em> is wrong, not <em>why</em> it matters to <em>your</em> business, nor how to fix it without breaking something else. A professional audit translates 400 rows of raw warnings into a prioritised, revenue-weighted action list.
+          Tools like Lighthouse, PageSpeed Insights and SecurityHeaders.com are great - we use them too. But they only show <em>what</em> is wrong, not <em>why</em> it matters to <em>your</em> business, nor how to fix it without breaking something else. A professional audit translates 400 rows of raw warnings into a prioritised, revenue-weighted action list.
         </p>
 
         <h3 class="font-heading text-xl md:text-2xl font-semibold text-[var(--text)] mt-10 mb-3">Security issues that silently kill trust (and rankings)</h3>
         <p>
-          <strong class="text-[var(--text)]">Outdated WordPress plugins</strong>, <strong class="text-[var(--text)]">missing security headers</strong> (CSP, HSTS, X-Frame-Options), <strong class="text-[var(--text)]">weak TLS configuration</strong>, and <strong class="text-[var(--text)]">exposed admin endpoints</strong> are the four most common findings in our security audits. Any one of them can result in your site being flagged by Google Safe Browsing — or worse, blacklisted. Our audit catches every one of these using OWASP ZAP, Nikto and a 40-point manual review.
+          <strong class="text-[var(--text)]">Outdated WordPress plugins</strong>, <strong class="text-[var(--text)]">missing security headers</strong> (CSP, HSTS, X-Frame-Options), <strong class="text-[var(--text)]">weak TLS configuration</strong>, and <strong class="text-[var(--text)]">exposed admin endpoints</strong> are the four most common findings in our security audits. Any one of them can result in your site being flagged by Google Safe Browsing - or worse, blacklisted. Our audit catches every one of these using OWASP ZAP, Nikto and a 40-point manual review.
         </p>
 
         <h3 class="font-heading text-xl md:text-2xl font-semibold text-[var(--text)] mt-10 mb-3">ADA &amp; WCAG compliance: the 2026 lawsuit wave</h3>
         <p>
-          US federal ADA lawsuits targeting inaccessible websites grew <strong class="text-[var(--text)]">+47% year-over-year</strong>, with 4,000+ filings in 2025. Canada's Accessible Canada Act (ACA) and Ontario's AODA enforce similar obligations. A non-compliant website is now a measurable legal liability — and a baseline WCAG 2.2 AA audit is the cheapest insurance you can buy. We offer it as a flat-fee paid add-on below.
+          US federal ADA lawsuits targeting inaccessible websites grew <strong class="text-[var(--text)]">+47% year-over-year</strong>, with 4,000+ filings in 2025. Canada's Accessible Canada Act (ACA) and Ontario's AODA enforce similar obligations. A non-compliant website is now a measurable legal liability - and a baseline WCAG 2.2 AA audit is the cheapest insurance you can buy. We offer it as a flat-fee paid add-on below.
         </p>
       </div>
     </div>
   </section>
 
   <!-- ══════════════════════════════════════════════════════════════════════
-       PAID ADA / WCAG UPSELL — bento style
+       PAID ADA / WCAG UPSELL - bento style
        ══════════════════════════════════════════════════════════════════════ -->
   <section id="paid-wcag-audit" class="py-16 md:py-20 bg-[var(--bg-card)] border-t border-[var(--border)] scroll-mt-20" aria-labelledby="ada-heading">
     <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -603,7 +603,7 @@ const deliverables = [
               ADA &amp; WCAG 2.2 AA Accessibility Audit
             </h2>
             <p class="text-[var(--text-dim)] mb-5">
-              Everything the free audit covers — plus a full WCAG 2.2 AA compliance audit with VPAT-ready documentation. Essential for US &amp; Canadian businesses managing ADA lawsuit risk.
+              Everything the free audit covers - plus a full WCAG 2.2 AA compliance audit with VPAT-ready documentation. Essential for US &amp; Canadian businesses managing ADA lawsuit risk.
             </p>
             <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-2" role="list">
               {[
@@ -633,7 +633,7 @@ const deliverables = [
   </section>
 
   <!-- ══════════════════════════════════════════════════════════════════════
-       FAQ — schema-backed long-tail question targeting
+       FAQ - schema-backed long-tail question targeting
        ══════════════════════════════════════════════════════════════════════ -->
   <section class="py-20 md:py-24 bg-[var(--bg)] border-t border-[var(--border)]" aria-labelledby="faq-heading">
     <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
@@ -666,7 +666,7 @@ const deliverables = [
       <p class="font-heading text-5xl md:text-6xl font-extrabold text-[var(--accent)] mb-3">500+</p>
       <p class="text-xl md:text-2xl font-semibold text-[var(--text)] mb-4">websites audited across 10+ countries</p>
       <p class="text-[var(--text-dim)] text-lg mb-8">
-        Average <strong class="text-[var(--text)]">23 issues uncovered per audit</strong> — including critical security vulnerabilities, SEO blockers and Core Web Vitals failures most owners never knew existed.
+        Average <strong class="text-[var(--text)]">23 issues uncovered per audit</strong> - including critical security vulnerabilities, SEO blockers and Core Web Vitals failures most owners never knew existed.
       </p>
       <a
         href="#audit-form"

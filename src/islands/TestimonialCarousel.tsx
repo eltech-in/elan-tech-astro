@@ -96,7 +96,7 @@ export default function TestimonialCarousel({ testimonials }: Props) {
             <cite className="not-italic">
               <span className="block font-bold text-[var(--text)]">{item.author}</span>
               <span className="text-sm text-[var(--text-muted)]">
-                {item.role} — {item.company}
+                {item.role} - {item.company}
               </span>
             </cite>
           </footer>
@@ -117,7 +117,7 @@ export default function TestimonialCarousel({ testimonials }: Props) {
           </svg>
         </button>
 
-        {/* Slide counter — e.g. "1 / 3" */}
+        {/* Slide counter - e.g. "1 / 3" */}
         <span
           aria-live="polite"
           aria-atomic="true"

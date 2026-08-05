@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-// SVG icon map for each service — inline for zero-dependency approach
+// SVG icon map for each service - inline for zero-dependency approach
 const serviceIcons: Record<string, string> = {
   'website-design': `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>`,
   'web-development': `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
@@ -45,7 +45,13 @@ const services: { label: string; slug: string; subpages: SubPage[] }[] = [
   {
     label: 'eCommerce',
     slug: 'ecommerce',
-    subpages: ['Shopify', 'WooCommerce', 'Custom eCommerce', 'B2B Portals', 'Payment Integration'],
+    subpages: [
+      { label: 'Custom Shopify Development', href: '/services/ecommerce/shopify-development/' },
+      { label: 'Medusa.js Development', href: '/services/ecommerce/medusa-js-development/' },
+      'Headless Commerce',
+      'Subscriptions',
+      'Payment & Shipping Modules',
+    ],
   },
   {
     label: 'SEO',
@@ -189,7 +195,7 @@ export default function MegaMenu() {
       onMouseLeave={closeMenu}
       className="absolute left-0 right-0 top-full z-40 mt-2 w-full overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] shadow-2xl shadow-black/20"
     >
-      {/* Invisible hover bridge — covers the gap between island and dropdown */}
+      {/* Invisible hover bridge - covers the gap between island and dropdown */}
       <div className="absolute left-0 -top-3 w-full h-3 bg-transparent" />
 
       {activeMenu === 'services' ? (

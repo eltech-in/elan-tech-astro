@@ -84,7 +84,7 @@ export default function CountdownTimer() {
           fontWeight: 600,
         }}
       >
-        🎉 Offer ends on our 21st Anniversary — Aug 15, 2026
+        🎉 Offer ends on our 21st Anniversary - Aug 15, 2026
       </div>
     );
   }

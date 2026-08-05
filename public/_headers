@@ -1,8 +1,8 @@
-# Cloudflare Pages — Security Headers
+# Cloudflare Pages - Security Headers
 # Applied to all routes unless overridden below
 
 /*
-  # HSTS — force HTTPS for 2 years, include subdomains, preload-ready
+  # HSTS - force HTTPS for 2 years, include subdomains, preload-ready
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
 
   # Prevent clickjacking
@@ -15,7 +15,7 @@
   Referrer-Policy: strict-origin-when-cross-origin
 
   # Restrict browser feature permissions
-  # payment=(self) — required for Razorpay Checkout (Payment Request API)
+  # payment=(self) - required for Razorpay Checkout (Payment Request API)
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(self), usb=(), interest-cohort=()
 
   # Content Security Policy
@@ -36,14 +36,14 @@
   # Remove server fingerprinting
   X-Powered-By: none
 
-  # Cache control for HTML pages — always revalidate
+  # Cache control for HTML pages - always revalidate
   Cache-Control: public, max-age=0, must-revalidate
 
-# Static assets — aggressive caching (content-hashed filenames)
+# Static assets - aggressive caching (content-hashed filenames)
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
 
-# Public images — cache for 30 days
+# Public images - cache for 30 days
 /images/*
   Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
 
@@ -54,8 +54,8 @@
   Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
 
 # Blog media files live at /blog/<image>.<ext> for historical reasons.
-# Tell Googlebot not to index them as standalone URLs — they appear in the
-# GSC "Crawled — currently not indexed" report when treated as pages.
+# Tell Googlebot not to index them as standalone URLs - they appear in the
+# GSC "Crawled - currently not indexed" report when treated as pages.
 # (The HTML pages at /blog/<category>/<slug> are indexable and unaffected.)
 /blog/*.avif
   X-Robots-Tag: noindex, nofollow
@@ -75,7 +75,7 @@
 /team/*
   Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
 
-# Fonts — cache for 1 year (immutable)
+# Fonts - cache for 1 year (immutable)
 /fonts/*
   Cache-Control: public, max-age=31536000, immutable
 
@@ -86,7 +86,7 @@
 /favicon.svg
   Cache-Control: public, max-age=86400
 
-# Sitemap + robots — short cache so search engines get fresh copies
+# Sitemap + robots - short cache so search engines get fresh copies
 /sitemap-index.xml
   Cache-Control: public, max-age=3600
   Content-Type: application/xml; charset=utf-8
@@ -94,12 +94,12 @@
 /robots.txt
   Cache-Control: public, max-age=3600
 
-# API routes — no caching, no indexing frame
+# API routes - no caching, no indexing frame
 /api/*
   Cache-Control: no-store, no-cache
   X-Robots-Tag: noindex, nofollow
 
-# Thank-you page — no indexing
+# Thank-you page - no indexing
 /thank-you
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store

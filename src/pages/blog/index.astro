@@ -2,10 +2,11 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { breadcrumbSchema } from '../../utils/schema';
+import { isPublishedPost } from '../../utils/blog';
 
 const allPosts = await getCollection('blog');
 const posts = allPosts
-  .filter((p) => !p.data.draft)
+  .filter((p) => isPublishedPost(p.data))
   .sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
 
 const schema = breadcrumbSchema([
@@ -25,6 +26,7 @@ const categoryLabels: Record<string, string> = {
   'nagpur-business': 'Nagpur Business',
   'accessibility': 'Accessibility',
   'technology-trends': 'Technology',
+  'company-news': 'Company News',
 };
 
 const featuredPost = posts[0];
@@ -40,7 +42,7 @@ const categories = [...new Set(posts.map((p) => p.data.category))];
 ---
 
 <BaseLayout
-  title="Web Design & Digital Marketing Blog — eLan Technology"
+  title="Web Design & Digital Marketing Blog - eLan Technology"
   description="Insights, guides and tips on web design, SEO, accessibility, eCommerce, and digital marketing from the eLan Technology team."
   schema={schema}
 >
@@ -59,7 +61,7 @@ const categories = [...new Set(posts.map((p) => p.data.category))];
         Insights on Web Design, SEO &amp; Accessibility
       </h1>
       <p class="mt-6 max-w-2xl mx-auto text-lg text-[var(--text-dim)] leading-relaxed">
-        Practical guides, case studies, and industry insights from the eLan Technology team — helping you build better websites and grow your business online.
+        Practical guides, case studies, and industry insights from the eLan Technology team - helping you build better websites and grow your business online.
       </p>
     </div>
   </section>
@@ -282,7 +284,7 @@ const categories = [...new Set(posts.map((p) => p.data.category))];
     <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">Stay Updated</h2>
       <p class="text-[var(--text-dim)] mb-8">
-        Join our newsletter for the latest web design tips, SEO insights, and accessibility guides — straight to your inbox.
+        Join our newsletter for the latest web design tips, SEO insights, and accessibility guides - straight to your inbox.
       </p>
       <a
         href="/contact/"

@@ -1,5 +1,5 @@
 // Ported from: elanttechnology/lib/data/products.tsx
-// Icons removed (React-free) — use product.accent for colour cues in Astro components.
+// Icons removed (React-free) - use product.accent for colour cues in Astro components.
 
 export interface Product {
   id: string;
@@ -11,9 +11,9 @@ export interface Product {
   longDesc: string;
   /** Brand accent hex colour for this product (dark-mode decorative use only) */
   accent: string;
-  /** CSS custom property — WCAG AA on both dark & light bg */
+  /** CSS custom property - WCAG AA on both dark & light bg */
   cssVar: string;
-  /** Feature list — short strings shown as bullet points */
+  /** Feature list - short strings shown as bullet points */
   features: string[];
   /** Why-choose-us bullet points */
   benefits: string[];
@@ -21,7 +21,7 @@ export interface Product {
   targetAudience: string[];
   /** applicationCategory for SoftwareApplication schema */
   schemaCategory: string;
-  /** Live demo URL — undefined means "coming soon" */
+  /** Live demo URL - undefined means "coming soon" */
   demoUrl?: string;
   /** If true, replace "Try Demo" with call/contact CTA instead of linking to demoUrl */
   contactForDemo?: boolean;

@@ -6,415 +6,361 @@ const SITE_URL = 'https://elan-tech.net';
 
 const faqs = [
   {
+    question: 'What is ADA website remediation?',
+    answer: 'ADA website remediation is the work of finding and fixing barriers that make a website difficult or impossible for people with disabilities to use. It normally includes an accessibility audit, updates to the design, content and source code, testing of important tasks, and a clear record of what was fixed.',
+  },
+  {
     question: 'What should I look for in ADA website remediation providers?',
-    answer: 'The best ADA website remediation providers share three traits: (1) code-level fixes, not overlay widgets — 22.64% of sites sued in 2025 already had an accessibility widget installed, and the FTC fined accessiBe $1 million for misleading compliance claims; (2) WCAG 2.1 AA conformance testing with documented VPAT/ACR reports your attorney can submit as evidence of a good-faith remediation effort; (3) fast turnaround — emergency audits within 24 hours when a demand-letter deadline is on the clock. eLan Technology is an ADA website remediation provider offering exactly this: 24-hour emergency audits, fixed pricing from $1,500, full code-level remediation, and VPAT documentation — at 60-70% less than the $15,000-$50,000 typically charged by US accessibility agencies.',
+    answer: 'Choose a provider that combines automated checks with manual testing, fixes the website itself instead of relying on an overlay, tests complete customer journeys, and retests completed work. The provider should explain the scope, results and remaining limitations in plain language.',
   },
   {
-    question: 'What is the ADA website compliance checklist?',
-    answer: 'An ADA website compliance checklist is the practical set of fixes that brings a site in line with WCAG 2.1 Level AA — the standard US courts treat as the benchmark for ADA Title III. In plain English, the checklist boils down to: every image needs alt text, every form field needs a label, text needs at least 4.5:1 contrast against its background, every interactive element must work with a keyboard alone, focus indicators must be visible, headings must follow a logical order, the page language must be declared, and any video needs captions or a transcript. Six of these account for 96% of all real-world lawsuits — low contrast, missing alt text, missing form labels, empty links, missing document language, and empty buttons. We publish a deeper walkthrough in our <a href="/blog/accessibility/ada-compliance-checklist/">ADA compliance checklist guide</a>, and our audit hands you the same checklist scored against your live pages.',
+    question: 'How quickly can eLan Technology respond to an emergency assessment request?',
+    answer: 'Our target response time for emergency assessment requests is 48 hours. Once we review the website, deadline and required journeys, we confirm the audit scope, delivery date and remediation plan before work begins.',
   },
   {
-    question: 'What are the ADA compliance requirements for a website in 2026?',
-    answer: 'There is no single federal statute that says "your website must meet X" — instead, ADA Title III says public accommodations must be accessible, and the DOJ + federal courts have made WCAG 2.1 Level AA the de facto technical bar. Practically, that means your site needs to be perceivable (alt text, captions, contrast), operable (keyboard-friendly, no seizure triggers, enough time to read), understandable (clear labels, predictable navigation, helpful errors), and robust (clean semantic HTML that assistive tech can parse). The DOJ\'s April 24, 2026 Title II rule formalised WCAG 2.1 AA for state and local governments — and that decision is the standard plaintiff attorneys are already citing in private-sector cases.',
+    question: 'How much does an ADA website audit cost?',
+    answer: 'A rapid accessibility audit and remediation plan starts at $1,500 USD. The final price depends on the number of page types, user journeys, documents and third-party tools that need to be tested. Code-level remediation is quoted after the audit scope is understood.',
   },
   {
-    question: 'What are the WCAG 2.1 AA standards?',
-    answer: 'WCAG 2.1 (Web Content Accessibility Guidelines) is published by the W3C and organised under four principles — Perceivable, Operable, Understandable, Robust, abbreviated POUR. Each principle breaks down into success criteria, rated A (basic), AA (industry standard), or AAA (gold standard). The WCAG 2.1 AA accessibility standards add 50 testable criteria covering text contrast, resize behaviour, keyboard traps, focus visibility, error identification, language of parts, and more. AA is the conformance level cited by the ADA, Section 508, the European Accessibility Act, and most procurement contracts. We break the criteria down without jargon in our <a href="/blog/accessibility/wcag-explained-business-owners/">WCAG explained for business owners</a> post.',
+    question: 'Is an automated accessibility scan enough?',
+    answer: 'No. Automated tools are useful for finding some problems, but they cannot judge the full experience. Manual keyboard testing, screen-reader review and task-based testing are needed to find issues with menus, forms, focus order, error messages, checkout and other interactions.',
   },
   {
-    question: 'What are the actual requirements for an ADA-compliant website?',
-    answer: 'Stripped of legalese, ADA-compliant website requirements are: (1) every meaningful image carries descriptive alt text; (2) every form input has a programmatically associated label and clear error messaging; (3) all functionality works with keyboard alone — no mouse required; (4) text contrast is at least 4.5:1 for body copy and 3:1 for large text; (5) focus is always visible and follows a logical order; (6) headings (H1, H2, H3) describe the page structure honestly; (7) page language is declared in the HTML; (8) audio and video have captions or transcripts; (9) nothing flashes more than three times per second; (10) users have enough time to read and interact, with no auto-advancing carousels that can\'t be paused. A WCAG 2.1 AA audit verifies all of this against your live site and tells you exactly what to fix.',
+    question: 'Do accessibility widgets or overlays make a website compliant?',
+    answer: 'An overlay cannot establish accessibility or WCAG conformance by itself. Many barriers must be fixed in the content, design and source code. A sustainable approach combines source-level fixes, manual testing, retesting and an ongoing process that prevents new problems.',
   },
   {
-    question: 'Is there a free way to check my site against the ADA compliance checklist?',
-    answer: 'Yes — start with a quick automated scan. Tools like axe DevTools, WAVE, and Google Lighthouse will flag the most obvious violations in a few minutes (missing alt text, low contrast, empty buttons). They are good for a first pass but typically catch only 30–40% of issues; the rest — keyboard traps, focus order, screen-reader logic, form-error flows — require manual testing by someone trained in WCAG. That is the gap our <a href="/free-website-audit/">free website audit</a> closes: a real human runs the checklist against your homepage and three key pages, and gives you a plain-English report with the priorities ranked. If you want the full WCAG 2.1 AA audit across every page with VPAT documentation, that starts at $1,500.',
+    question: 'Can you remediate Shopify and ecommerce websites?',
+    answer: 'Yes. We audit and remediate Shopify, WooCommerce, Medusa.js and custom ecommerce websites. Testing can cover product discovery, navigation, product options, cart, checkout, account access, subscriptions, payment steps, form errors and customer support journeys.',
   },
   {
-    question: 'Is my website required to be ADA compliant?',
-    answer: 'If your business serves US customers, yes. ADA Title III applies to "places of public accommodation," and US courts have consistently ruled that websites qualify. In 2025 alone, 5,100+ digital accessibility lawsuits were filed — and 67% targeted businesses with under $25M in annual revenue. Any business with a website that serves the US can be a target.',
+    question: 'Does WCAG 2.2 AA guarantee ADA compliance?',
+    answer: 'No technical audit can guarantee legal compliance in every situation. The correct legal requirement depends on the organisation, jurisdiction and service. We use WCAG Level AA as the technical foundation, document the version used, and recommend that legal counsel confirms the obligations that apply to your organisation.',
   },
   {
-    question: 'What is WCAG 2.1 Level AA?',
-    answer: 'WCAG 2.1 Level AA is the Web Content Accessibility Guidelines published by the W3C, at the AA conformance level. It is the de facto technical standard the DOJ and US courts reference for ADA website compliance. It covers text contrast, alt text, keyboard navigation, form labels, focus indicators, captions, and many other criteria designed to make websites usable by people with disabilities.',
+    question: 'Do you provide WCAG audits for Canadian organisations?',
+    answer: 'Yes. We provide WCAG audits and remediation for Canadian businesses and organisations. Canada has federal and provincial accessibility requirements, so the required standard and reporting scope depend on where the organisation operates and whether it is federally regulated. We confirm the required baseline before testing begins.',
   },
   {
-    question: 'How much does ADA website compliance cost?',
-    answer: 'At eLan Technology, an ADA compliance audit starts at $1,500 USD. Audit + remediation projects typically range from $3,000-$8,000. A new ADA-compliant website from scratch costs $3,000-$12,000. Compare this to an average ADA settlement of $30,000 (out-of-court), $85,000 (judgment), or $400,000 (class action) — compliance is dramatically cheaper than litigation.',
+    question: 'What is the current DOJ Title II website accessibility timeline?',
+    answer: 'The DOJ Title II web rule requires covered state and local government web content and mobile apps to meet WCAG 2.1 Level AA, subject to the rule\'s exceptions. In April 2026, the DOJ extended the compliance dates to April 26, 2027 for entities serving 50,000 or more people, and April 26, 2028 for smaller entities and special district governments.',
   },
   {
-    question: 'Can I be sued if my website isn\'t accessible?',
-    answer: 'Yes. 5,100+ ADA digital accessibility lawsuits were filed in 2025, a 37% increase over 2024. New York alone accounted for 1,021 federal filings. eCommerce sites are the most common target (69-77% of cases), but any business with a website serving US customers can be sued — including small businesses with under $25M in revenue.',
-  },
-  {
-    question: 'Do accessibility widgets or overlays make my site ADA compliant?',
-    answer: 'No. In 2025, 22.64% of ADA lawsuits targeted websites that already had accessibility widgets installed. The FTC fined accessiBe $1 million for misleading compliance claims. Overlays cannot fix underlying code-level violations. Only proper code-level remediation — the work eLan Technology delivers — provides genuine compliance and legal protection.',
-  },
-  {
-    question: 'How long does it take to make a website ADA compliant?',
-    answer: 'For an existing site, audit + remediation typically takes 2-6 weeks depending on site size and the number of violations found. For a new website built ADA-compliant from day one, no extra time is needed — accessibility is part of our standard development process. We deliver audit reports within 24 hours of starting.',
-  },
-  {
-    question: 'What happens if I receive an ADA demand letter?',
-    answer: 'Do not ignore it. Demand letters often settle for around $5,000 if you respond quickly and demonstrate a remediation plan. Contact a qualified accessibility consultant immediately, conduct an audit, and begin remediation. eLan Technology can provide an emergency audit and remediation plan within 24-48 hours to support your legal response.',
-  },
-  {
-    question: 'Does eLan Technology provide VPAT documentation?',
-    answer: 'Yes. We provide VPAT (Voluntary Product Accessibility Template) and ACR (Accessibility Conformance Report) documentation as part of our ADA compliance package. These documents describe how your website conforms to WCAG 2.1 AA and are often required for government contracts, B2B sales, and legal defence.',
-  },
-  {
-    question: 'Can you audit my existing website for ADA compliance?',
-    answer: 'Yes. Our ADA compliance audit scans every page of your site against WCAG 2.1 AA, identifies the top 10 critical violations, ranks them by priority, and provides a remediation cost estimate. Audits start at $1,500 USD; results are delivered within 24 hours. Contact us to get started.',
-  },
-  {
-    question: 'What is the DOJ Title II April 2026 deadline?',
-    answer: 'On April 24, 2026, the DOJ\'s Title II final rule takes full effect, requiring state and local governments (and their contractors) to meet WCAG 2.1 AA on all public-facing digital content. While Title II targets the public sector, it sets the definitive technical standard that courts will continue to reference for private-sector ADA Title III cases.',
+    question: 'Can you prepare a VPAT or Accessibility Conformance Report?',
+    answer: 'Yes, when procurement documentation is included in the scope. A VPAT is a reporting template. The completed document is called an Accessibility Conformance Report, or ACR. It records how the evaluated product supports the applicable accessibility criteria and identifies known gaps.',
   },
 ];
 
 const breadcrumbs = [
   { name: 'Home', href: '/' },
   { name: 'Services', href: '/services/' },
-  { name: 'ADA-Compliant Web Design', href: '/services/ada-compliant-web-design/' },
+  { name: 'ADA Website Remediation', href: '/services/ada-compliant-web-design/' },
 ];
 
 const serviceSchemaObj = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: 'ADA Website Remediation',
-  alternateName: 'ADA-Compliant Web Design',
+  name: 'ADA Website Remediation and WCAG Audit Services',
+  alternateName: 'Accessible Web Design and Development',
   description:
-    'ADA website remediation and WCAG 2.1 AA compliant website design and development services that protect US businesses from ADA website lawsuits.',
+    'ADA website remediation, WCAG accessibility audits, code-level fixes, ecommerce journey testing, retesting and accessibility documentation for organisations in the United States and Canada.',
   url: `${SITE_URL}/services/ada-compliant-web-design/`,
   provider: {
     '@type': 'Organization',
     name: 'eLan Technology',
     url: SITE_URL,
   },
-  areaServed: {
-    '@type': 'Country',
-    name: 'United States',
-  },
-  serviceType: 'Website Accessibility Compliance',
+  areaServed: [
+    { '@type': 'Country', name: 'United States' },
+    { '@type': 'Country', name: 'Canada' },
+  ],
+  serviceType: ['ADA Website Remediation', 'WCAG Accessibility Audit', 'Accessible Web Development'],
   offers: {
     '@type': 'Offer',
     price: '1500',
     priceCurrency: 'USD',
-    description: 'ADA compliance audit starting price',
+    description: 'Rapid accessibility audit and remediation plan starting price',
   },
 };
 
 const schemaBreadcrumbs = breadcrumbs.map(b => ({ name: b.name, url: b.href }));
 const schemas = [serviceSchemaObj, faqSchema(faqs), breadcrumbSchema(schemaBreadcrumbs)];
 ---
+
 <ServiceLayout
-  title="ADA Website Remediation Providers | WCAG 2.1 AA Audit & Fix | eLan Technology"
-  description="Facing an ADA demand letter? Trusted ADA website remediation — WCAG 2.1 AA code-level audit, emergency 24-hr turnaround, VPAT documentation. Fixed price from $1,500. Free consult."
+  title="ADA Website Remediation Services & WCAG Audits"
+  description="ADA website remediation and WCAG audits for businesses and ecommerce stores in the US and Canada. Source-code fixes, retesting and clear reports. Emergency response within 48 hours."
   canonical="/services/ada-compliant-web-design/"
   schema={schemas}
   breadcrumbs={breadcrumbs}
 >
-
-    <!-- ── HERO ────────────────────────────────────────────────────────────── -->
-    <section class="service-card relative mb-12 overflow-hidden rounded-2xl border border-[var(--border)] p-8 md:p-12" style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-blue) 12%, var(--bg-card)) 0%, var(--bg-card) 65%);">
+  <section class="service-card relative mb-12 overflow-hidden rounded-2xl border border-[var(--border)] p-8 md:p-12" style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-blue) 12%, var(--bg-card)) 0%, var(--bg-card) 65%);">
     <span aria-hidden="true" class="service-card__num pointer-events-none absolute top-4 right-6 font-heading font-black leading-none select-none" style="color: var(--ac-blue); font-size: 7rem;">10</span>
     <span aria-hidden="true" class="service-card__stripe pointer-events-none absolute -left-12 -bottom-12 h-60 w-60 rotate-[-20deg] opacity-[0.08]" style="background: var(--ac-blue);"></span>
-    <div class="relative">
-      <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-red-500">Emergency ADA Remediation — 24-Hour Response</p>
+    <div class="relative max-w-4xl">
+      <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-red-500">ADA website remediation and WCAG audits</p>
       <h1 class="font-heading text-3xl font-bold leading-tight text-[var(--text)] md:text-5xl">
-        Facing an ADA Digital Accessibility Lawsuit? We Specialise in Immediate Website Remediation
+        ADA Website Remediation and WCAG Audit Services
       </h1>
-      <p class="mt-5 max-w-3xl text-base text-[var(--text-muted)] md:text-lg">
-        5,100+ ADA digital accessibility lawsuits were filed in 2025 — a 37% increase YoY. If you've received a demand letter or court summons, eLan Technology provides emergency WCAG 2.2 AA audits within 24 hours and full code-level remediation to support your legal defence, including VPAT documentation.
+      <p class="mt-5 max-w-3xl text-base leading-relaxed text-[var(--text-muted)] md:text-lg">
+        We find the barriers that stop people from using your website, fix them in the website itself, and retest the journeys that matter. You receive clear findings, practical priorities and a record of the work completed. Emergency assessment requests receive a response within 48 hours.
       </p>
       <div class="mt-7 flex flex-wrap gap-3">
-        <a href="/get-quote/?service=ada-emergency" class="inline-flex items-center rounded-lg bg-red-500 px-5 py-2.5 text-sm font-semibold text-white shadow transition hover:bg-red-600">
-          Emergency ADA Audit — 24hr Response
+        <a href="/get-quote/?service=ada-audit" class="inline-flex items-center rounded-lg bg-red-500 px-5 py-2.5 text-sm font-semibold text-white shadow transition hover:bg-red-600">
+          Request an ADA / WCAG Audit
         </a>
-        <a href="/get-quote/" class="inline-flex items-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
-          Get a Quote
+        <a href="/services/ada-compliant-web-design/emergency-remediation/" class="inline-flex items-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
+          Emergency Help Within 48 Hours
         </a>
       </div>
-      <p class="mt-4 text-sm text-[var(--text-muted)]">
-        On a lawsuit or demand-letter deadline? See our <a href="/services/ada-compliant-web-design/emergency-remediation/" class="font-semibold text-red-500 underline hover:no-underline">emergency / deadline remediation</a> — Shopify &amp; ecommerce sites fixed in under 30 days.
-      </p>
+      <ul class="mt-7 grid max-w-3xl gap-2 text-sm text-[var(--text-muted)] sm:grid-cols-2" role="list">
+        <li class="flex gap-2"><span class="text-green-500" aria-hidden="true">✓</span>Manual and automated testing</li>
+        <li class="flex gap-2"><span class="text-green-500" aria-hidden="true">✓</span>Source-code and content fixes</li>
+        <li class="flex gap-2"><span class="text-green-500" aria-hidden="true">✓</span>Shopify and ecommerce testing</li>
+        <li class="flex gap-2"><span class="text-green-500" aria-hidden="true">✓</span>Reports written for real teams</li>
+      </ul>
     </div>
   </section>
 
-    <!-- ── INTRO: HUMANISED CONTEXT ────────────────────────────────────────── -->
-    <section class="mb-16 max-w-3xl">
-      <p class="text-base text-[var(--text-muted)] md:text-lg leading-relaxed mb-4">
-        ADA compliance for a website sounds like a legal puzzle, but it really comes down to one thing: can a person who can't see a screen, can't use a mouse, or processes information differently still use your site? If the answer is yes, you've already met the spirit of the law. The work is in proving it, page by page, against a checklist the courts actually recognise — and that checklist is <a href="/blog/accessibility/wcag-explained-business-owners/" class="text-red-500 underline hover:no-underline">WCAG 2.1 Level AA</a>.
+  <section class="mb-16 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+    <div>
+      <p class="text-base leading-relaxed text-[var(--text-muted)] md:text-lg">
+        A website may look fine and still be difficult to use without a mouse, with a screen reader, at high zoom, or with reduced vision or dexterity. We test the real experience, not only a scanner score. Then we fix shared templates and components so improvements carry across the website.
       </p>
-      <p class="text-base text-[var(--text-muted)] md:text-lg leading-relaxed mb-4">
-        We've built websites for 24 years. Accessibility isn't a service line we bolted on when lawsuits started trending — it's how we've shipped sites since 2002. What's changed in the last two years is the speed and scale of enforcement: AI tools let any plaintiff file a competent complaint in minutes, automated scanners crawl thousands of sites a night, and 67% of new cases now target small businesses, not Fortune 500s.
+      <p class="mt-4 text-base leading-relaxed text-[var(--text-muted)] md:text-lg">
+        eLan Technology has designed and developed websites since 2002. Our accessibility work brings design, development, content and testing together, so you do not have to coordinate several suppliers to solve one problem.
       </p>
-      <p class="text-base text-[var(--text-muted)] md:text-lg leading-relaxed">
-        If you're researching what compliance actually requires — start with our <a href="/blog/accessibility/ada-compliance-checklist/" class="text-red-500 underline hover:no-underline">plain-English ADA compliance checklist</a>. If you've already received a demand letter, skip to the emergency section below — every day matters.
-      </p>
-    </section>
-
-    <!-- ── SECTION 1: LAWSUIT CRISIS ───────────────────────────────────────── -->
-    <section class="mb-16">
-      <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-4">5,100+ ADA Website Lawsuits in 2025 — Is Your Business Next?</h2>
-      <p class="text-[var(--text-muted)] mb-6">The numbers tell a stark story. ADA digital accessibility litigation has exploded — and small businesses are now the primary target, not just Fortune 500 corporations.</p>
-
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-8">
-        <div class="rounded-xl border border-red-500/30 bg-red-500/5 p-5">
-          <p class="font-heading text-3xl font-bold text-red-500">5,100+</p>
-          <p class="mt-2 text-sm text-[var(--text-muted)]">Digital accessibility lawsuits filed in 2025</p>
-        </div>
-        <div class="rounded-xl border border-red-500/30 bg-red-500/5 p-5">
-          <p class="font-heading text-3xl font-bold text-red-500">+37%</p>
-          <p class="mt-2 text-sm text-[var(--text-muted)]">Year-over-year increase (EcomBack 2025 report)</p>
-        </div>
-        <div class="rounded-xl border border-red-500/30 bg-red-500/5 p-5">
-          <p class="font-heading text-3xl font-bold text-red-500">67%</p>
-          <p class="mt-2 text-sm text-[var(--text-muted)]">Of lawsuits target businesses under $25M revenue</p>
-        </div>
-        <div class="rounded-xl border border-red-500/30 bg-red-500/5 p-5">
-          <p class="font-heading text-3xl font-bold text-red-500">$30K</p>
-          <p class="mt-2 text-sm text-[var(--text-muted)]">Average out-of-court ADA settlement</p>
-        </div>
-      </div>
-
-      <h3 class="font-heading text-lg font-semibold text-[var(--text)] mb-3">Top States by Filing Volume (2025)</h3>
-      <ul class="grid gap-2 sm:grid-cols-2 mb-8 text-sm text-[var(--text-muted)]" role="list">
-        <li class="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-2"><strong class="text-[var(--text)]">New York:</strong> 1,021 lawsuits (33% of all federal filings)</li>
-        <li class="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-2"><strong class="text-[var(--text)]">Florida:</strong> 487 lawsuits (nearly doubled YoY)</li>
-        <li class="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-2"><strong class="text-[var(--text)]">California:</strong> 380 lawsuits</li>
-        <li class="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-2"><strong class="text-[var(--text)]">Illinois:</strong> 237 lawsuits (746% increase YoY)</li>
+    </div>
+    <aside class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6" aria-labelledby="service-fit-heading">
+      <h2 id="service-fit-heading" class="font-heading text-xl font-bold text-[var(--text)]">This service is a good fit if you need to</h2>
+      <ul class="mt-4 space-y-3 text-sm text-[var(--text-muted)]" role="list">
+        <li class="flex gap-3"><span class="text-red-500" aria-hidden="true">01</span>Respond to an ADA demand letter or urgent deadline</li>
+        <li class="flex gap-3"><span class="text-red-500" aria-hidden="true">02</span>Audit a website before launch, redesign or procurement</li>
+        <li class="flex gap-3"><span class="text-red-500" aria-hidden="true">03</span>Fix an ecommerce store, checkout or account journey</li>
+        <li class="flex gap-3"><span class="text-red-500" aria-hidden="true">04</span>Prepare a WCAG report or ACR for a client or buyer</li>
       </ul>
+    </aside>
+  </section>
 
-      <h3 class="font-heading text-lg font-semibold text-[var(--text)] mb-3">The AI Factor — Why Lawsuits Are Exploding</h3>
-      <p class="text-[var(--text-muted)] mb-4">Pro se filings (individuals filing without attorneys) increased 40% in 2025. AI tools like ChatGPT now allow anyone to draft a competent ADA complaint in minutes. The barrier to filing a lawsuit has essentially disappeared — and plaintiff law firms have built automated scanning tools that find violations on thousands of websites overnight.</p>
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl">What You Receive</h2>
+    <p class="mt-3 max-w-3xl text-[var(--text-muted)]">The scope is agreed before testing starts. Every engagement is shaped around the pages, features and customer tasks that matter to your organisation.</p>
+    <div class="mt-7 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      {[
+        { title: 'A useful audit', desc: 'Problems are grouped by impact and connected to the relevant WCAG requirement, affected pages and user journey.' },
+        { title: 'A clear action plan', desc: 'You see what should be fixed first, what can follow later, and which shared components will solve the most problems.' },
+        { title: 'Code-level remediation', desc: 'We update templates, components, styles, forms and content instead of covering the website with a widget.' },
+        { title: 'Journey testing', desc: 'We test complete tasks such as finding a product, completing a form, creating an account or checking out.' },
+        { title: 'Retesting evidence', desc: 'Completed fixes are checked again. The final record states what passed, what remains and any known limitation.' },
+        { title: 'Handover and prevention', desc: 'Your team receives practical guidance for content, design and development so new barriers are less likely to return.' },
+      ].map(({ title, desc }) => (
+        <article class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+          <h3 class="font-heading text-base font-semibold text-[var(--text)]">{title}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{desc}</p>
+        </article>
+      ))}
+    </div>
+  </section>
 
-      <h3 class="font-heading text-lg font-semibold text-[var(--text)] mb-3">The Widget Myth</h3>
-      <p class="text-[var(--text-muted)] mb-4">22.64% of ADA lawsuits in 2025 targeted websites that already had accessibility widgets installed. The FTC fined accessiBe $1 million for misleading compliance claims. Overlays and widgets do not prevent lawsuits — only code-level remediation provides real protection.</p>
-
-      <div class="rounded-xl border border-red-500/30 bg-red-500/5 p-5">
-        <p class="text-sm font-semibold text-[var(--text)]">Don't wait for a demand letter. <a href="/get-quote/" class="text-red-500 underline hover:no-underline">Request your ADA compliance audit today →</a></p>
+  <section class="mb-16 rounded-2xl border border-red-500/35 bg-red-500/5 p-8 md:p-10">
+    <div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-start">
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-widest text-red-500">Urgent ADA assessment</p>
+        <h2 class="mt-2 font-heading text-2xl font-bold text-[var(--text)] md:text-3xl">Received a Demand Letter or Working to a Deadline?</h2>
+        <p class="mt-4 max-w-3xl text-[var(--text-muted)]">Share the document with qualified legal counsel and start recording the technical condition of the website. We can assess the affected journeys, prepare a practical remediation plan and begin the highest-priority fixes. Our role is technical. Your attorney should direct the legal response.</p>
       </div>
-    </section>
+      <div class="rounded-xl border border-red-500/30 bg-[var(--bg-card)] px-7 py-5 text-center">
+        <p class="font-heading text-3xl font-bold text-red-500">48 hrs</p>
+        <p class="mt-1 max-w-40 text-xs text-[var(--text-muted)]">Target response for emergency assessment requests</p>
+      </div>
+    </div>
+    <ol class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      {[
+        { n: '1', title: 'Confirm the scope', desc: 'We review the deadline, affected URLs and critical customer tasks.' },
+        { n: '2', title: 'Capture the evidence', desc: 'We record repeatable barriers before changes are made.' },
+        { n: '3', title: 'Fix the priorities', desc: 'Shared components and blocked journeys are addressed first.' },
+        { n: '4', title: 'Retest and report', desc: 'We verify the work and document the current status.' },
+      ].map(({ n, title, desc }) => (
+        <li class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
+          <span class="text-xs font-bold text-red-500">STEP {n}</span>
+          <h3 class="mt-2 font-heading text-base font-semibold text-[var(--text)]">{title}</h3>
+          <p class="mt-2 text-sm text-[var(--text-muted)]">{desc}</p>
+        </li>
+      ))}
+    </ol>
+    <div class="mt-7 flex flex-wrap items-center gap-4">
+      <a href="/get-quote/?service=ada-emergency" class="inline-flex items-center rounded-lg bg-red-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-red-600">Request Emergency Assessment</a>
+      <a href="/services/ada-compliant-web-design/emergency-remediation/" class="text-sm font-semibold text-red-500 underline hover:no-underline">View the emergency remediation service</a>
+    </div>
+  </section>
 
-    <!-- ── SECTION 1b: EMERGENCY — ALREADY SUED ─────────────────────────────── -->
-    <section class="mb-16">
-      <div class="rounded-2xl border border-red-500/40 bg-red-500/5 p-8 md:p-10">
-        <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-4">Already Received an ADA Demand Letter or Lawsuit? Here's What to Do Right Now</h2>
-        <p class="text-[var(--text-muted)] mb-6">An ADA demand letter is time-sensitive. Ignoring it turns a $5,000 settlement into a $30,000–$85,000 judgment. Here is the immediate action plan recommended by accessibility specialists.</p>
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl">Our Accessibility Audit and Remediation Process</h2>
+    <p class="mt-3 max-w-3xl text-[var(--text-muted)]">The process is straightforward. We agree what matters, test it, fix it and check it again.</p>
+    <div class="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      {[
+        { n: '01', title: 'Scope', desc: 'Pages, templates, journeys, documents and required standard.' },
+        { n: '02', title: 'Audit', desc: 'Automated checks plus manual keyboard and assistive technology testing.' },
+        { n: '03', title: 'Prioritise', desc: 'Barriers ranked by user impact, reach and urgency.' },
+        { n: '04', title: 'Remediate', desc: 'Design, content and code updated at the source.' },
+        { n: '05', title: 'Retest', desc: 'Fixes verified and final status documented.' },
+      ].map(({ n, title, desc }) => (
+        <article class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
+          <p class="text-xs font-bold text-red-500">{n}</p>
+          <h3 class="mt-2 font-heading text-base font-semibold text-[var(--text)]">{title}</h3>
+          <p class="mt-2 text-sm text-[var(--text-muted)]">{desc}</p>
+        </article>
+      ))}
+    </div>
+  </section>
 
-        <ol class="space-y-4 mb-8">
-          {[
-            { step: '1', title: 'Do not ignore the letter', desc: 'Demand letters typically give 30–60 days to respond. Failure to respond escalates to a federal court filing automatically.' },
-            { step: '2', title: 'Engage an accessibility specialist immediately', desc: 'You need an audit to demonstrate a good-faith remediation effort — this is your primary legal defence. eLan Technology delivers emergency audits within 24 hours.' },
-            { step: '3', title: 'Request an emergency WCAG audit', desc: 'The audit identifies every violation, prioritised by severity, with code-level fixes. This becomes the evidence of your remediation plan for your attorney.' },
-            { step: '4', title: 'Begin remediation — even partially', desc: 'Courts and plaintiff attorneys consider active remediation a mitigating factor. Starting work immediately — even before completion — significantly reduces settlement risk.' },
-            { step: '5', title: 'Obtain VPAT documentation', desc: 'A Voluntary Product Accessibility Template (VPAT / ACR) is the formal document proving compliance. eLan Technology provides this with every audit package.' },
-          ].map(({ step, title, desc }) => (
-            <li class="flex gap-4">
-              <span class="flex-shrink-0 w-8 h-8 rounded-full bg-red-500 text-white text-sm font-bold flex items-center justify-center">{step}</span>
-              <div>
-                <p class="font-semibold text-[var(--text)]">{title}</p>
-                <p class="text-sm text-[var(--text-muted)] mt-0.5">{desc}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-
-        <div class="grid gap-4 sm:grid-cols-3 mb-6">
-          <div class="rounded-xl border border-red-500/30 bg-[var(--bg-card)] p-4 text-center">
-            <p class="font-heading text-2xl font-bold text-red-500">24 hrs</p>
-            <p class="text-xs text-[var(--text-muted)] mt-1">Emergency audit turnaround</p>
-          </div>
-          <div class="rounded-xl border border-red-500/30 bg-[var(--bg-card)] p-4 text-center">
-            <p class="font-heading text-2xl font-bold text-red-500">~$5K</p>
-            <p class="text-xs text-[var(--text-muted)] mt-1">Typical settlement with active remediation plan</p>
-          </div>
-          <div class="rounded-xl border border-red-500/30 bg-[var(--bg-card)] p-4 text-center">
-            <p class="font-heading text-2xl font-bold text-red-500">$85K+</p>
-            <p class="text-xs text-[var(--text-muted)] mt-1">Average judgment without remediation</p>
-          </div>
+  <section class="mb-16 grid gap-8 lg:grid-cols-2">
+    <div>
+      <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl">Ecommerce Accessibility That Covers the Whole Sale</h2>
+      <p class="mt-4 text-[var(--text-muted)]">An accessible product page is not enough if a customer cannot choose an option, apply a coupon, understand an error or complete payment. We test the connected journey across your storefront and the third-party services it relies on.</p>
+      <p class="mt-4 text-[var(--text-muted)]">We work with Shopify, WooCommerce, Medusa.js and custom commerce websites. Testing can include subscriptions, account access, payment gateways, delivery options, customer support and post-purchase pages.</p>
+      <a href="/services/ecommerce/" class="mt-5 inline-flex text-sm font-semibold text-red-500 underline hover:no-underline">Explore our ecommerce development services</a>
+    </div>
+    <div class="grid gap-3 sm:grid-cols-2">
+      {['Navigation and product search', 'Product media and options', 'Cart and checkout', 'Forms and error messages', 'Accounts and subscriptions', 'Payments and shipping'].map(item => (
+        <div class="flex items-center gap-3 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] px-4 py-4 text-sm font-medium text-[var(--text)]">
+          <span class="text-green-500" aria-hidden="true">✓</span>{item}
         </div>
+      ))}
+    </div>
+  </section>
 
-        <div class="flex flex-wrap items-center gap-4">
-          <a href="/get-quote/?service=ada-emergency" class="inline-flex items-center gap-2 rounded-lg bg-red-500 px-6 py-3 text-sm font-semibold text-white shadow transition hover:bg-red-600">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            Request Emergency ADA Audit — 24-Hour Response
-          </a>
-          <a href="/services/ada-compliant-web-design/emergency-remediation/" class="text-sm font-semibold text-red-500 underline hover:no-underline">
-            Emergency / deadline remediation: the 30-day track →
-          </a>
-        </div>
-      </div>
-    </section>
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl">ADA and WCAG Services for the United States and Canada</h2>
+    <p class="mt-3 max-w-3xl text-[var(--text-muted)]">The same accessible design principles help users everywhere, but the legal and reporting requirements are not identical. We confirm the applicable standard at the start instead of applying one label to every organisation.</p>
+    <div class="mt-7 grid gap-5 md:grid-cols-2">
+      <article class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+        <h3 class="font-heading text-lg font-semibold text-[var(--text)]">United States</h3>
+        <p class="mt-3 text-sm leading-relaxed text-[var(--text-muted)]">The ADA applies to state and local governments under Title II and to businesses open to the public under Title III. The DOJ Title II web rule names WCAG 2.1 Level AA for covered public entities. Private-sector obligations depend on the organisation and circumstances, so legal counsel should confirm what applies.</p>
+      </article>
+      <article class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+        <h3 class="font-heading text-lg font-semibold text-[var(--text)]">Canada</h3>
+        <p class="mt-3 text-sm leading-relaxed text-[var(--text-muted)]">Canadian organisations may need to consider the Accessible Canada Act, provincial requirements such as Ontario's AODA, contracts and sector-specific rules. We provide WCAG audits and remediation using the standard required for the engagement.</p>
+      </article>
+    </div>
+    <p class="mt-5 text-sm text-[var(--text-muted)]">For a broader comparison, read our <a href="/blog/accessibility/ada-wcag-compliance-us-canada-2026/" class="text-red-500 underline hover:no-underline">2026 guide to ADA and WCAG compliance in the US and Canada</a>.</p>
+  </section>
 
-    <!-- ── SECTION 2: WHAT ADA REQUIRES ────────────────────────────────────── -->
-    <section class="mb-16">
-      <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-4">What Does ADA Compliance Require for Your Website?</h2>
-      <p class="text-[var(--text-muted)] mb-4">ADA Title III applies to "places of public accommodation." Federal courts have consistently ruled that commercial websites qualify. While no specific federal technical standard exists yet, <strong class="text-[var(--text)]">WCAG 2.1 Level AA</strong> is the de facto standard referenced by the Department of Justice and US courts.</p>
-      <p class="text-[var(--text-muted)] mb-6">The DOJ's Title II final rule (effective April 24, 2026) requires government entities to meet WCAG 2.1 AA — and this sets the definitive standard the private sector will be measured against in litigation.</p>
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl">Accessibility Service Options and Starting Costs</h2>
+    <p class="mt-3 max-w-3xl text-[var(--text-muted)]">Pricing is based on the website's unique page types, journeys, documents and integrations. You receive a written scope before work begins.</p>
+    <div class="mt-7 overflow-x-auto rounded-xl border border-[var(--border)]">
+      <table class="w-full min-w-[640px] text-left text-sm">
+        <thead class="bg-[var(--bg-card)] text-[var(--text)]">
+          <tr>
+            <th scope="col" class="px-5 py-3 font-semibold">Service</th>
+            <th scope="col" class="px-5 py-3 font-semibold">Best for</th>
+            <th scope="col" class="px-5 py-3 text-right font-semibold">Starting point</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-[var(--border)] text-[var(--text-muted)]">
+          <tr class="bg-green-500/5"><td class="px-5 py-4 font-medium text-[var(--text)]">Rapid WCAG audit</td><td class="px-5 py-4">Priorities and remediation plan</td><td class="px-5 py-4 text-right font-semibold text-green-500">From $1,500</td></tr>
+          <tr><td class="px-5 py-4 font-medium text-[var(--text)]">Code-level remediation</td><td class="px-5 py-4">Fixing an existing website</td><td class="px-5 py-4 text-right">Quoted after scope</td></tr>
+          <tr><td class="px-5 py-4 font-medium text-[var(--text)]">Accessible redesign or rebuild</td><td class="px-5 py-4">Replacing an outdated experience</td><td class="px-5 py-4 text-right">$3,000 to $12,000</td></tr>
+          <tr><td class="px-5 py-4 font-medium text-[var(--text)]">ACR preparation</td><td class="px-5 py-4">Procurement and client reviews</td><td class="px-5 py-4 text-right">Scoped by product</td></tr>
+          <tr><td class="px-5 py-4 font-medium text-[var(--text)]">Ongoing retesting</td><td class="px-5 py-4">Preventing regressions</td><td class="px-5 py-4 text-right">Monthly or quarterly</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 
-      <h3 class="font-heading text-lg font-semibold text-[var(--text)] mb-3">The 6 Most Common Violations (96% of all lawsuits)</h3>
-      <ol class="space-y-2 mb-6">
-        <li class="flex gap-3 rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-3 text-sm text-[var(--text-muted)]"><span class="font-bold text-red-500">1.</span><span><strong class="text-[var(--text)]">Low contrast text</strong> — 79.1% of homepages fail</span></li>
-        <li class="flex gap-3 rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-3 text-sm text-[var(--text-muted)]"><span class="font-bold text-red-500">2.</span><span><strong class="text-[var(--text)]">Missing alt text on images</strong> — 55.5%</span></li>
-        <li class="flex gap-3 rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-3 text-sm text-[var(--text-muted)]"><span class="font-bold text-red-500">3.</span><span><strong class="text-[var(--text)]">Missing form input labels</strong> — 48.2%</span></li>
-        <li class="flex gap-3 rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-3 text-sm text-[var(--text-muted)]"><span class="font-bold text-red-500">4.</span><span><strong class="text-[var(--text)]">Empty links</strong> — 44.6%</span></li>
-        <li class="flex gap-3 rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-3 text-sm text-[var(--text-muted)]"><span class="font-bold text-red-500">5.</span><span><strong class="text-[var(--text)]">Missing document language</strong> — 37.1%</span></li>
-        <li class="flex gap-3 rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-3 text-sm text-[var(--text-muted)]"><span class="font-bold text-red-500">6.</span><span><strong class="text-[var(--text)]">Empty buttons</strong> — 26.3%</span></li>
-      </ol>
-      <p class="text-[var(--text-muted)]">At eLan Technology, we fix all of these issues as standard on every website we build. Accessibility is not an add-on — it is built into our development process from day one.</p>
-    </section>
+  <section class="mb-16 rounded-2xl border border-[var(--border)] bg-gradient-to-br from-green-500/10 via-[var(--bg-card)] to-[var(--bg-card)] p-8 md:p-10">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl">Get Your ADA Compliance Audit: Results Delivered in 48 Hours</h2>
+    <p class="mt-3 max-w-3xl text-[var(--text-muted)]">We confirm the pages and journeys to be tested, then deliver a clear report with priorities, affected WCAG criteria and recommended next steps. Rapid audits start at $1,500 USD.</p>
+    <ul class="mt-6 grid gap-3 text-sm text-[var(--text-muted)] sm:grid-cols-2" role="list">
+      <li class="flex gap-2"><span class="text-green-500" aria-hidden="true">✓</span>Manual and automated testing</li>
+      <li class="flex gap-2"><span class="text-green-500" aria-hidden="true">✓</span>Critical journeys reviewed</li>
+      <li class="flex gap-2"><span class="text-green-500" aria-hidden="true">✓</span>Problems ranked by impact</li>
+      <li class="flex gap-2"><span class="text-green-500" aria-hidden="true">✓</span>Remediation effort estimated</li>
+      <li class="flex gap-2"><span class="text-green-500" aria-hidden="true">✓</span>WCAG criteria clearly mapped</li>
+      <li class="flex gap-2"><span class="text-green-500" aria-hidden="true">✓</span>Practical next steps for your team</li>
+    </ul>
+    <a href="/get-quote/?service=ada-audit" class="mt-7 inline-flex items-center rounded-lg bg-green-500 px-6 py-3 text-sm font-semibold text-white shadow transition hover:bg-green-600">Request My ADA / WCAG Audit</a>
+    <p class="mt-3 text-xs text-[var(--text-muted)]">Turnaround begins after the scope and access requirements are confirmed.</p>
+  </section>
 
-    <!-- ── SECTION 3: OUR PROCESS ──────────────────────────────────────────── -->
-    <section class="mb-16">
-      <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-4">Our ADA Compliance Process — From Design to Deployment</h2>
-      <p class="text-[var(--text-muted)] mb-8">Five rigorous steps that build accessibility into the foundation of your website — and produce the documentation needed to defend it.</p>
-      <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {[
-          { n: '1', title: 'Accessibility-First Design', items: ['Colour contrast testing during design (4.5:1 minimum)', 'Logical heading hierarchy and reading order', 'Touch targets minimum 44×44px', 'Visible focus indicators on all interactive elements', 'No information conveyed through colour alone'] },
-          { n: '2', title: 'Semantic, Accessible Code', items: ['HTML5 semantic landmarks (header, nav, main, footer)', 'ARIA labels and roles where needed', 'Keyboard-navigable everything (Tab, Enter, Escape, Arrows)', 'Skip-to-content links', 'Proper form labels with error messaging'] },
-          { n: '3', title: 'Content Accessibility', items: ['Alt text on every image', 'Captions and transcripts for video/audio', 'Plain-language writing at appropriate reading level', 'Descriptive link text (never "click here")'] },
-          { n: '4', title: 'Testing & Validation', items: ['Automated testing with axe-core (zero violations)', 'Manual keyboard-only navigation testing', 'Screen reader testing (NVDA, VoiceOver, JAWS)', 'Lighthouse Accessibility score 95+', 'Real-user testing with assistive technology users'] },
-          { n: '5', title: 'Documentation & Ongoing Compliance', items: ['WCAG 2.1 AA conformance report (VPAT/ACR)', 'Accessibility statement for your website', 'Ongoing monitoring for new violations', 'Staff accessibility training'] },
-        ].map(({ n, title, items }) => (
-          <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
-            <div class="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-red-500 font-heading text-sm font-bold text-white">{n}</div>
-            <h3 class="font-heading text-base font-semibold text-[var(--text)] mb-3">{title}</h3>
-            <ul class="space-y-1.5 text-sm text-[var(--text-muted)]" role="list">
-              {items.map((it) => (
-                <li class="flex gap-2"><span class="text-green-500 shrink-0">✓</span>{it}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-      <p class="mt-6 text-[var(--text-muted)] italic">We don't just build accessible websites — we provide the documentation that can protect your business if a lawsuit is ever filed.</p>
-    </section>
+  <section class="mb-16 grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+    <div>
+      <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl">How to Compare Accessibility Providers</h2>
+      <p class="mt-4 text-[var(--text-muted)]">A credible provider should be able to explain how people were affected, where the problem lives and how the fix will be verified. Be cautious of instant compliance promises, a scanner-only report or a badge that does not show what was tested.</p>
+    </div>
+    <ul class="grid gap-3 sm:grid-cols-2 text-sm text-[var(--text-muted)]" role="list">
+      <li class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-4"><strong class="block text-[var(--text)]">Ask about manual testing</strong><span class="mt-1 block">Keyboard, screen reader, zoom and complete tasks.</span></li>
+      <li class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-4"><strong class="block text-[var(--text)]">Ask who fixes the code</strong><span class="mt-1 block">Reports alone do not remove barriers.</span></li>
+      <li class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-4"><strong class="block text-[var(--text)]">Ask what gets retested</strong><span class="mt-1 block">Completed work should be checked again.</span></li>
+      <li class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-4"><strong class="block text-[var(--text)]">Ask what remains</strong><span class="mt-1 block">Honest reports include limitations and exclusions.</span></li>
+    </ul>
+  </section>
 
-    <!-- ── SECTION 4: WHO NEEDS IT ─────────────────────────────────────────── -->
-    <section class="mb-16">
-      <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-4">Which Businesses Need ADA-Compliant Websites?</h2>
-      <p class="text-[var(--text-muted)] mb-6">Short answer: every business with a website that serves US customers. Long answer: some industries are far more aggressively targeted than others.</p>
-      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 mb-6">
-        {[
-          { name: 'eCommerce & Retail', stat: '69-77% of all lawsuits' },
-          { name: 'Restaurants & Food Service', stat: '21% of cases' },
-          { name: 'Healthcare', stat: '2-3% (HIPAA + ADA)' },
-          { name: 'Financial Services', stat: 'Banking, fintech, insurance' },
-          { name: 'Education', stat: 'K-12, higher ed, online learning' },
-          { name: 'Travel & Hospitality', stat: 'Hotels, airlines, booking' },
-          { name: 'SaaS & Software', stat: 'B2B and B2C platforms' },
-          { name: 'Professional Services', stat: 'Law firms, accounting, consulting' },
-          { name: 'Real Estate', stat: 'Listings, MLS, property portals' },
-        ].map(({ name, stat }) => (
-          <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
-            <p class="font-heading text-sm font-semibold text-[var(--text)]">{name}</p>
-            <p class="mt-1 text-xs text-[var(--text-muted)]">{stat}</p>
-          </div>
-        ))}
-      </div>
-      <p class="text-[var(--text-muted)]">If your website is how customers transact — buy, book, apply, or order — you are a primary target. Even outside high-risk industries, 94.8% of websites fail basic accessibility checks. The question is not <em>if</em> your site has violations — it is whether you fix them before a plaintiff's law firm finds them.</p>
-    </section>
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl">Why Work With eLan Technology?</h2>
+    <div class="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {[
+        { title: 'Since 2002', desc: 'Long-term web design and development experience across business websites and applications.' },
+        { title: 'One practical team', desc: 'Design, development, content and testing work together through the same project.' },
+        { title: 'Source-level fixes', desc: 'We improve the website itself and verify the customer experience after changes.' },
+        { title: 'Clear documentation', desc: 'Reports state what was tested, fixed, retested and still needs attention.' },
+      ].map(({ title, desc }) => (
+        <article class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
+          <h3 class="font-heading text-base font-semibold text-[var(--text)]">{title}</h3>
+          <p class="mt-2 text-sm text-[var(--text-muted)]">{desc}</p>
+        </article>
+      ))}
+    </div>
+    <p class="mt-5 text-sm text-[var(--text-muted)]">Related reading: <a href="/blog/accessibility/ada-compliance-checklist/" class="text-red-500 underline hover:no-underline">ADA website checklist</a> · <a href="/blog/accessibility/wcag-explained-business-owners/" class="text-red-500 underline hover:no-underline">WCAG explained for business owners</a> · <a href="/free-website-audit/" class="text-red-500 underline hover:no-underline">free website audit</a> · <a href="/accessibility-statement/" class="text-red-500 underline hover:no-underline">our accessibility statement</a></p>
+  </section>
 
-    <!-- ── SECTION 5: COST COMPARISON ──────────────────────────────────────── -->
-    <section class="mb-16">
-      <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-4">The Math is Simple: Compliance Costs Far Less Than a Lawsuit</h2>
-      <div class="overflow-x-auto rounded-xl border border-[var(--border)]">
-        <table class="w-full text-left text-sm">
-          <thead class="bg-[var(--bg-card)] text-[var(--text)]">
-            <tr>
-              <th scope="col" class="px-5 py-3 font-semibold">Scenario</th>
-              <th scope="col" class="px-5 py-3 font-semibold text-right">Cost</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-[var(--border)] text-[var(--text-muted)]">
-            <tr class="bg-green-500/5"><td class="px-5 py-3">eLan Technology — ADA-compliant new website</td><td class="px-5 py-3 text-right font-semibold text-green-500">$3,000 – $12,000</td></tr>
-            <tr class="bg-green-500/5"><td class="px-5 py-3">eLan Technology — Audit + remediation</td><td class="px-5 py-3 text-right font-semibold text-green-500">$1,500 – $5,000</td></tr>
-            <tr><td class="px-5 py-3">Average ADA demand letter settlement</td><td class="px-5 py-3 text-right">$5,000</td></tr>
-            <tr><td class="px-5 py-3">Average ADA out-of-court settlement</td><td class="px-5 py-3 text-right">$30,000</td></tr>
-            <tr><td class="px-5 py-3">Average ADA court judgment</td><td class="px-5 py-3 text-right">$85,000</td></tr>
-            <tr><td class="px-5 py-3">Average ADA class action settlement</td><td class="px-5 py-3 text-right">$400,000</td></tr>
-            <tr class="bg-red-500/5"><td class="px-5 py-3">Defence legal fees alone</td><td class="px-5 py-3 text-right font-semibold text-red-500">$30,000 – $175,000</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="mt-5 text-[var(--text-muted)]">A $5,000 investment in accessibility today can prevent a $30,000-$400,000 legal nightmare tomorrow. And unlike a lawsuit settlement, an accessible website actually serves your customers better — expanding your addressable market by 15-20%.</p>
-    </section>
+  <section class="mb-16 border-y border-[var(--border)] py-8">
+    <div class="flex flex-wrap items-end justify-between gap-3">
+      <h2 class="font-heading text-xl font-bold text-[var(--text)]">Standards and Official Guidance</h2>
+      <p class="text-xs text-[var(--text-muted)]">Page reviewed 31 July 2026</p>
+    </div>
+    <ul class="mt-5 grid gap-3 text-sm text-[var(--text-muted)] md:grid-cols-2" role="list">
+      <li><a href="https://www.w3.org/TR/WCAG22/" rel="noopener noreferrer" class="text-red-500 underline hover:no-underline">W3C Web Content Accessibility Guidelines 2.2</a></li>
+      <li><a href="https://www.ada.gov/resources/web-guidance/" rel="noopener noreferrer" class="text-red-500 underline hover:no-underline">US DOJ guidance on web accessibility and the ADA</a></li>
+      <li><a href="https://www.ada.gov/assets/pdfs/2026-ifr.pdf" rel="noopener noreferrer" class="text-red-500 underline hover:no-underline">US DOJ 2026 Title II compliance date extension</a></li>
+      <li><a href="https://www.ftc.gov/legal-library/browse/cases-proceedings/2223156-accessibe-inc" rel="noopener noreferrer" class="text-red-500 underline hover:no-underline">FTC case concerning automated accessibility claims</a></li>
+      <li><a href="https://www.canada.ca/en/government/publicservice/wellness-inclusion-diversity-public-service/diversity-inclusion-public-service/accessibility-public-service/about-canada-federal-accessibility-law.html" rel="noopener noreferrer" class="text-red-500 underline hover:no-underline">Government of Canada federal accessibility law overview</a></li>
+      <li><a href="https://accessible.canada.ca/creating-accessibility-standards/canasc-en-301-5492024-accessibility-requirements-ict-products-and-services/9-web" rel="noopener noreferrer" class="text-red-500 underline hover:no-underline">Accessibility Standards Canada web requirements</a></li>
+    </ul>
+    <p class="mt-5 text-xs text-[var(--text-muted)]">This page provides general technical information, not legal advice. Ask qualified legal counsel which laws and deadlines apply to your organisation.</p>
+  </section>
 
-    <!-- ── SECTION 6: FREE AUDIT ───────────────────────────────────────────── -->
-    <section class="mb-16 rounded-2xl border border-[var(--border)] bg-gradient-to-br from-green-500/10 via-[var(--bg-card)] to-[var(--bg-card)] p-8 md:p-10">
-      <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-3">Get Your ADA Compliance Audit — Results Delivered in 24 Hours</h2>
-      <p class="text-[var(--text-muted)] mb-6">Know exactly where your website stands against WCAG 2.1 AA. Audits start at $1,500 USD — a fraction of the cost of a single ADA lawsuit settlement.</p>
-      <ul class="grid gap-3 sm:grid-cols-2 mb-6 text-sm text-[var(--text-muted)]" role="list">
-        <li class="flex gap-2"><span class="text-green-500 shrink-0">✓</span>Automated WCAG 2.1 AA scan (every page)</li>
-        <li class="flex gap-2"><span class="text-green-500 shrink-0">✓</span>Top 10 critical violations identified</li>
-        <li class="flex gap-2"><span class="text-green-500 shrink-0">✓</span>Estimated remediation effort and cost</li>
-        <li class="flex gap-2"><span class="text-green-500 shrink-0">✓</span>Priority ranking (critical / high / medium)</li>
-        <li class="flex gap-2"><span class="text-green-500 shrink-0">✓</span>ADA risk assessment score</li>
-        <li class="flex gap-2"><span class="text-green-500 shrink-0">✓</span>Code-level fix recommendations</li>
-      </ul>
-      <a href="/get-quote/" class="inline-flex items-center rounded-lg bg-green-500 px-6 py-3 text-sm font-semibold text-white shadow transition hover:bg-green-600">
-        Request My ADA Audit
-      </a>
-      <p class="mt-3 text-xs text-[var(--text-muted)]">500+ websites audited. Results within 24 hours. We will show you exactly what needs to be fixed and how much it will cost to fix it.</p>
-    </section>
+  <section class="mb-16">
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl">Frequently Asked Questions</h2>
+    <div class="mt-6 divide-y divide-[var(--border)] overflow-hidden rounded-xl border border-[var(--border)]">
+      {faqs.map(({ question, answer }) => (
+        <details class="bg-[var(--bg-card)]">
+          <summary class="flex cursor-pointer list-none items-center justify-between px-6 py-4 font-medium text-[var(--text)] transition-colors hover:bg-[var(--bg)]">
+            <span>{question}</span>
+            <span class="ml-4 shrink-0 text-lg text-[var(--text-muted)]" aria-hidden="true">+</span>
+          </summary>
+          <p class="px-6 pb-5 pt-1 text-sm leading-relaxed text-[var(--text-muted)]" set:html={answer} />
+        </details>
+      ))}
+    </div>
+  </section>
 
-    <!-- ── SECTION 7: WHY eLAN ─────────────────────────────────────────────── -->
-    <section class="mb-16">
-      <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-4">Why US Businesses Choose eLan Technology for ADA Compliance</h2>
-      <ul class="grid gap-3 sm:grid-cols-2 text-sm text-[var(--text-muted)]" role="list">
-        <li class="flex gap-3 rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-3"><span class="text-green-500 shrink-0">✓</span>24+ years of web development experience (since 2002)</li>
-        <li class="flex gap-3 rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-3"><span class="text-green-500 shrink-0">✓</span>WCAG 2.1 AA compliance on every website — not an upsell</li>
-        <li class="flex gap-3 rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-3"><span class="text-green-500 shrink-0">✓</span>60-70% cost savings vs US-based accessibility agencies</li>
-        <li class="flex gap-3 rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-3"><span class="text-green-500 shrink-0">✓</span>Same tools as your local team (Slack, Zoom, Jira, GitHub)</li>
-        <li class="flex gap-3 rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-3"><span class="text-green-500 shrink-0">✓</span>NDA and IP protection for every client engagement</li>
-        <li class="flex gap-3 rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-3"><span class="text-green-500 shrink-0">✓</span>3-4 hour overlap with EST/PST working day</li>
-        <li class="flex gap-3 rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-3"><span class="text-green-500 shrink-0">✓</span>VPAT and ACR documentation included</li>
-        <li class="flex gap-3 rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-3"><span class="text-green-500 shrink-0">✓</span>Ongoing accessibility monitoring in maintenance plans</li>
-      </ul>
-      <p class="mt-5 text-[var(--text-muted)]">US accessibility agencies charge $15,000-$50,000 for remediation projects. We deliver the same quality — tested against the same WCAG standards, using the same tools (axe-core, Lighthouse, NVDA, VoiceOver) — at 60-70% less.</p>
-      <p class="mt-4 text-sm text-[var(--text-muted)]">Related reading: <a href="/blog/accessibility/ada-compliance-checklist/" class="text-red-500 underline hover:no-underline">ADA compliance checklist</a> · <a href="/blog/accessibility/wcag-explained-business-owners/" class="text-red-500 underline hover:no-underline">WCAG 2.1 AA explained for business owners</a> · <a href="/blog/accessibility/ada-wcag-compliance-us-canada-2026/" class="text-red-500 underline hover:no-underline">ADA &amp; WCAG compliance 2026</a> · <a href="/web-design-company-usa/" class="text-red-500 underline hover:no-underline">Outsource web design to USA</a> · <a href="/accessibility-statement/" class="text-red-500 underline hover:no-underline">Our accessibility statement</a></p>
-    </section>
-
-    <!-- ── SECTION 8: FAQ ──────────────────────────────────────────────────── -->
-    <section class="mb-16">
-      <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-6">Frequently Asked Questions</h2>
-      <div class="divide-y divide-[var(--border)] rounded-xl border border-[var(--border)] overflow-hidden">
-        {faqs.map(({ question, answer }) => (
-          <details class="bg-[var(--bg-card)]">
-            <summary class="cursor-pointer list-none px-6 py-4 font-medium text-[var(--text)] flex items-center justify-between hover:bg-[var(--bg)] transition-colors">
-              <span>{question}</span>
-              <span class="ml-4 shrink-0 text-[var(--text-muted)] text-lg" aria-hidden="true">+</span>
-            </summary>
-            <p class="px-6 pb-5 pt-1 text-sm text-[var(--text-muted)] leading-relaxed" set:html={answer} />
-          </details>
-        ))}
-      </div>
-    </section>
-
-    <!-- ── SECTION 9: TRIPLE CTA ───────────────────────────────────────────── -->
-    <section class="grid gap-5 md:grid-cols-3">
-      <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 flex flex-col">
-        <h3 class="font-heading text-lg font-bold text-[var(--text)] mb-2">ADA Compliance Audit</h3>
-        <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Complete WCAG 2.1 AA scan with priority-ranked violations and remediation estimates. 24-hour turnaround. Starting at $1,500 USD.</p>
-        <a href="/get-quote/" class="inline-flex items-center justify-center rounded-lg bg-red-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-red-600">
-          Request Audit
-        </a>
-      </div>
-      <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 flex flex-col">
-        <h3 class="font-heading text-lg font-bold text-[var(--text)] mb-2">ADA-Compliant Website Quote</h3>
-        <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Get a detailed proposal for an ADA-compliant new build or full remediation of your existing site within 24 hours.</p>
-        <a href="/get-quote/" class="inline-flex items-center justify-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
-          Request a Quote
-        </a>
-      </div>
-      <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 flex flex-col">
-        <h3 class="font-heading text-lg font-bold text-[var(--text)] mb-2">Schedule a Call</h3>
-        <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Speak with an accessibility specialist about your situation, lawsuit risk, and the most cost-effective path to compliance.</p>
-        <a href="/schedule-consultation/" class="inline-flex items-center justify-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
-          Book a Consultation
-        </a>
-      </div>
-    </section>
-
+  <section class="grid gap-5 md:grid-cols-3">
+    <div class="flex flex-col rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+      <h3 class="font-heading text-lg font-bold text-[var(--text)]">WCAG Accessibility Audit</h3>
+      <p class="mb-5 mt-2 flex-1 text-sm text-[var(--text-muted)]">A clear review of your website, critical journeys, priorities and recommended fixes. Starting at $1,500 USD.</p>
+      <a href="/get-quote/?service=ada-audit" class="inline-flex items-center justify-center rounded-lg bg-red-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-red-600">Request an Audit</a>
+    </div>
+    <div class="flex flex-col rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+      <h3 class="font-heading text-lg font-bold text-[var(--text)]">Website Remediation Quote</h3>
+      <p class="mb-5 mt-2 flex-1 text-sm text-[var(--text-muted)]">Get a practical proposal for fixing an existing website or building accessibility into a new one.</p>
+      <a href="/get-quote/" class="inline-flex items-center justify-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">Request a Quote</a>
+    </div>
+    <div class="flex flex-col rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+      <h3 class="font-heading text-lg font-bold text-[var(--text)]">Talk Through Your Situation</h3>
+      <p class="mb-5 mt-2 flex-1 text-sm text-[var(--text-muted)]">Discuss your website, deadline and the most sensible first step with our team.</p>
+      <a href="/schedule-consultation/" class="inline-flex items-center justify-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">Book a Consultation</a>
+    </div>
+  </section>
 </ServiceLayout>

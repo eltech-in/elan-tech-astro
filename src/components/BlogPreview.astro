@@ -6,6 +6,7 @@
  * All cards are single <a> elements for simple keyboard navigation.
  */
 import { getCollection } from 'astro:content';
+import { isPublishedPost } from '../utils/blog';
 
 const CATEGORY_LABELS: Record<string, string> = {
   'web-design': 'Web Design',
@@ -15,9 +16,10 @@ const CATEGORY_LABELS: Record<string, string> = {
   'nagpur-business': 'Nagpur Business',
   accessibility: 'Accessibility',
   'technology-trends': 'Technology Trends',
+  'company-news': 'Company News',
 };
 
-const all = await getCollection('blog', ({ data }) => data.draft !== true);
+const all = await getCollection('blog', ({ data }) => isPublishedPost(data));
 const sorted = all.sort(
   (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
 );

@@ -1,21 +1,20 @@
 /**
- * AnnouncementBar — dismissible orange top bar for the Digital Launchpad offer.
+ * AnnouncementBar - dismissible orange top bar for the Digital Launchpad offer.
  *
  * Behaviour:
- *  - Renders nothing if offer has expired (client-side: > 30 Jun 2026 IST).
- *  - Renders nothing if user has previously dismissed (localStorage key lp-bar-v1 = "1").
+ *  - Renders nothing if the final offer has expired.
+ *  - Renders nothing if user has previously dismissed the final offer.
  *  - Dismiss button sets localStorage and removes the bar (no page reload needed).
  *  - Uses client:load so it mounts immediately, avoiding layout shift from a
  *    delayed hydration strategy.
  *  - WCAG: role="region", aria-label, dismiss button has aria-label, focus ring.
- *  - prefers-reduced-motion: no animations used — just show/hide.
+ *  - prefers-reduced-motion: no animations used - just show/hide.
  */
 
 import { useState, useEffect } from 'react';
 
-const STORAGE_KEY = 'lp-bar-v1';
-// 30 Jun 2026 23:59:59 IST = UTC+5:30 → subtract 19800 s for UTC
-const OFFER_END = new Date('2026-06-30T18:29:59Z'); // 23:59:59 IST as UTC
+const STORAGE_KEY = 'lp-bar-final';
+const OFFER_END = new Date('2026-08-15T18:29:59Z'); // 23:59:59 IST as UTC
 
 export default function AnnouncementBar() {
   // Start hidden to avoid SSR/hydration flicker; show only after mount check.
@@ -41,12 +40,12 @@ export default function AnnouncementBar() {
       className="relative z-[60] flex items-center justify-center gap-3 px-10 py-2.5 text-sm text-white"
       style={{ background: '#F26722' }}
     >
-      {/* Fire emoji — purely decorative */}
+      {/* Fire emoji - purely decorative */}
       <span aria-hidden="true" className="hidden sm:inline text-base leading-none">🔥</span>
 
       <p className="text-center leading-snug">
         <strong className="font-bold">Digital Launchpad</strong>
-        {' — '}All-in website from ₹24,000.{' '}
+        {' - '}All-in website from ₹28,800.{' '}
         <a
           href="/pricing/digital-launchpad/"
           className="font-semibold underline underline-offset-2 hover:opacity-80 transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 rounded-sm"
@@ -54,7 +53,7 @@ export default function AnnouncementBar() {
           Reserve your slot →
         </a>
         <span className="ml-2 hidden sm:inline opacity-80 text-xs">
-          Offer ends 30 Jun 2026.
+          Final offer ends 15 Aug 2026.
         </span>
       </p>
 

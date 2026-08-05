@@ -1,44 +1,47 @@
 ---
-title: "WCAG 2.1 Explained for Business Owners: What You Need to Know"
-description: "A plain-English guide to WCAG 2.1 for business owners. Understand what WCAG means, the difference between AA and AAA, the four POUR principles, and how to get started."
+title: "WCAG 2.2 Explained for Business Owners"
+description: "A plain-English guide to WCAG 2.2, conformance levels, the four POUR principles, and the difference between current best practice and regulatory baselines."
 publishDate: 2026-02-10
+updatedDate: 2026-07-24
 author: "eLan Technology Team"
 category: "accessibility"
-tags: ["WCAG 2.1", "web accessibility", "accessible website"]
+tags: ["WCAG 2.2", "WCAG Level AA", "web accessibility", "accessible website"]
 readTime: 8
 featuredImage:
   src: "/blog/featuredblog.avif"
-  alt: "WCAG 2.1 explained for business owners"
+  alt: "WCAG 2.2 explained for business owners"
 draft: false
 seo:
-  focusKeyword: "WCAG 2.1 explained"
-  metaTitle: "WCAG 2.1 Explained for Business Owners (Plain English Guide 2026)"
-  metaDescription: "Understand WCAG 2.1 in plain English. What it means, AA vs AAA, the four POUR principles, business benefits of accessibility, and how to get your website compliant."
+  focusKeyword: "WCAG 2.2 explained"
+  metaTitle: "WCAG 2.2 Explained for Business Owners (2026)"
+  metaDescription: "Understand WCAG 2.2 in plain English: A, AA and AAA conformance, POUR principles, testing, regulatory baselines and practical next steps."
 ---
 
-If someone has mentioned WCAG compliance to you recently — perhaps a lawyer, a developer, or a client in the US or UK — you may have found the official documentation impenetrable. The W3C specification is comprehensive but written for technical audiences.
+WCAG 2.2 is the current Web Content Accessibility Guidelines standard from W3C. It explains how to make web content perceivable, operable, understandable, and robust for people with disabilities. Most organisations target Level AA.
 
-This guide cuts through the jargon and explains WCAG 2.1 in straightforward terms designed for business owners who need to understand what is required, why it matters, and what to do about it.
+Some laws and contracts still name WCAG 2.0 or 2.1. Meeting WCAG 2.2 generally includes the earlier 2.0 and 2.1 success criteria, apart from the obsolete Parsing criterion removed in 2.2. This guide explains the standard, the version question, and what a credible audit should test.
+
+Start with the explanation below, use the [30-point accessibility checklist](/blog/accessibility/ada-compliance-checklist/) for a practical review, or explore our [WCAG audit and code-level remediation service](/services/ada-compliant-web-design/).
 
 ## What is WCAG?
 
-WCAG stands for Web Content Accessibility Guidelines. It is a set of technical standards published by the World Wide Web Consortium (W3C) — the international body that develops and maintains web standards. The current version widely referenced in law and regulation is WCAG 2.1, published in 2018.
+WCAG stands for Web Content Accessibility Guidelines. It is a technical standard published by the World Wide Web Consortium (W3C). WCAG 2.2 became a W3C Recommendation in October 2023; earlier versions remain named in some laws, regulations, and contracts.
 
 These guidelines define what an accessible website looks like: how content should be structured, how interactive elements should behave, and what accommodations must be made for users with visual, auditory, motor, and cognitive disabilities.
 
-WCAG is not a legal standard in itself. But it has been adopted as the technical reference for accessibility legislation in the United States (ADA, Section 508), United Kingdom (Equality Act), European Union (EN 301 549), and Canada (AODA). Meeting WCAG 2.1 AA is, for most businesses in these markets, the practical definition of legal compliance.
+WCAG is a technical standard, not a legal opinion. Different frameworks incorporate or refer to different versions and levels. For example, the US DOJ Title II web rule names WCAG 2.1 AA, while Ontario's AODA website guidance names WCAG 2.0 AA with stated exceptions. A project should document the required baseline and may test against WCAG 2.2 AA as the broader current target.
 
 ## The Three Conformance Levels: A, AA, and AAA
 
 WCAG has three levels of conformance:
 
-### Level A — Minimum Accessibility
+### Level A - Minimum Accessibility
 
-Level A addresses the most critical barriers — those that make a website completely unusable for people with certain disabilities. Examples include: providing text alternatives for images, ensuring all functionality works with a keyboard, and not using color as the only way to convey information.
+Level A addresses the most critical barriers - those that make a website completely unusable for people with certain disabilities. Examples include: providing text alternatives for images, ensuring all functionality works with a keyboard, and not using color as the only way to convey information.
 
 Most websites should already meet Level A. If they don't, they are likely inaccessible in fundamental ways.
 
-### Level AA — Standard Compliance (The Legal Target)
+### Level AA - Standard Compliance (The Legal Target)
 
 Level AA is the target most laws and regulations point to. It includes everything in Level A plus additional requirements such as:
 
@@ -50,15 +53,15 @@ Level AA is the target most laws and regulations point to. It includes everythin
 
 When a business or government is told their website must be "WCAG compliant," they are almost always being asked to meet Level AA.
 
-### Level AAA — Enhanced Accessibility
+### Level AAA - Enhanced Accessibility
 
-Level AAA includes the most advanced requirements — sign language interpretation for video, extended audio descriptions, a 7:1 contrast ratio for text. The W3C itself acknowledges that Level AAA cannot be achieved in full for all content types. It is an aspiration rather than a universal requirement, and very few laws mandate it.
+Level AAA includes the most advanced requirements - sign language interpretation for video, extended audio descriptions, a 7:1 contrast ratio for text. The W3C itself acknowledges that Level AAA cannot be achieved in full for all content types. It is an aspiration rather than a universal requirement, and very few laws mandate it.
 
-**The bottom line: Aim for WCAG 2.1 AA. That is what is legally required and practically achievable.**
+**The practical baseline: target Level AA, record the version required by the applicable rule or contract, and use WCAG 2.2 for current best-practice coverage where appropriate.**
 
 ## The Four Principles: POUR
 
-WCAG 2.1 is organized around four fundamental principles. Every guideline and success criterion falls under one of these four categories. You can remember them with the acronym POUR.
+WCAG is organised around four fundamental principles. Every guideline and success criterion falls under one of these four categories. You can remember them with the acronym POUR.
 
 ### 1. Perceivable
 
@@ -79,7 +82,7 @@ User interface components and navigation must be operable. Users cannot be requi
 In practice:
 - All interactive elements (menus, buttons, forms, carousels) must be keyboard accessible
 - There must be no keyboard traps (situations where the keyboard focus cannot escape)
-- Users must have enough time to complete tasks — no aggressive session timeouts
+- Users must have enough time to complete tasks - no aggressive session timeouts
 - Nothing on the page should flash more than 3 times per second
 
 A user with motor disabilities who relies on a keyboard, switch access device, or voice recognition software must be able to fully use your website.
@@ -106,7 +109,7 @@ In practice:
 - ARIA (Accessible Rich Internet Applications) attributes must be used correctly
 - Custom widgets must expose their state (expanded/collapsed, selected/unselected) to assistive technology
 
-A user on any device, browser, or assistive technology — now and in the future — must be able to access your content.
+A user on any device, browser, or assistive technology - now and in the future - must be able to access your content.
 
 ## Why WCAG Compliance Matters for Your Business
 
@@ -120,9 +123,9 @@ Approximately 15% of the world's population has some form of disability. In the 
 
 Many WCAG requirements directly improve search engine optimization: descriptive alt text for images, semantic heading structure, descriptive link text, and fast load times all contribute to better Google rankings.
 
-### Legal Risk Reduction
+### Better Risk and Governance Evidence
 
-ADA website lawsuits in the US have increased significantly over the past five years. Businesses of all sizes have received demand letters and been named in lawsuits. Meeting WCAG 2.1 AA is the standard courts look to — and demonstrating compliance is your primary defense.
+Reducing accessibility barriers and keeping accurate audit and remediation records gives users a better experience and gives stakeholders reliable evidence of the work performed. Legal counsel should determine how that evidence relates to a specific claim or obligation.
 
 ### Improved Usability for Everyone
 
@@ -138,20 +141,27 @@ Run your website through the WAVE tool (wave.webaim.org) or the axe DevTools bro
 
 ### Manual Testing
 
-Attempt to navigate your entire website using only your keyboard — no mouse. If you get stuck anywhere, that is a Level A failure. Use your browser's zoom function and increase text size to 200% — everything should still be readable and functional.
+Attempt to navigate your entire website using only your keyboard - no mouse. If you get stuck anywhere, that is a Level A failure. Use your browser's zoom function and increase text size to 200% - everything should still be readable and functional.
 
 ### Prioritized Remediation
 
 Tackle the most critical and most commonly litigated issues first: alt text, color contrast, form labels, keyboard accessibility, and descriptive link text. A professional accessibility audit provides a prioritized remediation plan with specific code-level fixes.
 
-At eLan Technology, we build WCAG 2.1 AA compliant websites as standard for our US, UK, Canadian, and Australian clients, and we offer standalone accessibility audits for existing websites. If your website needs to meet accessibility standards, contact us to discuss your specific requirements.
+At eLan Technology, we design and test websites against an agreed WCAG Level AA baseline and offer standalone accessibility audits for existing websites. Our [audit and remediation service](/services/ada-compliant-web-design/) combines automated checks, manual testing, source-level fixes, and retesting.
 
-## WCAG 2.2 and What is Coming
+## What WCAG 2.2 Added
 
-WCAG 2.2 was published in October 2023 and adds several new success criteria, including enhanced focus indicator requirements, dragging movement alternatives, and target size minimums for interactive elements. While WCAG 2.1 AA remains the current legal reference in most jurisdictions, designing to WCAG 2.2 AA puts your website ahead of the curve.
+WCAG 2.2 was published in October 2023 and adds nine success criteria, including Focus Not Obscured, Dragging Movements, Target Size (Minimum), Consistent Help, Redundant Entry, and Accessible Authentication at Level A or AA. It generally includes the earlier 2.0 and 2.1 criteria, apart from the obsolete Parsing criterion removed in 2.2.
 
 ## Summary
 
-WCAG 2.1 AA is the internationally recognized technical standard for accessible websites. It is organized around four principles — Perceivable, Operable, Understandable, Robust — and requires that your website can be used by people with visual, auditory, motor, and cognitive disabilities.
+WCAG 2.2 is the current internationally recognised technical standard for accessible web content. It is organised around four principles - Perceivable, Operable, Understandable, Robust - and provides testable success criteria at Levels A, AA, and AAA.
 
-Meeting it protects you legally, expands your audience, improves your SEO, and is simply the right thing to do. Start with an audit, fix the critical issues first, and build accessibility into every future update.
+Start with an audit, fix barriers that block important tasks, retest the result, and build accessibility into every future update. Use our [accessibility checklist](/blog/accessibility/ada-compliance-checklist/) for a first review or request a [hybrid WCAG audit](/get-quote/?service=ada-audit).
+
+## Primary Sources
+
+- [W3C Web Content Accessibility Guidelines 2.2](https://www.w3.org/TR/WCAG22/)
+- [W3C: What's New in WCAG 2.2](https://www.w3.org/WAI/standards-guidelines/wcag/new-in-22/)
+- [US DOJ Title II web rule fact sheet](https://www.ada.gov/resources/2024-03-08-web-rule/)
+- [Ontario guidance on accessible websites](https://www.ontario.ca/page/how-make-websites-accessible)

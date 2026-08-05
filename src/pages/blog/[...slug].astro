@@ -2,11 +2,12 @@
 import { getCollection, render } from 'astro:content';
 import BlogLayout from '../../layouts/BlogLayout.astro';
 import { articleSchema, breadcrumbSchema, speakableSchema, howToSchema, faqSchema } from '../../utils/schema';
+import { isPublishedPost } from '../../utils/blog';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
   return posts
-    .filter((p) => !p.data.draft)
+    .filter((p) => isPublishedPost(p.data))
     .map((post) => ({
       // URL pattern: /blog/<category>/<slug>
       params: { slug: `${post.data.category}/${post.id}` },
@@ -26,6 +27,10 @@ const postUrl = `/blog/${post.data.category}/${post.id}/`;
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'Blog', url: '/blog/' },
+  {
+    name: post.data.category === 'accessibility' ? 'Accessibility' : post.data.category,
+    url: `/blog/category/${post.data.category}/`,
+  },
   { name: post.data.title, url: postUrl },
 ];
 

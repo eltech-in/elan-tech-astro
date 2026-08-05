@@ -1,4 +1,4 @@
-# Cloudflare Pages — 301 Redirects
+# Cloudflare Pages - 301 Redirects
 # Format: /old-path  /new-path  301
 # Place more-specific rules before wildcards
 
@@ -11,142 +11,132 @@
 /.git/*               /  301
 
 # ─── Legacy eLan URLs (old site structure) ───────────────────────────────────
-/about-elantech                     /about                              301
-/about-us                           /about                              301
-/who-we-are                         /about                              301
-/our-team                           /about                              301
+/about-elantech                     /about/                             301
+/about-us                           /about/                             301
+/who-we-are                         /about/                             301
+/our-team                           /about/                             301
 
-# Services — old slugs → new slugs
-/services/web-design                /services/website-design            301
-/services/website-design-services   /services/website-design            301
-/services/web-designing             /services/website-design            301
-/services/seo                       /services/digital-marketing         301
-/services/seo-services              /services/digital-marketing         301
-/services/search-engine-optimization /services/digital-marketing        301
-/services/social-media              /services/digital-marketing         301
-/services/social-media-marketing    /services/digital-marketing         301
-/services/ppc                       /services/digital-marketing         301
-/services/mobile-app                /services/mobile-app-development    301
-/services/app-development           /services/mobile-app-development    301
-/services/android-app               /services/mobile-app-development    301
-/services/ios-app                   /services/mobile-app-development    301
-/services/logo-design               /services/branding                  301
-/services/graphic-design            /services/branding                  301
-/services/website-maintenance       /services/maintenance-security      301
-/services/security                  /services/maintenance-security      301
+# Services - old slugs → new slugs
+/services/web-design                /services/website-design/           301
+/services/website-design-services   /services/website-design/           301
+/services/web-designing             /services/website-design/           301
+/services/seo-services              /services/seo/                      301
+/services/search-engine-optimization /services/seo/                     301
+/services/social-media              /services/digital-marketing/        301
+/services/social-media-marketing    /services/digital-marketing/        301
+/services/ppc                       /services/digital-marketing/        301
+/services/mobile-app                /services/mobile-app-development/   301
+/services/app-development           /services/mobile-app-development/   301
+/services/android-app               /services/mobile-app-development/   301
+/services/ios-app                   /services/mobile-app-development/   301
+/services/logo-design               /services/branding/                 301
+/services/graphic-design            /services/branding/                 301
+/services/website-maintenance       /services/maintenance-security/     301
+/services/security                  /services/maintenance-security/     301
 
-# Trailing slash normalisation
-/services/                          /services                           301
-/about/                             /about                              301
-/contact/                           /contact                            301
-/blog/                              /blog                               301
-/portfolio/                         /portfolio                          301
-/pricing/                           /pricing                            301
-/faq/                               /faq                                301
-/careers/                           /careers                            301
-/testimonials/                      /testimonials                       301
-/products/                          /products                           301
-/get-quote/                         /get-quote                          301
-/free-website-audit/                /free-website-audit                 301
-/schedule-consultation/             /schedule-consultation              301
-/request-demo/                      /request-demo                       301
-/search/                            /search                             301
+# Trailing slash normalisation - match Astro trailingSlash: 'always'
+/services                           /services/                          301
+/about                              /about/                             301
+/contact                            /contact/                           301
+/blog                               /blog/                              301
+/portfolio                          /portfolio/                         301
+/pricing                            /pricing/                           301
+/faq                                /faq/                               301
+/careers                            /careers/                           301
+/testimonials                       /testimonials/                      301
+/products                           /products/                          301
+/get-quote                          /get-quote/                         301
+/free-website-audit                 /free-website-audit/                301
+/schedule-consultation              /schedule-consultation/             301
+/request-demo                       /request-demo/                      301
+/search                             /search/                            301
 
-# GSC-flagged service trailing-slash variants (May 2026 alternate-canonical report)
-/services/mobile-app-development/       /services/mobile-app-development      301
-/services/ada-compliant-web-design/     /services/ada-compliant-web-design    301
-/services/website-design/               /services/website-design              301
-/services/web-development/              /services/web-development             301
-/services/ecommerce/                    /services/ecommerce                   301
-/services/digital-marketing/            /services/digital-marketing           301
-/services/seo/                          /services/seo                         301
-/services/branding/                     /services/branding                    301
-/services/maintenance-security/         /services/maintenance-security        301
-/services/integrations/                 /services/integrations                301
+# GSC-flagged service variants (May 2026 alternate-canonical report)
+/services/mobile-app-development        /services/mobile-app-development/     301
+/services/ada-compliant-web-design      /services/ada-compliant-web-design/   301
+/services/website-design                /services/website-design/             301
+/services/web-development               /services/web-development/            301
+/services/ecommerce                     /services/ecommerce/                  301
+/services/digital-marketing             /services/digital-marketing/          301
+/services/seo                           /services/seo/                        301
+/services/branding                      /services/branding/                   301
+/services/maintenance-security          /services/maintenance-security/       301
+/services/integrations                  /services/integrations/               301
 
 # Blog category trailing slash
-/blog/category/accessibility/       /blog/category/accessibility        301
-/blog/category/seo/                 /blog/category/seo                  301
-/blog/category/web-design/          /blog/category/web-design           301
-/blog/category/technology-trends/   /blog/category/technology-trends    301
-/blog/category/nagpur-business/     /blog/category/nagpur-business      301
-/blog/category/ecommerce/           /blog/category/ecommerce            301
-/blog/category/digital-marketing/   /blog/category/digital-marketing    301
+/blog/category/accessibility        /blog/category/accessibility/       301
+/blog/category/seo                  /blog/category/seo/                 301
+/blog/category/web-design           /blog/category/web-design/          301
+/blog/category/technology-trends    /blog/category/technology-trends/   301
+/blog/category/nagpur-business      /blog/category/nagpur-business/     301
+/blog/category/ecommerce            /blog/category/ecommerce/           301
+/blog/category/digital-marketing    /blog/category/digital-marketing/   301
 
 # Blog post trailing slash + flat-URL migration (old CMS shape → new category path)
-# Each post: BOTH /blog/<slug>/ and /blog/<slug> redirect to /blog/<category>/<slug>
-/blog/website-development-trends-april-2026/  /blog/technology-trends/website-development-trends-april-2026  301
-/blog/website-development-trends-april-2026   /blog/technology-trends/website-development-trends-april-2026  301
-/blog/ai-web-development-2026/                /blog/technology-trends/ai-web-development-2026                301
-/blog/ai-web-development-2026                 /blog/technology-trends/ai-web-development-2026                301
-/blog/ada-compliance-checklist/               /blog/accessibility/ada-compliance-checklist                   301
-/blog/ada-compliance-checklist                /blog/accessibility/ada-compliance-checklist                   301
-/blog/ada-wcag-compliance-us-canada-2026/     /blog/accessibility/ada-wcag-compliance-us-canada-2026         301
-/blog/ada-wcag-compliance-us-canada-2026      /blog/accessibility/ada-wcag-compliance-us-canada-2026         301
-/blog/ada-lawsuit-emergency-website-remediation/  /blog/accessibility/ada-lawsuit-emergency-website-remediation  301
-/blog/ada-lawsuit-emergency-website-remediation   /blog/accessibility/ada-lawsuit-emergency-website-remediation  301
-/blog/wcag-explained-business-owners/         /blog/accessibility/wcag-explained-business-owners             301
-/blog/wcag-explained-business-owners          /blog/accessibility/wcag-explained-business-owners             301
-/blog/seo-guide-small-business-nagpur/        /blog/seo/seo-guide-small-business-nagpur                      301
-/blog/seo-guide-small-business-nagpur         /blog/seo/seo-guide-small-business-nagpur                      301
-/blog/best-web-design-company-raipur-guide/   /blog/nagpur-business/best-web-design-company-raipur-guide     301
-/blog/best-web-design-company-raipur-guide    /blog/nagpur-business/best-web-design-company-raipur-guide     301
-/blog/website-cost-nagpur/                    /blog/nagpur-business/website-cost-nagpur                      301
-/blog/website-cost-nagpur                     /blog/nagpur-business/website-cost-nagpur                      301
-/blog/why-nagpur-business-needs-website/      /blog/nagpur-business/why-nagpur-business-needs-website        301
-/blog/why-nagpur-business-needs-website       /blog/nagpur-business/why-nagpur-business-needs-website        301
-/blog/wordpress-vs-custom-website/            /blog/web-design/wordpress-vs-custom-website                   301
-/blog/wordpress-vs-custom-website             /blog/web-design/wordpress-vs-custom-website                   301
-
-# Catch trailing slashes on already-correct category blog URLs
-/blog/technology-trends/*/      /blog/technology-trends/:splat      301
-/blog/accessibility/*/          /blog/accessibility/:splat          301
-/blog/seo/*/                    /blog/seo/:splat                    301
-/blog/web-design/*/             /blog/web-design/:splat             301
-/blog/nagpur-business/*/        /blog/nagpur-business/:splat        301
-/blog/ecommerce/*/              /blog/ecommerce/:splat              301
-/blog/digital-marketing/*/      /blog/digital-marketing/:splat      301
+# Each post: BOTH /blog/<slug>/ and /blog/<slug> redirect to /blog/<category>/<slug>/
+/blog/website-development-trends-april-2026/  /blog/technology-trends/website-development-trends-april-2026/  301
+/blog/website-development-trends-april-2026   /blog/technology-trends/website-development-trends-april-2026/  301
+/blog/ai-web-development-2026/                /blog/technology-trends/ai-web-development-2026/                301
+/blog/ai-web-development-2026                 /blog/technology-trends/ai-web-development-2026/                301
+/blog/ada-compliance-checklist/               /blog/accessibility/ada-compliance-checklist/                   301
+/blog/ada-compliance-checklist                /blog/accessibility/ada-compliance-checklist/                   301
+/blog/ada-wcag-compliance-us-canada-2026/     /blog/accessibility/ada-wcag-compliance-us-canada-2026/         301
+/blog/ada-wcag-compliance-us-canada-2026      /blog/accessibility/ada-wcag-compliance-us-canada-2026/         301
+/blog/ada-lawsuit-emergency-website-remediation/  /blog/accessibility/ada-lawsuit-emergency-website-remediation/  301
+/blog/ada-lawsuit-emergency-website-remediation   /blog/accessibility/ada-lawsuit-emergency-website-remediation/  301
+/blog/wcag-explained-business-owners/         /blog/accessibility/wcag-explained-business-owners/             301
+/blog/wcag-explained-business-owners          /blog/accessibility/wcag-explained-business-owners/             301
+/blog/seo-guide-small-business-nagpur/        /blog/seo/seo-guide-small-business-nagpur/                      301
+/blog/seo-guide-small-business-nagpur         /blog/seo/seo-guide-small-business-nagpur/                      301
+/blog/best-web-design-company-raipur-guide/   /blog/nagpur-business/best-web-design-company-raipur-guide/     301
+/blog/best-web-design-company-raipur-guide    /blog/nagpur-business/best-web-design-company-raipur-guide/     301
+/blog/website-cost-nagpur/                    /blog/nagpur-business/website-cost-nagpur/                      301
+/blog/website-cost-nagpur                     /blog/nagpur-business/website-cost-nagpur/                      301
+/blog/why-nagpur-business-needs-website/      /blog/nagpur-business/why-nagpur-business-needs-website/        301
+/blog/why-nagpur-business-needs-website       /blog/nagpur-business/why-nagpur-business-needs-website/        301
+/blog/wordpress-vs-custom-website/            /blog/web-design/wordpress-vs-custom-website/                   301
+/blog/wordpress-vs-custom-website             /blog/web-design/wordpress-vs-custom-website/                   301
 
 # Legacy aliases (kept)
-/news/*                             /blog/:splat                        301
-/articles/*                         /blog/:splat                        301
+/news/*                             /blog/:splat/                       301
+/articles/*                         /blog/:splat/                       301
 
 # ─── Old Location Pages ───────────────────────────────────────────────────────
-/web-design-nagpur                  /web-design-company-nagpur          301
-/website-design-nagpur              /web-design-company-nagpur          301
-/web-design-company-in-nagpur       /web-design-company-nagpur          301
-/website-development-nagpur         /web-design-company-nagpur          301
-/website-development-services-nagpur /web-design-company-nagpur         301
-/web-design-raipur                  /web-design-company-raipur          301
-/website-design-raipur              /web-design-company-raipur          301
-/web-design-company-in-raipur       /web-design-company-raipur          301
+/web-design-nagpur                  /web-design-company-nagpur/         301
+/website-design-nagpur              /web-design-company-nagpur/         301
+/web-design-company-in-nagpur       /web-design-company-nagpur/         301
+/website-development-nagpur         /web-design-company-nagpur/         301
+/website-development-services-nagpur /web-design-company-nagpur/        301
+/web-design-raipur                  /web-design-company-raipur/         301
+/website-design-raipur              /web-design-company-raipur/         301
+/web-design-company-in-raipur       /web-design-company-raipur/         301
 
 # ─── Old Policy Pages ─────────────────────────────────────────────────────────
-/privacy                            /privacy-policy                     301
-/terms                              /terms-conditions                   301
-/terms-and-conditions               /terms-conditions                   301
-/refund-policy                      /cancellation-refund-policy         301
-/cancellation-policy                /cancellation-refund-policy         301
-/nda                                /nda-confidentiality-policy         301
-/accessibility                      /accessibility-statement            301
+/privacy                            /privacy-policy/                    301
+/terms                              /terms-conditions/                  301
+/terms-and-conditions               /terms-conditions/                  301
+/refund-policy                      /cancellation-refund-policy/        301
+/cancellation-policy                /cancellation-refund-policy/        301
+/nda                                /nda-confidentiality-policy/         301
+/accessibility                      /accessibility-statement/           301
 
 # ─── Old Product/Portfolio Pages ─────────────────────────────────────────────
-/portfolio/real-estate              /portfolio                          301
-/our-work                           /portfolio                          301
-/case-studies                       /portfolio                          301
-/work                               /portfolio                          301
+/portfolio/real-estate              /portfolio/                         301
+/our-work                           /portfolio/                         301
+/case-studies                       /portfolio/                         301
+/work                               /portfolio/                         301
 
 # ─── Old CTA Destination Pages ────────────────────────────────────────────────
-/free-audit                         /free-website-audit                 301
-/website-audit                      /free-website-audit                 301
-/get-a-quote                        /get-quote                          301
-/request-quote                      /get-quote                          301
-/quote                              /get-quote                          301
-/demo                               /request-demo                       301
-/book-demo                          /request-demo                       301
-/book-call                          /schedule-consultation              301
-/schedule-call                      /schedule-consultation              301
-/consultation                       /schedule-consultation              301
-/thankyou                           /thank-you                          301
-/thank_you                          /thank-you                          301
-/success                            /thank-you                          301
+/free-audit                         /free-website-audit/                301
+/website-audit                      /free-website-audit/                301
+/get-a-quote                        /get-quote/                         301
+/request-quote                      /get-quote/                         301
+/quote                              /get-quote/                         301
+/demo                               /request-demo/                      301
+/book-demo                          /request-demo/                      301
+/book-call                          /schedule-consultation/             301
+/schedule-call                      /schedule-consultation/             301
+/consultation                       /schedule-consultation/             301
+/thankyou                           /thank-you/                         301
+/thank_you                          /thank-you/                         301
+/success                            /thank-you/                         301

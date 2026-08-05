@@ -4,14 +4,14 @@ import CountdownTimer from '../../components/launchpad/CountdownTimer';
 import PlanCard from '../../components/launchpad/PlanCard.astro';
 import InclusionGrid from '../../components/launchpad/InclusionGrid.astro';
 import BookingForm from '../../components/launchpad/BookingForm.astro';
-import { PLANS, FAQS, WHATSAPP_URL, TOTAL_SLOTS, getPricePhaseLabel } from '../../data/digitalLaunchpad';
+import { PLANS, FAQS, WHATSAPP_URL, TOTAL_SLOTS, FINAL_OFFER_LABEL } from '../../data/digitalLaunchpad';
 import { faqSchema, breadcrumbSchema } from '../../utils/schema';
 
 // ── Schemas ────────────────────────────────────────────────────────────────
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: 'Digital Launchpad — 4-Year Website Plan',
+  name: 'Digital Launchpad - 4-Year Website Plan',
   description:
     'All-inclusive website package: custom website + .in domain + hosting + 4-year maintenance. One upfront payment. No renewals.',
   provider: {
@@ -25,7 +25,7 @@ const serviceSchema = {
     name: p.name,
     price: p.price,
     priceCurrency: 'INR',
-    validFrom: '2026-06-01',
+    validFrom: '2026-07-13',
     validThrough: '2026-08-15',
     availability: 'https://schema.org/LimitedAvailability',
     url: 'https://elan-tech.net/pricing/digital-launchpad/',
@@ -64,8 +64,8 @@ const compareRows = [
 ---
 
 <BaseLayout
-  title="4-Year All-In Website Plan from ₹24,000 — eLan Technology"
-  description="Professional website + .in domain + hosting + 4 years maintenance. One payment. No renewals. eLan Starter ₹24K · Business ₹31.2K · Complete ₹38.4K. Prices rise Jul 1 — offer ends Aug 15, 2026."
+  title="4-Year All-In Website Plan from ₹28,800 - eLan Technology"
+  description="Final Digital Launchpad anniversary offer: website, .in domain, hosting and 4 years maintenance. Starter ₹28,800 · Business ₹37,400 · Complete ₹46,100. Ends 15 Aug 2026."
   canonical="/pricing/digital-launchpad/"
   schema={schemas}
 >
@@ -80,7 +80,7 @@ const compareRows = [
   style="background:#F26722;"
 >
   <p class="font-heading text-xs sm:text-sm font-bold uppercase tracking-[0.15em] text-white">
-    🎉 Anniversary Offer — {getPricePhaseLabel()} · {TOTAL_SLOTS} Slots Only
+    🎉 Anniversary Offer - {FINAL_OFFER_LABEL} · {TOTAL_SLOTS} Slots Only
   </p>
 </div>
 
@@ -123,15 +123,15 @@ const compareRows = [
       id="lp-hero-heading"
       class="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.08] text-[var(--text)] mb-6"
     >
-      Your Business Website.<br class="hidden sm:block" />
-      4 Years. One Payment.<br class="hidden sm:block" />
+      Your Business Website.<br class="hidden sm:block" />{' '}
+      4 Years. One Payment.<br class="hidden sm:block" />{' '}
       <span style="color:#F26722;">Zero Headaches.</span>
     </h1>
 
     <!-- Subheading -->
     <p class="mx-auto mb-8 max-w-2xl text-base sm:text-lg text-[var(--text-dim)] leading-relaxed">
-      Professional website + .in domain + hosting + 4-year maintenance.<br class="hidden sm:block" />
-      All managed by eLan Technology. <strong class="text-[var(--text)]">You do nothing — we do everything.</strong>
+      Professional website + .in domain + hosting + 4-year maintenance.<br class="hidden sm:block" />{' '}
+      All managed by eLan Technology. <strong class="text-[var(--text)]">You do nothing - we do everything.</strong>
     </p>
 
     <!-- Countdown timer -->
@@ -171,7 +171,7 @@ const compareRows = [
      SECTION 3: REFRAME BAR
 ════════════════════════════════════════════════════════════════════════════ -->
 <section
-  aria-label="Cost reframe — per month equivalent"
+  aria-label="Cost reframe - per month equivalent"
   class="border-y border-[var(--border)] py-8 md:py-10"
   style="background: linear-gradient(90deg, rgba(242,103,34,0.07) 0%, rgba(29,59,109,0.09) 100%);"
 >
@@ -203,7 +203,7 @@ const compareRows = [
     </h2>
     <p class="text-center text-[var(--text-dim)] mb-8 max-w-2xl mx-auto">
       All plans: .in domain + hosting + maintenance for 4 years.<br />
-      Full advance only. {getPricePhaseLabel()}.
+      Full advance only. {FINAL_OFFER_LABEL}.
     </p>
 
     <!-- Deadline pill -->
@@ -213,7 +213,7 @@ const compareRows = [
         style="border-color:rgba(242,103,34,0.4); background:rgba(242,103,34,0.07);"
       >
         <span class="text-sm font-semibold text-[var(--text-dim)]">
-          ⏰ {getPricePhaseLabel()}
+          ⏰ {FINAL_OFFER_LABEL}
         </span>
         <a
           href="#booking"
@@ -337,7 +337,7 @@ const compareRows = [
         { text: 'Logo design', note: 'Included in eLan Complete, or ₹3,999 add-on' },
         { text: 'Content / copywriting', note: 'Included in eLan Complete, or ₹4,999 add-on' },
         { text: 'SEO campaign or Google Ads management', note: 'Available as separate service' },
-        { text: '.com domain', note: 'Extra charges apply — contact us' },
+        { text: '.com domain', note: 'Extra charges apply - contact us' },
         { text: 'New pages after launch', note: '₹999 per additional page' },
         { text: 'Social media management', note: 'Available as separate service' },
         { text: 'Complex integrations (CRM, booking system)', note: 'Custom quote available' },
@@ -374,7 +374,7 @@ const compareRows = [
         <ul class="space-y-3">
           {[
             'Local Nagpur / central India business (Raipur, Bhopal, Indore)',
-            'First-time website owner — no technical knowledge needed',
+            'First-time website owner - no technical knowledge needed',
             'You want one payment and zero ongoing stress for 4 years',
             'Clinic, salon, coaching centre, retailer, NGO, consultant',
             'Primarily targeting Indian / local customers (.in ranks well)',
@@ -396,7 +396,7 @@ const compareRows = [
         <ul class="space-y-3">
           {[
             { text: 'You need an online store', note: 'See our eCommerce packages' },
-            { text: 'You want to target international customers', note: 'Need .com — contact us' },
+            { text: 'You want to target international customers', note: 'Need .com - contact us' },
             { text: 'You need a self-managed blog CMS', note: 'See our Professional plan' },
             { text: 'You need CRM, booking system, or payment gateway', note: 'Custom quote available' },
           ].map((item) => (
@@ -517,13 +517,13 @@ const compareRows = [
 >
   <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
     <p class="mb-2 text-sm font-bold uppercase tracking-[0.18em] text-white/80">
-      🎉 21 Years of Building for India — First Come, First Served
+      🎉 21 Years of Building for India - First Come, First Served
     </p>
     <h2 id="lp-finalcta-heading" class="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">
       Ready to get started? {TOTAL_SLOTS} slots. Closes on our Anniversary.
     </h2>
     <p class="mb-8 text-white/80 text-sm sm:text-base">
-      {getPricePhaseLabel()}. Offer closes Aug 15, 2026 — our 21st anniversary &amp; final deadline. Only {TOTAL_SLOTS} slots.
+      Final prices are available through 15 Aug 2026, or until all {TOTAL_SLOTS} slots are reserved.
     </p>
 
     <div class="flex flex-col sm:flex-row items-center justify-center gap-3">

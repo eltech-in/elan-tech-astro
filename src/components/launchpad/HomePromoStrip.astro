@@ -1,9 +1,9 @@
 ---
-// HomePromoStrip — server-side date-gated promo strip for the homepage.
+// HomePromoStrip - server-side date-gated promo strip for the homepage.
 // Renders nothing after OFFER_END; no client JS required.
 // Placed after the Stats section, before the logo carousel.
 
-import { PLANS, OFFER_END, getPricePhaseLabel } from '../../data/digitalLaunchpad';
+import { PLANS, OFFER_END, FINAL_OFFER_LABEL } from '../../data/digitalLaunchpad';
 
 const now = new Date();
 const isActive = now <= OFFER_END;
@@ -46,12 +46,12 @@ function fmt(n: number) {
           </div>
           <div>
             <p class="font-heading text-base sm:text-lg font-bold text-[var(--text)] leading-snug">
-              Digital Launchpad — Complete Website from ₹{fmt(PLANS[0].price)}
+              Digital Launchpad - Complete Website from ₹{fmt(PLANS[0].price)}
             </p>
             <p class="mt-0.5 text-sm text-[var(--text-dim)]">
               Domain · Hosting · SSL · 4-year maintenance · WhatsApp button.
               <span class="font-semibold" style="color:var(--orange-text);">
-                {getPricePhaseLabel()}
+                {FINAL_OFFER_LABEL}
               </span>
             </p>
           </div>

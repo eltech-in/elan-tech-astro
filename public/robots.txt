@@ -8,14 +8,14 @@ Disallow: /api/
 Disallow: /admin/
 Disallow: /admin
 
-# Block internal / thank-you pages (no SEO value — save crawl budget)
+# Block internal / thank-you pages (no SEO value - save crawl budget)
 Disallow: /thank-you
 Disallow: /schedule-consultation
 Disallow: /request-demo
 Disallow: /search
 Disallow: /search/
 
-# Block WP attack paths — these return 410 Gone via .htaccess but blocking
+# Block WP attack paths - these return 410 Gone via .htaccess but blocking
 # here saves crawl budget so Googlebot doesn't waste quota on dead paths.
 Disallow: /wp-admin/
 Disallow: /wp-login.php
@@ -30,7 +30,7 @@ Disallow: /*?*utm_medium=
 Disallow: /*?*utm_campaign=
 Disallow: /*?*ref=
 
-# Explicitly welcome AI search / answer-engine crawlers — we want our
+# Explicitly welcome AI search / answer-engine crawlers - we want our
 # pricing, services, and accessibility content cited in AI Overviews,
 # ChatGPT, Claude, Perplexity, and other AI-search surfaces.
 User-agent: GPTBot

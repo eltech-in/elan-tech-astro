@@ -2,10 +2,11 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { breadcrumbSchema } from '../../../utils/schema';
+import { isPublishedPost } from '../../../utils/blog';
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('blog');
-  const published = allPosts.filter((p) => !p.data.draft);
+  const published = allPosts.filter((p) => isPublishedPost(p.data));
   const categories = [...new Set(published.map((p) => p.data.category))];
   return categories.map((category) => ({ params: { category } }));
 }
@@ -14,10 +15,10 @@ const { category } = Astro.params;
 
 const allPosts = await getCollection('blog');
 const posts = allPosts
-  .filter((p) => !p.data.draft && p.data.category === category)
+  .filter((p) => isPublishedPost(p.data) && p.data.category === category)
   .sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
 
-const allPublished = allPosts.filter((p) => !p.data.draft);
+const allPublished = allPosts.filter((p) => isPublishedPost(p.data));
 const categories = [...new Set(allPublished.map((p) => p.data.category))];
 
 const categoryLabels: Record<string, string> = {
@@ -28,15 +29,17 @@ const categoryLabels: Record<string, string> = {
   'nagpur-business': 'Nagpur Business',
   'accessibility': 'Accessibility',
   'technology-trends': 'Technology',
+  'company-news': 'Company News',
 };
 
 const categoryLabel = categoryLabels[category] ?? category;
+const isAccessibility = category === 'accessibility';
 
 // SEO descriptions: each category page needs real prose above the post grid
 // or Google treats it as thin content and skips indexing.
 const categoryHeadings: Record<string, { h1: string; intro: string }> = {
   'web-design': {
-    h1: 'Web Design Resources — Design That Converts',
+    h1: 'Web Design Resources - Design That Converts',
     intro:
       "Guides on building websites that look great and actually convert visitors into customers. Topics include WordPress vs custom development, mobile-first design principles, UX best practices for Indian businesses, conversion rate optimisation, colour theory and branding, and real-world case studies from the eLan Technology portfolio. Practical design advice for business owners and marketing managers.",
   },
@@ -46,19 +49,19 @@ const categoryHeadings: Record<string, { h1: string; intro: string }> = {
       "Search engine optimisation strategies tailored for businesses across India and international markets. Our SEO team shares step-by-step guides on keyword research, local SEO for Nagpur and other Indian cities, technical SEO audits, Google Business Profile optimisation, and proven ranking tactics for competitive niches. Updated regularly with algorithm change insights.",
   },
   'technology-trends': {
-    h1: 'Web Technology Trends — What Matters for Your Business',
+    h1: 'Web Technology Trends - What Matters for Your Business',
     intro:
       "Cutting through the hype to explain which web technology trends actually matter for business owners in 2026 and beyond. Covering AI in web development, Core Web Vitals and page speed, modern frameworks like Astro and Next.js, progressive web apps, and what the latest Google updates mean for your website's visibility. Written for business owners, not just developers.",
   },
   'nagpur-business': {
-    h1: 'Nagpur Business Blog — Web Design & Digital Growth',
+    h1: 'Nagpur Business Blog - Web Design & Digital Growth',
     intro:
-      "Practical guides and insights for Nagpur businesses looking to grow online. Covering web design costs in Nagpur, why local businesses need professional websites, the best web design companies in Central India, and how Nagpur's business landscape is evolving digitally. From MIDC industrialists to Dharampeth retailers — real advice for real Nagpur businesses.",
+      "Practical guides and insights for Nagpur businesses looking to grow online. Covering web design costs in Nagpur, why local businesses need professional websites, the best web design companies in Central India, and how Nagpur's business landscape is evolving digitally. From MIDC industrialists to Dharampeth retailers - real advice for real Nagpur businesses.",
   },
   'accessibility': {
-    h1: 'Accessibility — ADA & WCAG Compliance for Websites',
+    h1: 'Accessibility - ADA & WCAG Compliance for Websites',
     intro:
-      "Plain-English guides to website accessibility, ADA compliance, and WCAG 2.1/2.2 standards. Why accessibility matters for SEO, the business case for inclusive design, lawsuit-driven remediation playbooks, and step-by-step audits you can run on your own website. Written for business owners and product managers — not just developers.",
+      "Plain-English guides to website accessibility, ADA compliance, and WCAG 2.1/2.2 standards. Why accessibility matters for SEO, the business case for inclusive design, lawsuit-driven remediation playbooks, and step-by-step audits you can run on your own website. Written for business owners and product managers - not just developers.",
   },
   'ecommerce': {
     h1: 'eCommerce Strategy & Implementation',
@@ -70,9 +73,60 @@ const categoryHeadings: Record<string, { h1: string; intro: string }> = {
     intro:
       "Performance marketing, content strategy, and lead generation for B2B and service businesses. Real playbooks on Google Ads, LinkedIn, content marketing funnels, and attribution. Less theory, more numbers you can act on.",
   },
+  'company-news': {
+    h1: 'eLan Technology News & Milestones',
+    intro:
+      'Company milestones, launches, partnerships, and behind-the-scenes stories from eLan Technology. Follow our journey from a freelance and startup unit founded in 2002 to a web, ecommerce, accessibility, and digital technology company serving clients in India and internationally.',
+  },
 };
 
 const heading = categoryHeadings[category];
+
+const categorySeo: Record<string, { title: string; description: string }> = {
+  accessibility: {
+    title: 'ADA & WCAG Accessibility Resource Center | eLan Technology',
+    description:
+      'Practical ADA and WCAG guidance covering accessibility audits, WCAG 2.2, remediation, overlays, demand letters and international requirements.',
+  },
+  ecommerce: {
+    title: 'Shopify, Medusa.js & eCommerce Development Guides',
+    description:
+      'Practical ecommerce guides covering Shopify, Medusa.js, subscriptions, payments, shipping, AI shopping, platform selection and conversion.',
+  },
+  'company-news': {
+    title: 'eLan Technology News, Launches & Milestones',
+    description:
+      'Company milestones, project launches and updates from eLan Technology, founded as a freelance startup unit in 2002 and officially launched in 2005.',
+  },
+};
+const seo = categorySeo[category] ?? {
+  title: `${categoryLabel} Articles | eLan Technology Blog`,
+  description: `Browse all ${categoryLabel} articles from the eLan Technology team - practical guides, tips and insights.`,
+};
+
+const accessibilityPaths = [
+  {
+    label: 'Understand',
+    title: 'Learn WCAG in plain English',
+    description: 'Start with the standard, conformance levels, and the practical meaning of accessible design.',
+    href: '/blog/accessibility/wcag-explained-business-owners/',
+    linkLabel: 'Read the WCAG guide',
+  },
+  {
+    label: 'Assess',
+    title: 'Check your current website',
+    description: 'Use the 30-point checklist, then request a hybrid audit for barriers automated scans cannot detect.',
+    href: '/blog/accessibility/ada-compliance-checklist/',
+    linkLabel: 'Use the checklist',
+  },
+  {
+    label: 'Remediate',
+    title: 'Fix barriers in the source code',
+    description: 'Plan code-level remediation, verification, documentation, and ongoing accessibility regression checks.',
+    href: '/services/ada-compliant-web-design/',
+    linkLabel: 'Explore audit & remediation',
+  },
+];
 
 function truncate(str: string, n: number) {
   return str.length > n ? str.slice(0, n - 1) + '…' : str;
@@ -90,19 +144,18 @@ const schema = breadcrumbSchema([
 ---
 
 <BaseLayout
-  title={`${categoryLabel} Articles — eLan Technology Blog`}
-  description={`Browse all ${categoryLabel} articles from the eLan Technology team — practical guides, tips and insights.`}
+  title={seo.title}
+  description={seo.description}
+  canonical={`/blog/category/${category}/`}
   schema={schema}
 >
 
   <!-- HERO -->
   <section class="relative overflow-hidden bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-20 sm:py-28">
-    <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
-      <div class="absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full bg-[var(--accent)]/8 blur-[120px]"></div>
-      <div class="absolute -bottom-20 -right-20 h-[400px] w-[400px] rounded-full bg-[#6366F1]/8 blur-[100px]"></div>
-    </div>
     <div class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
-      <p class="text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-4">Category</p>
+      <p class="text-sm font-semibold uppercase text-[var(--accent)] mb-4">
+        {isAccessibility ? 'Accessibility resource center' : 'Category'}
+      </p>
       <h1 class="font-heading text-4xl sm:text-5xl font-bold text-[var(--text)] leading-tight">
         {heading?.h1 ?? categoryLabel}
       </h1>
@@ -114,6 +167,42 @@ const schema = breadcrumbSchema([
       <p class="mt-6 text-sm text-[var(--text-muted)]">{posts.length} article{posts.length !== 1 ? 's' : ''}</p>
     </div>
   </section>
+
+  {isAccessibility && (
+    <section class="border-y border-[var(--border)] bg-[var(--bg-card)] py-12">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div class="max-w-3xl">
+            <h2 class="font-heading text-2xl font-bold text-[var(--text)]">
+              Choose the right accessibility path
+            </h2>
+            <p class="mt-2 text-[var(--text-dim)]">
+              Learn the standard, assess your risk, or move directly into code-level remediation.
+            </p>
+          </div>
+          <a
+            href="/services/ada-compliant-web-design/emergency-remediation/"
+            class="text-sm font-semibold text-red-500 hover:underline"
+          >
+            Facing a demand-letter deadline? Emergency response →
+          </a>
+        </div>
+
+        <div class="grid gap-5 md:grid-cols-3">
+          {accessibilityPaths.map((path) => (
+            <article class="rounded-lg border border-[var(--border)] bg-[var(--bg)] p-6">
+              <p class="text-xs font-semibold uppercase text-[var(--accent)]">{path.label}</p>
+              <h3 class="mt-2 font-heading text-lg font-bold text-[var(--text)]">{path.title}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-[var(--text-dim)]">{path.description}</p>
+              <a href={path.href} class="mt-5 inline-flex text-sm font-semibold text-[var(--accent)] hover:underline">
+                {path.linkLabel} →
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- CATEGORY FILTER PILLS -->
   <section class="bg-[var(--bg)] py-4 border-b border-[var(--border)] sticky top-[72px] z-30 backdrop-blur-md bg-[var(--bg)]/90">
@@ -237,15 +326,19 @@ const schema = breadcrumbSchema([
           </div>
 
           <div class="rounded-2xl border border-[var(--accent)]/20 bg-gradient-to-br from-[var(--accent)]/10 to-[#6366F1]/10 p-6 text-center">
-            <h3 class="font-heading text-base font-bold text-[var(--text)] mb-2">Ready to Grow Online?</h3>
+            <h3 class="font-heading text-base font-bold text-[var(--text)] mb-2">
+              {isAccessibility ? 'Need an Accessibility Audit?' : 'Ready to Grow Online?'}
+            </h3>
             <p class="text-sm text-[var(--text-dim)] mb-4 leading-relaxed">
-              Get a free website audit covering SEO & security. * Conditions apply.
+              {isAccessibility
+                ? 'Get automated and manual WCAG testing with priority-ranked remediation guidance.'
+                : 'Get a free website audit covering SEO & security. * Conditions apply.'}
             </p>
             <a
-              href="/free-website-audit/"
+              href={isAccessibility ? '/services/ada-compliant-web-design/' : '/free-website-audit/'}
               class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-5 py-2.5 text-sm font-semibold text-[var(--bg)] hover:brightness-110 transition-all"
             >
-              Get Free Audit
+              {isAccessibility ? 'View Audit & Remediation' : 'Get Free Audit'}
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>

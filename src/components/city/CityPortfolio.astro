@@ -10,15 +10,15 @@ const { city } = Astro.props;
 const hasLocalClients = city.nearbyClients.length > 0;
 const heading = hasLocalClients
   ? `Our Work in ${city.name}`
-  : `Projects Delivered for Clients Near ${city.name}`;
+  : `Relevant Project Experience for ${city.name} Businesses`;
 
 // Use city portfolio data, fall back to generic showcase
 const projects = city.portfolio.length > 0
   ? city.portfolio
   : [
-      { name: 'Aasthaa Hospital', category: 'Healthcare', desc: 'WCAG 2.1 AA compliant hospital website with online appointment booking and doctor profiles. 3x increase in online appointments.' },
-      { name: 'Trimit Architects', category: 'Architecture & Real Estate', desc: 'Portfolio website with project galleries and lead generation. Page 1 ranking for target keywords within 60 days.' },
-      { name: 'CIPL', category: 'Industrial / Manufacturing', desc: 'B2B company profile and product catalogue with export market targeting and inquiry management system.' },
+      { name: 'Aastha Hospital', category: 'Healthcare', desc: 'A healthcare website that helps patients understand services, find doctors and take the next step.', href: '/portfolio/case-study/aastha-hospital/' },
+      { name: 'Trimit Architects', category: 'Architecture and real estate', desc: 'A visual portfolio website that organises projects and creates a clearer path for prospective clients.', href: '/portfolio/case-study/trimit-architects/' },
+      { name: 'CIPL Corporate Portal', category: 'Enterprise operations', desc: 'A role-based internal portal supporting HR workflows, document access and more than 500 staff members.', href: '/portfolio/case-study/cipl-corporate-portal/' },
     ];
 ---
 
@@ -29,18 +29,26 @@ const projects = city.portfolio.length > 0
         {heading}
       </h2>
       <p class="text-[var(--text-dim)] max-w-2xl mx-auto">
-        A selection of websites and digital solutions demonstrating the quality we bring to every {city.name} project.
+        {hasLocalClients
+          ? `A selection of websites and digital solutions delivered for organisations in and around ${city.name}.`
+          : `These are real eLan projects from comparable sectors. They demonstrate relevant capabilities and are not presented as local ${city.name} clients.`}
       </p>
     </div>
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {projects.map((p) => (
-        <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6">
+        <article class="rounded-lg border border-[var(--border)] bg-[var(--bg)] p-6">
           <div class="text-xs font-semibold uppercase tracking-widest text-[var(--accent)] mb-2">
             {p.category}
           </div>
           <h3 class="font-heading font-bold text-[var(--text)] text-lg mb-3">{p.name}</h3>
           <p class="text-sm text-[var(--text-dim)] leading-relaxed">{p.desc}</p>
-        </div>
+          {p.href && (
+            <a class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--text)] hover:text-[var(--accent)]" href={p.href}>
+              Read case study
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </a>
+          )}
+        </article>
       ))}
     </div>
     <div class="mt-10 text-center">

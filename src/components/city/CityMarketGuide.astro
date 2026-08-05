@@ -1,0 +1,75 @@
+---
+import type { CityData } from '../../data/cities';
+
+interface Props {
+  city: CityData;
+}
+
+const { city } = Astro.props;
+const needs = city.marketNeeds ?? [];
+const quoteHref = `/get-quote/?city=${encodeURIComponent(city.slug)}&service=web-design`;
+---
+
+{needs.length > 0 && (
+  <section id="city-solutions" class="border-y border-[var(--border)] bg-[var(--bg-card)] py-16 md:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-[var(--accent)]">
+          Built around the business goal
+        </p>
+        <h2 class="font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">
+          What {city.name} Businesses Usually Need From a Website
+        </h2>
+        <p class="mt-4 leading-relaxed text-[var(--text-dim)]">
+          The right scope depends on who must use the website and what they need to do. These are the
+          project patterns most relevant to {city.name}'s business mix.
+        </p>
+      </div>
+
+      <div class="mt-10 grid gap-6 lg:grid-cols-3">
+        {needs.map((item) => (
+          <article class="rounded-lg border border-[var(--border)] bg-[var(--bg)] p-6">
+            <p class="text-sm font-semibold text-[var(--accent)]">{item.audience}</p>
+            <h3 class="mt-2 font-heading text-lg font-bold text-[var(--text)]">{item.need}</h3>
+            <ul role="list" class="mt-5 space-y-3">
+              {item.deliverables.map((deliverable) => (
+                <li class="flex gap-3 text-sm leading-relaxed text-[var(--text-dim)]">
+                  <svg class="mt-0.5 shrink-0 text-[var(--accent)]" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>
+                  <span>{deliverable}</span>
+                </li>
+              ))}
+            </ul>
+            <a class="mt-6 inline-flex items-center gap-2 font-semibold text-[var(--text)] hover:text-[var(--accent)]" href={item.href}>
+              Explore this service
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </a>
+          </article>
+        ))}
+      </div>
+
+      <div class="mt-10 grid gap-8 border-t border-[var(--border)] pt-10 lg:grid-cols-[1.2fr_1fr]">
+        <div>
+          <h3 class="font-heading text-xl font-bold text-[var(--text)]">Remote service coverage</h3>
+          <p class="mt-3 leading-relaxed text-[var(--text-dim)]">
+            We serve organisations across {city.name} from our Nagpur headquarters. Common service
+            areas include {city.businessDistricts.join(', ')}.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-heading text-xl font-bold text-[var(--text)]">Before choosing a web partner</h3>
+          <p class="mt-3 leading-relaxed text-[var(--text-dim)]">
+            Confirm the scope, timeline, source-file ownership, mobile and accessibility testing,
+            launch responsibilities, analytics setup and post-launch support in writing.
+          </p>
+          <a
+            href={quoteHref}
+            class="mt-5 inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-6 py-3 font-semibold text-[var(--bg)] transition-opacity hover:opacity-90"
+          >
+            Discuss Your Project
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+)}

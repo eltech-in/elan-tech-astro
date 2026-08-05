@@ -1,0 +1,201 @@
+---
+import ServiceLayout from '../../../layouts/ServiceLayout.astro';
+import { serviceSchema, faqSchema, breadcrumbSchema } from '../../../utils/schema';
+
+const title = 'Medusa.js eCommerce Development Company';
+const description =
+  'Custom Medusa.js ecommerce design and development for subscriptions, B2B, marketplaces, complex payments, shipping, ERP integrations, and owned commerce infrastructure.';
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: '/services/' },
+  { name: 'eCommerce Development', href: '/services/ecommerce/' },
+  { name: 'Medusa.js Development', href: '/services/ecommerce/medusa-js-development/' },
+];
+
+const faqs = [
+  {
+    question: 'What is Medusa.js?',
+    answer:
+      'Medusa.js is a modular commerce platform and framework for building custom commerce features. It provides core capabilities such as products, carts, orders, inventory, pricing, payments, and fulfilment while allowing developers to extend data models, workflows, APIs, admin tools, and integrations.',
+  },
+  {
+    question: 'Is Medusa.js a good alternative to Shopify?',
+    answer:
+      'It can be, but it solves a different problem. Shopify is usually the better fit when a business values a hosted platform and faster operational setup. Medusa.js is compelling when custom workflows, ownership, integrations, or differentiated commerce logic are central to the business. We evaluate total operational responsibility as well as feature flexibility.',
+  },
+  {
+    question: 'Can you build subscriptions with Medusa.js?',
+    answer:
+      'Yes. Subscription commerce can be modelled around plans, billing state, order generation, customer actions, payment events, shipping cycles, retries, cancellations, and operational reporting. For Puritas, we developed a custom subscription module alongside Razorpay, PhonePe, and shipping modules.',
+  },
+  {
+    question: 'Can you integrate Indian payment gateways and shipping providers?',
+    answer:
+      'Yes. We build Medusa payment and fulfilment modules around the provider APIs, webhook events, security model, refund flow, serviceability, rates, tracking, and exception states required by the project. Puritas includes custom Razorpay, PhonePe, and shipping implementations.',
+  },
+  {
+    question: 'Who operates and maintains a Medusa.js platform?',
+    answer:
+      'A Medusa implementation is a custom application, so the merchant or its technology partner is responsible for hosting, monitoring, security updates, backups, integrations, and continued engineering. We define this operating model before recommending Medusa.',
+  },
+];
+
+const schemas = [
+  serviceSchema(title, description, '/services/ecommerce/medusa-js-development/'),
+  faqSchema(faqs),
+  breadcrumbSchema(breadcrumbs.map(({ name, href }) => ({ name, url: href }))),
+];
+
+const capabilities = [
+  ['Commerce architecture', 'Domain modelling, platform boundaries, modules, workflows, infrastructure, observability, security, and a staged delivery plan.'],
+  ['Custom storefronts', 'Original, accessible customer experiences built with a modern frontend and connected through Medusa Store APIs.'],
+  ['Custom modules & workflows', 'Business-specific data models, validation, services, events, automations, and recoverable multi-step processes.'],
+  ['Payments & subscriptions', 'Gateway modules, token and webhook handling, subscription state, retries, refunds, recurring orders, and customer controls.'],
+  ['Fulfilment & shipping', 'Serviceability, rates, shipment creation, fulfilment state, carrier connectivity, tracking, notifications, and exceptions.'],
+  ['B2B & marketplaces', 'Companies, buyer permissions, quotes, account pricing, bulk ordering, vendor models, commissions, and operational approvals.'],
+  ['ERP and operational integration', 'Inventory, PIM, CRM, accounting, warehouse, customer service, analytics, and custom internal systems.'],
+  ['Migration & ongoing engineering', 'Data migration, URL preservation, test automation, monitoring, releases, backups, and a sustainable support model.'],
+];
+---
+
+<ServiceLayout
+  title={title}
+  description={description}
+  canonical="/services/ecommerce/medusa-js-development/"
+  ogImage="/images/ecommerce-og-2026.png"
+  breadcrumbs={breadcrumbs}
+  schema={schemas}
+>
+  <section class="relative mb-14 overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-8 md:p-12">
+    <div class="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-cyan-400/10 blur-3xl" aria-hidden="true"></div>
+    <div class="service-hero-grid relative">
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-400">Custom Medusa.js ecommerce development</p>
+        <h1 class="mt-3 font-heading text-4xl font-bold leading-tight text-[var(--text)] md:text-5xl lg:text-6xl">
+          Custom Commerce When Standard Stores Fall Short
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg leading-relaxed text-[var(--text-dim)]">
+          Medusa.js gives us a flexible starting point for stores with unusual products, repeat-order plans, special pricing, or business processes that do not fit neatly into a ready-made platform.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/schedule-consultation/" class="rounded-full bg-cyan-400 px-6 py-3 text-sm font-bold text-slate-950 hover:brightness-110">Discuss Your Medusa Build</a>
+          <a href="/portfolio/case-study/puritas/" class="rounded-full border border-[var(--border)] px-6 py-3 text-sm font-semibold text-[var(--text)] hover:border-cyan-400">See the Puritas platform</a>
+        </div>
+      </div>
+      <aside class="service-hero-aside" aria-label="Medusa.js custom commerce layers">
+        <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-400">Why choose custom commerce</p>
+        <h2 class="mt-1 font-heading text-xl font-bold text-[var(--text)]">More freedom where it matters</h2>
+        <div class="mt-5 grid gap-2 sm:grid-cols-2">
+          {[
+            ['01', 'Your customer journey', 'A store designed around how people buy'],
+            ['02', 'Your selling rules', 'Repeat orders, pricing, and special workflows'],
+            ['03', 'Payments and delivery', 'Razorpay, PhonePe, and shipping options'],
+            ['04', 'More control', 'Greater ownership of the store and its data'],
+          ].map(([number, heading, text]) => (
+            <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-3.5">
+              <span class="text-[10px] font-bold text-cyan-400">{number}</span>
+              <strong class="mt-1 block text-sm text-[var(--text)]">{heading}</strong>
+              <span class="mt-1 block text-xs leading-snug text-[var(--text-muted)]">{text}</span>
+            </div>
+          ))}
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="mb-16 grid gap-8 rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-7 md:p-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+    <div>
+      <p class="text-sm font-semibold uppercase tracking-wider text-cyan-400">Production Medusa.js project</p>
+      <h2 class="mt-2 font-heading text-3xl font-bold text-[var(--text)]">Puritas</h2>
+      <p class="mt-4 leading-relaxed text-[var(--text-dim)]">
+        A custom-designed Medusa.js ecommerce platform for a premium wellness brand. The project connects an original storefront to subscriptions, Indian payment gateways, and shipping workflows tailored to the business.
+      </p>
+      <a href="/portfolio/case-study/puritas/" class="mt-6 inline-flex font-semibold text-cyan-400 hover:underline">Read the Puritas case study →</a>
+    </div>
+    <div class="grid gap-3 sm:grid-cols-2">
+      {['Custom storefront design', 'Medusa.js commerce backend', 'Subscription module', 'Razorpay module', 'PhonePe module', 'Custom shipping module'].map((item) => (
+        <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-4 text-sm font-semibold text-[var(--text)]">✓ {item}</div>
+      ))}
+    </div>
+  </section>
+
+  <section class="mb-16">
+    <div class="max-w-3xl">
+      <p class="text-sm font-semibold uppercase tracking-wider text-[var(--accent)]">Modular by design</p>
+      <h2 class="mt-2 font-heading text-3xl font-bold text-[var(--text)]">Customise the parts that make your commerce unique</h2>
+      <p class="mt-3 text-[var(--text-dim)]">Medusa gives us core commerce capabilities and a framework for extending them without pushing essential business logic into brittle workarounds.</p>
+    </div>
+    <div class="mt-8 grid gap-5 md:grid-cols-2">
+      {capabilities.map(([heading, text]) => (
+        <article class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+          <h3 class="font-heading text-lg font-bold text-[var(--text)]">{heading}</h3>
+          <p class="mt-3 text-sm leading-relaxed text-[var(--text-dim)]">{text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="mb-16 rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-7 md:p-10">
+    <h2 class="font-heading text-3xl font-bold text-[var(--text)]">Medusa.js is a strong fit when…</h2>
+    <div class="mt-7 grid gap-4 md:grid-cols-2">
+      {[
+        'Your products, pricing, subscriptions, or fulfilment do not fit conventional platform assumptions.',
+        'Custom workflows and integrations are part of the core competitive advantage.',
+        'You need owned code, data, deployment, and platform evolution.',
+        'B2B, marketplace, multi-region, or multi-channel logic requires a tailored domain model.',
+        'You have an internal team or technology partner capable of operating a custom application.',
+        'Long-term flexibility matters more than the shortest possible initial setup.',
+      ].map((item) => (
+        <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-5 text-sm leading-relaxed text-[var(--text-dim)]">✓ {item}</div>
+      ))}
+    </div>
+  </section>
+
+  <section class="mb-16">
+    <h2 class="font-heading text-3xl font-bold text-[var(--text)]">How we deliver a custom commerce platform</h2>
+    <div class="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+      {[
+        ['01', 'Model the business', 'Products, customers, orders, subscriptions, payments, fulfilment, actors, and exception states.'],
+        ['02', 'Define the architecture', 'Modules, workflows, APIs, storefront, infrastructure, integrations, security, and observability.'],
+        ['03', 'Build and validate', 'Incremental delivery with automated checks, real gateway and fulfilment scenarios, and stakeholder testing.'],
+        ['04', 'Launch and operate', 'Migration, monitoring, backups, incident responsibilities, documentation, and ongoing product engineering.'],
+      ].map(([number, heading, text]) => (
+        <article class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+          <span class="text-2xl font-bold text-cyan-400">{number}</span>
+          <h3 class="mt-4 font-heading text-lg font-bold text-[var(--text)]">{heading}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">{text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="mb-16 grid gap-4 md:grid-cols-2">
+    <a href="/blog/ecommerce/shopify-vs-medusa-js-2026/" class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 transition hover:border-cyan-400">
+      <span class="text-xs font-semibold uppercase text-cyan-400">Platform selection</span>
+      <strong class="mt-2 block text-lg text-[var(--text)]">Shopify vs Medusa.js in 2026</strong>
+    </a>
+    <a href="/blog/ecommerce/building-subscription-ecommerce-medusa-js-india/" class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 transition hover:border-cyan-400">
+      <span class="text-xs font-semibold uppercase text-cyan-400">Implementation guide</span>
+      <strong class="mt-2 block text-lg text-[var(--text)]">Building subscriptions with Razorpay, PhonePe, and shipping</strong>
+    </a>
+  </section>
+
+  <section class="mb-16">
+    <h2 class="font-heading text-3xl font-bold text-[var(--text)]">Medusa.js development FAQs</h2>
+    <div class="mt-7 divide-y divide-[var(--border)] overflow-hidden rounded-2xl border border-[var(--border)]">
+      {faqs.map((faq) => (
+        <details class="bg-[var(--bg-card)] p-6">
+          <summary class="cursor-pointer font-semibold text-[var(--text)]">{faq.question}</summary>
+          <p class="mt-3 text-sm leading-relaxed text-[var(--text-dim)]">{faq.answer}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <section class="rounded-3xl bg-cyan-400 p-8 text-slate-950 md:p-12">
+    <p class="text-sm font-bold uppercase tracking-wider">When the workflow is the differentiator</p>
+    <h2 class="mt-2 max-w-3xl font-heading text-3xl font-bold md:text-4xl">Build the commerce platform your operating model actually needs.</h2>
+    <a href="/schedule-consultation/" class="mt-7 inline-flex rounded-full bg-slate-950 px-6 py-3 text-sm font-bold text-white">Plan your Medusa.js project</a>
+  </section>
+</ServiceLayout>

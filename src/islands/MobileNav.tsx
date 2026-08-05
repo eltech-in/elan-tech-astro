@@ -12,6 +12,8 @@ const navLinks = [
       { label: 'Website Design', href: '/services/website-design/' },
       { label: 'Web Development', href: '/services/web-development/' },
       { label: 'eCommerce', href: '/services/ecommerce/' },
+      { label: 'Custom Shopify Development', href: '/services/ecommerce/shopify-development/' },
+      { label: 'Medusa.js Development', href: '/services/ecommerce/medusa-js-development/' },
       { label: 'SEO', href: '/services/seo/' },
       { label: 'Digital Marketing', href: '/services/digital-marketing/' },
       { label: 'Mobile App Development', href: '/services/mobile-app-development/' },
@@ -349,7 +351,7 @@ export default function MobileNav() {
 
   return (
     <>
-      {/* Hamburger button — stays in header */}
+      {/* Hamburger button - stays in header */}
       <button
         ref={firstBtnRef}
         type="button"

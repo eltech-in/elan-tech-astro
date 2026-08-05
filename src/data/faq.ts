@@ -9,7 +9,7 @@ export const faqs: FAQItem[] = [
   {
     question: 'What is eLan Technology and where are you based?',
     answer:
-      'eLan Technology is a full-service web design and digital marketing agency founded in Nagpur, Maharashtra, India. We serve clients across India (Nagpur, Raipur, Mumbai, Pune) and internationally (USA, Canada, Australia, UAE, UK). Our team of designers, developers, and marketers has been delivering digital solutions since 2002.',
+      'eLan Technology is a web design, ecommerce, and digital technology company based in Nagpur, Maharashtra, India. Operations began as a freelance and startup unit in 2002, and eLan Technology officially launched on 15 August 2005. We serve clients across India and internationally.',
     category: 'general',
   },
   {
@@ -21,7 +21,7 @@ export const faqs: FAQItem[] = [
   {
     question: 'What technologies do you use to build websites?',
     answer:
-      'We use modern, industry-standard technologies including React, Next.js, Node.js, MongoDB, Express (MERN stack), WordPress, WooCommerce, Shopify, and Astro. For mobile apps, we use React Native. We recommend the right technology based on your project requirements, budget, and long-term growth plans.',
+      'We use modern, industry-standard technologies including React, Next.js, Node.js, PostgreSQL, WordPress, Shopify, Medusa.js, and Astro. For mobile apps, we use React Native. We recommend the right technology based on business requirements, operational responsibility, budget, and long-term growth plans.',
     category: 'general',
   },
   {
@@ -59,7 +59,7 @@ export const faqs: FAQItem[] = [
   {
     question: 'Are there any ongoing monthly costs after launch?',
     answer:
-      'Domain registration and hosting are not included in our one-time development fee — these are third-party costs you pay directly to providers (typically ₹3,000–₹8,000/year). We also offer optional Monthly Maintenance Plans starting at ₹3,500/month covering security updates, backups, content changes, and performance monitoring.',
+      'Domain registration and hosting are not included in our one-time development fee - these are third-party costs you pay directly to providers (typically ₹3,000–₹8,000/year). We also offer optional Monthly Maintenance Plans starting at ₹3,500/month covering security updates, backups, content changes, and performance monitoring.',
     category: 'pricing',
   },
   {
@@ -103,7 +103,7 @@ export const faqs: FAQItem[] = [
 
   // ─── TECHNICAL ─────────────────────────────────────────────────────────────
   {
-    question: 'Who hosts the website — you or us?',
+    question: 'Who hosts the website - you or us?',
     answer:
       'We recommend and help set up hosting on your preferred provider (Hostinger, SiteGround, AWS, or DigitalOcean). The hosting account is registered in your name so you always own and control your infrastructure. We configure the server, deploy the website, and hand over full credentials.',
     category: 'technical',
@@ -111,7 +111,7 @@ export const faqs: FAQItem[] = [
   {
     question: 'Will my website be mobile-friendly?',
     answer:
-      'Every website we build is fully responsive and tested across all major devices and screen sizes — smartphones, tablets, laptops, and desktops. We follow a mobile-first design approach and validate against Google\'s Mobile-Friendly Test before handover.',
+      'Every website we build is fully responsive and tested across all major devices and screen sizes - smartphones, tablets, laptops, and desktops. We follow a mobile-first design approach and validate against Google\'s Mobile-Friendly Test before handover.',
     category: 'technical',
   },
   {
@@ -123,7 +123,7 @@ export const faqs: FAQItem[] = [
   {
     question: 'Can you migrate my existing website to a new platform?',
     answer:
-      'Yes, we handle full website migrations — including content, media, SEO settings, and redirects. We have experience migrating from legacy PHP sites, Wix, Squarespace, and Joomla to WordPress or custom frameworks. Migrations are planned carefully to avoid SEO ranking loss.',
+      'Yes, we handle full website migrations - including content, media, SEO settings, and redirects. We have experience migrating from legacy PHP sites, Wix, Squarespace, and Joomla to WordPress or custom frameworks. Migrations are planned carefully to avoid SEO ranking loss.',
     category: 'technical',
   },
   {
@@ -143,13 +143,13 @@ export const faqs: FAQItem[] = [
   {
     question: 'How long does SEO take to show results?',
     answer:
-      'SEO is a long-term investment. Most clients begin seeing measurable improvements in keyword rankings and organic traffic within 3–4 months. Significant business impact — consistent lead generation from organic search — typically becomes visible at the 6–9 month mark. We provide monthly reports tracking keyword positions, traffic, and conversions.',
+      'SEO is a long-term investment. Most clients begin seeing measurable improvements in keyword rankings and organic traffic within 3–4 months. Significant business impact - consistent lead generation from organic search - typically becomes visible at the 6–9 month mark. We provide monthly reports tracking keyword positions, traffic, and conversions.',
     category: 'seo',
   },
   {
     question: 'Do you manage Google Ads campaigns?',
     answer:
-      'Yes. We manage Google Ads (Search, Display, and Shopping) campaigns for clients across India and internationally. Our PPC service includes campaign setup, ad copywriting, keyword bid management, A/B testing, conversion tracking, and monthly reporting. We are transparent with ad spend — all budgets go directly to your Google Ads account.',
+      'Yes. We manage Google Ads (Search, Display, and Shopping) campaigns for clients across India and internationally. Our PPC service includes campaign setup, ad copywriting, keyword bid management, A/B testing, conversion tracking, and monthly reporting. We are transparent with ad spend - all budgets go directly to your Google Ads account.',
     category: 'seo',
   },
   {
@@ -163,7 +163,7 @@ export const faqs: FAQItem[] = [
   {
     question: 'Are you a web design company based in Nagpur?',
     answer:
-      'Yes, eLan Technology is headquartered in Nagpur, Maharashtra. We have been serving Nagpur businesses since 2002 — from small local shops to large corporate organizations. Being a local agency means we understand the Nagpur market, its industries, and the digital behaviour of Central Indian audiences.',
+      'Yes, eLan Technology is headquartered in Nagpur, Maharashtra. We have been serving Nagpur businesses since 2002 - from small local shops to large corporate organizations. Being a local agency means we understand the Nagpur market, its industries, and the digital behaviour of Central Indian audiences.',
     category: 'city-nagpur',
   },
   {

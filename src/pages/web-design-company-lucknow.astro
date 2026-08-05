@@ -1,6 +1,7 @@
 ---
 import CityLayout from '../layouts/CityLayout.astro';
 import CityIntro from '../components/city/CityIntro.astro';
+import CityMarketGuide from '../components/city/CityMarketGuide.astro';
 import CityServices from '../components/city/CityServices.astro';
 import CityWhyChoose from '../components/city/CityWhyChoose.astro';
 import CityIndustries from '../components/city/CityIndustries.astro';
@@ -17,6 +18,7 @@ const city = getCityBySlug('lucknow')!;
 
 <CityLayout city={city}>
   <CityIntro city={city} />
+  <CityMarketGuide city={city} />
   <CityServices city={city} />
   <CityWhyChoose city={city} />
   <CityIndustries city={city} />

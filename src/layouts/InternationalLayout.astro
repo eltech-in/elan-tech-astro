@@ -33,7 +33,7 @@ const breadcrumbs = [
   { name: country.name, href: pageUrl },
 ];
 
-// Build schemas — Service schema for international (not LocalBusiness)
+// Build schemas - Service schema for international (not LocalBusiness)
 const svc = serviceSchema(
   `Web Design & Development Services for ${country.name}`,
   `Professional web design, development, and digital marketing services for ${country.name} businesses. Save ${country.costComparison.savings} compared to local ${country.name} agencies.`,
@@ -113,6 +113,6 @@ const allSchemas = [svc, crumbSchema, ...(faq ? [faq] : []), ...extraSchema];
   <!-- Page content -->
   <slot />
 
-  {/* Cross-link block — every country page links to all services. */}
+  {/* Cross-link block - every country page links to all services. */}
   <ServicesCloud location={country.name} />
 </BaseLayout>

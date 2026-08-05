@@ -11,6 +11,13 @@ export function getStaticPaths() {
 }
 
 const { project } = Astro.props;
+const metaDescription =
+  project.description.length > 155
+    ? `${project.description.slice(0, 152).replace(/\s+\S*$/, '')}…`
+    : project.description;
+const socialImage = project.image.includes('/elan-client-logos/')
+  ? '/images/ecommerce-og-2026.png'
+  : project.image;
 
 // Accent token per category
 const categoryToken: Record<string, string> = {
@@ -52,11 +59,14 @@ const caseStudySchema = {
 const schema = [breadcrumbSchema(breadcrumbs), caseStudySchema];
 
 const hasNarrative = project.challenge && project.solution && project.result;
+const usesLogoArtwork = project.image.includes('/elan-client-logos/');
 ---
 
 <BaseLayout
-  title={`${project.title} — ${project.category} Case Study | eLan Technology`}
-  description={`${project.description.slice(0, 155)}`}
+  title={`${project.title} - ${project.category} Case Study | eLan Technology`}
+  description={metaDescription}
+  canonical={`/portfolio/case-study/${project.slug}/`}
+  ogImage={socialImage}
   schema={schema}
 >
 
@@ -71,7 +81,10 @@ const hasNarrative = project.challenge && project.solution && project.result;
         loading="eager"
         fetchpriority="high"
         decoding="async"
-        class="w-full h-full object-cover"
+        class:list={[
+          'w-full h-full',
+          usesLogoArtwork ? 'object-contain p-20 opacity-60' : 'object-cover',
+        ]}
         onerror="this.style.display='none'"
         aria-hidden="true"
       />
@@ -121,7 +134,7 @@ const hasNarrative = project.challenge && project.solution && project.result;
               rel="noopener noreferrer"
               class="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all shadow-xl"
               style={`background: var(${token}); box-shadow: 0 12px 30px color-mix(in srgb, var(${token}) 40%, transparent);`}
-              aria-label={`Visit live ${project.title} site — opens in new tab`}
+              aria-label={`Visit live ${project.title} site - opens in new tab`}
             >
               Visit Live Site
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -207,7 +220,7 @@ const hasNarrative = project.challenge && project.solution && project.result;
             <h3 class="font-heading text-xl sm:text-2xl font-bold text-[var(--text)] mb-3">
               Inspired by this build?
             </h3>
-            <p class="text-[var(--text-dim)] mb-6">Let's create something remarkable for your brand — get a proposal in 24 hours.</p>
+            <p class="text-[var(--text-dim)] mb-6">Let's create something remarkable for your brand - get a proposal in 24 hours.</p>
             <div class="flex flex-col sm:flex-row gap-3 justify-center">
               <a href="/get-quote/" class="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--accent)] px-7 py-3 text-sm font-bold text-white hover:brightness-110 transition-all">Start Your Project</a>
               <a href="/portfolio/" class="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--border)] px-7 py-3 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">← All Projects</a>
@@ -253,7 +266,7 @@ const hasNarrative = project.challenge && project.solution && project.result;
                   rel="noopener noreferrer"
                   class="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all"
                   style={`background: var(${token});`}
-                  aria-label={`Visit live ${project.title} site — opens in new tab`}
+                  aria-label={`Visit live ${project.title} site - opens in new tab`}
                 >
                   Visit Live Site ↗
                 </a>

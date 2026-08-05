@@ -11,7 +11,7 @@ const ADDRESS_REGION = 'Maharashtra';
 const POSTAL_CODE = '440022';
 const ADDRESS_COUNTRY = 'IN';
 
-// ─── WebSite (Homepage — enables sitelinks search box) ───────────────────────
+// ─── WebSite (Homepage - enables sitelinks search box) ───────────────────────
 export function webSiteSchema() {
   return {
     '@context': 'https://schema.org',
@@ -42,9 +42,9 @@ export function organizationSchema() {
       width: 200,
       height: 50,
     },
-    foundingDate: '2002',
+    foundingDate: '2005-08-15',
     description:
-      'Award-winning web design & digital marketing agency. Building impactful digital experiences since 2002.',
+      'Web design, custom ecommerce, accessibility, and digital technology company officially launched on 15 August 2005, with operations that began as a freelance and startup unit in 2002.',
     numberOfEmployees: { '@type': 'QuantitativeValue', value: 10 },
     address: {
       '@type': 'PostalAddress',
@@ -96,7 +96,7 @@ export function localBusinessSchema(city = 'Nagpur', overrides: LocalBusinessOve
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     '@id': `${SITE_URL}/#localbusiness`,
-    name: `${ORG_NAME} — Web Design Company in ${city}`,
+    name: `${ORG_NAME} - Web Design Company in ${city}`,
     url: overrides.url ?? SITE_URL,
     telephone: overrides.telephone ?? OFFICE_PHONE,
     email: 'info@elan-tech.net',
@@ -152,7 +152,7 @@ export function localBusinessSchema(city = 'Nagpur', overrides: LocalBusinessOve
 
 // ─── Service-area (non-HQ city landing pages) ────────────────────────────────
 // Use this on every city page that ISN'T the Nagpur HQ. Declares we serve the
-// area without claiming a physical address there — avoids NAP pollution that
+// area without claiming a physical address there - avoids NAP pollution that
 // would otherwise tell Google our office exists in every city.
 export interface ServiceAreaOverrides {
   url?: string;
@@ -168,7 +168,7 @@ export function serviceAreaBusinessSchema(
   return {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    name: `${ORG_NAME} — Web Design Company serving ${city}`,
+    name: `${ORG_NAME} - Web Design Company serving ${city}`,
     url: overrides.url ?? SITE_URL,
     telephone: OFFICE_PHONE,
     email: 'info@elan-tech.net',
@@ -388,7 +388,7 @@ export function webPageSchema(name: string, description: string, url: string) {
   };
 }
 
-// ─── Speakable (AEO — voice/answer surfaces) ─────────────────────────────────
+// ─── Speakable (AEO - voice/answer surfaces) ─────────────────────────────────
 // Tells Google Assistant / answer engines which parts of the page are safe to
 // read aloud. Pass CSS selectors that point at the highest-signal answer text:
 // the H1, the lede paragraph, FAQ answers, etc.

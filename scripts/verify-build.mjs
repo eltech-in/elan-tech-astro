@@ -16,6 +16,8 @@
  *   E. Header + Footer (Step 7B/7C)
  *   F. .htaccess (Step 7D)
  *   G. Sitemap (Step 7A)
+ *   H. CTR metadata for GSC near-win pages
+ *   I. Expanded city pages
  */
 
 import { existsSync, readFileSync } from 'fs';
@@ -89,9 +91,10 @@ const LP = 'pricing/digital-launchpad/index.html';
 check('Page exists',                            fileExists(LP));
 check('Title contains "Digital Launchpad"',     fileContains(LP, 'Digital Launchpad'));
 check('Canonical tag present',                  fileContains(LP, '/pricing/digital-launchpad/'));
-check('Plan: eLan Starter ₹24,000',            fileContains(LP, '24,000'));
-check('Plan: eLan Business ₹31,200',           fileContains(LP, '31,200'));
-check('Plan: eLan Complete ₹38,400',           fileContains(LP, '38,400'));
+check('Plan: eLan Starter ₹28,800',            fileContains(LP, '28,800'));
+check('Plan: eLan Business ₹37,400',           fileContains(LP, '37,400'));
+check('Plan: eLan Complete ₹46,100',           fileContains(LP, '46,100'));
+check('Expired offer stages removed',          fileNotContains(LP, '30 Jun 2026') && fileNotContains(LP, '12 Jul 2026') && fileNotContains(LP, 'prices rise'));
 check('CountdownTimer island mounted',          fileContains(LP, 'CountdownTimer'));
 check('InclusionGrid rendered (8 items)',        fileContains(LP, 'Professional Website', 'SSL Certificate', 'WhatsApp Chat Button'));
 check('BookingForm present',                    fileContains(LP, 'lp-form', 'Reserve Slot via WhatsApp'));
@@ -118,7 +121,7 @@ check('Existing FAQs intact',                   fileContains(PR, 'monthly paymen
 section('D  Homepage  /  (Steps 5–6)');
 const HP = 'index.html';
 check('Step 5: HomePromoStrip rendered',        fileContains(HP, 'Reserve a Slot'));
-check('Step 5: Plan prices in strip',           fileContains(HP, '24,000', '31,200', '38,400'));
+check('Step 5: Final plan prices in strip',     fileContains(HP, '28,800', '37,400', '46,100'));
 check('Step 6: AnnouncementBar (SSR) rendered', fileContains(HP, 'ann-bar', 'Digital Launchpad limited-time offer'));
 check('WCAG 2.1 AA badge (not 2.2)',            fileContains(HP, 'WCAG 2.1 AA'));
 check('"ISO Certified" removed',               fileNotContains(HP, 'ISO Certified'));
@@ -166,6 +169,73 @@ check('Launchpad changefreq = weekly',         fileContains(SM,
 ));
 check('Homepage priority = 1.0',               fileContains(SM, '<priority>1.0</priority>'));
 check('/pricing/ still in sitemap',             fileContains(SM, '<loc>https://elan-tech.net/pricing/</loc>'));
+
+// ── H. CTR metadata ──────────────────────────────────────────────────────────
+
+section('H  CTR metadata for GSC near-win pages');
+check('Homepage: web design + development title', fileContains(
+  HP,
+  '<title>Web Design &amp; Development Company in Nagpur | eLan Technology</title>',
+));
+check('ADA service: remediation + WCAG title and 48-hour response', fileContains(
+  'services/ada-compliant-web-design/index.html',
+  '<title>ADA Website Remediation Services &amp; WCAG Audits | eLan Technology</title>',
+  'Emergency response within 48 hours.',
+));
+check('Free audit: concise benefit-led title', fileContains(
+  'free-website-audit/index.html',
+  '<title>Free Website Audit: SEO, Speed &amp; Security | eLan Technology</title>',
+));
+check('April trends: query-aligned title', fileContains(
+  'blog/technology-trends/website-development-trends-april-2026/index.html',
+  '<title>Web Development Trends &amp; News: April 2026 | eLan Technology</title>',
+));
+check('AI article: query-aligned title', fileContains(
+  'blog/technology-trends/ai-web-development-2026/index.html',
+  '<title>AI in Web Development 2026: Business Guide | eLan Technology</title>',
+));
+
+// ── I. Expanded city pages ───────────────────────────────────────────────────
+
+section('I  Expanded city pages');
+const expandedCities = [
+  ['Indore', 'indore', 'Web Design &amp; Development Company in Indore'],
+  ['Kolkata', 'kolkata', 'Web Design &amp; Development Company in Kolkata'],
+  ['Lucknow', 'lucknow', 'Web Design &amp; Development Company in Lucknow'],
+  ['Chandigarh', 'chandigarh', 'Web Design Company in Chandigarh | Websites &amp; Landing Pages'],
+];
+
+for (const [name, slug, title] of expandedCities) {
+  const page = `web-design-company-${slug}/index.html`;
+  check(`${name}: page, canonical and service-area schema`, fileContains(
+    page,
+    `<title>${title} | eLan Technology</title>`,
+    `<link rel="canonical" href="https://elan-tech.net/web-design-company-${slug}/">`,
+    '"areaServed"',
+  ));
+  check(`${name}: market guide and city-aware CTA`, fileContains(
+    page,
+    `What ${name} Businesses Usually Need From a Website`,
+    `city=${slug}`,
+  ));
+  check(`${name}: honest project proof with case-study links`, fileContains(
+    page,
+    `not presented as local ${name} clients`,
+    '/portfolio/case-study/',
+  ));
+}
+check('Fabricated local portfolio labels removed', expandedCities.every(
+  ([, slug]) => fileNotContains(
+    `web-design-company-${slug}/index.html`,
+    slug === 'indore'
+      ? 'Indore Textile Exporter'
+      : slug === 'kolkata'
+        ? 'Kolkata Finance Portal'
+        : slug === 'lucknow'
+          ? 'UP Government Portal'
+          : 'Chandigarh Education Portal',
+  )
+));
 
 // ── Summary ───────────────────────────────────────────────────────────────────
 

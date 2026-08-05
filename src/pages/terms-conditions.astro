@@ -4,13 +4,13 @@ import SchemaMarkup from '../components/SchemaMarkup.astro';
 import { webPageSchema, breadcrumbSchema } from '../utils/schema';
 
 const schema = [
-  webPageSchema('Terms and Conditions', 'eLan Technology terms and conditions — rules governing use of our website and services.', '/terms-conditions/'),
+  webPageSchema('Terms and Conditions', 'eLan Technology terms and conditions - rules governing use of our website and services.', '/terms-conditions/'),
   breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Terms and Conditions', url: '/terms-conditions/' }]),
 ];
 ---
 <LegalLayout
   title="Terms and Conditions"
-  description="eLan Technology terms and conditions — rules governing use of our website and services."
+  description="eLan Technology terms and conditions - rules governing use of our website and services."
   lastUpdated="2025-01-01"
 >
   <SchemaMarkup schema={schema} />

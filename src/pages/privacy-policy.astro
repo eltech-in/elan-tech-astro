@@ -4,13 +4,13 @@ import SchemaMarkup from '../components/SchemaMarkup.astro';
 import { webPageSchema, breadcrumbSchema } from '../utils/schema';
 
 const schema = [
-  webPageSchema('Privacy Policy', 'eLan Technology privacy policy — how we collect, use, and protect your personal data.', '/privacy-policy/'),
+  webPageSchema('Privacy Policy', 'eLan Technology privacy policy - how we collect, use, and protect your personal data.', '/privacy-policy/'),
   breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Privacy Policy', url: '/privacy-policy/' }]),
 ];
 ---
 <LegalLayout
   title="Privacy Policy"
-  description="eLan Technology privacy policy — how we collect, use, and protect your personal data."
+  description="eLan Technology privacy policy - how we collect, use, and protect your personal data."
   lastUpdated="2025-01-01"
 >
   <SchemaMarkup schema={schema} />

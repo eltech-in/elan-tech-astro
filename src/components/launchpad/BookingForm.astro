@@ -1,9 +1,12 @@
 ---
-// BookingForm — WhatsApp-submit form. No backend required.
+// BookingForm - WhatsApp-submit form. No backend required.
 // On submit, constructs a wa.me URL from form fields and opens it in a new tab.
 // WCAG 2.1 AA: every input has a visible <label> with for/id association,
 // required fields use aria-required="true", inline errors use role="alert",
 // submit button is ≥ 44px height.
+import { PLANS } from '../../data/digitalLaunchpad';
+
+const formatPrice = (price: number) => price.toLocaleString('en-IN');
 ---
 
 <form
@@ -115,9 +118,11 @@
         style="background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E&quot;); background-repeat:no-repeat; background-position:right 14px center;"
       >
         <option value="" disabled selected>Select a plan…</option>
-        <option value="eLan Starter — ₹24,000">🌱 eLan Starter — ₹24,000</option>
-        <option value="eLan Business — ₹31,200">🏪 eLan Business — ₹31,200 (Most Popular)</option>
-        <option value="eLan Complete — ₹38,400">🎯 eLan Complete — ₹38,400</option>
+        {PLANS.map((plan) => (
+          <option value={`${plan.name} - ₹${formatPrice(plan.price)}`}>
+            {plan.emoji} {plan.name} - ₹{formatPrice(plan.price)}{plan.featured ? ' (Most Popular)' : ''}
+          </option>
+        ))}
       </select>
       <span id="lp-plan-err" role="alert" class="lp-error hidden text-xs text-[#EF4444]">
         Please select a plan.

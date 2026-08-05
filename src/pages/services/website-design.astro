@@ -13,7 +13,7 @@ const serviceFaqs = [
   },
   {
     question: 'Do you use templates or custom designs?',
-    answer: 'Every website we design is 100% custom — no page builders, no off-the-shelf templates. Our designers create original mockups in Figma tailored specifically to your brand, audience, and goals. This ensures your website stands out from competitors and perfectly reflects your business identity.',
+    answer: 'Every website we design is 100% custom - no page builders, no off-the-shelf templates. Our designers create original mockups in Figma tailored specifically to your brand, audience, and goals. This ensures your website stands out from competitors and perfectly reflects your business identity.',
   },
   {
     question: 'Will my website be mobile-responsive?',
@@ -21,7 +21,7 @@ const serviceFaqs = [
   },
   {
     question: 'Do you offer website redesign services?',
-    answer: 'Yes. Redesigning an existing website is one of our most common engagements. We begin with a comprehensive audit of your current site — reviewing performance, SEO, user experience, and conversion rates. This data informs the new design so that you gain measurably better results, not just a prettier interface.',
+    answer: 'Yes. Redesigning an existing website is one of our most common engagements. We begin with a comprehensive audit of your current site - reviewing performance, SEO, user experience, and conversion rates. This data informs the new design so that you gain measurably better results, not just a prettier interface.',
   },
   {
     question: 'What happens after the website is launched?',
@@ -60,11 +60,9 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
     <div class="grid gap-10 md:grid-cols-2 md:items-center">
       <div>
         <p class="mb-2 text-sm font-semibold uppercase tracking-widest" style="color: var(--ac-pink);">{service.tagline}</p>
-        <h1 class="font-heading text-3xl font-bold leading-tight text-[var(--text)] md:text-4xl lg:text-5xl">
-          {service.title} Services — eLan Technology
-        </h1>
+        <h1 class="font-heading text-3xl font-bold leading-tight text-[var(--text)] md:text-4xl lg:text-5xl">Website Design That Fits Your Business</h1>
         <p class="mt-4 text-base text-[var(--text-muted)] md:text-lg">
-          {service.description} We approach every project as a unique design challenge, ensuring your website communicates your brand story with clarity and confidence. Whether you're launching a new brand or refreshing an outdated site, our designers create experiences that leave a lasting impression.
+          {service.description} You will see and approve the design before development begins, so there are no surprises later.
         </p>
         <div class="mt-6 flex flex-wrap gap-3">
           <a href="/schedule-consultation/" class="inline-flex items-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white shadow transition hover:opacity-90" style="background: var(--ac-pink);">
@@ -93,13 +91,13 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
     <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
       {[
         { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>', name: 'UI/UX Design', desc: 'We design intuitive interfaces backed by user research and usability best practices. Every screen is optimised for conversion and ease of navigation, reducing bounce rates and increasing engagement.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>', name: 'Responsive Design', desc: 'Your website will look and function perfectly on every device — mobile, tablet, laptop, and widescreen. We use a mobile-first approach to ensure the smallest screens are prioritised, where most traffic originates.' },
+        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>', name: 'Responsive Design', desc: 'Your website will look and function perfectly on every device - mobile, tablet, laptop, and widescreen. We use a mobile-first approach to ensure the smallest screens are prioritised, where most traffic originates.' },
         { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>', name: 'Wireframing & Prototyping', desc: 'Before any visual design begins, we map out the full user journey through detailed wireframes and interactive Figma prototypes. This saves time, reduces rework, and aligns stakeholders early in the process.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>', name: 'Landing Page Design', desc: 'High-converting landing pages for PPC campaigns, product launches, or lead generation. We apply proven conversion design principles — clear CTAs, trust signals, and minimal friction — to maximise your return on ad spend.' },
+        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>', name: 'Landing Page Design', desc: 'High-converting landing pages for PPC campaigns, product launches, or lead generation. We apply proven conversion design principles - clear CTAs, trust signals, and minimal friction - to maximise your return on ad spend.' },
         { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0118.8-4.3M22 12.5a10 10 0 01-18.8 4.2"/></svg>', name: 'Redesign & Revamp', desc: "If your existing website looks dated or underperforms, we offer comprehensive redesign services. We audit your current site's UX, SEO, and performance before designing a replacement that retains what works and fixes what doesn't." },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>', name: 'Design Systems', desc: 'For growing businesses and products, we build scalable design systems in Figma — consistent component libraries, typography scales, colour tokens, and spacing guidelines that keep your brand coherent across every touchpoint.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>', name: 'WCAG 2.1 AA Compliance', desc: 'Every website we design meets WCAG 2.1 Level AA accessibility standards — colour contrast, keyboard navigation, ARIA labels, and screen reader support. This protects you legally and broadens your potential audience.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>', name: 'Brand-Aligned Visual Design', desc: 'We don\'t just design websites — we design brand experiences. Your website will reflect your visual identity, tone of voice, and values, creating a cohesive impression across every page and interaction.' },
+        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>', name: 'Design Systems', desc: 'For growing businesses and products, we build scalable design systems in Figma - consistent component libraries, typography scales, colour tokens, and spacing guidelines that keep your brand coherent across every touchpoint.' },
+        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>', name: 'WCAG 2.1 AA Compliance', desc: 'Every website we design meets WCAG 2.1 Level AA accessibility standards - colour contrast, keyboard navigation, ARIA labels, and screen reader support. This protects you legally and broadens your potential audience.' },
+        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>', name: 'Brand-Aligned Visual Design', desc: 'We don\'t just design websites - we design brand experiences. Your website will reflect your visual identity, tone of voice, and values, creating a cohesive impression across every page and interaction.' },
       ].map(({ icon, name, desc }) => (
         <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
           <div class="mb-3 inline-flex h-11 w-11 items-center justify-center rounded-xl" style="background: color-mix(in srgb, var(--ac-pink) 18%, transparent); color: var(--ac-pink);" set:html={icon} />
@@ -121,11 +119,11 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
       </div>
       <div class="rounded-xl bg-[var(--bg)] border border-[var(--border)] p-5">
         <h3 class="font-heading text-base font-semibold text-[var(--text)] mb-2">Performance & Speed</h3>
-        <p class="text-sm text-[var(--text-muted)]">Templates are built for general use cases and carry significant bloat — unused CSS, JavaScript, and plugins that slow your site down. Custom-built websites contain only what your project needs, resulting in faster load times, better Core Web Vitals scores, and improved SEO rankings.</p>
+        <p class="text-sm text-[var(--text-muted)]">Templates are built for general use cases and carry significant bloat - unused CSS, JavaScript, and plugins that slow your site down. Custom-built websites contain only what your project needs, resulting in faster load times, better Core Web Vitals scores, and improved SEO rankings.</p>
       </div>
       <div class="rounded-xl bg-[var(--bg)] border border-[var(--border)] p-5">
         <h3 class="font-heading text-base font-semibold text-[var(--text)] mb-2">Scalability & Control</h3>
-        <p class="text-sm text-[var(--text-muted)]">As your business evolves, your website needs to evolve with it. Custom designs are architecturally flexible — adding features, changing layouts, or integrating new systems is straightforward. With a template, you're at the mercy of the template vendor's roadmap and update cycles.</p>
+        <p class="text-sm text-[var(--text-muted)]">As your business evolves, your website needs to evolve with it. Custom designs are architecturally flexible - adding features, changing layouts, or integrating new systems is straightforward. With a template, you're at the mercy of the template vendor's roadmap and update cycles.</p>
       </div>
     </div>
   </section>
@@ -133,7 +131,7 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
   <!-- ── PORTFOLIO TEASER ──────────────────────────────────────────────────── -->
   <section class="mb-16">
     <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-2">Projects We're Proud Of</h2>
-    <p class="text-[var(--text-muted)] mb-8">A glimpse into work we've delivered — each project uniquely designed, each outcome measurably better.</p>
+    <p class="text-[var(--text-muted)] mb-8">A glimpse into work we've delivered - each project uniquely designed, each outcome measurably better.</p>
     <div class="grid gap-6 md:grid-cols-3">
       {[
         { client: 'Trimit Architects', outcome: 'A sophisticated portfolio website for a Nagpur-based architecture firm, featuring full-screen project galleries, smooth page transitions, and a design language that reflects the precision and artistry of their practice. Enquiry rate improved significantly post-launch.' },

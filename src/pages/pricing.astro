@@ -3,16 +3,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { pricingTiers } from '../data/pricing';
 import { breadcrumbSchema, faqSchema } from '../utils/schema';
 import PlanCard from '../components/launchpad/PlanCard.astro';
-import { PLANS } from '../data/digitalLaunchpad';
+import { PLANS, OFFER_END } from '../data/digitalLaunchpad';
+
+const offerActive = new Date() <= OFFER_END;
 
 const pricingFaqs = [
   {
     question: 'What is the Digital Launchpad plan?',
-    answer: 'The Digital Launchpad is a limited-time all-inclusive package — website, domain (.in / .co.in), hosting, SSL, WhatsApp button, Google Maps, Analytics, and 4 years of maintenance — for a single one-time price starting at ₹24,000. No annual renewals until 2030. <a href="/pricing/digital-launchpad/" style="color:#F26722;text-decoration:underline;text-underline-offset:2px;">View full plan details →</a>',
+    answer: 'The Digital Launchpad is a limited-time all-inclusive package - website, domain (.in / .co.in), hosting, SSL, WhatsApp button, Google Maps, Analytics, and 4 years of maintenance - for a single one-time price starting at ₹28,800. The final anniversary offer closes 15 August 2026. No annual renewals until 2030. <a href="/pricing/digital-launchpad/" style="color:#F26722;text-decoration:underline;text-underline-offset:2px;">View full plan details →</a>',
   },
   {
     question: 'Does the Digital Launchpad include a .com domain?',
-    answer: 'No. The Digital Launchpad includes .in or .co.in domains only — registered at NIXI in your name. If you specifically need a .com, .net, or other TLD, contact us and we\'ll quote separately outside the Launchpad package.',
+    answer: 'No. The Digital Launchpad includes .in or .co.in domains only - registered at NIXI in your name. If you specifically need a .com, .net, or other TLD, contact us and we\'ll quote separately outside the Launchpad package.',
   },
   {
     question: 'Do you offer monthly payment plans?',
@@ -78,14 +80,14 @@ const currencies = [
 
 const guarantees = [
   { title: 'Fixed-Price Projects', desc: 'No surprise invoices. Every cost itemised upfront.', cssVar: '--ac-emerald', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>' },
-  { title: 'Milestone Billing', desc: '3-instalment payment structure — pay as we deliver.', cssVar: '--ac-amber', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>' },
-  { title: 'Local Currency Quotes', desc: 'We quote in INR, USD, AUD, GBP, AED, JPY — no conversion surprises.', cssVar: '--ac-cyan', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>' },
+  { title: 'Milestone Billing', desc: '3-instalment payment structure - pay as we deliver.', cssVar: '--ac-amber', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>' },
+  { title: 'Local Currency Quotes', desc: 'We quote in INR, USD, AUD, GBP, AED, JPY - no conversion surprises.', cssVar: '--ac-cyan', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>' },
   { title: 'Startup & NGO Discounts', desc: 'Special pricing available for registered startups and non-profits.', cssVar: '--ac-violet', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>' },
 ];
 ---
 
 <BaseLayout
-  title="Web Design & Development Pricing — eLan Technology"
+  title="Web Design & Development Pricing - eLan Technology"
   description="Transparent, value-based pricing for web design, development, and eCommerce projects. Get a custom quote tailored to your project."
   schema={schema}
 >
@@ -102,7 +104,7 @@ const guarantees = [
         Transparent, Value-Based Pricing
       </h1>
       <p class="mt-6 max-w-2xl mx-auto text-lg text-[var(--text-dim)] leading-relaxed">
-        Every business is different. Our packages are starting points — all projects receive a custom quote based on your specific requirements, timeline, and goals.
+        Every business is different. Our packages are starting points - all projects receive a custom quote based on your specific requirements, timeline, and goals.
       </p>
       <!-- Currency bento pills -->
       <div class="flex flex-wrap gap-2 mt-10 justify-center" aria-label="Currencies we quote in">
@@ -112,16 +114,12 @@ const guarantees = [
           </span>
         ))}
       </div>
-      <p class="mt-3 text-xs text-[var(--text-muted)]">We quote in your local currency — no conversion surprises.</p>
+      <p class="mt-3 text-xs text-[var(--text-muted)]">We quote in your local currency - no conversion surprises.</p>
     </div>
   </section>
 
   <!-- 4A: Digital Launchpad offer banner -->
-  {(() => {
-    const now = new Date();
-    const end = new Date('2026-06-30T23:59:59+05:30');
-    if (now > end) return null;
-    return (
+  {offerActive && (
       <div role="alert" aria-label="Limited time offer" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
         <div
           class="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border px-6 py-5"
@@ -131,11 +129,11 @@ const guarantees = [
             <span aria-hidden="true" class="text-3xl shrink-0">🔥</span>
             <div>
               <p class="font-heading text-base font-bold text-[var(--text)]">
-                Digital Launchpad — All-In Website from ₹24,000
+                Digital Launchpad - All-In Website from ₹28,800
               </p>
               <p class="text-sm text-[var(--text-dim)] mt-0.5">
                 Domain · Hosting · SSL · 4-year maintenance · WhatsApp button. One price, no renewals till 2030.
-                <span class="font-semibold" style="color:#F26722;">Limited slots — offer ends 30 Jun 2026.</span>
+                <span class="font-semibold" style="color:#F26722;">Final offer - ends 15 Aug 2026.</span>
               </p>
             </div>
           </div>
@@ -148,24 +146,19 @@ const guarantees = [
           </a>
         </div>
       </div>
-    );
-  })()}
+  )}
 
   <!-- 4B: Digital Launchpad plan cards -->
-  {(() => {
-    const now = new Date();
-    const end = new Date('2026-06-30T23:59:59+05:30');
-    if (now > end) return null;
-    return (
+  {offerActive && (
       <section aria-label="Digital Launchpad limited offer plans" class="py-14 md:py-16 border-t border-[var(--border)]">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div class="text-center mb-10">
             <p class="text-xs font-bold uppercase tracking-widest mb-3" style="color:#F26722;">Limited-Time Offer</p>
             <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)]">
-              Digital Launchpad — 4-Year All-In Plan
+              Digital Launchpad - 4-Year All-In Plan
             </h2>
             <p class="mt-3 text-[var(--text-dim)] max-w-xl mx-auto text-sm">
-              Website + domain + hosting + maintenance — one payment, everything sorted till 2030.
+              Website + domain + hosting + maintenance - one payment, everything sorted till 2030.
             </p>
           </div>
 
@@ -188,8 +181,7 @@ const guarantees = [
           </p>
         </div>
       </section>
-    );
-  })()}
+  )}
 
   <!-- Divider: standard packages -->
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">

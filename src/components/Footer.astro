@@ -3,12 +3,14 @@ import { citiesWithPages, featuredCities } from '../data/cities';
 import { internationalCountries } from '../data/countries';
 
 const year = new Date().getFullYear();
-const offerActive = new Date() <= new Date('2026-06-30T18:29:59Z');
+const offerActive = new Date() <= new Date('2026-08-15T18:29:59Z');
 
 const services: Array<{ label: string; slug?: string; href?: string }> = [
   { label: 'Website Design', slug: 'website-design' },
   { label: 'Web Development', slug: 'web-development' },
   { label: 'eCommerce', slug: 'ecommerce' },
+  { label: 'Custom Shopify Development', href: '/services/ecommerce/shopify-development/' },
+  { label: 'Medusa.js Development', href: '/services/ecommerce/medusa-js-development/' },
   { label: 'SEO', slug: 'seo' },
   { label: 'Digital Marketing', slug: 'digital-marketing' },
   { label: 'Mobile Apps', slug: 'mobile-app-development' },
@@ -91,7 +93,7 @@ const socialLinks = [
 
       <!-- Col 1: Brand -->
       <div class="flex flex-col gap-5">
-        <a href="/" aria-label="eLan Technology — home">
+        <a href="/" aria-label="eLan Technology - home">
           <img
             src="/images/elan-tech-logo.svg"
             alt="eLan Technology"
@@ -383,7 +385,7 @@ const socialLinks = [
           </ul>
         </div>
 
-        <!-- Newsletter form (static shell — NewsletterForm island replaces this in Step 3) -->
+        <!-- Newsletter form (static shell - NewsletterForm island replaces this in Step 3) -->
         <div>
           <h4 class="mb-3 text-sm font-semibold text-[var(--text)]">Newsletter</h4>
           <form action="/api/subscribe" method="POST" class="flex gap-2">

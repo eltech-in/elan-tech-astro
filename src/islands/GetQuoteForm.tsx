@@ -111,7 +111,7 @@ export default function GetQuoteForm() {
           'Accept': 'application/json'
         },
         body: JSON.stringify({
-          _subject: urgent ? `EMERGENCY ADA — Quote request from ${contact.name || 'website'}` : `New Quote Request for ${projectType}`,
+          _subject: urgent ? `EMERGENCY ADA - Quote request from ${contact.name || 'website'}` : `New Quote Request for ${projectType}`,
           priority: urgent ? 'Emergency ADA' : 'Standard',
           projectType,
           ...contact,
@@ -178,7 +178,7 @@ export default function GetQuoteForm() {
     <form onSubmit={handleSubmit} noValidate className="space-y-5">
       {urgent && (
         <div role="status" className="rounded-lg border border-red-400/30 bg-red-400/10 px-4 py-2.5 text-xs font-semibold text-red-400">
-          Flagged as Emergency ADA — we triage these first.
+          Flagged as Emergency ADA - we triage these first.
         </div>
       )}
       <StepIndicator />

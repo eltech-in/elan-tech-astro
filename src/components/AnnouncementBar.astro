@@ -1,12 +1,15 @@
 ---
-// SSR announcement bar — no React island, no CLS.
+// SSR announcement bar - no React island, no CLS.
 // Dismiss via localStorage is handled by the inline script below.
 // Dark text (#1a0800) on #F26722 orange passes WCAG AA (6.25:1).
-const OFFER_END = new Date('2026-06-30T23:59:59+05:30');
+import { OFFER_END, PLANS } from '../data/digitalLaunchpad';
+
 const offerActive = new Date() <= OFFER_END;
+const isLaunchpadPage = Astro.url.pathname.startsWith('/pricing/digital-launchpad');
+const startingPrice = PLANS[0].price.toLocaleString('en-IN');
 ---
 
-{offerActive && (
+{offerActive && !isLaunchpadPage && (
   <div
     id="ann-bar"
     role="region"
@@ -18,7 +21,7 @@ const offerActive = new Date() <= OFFER_END;
 
     <p class="text-center leading-snug">
       <strong class="font-bold">Digital Launchpad</strong>
-      {' — '}All-in website from ₹24,000.{' '}
+      {' - '}All-in website from ₹{startingPrice}.{' '}
       <a
         href="/pricing/digital-launchpad/"
         class="font-semibold underline underline-offset-2 hover:opacity-70 transition-opacity focus-visible:outline focus-visible:outline-2 rounded-sm"
@@ -26,8 +29,8 @@ const offerActive = new Date() <= OFFER_END;
       >
         Reserve your slot →
       </a>
-      <span class="ml-2 hidden sm:inline text-xs font-medium">
-        Offer ends 30 Jun 2026.
+      <span class="ml-2 text-xs font-medium">
+        Final offer ends 15 Aug 2026.
       </span>
     </p>
 
@@ -61,11 +64,11 @@ const offerActive = new Date() <= OFFER_END;
   (function () {
     var bar = document.getElementById('ann-bar');
     if (!bar) return;
-    try { if (localStorage.getItem('lp-bar-v1') === '1') { bar.style.display = 'none'; return; } } catch (e) {}
+    try { if (localStorage.getItem('lp-bar-final') === '1') { bar.style.display = 'none'; return; } } catch (e) {}
     var btn = document.getElementById('ann-dismiss');
     if (btn) btn.addEventListener('click', function () {
       bar.style.display = 'none';
-      try { localStorage.setItem('lp-bar-v1', '1'); } catch (e) {}
+      try { localStorage.setItem('lp-bar-final', '1'); } catch (e) {}
     });
   })();
 </script>

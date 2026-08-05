@@ -1,23 +1,23 @@
 ---
-title: "ADA Website Compliance Checklist 2026: Free 30-Point Audit (Print-Ready)"
-description: "The complete ADA website compliance checklist for 2026 — 30 steps mapped to WCAG 2.1 AA. Includes a print-ready summary, cost-to-fix guide, the 6 violations behind 96% of lawsuits, and 10 FAQs covering what ADA actually requires."
+title: "ADA Website Accessibility Checklist: 30 WCAG Checks"
+description: "A practical 30-point website accessibility checklist mapped to WCAG Level AA, including keyboard, screen-reader, contrast, forms, mobile, testing, and documentation."
 publishDate: 2026-01-20
-updatedDate: 2026-05-21
+updatedDate: 2026-07-24
 author: "eLan Technology Team"
 category: "accessibility"
-tags: ["ADA compliance", "ADA website compliance checklist", "WCAG 2.1 AA", "website accessibility", "ADA compliance requirements"]
+tags: ["ADA compliance", "website accessibility checklist", "WCAG 2.2 AA", "accessibility audit", "WCAG testing"]
 readTime: 18
 featuredImage:
   src: "/blog/featuredblog.avif"
-  alt: "ADA website compliance checklist 2026 — print-ready 30-step audit"
+  alt: "Website accessibility checklist with 30 WCAG checks"
 draft: false
 seo:
   focusKeyword: "ADA website compliance checklist"
-  metaTitle: "ADA Website Compliance Checklist 2026: Free 30-Point Audit | eLan Technology"
-  metaDescription: "Free ADA website compliance checklist for 2026 — 30 steps, WCAG 2.1 AA mapped, print-ready. Cost-to-fix guide, the 6 violations behind 96% of lawsuits, plain-English FAQs."
+  metaTitle: "ADA Website Accessibility Checklist: 30 WCAG Checks"
+  metaDescription: "Use this 30-point WCAG accessibility checklist to review keyboard access, contrast, forms, screen readers, mobile behaviour, testing and documentation."
 howTo:
-  name: "ADA Website Compliance Checklist (WCAG 2.1 AA)"
-  description: "A 30-step procedural checklist to audit and remediate a website to meet WCAG 2.1 Level AA — the standard US courts use to interpret ADA Title III for websites."
+  name: "Website Accessibility Checklist (WCAG Level AA)"
+  description: "A 30-step checklist for reviewing and improving a website against WCAG Level AA. It supports a first review but does not replace a complete conformance evaluation."
   totalTime: "PT8H"
   steps:
     - name: "Add alt text to all meaningful images"
@@ -39,7 +39,7 @@ howTo:
     - name: "Provide text alternatives for non-text controls"
       text: "Buttons that use only an icon need an aria-label or visually hidden label so assistive tech announces their purpose."
     - name: "Ensure all functionality is accessible by keyboard"
-      text: "Every interactive element — links, buttons, form fields, custom widgets — must be reachable and operable using only the keyboard."
+      text: "Every interactive element - links, buttons, form fields, custom widgets - must be reachable and operable using only the keyboard."
     - name: "Provide a visible focus indicator"
       text: "The currently focused element must be visually distinct. Never disable :focus styles without replacing them with something equally visible."
     - name: "Provide skip-navigation links"
@@ -67,55 +67,51 @@ howTo:
     - name: "Use ARIA attributes correctly"
       text: "ARIA should be the last resort, not the first. When used, follow the ARIA Authoring Practices and validate roles/states with assistive tech."
     - name: "Ensure interactive components have accessible names"
-      text: "Every clickable component needs an accessible name — visible text, aria-label, or aria-labelledby — that describes its action."
+      text: "Every clickable component needs an accessible name - visible text, aria-label, or aria-labelledby - that describes its action."
     - name: "Test with real screen readers"
       text: "Automated tools catch ~30% of issues. Test manually with NVDA, JAWS, or VoiceOver and with keyboard-only navigation before shipping."
     - name: "Make target sizes at least 24×24 pixels (WCAG 2.2)"
       text: "Buttons, links, and tap targets need a minimum 24×24 CSS pixels (or 44×44 recommended) so users with motor impairments can hit them reliably."
     - name: "Provide a non-drag alternative for any drag action"
-      text: "If your interface uses drag-and-drop (file upload, list reordering), supply a keyboard-accessible alternative — usually a click-to-pick-up pattern."
+      text: "If your interface uses drag-and-drop (file upload, list reordering), supply a keyboard-accessible alternative - usually a click-to-pick-up pattern."
     - name: "Eliminate horizontal scroll on mobile"
       text: "Set max-width: 100% on images and tables; use responsive units. Horizontal scroll is one of the most common mobile accessibility failures."
     - name: "Make error states perceivable beyond color"
       text: "Form errors must be announced via aria-live, identified with text + icon (not just a red border), and described in plain language."
-    - name: "Audit and document — produce a VPAT/ACR for evidence"
-      text: "After remediation, produce a VPAT 2.5 / ACR (Accessibility Conformance Report). Courts treat documented remediation as a mitigating factor in settlement."
+    - name: "Retest and document the evaluated scope"
+      text: "After remediation, retest the original barriers and record the WCAG criterion, scope, method, result, known limitations, and regression control. Prepare an ACR using a VPAT template only when procurement documentation is required."
 faq:
   - question: "What is an ADA website compliance checklist?"
-    answer: "An ADA website compliance checklist is the practical set of fixes that brings a website in line with WCAG 2.1 Level AA — the standard US federal courts use to interpret ADA Title III for digital accessibility. The checklist below has 30 steps, organised under the four WCAG principles (Perceivable, Operable, Understandable, Robust). Six of those 30 steps account for roughly 96% of ADA website lawsuits — fix those first."
+    answer: "It is a practical list of accessibility checks based on WCAG. It can identify common barriers and organise remediation work, but a checklist alone does not establish legal compliance or complete WCAG conformance."
   - question: "What is required for a website to be ADA compliant in 2026?"
-    answer: "ADA-compliant website requirements come down to WCAG 2.1 Level AA conformance. In plain language that means: every image has alt text, every form has labels, every interactive element works with keyboard alone, text contrast is at least 4.5:1, focus is always visible, videos have captions, audio has transcripts, and the underlying HTML is semantic (real headings, real buttons, real lists). The DOJ's Title II final rule effective April 24, 2026 formalised WCAG 2.1 AA for state and local governments, and federal courts now reference it as the de facto bar for private-sector ADA Title III cases too."
+    answer: "Requirements depend on the organisation and jurisdiction. The DOJ Title II web rule names WCAG 2.1 AA for covered state and local government content. The DOJ's general Title III guidance does not prescribe one universal technical version for every private business. WCAG Level AA remains the practical engineering baseline."
   - question: "Is there a free ADA compliance kit or checklist I can download?"
-    answer: "The 30-step checklist on this page is print-ready — open in your browser and use the browser's Print > Save as PDF to keep an offline copy. It covers the same WCAG 2.1 AA criteria used in paid compliance kits sold for $200–$500. If you want a tailored audit run against your live site (not a generic checklist), our <a href=\"/free-website-audit/\">free website audit</a> includes a baseline accessibility scan; the full WCAG 2.1 AA audit with VPAT documentation starts at $1,500."
-  - question: "How many ADA website lawsuits were filed in 2025, and is my business at risk?"
-    answer: "5,100+ ADA digital accessibility lawsuits were filed in US federal court in 2025 — a 37% year-over-year increase. 67% of those targeted businesses with under $25M in annual revenue, so small and mid-sized businesses are now the primary plaintiff target, not Fortune 500s. eCommerce sites accounted for 69–77% of cases. If your business serves US customers and your site fails any of the 6 violations behind 96% of lawsuits (listed below), you are at material risk."
+    answer: "This page is print-ready. Use your browser's Print or Save as PDF function. For a tailored evaluation, request a hybrid audit that combines automated and manual testing against your actual templates and user journeys."
   - question: "What are the most common ADA website violations?"
-    answer: "The six violations behind roughly 96% of ADA website lawsuits, in order: (1) low colour contrast — 79.1% of homepages fail; (2) missing alt text on images — 55.5%; (3) missing form input labels — 48.2%; (4) empty links (linked images or icons with no accessible name) — 44.6%; (5) missing document language attribute — 37.1%; (6) empty buttons (icon-only buttons without aria-label) — 26.3%. Source: WebAIM Million 2025 study. Fix these six and you have eliminated the vast majority of your lawsuit exposure."
+    answer: "Common automated findings include low contrast, missing image alternatives, unlabelled form controls, empty links, missing document language, and controls without accessible names. Manual testing is still required for keyboard behaviour, focus order, meaningful alternatives, errors, status messages, and complete task flows."
   - question: "Does an accessibility widget or overlay make my site ADA compliant?"
-    answer: "No. In 2025, 22.64% of ADA lawsuits specifically targeted websites that already had accessibility widgets installed. The FTC fined accessiBe $1 million for misleading compliance claims. Overlays cannot fix underlying code-level violations — they sit on top of broken HTML and often introduce new violations of their own. Only code-level remediation (the work this checklist describes) provides genuine compliance and legal protection."
+    answer: "An overlay cannot establish WCAG conformance by itself. Many barriers must be fixed in the source content, HTML, styles, and interaction design and then verified manually."
   - question: "How much does ADA website compliance cost?"
-    answer: "Costs scale with site size. A focused WCAG 2.1 AA audit of a 5–25 page site starts at $1,500 and identifies every violation with priority ranking. Audit + remediation typically lands at $3,000–$8,000 for small and mid-sized sites. Building an ADA-compliant site from scratch costs $3,000–$12,000 — the same as a regular custom build, because accessibility costs almost nothing when built in from day one. Compare those numbers to the average ADA settlement ($30K out-of-court, $85K judgment, $400K class action) and compliance is dramatically cheaper than litigation. See our <a href=\"/services/ada-compliant-web-design/\">ADA-compliant web design service</a> for current pricing."
-  - question: "What is an ADA remediation plan and do I need one?"
-    answer: "An ADA remediation plan is a documented, prioritised list of accessibility violations on your site, with proposed code-level fixes, an effort estimate, and a delivery timeline. You need one in two scenarios: (1) you have received a demand letter or court summons — the plan becomes evidence of good-faith remediation, which courts treat as a mitigating factor that typically settles cases at $5K instead of $30K+; (2) you are proactively reducing risk — even without active litigation, having a documented plan demonstrates intent and is referenced in your accessibility statement. Remediation plans are produced as part of any WCAG 2.1 AA audit."
+    answer: "At eLan Technology, a rapid audit and remediation plan starts at 1,500 US dollars. Full remediation is quoted after the unique templates, components, documents, third-party integrations, and user journeys are understood."
   - question: "How long does it take to remediate a website for ADA compliance?"
-    answer: "Audit + critical-fix sprint typically takes 2–6 weeks for a small to mid-sized site (10–100 pages). Larger sites with custom apps, dynamic content, or PDFs take 6–12 weeks. Emergency remediation — if you have already received a demand letter — can compress to 1–2 weeks for the high-risk pages, with the rest scheduled over the next quarter. Courts treat active in-progress remediation as a mitigating factor, so starting fast matters more than finishing immediately."
+    answer: "Timing depends on the number of unique issue types and shared components, not page count alone. A small site may take several weeks; a complex application or document-heavy site may require phased work. Confirm scope and retesting requirements before committing to a deadline."
   - question: "What about ADA compliance for HTML emails, PDFs, and mobile apps?"
-    answer: "ADA compliance extends beyond your website. HTML emails need plain-text alternatives, descriptive alt text on images, sufficient contrast, and meaningful link text. PDFs need tagged structure, alt text on graphics, real text (not scanned images), and an accessibility-checked output (Acrobat's built-in checker is a starting point, not a final answer). Mobile apps follow the same WCAG 2.1 AA principles plus platform-specific guidance (iOS Accessibility, Android Accessibility). If your business publishes any of these alongside the website, they need to be in your compliance scope too."
+    answer: "Include emails, PDFs, mobile apps, and other digital content when they are part of the evaluated service or applicable obligation. Each format requires appropriate testing in addition to relevant WCAG criteria."
 ---
 
 <aside class="tldr" data-speakable>
-  <strong>Quick answer:</strong> The ADA website compliance checklist for 2026 is a 30-step audit mapped to WCAG 2.1 Level AA — the standard US courts treat as the technical bar for ADA Title III. Six of those 30 steps account for ~96% of real-world lawsuits: low contrast, missing alt text, missing form labels, empty links, missing document language, and empty buttons. Fix those six first. Use the print-ready summary in the next section to get started in 10 minutes.
+  <strong>Quick answer:</strong> This 30-point checklist covers common WCAG Level AA barriers across content, keyboard access, focus, forms, contrast, media, mobile behaviour, testing, and documentation. Use it for a first review, then run manual keyboard, screen-reader, zoom, and task testing before making a conformance claim.
 </aside>
 
-The Americans with Disabilities Act (ADA) has applied to commercial websites since at least 2018, and after the DOJ's Title II rule went into full effect on April 24, 2026, the federal benchmark for digital accessibility is unambiguous: **WCAG 2.1 Level AA**. Every US business that serves the public should treat that standard as the floor, not the ceiling.
+The standard and version that apply depend on the organisation, jurisdiction, contract, and service. The US DOJ Title II web rule names **WCAG 2.1 Level AA** for covered state and local government content. WCAG 2.2 is the current W3C Recommendation and a useful broader baseline for new work.
 
-Two things have changed in the last 18 months. First, the volume of ADA digital lawsuits has exploded — **5,100+ federal cases in 2025, up 37% YoY**, with 67% targeting businesses under $25M in revenue. Second, AI tools have collapsed the barrier to filing: pro se plaintiffs (filing without attorneys) grew 40% in 2025 because anyone can draft a credible ADA complaint in minutes. The math has shifted decisively toward "fix it now."
+Following the DOJ's April 2026 extension, the general Title II dates are April 26, 2027 for public entities serving 50,000 or more people and April 26, 2028 for smaller entities and special district governments. Those dates should not be presented as a universal private-business deadline.
 
-This guide gives you the full ADA website compliance checklist, the six violations behind most lawsuits, plain-English answers to the questions everyone asks, and an action plan whether you have a budget of $0 or $15,000.
+This guide gives you a practical review sequence. It is not legal advice and does not replace a complete accessibility evaluation.
 
 ## Quick Print-Ready Checklist (If You Only Have 10 Minutes)
 
-Copy this list into a doc, print it, or use your browser's **Print → Save as PDF** to keep it offline. These are the six fixes behind 96% of ADA website lawsuits — start here regardless of site size.
+Print this page or use your browser's **Save as PDF** function to keep it offline. These checks address common automated findings, but passing them does not mean the complete user experience has been tested.
 
 | # | Check | Tool | Time to fix |
 |---|---|---|---|
@@ -130,41 +126,41 @@ A focused team can knock these out for a 10–25 page site in a single afternoon
 
 ## One Checklist, Many Search Queries
 
-Searchers arrive here looking for slightly different things — the **ADA compliance website checklist**, the **website ADA compliance checklist**, an **ADA compliant website checklist**, **ADA compliance for websites checklist**, the **ADA web compliance checklist**, an **ADA website checklist**, or more general phrasing like **ADA compliance website**, **ada accessible website** requirements, or a generic **accessibility compliance checklist**. They are all asking the same thing in different words: what does it take to make a website meet ADA Title III, which the courts measure against WCAG 2.1 Level AA?
+Searchers arrive here looking for slightly different things - the **ADA compliance website checklist**, the **website ADA compliance checklist**, an **ADA compliant website checklist**, **ADA compliance for websites checklist**, the **ADA web compliance checklist**, an **ADA website checklist**, or more general phrasing like **ADA compliance website**, **ada accessible website** requirements, or a generic **accessibility compliance checklist**. They are all asking the same thing in different words: what does it take to make a website meet ADA Title III, which the courts measure against WCAG 2.1 Level AA?
 
 This guide is structured to answer that question completely. If you came here researching **ADA compliant website requirements** or the basic **requirements for ADA** Title III digital accessibility, the 30-step checklist below is the answer, and the FAQ at the bottom covers the legal and procedural questions everyone asks.
 
 ## Why This ADA Compliance Checklist Matters in 2026
 
-ADA Title III prohibits discrimination against people with disabilities in places of public accommodation. Federal courts have ruled consistently — across the 1st, 2nd, 3rd, 6th, 9th, and 11th Circuits — that commercial websites qualify. The DOJ's April 2026 Title II rule formalised **WCAG 2.1 Level AA** as the standard for state and local governments, and plaintiff attorneys now cite that rule directly when arguing private-sector cases.
+ADA Title III prohibits discrimination against people with disabilities in places of public accommodation. Federal courts have ruled consistently - across the 1st, 2nd, 3rd, 6th, 9th, and 11th Circuits - that commercial websites qualify. The DOJ's April 2026 Title II rule formalised **WCAG 2.1 Level AA** as the standard for state and local governments, and plaintiff attorneys now cite that rule directly when arguing private-sector cases.
 
 The practical consequences:
 
 - **New York** filed 1,021 ADA digital lawsuits in 2025 (33% of all federal filings).
 - **Florida** filed 487 (nearly doubled YoY).
 - **California** filed 380.
-- **Illinois** filed 237 — a 746% YoY increase as plaintiff firms expand into new jurisdictions.
+- **Illinois** filed 237 - a 746% YoY increase as plaintiff firms expand into new jurisdictions.
 
 If your business has any US-facing presence, ADA compliance is no longer optional. For the broader context on how ADA and WCAG interact across US and Canadian jurisdictions, see our companion guide on [ADA & WCAG compliance for US and Canada in 2026](/blog/accessibility/ada-wcag-compliance-us-canada-2026/).
 
 ## The 6 Most Common ADA Website Violations
 
-The WebAIM Million 2025 study analysed the top 1 million US websites. These are the violations they found on the homepage of the average site — and they account for roughly **96% of real-world ADA lawsuits**.
+The WebAIM Million 2025 study analysed the top 1 million US websites. These are the violations they found on the homepage of the average site - and they account for roughly **96% of real-world ADA lawsuits**.
 
-1. **Low contrast text** — 79.1% of homepages fail. Fix by checking every text/background pair against 4.5:1 (normal) or 3:1 (large text, 18pt+/14pt+ bold).
-2. **Missing alt text on images** — 55.5% fail. Fix by adding descriptive alt to every meaningful image; empty `alt=""` only for decorative ones.
-3. **Missing form input labels** — 48.2% fail. Fix with `<label for="email">Email</label><input id="email" type="email">` or `aria-label="Email"`.
-4. **Empty links** — 44.6% fail. Usually icon links or images-as-links with no accessible name. Add visible text or `aria-label`.
-5. **Missing document language** — 37.1% fail. Fix by setting `<html lang="en">` (or your language code) in every page's HTML.
-6. **Empty buttons** — 26.3% fail. Icon-only buttons (hamburger, close, search) need `aria-label`. Plain `<button>` with no text content is invisible to screen readers.
+1. **Low contrast text** - 79.1% of homepages fail. Fix by checking every text/background pair against 4.5:1 (normal) or 3:1 (large text, 18pt+/14pt+ bold).
+2. **Missing alt text on images** - 55.5% fail. Fix by adding descriptive alt to every meaningful image; empty `alt=""` only for decorative ones.
+3. **Missing form input labels** - 48.2% fail. Fix with `<label for="email">Email</label><input id="email" type="email">` or `aria-label="Email"`.
+4. **Empty links** - 44.6% fail. Usually icon links or images-as-links with no accessible name. Add visible text or `aria-label`.
+5. **Missing document language** - 37.1% fail. Fix by setting `<html lang="en">` (or your language code) in every page's HTML.
+6. **Empty buttons** - 26.3% fail. Icon-only buttons (hamburger, close, search) need `aria-label`. Plain `<button>` with no text content is invisible to screen readers.
 
-These six are the lowest-hanging fruit and the highest-impact fixes. If you have an existing site, run [a free website audit](/free-website-audit/) to see which of them your site has — and how many of each.
+These six are the lowest-hanging fruit and the highest-impact fixes. If you have an existing site, run [a free website audit](/free-website-audit/) to see which of them your site has - and how many of each.
 
 ## The Full 30-Step ADA Compliance Checklist
 
 This is the complete WCAG 2.1 Level AA checklist, expanded to include the two most-relevant WCAG 2.2 additions (target size and drag alternatives), organised under the four WCAG principles: **Perceivable, Operable, Understandable, Robust**.
 
-### Perceivable — Information must be presentable in ways users can perceive
+### Perceivable - Information must be presentable in ways users can perceive
 
 **1. Add alt text to all meaningful images.** Every image that conveys information needs a text alternative describing what it shows. Decorative images should have empty alt attributes (`alt=""`) so screen readers skip them.
 
@@ -178,15 +174,15 @@ This is the complete WCAG 2.1 Level AA checklist, expanded to include the two mo
 
 **6. Do not use colour as the only means of conveying information.** Form error states, required fields, and status indicators must use text or iconography in addition to colour, since colour-blind users cannot distinguish red from green.
 
-**7. Ensure text can be resized to 200% without losing content or functionality.** When a user zooms text to 200%, the page should remain fully usable — no overlapping text, no hidden content.
+**7. Ensure text can be resized to 200% without losing content or functionality.** When a user zooms text to 200%, the page should remain fully usable - no overlapping text, no hidden content.
 
 **8. Avoid content that flashes more than 3 times per second.** Flashing content can trigger seizures in people with photosensitive epilepsy.
 
 **9. Provide text alternatives for non-text content used as controls.** Icons used as buttons (search icon, close icon, menu icon) must have accessible names via `aria-label` or visible text.
 
-### Operable — Interface components must be operable
+### Operable - Interface components must be operable
 
-**10. Ensure all functionality is accessible by keyboard.** Every interactive element — menus, forms, modals, carousels, tabs — must be operable using only a keyboard (Tab, Enter, Space, arrow keys).
+**10. Ensure all functionality is accessible by keyboard.** Every interactive element - menus, forms, modals, carousels, tabs - must be operable using only a keyboard (Tab, Enter, Space, arrow keys).
 
 **11. Provide a visible focus indicator.** When a user navigates via keyboard, the focused element must be clearly visible. Removing the default focus outline without providing an equally visible replacement is a common accessibility failure.
 
@@ -200,7 +196,7 @@ This is the complete WCAG 2.1 Level AA checklist, expanded to include the two mo
 
 **16. Provide meaningful link text.** Links must describe their destination or purpose. "Click here" and "Read more" are inaccessible. Use "Read our ADA compliance guide" or "Download the 2026 pricing PDF" instead.
 
-### Understandable — Information and operation of the UI must be understandable
+### Understandable - Information and operation of the UI must be understandable
 
 **17. Set the language attribute on the HTML element.** The `lang` attribute on your `<html>` tag tells screen readers what language to use. All pages must have this set correctly (e.g., `lang="en"`).
 
@@ -212,9 +208,9 @@ This is the complete WCAG 2.1 Level AA checklist, expanded to include the two mo
 
 **21. Ensure consistent navigation across pages.** Navigation menus that appear on multiple pages must appear in the same location and same order on each page.
 
-### Robust — Content must be robust enough to be interpreted by assistive technologies
+### Robust - Content must be robust enough to be interpreted by assistive technologies
 
-**22. Use valid, semantic HTML.** Headings (`h1`–`h6`), lists (`ul`/`ol`/`li`), tables (with proper headers), and landmark roles (`nav`, `main`, `header`, `footer`) allow screen readers to understand and navigate your content structure. This is what searches for "html ada compliance" are really asking about — clean, semantic HTML is the foundation.
+**22. Use valid, semantic HTML.** Headings (`h1`–`h6`), lists (`ul`/`ol`/`li`), tables (with proper headers), and landmark roles (`nav`, `main`, `header`, `footer`) allow screen readers to understand and navigate your content structure. This is what searches for "html ada compliance" are really asking about - clean, semantic HTML is the foundation.
 
 **23. Ensure ARIA attributes are used correctly.** ARIA (Accessible Rich Internet Applications) attributes like `aria-label`, `aria-expanded`, and `role` must be used accurately. Incorrect ARIA can make a site less accessible than no ARIA at all.
 
@@ -222,95 +218,89 @@ This is the complete WCAG 2.1 Level AA checklist, expanded to include the two mo
 
 **25. Test with real screen readers and assistive technology.** Automated tools catch approximately 30–40% of accessibility issues. Real testing with NVDA (Windows), JAWS (Windows), VoiceOver (Mac/iOS), or TalkBack (Android) is essential to find interaction-level issues.
 
-### WCAG 2.2 additions — newer criteria worth meeting now
+### WCAG 2.2 additions - newer criteria worth meeting now
 
 **26. Make target sizes at least 24×24 CSS pixels** (44×44 is the accessibility gold standard). Tiny buttons and links exclude users with motor impairments.
 
-**27. Provide a non-drag alternative for any drag action.** If your interface uses drag-and-drop (file uploads, list reordering, kanban boards), supply a keyboard-accessible alternative — usually a click-to-pick-up / click-to-drop pattern.
+**27. Provide a non-drag alternative for any drag action.** If your interface uses drag-and-drop (file uploads, list reordering, kanban boards), supply a keyboard-accessible alternative - usually a click-to-pick-up / click-to-drop pattern.
 
 **28. Eliminate horizontal scroll on mobile.** Set `max-width: 100%` on images and tables; use responsive units. Horizontal scroll is one of the most common mobile accessibility failures.
 
 **29. Make error states perceivable beyond colour.** Form errors must be announced via `aria-live`, identified with text + icon (not just a red border), and described in plain language.
 
-**30. Audit and document — produce a VPAT/ACR.** After remediation, produce a VPAT 2.5 / ACR (Accessibility Conformance Report). Courts treat documented remediation as a mitigating factor in settlement, and B2B sales and government contracts increasingly require it.
+**30. Retest and document the evaluated scope.** Record the applicable criterion, test method, original evidence, remediation, retest status, known limitations, and regression control. If procurement requires an Accessibility Conformance Report, use the appropriate VPAT template and disclose support and gaps accurately.
 
 ## How Much Does ADA Website Compliance Cost?
 
-The honest answer: ADA compliance is one of the cheapest forms of legal insurance a US business can buy. Here are typical 2026 ranges from accessibility-focused agencies (eLan Technology pricing in brackets):
+The cost depends on the number of unique templates, components, documents, third-party integrations, and user journeys. Page count alone is a poor estimate because one shared component may create the same barrier across hundreds of pages.
 
-| Scenario | Typical range | eLan pricing |
-|---|---|---|
-| WCAG 2.1 AA audit of a 5–25 page site | $1,000–$3,000 | **$1,500** |
-| Audit + full remediation (existing site) | $3,000–$15,000 | **$3,000–$8,000** |
-| ADA-compliant new build from scratch | $3,000–$25,000 | **$3,000–$12,000** |
-| VPAT 2.5 / ACR documentation | $500–$2,500 | **Included** |
-| Ongoing monitoring (per month) | $200–$800 | **From $399/mo** |
+At eLan Technology:
 
-Compare those numbers to the cost of doing nothing:
+| Service | Pricing approach |
+|---|---|
+| Rapid audit and remediation plan | Starts at **$1,500 USD** |
+| Code-level remediation and retesting | Quoted after audit |
+| Accessible website redesign or rebuild | Typically **$3,000–$12,000** |
+| ACR preparation using a VPAT template | Separately scoped to product and standard |
+| Ongoing regression testing | Monthly or quarterly plan |
 
-- Average demand-letter settlement: **$5,000** (with active remediation plan)
-- Average out-of-court ADA settlement: **$30,000**
-- Average judgment: **$85,000**
-- Average class action settlement: **$400,000**
-- Defence legal fees alone: **$30,000–$175,000**
-
-A $5,000 investment in remediation today prevents a $30,000–$400,000 legal nightmare tomorrow. And unlike a settlement, accessible code keeps paying you back: better SEO, larger addressable audience, fewer support tickets.
+The written scope should name the evaluated surface, testing methods, deliverables, assumptions, exclusions, and retesting process.
 
 ## Tools for Auditing Your ADA Compliance Checklist
 
-No automated tool is a complete solution — they catch 30–40% of issues. Combine these with manual keyboard testing and at least one screen reader before you ship.
+No automated tool is a complete solution - they catch 30–40% of issues. Combine these with manual keyboard testing and at least one screen reader before you ship.
 
-- **axe DevTools** — browser extension for automated WCAG testing. The de facto standard for engineers.
-- **WAVE** — visual accessibility evaluation tool from WebAIM. Great for non-developers.
-- **Lighthouse** — built into Chrome DevTools, includes an accessibility audit.
-- **Pa11y** — command-line tool for accessibility testing in CI/CD pipelines.
-- **WebAIM Contrast Checker** — fastest way to verify text/background contrast ratios.
-- **Screen readers** — NVDA (free, Windows), JAWS (paid, Windows, market leader for enterprise), VoiceOver (built into macOS/iOS), TalkBack (built into Android).
-- **Stark** — Figma plugin that catches contrast and accessibility issues during design, before code is written.
+- **axe DevTools** - browser extension for automated WCAG testing. The de facto standard for engineers.
+- **WAVE** - visual accessibility evaluation tool from WebAIM. Great for non-developers.
+- **Lighthouse** - built into Chrome DevTools, includes an accessibility audit.
+- **Pa11y** - command-line tool for accessibility testing in CI/CD pipelines.
+- **WebAIM Contrast Checker** - fastest way to verify text/background contrast ratios.
+- **Screen readers** - NVDA (free, Windows), JAWS (paid, Windows, market leader for enterprise), VoiceOver (built into macOS/iOS), TalkBack (built into Android).
+- **Stark** - Figma plugin that catches contrast and accessibility issues during design, before code is written.
 
-For a deeper explanation of how these tools fit into a real audit workflow, see our [WCAG 2.1 AA explained for business owners guide](/blog/accessibility/wcag-explained-business-owners/).
+For a deeper explanation of how these tools fit into a real audit workflow, see our [WCAG 2.2 guide for business owners](/blog/accessibility/wcag-explained-business-owners/).
 
 ## What to Do If Your Website Fails This Checklist
 
 If you have **not** received a demand letter, work through these steps in order:
 
-1. Run a free or paid audit to identify every violation on your site, ranked by severity.
-2. Fix the top 6 critical violations first (the ones behind 96% of lawsuits).
+1. Define representative templates and critical user journeys.
+2. Run automated and manual testing and rank findings by user impact.
 3. Schedule remaining medium and low-priority fixes across the next 1–2 sprints.
-4. Add an accessibility statement to your site documenting your conformance level and the remediation timeline.
-5. Set up ongoing monitoring so new code does not regress what you have fixed.
+4. Retest the original barriers and record the result.
+5. Publish an accurate accessibility statement and add regression controls.
 
-If you **have** received a demand letter or court summons, this becomes an emergency. Read our guide on [emergency ADA website remediation](/blog/accessibility/ada-lawsuit-emergency-website-remediation/) and contact an accessibility specialist immediately — most demand letters settle for $5,000 with active remediation, versus $30,000–$85,000 without. Our [emergency ADA remediation service](/services/ada-compliant-web-design/emergency-remediation/) starts within 24 hours and brings Shopify and ecommerce stores to WCAG conformance in under 30 days.
+If you **have** received a demand letter or complaint, send it to qualified legal counsel. In parallel, preserve the current technical evidence and follow our [emergency ADA website remediation guide](/blog/accessibility/ada-lawsuit-emergency-website-remediation/). Our [emergency remediation service](/services/ada-compliant-web-design/emergency-remediation/) provides scoped technical assessment, source-level remediation, and retesting.
 
-For US and Canadian businesses building or rebuilding a site, our [ADA-compliant web design service](/services/ada-compliant-web-design/) bundles audit, remediation, and VPAT documentation into a single fixed-price engagement.
+For planned work, our [ADA and WCAG accessibility service](/services/ada-compliant-web-design/) covers audit, remediation, retesting, and documentation.
 
 ## Frequently Asked Questions
 
 **What is an ADA website compliance checklist?**
-An ADA website compliance checklist is the practical set of fixes that brings a website in line with WCAG 2.1 Level AA — the standard US federal courts use to interpret ADA Title III for digital accessibility. The 30-step list above is mapped directly to the WCAG 2.1 AA success criteria.
+A checklist translates WCAG requirements into practical review steps. It helps identify common barriers and organise remediation, but it does not replace a complete conformance evaluation.
 
 **What is required for a website to be ADA compliant in 2026?**
-WCAG 2.1 Level AA conformance, in practice. That means: every image has alt text, every form has labels, every interactive element works with keyboard alone, contrast is at least 4.5:1, focus is always visible, videos have captions, audio has transcripts, and the underlying HTML is semantic.
+The answer depends on the organisation and jurisdiction. Use the version and level named by the applicable obligation, and treat WCAG Level AA as the practical engineering baseline.
 
 **Is there a free ADA compliance kit or checklist I can download?**
-The checklist on this page is the kit — open in your browser, then Print → Save as PDF for an offline copy. Paid "ADA compliance kits" sold for $200–$500 typically wrap the same WCAG 2.1 AA criteria in a branded template.
+Use your browser's Print or Save as PDF function for an offline copy of this checklist.
 
 **Does an accessibility widget make my site ADA compliant?**
-No. 22.64% of ADA lawsuits in 2025 specifically targeted sites with widgets installed. Overlays cannot fix underlying code-level violations. Only code-level remediation provides legal protection.
+An overlay cannot establish WCAG conformance by itself. Many barriers must be fixed in the source and verified manually.
 
 **How much does ADA website compliance cost?**
-$1,500 for an audit, $3,000–$8,000 for audit + remediation, $3,000–$12,000 for a new ADA-compliant build. Compare to $30K–$400K for settlements and judgments — compliance is dramatically cheaper than litigation.
+Our rapid audit and remediation plan starts at $1,500 USD. Full remediation is quoted after the evaluated surface and repeated issue types are understood.
 
-For more questions on legal scope, deadlines, and the DOJ's April 2026 Title II rule, see the FAQ section on our [ADA-compliant web design service page](/services/ada-compliant-web-design/#faq).
+For more questions on scope, current DOJ dates, audit methods, and documentation, see the FAQ section on our [ADA and WCAG service page](/services/ada-compliant-web-design/#faq).
 
-## Accessibility Pays — Beyond Compliance
+## Accessibility Pays - Beyond Compliance
 
 Compliance is the floor, not the ceiling. Accessible websites also deliver:
 
-- **Better SEO** — semantic HTML, alt text, and descriptive link text help search engines crawl and rank your content
-- **Larger addressable audience** — approximately 1 in 4 US adults lives with a disability
-- **Better mobile usability** — accessibility patterns (large targets, clear focus, keyboard-equivalent paths) make every interaction faster
-- **Stronger brand reputation** — accessibility statements and visible commitments build trust
-- **Lower support costs** — accessible forms have higher completion rates and fewer error tickets
+- **Better SEO** - semantic HTML, alt text, and descriptive link text help search engines crawl and rank your content
+- **Larger addressable audience** - approximately 1 in 4 US adults lives with a disability
+- **Better mobile usability** - accessibility patterns (large targets, clear focus, keyboard-equivalent paths) make every interaction faster
+- **Stronger brand reputation** - accessibility statements and visible commitments build trust
+- **Lower support costs** - accessible forms have higher completion rates and fewer error tickets
 
-The web should work for everyone. This 30-step ADA compliance checklist is your starting point. The next step is doing the work — or [requesting an audit](/free-website-audit/) so you have a prioritised plan to do it from.
+The web should work for everyone. This 30-step ADA compliance checklist is your starting point. The next step is doing the work - or [requesting an audit](/free-website-audit/) so you have a prioritised plan to do it from.

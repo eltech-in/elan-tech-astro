@@ -1,0 +1,187 @@
+---
+title: "Building Subscription eCommerce with Medusa.js, Razorpay and PhonePe"
+description: "An architecture guide to subscription ecommerce with Medusa.js in India, covering payment modules, webhook safety, recurring orders, shipping cycles, and operational states."
+publishDate: 2026-07-07
+author: "eLan Technology Team"
+category: "ecommerce"
+tags: ["Medusa.js subscriptions", "Medusa Razorpay", "Medusa PhonePe", "subscription ecommerce India", "custom shipping module"]
+readTime: 12
+featuredImage:
+  src: "/images/ecommerce-og-2026.png"
+  alt: "Medusa.js subscription ecommerce architecture with payments and shipping"
+draft: false
+seo:
+  focusKeyword: "Medusa.js subscription ecommerce"
+  metaTitle: "Medusa.js Subscriptions with Razorpay & PhonePe"
+  metaDescription: "Plan subscription ecommerce using Medusa.js, Razorpay, PhonePe, webhooks, recurring orders, shipping cycles, and operational controls."
+faq:
+  - question: "Does Medusa.js include subscriptions by default?"
+    answer: "Subscription behaviour is typically implemented around the specific business model. Medusa provides commerce modules and workflows that can be extended with subscription plans, state, recurring order generation, payments, shipping, and customer actions."
+  - question: "Can Razorpay and PhonePe be integrated with Medusa.js?"
+    answer: "Yes. A Medusa payment module can connect provider APIs to payment sessions, authorisation or collection, webhook events, refunds, and order state. Exact capabilities depend on the merchant account and selected provider product."
+  - question: "What makes subscription shipping difficult?"
+    answer: "Subscription billing and physical fulfilment are separate timelines. The platform must decide when an order is generated, when inventory is reserved, when shipping is purchased, and how pauses, failures, address changes, and cancellations affect each cycle."
+---
+
+A subscription store is not simply a normal checkout with a “repeat every month” option.
+
+It is a stateful system connecting customer consent, plans, payments, recurring orders, inventory, shipping, notifications, refunds, and customer-service actions. The most difficult work lives in the transitions between those areas.
+
+This article explains the architecture questions behind a custom Medusa.js subscription platform using Indian payment gateways and shipping workflows. It reflects lessons from our [Puritas Medusa.js implementation](/portfolio/case-study/puritas/) without exposing confidential code or merchant configuration.
+
+<div class="tldr" data-speakable>
+**The central design principle:** model the subscription, payment, order, and fulfilment as related but separate states. Do not treat a gateway callback as the complete business process.
+</div>
+
+## Start with the subscription contract
+
+Before writing a payment module, define what the customer is agreeing to.
+
+Questions include:
+
+- Is the plan prepaid, recurring, or manually renewed?
+- Is the price fixed or recalculated each cycle?
+- Can products or quantities change?
+- Can a customer skip, pause, resume, or cancel?
+- When does a change take effect?
+- What happens to promotions after the first order?
+- How are taxes and shipping recalculated?
+- What happens when a product becomes unavailable?
+
+These decisions become the subscription data model and workflow rules.
+
+## Keep four state machines separate
+
+### 1. Subscription state
+
+Examples: pending, active, paused, cancellation-scheduled, cancelled, expired.
+
+### 2. Payment state
+
+Examples: session-created, pending, authorised, captured, failed, refunded.
+
+### 3. Order state
+
+Examples: draft, awaiting-payment, confirmed, cancelled, completed.
+
+### 4. Fulfilment state
+
+Examples: not-ready, ready-to-ship, booked, shipped, delivered, returned.
+
+If these are collapsed into one status, exception handling becomes unpredictable. A payment may succeed while shipping booking fails. A subscription may remain active while one cycle is paused. An order may be refunded without cancelling future subscription cycles.
+
+## The role of a Medusa payment module
+
+Medusa’s framework provides payment interfaces and workflows that an integration can implement for a provider. A production module usually needs to handle:
+
+- Creating or updating a payment session
+- Sending the correct amount and merchant reference
+- Redirect or app-switch behaviour where required
+- Verifying signed callbacks or webhooks
+- Reconciling asynchronous events
+- Authorisation, capture, cancellation, and refunds where supported
+- Translating provider states into platform states
+- Idempotency and duplicate-event protection
+- Operational logging without exposing secrets
+
+The [Medusa documentation](https://docs.medusajs.com/learn) explains how commerce modules and workflows can be extended around custom requirements.
+
+## Razorpay and PhonePe are not interchangeable
+
+Both can participate in an Indian ecommerce payment architecture, but the available products, checkout experiences, recurring-payment capabilities, settlement behaviour, and merchant-account requirements can differ.
+
+The integration should therefore expose a stable commerce interface while keeping provider-specific behaviour inside the module.
+
+Do not assume that because one gateway supports a workflow in a dashboard, the same workflow is available through the merchant’s enabled API product. Confirm the commercial account, API documentation, test environment, and production approvals early.
+
+## Webhooks must be treated as untrusted, repeatable input
+
+Payment webhooks can arrive late, more than once, or out of order. A secure handler should:
+
+1. Verify the provider signature.
+2. Reject unsupported event types.
+3. Store or derive an idempotency key.
+4. Check the current payment and order state.
+5. Apply only valid transitions.
+6. Record enough context for reconciliation.
+7. Return promptly and continue non-critical work asynchronously.
+
+Never mark an order paid only because the browser returned to a “success” URL. Confirm the result using the trusted provider event or server-side verification method.
+
+## Generating recurring orders
+
+A subscription renewal is usually best handled by an explicit workflow:
+
+1. Find subscriptions due for a cycle.
+2. Lock or mark the cycle to prevent duplicate processing.
+3. Validate customer, address, plan, products, price, and inventory.
+4. Create a draft or pending order.
+5. initiate the appropriate payment action.
+6. Confirm the order after verified payment state.
+7. Begin fulfilment preparation.
+8. Notify the customer.
+9. Record the next cycle date or exception.
+
+Medusa workflows are useful here because they organise multi-step operations and can support compensating actions when a later step fails.
+
+## Shipping has its own cycle
+
+The shipping module needs more than a rate lookup.
+
+For subscription commerce, consider:
+
+- Whether serviceability is rechecked each cycle
+- Address changes between billing and fulfilment
+- Weight or package changes
+- Carrier rate changes
+- Inventory split across locations
+- Shipment creation and label generation
+- Tracking updates
+- Delivery failure and return-to-origin
+- Skipped or paused cycles
+- Shipping refunds
+
+Billing the customer before validating fulfilment can create avoidable refunds. Reserving inventory too early can block stock unnecessarily. The correct sequence depends on product shelf life, stock policy, provider behaviour, and fulfilment operations.
+
+## Customer controls and support tools
+
+A good subscription system needs clear customer actions:
+
+- View plan and next date
+- Pause or resume
+- Skip a cycle
+- Change address
+- Change an allowed product or quantity
+- Update the payment method where supported
+- Cancel with clear effective timing
+- View related orders and payment history
+
+Support teams also need safe administrative actions and an audit trail. Manual database edits are not an operating model.
+
+## Observability is part of the feature
+
+Track:
+
+- Renewals due and processed
+- Payment success and failure by provider
+- Duplicate or rejected events
+- Orders awaiting manual review
+- Shipping booking failures
+- Subscription churn reasons
+- Refund and return patterns
+
+Alerts should focus on conditions requiring action, not every normal event.
+
+## Production checklist
+
+- Test duplicate and out-of-order webhooks.
+- Test payment success with order or shipping failure.
+- Test refunds and cancellations at different stages.
+- Test expired or invalid addresses.
+- Test plan changes near a billing boundary.
+- Test inventory shortages.
+- Test gateway and carrier timeouts.
+- Confirm secret rotation and restricted log access.
+- Document reconciliation and incident procedures.
+
+Our [Medusa.js development service](/services/ecommerce/medusa-js-development/) covers architecture, custom modules, storefronts, integrations, migration, and ongoing engineering for commerce models that require this degree of control.

@@ -47,7 +47,7 @@ export default function RushAssessmentForm() {
           'Accept': 'application/json',
         },
         body: JSON.stringify({
-          _subject: `EMERGENCY ADA — Rush assessment from ${fields.name}`,
+          _subject: `EMERGENCY ADA - Rush assessment from ${fields.name}`,
           priority: 'Emergency ADA',
           ...fields,
         }),
