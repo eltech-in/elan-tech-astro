@@ -44,7 +44,7 @@ const faqs = [
   {
     question: "Can you help if I've already received a lawsuit or demand letter?",
     answer:
-      "Yes - this page exists for exactly that. We can begin an emergency assessment within 24 hours and produce a documented remediation plan, often the single most useful thing to show you're acting in good faith. We're not a law firm and don't give legal advice; we work alongside your attorney and provide the technical remediation and documentation they need.",
+      "Yes - this page exists for exactly that. We prioritise emergency assessment requests and confirm the earliest realistic start after reviewing availability and technical scope. We're not a law firm and don't give legal advice; we work alongside your attorney and provide the technical remediation and documentation they need.",
   },
   {
     question: 'Do you cover standards beyond US ADA?',
@@ -83,7 +83,7 @@ const serviceSchemaObj = {
     '@type': 'Offer',
     price: '1500',
     priceCurrency: 'USD',
-    description: 'Rapid Audit + Plan - flat fee, delivered in 24–72 hours, credited toward remediation',
+    description: 'Rapid Audit + Plan - flat fee, with delivery timing confirmed after scope review, credited toward remediation',
   },
 };
 
@@ -92,8 +92,8 @@ const schemas = [serviceSchemaObj, faqSchema(faqs), breadcrumbSchema(schemaBread
 
 // ── Section 01 - hero stat chips ──────────────────────────────────────────
 const heroChips = [
-  '24-hr start on emergencies',
-  '<30 days to conformance',
+  'Priority intake for emergencies',
+  'Deadline-led remediation planning',
   'WCAG 2.1 / 2.2 AA testing and retest report',
   'Code-level fixes, not overlays',
 ];
@@ -143,7 +143,7 @@ const remediationSide = [
 const steps = [
   {
     num: '01',
-    title: 'Rush assessment (24–48 hrs)',
+    title: 'Priority rush assessment',
     desc: 'Hybrid automated + manual audit of your store. You get a scoped issue list, timeline, and fixed quote.',
     cssVar: '--ac-cyan',
   },
@@ -172,7 +172,7 @@ const packages = [
   {
     name: 'Rapid Audit + Plan',
     price: 'from $1,500',
-    priceNote: 'flat · delivered 24–72 hrs',
+    priceNote: 'flat · delivery agreed after intake',
     desc: 'Know exactly where you stand - fast',
     cssVar: '--ac-cyan',
     features: [
@@ -187,7 +187,7 @@ const packages = [
   {
     name: '30-Day Shopify Remediation',
     price: 'custom fixed quote',
-    priceNote: 'conformance in <30 days',
+    priceNote: 'deadline agreed after assessment',
     desc: 'The full emergency track, end to end',
     cssVar: '--ac-amber',
     features: [
@@ -294,7 +294,7 @@ const standardsBadges = [
   <!-- Urgency strip - page-specific, directly under the hero -->
   <div class="border-y px-4 py-3 sm:px-6 lg:px-8 text-center" style="border-color: color-mix(in srgb, var(--ac-red) 30%, transparent); background: color-mix(in srgb, var(--ac-red) 8%, var(--bg));">
     <p class="mx-auto max-w-4xl text-sm font-medium text-[var(--text)]">
-      Received a demand letter or lawsuit deadline? <strong>We start emergency remediations within 24 hours</strong> - with US business-hours coverage.
+      Received a demand letter or lawsuit deadline? <strong>We prioritise emergency assessment requests</strong> and confirm a realistic start after reviewing availability and technical scope.
     </p>
   </div>
 
@@ -542,7 +542,7 @@ const standardsBadges = [
         Free rush accessibility assessment.
       </h2>
       <p class="text-lg text-[var(--text-dim)] text-center mb-10">
-        Tell us your deadline. We'll reply within a few business hours with scope, timeline, and a fixed price.
+        Share the public website URL and an optional target date. We will review the technical request and contact you with the next available steps.
       </p>
       <RushAssessmentForm client:visible />
     </div>

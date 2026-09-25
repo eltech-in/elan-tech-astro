@@ -12,6 +12,34 @@ const whatsappMsg = encodeURIComponent(`Hi eLan Technology, I'm a ${city.name} b
 
 <section class="py-16 md:py-20 bg-[var(--bg-card)]">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="relative mb-14 overflow-hidden rounded-3xl border border-[var(--border)] p-7 md:p-10" style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-teal) 12%, var(--bg)) 0%, var(--bg) 68%);">
+      <span aria-hidden="true" class="absolute inset-x-0 top-0 h-1 bg-[var(--ac-teal)]"></span>
+      <div class="relative">
+        <p class="text-xs font-bold uppercase tracking-[0.2em] text-[var(--ac-teal)]">Privacy for {city.name} enquiries</p>
+        <h2 class="mt-2 max-w-3xl font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">Share the requirement—not unnecessary personal records</h2>
+        <p class="mt-3 max-w-4xl leading-relaxed text-[var(--text-dim)]">
+          This service-area page does not create a separate {city.name} lead database or contain its own form. Quote, audit and consultation links open dedicated pages that explain their fields, purpose, providers and retention before submission.
+        </p>
+        <ul class="mt-7 grid gap-4 md:grid-cols-2" role="list">
+          {[
+            { title: 'Initial enquiries', text: 'Share business contact details and a concise requirement. Do not include customer lists, patient or employee records, passwords, payment credentials or confidential production data.' },
+            { title: 'Meetings and follow-up', text: 'Meeting details are used to arrange and follow up the requested discussion. A call or agreed visit does not automatically subscribe anyone to marketing.' },
+            { title: 'External communication tools', text: 'WhatsApp starts only when you select its link and is then governed by Meta’s terms. Booking and payment tools load only after their page-specific notice and deliberate action.' },
+            { title: 'Measurement and delivery', text: 'Optional GA4 and Clarity remain off until allowed. If work begins, access, test data, service providers, responsibilities, retention and handover are documented for the engagement.' },
+          ].map((item, index) => (
+            <li class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/80 p-5">
+              <span class="text-xs font-black text-[var(--ac-teal)]">{String(index + 1).padStart(2, '0')}</span>
+              <h3 class="mt-2 font-heading text-base font-bold text-[var(--text)]">{item.title}</h3>
+              <p class="mt-1 text-sm leading-relaxed text-[var(--text-dim)]">{item.text}</p>
+            </li>
+          ))}
+        </ul>
+        <div class="mt-6 flex flex-col gap-3 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-5 sm:flex-row sm:items-center sm:justify-between">
+          <p class="max-w-3xl text-sm leading-relaxed text-[var(--text-dim)]">Privacy questions, access requests and grievances can be sent to <a href="mailto:privacy@elan-tech.net" class="font-semibold text-[var(--accent)] underline underline-offset-2">privacy@elan-tech.net</a>.</p>
+          <a href="/privacy-policy/" class="inline-flex shrink-0 items-center justify-center rounded-full bg-[var(--accent)] px-5 py-2.5 text-sm font-bold text-white transition-opacity hover:opacity-90">Read privacy policy</a>
+        </div>
+      </div>
+    </div>
     <div class="mx-auto max-w-4xl">
       <div class="mb-10 text-center">
         <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
@@ -20,7 +48,7 @@ const whatsappMsg = encodeURIComponent(`Hi eLan Technology, I'm a ${city.name} b
         <p class="text-[var(--text-dim)] max-w-2xl mx-auto">
           {city.isHQ
             ? `Visit our ${city.name} headquarters or contact us today for a free website audit and no-obligation consultation.`
-            : `We serve ${city.name} businesses remotely with seamless communication via Slack, Zoom, and project management tools. Contact us for a free website audit.`
+            : `We serve ${city.name} remotely from Nagpur using agreed communication and project-review tools. Contact us for a website audit.`
           }
         </p>
       </div>

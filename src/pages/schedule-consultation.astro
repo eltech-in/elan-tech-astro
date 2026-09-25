@@ -16,12 +16,13 @@ const coverPoints = [
 
 const afterSteps = [
   { step: '1', title: 'Discovery Call', desc: 'We listen, understand your needs, and ask the right questions.' },
-  { step: '2', title: 'Proposal in 2 Days', desc: 'You receive a detailed proposal with scope, timeline, and pricing.' },
+  { step: '2', title: 'Proposal & Next Steps', desc: 'When a proposal is appropriate, it sets out the agreed scope, timeline, and pricing.' },
   { step: '3', title: 'Project Kickoff', desc: 'Once approved, we begin with an onboarding session and project plan.' },
 ];
 ---
 
 <BaseLayout
+  ogImage="/images/og/contact.png"
   title="Schedule a Free Strategy Consultation - eLan Technology"
   description="Book a free 30-minute strategy consultation with eLan Technology. We'll review your goals, current website, and recommend the right digital solutions."
   schema={schema}
@@ -112,10 +113,46 @@ const afterSteps = [
         <h2 id="booking-heading" class="font-heading text-2xl font-bold text-[var(--text)] mb-4">Book Your Free Call</h2>
         <p class="text-[var(--text-dim)] mb-6">Pick a time that works for you:</p>
 
-        <!-- Calendly inline widget begin -->
-        <div class="calendly-inline-widget" data-url="https://calendly.com/elantech/biz-meet?hide_event_type_details=1&hide_gdpr_banner=1" style="min-width:320px;height:700px;"></div>
-        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async is:inline></script>
-        <!-- Calendly inline widget end -->
+        <div
+          id="calendly-consent-panel"
+          class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 sm:p-8 text-left"
+        >
+          <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--accent)]/10 text-[var(--accent)]" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+              <path d="M16 3v4M8 3v4M3 10h18"></path>
+              <path d="m9 15 2 2 4-4"></path>
+            </svg>
+          </div>
+          <h3 class="mt-4 text-center font-heading text-xl font-bold text-[var(--text)]">Load the secure booking calendar</h3>
+          <p id="calendly-privacy-notice" class="mt-3 text-sm leading-relaxed text-[var(--text-dim)]">
+            The calendar is provided by Calendly and is blocked until you choose to load it. If you continue,
+            Calendly will receive your IP address and browser/device information, may set its own cookies, and
+            will process the contact and scheduling details you enter. We use those details only to arrange and
+            communicate about your requested consultation.
+          </p>
+          <p class="mt-3 text-xs leading-relaxed text-[var(--text-muted)]">
+            Review our <a href="/privacy-policy/" class="font-semibold text-[var(--accent)] underline underline-offset-2">Privacy Policy</a>
+            and <a href="https://calendly.com/privacy" target="_blank" rel="noopener noreferrer" class="font-semibold text-[var(--accent)] underline underline-offset-2">Calendly's Privacy Notice</a>.
+            You can use the direct contact options below without loading Calendly.
+          </p>
+          <button
+            type="button"
+            id="load-calendly"
+            aria-describedby="calendly-privacy-notice"
+            class="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[var(--accent)] px-6 py-3 text-sm font-bold text-[var(--bg)] shadow-lg transition hover:-translate-y-0.5 hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] disabled:cursor-wait disabled:opacity-70"
+          >
+            Load Calendly &amp; Choose a Time
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+          <p class="mt-3 text-center text-xs text-[var(--text-muted)]">
+            Prefer a separate tab?
+            <a href="https://calendly.com/elantech/biz-meet" target="_blank" rel="noopener noreferrer" class="font-semibold text-[var(--accent)] underline underline-offset-2">Open Calendly directly</a>.
+          </p>
+          <p id="calendly-load-status" class="mt-3 text-center text-xs text-[var(--text-muted)]" aria-live="polite"></p>
+        </div>
+
+        <div id="calendly-widget-host" class="w-full" style="min-width:0;height:700px;" hidden tabindex="-1" aria-label="Calendly appointment booking calendar"></div>
 
         <p class="mt-4 text-sm text-[var(--text-muted)]">Or reach us directly:</p>
         <div class="flex flex-col sm:flex-row gap-3 justify-center mt-3">
@@ -141,6 +178,67 @@ const afterSteps = [
       </div>
     </div>
   </section>
+
+  <script is:inline>
+    (function () {
+      var loadButton = document.getElementById('load-calendly');
+      var consentPanel = document.getElementById('calendly-consent-panel');
+      var widgetHost = document.getElementById('calendly-widget-host');
+      var status = document.getElementById('calendly-load-status');
+      var calendlyUrl = 'https://calendly.com/elantech/biz-meet?hide_event_type_details=1';
+
+      if (!loadButton || !consentPanel || !widgetHost || !status) return;
+
+      function showLoadError() {
+        widgetHost.hidden = true;
+        consentPanel.hidden = false;
+        loadButton.disabled = false;
+        loadButton.textContent = 'Try Loading Calendly Again';
+        status.textContent = 'The booking calendar could not be loaded. Please use WhatsApp, email, phone, or open Calendly directly.';
+      }
+
+      function initialiseCalendar() {
+        if (!window.Calendly || typeof window.Calendly.initInlineWidget !== 'function') {
+          showLoadError();
+          return;
+        }
+        consentPanel.hidden = true;
+        widgetHost.hidden = false;
+        widgetHost.replaceChildren();
+        window.Calendly.initInlineWidget({
+          url: calendlyUrl,
+          parentElement: widgetHost
+        });
+        widgetHost.focus({ preventScroll: true });
+      }
+
+      loadButton.addEventListener('click', function () {
+        loadButton.disabled = true;
+        loadButton.textContent = 'Loading Calendly…';
+        status.textContent = 'Connecting to Calendly. This may take a moment.';
+
+        if (window.Calendly && typeof window.Calendly.initInlineWidget === 'function') {
+          initialiseCalendar();
+          return;
+        }
+
+        var existingScript = document.querySelector('script[data-elan-calendly]');
+        if (existingScript) {
+          existingScript.addEventListener('load', initialiseCalendar, { once: true });
+          existingScript.addEventListener('error', showLoadError, { once: true });
+          return;
+        }
+
+        var script = document.createElement('script');
+        script.src = 'https://assets.calendly.com/assets/external/widget.js';
+        script.async = true;
+        script.dataset.elanCalendly = 'true';
+        script.addEventListener('load', initialiseCalendar, { once: true });
+        script.addEventListener('error', showLoadError, { once: true });
+        document.head.appendChild(script);
+      });
+    })();
+  </script>
 
 
   <!-- ═══════════════════════════════════════════════════════════════════════

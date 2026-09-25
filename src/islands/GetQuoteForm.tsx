@@ -1,4 +1,5 @@
-import { useState, useEffect, type SubmitEvent } from 'react';
+import { useEffect, useRef, useState, type SubmitEvent } from 'react';
+import { redirectToThankYou, submitLead } from '../lib/submitLead';
 
 const PROJECT_TYPES = [
   'Website Design',
@@ -31,15 +32,6 @@ const TIMELINES = [
   'Flexible',
 ];
 
-const REFERRALS = [
-  'Google Search',
-  'Social Media',
-  'Friend / Colleague',
-  'Previous Client',
-  'Blog / Article',
-  'Other',
-];
-
 // Maps a ?service= URL param to a pre-selected project type, so links like
 // /get-quote/?service=ada-emergency skip straight to the contact step
 // instead of leaving the visitor on an unrelated step-1 selection.
@@ -54,11 +46,13 @@ export default function GetQuoteForm() {
   const [step, setStep] = useState(1);
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
+  const [honeypot, setHoneypot] = useState('');
+  const startedAt = useRef(Date.now());
 
   const [projectType, setProjectType] = useState('');
   const [contact, setContact] = useState({ name: '', email: '', phone: '', company: '' });
   const [project, setProject] = useState({ budget: '', timeline: '', description: '' });
-  const [referral, setReferral] = useState('');
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [urgent, setUrgent] = useState(false);
 
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
@@ -81,10 +75,10 @@ export default function GetQuoteForm() {
     if (n === 2) {
       if (!contact.name.trim() || contact.name.trim().length < 2) errs.name = 'Name must be at least 2 characters';
       if (!contact.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email)) errs.email = 'Please enter a valid email';
-      if (!contact.phone.trim()) errs.phone = 'Phone number is required';
-      else if (!/^[\d\s+\-()]{7,20}$/.test(contact.phone.trim())) errs.phone = 'Please enter a valid phone number';
+      if (contact.phone.trim() && !/^[\d\s+\-()]{7,20}$/.test(contact.phone.trim())) errs.phone = 'Please enter a valid phone number';
     }
     if (n === 3 && !project.description.trim()) errs.description = 'Project description is required';
+    if (n === 4 && !privacyAccepted) errs.privacyAccepted = 'Please confirm that you have read the quote-request privacy notice';
     setFieldErrors(errs);
     return Object.keys(errs).length === 0;
   }
@@ -102,28 +96,33 @@ export default function GetQuoteForm() {
 
   async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    if (honeypot) {
+      setStatus('success');
+      return;
+    }
+
+    if (!validateStep(4)) return;
+
+    if (Date.now() - startedAt.current < 2000) {
+      setStatus('error');
+      setErrorMsg('Please wait a moment, then submit the form again.');
+      return;
+    }
+
     setStatus('submitting');
     try {
-      const res = await fetch('https://formsubmit.co/ajax/info@elantech.in', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          _subject: urgent ? `EMERGENCY ADA - Quote request from ${contact.name || 'website'}` : `New Quote Request for ${projectType}`,
-          priority: urgent ? 'Emergency ADA' : 'Standard',
-          projectType,
-          ...contact,
-          ...project,
-          referral
-        }),
+      await submitLead('get-quote', {
+        _subject: urgent ? `EMERGENCY ADA - Quote request from ${contact.name || 'website'}` : `New Quote Request for ${projectType}`,
+        _honey: honeypot,
+        _privacyNoticeVersion: 'get-quote-2026-09-23',
+        privacyAccepted,
+        priority: urgent ? 'Emergency ADA' : 'Standard',
+        projectType,
+        ...contact,
+        ...project,
       });
-      if (res.ok) {
-        setStatus('success');
-      } else {
-        throw new Error('Server error');
-      }
+      redirectToThankYou('get-quote');
     } catch {
       setStatus('error');
       setErrorMsg('Something went wrong. Please try again or contact us directly.');
@@ -140,10 +139,10 @@ export default function GetQuoteForm() {
         </div>
         <h3 className="text-xl font-bold text-[var(--text)] mb-2">Quote Request Received!</h3>
         <p className="text-sm text-[var(--text-dim)]">
-          Thank you! We'll review your project details and get back to you within 24-48 hours with a tailored quote.
+          Thank you! We normally review project details within one business day and will contact you if clarification is needed before preparing the quote.
         </p>
         <button
-          onClick={() => { setStatus('idle'); setStep(1); setProjectType(''); setContact({ name: '', email: '', phone: '', company: '' }); setProject({ budget: '', timeline: '', description: '' }); setReferral(''); }}
+          onClick={() => { setStatus('idle'); setStep(1); setProjectType(''); setContact({ name: '', email: '', phone: '', company: '' }); setProject({ budget: '', timeline: '', description: '' }); setPrivacyAccepted(false); }}
           className="mt-6 text-sm font-semibold text-[var(--accent)] hover:underline"
         >
           Submit another request
@@ -175,7 +174,20 @@ export default function GetQuoteForm() {
   );
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-5">
+    <form onSubmit={handleSubmit} noValidate className="space-y-5" aria-describedby={step === 4 ? 'quote-form-privacy-summary' : undefined}>
+      <div className="absolute -left-[10000px] h-px w-px overflow-hidden" aria-hidden="true">
+        <label htmlFor="gq-website-check">Leave this field empty</label>
+        <input
+          id="gq-website-check"
+          name="website_check"
+          type="text"
+          value={honeypot}
+          onChange={(event) => setHoneypot(event.target.value)}
+          autoComplete="off"
+          tabIndex={-1}
+        />
+      </div>
+
       {urgent && (
         <div role="status" className="rounded-lg border border-red-400/30 bg-red-400/10 px-4 py-2.5 text-xs font-semibold text-red-400">
           Flagged as Emergency ADA - we triage these first.
@@ -220,6 +232,7 @@ export default function GetQuoteForm() {
               <input
                 id="gq-name"
                 type="text"
+                autoComplete="name"
                 value={contact.name}
                 onChange={(e) => setContact((p) => ({ ...p, name: e.target.value }))}
                 aria-required="true"
@@ -236,6 +249,7 @@ export default function GetQuoteForm() {
               <input
                 id="gq-email"
                 type="email"
+                autoComplete="email"
                 value={contact.email}
                 onChange={(e) => setContact((p) => ({ ...p, email: e.target.value }))}
                 aria-required="true"
@@ -248,14 +262,14 @@ export default function GetQuoteForm() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="gq-phone" className="block text-sm font-medium text-[var(--text)] mb-1.5">
-                  Phone <span aria-hidden="true" className="text-red-400">*</span>
+                  Phone <span className="text-xs font-normal text-[var(--text-muted)]">(optional)</span>
                 </label>
                 <input
                   id="gq-phone"
                   type="tel"
+                  autoComplete="tel"
                   value={contact.phone}
                   onChange={(e) => setContact((p) => ({ ...p, phone: e.target.value }))}
-                  aria-required="true"
                   aria-describedby={fieldErrors.phone ? 'gq-phone-error' : undefined}
                   className={inputClass}
                   placeholder="+1 or +91..."
@@ -263,10 +277,11 @@ export default function GetQuoteForm() {
                 {fieldErrors.phone && <p id="gq-phone-error" role="alert" aria-live="polite" className="mt-1 text-xs text-red-400">{fieldErrors.phone}</p>}
               </div>
               <div>
-                <label htmlFor="gq-company" className="block text-sm font-medium text-[var(--text)] mb-1.5">Company</label>
+                <label htmlFor="gq-company" className="block text-sm font-medium text-[var(--text)] mb-1.5">Company <span className="text-xs font-normal text-[var(--text-muted)]">(optional)</span></label>
                 <input
                   id="gq-company"
                   type="text"
+                  autoComplete="organization"
                   value={contact.company}
                   onChange={(e) => setContact((p) => ({ ...p, company: e.target.value }))}
                   className={inputClass}
@@ -283,14 +298,14 @@ export default function GetQuoteForm() {
           <legend className="text-base font-semibold text-[var(--text)] mb-4">Project Details</legend>
           <div className="space-y-4">
             <div>
-              <label htmlFor="gq-budget" className="block text-sm font-medium text-[var(--text)] mb-1.5">Budget Range</label>
+              <label htmlFor="gq-budget" className="block text-sm font-medium text-[var(--text)] mb-1.5">Budget Range <span className="text-xs font-normal text-[var(--text-muted)]">(optional)</span></label>
               <select id="gq-budget" value={project.budget} onChange={(e) => setProject((p) => ({ ...p, budget: e.target.value }))} className={inputClass}>
                 <option value="">Select budget range</option>
                 {BUDGETS.map((b) => <option key={b} value={b}>{b}</option>)}
               </select>
             </div>
             <div>
-              <label htmlFor="gq-timeline" className="block text-sm font-medium text-[var(--text)] mb-1.5">Timeline</label>
+              <label htmlFor="gq-timeline" className="block text-sm font-medium text-[var(--text)] mb-1.5">Timeline <span className="text-xs font-normal text-[var(--text-muted)]">(optional)</span></label>
               <select id="gq-timeline" value={project.timeline} onChange={(e) => setProject((p) => ({ ...p, timeline: e.target.value }))} className={inputClass}>
                 <option value="">Select timeline</option>
                 {TIMELINES.map((t) => <option key={t} value={t}>{t}</option>)}
@@ -306,10 +321,13 @@ export default function GetQuoteForm() {
                 value={project.description}
                 onChange={(e) => setProject((p) => ({ ...p, description: e.target.value }))}
                 aria-required="true"
-                aria-describedby={fieldErrors.description ? 'gq-desc-error' : undefined}
+                aria-describedby={fieldErrors.description ? 'gq-desc-help gq-desc-error' : 'gq-desc-help'}
                 className={inputClass}
                 placeholder="Describe your project goals, features needed..."
               />
+              <p id="gq-desc-help" className="mt-1.5 text-xs leading-relaxed text-[var(--text-muted)]">
+                Please describe business requirements only. Do not include passwords, payment details, health information or other sensitive personal data.
+              </p>
               {fieldErrors.description && <p id="gq-desc-error" role="alert" aria-live="polite" className="mt-1 text-xs text-red-400">{fieldErrors.description}</p>}
             </div>
           </div>
@@ -318,16 +336,38 @@ export default function GetQuoteForm() {
 
       {step === 4 && (
         <fieldset>
-          <legend className="text-base font-semibold text-[var(--text)] mb-4">One Last Thing</legend>
-          <div>
-            <label htmlFor="gq-referral" className="block text-sm font-medium text-[var(--text)] mb-1.5">
-              How did you hear about us?
-            </label>
-            <select id="gq-referral" value={referral} onChange={(e) => setReferral(e.target.value)} className={inputClass}>
-              <option value="">Select an option</option>
-              {REFERRALS.map((r) => <option key={r} value={r}>{r}</option>)}
-            </select>
+          <legend className="text-base font-semibold text-[var(--text)] mb-4">Privacy &amp; Submission</legend>
+          <div id="quote-form-privacy-summary" className="rounded-xl border border-[var(--border)] bg-[var(--bg)]/70 p-4">
+            <p className="text-sm font-semibold text-[var(--text)]">How we use your quote request</p>
+            <p className="mt-1 text-xs leading-relaxed text-[var(--text-dim)]">
+              We use these details only to assess your requirements, prepare or discuss a quote, and follow up about this request. The submission is stored in our private hosting area and may be sent through Brevo for the notification. FormSubmit may be used only if that delivery route is unavailable. An unconverted quote request is retained for up to 12 months. We do not add you to marketing lists from this form.
+            </p>
+            <p className="mt-2 text-xs text-[var(--text-muted)]">
+              Read our <a href="/privacy-policy/" className="font-semibold text-[var(--accent)] underline underline-offset-2">Privacy Policy</a>
+              {' '}or email <a href="mailto:privacy@elan-tech.net" className="font-semibold text-[var(--accent)] underline underline-offset-2">privacy@elan-tech.net</a> to exercise your data rights.
+            </p>
           </div>
+
+          <label htmlFor="gq-privacy" className="mt-4 flex cursor-pointer items-start gap-3 rounded-xl border border-[var(--border)] p-3.5 transition-colors hover:bg-[var(--bg)]">
+            <input
+              id="gq-privacy"
+              type="checkbox"
+              checked={privacyAccepted}
+              onChange={(event) => setPrivacyAccepted(event.target.checked)}
+              aria-required="true"
+              aria-describedby={fieldErrors.privacyAccepted ? 'gq-privacy-error' : 'quote-form-privacy-summary'}
+              className="mt-0.5 h-5 w-5 flex-none rounded border-[var(--border)] accent-[var(--accent)]"
+            />
+            <span className="text-sm leading-relaxed text-[var(--text-dim)]">
+              I have read the quote-request privacy notice and agree that eLan Technology may use my details to assess and respond to this request.
+              <span aria-hidden="true" className="text-red-400"> *</span>
+            </span>
+          </label>
+          {fieldErrors.privacyAccepted && (
+            <p id="gq-privacy-error" role="alert" aria-live="polite" className="mt-1.5 text-xs text-red-400">
+              {fieldErrors.privacyAccepted}
+            </p>
+          )}
 
           {status === 'error' && (
             <p role="alert" aria-live="polite" className="mt-3 text-xs text-red-400 bg-red-400/10 p-3 rounded-lg border border-red-400/20">

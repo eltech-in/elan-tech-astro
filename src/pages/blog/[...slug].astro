@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BlogLayout from '../../layouts/BlogLayout.astro';
 import { articleSchema, breadcrumbSchema, speakableSchema, howToSchema, faqSchema } from '../../utils/schema';
 import { isPublishedPost } from '../../utils/blog';
+import digitalIndependenceHero from '../../assets/blog/digital-independence-2026.avif';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -23,6 +24,9 @@ const publishDateStr = toISO(post.data.publishDate);
 const updatedDateStr = post.data.updatedDate ? toISO(post.data.updatedDate) : publishDateStr;
 
 const postUrl = `/blog/${post.data.category}/${post.id}/`;
+const coverImage = post.id === 'digital-independence-21-years'
+  ? digitalIndependenceHero
+  : (post.data.heroUsesCover ? post.data.featuredImage?.src : undefined);
 
 const breadcrumbs = [
   { name: 'Home', url: '/' },
@@ -42,7 +46,7 @@ const schemas = [
     datePublished: publishDateStr,
     dateModified: updatedDateStr,
     authorName: post.data.author ?? 'eLan Technology Team',
-    imageUrl: post.data.featuredImage?.src,
+    imageUrl: post.data.featuredImage?.src.src,
   }),
   breadcrumbSchema(breadcrumbs),
   // AEO: H1, lede, summary box, and structured-answer blocks are speakable.
@@ -71,7 +75,8 @@ const schemas = [
   publishDate={publishDateStr}
   author={post.data.author}
   readTime={`${post.data.readTime} min read`}
-  coverImage={post.data.featuredImage?.src}
+  ogImage={post.data.featuredImage?.src.src}
+  coverImage={coverImage}
   category={post.data.category}
   tags={post.data.tags}
   schema={schemas}

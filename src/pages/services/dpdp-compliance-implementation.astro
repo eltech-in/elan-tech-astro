@@ -1,0 +1,31 @@
+---
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+import ServiceDetailContent from '../../components/ServiceDetailContent.astro';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../../utils/schema';
+
+const faqs = [
+  { question: 'Does this service guarantee DPDP compliance?', answer: 'No. We provide website, consent, analytics and operational implementation support for an agreed scope. Compliance depends on the organisation’s purposes, policies, people, vendors and continuing practices, and may require legal advice.' },
+  { question: 'Can you update an existing website?', answer: 'Yes. We can audit the current forms, cookies, embeds, analytics, vendors and policies, then implement prioritised changes in the website and related tag-management setup where access is provided.' },
+  { question: 'Do you write the legal privacy policy?', answer: 'We can prepare an implementation-oriented draft and data-flow inventory for review. Final legal notices, interpretations and sector-specific obligations should be approved by the organisation and qualified counsel where appropriate.' },
+  { question: 'Does the service include GA4 and GTM consent controls?', answer: 'They can be included. We review the current tags, consent states, event collection and third-party scripts, then configure the agreed behaviour and test it across representative journeys.' },
+  { question: 'Is this a one-time exercise?', answer: 'No. A website or data practice can change after every new form, plugin, campaign, integration or vendor. The handover identifies review triggers and an optional periodic review can be scoped.' },
+];
+const path = '/services/dpdp-compliance-implementation/';
+const schema = [serviceSchema('DPDP Compliance & Implementation', 'Website and digital implementation support for India DPDP readiness, including data mapping, notices, consent controls, retention and rights workflows.', path), faqSchema(faqs), breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Services', url: '/services/' }, { name: 'DPDP Compliance & Implementation', url: path }])];
+---
+<ServiceLayout title="DPDP Compliance Implementation for Websites | eLan Technology" description="Practical DPDP website implementation: forms, privacy notices, cookie and analytics consent, vendor mapping, retention and data-rights workflows." breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Services', href: '/services/' }, { name: 'DPDP Implementation', href: path }]} schema={schema} accentVar="--ac-emerald" serviceNumber="12" serviceLabel="DPDP Compliance & Implementation">
+  <ServiceDetailContent
+    eyebrow="India privacy implementation · websites and digital journeys"
+    heading="Turn DPDP requirements into visible, testable changes"
+    intro="Move beyond a privacy-policy document. We map what the website collects, where information travels, which choices users receive and what the team must do after a request, then implement the approved technical scope."
+    features={['Page and form inventory', 'Cookie and embed controls', 'GA4 and GTM consent setup', 'Privacy notice implementation', 'Vendor and data-flow mapping', 'Retention and rights workflows', 'Testing and evidence pack']}
+    outcomes={[{ title: 'Clear collection points', text: 'Each agreed form and digital journey explains its purpose and separates necessary submission from optional choices.' }, { title: 'Controlled third parties', text: 'Analytics, maps, video, scheduling and marketing tools load according to the approved consent and notice design.' }, { title: 'Actionable requests', text: 'Access, correction, withdrawal, erasure and grievance contacts connect to defined internal owners and response steps.' }]}
+    deliverables={[{ title: 'Implementation inventory', text: 'Pages, forms, fields, cookies, tags, embeds, vendors, destinations and identified gaps.' }, { title: 'Prioritised remediation plan', text: 'Required decisions and changes organised by risk, dependency and implementation effort.' }, { title: 'Website and tag changes', text: 'Approved notices, choices, consent state, analytics behaviour and request routes.' }, { title: 'Test and handover record', text: 'Evidence of representative checks, configuration notes, limitations and review triggers.' }]}
+    process={[{ number: '01', title: 'Map', text: 'Inventory collection, purposes, data flows, cookies, vendors and responsible owners.' }, { number: '02', title: 'Decide', text: 'Client and advisers approve purposes, notices, choices, retention and responsibility.' }, { number: '03', title: 'Implement', text: 'Update pages, forms, consent UI, tags, embeds and operational routes.' }, { number: '04', title: 'Test and maintain', text: 'Verify representative journeys, record limitations and schedule change reviews.' }]}
+    suitableFor={['Indian business websites collecting enquiries, applications, bookings or customer data.', 'Organisations using GA4, GTM, advertising pixels or third-party embeds.', 'Websites with outdated policies or inconsistent consent language.', 'Teams ready to name internal owners for privacy requests and vendor decisions.']}
+    responsibilities={['Approve the lawful business purposes and final notices.', 'Identify internal owners, vendors, systems and retention requirements.', 'Provide access to the website, tags and relevant vendor settings.', 'Maintain the controls and request workflows after handover.']}
+    faqs={faqs}
+    accentVar="--ac-emerald"
+    disclaimer="eLan Technology provides technical and implementation consulting, not legal advice or certification. Final legal interpretation and organisational compliance remain the client’s responsibility."
+  />
+</ServiceLayout>

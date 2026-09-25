@@ -15,7 +15,7 @@ export const faqs: FAQItem[] = [
   {
     question: 'How many years of experience does eLan Technology have?',
     answer:
-      'eLan Technology has 24+ years of experience in web design, web development, eCommerce, and digital marketing. We have delivered 1,500+ projects for 500+ clients across healthcare, education, manufacturing, hospitality, NGOs, and more.',
+      'eLan Technology has worked in web design, web development, ecommerce and digital marketing since operations began in 2002. Our portfolio includes work across healthcare, education, manufacturing, hospitality, ecommerce, professional services and non-profit organisations.',
     category: 'general',
   },
   {
@@ -33,7 +33,7 @@ export const faqs: FAQItem[] = [
   {
     question: 'Can I see examples of your previous work?',
     answer:
-      'Absolutely. You can browse our portfolio at <a href="https://elan-tech.net/portfolio" class="text-[var(--accent)] underline hover:opacity-80" target="_blank" rel="noopener noreferrer">elan-tech.net/portfolio</a> to see case studies for projects including Ribolator USA, CIPL Corporate Portal, Aasthaa Hospital, D\'FYNE Magazine, and more. We are happy to share additional relevant work samples on request.',
+      'Absolutely. You can browse our portfolio at <a href="https://elan-tech.net/portfolio/" class="text-[var(--accent)] underline hover:opacity-80" target="_blank" rel="noopener noreferrer">elan-tech.net/portfolio/</a> to see case studies for projects including Ribolator USA, CIPL Corporate Portal, Aasthaa Hospital, D\'FYNE Magazine, and more. We are happy to share additional relevant work samples on request.',
     category: 'general',
   },
 
@@ -195,7 +195,7 @@ export const faqs: FAQItem[] = [
   {
     question: 'How can a Raipur business get started with eLan Technology?',
     answer:
-      'Getting started is simple. Fill out our contact form at <a href="https://elan-tech.net/contact" class="text-[var(--accent)] underline hover:opacity-80" target="_blank" rel="noopener noreferrer">elan-tech.net/contact</a>, send us an email at <a href="mailto:hello@elan-tech.net" class="text-[var(--accent)] underline hover:opacity-80">hello@elan-tech.net</a>, or call us directly. We will schedule a discovery call to understand your business goals and send you a detailed proposal within 48 hours.',
+      'Getting started is simple. Fill out our contact form at <a href="https://elan-tech.net/contact/" class="text-[var(--accent)] underline hover:opacity-80" target="_blank" rel="noopener noreferrer">elan-tech.net/contact/</a>, send us an email at <a href="mailto:hello@elan-tech.net" class="text-[var(--accent)] underline hover:opacity-80">hello@elan-tech.net</a>, or call us directly. We will schedule a discovery call to understand your business goals and send you a detailed proposal within 48 hours.',
     category: 'city-raipur',
   },
 ];

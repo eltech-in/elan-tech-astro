@@ -1,0 +1,31 @@
+---
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+import ServiceDetailContent from '../../components/ServiceDetailContent.astro';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../../utils/schema';
+
+const faqs = [
+  { question: 'How do you choose between Payload CMS and Directus?', answer: 'We compare the content model, development stack, permissions, editorial experience, hosting, integrations and ownership requirements. The recommendation follows discovery rather than a preferred platform.' },
+  { question: 'Can either platform be used with ecommerce?', answer: 'Yes. They can manage product storytelling, landing pages, editorial content or selected catalogue workflows around a commerce engine. Orders, payments and inventory remain in the systems agreed for those responsibilities.' },
+  { question: 'Can you migrate content from WordPress or another CMS?', answer: 'Migration can be scoped after reviewing content types, volumes, media, URLs, metadata, relationships and quality. Redirects and validation are included only where recorded in the proposal.' },
+  { question: 'Will we own the deployment?', answer: 'Client-controlled infrastructure and repositories can be used where agreed. Ownership, source delivery, third-party licences, managed services and continuing access are stated in the accepted proposal.' },
+  { question: 'Do you provide maintenance?', answer: 'Updates, monitoring, backups, security review and feature development can be included in a separate plan based on the chosen hosting and integration stack.' },
+];
+const path = '/services/payload-directus-development/';
+const schema = [serviceSchema('Payload CMS & Directus Development', 'Payload CMS and Directus implementation for modern websites, applications, product content and composable architectures.', path), faqSchema(faqs), breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Services', url: '/services/' }, { name: 'Headless CMS Development', url: '/services/headless-cms-development/' }, { name: 'Payload CMS & Directus Development', url: path }])];
+---
+<ServiceLayout title="Payload CMS & Directus Development | eLan Technology" description="Payload CMS and Directus implementation, customisation and integration for headless websites, applications, product content and composable digital experiences." breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Services', href: '/services/' }, { name: 'Headless CMS', href: '/services/headless-cms-development/' }, { name: 'Payload & Directus', href: path }]} schema={schema} accentVar="--ac-cyan" serviceNumber="13A" serviceLabel="Payload CMS & Directus Development">
+  <ServiceDetailContent
+    eyebrow="Composable content · modern ecommerce"
+    heading="Payload CMS and Directus implementations your team can operate"
+    intro="Create structured content once and deliver it to websites, storefronts and applications through a controlled API. We model the content, roles and integrations around real editorial and commerce responsibilities."
+    features={['Content and product modelling', 'Payload CMS customisation', 'Directus customisation', 'Editorial roles and approvals', 'Astro and Next.js front ends', 'Commerce and search integration', 'Migration and deployment']}
+    outcomes={[{ title: 'Structured content', text: 'Replace page-by-page duplication with reusable fields and relationships designed for approved channels.' }, { title: 'Editorial independence', text: 'Give authorised teams clear drafts, approvals and publishing controls without exposing infrastructure.' }, { title: 'Composable commerce', text: 'Connect storytelling and catalogue content to the selected commerce, search and operational systems.' }]}
+    deliverables={[{ title: 'Content architecture', text: 'Collections, fields, relationships, validation, localisation and lifecycle states.' }, { title: 'Roles and editorial workflow', text: 'Permissions, drafts, approvals, previews, audit needs and administrator boundaries.' }, { title: 'APIs and storefront integration', text: 'Agreed endpoints, webhooks, caching, search and commerce connections.' }, { title: 'Deployment and handover', text: 'Environment notes, migration, testing, backups, administrator guidance and ownership.' }]}
+    process={[{ number: '01', title: 'Model', text: 'Map channels, editors, content types, commerce responsibilities and migration sources.' }, { number: '02', title: 'Prototype', text: 'Validate the schema, editorial workflow, previews and integration approach.' }, { number: '03', title: 'Integrate', text: 'Build approved front-end, API, search and commerce connections.' }, { number: '04', title: 'Migrate and launch', text: 'Import validated content, test permissions and journeys, then hand over.' }]}
+    suitableFor={['Content-rich websites serving more than one channel.', 'Commerce teams needing richer product storytelling outside the core store.', 'Businesses seeking client-controlled, API-first content infrastructure.', 'Teams prepared to define roles, approvals and content ownership.']}
+    responsibilities={['Provide content owners, migration sources and approval rules.', 'Confirm which system owns products, prices, orders and customers.', 'Maintain required hosting, storage and third-party service accounts.', 'Approve licences, security responsibilities and support arrangements.']}
+    faqs={faqs}
+    accentVar="--ac-cyan"
+    disclaimer="Platform capability, licence terms and integration availability must be confirmed against current versions and providers. No architecture removes the client’s responsibility for lawful content, privacy, security and operational governance."
+  />
+</ServiceLayout>

@@ -11,7 +11,7 @@ const schema = [
 <LegalLayout
   title="Cookie Policy"
   description="eLan Technology cookie policy - types of cookies we use and how to manage them."
-  lastUpdated="2025-01-01"
+  lastUpdated="2026-09-24"
 >
   <SchemaMarkup schema={schema} />
 
@@ -20,7 +20,7 @@ const schema = [
     Cookies are small text files that are placed on your device (computer, smartphone, or tablet)
     when you visit a website. They are widely used to make websites work efficiently and to provide
     information to the site owner. Cookies help us recognise your device on return visits and
-    remember your preferences to improve your browsing experience.
+    remember choices made on the website.
   </p>
 
   <h2>Types of Cookies We Use</h2>
@@ -30,7 +30,7 @@ const schema = [
     <table class="min-w-full border border-[var(--border)] text-sm">
       <thead class="bg-[var(--bg-card)]">
         <tr>
-          <th class="border border-[var(--border)] px-4 py-2 text-left font-semibold">Cookie Type</th>
+          <th class="border border-[var(--border)] px-4 py-2 text-left font-semibold">Name / type</th>
           <th class="border border-[var(--border)] px-4 py-2 text-left font-semibold">Purpose</th>
           <th class="border border-[var(--border)] px-4 py-2 text-left font-semibold">Duration</th>
           <th class="border border-[var(--border)] px-4 py-2 text-left font-semibold">Required?</th>
@@ -38,22 +38,40 @@ const schema = [
       </thead>
       <tbody>
         <tr>
-          <td class="border border-[var(--border)] px-4 py-2 font-medium">Essential</td>
-          <td class="border border-[var(--border)] px-4 py-2">Site functionality, security, and form submissions</td>
-          <td class="border border-[var(--border)] px-4 py-2">Session</td>
+          <td class="border border-[var(--border)] px-4 py-2 font-medium"><code>theme</code> (local storage)</td>
+          <td class="border border-[var(--border)] px-4 py-2">Remembers the visitor's light or dark display preference.</td>
+          <td class="border border-[var(--border)] px-4 py-2">Session or until you clear site storage</td>
           <td class="border border-[var(--border)] px-4 py-2">Yes</td>
         </tr>
         <tr>
-          <td class="border border-[var(--border)] px-4 py-2 font-medium">Analytics</td>
-          <td class="border border-[var(--border)] px-4 py-2">Page views and traffic source analysis (Google Analytics)</td>
-          <td class="border border-[var(--border)] px-4 py-2">2 years</td>
-          <td class="border border-[var(--border)] px-4 py-2">Optional</td>
+          <td class="border border-[var(--border)] px-4 py-2 font-medium"><code>elan:privacy-consent</code> (local storage)</td>
+          <td class="border border-[var(--border)] px-4 py-2">Records the selected privacy categories, policy version and decision time. It does not contain a name, email address or advertising identifier.</td>
+          <td class="border border-[var(--border)] px-4 py-2">Until the visitor clears site storage or the consent version changes</td>
+          <td class="border border-[var(--border)] px-4 py-2">Yes</td>
         </tr>
         <tr>
-          <td class="border border-[var(--border)] px-4 py-2 font-medium">Preferences</td>
-          <td class="border border-[var(--border)] px-4 py-2">Theme choice (dark/light mode) and display preferences</td>
-          <td class="border border-[var(--border)] px-4 py-2">1 year</td>
-          <td class="border border-[var(--border)] px-4 py-2">Optional</td>
+          <td class="border border-[var(--border)] px-4 py-2 font-medium"><code>lp-bar-ganesh-2026</code> (local storage)</td>
+          <td class="border border-[var(--border)] px-4 py-2">Remembers dismissal of the current campaign announcement.</td>
+          <td class="border border-[var(--border)] px-4 py-2">Until the visitor clears site storage</td>
+          <td class="border border-[var(--border)] px-4 py-2">Yes</td>
+        </tr>
+        <tr>
+          <td class="border border-[var(--border)] px-4 py-2 font-medium"><code>digibizid-slide-seen</code> (session storage)</td>
+          <td class="border border-[var(--border)] px-4 py-2">Prevents the same venture announcement from repeatedly appearing during one browser session.</td>
+          <td class="border border-[var(--border)] px-4 py-2">Browser session</td>
+          <td class="border border-[var(--border)] px-4 py-2">Yes</td>
+        </tr>
+        <tr>
+          <td class="border border-[var(--border)] px-4 py-2 font-medium"><code>_ga</code>, <code>_ga_*</code>, <code>_gid</code> and <code>_gat*</code></td>
+          <td class="border border-[var(--border)] px-4 py-2">Google Analytics audience and session measurement, delivered through Google Tag Manager.</td>
+          <td class="border border-[var(--border)] px-4 py-2">Varies by cookie; <code>_ga</code> may last up to two years</td>
+          <td class="border border-[var(--border)] px-4 py-2">No - consent required</td>
+        </tr>
+        <tr>
+          <td class="border border-[var(--border)] px-4 py-2 font-medium"><code>_clck</code>, <code>_clsk</code> and Microsoft-domain Clarity cookies</td>
+          <td class="border border-[var(--border)] px-4 py-2">Microsoft Clarity usage measurement and session analysis.</td>
+          <td class="border border-[var(--border)] px-4 py-2">Varies by cookie and browser settings</td>
+          <td class="border border-[var(--border)] px-4 py-2">No - consent required</td>
         </tr>
       </tbody>
     </table>
@@ -63,15 +81,32 @@ const schema = [
   <p>Some pages on our website include content from third-party services that may set their own cookies:</p>
   <ul>
     <li>
-      <strong>Google Analytics:</strong> used to analyse website traffic with IP addresses anonymised.
+      <strong>Google Analytics and Google Tag Manager:</strong> used to understand website traffic and measure useful actions.
       Governed by the <a href="https://policies.google.com/privacy" rel="noopener noreferrer" target="_blank">Google Privacy Policy</a>.
     </li>
     <li>
-      <strong>Calendly:</strong> embedded scheduling widget on our consultation pages. Calendly may
-      set cookies when you interact with the booking embed.
+      <strong>Microsoft Clarity:</strong> used to understand how visitors use our pages.
+      Governed by the <a href="https://privacy.microsoft.com/privacystatement" rel="noopener noreferrer" target="_blank">Microsoft Privacy Statement</a>.
+    </li>
+    <li>
+      <strong>Calendly:</strong> appointment scheduling on our consultation page. The Calendly script,
+      embedded calendar and its third-party cookies remain blocked until you select “Load Calendly &amp;
+      Choose a Time”. Calendly then processes the connection and booking under its own privacy and
+      cookie terms. You may use our direct contact options without loading it.
+    </li>
+    <li>
+      <strong>Razorpay:</strong> hosted payment options on our pricing and paid-audit sections. Razorpay remains blocked
+      until you acknowledge the payment notice and select “Load secure payment options”. Razorpay
+      may then use its own cookies or similar storage under its
+      <a href="https://razorpay.com/privacy/" rel="noopener noreferrer" target="_blank">Privacy Policy</a>.
     </li>
   </ul>
-  <p>We do not control third-party cookies. Please review each provider's privacy policy for details.</p>
+  <p>
+    Optional analytics remain off unless you actively allow them. Google advertising storage,
+    advertising-user data and advertising personalisation remain denied. We do not control the
+    names or lifetimes of cookies set on third-party domains, so provider documentation should also
+    be reviewed.
+  </p>
 
   <h2>Managing Cookies</h2>
   <p>You have several options for managing cookies:</p>
@@ -80,22 +115,34 @@ const schema = [
       <strong>Browser settings:</strong> most browsers allow you to block or delete cookies via
       Settings &gt; Privacy. Note that blocking essential cookies may affect site functionality.
     </li>
-    <li>
-      <strong>Cookie consent banner:</strong> when you first visit our website, our cookie consent
-      banner allows you to accept or decline optional (analytics and preference) cookies.
-    </li>
-    <li>
-      <strong>Opt-out of analytics:</strong> you may install the
-      <a href="https://tools.google.com/dlpage/gaoptout" rel="noopener noreferrer" target="_blank">Google Analytics Opt-out Browser Add-on</a>
-      to prevent your data from being collected by Google Analytics.
-    </li>
+    <li><strong>Privacy &amp; cookie settings:</strong> use the control available in the website footer or the floating privacy button to accept, reject or withdraw optional analytics permission.</li>
   </ul>
-  <p>Opting out of optional cookies does not affect your ability to use the core features of our website.</p>
+  <p>Rejecting analytics does not affect your ability to use the core features of our website.</p>
+
+  <h2>Consent Record and Withdrawal</h2>
+  <p>
+    The website records only the selected analytics preference, consent-policy version and decision
+    times in your browser’s local storage. It does not use that record as proof of identity. You can
+    reopen “Privacy &amp; cookie settings” at any time and reject analytics. When optional analytics
+    have already loaded, the website updates the consent state and reloads the page to stop further
+    optional collection; provider cookies already stored may also be removed through browser settings.
+  </p>
+
+  <h2>Cookie Inventory Review</h2>
+  <p>
+    Cookie names and durations can change when a provider updates its software or when the website’s
+    configuration changes. We review the deployed tags and this table when adding or materially
+    changing a form, embed, analytics service, campaign tool or payment provider. Unknown optional
+    tags should not be enabled until they have been classified and documented.
+  </p>
 
   <h2>Do Not Track</h2>
   <p>
-    We honour browser Do Not Track (DNT) signals. If your browser sends a DNT signal, we will
-    not activate analytics cookies for your session.
+    We detect supported Global Privacy Control (GPC) and browser Do Not Track (DNT) signals and
+    keep optional analytics off by default. The privacy interface remains available so you can make
+    a separate, explicit choice for analytics on this website. Choosing analytics does not enable
+    advertising storage, advertising-user data or advertising personalisation. You may withdraw the
+    choice at any time.
   </p>
 
   <h2>Contact</h2>
@@ -103,7 +150,7 @@ const schema = [
     If you have questions about our use of cookies, please contact us at:
   </p>
   <ul>
-    <li>Email: <a href="mailto:info@elan-tech.net">info@elan-tech.net</a></li>
+    <li>Email: <a href="mailto:privacy@elan-tech.net">privacy@elan-tech.net</a></li>
     <li>
       Address: <a href="https://share.google/PklD3tFGBBqsPHjli" target="_blank" rel="noopener noreferrer">eLan Technology, Basement Floor, PTG IT Park, Plot No. 21, IT Park Rd, Gayatri Nagar, Nagpur, Maharashtra 440022, India</a>
     </li>

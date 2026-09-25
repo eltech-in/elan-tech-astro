@@ -1,4 +1,5 @@
-import { useState, type SubmitEvent } from 'react';
+import { useRef, useState, type SubmitEvent } from 'react';
+import { redirectToThankYou, submitLead } from '../lib/submitLead';
 
 type Step1 = { url: string; name: string; email: string };
 type Step2 = { phone: string; company: string; aspects: string[] };
@@ -18,10 +19,13 @@ export default function FreeAuditForm() {
   const [step, setStep] = useState(1);
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
+  const [honeypot, setHoneypot] = useState('');
+  const startedAt = useRef(Date.now());
 
   const [step1, setStep1] = useState<Step1>({ url: '', name: '', email: '' });
   const [step2, setStep2] = useState<Step2>({ phone: '', company: '', aspects: [] });
   const [step3, setStep3] = useState<Step3>({ notes: '' });
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
 
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
@@ -38,6 +42,15 @@ export default function FreeAuditForm() {
   function validateStep2(): boolean {
     const errs: Record<string, string> = {};
     if (step2.phone && !/^[\d\s+\-()]{7,20}$/.test(step2.phone.trim())) errs.phone = 'Please enter a valid phone number';
+    setFieldErrors(errs);
+    return Object.keys(errs).length === 0;
+  }
+
+  function validateStep3(): boolean {
+    const errs: Record<string, string> = {};
+    if (!privacyAccepted) {
+      errs.privacyAccepted = 'Please confirm the privacy notice and your authority to request this audit';
+    }
     setFieldErrors(errs);
     return Object.keys(errs).length === 0;
   }
@@ -65,26 +78,32 @@ export default function FreeAuditForm() {
 
   async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    if (!validateStep3()) return;
+
+    if (honeypot) {
+      setStatus('success');
+      return;
+    }
+
+    if (Date.now() - startedAt.current < 2000) {
+      setStatus('error');
+      setErrorMsg('Please wait a moment, then submit the form again.');
+      return;
+    }
+
     setStatus('submitting');
     try {
-      const res = await fetch('https://formsubmit.co/ajax/info@elantech.in', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          _subject: `Free Audit Request from ${step1.name}`,
-          ...step1,
-          ...step2,
-          notes: step3.notes,
-        }),
+      await submitLead('free-audit', {
+        _subject: `Free Audit Request from ${step1.name}`,
+        _honey: honeypot,
+        ...step1,
+        ...step2,
+        notes: step3.notes,
+        privacyAccepted,
+        _privacyNoticeVersion: 'free-audit-2026-09-23',
       });
-      if (res.ok) {
-        setStatus('success');
-      } else {
-        throw new Error('Server error');
-      }
+      redirectToThankYou('free-audit');
     } catch {
       setStatus('error');
       setErrorMsg('Something went wrong. Please try again or contact us directly.');
@@ -101,10 +120,10 @@ export default function FreeAuditForm() {
         </div>
         <h3 className="text-xl font-bold text-[var(--text)] mb-2">Audit Requested!</h3>
         <p className="text-sm text-[var(--text-dim)]">
-          We've received your request. Our team will analyze your site and send the report to {step1.email} within 24-48 hours.
+          We've received your request. We will review the website and confirm the audit scope and expected delivery time at {step1.email}.
         </p>
         <button
-          onClick={() => { setStatus('idle'); setStep(1); setStep1({ url: '', name: '', email: '' }); setStep2({ phone: '', company: '', aspects: [] }); setStep3({ notes: '' }); }}
+          onClick={() => { setStatus('idle'); setStep(1); setStep1({ url: '', name: '', email: '' }); setStep2({ phone: '', company: '', aspects: [] }); setStep3({ notes: '' }); setPrivacyAccepted(false); }}
           className="mt-6 text-sm font-semibold text-[var(--accent)] hover:underline"
         >
           Submit another request
@@ -138,6 +157,19 @@ export default function FreeAuditForm() {
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-5">
+      <div className="absolute -left-[10000px] h-px w-px overflow-hidden" aria-hidden="true">
+        <label htmlFor="fa-website-check">Leave this field empty</label>
+        <input
+          id="fa-website-check"
+          name="website_check"
+          type="text"
+          value={honeypot}
+          onChange={(event) => setHoneypot(event.target.value)}
+          autoComplete="off"
+          tabIndex={-1}
+        />
+      </div>
+
       <StepIndicator />
 
       {step === 1 && (
@@ -158,6 +190,7 @@ export default function FreeAuditForm() {
                 aria-describedby={fieldErrors.url ? 'fa-url-error' : undefined}
                 className={inputClass}
                 placeholder="https://yourwebsite.com"
+                autoComplete="url"
               />
               {fieldErrors.url && (
                 <p id="fa-url-error" role="alert" aria-live="polite" className="mt-1 text-xs text-red-400">{fieldErrors.url}</p>
@@ -176,6 +209,7 @@ export default function FreeAuditForm() {
                 aria-describedby={fieldErrors.name ? 'fa-name-error' : undefined}
                 className={inputClass}
                 placeholder="Your full name"
+                autoComplete="name"
               />
               {fieldErrors.name && (
                 <p id="fa-name-error" role="alert" aria-live="polite" className="mt-1 text-xs text-red-400">{fieldErrors.name}</p>
@@ -194,6 +228,7 @@ export default function FreeAuditForm() {
                 aria-describedby={fieldErrors.email ? 'fa-email-error' : undefined}
                 className={inputClass}
                 placeholder="you@example.com"
+                autoComplete="email"
               />
               {fieldErrors.email && (
                 <p id="fa-email-error" role="alert" aria-live="polite" className="mt-1 text-xs text-red-400">{fieldErrors.email}</p>
@@ -210,7 +245,7 @@ export default function FreeAuditForm() {
           <div className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="fa-phone" className="block text-sm font-medium text-[var(--text)] mb-1.5">Phone</label>
+                <label htmlFor="fa-phone" className="block text-sm font-medium text-[var(--text)] mb-1.5">Phone (optional)</label>
                 <input
                   id="fa-phone"
                   type="tel"
@@ -219,13 +254,14 @@ export default function FreeAuditForm() {
                   aria-describedby={fieldErrors.phone ? 'fa-phone-error' : undefined}
                   className={inputClass}
                   placeholder="+1 or +91..."
+                  autoComplete="tel"
                 />
                 {fieldErrors.phone && (
                   <p id="fa-phone-error" role="alert" aria-live="polite" className="mt-1 text-xs text-red-400">{fieldErrors.phone}</p>
                 )}
               </div>
               <div>
-                <label htmlFor="fa-company" className="block text-sm font-medium text-[var(--text)] mb-1.5">Company</label>
+                <label htmlFor="fa-company" className="block text-sm font-medium text-[var(--text)] mb-1.5">Company (optional)</label>
                 <input
                   id="fa-company"
                   type="text"
@@ -233,12 +269,13 @@ export default function FreeAuditForm() {
                   onChange={(e) => setStep2((p) => ({ ...p, company: e.target.value }))}
                   className={inputClass}
                   placeholder="Company name"
+                  autoComplete="organization"
                 />
               </div>
             </div>
 
             <div>
-              <p className="text-sm font-medium text-[var(--text)] mb-2">What aspects to audit?</p>
+              <p className="text-sm font-medium text-[var(--text)] mb-2">What aspects should we audit? (optional)</p>
               <div className="flex flex-wrap gap-2">
                 {AUDIT_ASPECTS.map((aspect) => (
                   <label
@@ -266,8 +303,9 @@ export default function FreeAuditForm() {
 
       {step === 3 && (
         <fieldset>
-          <legend className="text-base font-semibold text-[var(--text)] mb-4">Any Additional Notes?</legend>
-          <div>
+          <legend className="text-base font-semibold text-[var(--text)] mb-4">Final Details &amp; Privacy</legend>
+          <div className="space-y-4">
+            <div>
             <label htmlFor="fa-notes" className="block text-sm font-medium text-[var(--text)] mb-1.5">
               Notes / Special Instructions (optional)
             </label>
@@ -278,7 +316,46 @@ export default function FreeAuditForm() {
               onChange={(e) => setStep3({ notes: e.target.value })}
               className={inputClass}
               placeholder="Anything specific you'd like us to focus on..."
+              aria-describedby="fa-notes-help"
             />
+            <p id="fa-notes-help" className="mt-1.5 text-xs leading-relaxed text-[var(--text-muted)]">
+              Do not include passwords, admin access, payment information or sensitive personal data. This free audit reviews only publicly accessible content.
+            </p>
+            </div>
+
+            <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-4">
+              <h3 className="text-sm font-semibold text-[var(--text)]">How we use your audit request</h3>
+              <p id="fa-privacy-notice" className="mt-2 text-xs leading-relaxed text-[var(--text-dim)]">
+                We use your website URL and contact details to check eligibility, review the public-facing website, prepare and deliver the requested audit, and communicate about this request. Requests are stored privately and may be retained for up to 12 months if no engagement follows. We do not add you to a marketing list. See our{' '}
+                <a href="/privacy-policy/" className="font-semibold text-[var(--accent)] underline underline-offset-2">Privacy Policy</a>.
+              </p>
+
+              <label className="mt-3 flex cursor-pointer items-start gap-3 text-sm text-[var(--text)]">
+                <input
+                  type="checkbox"
+                  checked={privacyAccepted}
+                  onChange={(event) => {
+                    setPrivacyAccepted(event.target.checked);
+                    if (event.target.checked) {
+                      setFieldErrors((current) => {
+                        const { privacyAccepted: _removed, ...rest } = current;
+                        return rest;
+                      });
+                    }
+                  }}
+                  aria-required="true"
+                  aria-describedby={`fa-privacy-notice${fieldErrors.privacyAccepted ? ' fa-privacy-error' : ''}`}
+                  className="mt-0.5 h-4 w-4 flex-none rounded border-[var(--border)] accent-[var(--accent)]"
+                />
+                <span>
+                  I confirm that I am authorised to request a review of this website and agree to the processing described above.
+                  <span aria-hidden="true" className="text-red-400"> *</span>
+                </span>
+              </label>
+              {fieldErrors.privacyAccepted && (
+                <p id="fa-privacy-error" role="alert" aria-live="polite" className="mt-2 text-xs text-red-400">{fieldErrors.privacyAccepted}</p>
+              )}
+            </div>
           </div>
 
           {status === 'error' && (
@@ -330,7 +407,7 @@ export default function FreeAuditForm() {
       </div>
 
       <p className="text-xs text-[var(--text-muted)] text-center">
-        Report delivered in 24-48 hours · No credit card required
+        Public-site review only · No credit card · No marketing signup
       </p>
     </form>
   );

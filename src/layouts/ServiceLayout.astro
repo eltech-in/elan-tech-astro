@@ -2,7 +2,8 @@
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import LocationsCloud from '../components/LocationsCloud.astro';
-import { services as serviceCatalog } from '../data/services';
+import AnswerSummary from '../components/AnswerSummary.astro';
+import { services as serviceCatalog, accessibilityService, coreServices, newBusinessServices } from '../data/services';
 
 interface Props {
   title: string;
@@ -33,9 +34,16 @@ const {
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
+const resolvedOgImage = ogImage ?? (
+  currentPath.startsWith('/services/ada-compliant-web-design/')
+    ? '/images/og/accessibility.png'
+    : currentPath.startsWith('/services/ecommerce/')
+      ? '/images/ecommerce-og-2026.png'
+      : '/images/og/services.png'
+);
 
 const navigation = [
-  ...serviceCatalog.slice(0, -1).map((service, index) => ({
+  ...coreServices.map((service, index) => ({
     label: service.shortTitle,
     fullLabel: service.title,
     href: `/services/${service.slug}/`,
@@ -57,8 +65,16 @@ const navigation = [
     href: '/services/ada-compliant-web-design/',
     cssVar: '--ac-blue',
     number: '10',
-    iconSvg: serviceCatalog.at(-1)?.iconSvg ?? '',
+    iconSvg: accessibilityService.iconSvg,
   },
+  ...newBusinessServices.map((service, index) => ({
+    label: service.shortTitle,
+    fullLabel: service.title,
+    href: `/services/${service.slug}/`,
+    cssVar: service.cssVar,
+    number: String(index + 11).padStart(2, '0'),
+    iconSvg: service.iconSvg,
+  })),
 ];
 
 const specialThemes = [
@@ -89,13 +105,196 @@ const activeTheme = {
   cssVar: accentVar ?? specialTheme?.cssVar ?? activeNavigation?.cssVar ?? '--accent',
   number: serviceNumber ?? specialTheme?.number ?? activeNavigation?.number ?? '00',
 };
+
+const privacyProfiles: Record<string, {
+  eyebrow: string;
+  title: string;
+  intro: string;
+  items: Array<{ title: string; text: string }>;
+  note: string;
+}> = {
+  '/services/web-development/': {
+    eyebrow: 'Data protection in development',
+    title: 'Architecture decisions define how personal data is handled.',
+    intro: 'Before implementation, the project should identify its users, data fields, purposes, access roles, hosting, integrations, retention rules and expected deletion or export behaviour.',
+    items: [
+      { title: 'Data model and minimisation', text: 'Document each personal-data field, why it is required, whether it is optional, and how long it should remain. Avoid collecting data merely because it may be useful later.' },
+      { title: 'Authentication and permissions', text: 'Define account creation, verification, password reset, administrator roles, access reviews, logs and safeguards for privileged actions. Multi-factor authentication is scoped where appropriate.' },
+      { title: 'Development and testing', text: 'Use generated, masked or otherwise suitable test data wherever practical. Production exports, live credentials and personal records should not be copied into local or staging environments without an agreed necessity and controls.' },
+      { title: 'Hosting, vendors and handover', text: 'Record hosting region, infrastructure accounts, subprocessors, backups, incident contacts, account ownership, source-code terms and the return or removal of eLan access at handover.' },
+    ],
+    note: 'Security controls, source-code ownership, hosting responsibility, support and data-processing roles depend on the accepted proposal and contract; they are not implied solely by this service page.',
+  },
+  '/services/ecommerce/': {
+    eyebrow: 'Commerce data responsibilities',
+    title: 'A store connects customer data across several systems.',
+    intro: 'Product discovery may be public, but checkout, accounts, support and fulfilment can pass personal data among the storefront, commerce platform, payment provider, shipping provider and marketing tools.',
+    items: [
+      { title: 'Customer and order fields', text: 'Collect only the account, delivery, invoice, support and fulfilment details needed for the stated transaction and applicable obligations. Optional marketing choices must remain separate.' },
+      { title: 'Payments', text: 'Use the selected payment provider’s hosted or tokenised controls where appropriate. Card, bank and authentication credentials should not be copied into ordinary store records or support messages.' },
+      { title: 'Shipping and service providers', text: 'Map exactly which order and contact fields pass to couriers, email, tax, analytics, support, review, loyalty or subscription providers and show relevant notices before collection.' },
+      { title: 'Retention and customer controls', text: 'Define order, account, abandoned-cart, support and marketing retention separately, including access, correction, deletion, unsubscribe and legally required transaction records.' },
+    ],
+    note: 'Platform configuration can support privacy controls, but the merchant remains responsible for its lawful purposes, notices, operational practices and instructions to service providers.',
+  },
+  '/services/ecommerce/shopify-development/': {
+    eyebrow: 'Shopify privacy architecture',
+    title: 'Theme, apps and markets form one customer-data chain.',
+    intro: 'A Shopify project should inventory native platform processing plus every installed app, tracking tag, market, checkout extension and external integration before launch.',
+    items: [
+      { title: 'Store and Shopify roles', text: 'Document the merchant’s decisions, Shopify’s platform role, eLan’s authorised implementation access and the responsibility of each selected app or integration provider.' },
+      { title: 'Apps and pixels', text: 'Review the data requested by reviews, loyalty, subscriptions, email, analytics, advertising and support apps. Avoid overlapping tools and permissions that exceed the approved purpose.' },
+      { title: 'Markets and transfers', text: 'International selling may involve market-specific notices, tax, currency, fulfilment providers and cross-border processing. Required regions and vendors should be confirmed during discovery.' },
+      { title: 'Access and handover', text: 'Use collaborator or role-based access where available, identify the store owner, document app billing and permissions, and remove project access when the agreed work ends.' },
+    ],
+    note: 'Shopify features, app behaviour and plan availability can change. The final privacy configuration must be checked against the merchant’s current Shopify plan, markets and installed apps.',
+  },
+  '/services/ecommerce/medusa-js-development/': {
+    eyebrow: 'Owned commerce, defined responsibility',
+    title: 'Greater platform control also creates greater operational responsibility.',
+    intro: 'A custom Medusa implementation requires explicit decisions about the database, storefront, admin users, infrastructure, payment and fulfilment modules, logs, backups and customer-service access.',
+    items: [
+      { title: 'Commerce model', text: 'Define the minimum customer, address, order, subscription, return and support records needed by the operating model, together with status histories and retention.' },
+      { title: 'Custom modules and webhooks', text: 'Document validation, permissions, secrets, webhook signatures, retry behaviour and which personal fields each payment, shipping, CRM or ERP module can receive.' },
+      { title: 'Infrastructure and administrators', text: 'Identify the deployment owner, database region, storage, backups, monitoring, privileged accounts, audit logs, patching and incident-response responsibilities.' },
+      { title: 'Customer rights and closure', text: 'Design account access, correction, export, cancellation and deletion paths alongside exceptions for transaction, fraud, tax, dispute and other required records.' },
+    ],
+    note: 'Code ownership, deployed-application ownership, source delivery and continuing infrastructure or support obligations depend on the proposal and payment terms.',
+  },
+  '/services/seo/': {
+    eyebrow: 'Responsible search measurement',
+    title: 'SEO access should be limited to what the agreed work requires.',
+    intro: 'Search Console, analytics, business listings, crawling tools and content workflows can expose account, query, location, user and commercial information even when the work does not require direct customer identification.',
+    items: [
+      { title: 'Account access', text: 'Use role-based or delegated access for Search Console, analytics, tag management, hosting and business profiles. Avoid sharing master passwords and remove access after the engagement.' },
+      { title: 'Analytics and consent', text: 'SEO reporting should use lawfully configured analytics and consent settings. Do not enable additional advertising or user-level tracking merely to produce a larger report.' },
+      { title: 'Content and personal claims', text: 'Names, biographies, reviews, case studies, locations and numerical claims need an authorised source, accurate context and a correction or removal route where appropriate.' },
+      { title: 'Reports and retention', text: 'Define recipients, reporting frequency and retention for exports, keyword data, competitor notes and technical findings. Reports should avoid unnecessary user-level identifiers.' },
+    ],
+    note: 'Search rankings, traffic, impressions, clicks and enquiries are influenced by search engines, competitors, demand, content and website changes and cannot be guaranteed.',
+  },
+  '/services/digital-marketing/': {
+    eyebrow: 'Consent-aware marketing',
+    title: 'Audience growth must not depend on hidden data use.',
+    intro: 'Campaign planning should separate necessary account administration, performance measurement, advertising audiences, direct marketing and public social engagement.',
+    items: [
+      { title: 'Ad and social accounts', text: 'Prefer client-owned business accounts with role-based access. Record who can publish, approve spend, export leads, change pixels and access customer or audience information.' },
+      { title: 'Pixels and audiences', text: 'Inventory advertising tags, remarketing, conversion APIs, uploaded customer lists and lookalike audiences. Implement them only with an appropriate purpose, notice and consent where required.' },
+      { title: 'Lead handling', text: 'Define which fields a campaign form needs, who receives leads, response expectations, CRM destinations, retention and whether separate marketing permission is requested.' },
+      { title: 'Creative permissions', text: 'Obtain permission and appropriate licences for identifiable people, testimonials, user-generated content, music, footage, influencer material and customer stories before publication.' },
+    ],
+    note: 'Media spend, platform charges and third-party tools are separate unless expressly included. Reach, leads, sales, ROAS and other campaign outcomes are not guaranteed.',
+  },
+  '/services/mobile-app-development/': {
+    eyebrow: 'Privacy-aware app delivery',
+    title: 'Mobile permissions should follow real product needs.',
+    intro: 'An app’s screens, device permissions, SDKs, backend, notifications and store disclosures should be designed as one data system rather than reviewed separately at release.',
+    items: [
+      { title: 'Device permissions', text: 'Request camera, photos, contacts, location, microphone, notifications or other device access only when the user reaches a feature that genuinely needs it, with a clear explanation.' },
+      { title: 'SDK and API inventory', text: 'Document analytics, crash reporting, attribution, maps, messaging, payment and social SDKs, their data access, configuration, hosting and available opt-out controls.' },
+      { title: 'Accounts and deletion', text: 'Define registration, authentication, profile editing, account deletion, export and retention behaviour before implementing the account journey.' },
+      { title: 'Store and release ownership', text: 'Use client-controlled developer accounts where agreed and keep privacy labels, screenshots, support details and policy links aligned with the released app and current SDK behaviour.' },
+    ],
+    note: 'App-store approval, review timing, device behaviour and third-party SDK availability remain subject to Apple, Google and provider policies; approval cannot be guaranteed.',
+  },
+  '/services/branding/': {
+    eyebrow: 'Responsible brand development',
+    title: 'Research and creative assets need traceable permission.',
+    intro: 'Brand discovery can involve founders, staff, customers, interview participants, competitor material and licensed creative assets. The project should distinguish internal research from content approved for publication.',
+    items: [
+      { title: 'Stakeholder and audience research', text: 'Tell participants the purpose of interviews or surveys, collect only necessary information and agree whether statements are attributed, anonymised or used only as internal direction.' },
+      { title: 'People and testimonials', text: 'Obtain permission before publishing names, portraits, voice recordings, testimonials, signatures or customer stories, and preserve the agreed attribution and context.' },
+      { title: 'Assets and licences', text: 'Record the source and usage rights for fonts, stock media, icons, illustrations, mockups, music, photographs and templates. Third-party licence restrictions remain applicable.' },
+      { title: 'Ownership and source files', text: 'The proposal identifies original deliverables, editable source files, third-party components, usage rights, trademark-search responsibility and the effect of final payment.' },
+    ],
+    note: 'Creative work does not itself confirm trademark availability or registration. Formal clearance and legal protection should be handled through a qualified trademark professional.',
+  },
+  '/services/maintenance-security/': {
+    eyebrow: 'Controlled maintenance access',
+    title: 'Ongoing access needs tighter boundaries, not permanent shared passwords.',
+    intro: 'Maintenance can expose website files, logs, backups, administrative accounts and personal data. The plan should define authorised access, response coverage, monitoring and closure from the start.',
+    items: [
+      { title: 'Accounts and credentials', text: 'Use named, least-privilege accounts and an agreed secure credential channel. Record privileged access, enable multi-factor authentication where supported and remove obsolete users.' },
+      { title: 'Backups and logs', text: 'Define backup locations, encryption, restoration tests, retention and deletion. Limit log access and avoid retaining identifiers longer than required for security and operations.' },
+      { title: 'Monitoring and incidents', text: 'Document monitored events, alert recipients, response hours, containment authority, evidence handling and the client contact responsible for breach or legal decisions.' },
+      { title: 'End of service', text: 'At closure, return or remove credentials, disconnect monitoring, transfer relevant documentation and address retained backups and security records according to the agreement.' },
+    ],
+    note: 'No website or monitoring service can promise absolute security, uninterrupted availability or prevention of every incident. Response times and included work apply only when recorded in the accepted plan.',
+  },
+  '/services/integrations/': {
+    eyebrow: 'Traceable system connections',
+    title: 'An integration should move only the fields its workflow needs.',
+    intro: 'Before connecting systems, document the source, destination, purpose, field mapping, authentication method, hosting, error logs, retry behaviour and responsible owner.',
+    items: [
+      { title: 'Credentials and environments', text: 'Use scoped API keys, OAuth or service accounts and separate sandbox from production. Secrets should not be placed in source repositories, general forms or ordinary project messages.' },
+      { title: 'Field-level mapping', text: 'Identify each personal or confidential field transferred, its validation, transformation and destination. Do not synchronise entire records when a smaller data set is sufficient.' },
+      { title: 'Webhooks, logs and failures', text: 'Verify webhook authenticity, restrict replay, redact sensitive logs and define retry, dead-letter, reconciliation and notification behaviour for failed transfers.' },
+      { title: 'Provider and retention changes', text: 'Record provider terms, regions, subprocessors, API versions and deletion behaviour. Plan for deprecation, account closure and the removal of eLan access.' },
+    ],
+    note: 'PCI DSS scope and payment-data responsibilities depend on the selected payment flow and parties. eLan does not claim certification for a client environment unless separately assessed and documented.',
+  },
+  '/services/ada-compliant-web-design/': {
+    eyebrow: 'Respectful accessibility evidence',
+    title: 'Testing should minimise personal and sensitive information.',
+    intro: 'Accessibility work may involve recordings, screenshots, support correspondence, audit evidence and feedback from people with disabilities. The scope should identify what evidence is genuinely needed and who may receive it.',
+    items: [
+      { title: 'Audit evidence', text: 'Capture only the affected interface, code or interaction needed to explain a finding. Redact customer, patient, employee, account and payment details from screenshots, recordings and reports.' },
+      { title: 'Tester participation', text: 'When people participate in research or testing, provide an appropriate notice, agree recording and attribution choices, and avoid requesting unnecessary health or disability details.' },
+      { title: 'Accounts and test journeys', text: 'Use dedicated test accounts and non-production data for login, form, cart, checkout and document journeys wherever practical. Restrict any necessary access to the agreed testers.' },
+      { title: 'Reports and sharing', text: 'Agree report recipients, procurement use, retention, known limitations and whether evidence may be shared with developers, vendors, counsel or other authorised parties.' },
+    ],
+    note: 'An accessibility audit, remediation project, VPAT or ACR records a defined scope and date. It is not a permanent certification or a guarantee of legal compliance.',
+  },
+  '/services/custom-crm-erp-solutions/': {
+    eyebrow: 'Business-system data governance',
+    title: 'CRM and ERP design begins with people, permissions and purpose.',
+    intro: 'Customer, employee, supplier, finance and operational records can meet inside one business system. Discovery should define why each record exists, who can use it and what happens when it is no longer needed.',
+    items: [
+      { title: 'Data and workflow inventory', text: 'Map business purposes, data fields, departments, approvals, reports, imports and exports before configuration. Avoid carrying obsolete or duplicate fields into the new system.' },
+      { title: 'Roles and segregation', text: 'Define least-privilege roles for staff, managers, administrators, vendors and support users, including approval boundaries, audit logs and periodic access review.' },
+      { title: 'Migration and testing', text: 'Clean and validate source data, record migration decisions and use masked or generated records in development wherever practical. Reconcile agreed totals and samples before go-live.' },
+      { title: 'Hosting and lifecycle', text: 'Document deployment ownership, regions, backups, integrations, subprocessors, retention, employee exit handling, support access and deletion or export at contract closure.' },
+    ],
+    note: 'ERPNext and other open-source components retain their own licences. Features, source-code delivery, hosting, support, ownership and data-processing responsibilities depend on the accepted proposal and terms.',
+  },
+  '/services/dpdp-compliance-implementation/': {
+    eyebrow: 'DPDP implementation boundaries',
+    title: 'Privacy readiness needs operational ownership as well as website changes.',
+    intro: 'We can translate an agreed privacy plan into forms, notices, preference controls, tagging, retention workflows and implementation records. The organisation must still make and maintain its legal and operational decisions.',
+    items: [
+      { title: 'Inventory and purpose mapping', text: 'Identify forms, cookies, analytics, embeds, account journeys, vendors, data fields, purposes, notices, consent points and data locations relevant to the agreed digital scope.' },
+      { title: 'User-facing implementation', text: 'Implement clear notices, required and optional choices, cookie controls, withdrawal routes, rights-contact paths and accessible interfaces appropriate to the approved requirements.' },
+      { title: 'Operational workflows', text: 'Document owners for access, correction, erasure, grievance, consent withdrawal, retention, vendor changes and incidents so requests do not stop at the website inbox.' },
+      { title: 'Evidence and change control', text: 'Record configurations, tests, known limitations, vendor dependencies and review dates. Reassess when forms, purposes, tools, regulations or business processes change.' },
+    ],
+    note: 'This is implementation and technical consulting, not legal advice, certification or a guarantee of compliance. Final legal interpretation, notices and organisational decisions should be approved by the client and qualified counsel where appropriate.',
+  },
+  '/services/payload-directus-development/': {
+    eyebrow: 'Composable CMS data responsibilities',
+    title: 'Flexible content models need deliberate access and publication controls.',
+    intro: 'Payload and Directus can manage editorial, product and operational data. The implementation should distinguish public content from restricted records and define who may create, approve, publish, export or delete each type.',
+    items: [
+      { title: 'Collections and minimisation', text: 'Model only the fields needed for approved editorial and commerce workflows, identify personal data and avoid mixing restricted operational records into public content APIs.' },
+      { title: 'Roles and API access', text: 'Configure least-privilege roles, protected endpoints, token scope, authentication, draft and approval states, rate limits and auditability appropriate to the deployment.' },
+      { title: 'Media, integrations and commerce', text: 'Map storage, image metadata, search, storefront, payment, CRM, ERP and marketing connections, including fields transferred, vendor regions, logs and failure behaviour.' },
+      { title: 'Deployment and handover', text: 'Document infrastructure ownership, secrets, backups, updates, administrator accounts, licences, source-code terms, migration and the removal of project access.' },
+    ],
+    note: 'Payload and Directus features, licences and supported integrations can change. Platform choice and configuration are confirmed against current requirements; ecommerce security and compliance responsibilities remain shared across the selected services and operators.',
+  },
+};
+
+// The platform-specific Payload/Directus page and the broader Headless CMS
+// service share the same data-governance requirements.
+privacyProfiles['/services/headless-cms-development/'] = privacyProfiles['/services/payload-directus-development/'];
+
+const privacyProfile = privacyProfiles[currentPath];
 ---
 
 <BaseLayout
   title={title}
   description={description}
   canonical={canonical}
-  ogImage={ogImage}
+  ogImage={resolvedOgImage}
   ogType={ogType}
   noindex={noindex}
   schema={schema}
@@ -115,7 +314,7 @@ const activeTheme = {
         </div>
 
         <nav aria-label="Explore all services" class="mt-2">
-          <ul class="service-switcher grid gap-1 lg:grid-cols-10" role="list">
+          <ul class="service-switcher grid gap-1" role="list">
           {navigation.map((item) => {
             const isActive = currentPath.startsWith(item.href);
             return (
@@ -143,6 +342,53 @@ const activeTheme = {
     <div class="mx-auto max-w-7xl px-4 pb-12 pt-6 sm:px-6 lg:px-8 lg:pb-20 lg:pt-8">
       <main class="service-bento-flow" data-service={activeTheme.label}>
         <slot />
+        {privacyProfile && (
+          <section class="service-privacy-panel rounded-[1.75rem] border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8 lg:p-10" aria-labelledby="service-data-responsibility-title">
+            <div class="grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
+              <div>
+                <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--service-accent)]">{privacyProfile.eyebrow}</p>
+                <h2 id="service-data-responsibility-title" class="mt-3 font-heading text-2xl font-bold leading-tight text-[var(--text)] md:text-3xl">{privacyProfile.title}</h2>
+                <p class="mt-4 text-sm leading-relaxed text-[var(--text-muted)]">{privacyProfile.intro}</p>
+                <a href="/privacy-policy/" class="mt-5 inline-flex min-h-11 items-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--bg)] px-5 py-2.5 text-sm font-bold text-[var(--service-accent)] transition-colors hover:border-[var(--service-accent)]">
+                  Read the privacy policy <span aria-hidden="true">→</span>
+                </a>
+              </div>
+              <ul class="grid gap-4 sm:grid-cols-2" role="list">
+                {privacyProfile.items.map((item, index) => (
+                  <li class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-5">
+                    <span class="text-[10px] font-black uppercase tracking-[0.16em] text-[var(--service-accent)]">{String(index + 1).padStart(2, '0')}</span>
+                    <h3 class="mt-2 font-heading text-sm font-bold text-[var(--text)]">{item.title}</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{item.text}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <p class="mt-6 border-t border-[var(--border)] pt-5 text-xs leading-relaxed text-[var(--text-muted)]">{privacyProfile.note}</p>
+            <p class="mt-2 text-xs leading-relaxed text-[var(--text-muted)]">
+              Privacy questions and personal-data requests can be sent to <a href={`mailto:privacy@elan-tech.net?subject=${encodeURIComponent(`${activeTheme.label} privacy question`)}`} class="font-semibold text-[var(--service-accent)] underline underline-offset-4">privacy@elan-tech.net</a>.
+            </p>
+          </section>
+        )}
+        <AnswerSummary
+          eyebrow="Service answer"
+          title={`Is ${activeTheme.label} right for your project?`}
+          intro={description}
+          accentVar={activeTheme.cssVar}
+          items={[
+            {
+              question: `What does eLan provide for ${activeTheme.label}?`,
+              answer: 'We plan the work around your business goal, agree the deliverables before development, and provide a clear proposal covering scope, schedule, responsibilities and support.',
+            },
+            {
+              question: 'How is the price decided?',
+              answer: 'Pricing depends on the approved features, content, integrations, compliance work and delivery requirements. Any third-party subscriptions or usage charges are identified separately.',
+            },
+            {
+              question: 'What should you do next?',
+              answer: 'Share your goals, current website or reference examples. We will recommend a practical approach and provide a quote without forcing a particular platform or package.',
+            },
+          ]}
+        />
       </main>
     </div>
   </div>
@@ -172,6 +418,10 @@ const activeTheme = {
     background: linear-gradient(135deg, color-mix(in srgb, var(--item-accent) 5%, var(--bg-card)), var(--bg-card) 70%);
     box-shadow: 0 8px 22px -22px var(--item-accent);
     transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+  }
+
+  @media (min-width: 1024px) {
+    .service-switcher { grid-template-columns: repeat(auto-fit, minmax(7.25rem, 1fr)); }
   }
 
   .service-switcher__item:hover,

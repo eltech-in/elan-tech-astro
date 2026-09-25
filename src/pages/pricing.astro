@@ -2,20 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { pricingTiers } from '../data/pricing';
 import { breadcrumbSchema, faqSchema } from '../utils/schema';
-import PlanCard from '../components/launchpad/PlanCard.astro';
-import { PLANS, OFFER_END } from '../data/digitalLaunchpad';
+import RazorpayPaymentGate from '../components/RazorpayPaymentGate.astro';
 
-const offerActive = new Date() <= OFFER_END;
-
-const pricingFaqs = [
-  {
-    question: 'What is the Digital Launchpad plan?',
-    answer: 'The Digital Launchpad is a limited-time all-inclusive package - website, domain (.in / .co.in), hosting, SSL, WhatsApp button, Google Maps, Analytics, and 4 years of maintenance - for a single one-time price starting at ₹28,800. The final anniversary offer closes 15 August 2026. No annual renewals until 2030. <a href="/pricing/digital-launchpad/" style="color:#F26722;text-decoration:underline;text-underline-offset:2px;">View full plan details →</a>',
-  },
-  {
-    question: 'Does the Digital Launchpad include a .com domain?',
-    answer: 'No. The Digital Launchpad includes .in or .co.in domains only - registered at NIXI in your name. If you specifically need a .com, .net, or other TLD, contact us and we\'ll quote separately outside the Launchpad package.',
-  },
+const standardPricingFaqs = [
   {
     question: 'Do you offer monthly payment plans?',
     answer: 'Yes, we offer flexible milestone-based and monthly payment terms for all projects. We typically structure payments in 3 instalments: 50% upfront, 25% at midpoint, and 25% on delivery.',
@@ -42,6 +31,8 @@ const pricingFaqs = [
   },
 ];
 
+const pricingFaqs = standardPricingFaqs;
+
 const schema = [
   faqSchema(pricingFaqs),
   breadcrumbSchema([
@@ -51,7 +42,7 @@ const schema = [
 ];
 
 const comparisonFeatures = [
-  { label: 'Number of Pages', starter: 'Up to 5', professional: 'Up to 15', enterprise: 'Unlimited' },
+  { label: 'Number of Pages', starter: 'Up to 10', professional: 'Up to 20', enterprise: 'Based on requirements' },
   { label: 'Custom Design', starter: true, professional: true, enterprise: true },
   { label: 'CMS Integration', starter: false, professional: true, enterprise: true },
   { label: 'WCAG AA Accessibility', starter: false, professional: false, enterprise: true },
@@ -64,8 +55,8 @@ const tierNums = ['01', '02', '03'];
 const inrFormatter = new Intl.NumberFormat('en-IN');
 
 // Razorpay hosted Payment Button IDs (created in Razorpay dashboard).
-// The payment-button.js script renders a button at each <script> tag's
-// location based on its data-payment_button_id.
+// The payment-button.js file renders each hosted payment button at the
+// location of its matching Razorpay embed element.
 const RAZORPAY_BUTTON_INR_9999 = 'pl_Sqm5fZAebJ6xx7';
 const RAZORPAY_BUTTON_USD_99 = 'pl_FdcrA4b2oE0mIl';
 
@@ -89,6 +80,7 @@ const guarantees = [
 <BaseLayout
   title="Web Design & Development Pricing - eLan Technology"
   description="Transparent, value-based pricing for web design, development, and eCommerce projects. Get a custom quote tailored to your project."
+  ogImage="/images/og/pricing.png"
   schema={schema}
 >
   <!-- Hero -->
@@ -117,71 +109,6 @@ const guarantees = [
       <p class="mt-3 text-xs text-[var(--text-muted)]">We quote in your local currency - no conversion surprises.</p>
     </div>
   </section>
-
-  <!-- 4A: Digital Launchpad offer banner -->
-  {offerActive && (
-      <div role="alert" aria-label="Limited time offer" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
-        <div
-          class="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border px-6 py-5"
-          style="background: linear-gradient(135deg, rgba(242,103,34,0.12), rgba(29,59,109,0.15)); border-color: rgba(242,103,34,0.4);"
-        >
-          <div class="flex items-start gap-4">
-            <span aria-hidden="true" class="text-3xl shrink-0">🔥</span>
-            <div>
-              <p class="font-heading text-base font-bold text-[var(--text)]">
-                Digital Launchpad - All-In Website from ₹28,800
-              </p>
-              <p class="text-sm text-[var(--text-dim)] mt-0.5">
-                Domain · Hosting · SSL · 4-year maintenance · WhatsApp button. One price, no renewals till 2030.
-                <span class="font-semibold" style="color:#F26722;">Final offer - ends 15 Aug 2026.</span>
-              </p>
-            </div>
-          </div>
-          <a
-            href="/pricing/digital-launchpad/"
-            class="shrink-0 rounded-full px-5 py-2.5 text-sm font-bold text-white transition-all duration-200 hover:opacity-90 hover:-translate-y-0.5 whitespace-nowrap"
-            style="background:#F26722;"
-          >
-            View Offer →
-          </a>
-        </div>
-      </div>
-  )}
-
-  <!-- 4B: Digital Launchpad plan cards -->
-  {offerActive && (
-      <section aria-label="Digital Launchpad limited offer plans" class="py-14 md:py-16 border-t border-[var(--border)]">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div class="text-center mb-10">
-            <p class="text-xs font-bold uppercase tracking-widest mb-3" style="color:#F26722;">Limited-Time Offer</p>
-            <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)]">
-              Digital Launchpad - 4-Year All-In Plan
-            </h2>
-            <p class="mt-3 text-[var(--text-dim)] max-w-xl mx-auto text-sm">
-              Website + domain + hosting + maintenance - one payment, everything sorted till 2030.
-            </p>
-          </div>
-
-          <ul class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch pt-6" role="list">
-            {PLANS.map((plan) => (
-              <li>
-                <PlanCard plan={plan} showAllFeatures={false} />
-              </li>
-            ))}
-          </ul>
-
-          <p class="text-center mt-8">
-            <a
-              href="/pricing/digital-launchpad/"
-              class="inline-flex items-center gap-1.5 text-sm font-semibold underline underline-offset-2 transition-colors hover:opacity-80"
-              style="color:#F26722;"
-            >
-              See Full Plan Details, Inclusions & FAQ →
-            </a>
-          </p>
-        </div>
-      </section>
-  )}
 
   <!-- Divider: standard packages -->
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
@@ -240,9 +167,11 @@ const guarantees = [
 
                 <!-- Starting price -->
                 <div class="relative mb-5">
-                  <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--text-muted)] mb-1">Starting from</p>
-                  <p class="font-heading font-bold text-[var(--text)] leading-none">
-                    <span class="text-3xl sm:text-4xl" style={`color: var(${cssVar});`}>₹{inrFormatter.format(tier.prices.INR)}</span>
+                  <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--text-muted)] mb-1">{tier.customPricing ? 'Tailored to your scope' : 'Starting from'}</p>
+                  <p class="font-heading font-bold text-[var(--text)] leading-tight">
+                    <span class="text-3xl sm:text-4xl" style={`color: var(${cssVar});`}>
+                      {tier.customPricing ? 'Contact for pricing' : `₹${inrFormatter.format(tier.prices.INR)}`}
+                    </span>
                   </p>
                 </div>
 
@@ -252,7 +181,11 @@ const guarantees = [
                     <strong class="text-[var(--text)]">{tier.deliveryDays}</strong>-day delivery
                   </span>
                   <span class="text-xs text-[var(--text-muted)]">
-                    <strong class="text-[var(--text)]">{tier.revisions === 'Unlimited' ? '∞' : tier.revisions}</strong> revisions
+                    {typeof tier.revisions === 'number' ? (
+                      <><strong class="text-[var(--text)]">{tier.revisions}</strong> revisions</>
+                    ) : (
+                      <><strong class="text-[var(--text)]">Revision rounds</strong> agreed in scope</>
+                    )}
                   </span>
                   <span class="text-xs text-[var(--text-muted)]">
                     <strong class="text-[var(--text)]">{tier.support}</strong> support
@@ -278,35 +211,29 @@ const guarantees = [
                   >
                     {tier.cta}
                   </a>
-                  <p class="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--text-muted)] text-center mt-1">
-                    Pay advance to book
+                  <p class="text-center text-xs leading-relaxed text-[var(--text-muted)]">
+                    Already received the written scope and payment reference?
+                    <a href="#booking-advance" class="ml-1 font-semibold text-[var(--text)] underline underline-offset-2">Use the secure booking-advance section below.</a>
                   </p>
-                  <div class="rzp-button-slot flex justify-center">
-                    <form>
-                      <script
-                        src="https://checkout.razorpay.com/v1/payment-button.js"
-                        data-payment_button_id={RAZORPAY_BUTTON_INR_9999}
-                        async
-                        is:inline
-                      ></script>
-                    </form>
-                  </div>
-                  <div class="rzp-button-slot flex justify-center">
-                    <form>
-                      <script
-                        src="https://checkout.razorpay.com/v1/payment-button.js"
-                        data-payment_button_id={RAZORPAY_BUTTON_USD_99}
-                        async
-                        is:inline
-                      ></script>
-                    </form>
-                  </div>
                 </div>
               </article>
             </li>
           );
         })}
       </ul>
+
+      <div id="booking-advance" class="mx-auto mt-10 max-w-2xl scroll-mt-28 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-5 sm:p-7">
+        <div class="mb-5 text-center">
+          <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">Secure payment handoff</p>
+          <h3 class="mt-2 font-heading text-xl font-bold text-[var(--text)] sm:text-2xl">Pay only against confirmed instructions</h3>
+          <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">The ₹9,999 or $99 control below is a booking advance, not the full price of a package. Use the currency and payment reference stated in your written communication from eLan Technology.</p>
+        </div>
+        <RazorpayPaymentGate
+          instanceId="pricing"
+          inrButtonId={RAZORPAY_BUTTON_INR_9999}
+          usdButtonId={RAZORPAY_BUTTON_USD_99}
+        />
+      </div>
     </div>
   </section>
 
@@ -430,7 +357,7 @@ const guarantees = [
             Need something specific?
           </h2>
           <p class="text-[var(--text-dim)] mb-8 text-lg max-w-xl mx-auto">
-            Our packages are starting points. Tell us about your project and we'll give you a detailed, no-obligation custom quote within 24 hrs.
+            Our packages are starting points. Tell us about your project and we will review the requirement, clarify the scope and respond with the next steps for a written quote.
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a

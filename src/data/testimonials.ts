@@ -1,101 +1,200 @@
+export type TestimonialSource = 'Direct client feedback' | 'LinkedIn recommendation' | 'Google review';
+
 export interface Testimonial {
   id: number;
   quote: string;
   author: string;
   role: string;
   company: string;
-  rating: number;
+  rating?: number;
   industry: string;
+  source: TestimonialSource;
+  datePublished?: string;
   isFeatured: boolean;
 }
 
+/**
+ * Names are intentionally abbreviated for client privacy.
+ * LinkedIn wording is taken from recommendations supplied by the profile owner.
+ * Google wording is taken from the public eLan Technology Business Profile.
+ */
 export const testimonials: Testimonial[] = [
   {
     id: 1,
     quote:
-      "Our patient inquiry form submissions went up 200% after eLan redesigned our hospital website. The new site is clean, professional, and ranks on page one for local searches. Patients frequently tell us they found us on Google - something that never happened before. The team was thorough, responsive, and genuinely understood what a healthcare audience needs.",
+      'Our patient inquiry form submissions went up 200% after eLan redesigned our hospital website. The new site is clean, professional, and ranks on page one for local searches. The team was thorough, responsive, and genuinely understood what a healthcare audience needs.',
     author: 'Dr. Pawan A.',
     role: 'Managing Director',
     company: 'Aastha Hospital',
-    rating: 5,
     industry: 'Healthcare',
+    source: 'Direct client feedback',
     isFeatured: true,
   },
   {
     id: 2,
     quote:
-      "eLan Technology built our B2B portal from scratch and delivered it ahead of schedule. The custom MERN stack solution they developed handles our international dealer network with ease - multi-currency, real-time quotes, and a beautiful front-end. We've been generating qualified leads from the US, Canada, and Australia consistently since launch.",
+      'Nishant designed our website for us. When I told him what I was looking for, he came up with our current design and it looked better than I had hoped. We still use him and I would recommend him to others.',
     author: 'Bob G.',
-    role: 'President',
-    company: 'Ribolator USA',
-    rating: 5,
+    role: 'CEO',
+    company: 'Rib-O-Lator',
     industry: 'International Manufacturing',
+    source: 'LinkedIn recommendation',
+    datePublished: '2011-08-19',
     isFeatured: true,
   },
   {
     id: 3,
     quote:
-      "We've been working with eLan for over five years now, and they've become an integral part of our technology strategy. Every platform they've built for CSRI-BSB has been delivered on time, on budget, and has exceeded expectations. Their team proactively suggests improvements and genuinely cares about the long-term success of our organization.",
+      'I have worked with Nishant on several projects spanning about two years. He is quick, responsive, solution-oriented, dedicated and trustworthy, and produces great results. I will use him again and continue recommending him to colleagues.',
     author: 'Wayne D.',
-    role: 'Executive Director',
+    role: 'Founder & President',
     company: 'CSRI-BSB',
-    rating: 5,
     industry: 'International Research',
+    source: 'LinkedIn recommendation',
+    datePublished: '2012-11-14',
     isFeatured: true,
   },
   {
     id: 4,
     quote:
-      "The corporate portal eLan built for us has transformed how our 500+ employees access HR information and company announcements. What used to take our HR team hours of manual work is now fully automated. The user interface is intuitive, the system is rock-solid, and the training was excellent. I would strongly recommend eLan for enterprise projects.",
-    author: 'Rohit Sharma',
-    role: 'Director of Operations',
-    company: 'CIPL India',
-    rating: 5,
-    industry: 'Corporate',
+      'Understanding the requirement is the first challenge in quality work, and Nishant does this very well. He knows his subject, delivers with care, and remains helpful across requirements both small and large. I recommend him for his expertise, timely delivery, loyalty and passion for his customers.',
+    author: 'Rohit C.',
+    role: 'Director',
+    company: 'CIPL',
+    industry: 'Industrial Manufacturing',
+    source: 'LinkedIn recommendation',
+    datePublished: '2011-08-19',
     isFeatured: false,
   },
   {
     id: 5,
     quote:
-      "Our architecture studio website needed to be as impressive as our projects. eLan delivered exactly that - a full-screen, immersive portfolio site that has genuinely impressed our clients and helped us win new commissions. Inquiries through the website have tripled since the redesign, and several clients mentioned the website specifically when hiring us.",
-    author: 'Siddharth Trivedi',
-    role: 'Principal Architect',
-    company: 'Trimit Architects',
-    rating: 5,
-    industry: 'Architecture',
+      'Mr. Nishant Barde is an exceptional digital marketing and web development consultant, skilled in building high-performing websites that support business growth. His strategic approach, attention to detail and commitment to client success make him a valuable asset.',
+    author: 'Priti D.',
+    role: 'Corporate English Trainer',
+    company: 'Business Communication',
+    industry: 'Professional Services',
+    source: 'LinkedIn recommendation',
+    datePublished: '2025-02-14',
     isFeatured: false,
   },
   {
     id: 6,
     quote:
-      "Transitioning D'FYNE Magazine to a digital subscription model was a significant undertaking, and eLan made it seamless. The WordPress and WooCommerce platform they built handles subscriptions, single-issue purchases, and editorial content publishing beautifully. We crossed 1,200 digital subscribers within 6 months - far ahead of our targets.",
-    author: 'Natasha Johal',
-    role: 'Publisher & Editor-in-Chief',
-    company: "D'FYNE Magazine",
-    rating: 5,
-    industry: 'Media & Publishing',
+      'Nishant brought my photography website to life with creativity and precision. He understood my needs and turned them into a visually strong, functional website. He was responsive and collaborative throughout, and I would recommend him without hesitation.',
+    author: 'Alessanddra N.',
+    role: 'Expert Portrait Photographer',
+    company: 'Photography & Mentoring',
+    industry: 'Photography',
+    source: 'LinkedIn recommendation',
+    datePublished: '2024-07-24',
     isFeatured: false,
   },
   {
     id: 7,
     quote:
-      "eLan built our school ERP system and it has genuinely changed how we operate. Attendance tracking, fee management, timetables, and parent communication - everything is now digital and automated. Our fee collection default rate dropped dramatically, and parents appreciate the real-time updates about their children. The team was patient, thorough, and professional throughout.",
-    author: 'Sunita Mehrotra',
-    role: 'Principal',
-    company: 'BrightMinds International School',
-    rating: 5,
-    industry: 'Education',
+      'Nishant has worked on several of our projects over the past couple of years. He is extremely customer-focused, takes pride in his work and is an excellent communicator. We look forward to continuing to use his services.',
+    author: 'Eva J.',
+    role: 'Business Leader',
+    company: 'VIP Innovations',
+    industry: 'Consulting',
+    source: 'LinkedIn recommendation',
+    datePublished: '2011-08-19',
     isFeatured: false,
   },
   {
     id: 8,
     quote:
-      "As a small NGO, we were skeptical about affording a quality website. eLan worked within our budget and delivered something that genuinely represents our mission. The integrated donation system using Razorpay has been life-changing for our fundraising. In our first year, we raised over ₹8.5 lakh through the website alone. Three corporate CSR partners also reached out after finding us online.",
-    author: 'Kavita Deshmukh',
-    role: 'Founder',
-    company: 'Pragati Foundation',
+      'Nishant was recommended by a friend when I needed to update my website. He did a great job and went the extra mile when needed. I would not hesitate to use his services again.',
+    author: 'Andrew G.',
+    role: 'Family Nurse Practitioner',
+    company: 'Connecticut Back Center',
+    industry: 'Healthcare',
+    source: 'LinkedIn recommendation',
+    datePublished: '2011-08-18',
+    isFeatured: false,
+  },
+  {
+    id: 9,
+    quote:
+      'Nishant has been a wonderful IT service provider for our company. We completed multiple projects and it was always a pleasure working with him. He is flexible and accommodating, and discovering him and his company has been a great asset.',
+    author: 'Jacob L.',
+    role: 'Business Client',
+    company: 'WTS',
+    industry: 'Business Services',
+    source: 'LinkedIn recommendation',
+    datePublished: '2009-10-27',
+    isFeatured: false,
+  },
+  {
+    id: 10,
+    quote:
+      'eLan Technology has been handling our digital marketing, and the results speak for themselves. We have seen a significant jump in organic traffic and improved local SEO visibility in Central India. The team is data-driven and keeps us informed with transparent reports.',
+    author: 'Parag D.',
+    role: 'Digital Marketing Client',
+    company: 'Central India',
     rating: 5,
-    industry: 'NGO / Non-Profit',
+    industry: 'Digital Marketing',
+    source: 'Google review',
+    isFeatured: false,
+  },
+  {
+    id: 11,
+    quote:
+      'I highly recommend eLan Technology to anyone looking for complete website solutions. They understand business needs and deliver websites that are modern, user-friendly and performance-focused. Every detail was handled professionally from design to development.',
+    author: 'Sunanda M.',
+    role: 'Website Client',
+    company: 'Nagpur',
+    rating: 5,
+    industry: 'Local Business',
+    source: 'Google review',
+    isFeatured: false,
+  },
+  {
+    id: 12,
+    quote:
+      'Fast and secure ecommerce website delivered along with digital marketing solutions.',
+    author: 'Vicky C.',
+    role: 'eCommerce Client',
+    company: 'Nagpur',
+    rating: 5,
+    industry: 'eCommerce',
+    source: 'Google review',
+    isFeatured: false,
+  },
+  {
+    id: 13,
+    quote:
+      'The team is professional, responsive and knowledgeable. They provided excellent service and a smooth, hassle-free experience. Their commitment to quality and customer satisfaction is really appreciated.',
+    author: 'Dr. Chaitanya B.',
+    role: 'Healthcare Professional',
+    company: 'Nagpur',
+    rating: 5,
+    industry: 'Healthcare',
+    source: 'Google review',
+    isFeatured: false,
+  },
+  {
+    id: 14,
+    quote:
+      'We were very pleased with the concise and detailed work. We look forward to doing business with Nishant again.',
+    author: 'Tobie P.',
+    role: 'Marketing Coordinator',
+    company: 'Inner Healing Music',
+    industry: 'Music & Wellness',
+    source: 'LinkedIn recommendation',
+    datePublished: '2013-04-17',
+    isFeatured: false,
+  },
+  {
+    id: 15,
+    quote:
+      'Nishant has been my webmaster for 17 years at very competitive pricing. He has always been responsive and timely in all his work with me here in Canada. I have no hesitations at all in recommending his services.',
+    author: 'Eric Hatashita',
+    role: 'Medical Director',
+    company: 'Regal Health Services, Toronto, Ontario, Canada',
+    industry: 'Healthcare',
+    source: 'Direct client feedback',
     isFeatured: false,
   },
 ];

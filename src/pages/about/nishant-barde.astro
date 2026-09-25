@@ -1,0 +1,424 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import QRCode from 'qrcode';
+import { breadcrumbSchema } from '../../utils/schema';
+
+const pageUrl = 'https://elan-tech.net/about/nishant-barde/';
+const phone = '+918788834630';
+const email = 'nishant@elan-tech.net';
+const vcard = `BEGIN:VCARD\r\nVERSION:3.0\r\nN:Barde;Nishant;;;\r\nFN:Nishant Barde\r\nORG:eLan Technology\r\nTITLE:Digital Growth Consultant\r\nTEL;TYPE=CELL,VOICE:${phone}\r\nEMAIL;TYPE=INTERNET,WORK:${email}\r\nURL;TYPE=WORK:https://elan-tech.net/\r\nURL:${pageUrl}\r\nX-SOCIALPROFILE;TYPE=linkedin:https://www.linkedin.com/in/bnishant/\r\nNOTE:Websites, web applications, SEO, ecommerce, security, performance audits, and ADA and WCAG accessibility services.\r\nREV:20260912T120000Z\r\nEND:VCARD`;
+
+const qrSvg = await QRCode.toString(vcard, {
+  type: 'svg',
+  errorCorrectionLevel: 'M',
+  margin: 2,
+  width: 360,
+  color: { dark: '#12213f', light: '#ffffff' },
+});
+
+const services = [
+  { label: 'Website Design', href: '/services/website-design/' },
+  { label: 'Web Applications', href: '/services/web-development/' },
+  { label: 'eCommerce', href: '/services/ecommerce/' },
+  { label: 'SEO', href: '/services/seo/' },
+  { label: 'Accessibility', href: '/services/ada-compliant-web-design/' },
+  { label: 'Security & Care', href: '/services/maintenance-security/' },
+];
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': `${pageUrl}#person`,
+    name: 'Nishant Barde',
+    jobTitle: 'Digital Growth Consultant',
+    url: pageUrl,
+    image: 'https://elan-tech.net/images/nishant-barde.avif',
+    email: `mailto:${email}`,
+    telephone: phone,
+    worksFor: {
+      '@type': 'Organization',
+      '@id': 'https://elan-tech.net/#organization',
+      name: 'eLan Technology',
+      url: 'https://elan-tech.net/',
+    },
+    knowsAbout: ['Web design', 'Web applications', 'SEO', 'eCommerce', 'Website security', 'Web performance', 'ADA and WCAG accessibility'],
+    sameAs: ['https://www.linkedin.com/in/bnishant/'],
+  },
+  breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'About', url: '/about/' },
+    { name: 'Nishant Barde', url: '/about/nishant-barde/' },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Nishant Barde | Digital Growth Consultant at eLan Technology"
+  description="Connect with Nishant Barde, Digital Growth Consultant at eLan Technology. Website strategy, ecommerce, SEO, accessibility, security and performance guidance."
+  canonical="/about/nishant-barde/"
+  ogImage="/images/og/nishant-barde-digital-card.jpg"
+  ogType="profile"
+  schema={schema}
+  standalone={true}
+>
+  <section class="profile-page relative overflow-hidden pb-44 pt-6 sm:py-16 lg:py-20">
+    <div class="profile-grid pointer-events-none absolute inset-0" aria-hidden="true"></div>
+    <div class="profile-glow glow-one" aria-hidden="true"></div>
+    <div class="profile-glow glow-two" aria-hidden="true"></div>
+
+    <div class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <article class="profile-card overflow-hidden rounded-[1.5rem] border border-[var(--border)] bg-[var(--bg-card)]">
+        <header class="profile-cover relative overflow-hidden px-5 pb-10 pt-5 sm:px-10 sm:pb-28 sm:pt-9">
+          <div class="cover-grid pointer-events-none absolute inset-0" aria-hidden="true"></div>
+          <div class="cover-orb orb-blue pointer-events-none absolute -right-12 -top-20 h-72 w-72 rounded-full" aria-hidden="true"></div>
+          <div class="cover-orb orb-green pointer-events-none absolute -bottom-24 left-1/3 h-64 w-64 rounded-full" aria-hidden="true"></div>
+          <div class="relative flex items-start justify-between gap-5">
+            <a href="/" aria-label="eLan Technology home" class="brand-logo inline-flex rounded-xl border border-[var(--border)] bg-white px-3 py-2">
+              <img src="../../images/elan-tech-logoh.svg" alt="eLan Technology" width="158" height="42" class="h-8 w-auto" loading="eager" decoding="async" />
+            </a>
+            <span class="availability inline-flex items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--bg-card)]/80 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--text)] backdrop-blur-md">
+              <span class="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,.14)]" aria-hidden="true"></span>
+              Open to conversations
+            </span>
+          </div>
+          <div class="profile-cover-hero relative mt-7 sm:mt-9">
+            <div class="profile-cover-copy max-w-lg">
+              <p class="text-xs font-bold uppercase tracking-[0.2em] text-[var(--accent)]">Think • Build • Grow</p>
+              <p class="cover-statement mt-2 font-heading text-xl font-black leading-tight text-[var(--text)] sm:mt-3 sm:text-3xl">Digital clarity for businesses ready to grow.</p>
+              <p class="mt-3 hidden max-w-md text-sm leading-relaxed text-[var(--text-dim)] sm:block">Practical guidance, thoughtful design and dependable technology from strategy to launch.</p>
+              <p class="cover-specialisms mt-3 text-[10px] font-extrabold uppercase tracking-[0.13em] text-[var(--text-muted)] sm:hidden">Websites <span>•</span> Commerce <span>•</span> Growth</p>
+            </div>
+            <div class="mobile-portrait-wrap sm:hidden">
+              <div class="mobile-portrait-halo" aria-hidden="true"></div>
+              <div class="mobile-portrait-frame">
+                <img src="../../images/nishant-barde.avif" alt="Nishant Barde, Digital Growth Consultant" width="500" height="500" class="h-full w-full object-cover" loading="eager" decoding="async" fetchpriority="high" />
+              </div>
+            </div>
+          </div>
+          <svg class="profile-wave absolute -bottom-px left-0 h-20 w-full" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0,64 C210,135 350,8 590,58 C820,108 976,123 1200,42 L1200,120 L0,120 Z" fill="var(--bg-card)"></path>
+          </svg>
+        </header>
+
+        <div class="relative px-6 pb-8 sm:px-10 sm:pb-10">
+          <div class="mt-5 flex items-end justify-center gap-6 sm:-mt-24 sm:justify-between">
+            <div class="relative hidden w-fit sm:block">
+              <div class="profile-photo-frame h-36 w-36 overflow-hidden rounded-[1.65rem] border-[5px] border-[var(--bg-card)] bg-[var(--bg)] shadow-xl sm:h-44 sm:w-44 sm:rounded-[2rem] sm:border-[6px]">
+                <img src="../../images/nishant-barde.avif" alt="Nishant Barde, Digital Growth Consultant" width="500" height="500" class="h-full w-full object-cover" loading="eager" decoding="async" fetchpriority="high" />
+              </div>
+            </div>
+            <div class="social-cluster hidden pb-1 sm:block">
+              <p class="mb-2 text-right text-[10px] font-extrabold uppercase tracking-[0.16em] text-[var(--text-muted)]">Follow eLan Technology</p>
+              <div class="flex gap-2" aria-label="eLan Technology social media">
+                <a class="social-link linkedin" href="https://www.linkedin.com/company/elan-technology/" target="_blank" rel="noopener noreferrer" aria-label="eLan Technology on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 8.3H3.2V21h3.3V8.3ZM4.8 3A1.9 1.9 0 1 0 4.8 6.8 1.9 1.9 0 0 0 4.8 3ZM21 13.7c0-3.8-2-5.6-4.7-5.6-2.2 0-3.2 1.2-3.7 2v-1.8H9.3V21h3.3v-6.3c0-1.7.3-3.3 2.4-3.3 2 0 2.1 1.9 2.1 3.4V21H21v-7.3Z"/></svg></a>
+                <a class="social-link facebook" href="https://www.facebook.com/eLanTechnology" target="_blank" rel="noopener noreferrer" aria-label="eLan Technology on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.1 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5h1.7V3.9c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H8v3h2.7v8h3.4Z"/></svg></a>
+                <a class="social-link instagram" href="https://www.instagram.com/elan_tech" target="_blank" rel="noopener noreferrer" aria-label="eLan Technology on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.1"/></svg></a>
+                <a class="social-link youtube" href="https://www.youtube.com/c/eLanTechnology" target="_blank" rel="noopener noreferrer" aria-label="eLan Technology on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 7.1a2.8 2.8 0 0 0-2-2C17.9 4.6 12 4.6 12 4.6s-5.9 0-7.6.5a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.9 2.8 2.8 0 0 0 2 2c1.7.5 7.6.5 7.6.5s5.9 0 7.6-.5a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.9ZM10 15.2V8.8l5.5 3.2-5.5 3.2Z"/></svg></a>
+                <a class="social-link x-social" href="https://x.com/eLanTechnology" target="_blank" rel="noopener noreferrer" aria-label="eLan Technology on X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.8 3h3.7l-8 9.2L24 21h-7.4l-5.8-7.6L4.2 21H.5l8.6-9.8L0 3h7.6l5.2 6.9L18.8 3Zm-1.3 16h2L6.5 4.9H4.3L17.5 19Z"/></svg></a>
+              </div>
+            </div>
+          </div>
+
+          <nav class="mobile-actions grid grid-cols-2 gap-2 sm:hidden" aria-label="Primary contact actions" aria-describedby="card-privacy-summary">
+            <a class="quick-action call-action" href={`tel:${phone}`}>
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.56 2.81.69A2 2 0 0 1 22 16.92Z" /></svg>
+              <span>Call</span>
+            </a>
+            <a class="quick-action whatsapp-action" href="https://wa.me/918788834630?text=Hello%20Nishant%2C%20I%20found%20your%20digital%20card%20and%20would%20like%20to%20connect." target="_blank" rel="noopener noreferrer">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 9.5 9.5 0 0 1-4-.9L3 21l1.8-4.8A8.5 8.5 0 1 1 21 11.5Z" /><path d="M8.2 8.1c.2-.5.4-.5.7-.5h.5c.2 0 .4.1.5.4l.8 1.9c.1.3 0 .5-.2.7l-.6.7c-.2.2-.1.4 0 .6.6 1 1.5 1.8 2.5 2.3.3.2.5.1.7-.1l.8-1c.2-.2.4-.3.7-.2l2 .9c.3.1.4.3.4.5 0 .4-.2 1.3-.8 1.8-.6.5-1.3.8-2.2.6-1-.2-2.4-.7-4.1-2.1-2-1.7-3.2-3.8-3.5-4.7-.3-.8 0-1.5.3-1.8Z" /></svg>
+              <span>WhatsApp</span>
+            </a>
+            <a class="quick-action save-action" href="/contact/nishant-barde.vcf" download="Nishant-Barde-eLan-Technology.vcf">
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4" /><path d="M5 21h14" /></svg>
+              <span>Save Contact</span>
+            </a>
+            <button class="quick-action qr-action" type="button" data-qr-open>
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><path d="M14 14h3v3h-3zm4 4h3v3h-3zm0-4h3m-7 7h3" /></svg>
+              <span>Show QR</span>
+            </button>
+          </nav>
+
+          <div class="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_17rem] lg:items-start">
+            <div>
+              <p class="text-xs font-extrabold uppercase tracking-[0.18em] text-[var(--accent)]">eLan Technology</p>
+              <h1 class="mt-2 font-heading text-4xl font-black leading-tight text-[var(--text)] sm:text-5xl">Nishant Barde</h1>
+              <p class="mt-2 text-xl font-bold text-[var(--ac-blue)]">Digital Growth Consultant</p>
+              <p class="mt-5 max-w-2xl text-base leading-relaxed text-[var(--text-dim)]">
+                I help businesses plan, build and improve websites that are clear, fast, secure and easier for people to use. From a first website to a custom commerce platform, the focus stays on what your business genuinely needs.
+              </p>
+
+              <div class="mt-6 flex flex-wrap gap-2" aria-label="Areas of expertise">
+                {['Websites', 'Web Applications', 'SEO', 'eCommerce', 'Security', 'Performance Audits', 'ADA & WCAG'].map((item) => <span class="expertise-chip">{item}</span>)}
+              </div>
+              <p class="mt-5 text-sm font-semibold leading-relaxed text-[var(--text-dim)]">WordPress • Shopify • Medusa.js • Headless CMS</p>
+              <p class="mt-1 text-sm leading-relaxed text-[var(--text-muted)]">Customisation • Maintenance • Security • Speed improvements • Website management</p>
+            </div>
+
+            <aside class="qr-preview hidden rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-4 text-center shadow-sm lg:block" aria-label="QR contact card">
+              <div class="mx-auto w-full max-w-[13rem] overflow-hidden rounded-xl bg-white p-2" set:html={qrSvg}></div>
+              <p class="mt-3 text-sm font-bold text-[var(--text)]">Scan to save contact</p>
+              <p class="mt-1 text-xs text-[var(--text-muted)]">Complete contact details</p>
+            </aside>
+          </div>
+
+          <nav class="mt-8 hidden grid-cols-4 gap-3 sm:grid" aria-label="Contact actions" aria-describedby="card-privacy-summary">
+            <a class="quick-action call-action" href={`tel:${phone}`}>
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.56 2.81.69A2 2 0 0 1 22 16.92Z" /></svg>
+              <span>Call</span>
+            </a>
+            <a class="quick-action whatsapp-action" href="https://wa.me/918788834630?text=Hello%20Nishant%2C%20I%20found%20your%20digital%20card%20and%20would%20like%20to%20connect." target="_blank" rel="noopener noreferrer">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 9.5 9.5 0 0 1-4-.9L3 21l1.8-4.8A8.5 8.5 0 1 1 21 11.5Z" /><path d="M8.2 8.1c.2-.5.4-.5.7-.5h.5c.2 0 .4.1.5.4l.8 1.9c.1.3 0 .5-.2.7l-.6.7c-.2.2-.1.4 0 .6.6 1 1.5 1.8 2.5 2.3.3.2.5.1.7-.1l.8-1c.2-.2.4-.3.7-.2l2 .9c.3.1.4.3.4.5 0 .4-.2 1.3-.8 1.8-.6.5-1.3.8-2.2.6-1-.2-2.4-.7-4.1-2.1-2-1.7-3.2-3.8-3.5-4.7-.3-.8 0-1.5.3-1.8Z" /></svg>
+              <span>WhatsApp</span>
+            </a>
+            <a class="quick-action save-action" href="/contact/nishant-barde.vcf" download="Nishant-Barde-eLan-Technology.vcf">
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4" /><path d="M5 21h14" /></svg>
+              <span>Save Contact</span>
+            </a>
+            <button class="quick-action qr-action" type="button" data-qr-open>
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><path d="M14 14h3v3h-3zm4 4h3v3h-3zm0-4h3m-7 7h3" /></svg>
+              <span>QR Code</span>
+            </button>
+          </nav>
+
+          <div class="mt-8 grid gap-3 sm:grid-cols-2">
+            <a href={`mailto:${email}`} class="contact-row">
+              <span class="contact-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg></span>
+              <span><small>Email</small><strong>{email}</strong></span><span aria-hidden="true">→</span>
+            </a>
+            <a href="https://www.linkedin.com/in/bnishant/" target="_blank" rel="noopener noreferrer" class="contact-row">
+              <span class="contact-icon" aria-hidden="true">in</span>
+              <span><small>Personal LinkedIn</small><strong>Connect with Nishant</strong></span><span aria-hidden="true">↗</span>
+            </a>
+          </div>
+
+          <button type="button" class="share-card-action group mt-4 flex min-h-16 w-full items-center gap-3 rounded-2xl p-3.5 text-left" data-share-card>
+            <span class="share-card-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-xl" aria-hidden="true">
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.7 10.7 6.6-4.1m-6.6 6.7 6.6 4.1"/></svg>
+            </span>
+            <span class="min-w-0 flex-1">
+              <strong class="block text-sm font-extrabold text-[var(--text)]">Share this digital card</strong>
+              <small class="mt-0.5 block text-xs text-[var(--text-muted)]" data-share-status>Send it or copy the profile link</small>
+            </span>
+            <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[var(--text)] text-[var(--bg-card)] transition-transform group-hover:translate-x-1" aria-hidden="true">↗</span>
+          </button>
+          <p class="sr-only" aria-live="polite" data-share-live></p>
+
+          <aside id="card-privacy-summary" class="card-privacy mt-4 rounded-2xl border border-[var(--border)] p-4 sm:p-5" aria-labelledby="card-privacy-title">
+            <div class="flex items-start gap-3">
+              <span class="privacy-mark flex h-10 w-10 shrink-0 items-center justify-center rounded-xl" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 5 6v5c0 4.6 2.8 8.1 7 10 4.2-1.9 7-5.4 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+              </span>
+              <div>
+                <p class="text-[10px] font-extrabold uppercase tracking-[0.17em] text-[var(--accent)]">Your choice, your device</p>
+                <h2 id="card-privacy-title" class="mt-1 font-heading text-lg font-black text-[var(--text)]">Nothing happens until you choose it</h2>
+                <p class="mt-1 text-sm leading-relaxed text-[var(--text-dim)]">This digital card does not ask for or store your personal details.</p>
+              </div>
+            </div>
+            <div class="mt-4 grid gap-2 text-xs leading-relaxed text-[var(--text-muted)] sm:grid-cols-2">
+              <p><strong class="text-[var(--text)]">Call or email:</strong> opens your phone or email app. Nothing is placed or sent automatically.</p>
+              <p><strong class="text-[var(--text)]">WhatsApp:</strong> opens Meta’s service with a prepared greeting; you decide whether to send it.</p>
+              <p><strong class="text-[var(--text)]">Save or scan:</strong> the contact file and QR contain Nishant’s public business details and are handled on your device.</p>
+              <p><strong class="text-[var(--text)]">Share:</strong> opens your device’s share panel or copies this public page link. You choose the recipient.</p>
+            </div>
+            <p class="mt-3 border-t border-[var(--border)] pt-3 text-[11px] leading-relaxed text-[var(--text-muted)]">LinkedIn and the eLan Technology social links open external services that may process connection and device information under their own policies. <a href="/privacy-policy/" class="font-bold text-[var(--text)] underline underline-offset-2">Privacy Policy</a></p>
+          </aside>
+
+          <div class="mt-6 sm:hidden">
+            <p class="mb-3 text-[10px] font-extrabold uppercase tracking-[0.16em] text-[var(--text-muted)]">Follow eLan Technology</p>
+            <div class="flex gap-2" aria-label="eLan Technology social media">
+              <a class="social-link linkedin" href="https://www.linkedin.com/company/elan-technology/" target="_blank" rel="noopener noreferrer" aria-label="eLan Technology on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 8.3H3.2V21h3.3V8.3ZM4.8 3A1.9 1.9 0 1 0 4.8 6.8 1.9 1.9 0 0 0 4.8 3ZM21 13.7c0-3.8-2-5.6-4.7-5.6-2.2 0-3.2 1.2-3.7 2v-1.8H9.3V21h3.3v-6.3c0-1.7.3-3.3 2.4-3.3 2 0 2.1 1.9 2.1 3.4V21H21v-7.3Z"/></svg></a>
+              <a class="social-link facebook" href="https://www.facebook.com/eLanTechnology" target="_blank" rel="noopener noreferrer" aria-label="eLan Technology on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.1 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5h1.7V3.9c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H8v3h2.7v8h3.4Z"/></svg></a>
+              <a class="social-link instagram" href="https://www.instagram.com/elan_tech" target="_blank" rel="noopener noreferrer" aria-label="eLan Technology on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.1"/></svg></a>
+              <a class="social-link youtube" href="https://www.youtube.com/c/eLanTechnology" target="_blank" rel="noopener noreferrer" aria-label="eLan Technology on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 7.1a2.8 2.8 0 0 0-2-2C17.9 4.6 12 4.6 12 4.6s-5.9 0-7.6.5a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.9 2.8 2.8 0 0 0 2 2c1.7.5 7.6.5 7.6.5s5.9 0 7.6-.5a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.9ZM10 15.2V8.8l5.5 3.2-5.5 3.2Z"/></svg></a>
+              <a class="social-link x-social" href="https://x.com/eLanTechnology" target="_blank" rel="noopener noreferrer" aria-label="eLan Technology on X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.8 3h3.7l-8 9.2L24 21h-7.4l-5.8-7.6L4.2 21H.5l8.6-9.8L0 3h7.6l5.2 6.9L18.8 3Zm-1.3 16h2L6.5 4.9H4.3L17.5 19Z"/></svg></a>
+            </div>
+          </div>
+
+          <a href="/free-website-audit/" class="audit-cta mt-5 flex flex-col gap-4 rounded-2xl p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+            <span>
+              <small class="block text-[10px] font-extrabold uppercase tracking-[0.18em] text-orange-950/70">Not sure what your website needs?</small>
+              <strong class="mt-1 block font-heading text-xl font-black text-[#171b30] sm:text-2xl">Get your website audited</strong>
+            </span>
+            <span class="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-[#17213d] px-5 py-2.5 text-sm font-extrabold text-white">Start Free Audit <span aria-hidden="true">→</span></span>
+          </a>
+        </div>
+
+        <footer class="border-t border-[var(--border)] bg-[var(--bg)] px-6 py-7 sm:px-10">
+          <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <p class="text-xs font-extrabold uppercase tracking-[0.16em] text-[var(--text-muted)]">Explore eLan Technology services</p>
+              <nav class="mt-3 flex flex-wrap gap-x-4 gap-y-2" aria-label="eLan Technology services">
+                {services.map((service) => <a href={service.href} class="text-sm font-semibold text-[var(--text-dim)] transition-colors hover:text-[var(--accent)]">{service.label}</a>)}
+              </nav>
+            </div>
+            <a href="/get-quote/" class="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] px-5 py-2.5 text-sm font-bold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">Request a Quote <span aria-hidden="true">→</span></a>
+          </div>
+        </footer>
+      </article>
+    </div>
+  </section>
+
+  <dialog class="qr-dialog m-auto w-[calc(100%-2rem)] max-w-sm rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-0 text-[var(--text)] shadow-2xl" data-qr-dialog aria-labelledby="qr-dialog-title">
+    <div class="p-6 text-center sm:p-8">
+      <div class="flex items-start justify-between gap-4 text-left">
+        <div><p class="text-xs font-bold uppercase tracking-[0.16em] text-[var(--accent)]">Contact QR</p><h2 id="qr-dialog-title" class="mt-1 font-heading text-2xl font-black">Save Nishant’s contact</h2></div>
+        <button type="button" data-qr-close aria-label="Close QR code" class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[var(--border)] text-xl text-[var(--text)]">×</button>
+      </div>
+      <div class="mx-auto mt-6 max-w-[17rem] overflow-hidden rounded-2xl bg-white p-3 shadow-sm" set:html={qrSvg}></div>
+      <p class="mt-4 text-sm leading-relaxed text-[var(--text-dim)]">Scan with your phone camera to add the complete contact record.</p>
+      <a href="/contact/nishant-barde.vcf" download="Nishant-Barde-eLan-Technology.vcf" class="mt-5 inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-[var(--accent)] px-5 py-3 text-sm font-extrabold text-white">Download Contact</a>
+    </div>
+  </dialog>
+
+  <script>
+    const dialog = document.querySelector('[data-qr-dialog]');
+    const openButtons = document.querySelectorAll('[data-qr-open]');
+    const closeButton = document.querySelector('[data-qr-close]');
+    const shareButton = document.querySelector('[data-share-card]');
+    const shareStatus = document.querySelector('[data-share-status]');
+    const shareLive = document.querySelector('[data-share-live]');
+    if (dialog instanceof HTMLDialogElement) {
+      openButtons.forEach((openButton) => {
+        if (openButton instanceof HTMLButtonElement) openButton.addEventListener('click', () => dialog.showModal());
+      });
+      closeButton?.addEventListener('click', () => dialog.close());
+      dialog.addEventListener('click', (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+    }
+    if (shareButton instanceof HTMLButtonElement) {
+      shareButton.addEventListener('click', async () => {
+        const shareData = {
+          title: 'Nishant Barde | Digital Growth Consultant',
+          text: 'Connect with Nishant Barde at eLan Technology.',
+          url: window.location.href,
+        };
+        try {
+          if (navigator.share) {
+            await navigator.share(shareData);
+          } else {
+            await navigator.clipboard.writeText(shareData.url);
+            if (shareStatus) shareStatus.textContent = 'Profile link copied';
+            if (shareLive) shareLive.textContent = 'Profile link copied to clipboard.';
+          }
+        } catch (error) {
+          if (error instanceof DOMException && error.name === 'AbortError') return;
+          if (shareStatus) shareStatus.textContent = 'Copy the address from your browser';
+          if (shareLive) shareLive.textContent = 'Sharing is unavailable. Copy the address from your browser.';
+        }
+      });
+    }
+  </script>
+</BaseLayout>
+
+<style>
+  .profile-page { background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 7%, var(--bg)), var(--bg) 44%, color-mix(in srgb, var(--ac-blue) 7%, var(--bg))); }
+  .profile-grid { opacity: .5; background-image: linear-gradient(color-mix(in srgb, var(--text-muted) 10%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--text-muted) 10%, transparent) 1px, transparent 1px); background-size: 34px 34px; mask-image: linear-gradient(to bottom, black, transparent 86%); }
+  .profile-glow { position: absolute; border-radius: 9999px; filter: blur(90px); pointer-events: none; }
+  .glow-one { left: -8rem; top: 7rem; height: 22rem; width: 22rem; background: rgba(14,165,233,.12); }
+  .glow-two { right: -8rem; bottom: 3rem; height: 24rem; width: 24rem; background: rgba(249,115,22,.1); }
+  .profile-card { box-shadow: 0 28px 80px rgba(15,23,42,.13), 0 2px 8px rgba(15,23,42,.05); }
+  .profile-card::before { content: ''; display: block; height: 5px; background: linear-gradient(90deg, #f26722 0 29%, var(--accent) 29% 64%, var(--ac-blue) 64% 100%); }
+  .profile-cover { background: linear-gradient(120deg, color-mix(in srgb, var(--accent) 9%, var(--bg-card)) 0%, var(--bg-card) 47%, color-mix(in srgb, var(--ac-blue) 10%, var(--bg-card)) 100%); }
+  .cover-grid { opacity: .48; background-image: linear-gradient(color-mix(in srgb, var(--text-muted) 9%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--text-muted) 9%, transparent) 1px, transparent 1px); background-size: 30px 30px; mask-image: linear-gradient(90deg, transparent 5%, black 68%); }
+  .cover-orb { filter: blur(12px); opacity: .4; }
+  .orb-blue { background: color-mix(in srgb, var(--ac-blue) 35%, transparent); }
+  .orb-green { background: color-mix(in srgb, var(--accent) 28%, transparent); }
+  .brand-logo { box-shadow: 0 12px 30px rgba(15,23,42,.1); }
+  .profile-cover-hero { z-index: 2; }
+  .cover-statement { max-width: 30rem; letter-spacing: -.025em; }
+  .profile-photo-frame { box-shadow: 0 22px 45px rgba(15,23,42,.18), 0 4px 12px rgba(15,23,42,.08); }
+  .mobile-portrait-wrap { position: relative; align-self: end; justify-self: end; padding: .42rem; }
+  .mobile-portrait-halo { position: absolute; inset: -.55rem; border-radius: 2.15rem; background: conic-gradient(from 205deg, #f26722, var(--accent), var(--ac-blue), #f26722); opacity: .9; filter: blur(.5px); transform: rotate(-3deg); }
+  .mobile-portrait-frame { position: relative; height: 8.25rem; width: 7.45rem; overflow: hidden; border: 4px solid var(--bg-card); border-radius: 1.75rem; background: var(--bg); box-shadow: 0 22px 36px rgba(15,23,42,.22), 0 5px 12px rgba(15,23,42,.1); transform: rotate(1.5deg); }
+  .cover-specialisms span { padding: 0 .14rem; color: var(--accent); }
+  .expertise-chip { display: inline-flex; min-height: 2.15rem; align-items: center; border: 1px solid var(--border); border-radius: .65rem; background: var(--bg); padding: .4rem .7rem; color: var(--text-dim); font-size: .75rem; font-weight: 700; }
+  .social-link { display: inline-flex; height: 2.8rem; width: 2.8rem; align-items: center; justify-content: center; border: 1px solid var(--border); border-radius: .8rem; background: var(--bg); color: var(--text-dim); box-shadow: 0 7px 18px rgba(15,23,42,.07); transition: transform 180ms ease, border-color 180ms ease, color 180ms ease, background-color 180ms ease, box-shadow 180ms ease; }
+  .social-link svg { height: 1.15rem; width: 1.15rem; fill: currentColor; }
+  .social-link:hover { transform: translateY(-3px); background: var(--bg-card); box-shadow: 0 12px 26px rgba(15,23,42,.12); }
+  .linkedin:hover { border-color: #0a66c2; color: #0a66c2; } .facebook:hover { border-color: #1877f2; color: #1877f2; } .instagram:hover { border-color: #c13584; color: #c13584; } .youtube:hover { border-color: #e62117; color: #e62117; } .x-social:hover { border-color: var(--text); color: var(--text); }
+  .quick-action { display: inline-flex; min-height: 4.25rem; flex-direction: column; align-items: center; justify-content: center; gap: .35rem; border-radius: 1rem; border: 1px solid var(--border); padding: .65rem; font-size: .75rem; font-weight: 800; transition: transform 180ms ease, box-shadow 180ms ease; }
+  .quick-action:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(15,23,42,.1); }
+  .call-action { background: color-mix(in srgb, var(--ac-blue) 10%, var(--bg)); color: var(--ac-blue); }
+  .whatsapp-action { background: color-mix(in srgb, #16a34a 11%, var(--bg)); color: #15803d; }
+  .save-action { background: color-mix(in srgb, var(--accent) 10%, var(--bg)); color: var(--accent); }
+  .qr-action { background: color-mix(in srgb, var(--ac-violet) 10%, var(--bg)); color: var(--ac-violet); }
+  .contact-row { display: grid; min-height: 4.75rem; grid-template-columns: auto minmax(0,1fr) auto; align-items: center; gap: .8rem; border: 1px solid var(--border); border-radius: 1rem; background: var(--bg); padding: .8rem 1rem; transition: border-color 180ms ease, transform 180ms ease; }
+  .contact-row:hover { transform: translateY(-2px); border-color: var(--accent); }
+  .contact-icon { display: inline-flex; height: 2.5rem; width: 2.5rem; align-items: center; justify-content: center; border-radius: .75rem; background: color-mix(in srgb, var(--ac-blue) 12%, var(--bg-card)); color: var(--ac-blue); font-weight: 900; }
+  .contact-row small, .contact-row strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .contact-row small { color: var(--text-muted); font-size: .68rem; }
+  .contact-row strong { margin-top: .15rem; color: var(--text); font-size: .83rem; }
+  .share-card-action { border: 1px solid color-mix(in srgb, var(--ac-blue) 24%, var(--border)); background: linear-gradient(105deg, color-mix(in srgb, var(--ac-blue) 9%, var(--bg-card)), color-mix(in srgb, var(--accent) 8%, var(--bg-card))); box-shadow: 0 10px 28px rgba(15,23,42,.07), inset 0 1px 0 rgba(255,255,255,.5); transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease; }
+  .share-card-action:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--ac-blue) 55%, var(--border)); box-shadow: 0 15px 32px rgba(15,23,42,.12), inset 0 1px 0 rgba(255,255,255,.55); }
+  .share-card-icon { background: linear-gradient(135deg, color-mix(in srgb, var(--ac-blue) 17%, var(--bg-card)), color-mix(in srgb, var(--accent) 13%, var(--bg-card))); color: var(--ac-blue); }
+  .card-privacy { background: linear-gradient(125deg, color-mix(in srgb, var(--accent) 5%, var(--bg)), color-mix(in srgb, var(--ac-blue) 6%, var(--bg))); box-shadow: inset 0 1px 0 rgba(255,255,255,.5); }
+  .privacy-mark { background: color-mix(in srgb, var(--accent) 12%, var(--bg-card)); color: var(--accent); }
+  .qr-preview :global(svg), .qr-dialog :global(svg) { display: block; height: auto; width: 100%; }
+  .audit-cta { background: linear-gradient(120deg,#fed7aa,#fb923c); box-shadow: 0 14px 30px rgba(194,65,12,.15); transition: transform 180ms ease, box-shadow 180ms ease; }
+  .audit-cta:hover { transform: translateY(-3px); box-shadow: 0 18px 38px rgba(194,65,12,.22); }
+  .qr-dialog::backdrop { background: rgba(5,10,25,.72); backdrop-filter: blur(7px); }
+  @media (max-width: 639px) {
+    .profile-cover { padding-right: 1.15rem; padding-left: 1.15rem; }
+    .brand-logo { padding: .55rem .65rem; }
+    .brand-logo img { height: 1.65rem; max-width: 8.35rem; }
+    .availability { max-width: 8.25rem; padding: .5rem .6rem; font-size: .56rem; line-height: 1.35; letter-spacing: .12em; }
+    .profile-cover-hero { display: grid; grid-template-columns: minmax(0, 1fr) 7.9rem; align-items: end; gap: .75rem; }
+    .profile-cover-copy { min-width: 0; padding-bottom: .55rem; text-align: left; }
+    .cover-statement { font-size: clamp(1.32rem, 6vw, 1.65rem); line-height: 1.08; }
+    .profile-photo-frame { box-shadow: 0 24px 42px rgba(15,23,42,.2), 0 4px 10px rgba(15,23,42,.08); }
+    .social-cluster p { text-align: left; }
+    .mobile-actions {
+      position: fixed;
+      z-index: 60;
+      right: max(.75rem, env(safe-area-inset-right));
+      bottom: max(.75rem, env(safe-area-inset-bottom));
+      left: max(.75rem, env(safe-area-inset-left));
+      margin: 0 auto;
+      max-width: 29rem;
+      gap: .42rem;
+      border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+      border-radius: 1.15rem;
+      background: color-mix(in srgb, var(--bg-card) 91%, transparent);
+      padding: .45rem;
+      box-shadow: 0 22px 52px rgba(3,10,28,.28), 0 4px 14px rgba(3,10,28,.12), inset 0 1px 0 rgba(255,255,255,.65);
+      backdrop-filter: blur(22px) saturate(165%);
+    }
+    .mobile-actions .quick-action {
+      position: relative;
+      min-height: 3.05rem;
+      overflow: hidden;
+      flex-direction: row;
+      justify-content: flex-start;
+      gap: .6rem;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: .88rem;
+      background: var(--action-gradient);
+      padding: .46rem .55rem;
+      color: #fff;
+      font-size: .73rem;
+      letter-spacing: -.005em;
+      box-shadow: 0 7px 16px color-mix(in srgb, var(--action-colour) 22%, transparent), inset 0 1px 0 rgba(255,255,255,.25), inset 0 -1px 0 rgba(0,0,0,.12);
+    }
+    .mobile-actions .quick-action::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      height: auto;
+      border-radius: inherit;
+      background: linear-gradient(115deg, rgba(255,255,255,.2), transparent 42%, transparent 72%, rgba(255,255,255,.08));
+      opacity: 1;
+      pointer-events: none;
+    }
+    .mobile-actions .quick-action svg { position: relative; z-index: 1; box-sizing: content-box; height: 1rem; width: 1rem; flex: 0 0 auto; border: 1px solid rgba(255,255,255,.2); border-radius: .6rem; background: rgba(255,255,255,.16); padding: .42rem; color: #fff; box-shadow: inset 0 1px 0 rgba(255,255,255,.2); backdrop-filter: blur(6px); }
+    .mobile-actions .quick-action span { position: relative; z-index: 1; white-space: nowrap; text-shadow: 0 1px 2px rgba(0,0,0,.2); }
+    .mobile-actions .call-action { --action-colour: #2563eb; --action-gradient: linear-gradient(135deg, #174bc7, #2f69ed); }
+    .mobile-actions .whatsapp-action { --action-colour: #059669; --action-gradient: linear-gradient(135deg, #078662, #14ad78); }
+    .mobile-actions .save-action { --action-colour: #ea580c; --action-gradient: linear-gradient(135deg, #dc4b0e, #f67525); }
+    .mobile-actions .qr-action { --action-colour: #7c3aed; --action-gradient: linear-gradient(135deg, #6131bd, #8558df); }
+    .mobile-actions .quick-action:hover { transform: translateY(-2px); filter: saturate(1.08) brightness(1.04); }
+    .mobile-actions .quick-action:active { transform: scale(.975); filter: saturate(1.04); }
+  }
+  @media (prefers-reduced-motion: reduce) { .social-link, .quick-action, .contact-row, .share-card-action, .audit-cta { transition: none; } }
+</style>

@@ -5,7 +5,8 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 import StickyContactBar from '../components/StickyContactBar.astro';
-import AnnouncementBar from '../components/AnnouncementBar.astro';
+import VentureSlideIn from '../components/VentureSlideIn.astro';
+import ConsentManager from '../components/ConsentManager.astro';
 import '../styles/globals.css';
 
 interface Props {
@@ -17,9 +18,10 @@ interface Props {
   noindex?: boolean;
   schema?: object | object[];
   geo?: { region: string; placename: string; lat: number; lng: number };
+  standalone?: boolean;
 }
 
-const { title, description, canonical, ogImage, ogType, noindex, schema, geo } = Astro.props;
+const { title, description, canonical, ogImage, ogType, noindex, schema, geo, standalone = false } = Astro.props;
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +37,7 @@ const { title, description, canonical, ogImage, ogType, noindex, schema, geo } =
           document.documentElement.className = 'light';
         }
         // Pre-hide dismissed announcement bar before paint to prevent CLS
-        try { if (localStorage.getItem('lp-bar-v1') === '1') document.documentElement.classList.add('lp-ann-hidden'); } catch(e) {}
+        try { if (localStorage.getItem('lp-bar-ganesh-2026') === '1') document.documentElement.classList.add('lp-ann-hidden'); } catch(e) {}
       })();
     </script>
     <style is:inline>.lp-ann-hidden #ann-bar{display:none!important}</style>
@@ -52,32 +54,55 @@ const { title, description, canonical, ogImage, ogType, noindex, schema, geo } =
     <!-- Google Site Verification -->
     <meta name="google-site-verification" content="IdIodnKz_eIT0o2_-Gqgs_o-jQTYPXBUu41aalM_E7o" />
 
-    <!-- Third-party tags (GA4 gtag.js, Google Tag Manager, Microsoft Clarity)
-         are loaded lazily: on the first real user interaction, or after an idle
-         fallback so bounced / no-interaction visitors are still tracked. This
-         keeps ~hundreds of KB of third-party JS off the critical path and out
-         of the main-thread blocking window that mobile PageSpeed measures. -->
+    <!-- Optional analytics: denied by default and loaded only after affirmative consent. -->
     <script is:inline>
       (function () {
-        var loaded = false;
-        // dataLayer + gtag shim available immediately so any early calls queue.
+        var STORAGE_KEY = 'elan:privacy-consent';
+        var CONSENT_VERSION = 2;
         window.dataLayer = window.dataLayer || [];
         function gtag(){ dataLayer.push(arguments); }
         window.gtag = window.gtag || gtag;
 
-        function loadTags() {
-          if (loaded) return;
-          loaded = true;
+        gtag('consent', 'default', {
+          analytics_storage: 'denied',
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+          functionality_storage: 'granted',
+          security_storage: 'granted'
+        });
 
-          // --- GA4 (gtag.js) ---
-          var ga = document.createElement('script');
-          ga.async = true;
-          ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-EC0W1VE3NS';
-          document.head.appendChild(ga);
-          gtag('js', new Date());
-          gtag('config', 'G-EC0W1VE3NS');
+        function privacySignalActive() {
+          return navigator.globalPrivacyControl === true ||
+            navigator.doNotTrack === '1' ||
+            window.doNotTrack === '1';
+        }
 
-          // --- Google Tag Manager ---
+        function clearAnalyticsCookies() {
+          ['_ga', '_gid', '_gat', '_clck', '_clsk'].forEach(function (name) {
+            document.cookie = name + '=; Max-Age=0; path=/; SameSite=Lax';
+            document.cookie = name + '=; Max-Age=0; path=/; domain=.elan-tech.net; SameSite=Lax';
+          });
+          document.cookie.split(';').forEach(function (cookie) {
+            var name = cookie.split('=')[0].trim();
+            if (name.indexOf('_ga_') === 0 || name.indexOf('_gat_') === 0) {
+              document.cookie = name + '=; Max-Age=0; path=/; SameSite=Lax';
+              document.cookie = name + '=; Max-Age=0; path=/; domain=.elan-tech.net; SameSite=Lax';
+            }
+          });
+        }
+
+        window.__elanLoadOptionalAnalytics = function () {
+          if (window.__elanAnalyticsLoaded) return;
+          window.__elanAnalyticsLoaded = true;
+          gtag('consent', 'update', {
+            analytics_storage: 'granted',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied'
+          });
+
+          // GTM is the single Google deployment path. GA4 must be configured in GTM.
           (function (w, d, s, l, i) {
             w[l] = w[l] || [];
             w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
@@ -89,54 +114,54 @@ const { title, description, canonical, ogImage, ogType, noindex, schema, geo } =
             f.parentNode.insertBefore(j, f);
           })(window, document, 'script', 'dataLayer', 'GTM-5H7FHGJ');
 
-          // --- Microsoft Clarity ---
+          // Microsoft Clarity, with advertising storage permanently denied.
           (function (c, l, a, r, i, t, y) {
             c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
             t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
             y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
           })(window, document, 'clarity', 'script', 'ff08posqyo');
+          window.clarity('consentv2', { ad_Storage: 'denied', analytics_Storage: 'granted' });
+        };
 
-          // Stop listening once tags are loaded.
-          interactionEvents.forEach(function (evt) {
-            window.removeEventListener(evt, loadTags, listenerOpts);
+        window.__elanRevokeOptionalAnalytics = function () {
+          gtag('consent', 'update', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied'
           });
-        }
+          if (typeof window.clarity === 'function') {
+            window.clarity('consentv2', { ad_Storage: 'denied', analytics_Storage: 'denied' });
+            window.clarity('consent', false);
+          }
+          clearAnalyticsCookies();
+        };
 
-        var interactionEvents = ['scroll', 'mousemove', 'touchstart', 'keydown', 'click'];
-        var listenerOpts = { once: true, passive: true };
-        interactionEvents.forEach(function (evt) {
-          window.addEventListener(evt, loadTags, listenerOpts);
-        });
-
-        // Idle fallback: ensures analytics still fires for users who never
-        // interact (bounces). ~4s lands after a fast static page is interactive,
-        // so it stays out of the initial blocking window Lighthouse scores.
-        var fallback = function () { setTimeout(loadTags, 4000); };
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(fallback);
-        } else {
-          window.addEventListener('load', fallback);
+        try {
+          var saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+          var signalAllowsSavedChoice = !privacySignalActive() || saved && saved.signalOverride === true;
+          if (saved && saved.version === CONSENT_VERSION && saved.analytics === true && signalAllowsSavedChoice) {
+            window.__elanLoadOptionalAnalytics();
+          } else {
+            window.__elanRevokeOptionalAnalytics();
+          }
+        } catch (_) {
+          window.__elanRevokeOptionalAnalytics();
         }
       })();
     </script>
   </head>
   <body class="bg-[var(--bg)] text-[var(--text)] font-sans antialiased">
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5H7FHGJ"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-    <nav aria-label="Skip navigation"><SkipLink /></nav>
-    <AnnouncementBar />
-    <Header />
+    {!standalone && <nav aria-label="Skip navigation"><SkipLink /></nav>}
+    {!standalone && <Header />}
     <main id="main-content" tabindex="-1">
       <slot />
     </main>
-    <Footer />
-    <!-- Desktop: floating WhatsApp. Mobile: sticky bottom bar (Call + WhatsApp) -->
-    <WhatsAppFloat />
-    <StickyContactBar />
-    <!-- Mobile bottom bar spacer so footer content isn't hidden behind the
-         floating island contact bar (~48px tall + 12px bottom gap + safe-area). -->
-    <div class="h-20 lg:hidden" aria-hidden="true"></div>
+    {!standalone && <Footer />}
+    {!standalone && <WhatsAppFloat />}
+    {!standalone && <StickyContactBar />}
+    {!standalone && <VentureSlideIn />}
+    <ConsentManager standalone={standalone} />
+    {!standalone && <div class="h-20 lg:hidden" aria-hidden="true"></div>}
   </body>
 </html>

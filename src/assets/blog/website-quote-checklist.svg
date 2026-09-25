@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Website quotation checklist</title>
+  <desc id="desc">A structured website proposal with scope, ownership, testing and support checkmarks.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8fbff"/>
+      <stop offset=".55" stop-color="#eefbf7"/>
+      <stop offset="1" stop-color="#fff4e9"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#087f5b"/>
+      <stop offset=".55" stop-color="#175cd3"/>
+      <stop offset="1" stop-color="#f26722"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#0f1b36" flood-opacity=".16"/>
+    </filter>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#17325f" stroke-opacity=".055"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+  <circle cx="1420" cy="110" r="250" fill="#175cd3" opacity=".07"/>
+  <circle cx="110" cy="790" r="290" fill="#087f5b" opacity=".08"/>
+  <rect x="88" y="70" width="240" height="48" rx="24" fill="#0f1b36"/>
+  <text x="208" y="101" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="2">BUYER'S GUIDE</text>
+  <text x="88" y="215" fill="#0f1b36" font-family="Arial, sans-serif" font-size="76" font-weight="800">What should a</text>
+  <text x="88" y="302" fill="#0f1b36" font-family="Arial, sans-serif" font-size="76" font-weight="800">website quote include?</text>
+  <rect x="88" y="342" width="610" height="10" rx="5" fill="url(#accent)"/>
+  <text x="88" y="410" fill="#40516f" font-family="Arial, sans-serif" font-size="28">Compare scope, ownership, testing and support</text>
+
+  <g transform="translate(815 80) rotate(3 320 360)" filter="url(#shadow)">
+    <rect width="650" height="730" rx="34" fill="#fff" stroke="#dbe4ef" stroke-width="3"/>
+    <rect width="650" height="105" rx="34" fill="#10224b"/>
+    <path d="M0 72h650v33H0z" fill="#10224b"/>
+    <circle cx="52" cy="52" r="11" fill="#f26722"/>
+    <circle cx="86" cy="52" r="11" fill="#f4ae17"/>
+    <circle cx="120" cy="52" r="11" fill="#10b981"/>
+    <text x="330" y="61" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="24" font-weight="700">WEBSITE PROJECT PROPOSAL</text>
+    <g font-family="Arial, sans-serif">
+      <text x="52" y="165" fill="#10224b" font-size="23" font-weight="700">Scope clarity</text>
+      <text x="52" y="216" fill="#10224b" font-size="23" font-weight="700">Content responsibilities</text>
+      <text x="52" y="267" fill="#10224b" font-size="23" font-weight="700">Features &amp; integrations</text>
+      <text x="52" y="318" fill="#10224b" font-size="23" font-weight="700">Mobile &amp; accessibility testing</text>
+      <text x="52" y="369" fill="#10224b" font-size="23" font-weight="700">SEO &amp; analytics setup</text>
+      <text x="52" y="420" fill="#10224b" font-size="23" font-weight="700">Ownership &amp; access</text>
+      <text x="52" y="471" fill="#10224b" font-size="23" font-weight="700">Timeline &amp; approvals</text>
+      <text x="52" y="522" fill="#10224b" font-size="23" font-weight="700">Launch &amp; support</text>
+    </g>
+    <g fill="none" stroke="#0b8f69" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m566 151 12 13 25-31"/><path d="m566 202 12 13 25-31"/>
+      <path d="m566 253 12 13 25-31"/><path d="m566 304 12 13 25-31"/>
+      <path d="m566 355 12 13 25-31"/><path d="m566 406 12 13 25-31"/>
+      <path d="m566 457 12 13 25-31"/><path d="m566 508 12 13 25-31"/>
+    </g>
+    <rect x="44" y="572" width="562" height="108" rx="20" fill="#eef7ff" stroke="#c9ddfa" stroke-width="2"/>
+    <text x="72" y="617" fill="#175cd3" font-family="Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="2">COMPARE DELIVERABLES</text>
+    <text x="72" y="653" fill="#10224b" font-family="Arial, sans-serif" font-size="24" font-weight="700">Included · Excluded · Unclear</text>
+  </g>
+
+  <g transform="translate(88 515)" font-family="Arial, sans-serif">
+    <rect width="610" height="246" rx="30" fill="#fff" stroke="#dbe4ef" stroke-width="3" filter="url(#shadow)"/>
+    <text x="40" y="58" fill="#087f5b" font-size="18" font-weight="700" letter-spacing="2">BEFORE YOU SIGN</text>
+    <g font-size="24" font-weight="700" fill="#0f1b36">
+      <circle cx="54" cy="104" r="18" fill="#e3f8ef"/><path d="m46 104 6 6 11-14" fill="none" stroke="#087f5b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="90" y="112">Know what is included</text>
+      <circle cx="54" cy="157" r="18" fill="#e8f0ff"/><path d="m46 157 6 6 11-14" fill="none" stroke="#175cd3" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="90" y="165">Confirm who owns what</text>
+      <circle cx="54" cy="210" r="18" fill="#fff0e7"/><path d="m46 210 6 6 11-14" fill="none" stroke="#f26722" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="90" y="218">Put ongoing costs in writing</text>
+    </g>
+  </g>
+  <rect x="0" y="872" width="1600" height="28" fill="url(#accent)"/>
+</svg>

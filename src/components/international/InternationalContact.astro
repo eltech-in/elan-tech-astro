@@ -1,5 +1,6 @@
 ---
 import type { CountryData } from '../../data/countries';
+import { COMPANY } from '../../data/company';
 
 interface Props {
   country: CountryData;
@@ -8,6 +9,7 @@ interface Props {
 const { country } = Astro.props;
 
 const whatsappMsg = encodeURIComponent(`Hi eLan Technology, I'm a business from ${country.name} interested in web design services`);
+const whatsappHref = `${COMPANY.whatsapp.href}?text=${whatsappMsg}`;
 ---
 
 <section class="py-16 md:py-20 bg-[var(--bg-card)]">
@@ -17,11 +19,11 @@ const whatsappMsg = encodeURIComponent(`Hi eLan Technology, I'm a business from 
         Ready to Get Started?
       </h2>
       <p class="text-[var(--text-dim)] max-w-2xl mx-auto mb-8">
-        Get a free website audit and no-obligation quote for your {country.name} business. We respond within 24 hours.
+        Request a website audit or no-obligation quote for your {country.name} business. Initial replies are normally sent within one business day during our India office hours.
       </p>
       <div class="grid gap-4 sm:grid-cols-3 mb-10 text-left max-w-2xl mx-auto">
         <a
-          href={`https://wa.me/918788834630?text=${whatsappMsg}`}
+          href={whatsappHref}
           target="_blank"
           rel="noopener noreferrer"
           class="flex items-center gap-3 rounded-xl border border-[var(--border)] bg-[var(--bg)] p-4 text-sm text-[var(--text-dim)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
@@ -31,7 +33,7 @@ const whatsappMsg = encodeURIComponent(`Hi eLan Technology, I'm a business from 
           WhatsApp
         </a>
         <a
-          href="mailto:info@elan-tech.net"
+          href={`mailto:${COMPANY.email}`}
           class="flex items-center gap-3 rounded-xl border border-[var(--border)] bg-[var(--bg)] p-4 text-sm text-[var(--text-dim)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
           aria-label="Email eLan Technology"
         >
@@ -39,7 +41,7 @@ const whatsappMsg = encodeURIComponent(`Hi eLan Technology, I'm a business from 
           Email Us
         </a>
         <a
-          href="tel:+919822231642"
+          href={COMPANY.officePhone.href}
           class="flex items-center gap-3 rounded-xl border border-[var(--border)] bg-[var(--bg)] p-4 text-sm text-[var(--text-dim)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
           aria-label="Call eLan Technology"
         >
@@ -47,6 +49,9 @@ const whatsappMsg = encodeURIComponent(`Hi eLan Technology, I'm a business from 
           Call Us
         </a>
       </div>
+      <p class="mx-auto mb-8 max-w-3xl text-xs leading-relaxed text-[var(--text-muted)]">
+        These links open external communication channels only when selected. Please share a business contact and project summary—not passwords, payment credentials or personal records. Review the dedicated audit or quote notice before submitting its form.
+      </p>
       <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
         <a
           href="/free-website-audit/"

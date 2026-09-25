@@ -8,6 +8,44 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   noindex={true}
 >
 
+  <script is:inline>
+    (function () {
+      var allowedForms = ['contact', 'free-audit', 'get-quote', 'rush-assessment', 'request-demo'];
+      var formType = new URLSearchParams(window.location.search).get('form');
+      if (!formType || allowedForms.indexOf(formType) === -1) return;
+
+      var pending = null;
+      try {
+        pending = JSON.parse(sessionStorage.getItem('elan:lead-conversion-pending') || 'null');
+      } catch (_) {
+        pending = null;
+      }
+
+      var isRecentSubmission = pending
+        && pending.formType === formType
+        && typeof pending.createdAt === 'number'
+        && Date.now() - pending.createdAt < 300000;
+
+      if (!isRecentSubmission) return;
+
+      try {
+        sessionStorage.removeItem('elan:lead-conversion-pending');
+      } catch (_) {}
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'elan_form_submission',
+        form_name: formType,
+      });
+
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'generate_lead', {
+          form_name: formType,
+        });
+      }
+    })();
+  </script>
+
   <!-- ═══════════════════════════════════════════════════════════════════════
        THANK YOU CONTENT
   ════════════════════════════════════════════════════════════════════════ -->

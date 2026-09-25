@@ -8,12 +8,9 @@ Disallow: /api/
 Disallow: /admin/
 Disallow: /admin
 
-# Block internal / thank-you pages (no SEO value - save crawl budget)
-Disallow: /thank-you
-Disallow: /schedule-consultation
-Disallow: /request-demo
-Disallow: /search
-Disallow: /search/
+# Conversion and internal utility pages remain crawlable so search engines can
+# read their page-level noindex directives. Blocking them here can leave URLs
+# indexed without content under "Indexed, though blocked by robots.txt".
 
 # Block WP attack paths - these return 410 Gone via .htaccess but blocking
 # here saves crawl budget so Googlebot doesn't waste quota on dead paths.
@@ -24,11 +21,9 @@ Disallow: /wp-includes/
 Disallow: /wp-json/
 Disallow: /xmlrpc.php
 
-# Block query strings
-Disallow: /*?*utm_source=
-Disallow: /*?*utm_medium=
-Disallow: /*?*utm_campaign=
-Disallow: /*?*ref=
+# Parameter URLs remain crawlable so search engines can see the canonical or
+# page-level noindex signal. Internal links use clean URLs to minimise crawl
+# noise; analytics parameters are handled by canonicalisation, not blocking.
 
 # Explicitly welcome AI search / answer-engine crawlers - we want our
 # pricing, services, and accessibility content cited in AI Overviews,

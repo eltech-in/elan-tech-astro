@@ -7,7 +7,7 @@ category: "ecommerce"
 tags: ["Medusa.js subscriptions", "Medusa Razorpay", "Medusa PhonePe", "subscription ecommerce India", "custom shipping module"]
 readTime: 12
 featuredImage:
-  src: "/images/ecommerce-og-2026.png"
+  src: "../../assets/blog/ecommerce-og-2026.avif"
   alt: "Medusa.js subscription ecommerce architecture with payments and shipping"
 draft: false
 seo:
@@ -27,7 +27,7 @@ A subscription store is not simply a normal checkout with a “repeat every mont
 
 It is a stateful system connecting customer consent, plans, payments, recurring orders, inventory, shipping, notifications, refunds, and customer-service actions. The most difficult work lives in the transitions between those areas.
 
-This article explains the architecture questions behind a custom Medusa.js subscription platform using Indian payment gateways and shipping workflows. It reflects lessons from our [Puritas Medusa.js implementation](/portfolio/case-study/puritas/) without exposing confidential code or merchant configuration.
+This article explains the architecture questions behind a custom Medusa.js subscription platform using Indian payment gateways and shipping workflows. It reflects lessons from our [Puritas Medusa.js implementation](https://puritas.in/) without exposing confidential code or merchant configuration.
 
 <div class="tldr" data-speakable>
 **The central design principle:** model the subscription, payment, order, and fulfilment as related but separate states. Do not treat a gateway callback as the complete business process.

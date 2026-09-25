@@ -1,0 +1,31 @@
+---
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+import ServiceDetailContent from '../../components/ServiceDetailContent.astro';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../../utils/schema';
+
+const faqs = [
+  { question: 'Do you build a CRM or ERP completely from scratch?', answer: 'Yes, when the required workflows, ownership model or integrations justify custom development. We also assess whether ERPNext or another suitable foundation can meet the need with less risk and cost.' },
+  { question: 'Can you customise ERPNext?', answer: 'Yes. We can scope forms, roles, workflows, print formats, dashboards, reports and integrations. Feasibility depends on the current ERPNext version, hosting, installed apps, data quality and the requested change.' },
+  { question: 'Can existing data be migrated?', answer: 'Migration can be included after source systems, fields, volumes, duplicates, permissions and quality are assessed. Cleaning rules, test migrations, reconciliation and final cutover are agreed separately.' },
+  { question: 'Who owns the software and source code?', answer: 'Ownership, licences, source-code delivery and reuse rights depend on the accepted proposal, third-party licences and payment terms. They are recorded before development begins.' },
+  { question: 'Is ongoing support compulsory?', answer: 'No universal support plan is implied. Hosting, updates, monitoring, user support and feature development are scoped according to the deployment and operating requirements.' },
+];
+const path = '/services/custom-crm-erp-solutions/';
+const schema = [serviceSchema('Custom CRM & ERP Solutions', 'Custom CRM and ERP development plus ERPNext customisation for role-based business workflows, reporting and integrations.', path), faqSchema(faqs), breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Services', url: '/services/' }, { name: 'Custom CRM & ERP Solutions', url: path }])];
+---
+<ServiceLayout title="Custom CRM & ERP Solutions | ERPNext Customisation" description="Custom CRM and ERP solutions for industry workflows, including ERPNext customisation, migration planning, dashboards, roles and integrations." breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Services', href: '/services/' }, { name: 'CRM & ERP', href: path }]} schema={schema} accentVar="--ac-violet" serviceNumber="11" serviceLabel="Custom CRM & ERP Solutions">
+  <ServiceDetailContent
+    eyebrow="Custom business systems · ERPNext customisation"
+    heading="CRM and ERP workflows built around your operations"
+    intro="Replace disconnected spreadsheets and repeated data entry with one clearly scoped system. We map the people, approvals, records and reports first, then recommend custom development or ERPNext customisation according to fit."
+    features={['Lead and customer management', 'Sales and service workflows', 'Inventory and procurement', 'HR and operational modules', 'ERPNext customisation', 'Dashboards and reports', 'System integrations']}
+    outcomes={[{ title: 'One operating view', text: 'Bring approved customer, sales, service and operational workflows into a system with defined owners and status.' }, { title: 'Fewer manual handoffs', text: 'Connect agreed processes and systems to reduce duplicate entry, missed approvals and inconsistent records.' }, { title: 'Controlled growth', text: 'Add roles, modules and reporting against a documented architecture instead of accumulating isolated tools.' }]}
+    deliverables={[{ title: 'Discovery blueprint', text: 'Users, workflows, fields, approvals, reports, integrations, risks and priorities.' }, { title: 'Solution design', text: 'Recommended platform, architecture, roles, environments and phased delivery plan.' }, { title: 'Configured implementation', text: 'Agreed modules, customisations, validations, dashboards and integrations.' }, { title: 'Testing and handover', text: 'Acceptance checks, administrator guidance, deployment notes and agreed support boundaries.' }]}
+    process={[{ number: '01', title: 'Discover', text: 'Interview process owners and inspect the current tools and data.' }, { number: '02', title: 'Design', text: 'Confirm platform fit, roles, workflow, migration and delivery phases.' }, { number: '03', title: 'Build and test', text: 'Configure or develop in a separate environment using suitable test data.' }, { number: '04', title: 'Launch and hand over', text: 'Migrate agreed data, train authorised users and document ownership and support.' }]}
+    suitableFor={['Teams relying on spreadsheets and repeated manual updates.', 'Businesses that need industry-specific approvals, dashboards or portals.', 'ERPNext users needing controlled customisation or integrations.', 'Organisations prepared to assign process owners and make workflow decisions.']}
+    responsibilities={['Provide authorised process owners and accurate requirements.', 'Confirm lawful purposes, roles, retention and access to business data.', 'Review workflows, test results and migration samples on time.', 'Maintain client-controlled licences, hosting and vendor accounts where agreed.']}
+    faqs={faqs}
+    accentVar="--ac-violet"
+    disclaimer="Implementation does not by itself guarantee accounting, tax, labour, sectoral or privacy compliance. The client remains responsible for its policies, lawful processing, records and professional approvals."
+  />
+</ServiceLayout>

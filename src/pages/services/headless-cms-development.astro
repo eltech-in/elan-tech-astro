@@ -1,0 +1,37 @@
+---
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+import ServiceDetailContent from '../../components/ServiceDetailContent.astro';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../../utils/schema';
+
+const faqs = [
+  { question: 'What is a headless CMS?', answer: 'A headless CMS stores and manages structured content separately from the website or app that displays it. Approved channels retrieve content through APIs, allowing one content system to support multiple front ends.' },
+  { question: 'Which headless CMS platforms do you implement?', answer: 'Our highlighted implementation capabilities include Payload CMS and Directus. We can also assess other API-first systems when their current features, licences, hosting model and ecosystem fit the requirement.' },
+  { question: 'Can a headless CMS work with Astro, Next.js or an existing application?', answer: 'Yes. The front-end and CMS are selected and connected according to preview, publishing, caching, authentication, search, localisation and deployment requirements.' },
+  { question: 'Can it support ecommerce content?', answer: 'Yes. A headless CMS can manage product storytelling, campaigns, guides and landing content alongside a separate commerce engine. The system of record for products, prices, orders and customers is agreed during architecture.' },
+  { question: 'Can you migrate content from WordPress or another CMS?', answer: 'Migration can be scoped after reviewing content types, URLs, media, metadata, relationships and quality. Redirects, transformation and validation are documented before migration.' },
+];
+const path = '/services/headless-cms-development/';
+const schema = [serviceSchema('Headless CMS Development', 'Headless CMS architecture and implementation using Payload CMS, Directus and suitable API-first platforms for websites and applications.', path), faqSchema(faqs), breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Services', url: '/services/' }, { name: 'Headless CMS Development', url: path }])];
+---
+<ServiceLayout title="Headless CMS Development | Payload CMS & Directus" description="Headless CMS architecture and development with Payload CMS, Directus, Astro and Next.js for structured content, websites, apps and composable experiences." breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Services', href: '/services/' }, { name: 'Headless CMS Development', href: path }]} schema={schema} accentVar="--ac-cyan" serviceNumber="13" serviceLabel="Headless CMS Development">
+  <ServiceDetailContent
+    eyebrow="API-first content architecture"
+    heading="Headless CMS development for websites, apps and connected experiences"
+    intro="Separate content operations from the presentation layer without losing editorial control. We design the content model, permissions, preview workflow, APIs and deployment around the channels your team needs to operate."
+    features={['Headless CMS architecture', 'Payload CMS development', 'Directus development', 'Astro and Next.js front ends', 'Editorial roles and approvals', 'Content migration', 'Search and API integrations']}
+    outcomes={[{ title: 'Content used across channels', text: 'Model structured content once and deliver approved versions to websites, apps, portals and other interfaces.' }, { title: 'Independent evolution', text: 'Allow the content platform and presentation layer to change on planned timelines with documented API boundaries.' }, { title: 'Controlled publishing', text: 'Give editors suitable drafts, previews, approvals and publishing permissions without infrastructure access.' }]}
+    deliverables={[{ title: 'Architecture recommendation', text: 'Platform comparison, content ownership, channels, hosting, integrations and operational boundaries.' }, { title: 'Content model and workflow', text: 'Collections, fields, relationships, validation, roles, approvals, previews and localisation.' }, { title: 'Front-end and integrations', text: 'Approved website or application delivery, APIs, search, webhooks, caching and external-system connections.' }, { title: 'Migration and handover', text: 'Validated content import, redirects where scoped, testing, deployment notes and administrator guidance.' }]}
+    process={[{ number: '01', title: 'Discover', text: 'Map content types, editors, channels, integrations, migration sources and governance.' }, { number: '02', title: 'Model', text: 'Prototype schemas, permissions, editorial journeys, preview and publishing.' }, { number: '03', title: 'Build', text: 'Implement the selected CMS, front end and approved API connections.' }, { number: '04', title: 'Migrate and launch', text: 'Validate content, access, performance and production handover.' }]}
+    suitableFor={['Organisations publishing structured content across more than one channel.', 'Websites or applications needing a modern Astro or Next.js front end.', 'Teams seeking Payload CMS or Directus implementation expertise.', 'Businesses prepared to define editorial ownership, roles and approvals.']}
+    responsibilities={['Nominate content owners and approve the information architecture.', 'Confirm public, restricted and personal-data classifications.', 'Provide authorised migration sources and third-party access.', 'Approve hosting, licences, support and security responsibilities.']}
+    faqs={faqs}
+    accentVar="--ac-cyan"
+    disclaimer="Platform features, licences and provider support can change. Architecture, ownership, hosting, security, privacy and ongoing maintenance responsibilities are confirmed in the accepted proposal."
+  />
+  <section class="rounded-[1.75rem] border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8 lg:p-10" aria-labelledby="platform-capability-title">
+    <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--ac-cyan)]">Platform capability</p>
+    <h2 id="platform-capability-title" class="mt-2 font-heading text-3xl font-bold text-[var(--text)]">Payload CMS and Directus, implemented to fit the architecture</h2>
+    <p class="mt-4 max-w-3xl text-sm leading-relaxed text-[var(--text-muted)]">Explore the platform-specific capability page for content modelling, editorial access, APIs, migration and deployment considerations.</p>
+    <a href="/services/payload-directus-development/" class="mt-6 inline-flex min-h-12 items-center justify-center rounded-xl bg-[var(--ac-cyan)] px-6 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5">View Payload CMS &amp; Directus development <span class="ml-2" aria-hidden="true">→</span></a>
+  </section>
+</ServiceLayout>

@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import nishantPhoto from '../assets/team/nishant-barde.avif';
+import abhishekPhoto from '../assets/team/acharya-abhishek.avif';
 import { organizationSchema, breadcrumbSchema } from '../utils/schema';
 
 const schema = [
@@ -16,14 +19,14 @@ const journey = [
   { year: '2006–2008', title: 'Dynamic Web Era', desc: 'Expanded into dynamic web development with PHP and MySQL, grew the team, and started serving businesses across Maharashtra.', cssVar: '--ac-amber', span: 'lg:col-span-3' },
   { year: '2009–2013', title: 'Going Mobile-First', desc: 'Embraced responsive, mobile-first design early. Landed our first international clients in the USA and UK. Started building custom CMS solutions.', cssVar: '--ac-emerald', span: 'lg:col-span-2' },
   { year: '2014–2018', title: 'Full-Stack & Marketing', desc: 'Transitioned to full-stack JavaScript development. Launched digital marketing, SEO, and branding services. Built enterprise portals and School ERP systems.', cssVar: '--ac-cyan', span: 'lg:col-span-2' },
-  { year: '2019–2022', title: 'Global Expansion', desc: 'Launched IMA Society Portal serving thousands of members. Expanded client base to 10+ countries including USA, Canada, Australia, UAE, UK, Saudi Arabia, and Japan.', cssVar: '--ac-violet', span: 'lg:col-span-2' },
+  { year: '2019–2022', title: 'Global Expansion', desc: 'Expanded our work on association portals and continued serving clients in India and international markets including the USA, Canada, Australia and the UAE.', cssVar: '--ac-violet', span: 'lg:col-span-2' },
   { year: '2023–Present', title: 'Custom Commerce, AI & Accessibility', desc: 'Expanded our focus on custom Shopify and Medusa.js commerce, AI-assisted engineering, WCAG and ADA accessibility, and performance-focused frameworks including Astro and Next.js.', cssVar: '--ac-pink', span: 'lg:col-span-6' },
 ];
 
 const values = [
-  { title: 'Accessibility First', desc: 'We build WCAG-compliant websites as standard - not as an add-on. Accessible design is better design. It improves usability for everyone, reduces legal risk, and ensures your digital presence is truly inclusive.', cssVar: '--ac-indigo', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>' },
+  { title: 'Accessibility First', desc: 'We consider accessibility during design, development and testing. Formal conformance work is scoped to the standard, journeys and evidence required for the project.', cssVar: '--ac-indigo', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>' },
   { title: 'Transparency', desc: 'Fixed-price projects with milestone-based billing. No hidden costs, no surprise invoices. You get a detailed breakdown before any work begins, and regular progress updates throughout.', cssVar: '--ac-amber', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>' },
-  { title: 'Craftsmanship', desc: 'We target sub-2s load times and strong Core Web Vitals as baseline requirements. Every website we build is optimised for performance, security, and search engine visibility from day one.', cssVar: '--ac-emerald', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>' },
+  { title: 'Craftsmanship', desc: 'We plan for performance, security, maintainability and search visibility, then test the agreed journeys before launch. Targets reflect the project, content and third-party tools.', cssVar: '--ac-emerald', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>' },
   { title: 'Long-Term Partnership', desc: 'We are not a one-and-done agency. Our relationships with clients span years - we grow with you, evolve your digital presence, and stay available as a trusted technology partner long after launch day.', cssVar: '--ac-cyan', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>' },
   { title: 'Continuous Learning', desc: 'We stay at the cutting edge - from performance-first frameworks like Astro and Next.js to AI-assisted tooling - so your website is built for the web of today and tomorrow, not the web of five years ago.', cssVar: '--ac-violet', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>' },
 ];
@@ -31,18 +34,18 @@ const values = [
 const stats = [
   { value: '24+', label: 'Years Experience', sub: 'Since 2002', cssVar: '--ac-indigo', span: 'lg:col-span-2' },
   { value: '500+', label: 'Happy Clients', sub: 'Worldwide', cssVar: '--ac-amber', span: 'lg:col-span-2' },
-  { value: '1500+', label: 'Projects Delivered', sub: 'Across industries', cssVar: '--ac-emerald', span: 'lg:col-span-2' },
+  { value: '2005', label: 'Official Launch', sub: '15 August', cssVar: '--ac-emerald', span: 'lg:col-span-2' },
   { value: '10+', label: 'Countries Served', sub: 'Global reach', cssVar: '--ac-cyan', span: 'lg:col-span-3' },
-  { value: '10+', label: 'Team Professionals', sub: 'Skilled experts', cssVar: '--ac-pink', span: 'lg:col-span-3' },
+  { value: 'Global', label: 'Remote Delivery', sub: 'India and overseas', cssVar: '--ac-pink', span: 'lg:col-span-3' },
 ];
 
 const whyItems = [
   { title: 'Dedicated project teams', desc: 'You work with a consistent team who knows your project - not a rotating roster of freelancers.', cssVar: '--ac-indigo' },
-  { title: 'WCAG/ADA compliance built-in', desc: 'Every site passes accessibility audits before handover. We are WCAG 2.1 AA, ADA, and Section 508 compliance specialists.', cssVar: '--ac-amber' },
+  { title: 'Accessibility-first development', desc: 'Accessibility is considered from design through development and testing. Formal conformance work is scoped to the standards and evidence required for each project.', cssVar: '--ac-amber' },
   { title: 'Transparent pricing', desc: 'Fixed-price projects with milestone-based billing. No hidden costs, no surprise invoices.', cssVar: '--ac-emerald' },
-  { title: 'Performance-first development', desc: 'We target sub-2s load times and strong Core Web Vitals scores as baseline requirements.', cssVar: '--ac-cyan' },
+  { title: 'Performance-first development', desc: 'We set practical performance targets and test them against the agreed pages, content and integrations.', cssVar: '--ac-cyan' },
   { title: 'Long-term support', desc: 'All packages include post-launch support. We also offer ongoing maintenance plans to keep your site healthy.', cssVar: '--ac-violet' },
-  { title: 'Real results, documented', desc: 'Our case studies show measurable outcomes - not vague claims. 200% more inquiries. 65% revenue from direct bookings.', cssVar: '--ac-pink' },
+  { title: 'Work you can review', desc: 'Our portfolio links to real websites across ecommerce, healthcare, professional services, education and other sectors.', cssVar: '--ac-pink' },
 ];
 ---
 
@@ -169,7 +172,7 @@ const whyItems = [
             <p class="text-xs font-bold uppercase tracking-widest mb-5" style="color: var(--ac-amber);">Founder</p>
             <div class="w-20 h-20 rounded-full overflow-hidden border-2 mb-5"
               style="border-color: color-mix(in srgb, var(--ac-amber) 40%, transparent);">
-              <img src="/team/nishant-barde.avif" alt="Nishant Barde" width="200" height="200" class="w-full h-full object-cover" loading="lazy" decoding="async" />
+              <Image src={nishantPhoto} alt="Nishant Barde" width={200} height={200} format="avif" class="w-full h-full object-cover" loading="lazy" decoding="async" />
             </div>
             <h3 class="font-heading text-xl font-bold text-[var(--text)]">Nishant Barde</h3>
             <p class="text-sm font-medium mt-1" style="color: var(--ac-amber);">Founder & Director</p>
@@ -177,6 +180,16 @@ const whyItems = [
               style="border-color: var(--ac-amber);">
               "Great technology should be accessible to every business - not just the Fortune 500."
             </blockquote>
+            <a href="/about/nishant-barde/" target="_blank" rel="noopener noreferrer" class="founder-card-cta group mt-6 flex min-h-16 w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-white">
+              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/15" aria-hidden="true">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M6.5 16c.7-1.8 4.3-1.8 5 0M14 9h4M14 13h4"/></svg>
+              </span>
+              <span class="min-w-0 flex-1">
+                <small class="block text-[9px] font-extrabold uppercase tracking-[0.16em] text-emerald-200">Call • WhatsApp • Save</small>
+                <strong class="mt-0.5 block text-sm font-extrabold">View Nishant’s digital card</strong>
+              </span>
+              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-[#123d36] transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+            </a>
           </div>
           <p class="relative mt-8 text-xs text-[var(--text-muted)]">
             Building the web since <strong class="text-[var(--text)]">2002</strong>
@@ -258,7 +271,7 @@ const whyItems = [
   </section>
 
   <!-- Team -->
-  <section class="py-20 sm:py-24" aria-labelledby="team-heading">
+  <section class="py-20 sm:py-24" aria-labelledby="team-heading" aria-describedby="leadership-publication-note">
     <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
         <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-3">People</p>
@@ -273,13 +286,13 @@ const whyItems = [
           <div class="rounded-2xl bg-[var(--bg-card)] p-6 h-full flex gap-5 items-start">
             <div class="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 border-2"
               style="border-color: color-mix(in srgb, var(--ac-indigo) 40%, transparent);">
-              <img src="/team/nishant-barde.avif" alt="Nishant Barde" width="200" height="200" class="w-full h-full object-cover" loading="lazy" decoding="async" />
+              <Image src={nishantPhoto} alt="Nishant Barde" width={200} height={200} format="avif" class="w-full h-full object-cover" loading="lazy" decoding="async" />
             </div>
             <div>
               <h3 class="font-heading text-lg font-semibold text-[var(--text)]">Nishant Barde</h3>
               <p class="text-sm font-medium mt-0.5" style="color: var(--ac-indigo);">Founder & Director</p>
               <p class="mt-3 text-[var(--text-dim)] text-sm leading-relaxed">
-                Visionary leader with 24+ years of technology entrepreneurship. Grew eLan from a local studio into a globally trusted agency serving 500+ clients across 10+ countries.
+                Technology entrepreneur with experience growing eLan from a local web studio into a partner for businesses in India and overseas.
               </p>
             </div>
           </div>
@@ -289,7 +302,7 @@ const whyItems = [
           <div class="rounded-2xl bg-[var(--bg-card)] p-6 h-full flex gap-5 items-start">
             <div class="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 border-2"
               style="border-color: color-mix(in srgb, var(--ac-violet) 40%, transparent);">
-              <img src="/team/acharya-abhishek.avif" alt="Abhishek Acharya" width="200" height="200" class="w-full h-full object-cover" loading="lazy" decoding="async" />
+              <Image src={abhishekPhoto} alt="Abhishek Acharya" width={200} height={200} format="avif" class="w-full h-full object-cover" loading="lazy" decoding="async" />
             </div>
             <div>
               <h3 class="font-heading text-lg font-semibold text-[var(--text)]">Abhishek Acharya</h3>
@@ -301,9 +314,26 @@ const whyItems = [
           </div>
         </div>
       </div>
+      <aside id="leadership-publication-note" class="profile-publication mt-6 overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] max-w-4xl mx-auto" aria-labelledby="profile-publication-title">
+        <div class="grid gap-5 p-5 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-start sm:p-6">
+          <span class="profile-publication-icon flex h-11 w-11 items-center justify-center rounded-xl" aria-hidden="true">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c.8-5 3.5-7 8-7s7.2 2 8 7"/><path d="M18 4h3v3"/></svg>
+          </span>
+          <div>
+            <p class="text-[10px] font-black uppercase tracking-[0.18em] text-[var(--ac-indigo)]">Professional profiles</p>
+            <h3 id="profile-publication-title" class="mt-1 font-heading text-lg font-black text-[var(--text)]">People, roles and accountability</h3>
+            <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">These profiles use only work-related names, photographs, roles and short biographies to identify the people responsible for leadership and training. They do not publish private addresses, personal phone numbers or unrelated family information.</p>
+            <div class="mt-3 grid gap-2 text-xs leading-relaxed text-[var(--text-muted)] sm:grid-cols-2">
+              <p><strong class="text-[var(--text)]">Current and relevant:</strong> public profile details are reviewed when responsibilities change and are not intended to replace private employment or contractual records.</p>
+              <p><strong class="text-[var(--text)]">Control:</strong> a featured person may request a correction, updated role, different photograph or removal. We may verify the request before changing another person’s profile.</p>
+            </div>
+            <a href="mailto:privacy@elan-tech.net?subject=Leadership%20profile%20correction%20or%20removal" class="mt-3 inline-flex text-xs font-bold text-[var(--text)] underline decoration-[var(--ac-indigo)] underline-offset-4">Request a profile update or removal</a>
+          </div>
+        </div>
+      </aside>
       <div class="mt-6 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 max-w-4xl mx-auto text-center">
         <p class="text-[var(--text-dim)]">
-          Behind our leadership, a team of <strong class="text-[var(--text)]">10+ skilled professionals</strong> - designers, developers, SEO specialists, content strategists, and project managers - brings a combined <strong class="text-[var(--text)]">25+ years of industry experience</strong> to every project.
+          Our projects bring together the right mix of design, development, SEO, content and project coordination based on the work required. Clients know who is responsible for each stage and where to go when a decision is needed.
         </p>
       </div>
     </div>
@@ -382,3 +412,23 @@ const whyItems = [
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .founder-card-cta {
+    background: linear-gradient(115deg, #075e52 0%, #047857 54%, #1d4ed8 135%);
+    box-shadow: 0 14px 28px rgba(4, 120, 87, .24);
+    transition: transform 180ms ease, box-shadow 180ms ease;
+  }
+  .founder-card-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 19px 36px rgba(4, 120, 87, .3);
+  }
+  .founder-card-cta:focus-visible { outline: 3px solid var(--ac-amber); outline-offset: 3px; }
+  .profile-publication {
+    background:
+      radial-gradient(circle at 95% 0%, color-mix(in srgb, var(--ac-violet) 10%, transparent), transparent 34%),
+      linear-gradient(125deg, color-mix(in srgb, var(--ac-indigo) 5%, var(--bg-card)), var(--bg-card) 58%);
+  }
+  .profile-publication-icon { background: color-mix(in srgb, var(--ac-indigo) 13%, var(--bg)); color: var(--ac-indigo); }
+  @media (prefers-reduced-motion: reduce) { .founder-card-cta, .founder-card-cta span { transition: none; } }
+</style>

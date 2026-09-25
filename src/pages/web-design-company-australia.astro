@@ -3,6 +3,7 @@ import InternationalLayout from '../layouts/InternationalLayout.astro';
 import InternationalWhyOutsource from '../components/international/InternationalWhyOutsource.astro';
 import InternationalCostComparison from '../components/international/InternationalCostComparison.astro';
 import InternationalServices from '../components/international/InternationalServices.astro';
+import InternationalProjectProof from '../components/international/InternationalProjectProof.astro';
 import InternationalFAQ from '../components/international/InternationalFAQ.astro';
 import InternationalContact from '../components/international/InternationalContact.astro';
 import { getCountryBySlug } from '../data/countries';
@@ -14,6 +15,7 @@ const country = getCountryBySlug('australia')!;
   <InternationalWhyOutsource country={country} />
   <InternationalCostComparison country={country} />
   <InternationalServices country={country} />
+  <InternationalProjectProof country={country} />
   <InternationalFAQ country={country} />
   <InternationalContact country={country} />
 </InternationalLayout>

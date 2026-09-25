@@ -2,18 +2,11 @@
 import ThemeToggle from '../islands/ThemeToggle';
 import MobileNav from '../islands/MobileNav';
 import MegaMenu from '../islands/MegaMenu';
-
-const navLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about/' },
-  { label: 'Portfolio', href: '/portfolio/' },
-  { label: 'Blog', href: '/blog/' },
-  { label: 'Pricing', href: '/pricing/' },
-  { label: 'Contact', href: '/contact/' },
-];
+import { Image } from 'astro:assets';
+import logoFull from '../assets/brand/elan-tech-logo.svg';
+import logoScrolled from '../assets/brand/elan-tech-logoh.svg';
 
 const currentPath = Astro.url.pathname;
-const offerActive = new Date() <= new Date('2026-08-15T18:29:59Z');
 ---
 <header
   class="header-island sticky top-3 sm:top-4 z-50 w-full px-3 sm:px-4 mb-3 sm:mb-4 pointer-events-none"
@@ -24,9 +17,9 @@ const offerActive = new Date() <= new Date('2026-08-15T18:29:59Z');
     <a href="/" class="flex shrink-0 items-center gap-2" aria-label="eLan Technology - home">
       <span class="relative block" style="width:140px;height:40px;">
         <!-- Full logo - visible by default, fades out on scroll -->
-        <img
+        <Image
           id="logo-full"
-          src="/images/elan-tech-logo.svg"
+          src={logoFull}
           alt="eLan Technology"
           width="140"
           height="40"
@@ -37,9 +30,9 @@ const offerActive = new Date() <= new Date('2026-08-15T18:29:59Z');
           style="opacity:1;transform:scale(1);"
         />
         <!-- Horizontal compact logo - hidden by default, fades in on scroll -->
-        <img
+        <Image
           id="logo-scrolled"
-          src="/images/elan-tech-logoh.svg"
+          src={logoScrolled}
           alt="eLan Technology"
           width="140"
           height="40"
@@ -51,117 +44,8 @@ const offerActive = new Date() <= new Date('2026-08-15T18:29:59Z');
       </span>
     </a>
 
-    <!-- Desktop Navigation -->
-    <nav aria-label="Main navigation" class="hidden lg:flex items-center gap-1">
-      <a
-        href="/"
-        class:list={[
-          'px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150',
-          currentPath === '/'
-            ? 'text-[var(--accent)]'
-            : 'text-[var(--text-dim)] hover:text-[var(--text)]',
-        ]}
-      >
-        Home
-      </a>
-
-      <a
-        href="/about/"
-        class:list={[
-          'px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150',
-          currentPath === '/about/' || currentPath === '/about/'
-            ? 'text-[var(--accent)]'
-            : 'text-[var(--text-dim)] hover:text-[var(--text)]',
-        ]}
-      >
-        About
-      </a>
-
-      <!-- Services - triggers MegaMenu island -->
-      <a
-        href="/services/"
-        data-mega="services"
-        aria-haspopup="true"
-        aria-expanded="false"
-        class:list={[
-          'flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150',
-          currentPath.startsWith('/services/') 
-            ? 'text-[var(--accent)]' 
-            : 'text-[var(--text-dim)] hover:text-[var(--text)]'
-        ]}
-      >
-        Services
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-          class="mt-px transition-transform duration-150"
-        >
-          <polyline points="6 9 12 15 18 9" />
-        </svg>
-      </a>
-
-      <!-- Products - triggers MegaMenu island -->
-      <a
-        href="/products/"
-        data-mega="products"
-        aria-haspopup="true"
-        aria-expanded="false"
-        class:list={[
-          'flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150',
-          currentPath.startsWith('/products/') 
-            ? 'text-[var(--accent)]' 
-            : 'text-[var(--text-dim)] hover:text-[var(--text)]'
-        ]}
-      >
-        Products
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-          class="mt-px transition-transform duration-150"
-        >
-          <polyline points="6 9 12 15 18 9" />
-        </svg>
-      </a>
-
-      {navLinks.slice(2).map((link) => (
-        <a
-          href={link.href}
-          class:list={[
-            'relative flex items-center gap-1.5 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150',
-            currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
-              ? 'text-[var(--accent)]'
-              : 'text-[var(--text-dim)] hover:text-[var(--text)]',
-          ]}
-        >
-          {link.label}
-          {link.href === '/pricing/' && offerActive && (
-            <span
-              class="inline-flex items-center rounded-full px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white leading-none"
-              style="background:#F26722;"
-              aria-label="New offer available"
-            >
-              NEW
-            </span>
-          )}
-        </a>
-      ))}
-    </nav>
+    <!-- Desktop navigation and its menus share one island so every trigger is reliable. -->
+    <MegaMenu currentPath={currentPath} client:media="(min-width: 1024px)" />
 
     <!-- Right-side actions -->
     <div class="flex items-center gap-2">
@@ -200,11 +84,6 @@ const offerActive = new Date() <= new Date('2026-08-15T18:29:59Z');
       <MobileNav client:media="(max-width: 1023px)" />
     </div>
 
-    <!-- Island: MegaMenu - kept INSIDE the inner island so its absolute
-         positioning anchors to the island's bounds (not the full-width
-         outer wrapper). Without this, the dropdown would stretch the full
-         viewport width and look detached from the island. -->
-    <MegaMenu client:media="(min-width: 1024px)" />
   </div>
 </header>
 

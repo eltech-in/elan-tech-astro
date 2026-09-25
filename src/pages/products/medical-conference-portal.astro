@@ -2,6 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { softwareAppSchema, breadcrumbSchema } from '../../utils/schema';
 import { getProductBySlug, products } from '../../data/products';
+import AnswerSummary from '../../components/AnswerSummary.astro';
+import ProductPrivacyPanel from '../../components/ProductPrivacyPanel.astro';
 
 const product = getProductBySlug('medical-conference-portal');
 const others = products.filter(p => p.slug !== product.slug);
@@ -42,6 +44,7 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'AWS S3'
 ---
 
 <BaseLayout
+  ogImage="/images/og/products.png"
   title="Medical Conference Website & CME Event Management Portal India"
   description="Medical conference portal with multi-tier delegate registration, online abstract submission, scientific programme, CME certificate generation, and sponsor management. Scales to 5,000+ delegates."
   schema={schema}
@@ -104,6 +107,34 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'AWS S3'
     </div>
   </section>
 
+
+  <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <AnswerSummary
+      eyebrow="Product answer"
+      title="How the Medical Conference Portal is supplied"
+      intro="The portal is available as a configurable foundation for medical conferences and can be updated around the event’s registration, programme and communication requirements."
+      accentVar={product.cssVar}
+      items={[
+        { question: 'Is this a fixed package?', answer: 'No. The selected modules, branding, integrations and event workflows are agreed in the proposal.' },
+        { question: 'How long does implementation take?', answer: 'The schedule depends on registration rules, payment setup, content readiness, integrations and the approval cycle.' },
+        { question: 'What is charged separately?', answer: 'Hosting, maintenance, paid services, gateway charges and later feature upgrades are separate unless included in the proposal.' },
+      ]}
+    />
+  </div>
+
+  <ProductPrivacyPanel
+    title="Plan delegate, speaker and abstract data before registration opens"
+    intro="Conference registration can combine identity, professional credentials, payments, abstracts, travel preferences and certificate records. The organiser should approve the minimum fields, participant notice, reviewers and retention schedule for each conference workflow."
+    accentVar={product.cssVar}
+    subject="Medical Conference Portal privacy enquiry"
+    items={[
+      { title: 'Registration and payments', text: 'Delegate categories, billing fields, invoices and payment-provider hand-off are documented. Card or UPI credentials should be handled by the selected payment provider rather than stored in the portal.' },
+      { title: 'Abstracts and reviewers', text: 'Submission fields, author details, reviewer access, conflicts, acceptance communications and publication choices should match the organiser’s approved scientific process.' },
+      { title: 'Faculty and communications', text: 'Speaker profiles, photographs, schedules, certificates, email and SMS messages require authorised content, controlled access and an event-specific purpose.' },
+      { title: 'Exports and event closure', text: 'Administrator exports, sponsor access, attendance evidence, certificate records and deletion or archival after the event should be agreed before launch.' },
+    ]}
+    note="This product is not a clinical record or telemedicine system unless separately designed and assessed for that purpose. Organisers should not collect patient records, diagnoses or unrelated health information through abstracts, registrations, uploads or support messages."
+  />
 
   <!-- ═══ TWO-COLUMN LAYOUT ═══════════════════════════════════════════════ -->
   <section class="bg-[var(--bg)] py-14 md:py-20">
@@ -184,7 +215,7 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'AWS S3'
                 </div>
                 <div>
                   <dt class="text-[11px] uppercase tracking-wide text-[var(--text-muted)]">Licensing</dt>
-                  <dd class="font-semibold text-[var(--text)]">One-time purchase · White-label</dd>
+                  <dd class="font-semibold text-[var(--text)]">Defined in your proposal</dd>
                 </div>
                 <div>
                   <dt class="text-[11px] uppercase tracking-wide text-[var(--text-muted)]">Delivery</dt>

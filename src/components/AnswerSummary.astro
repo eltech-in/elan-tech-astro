@@ -1,0 +1,106 @@
+---
+interface AnswerItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  intro?: string;
+  items: AnswerItem[];
+  accentVar?: string;
+}
+
+const {
+  eyebrow = 'Quick answers',
+  title = 'What to know before you enquire',
+  intro,
+  items,
+  accentVar = '--accent',
+} = Astro.props;
+---
+
+<section class="answer-summary" style={`--answer-accent: var(${accentVar});`} aria-labelledby={`answer-summary-${Astro.url.pathname.replace(/[^a-z0-9]/gi, '-')}`}>
+  <header class="answer-summary__header">
+    <p>{eyebrow}</p>
+    <h2 id={`answer-summary-${Astro.url.pathname.replace(/[^a-z0-9]/gi, '-')}`}>{title}</h2>
+    {intro && <div class="answer-summary__intro">{intro}</div>}
+  </header>
+  <div class="answer-summary__grid">
+    {items.map((item, index) => (
+      <article>
+        <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+        <h3>{item.question}</h3>
+        <p>{item.answer}</p>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .answer-summary {
+    display: grid;
+    gap: 1.5rem;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border: 1px solid color-mix(in srgb, var(--answer-accent) 28%, var(--border));
+    border-radius: 1.5rem;
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--answer-accent) 8%, var(--bg-card)), var(--bg-card) 68%);
+  }
+  .answer-summary__header > p {
+    margin: 0 0 .5rem;
+    color: var(--answer-accent);
+    font-size: .7rem;
+    font-weight: 800;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+  }
+  .answer-summary h2 {
+    margin: 0;
+    color: var(--text);
+    font-family: var(--font-heading);
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    line-height: 1.15;
+  }
+  .answer-summary__intro {
+    max-width: 48rem;
+    margin-top: .75rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .answer-summary__grid {
+    display: grid;
+    gap: .75rem;
+  }
+  .answer-summary article {
+    display: grid;
+    grid-template-columns: 2.25rem 1fr;
+    gap: .15rem .75rem;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    background: color-mix(in srgb, var(--bg) 86%, transparent);
+  }
+  .answer-summary article > span {
+    grid-row: span 2;
+    color: var(--answer-accent);
+    font-size: .7rem;
+    font-weight: 900;
+    letter-spacing: .08em;
+  }
+  .answer-summary h3 {
+    margin: 0;
+    color: var(--text);
+    font-size: .95rem;
+  }
+  .answer-summary article p {
+    margin: .35rem 0 0;
+    color: var(--text-dim);
+    font-size: .875rem;
+    line-height: 1.65;
+  }
+  @media (min-width: 64rem) {
+    .answer-summary { grid-template-columns: .8fr 1.7fr; align-items: start; }
+  }
+</style>

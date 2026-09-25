@@ -203,4 +203,77 @@ export const services: Service[] = [
     accent: '#3B82F6',
     cssVar: '--ac-blue',
   },
+  {
+    slug: 'custom-crm-erp-solutions',
+    title: 'Custom CRM & ERP Solutions',
+    shortTitle: 'CRM & ERP',
+    tagline: 'Business systems shaped around the way your team actually works',
+    description:
+      'We plan and build custom CRM and ERP workflows for different industries, and customise ERPNext where it is a suitable foundation for the requirement.',
+    features: [
+      'CRM and ERP discovery',
+      'ERPNext customisation',
+      'Role-based workflows',
+      'Dashboards and reports',
+      'Data migration planning',
+      'API and accounting integrations',
+      'Training and handover',
+    ],
+    icon: 'Workflow',
+    iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="9" y="15" width="6" height="6" rx="1"/><path d="M6 9v2a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9M12 13v2"/></svg>`,
+    accent: '#7C3AED',
+    cssVar: '--ac-violet',
+  },
+  {
+    slug: 'dpdp-compliance-implementation',
+    title: 'DPDP Compliance & Implementation',
+    shortTitle: 'DPDP',
+    tagline: 'Turn privacy requirements into practical website and data-flow changes',
+    description:
+      'We map website data collection, forms, cookies, vendors and retention, then implement the agreed technical and content changes for India’s DPDP readiness.',
+    features: [
+      'Website and form data mapping',
+      'Privacy and consent UI',
+      'Cookie and analytics controls',
+      'Vendor and data-flow inventory',
+      'Retention and rights workflows',
+      'Policy implementation support',
+      'Testing and implementation record',
+    ],
+    icon: 'Privacy',
+    iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/><path d="M12 7v1"/></svg>`,
+    accent: '#047857',
+    cssVar: '--ac-emerald',
+  },
+  {
+    slug: 'headless-cms-development',
+    title: 'Headless CMS Development',
+    shortTitle: 'Headless CMS',
+    tagline: 'Structured content for modern websites, apps and commerce',
+    description:
+      'We design headless content architectures and implement platforms including Payload CMS and Directus for websites, applications and composable digital experiences.',
+    features: [
+      'Headless CMS architecture',
+      'Payload CMS implementation',
+      'Directus implementation',
+      'Editorial roles and approvals',
+      'Storefront and API integration',
+      'Migration and content import',
+      'Deployment and handover',
+    ],
+    icon: 'Database',
+    iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>`,
+    accent: '#0E7490',
+    cssVar: '--ac-cyan',
+  },
 ];
+
+export const accessibilityService = services.find((service) => service.slug === 'ada-compliant-web-design')!;
+
+export const newBusinessServices = services.filter((service) =>
+  ['custom-crm-erp-solutions', 'dpdp-compliance-implementation', 'headless-cms-development'].includes(service.slug)
+);
+
+export const coreServices = services.filter((service) =>
+  service.slug !== 'ada-compliant-web-design' && !newBusinessServices.some((item) => item.slug === service.slug)
+);

@@ -37,6 +37,16 @@ warn()  { echo -e "${YELLOW}⚠ $*${RESET}"; }
 err()   { echo -e "${RED}✘ $*${RESET}"; }
 info()  { echo -e "${CYAN}  $*${RESET}"; }
 
+verify_live() {
+  log "Checking the live deployment..."
+  if (cd "$PROJECT_DIR" && npm run verify:live); then
+    ok "Live redirect and header checks passed"
+  else
+    err "The upload completed, but live checks failed. Purge Hostinger hCDN and run: npm run verify:live"
+    return 1
+  fi
+}
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 DIST_DIR="$PROJECT_DIR/dist"
@@ -93,6 +103,7 @@ if [[ -n "${SSH_HOST:-}" ]]; then
 
   ok "Upload complete"
   info "Live at: https://elan-tech.net"
+  verify_live
 
 elif [[ -n "${FTP_HOST:-}" ]]; then
   # ── lftp / FTP fallback ─────────────────────────────────────────────────────
@@ -110,11 +121,13 @@ elif [[ -n "${FTP_HOST:-}" ]]; then
     mirror --reverse --delete --verbose \
       '$DIST_DIR/' \
       '/${REMOTE_PATH}/';
+    put '$DIST_DIR/.htaccess' -o '/${REMOTE_PATH}/.htaccess';
     quit
   "
 
   ok "Upload complete"
   info "Live at: https://elan-tech.net"
+  verify_live
 
 else
   # ── Manual instructions ─────────────────────────────────────────────────────
@@ -146,8 +159,11 @@ else
   echo "  Option C  Manual upload (Hostinger File Manager):"
   echo ""
   echo "    1. Open Hostinger hPanel → File Manager → public_html"
-  echo "    2. Delete existing files (keep .htaccess if already customised)"
-  echo "    3. Upload the entire dist/ folder contents"
+  echo "    2. Download the current server .htaccess as a temporary backup"
+  echo "    3. Delete the existing website files, including the old .htaccess"
+  echo "    4. Upload the entire dist/ folder contents, including dist/.htaccess"
+  echo "    5. Purge Hostinger hCDN"
+  echo "    6. Run: npm run verify:live"
   echo ""
   echo -e "  Build output: ${CYAN}$DIST_DIR${RESET}  ($(du -sh "$DIST_DIR" | cut -f1))"
   echo ""

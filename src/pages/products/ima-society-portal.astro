@@ -2,6 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { softwareAppSchema, breadcrumbSchema } from '../../utils/schema';
 import { getProductBySlug, products } from '../../data/products';
+import AnswerSummary from '../../components/AnswerSummary.astro';
+import ProductPrivacyPanel from '../../components/ProductPrivacyPanel.astro';
 
 const product = getProductBySlug('ima-society-portal');
 const others = products.filter(p => p.slug !== product.slug);
@@ -24,10 +26,10 @@ const features = [
   { title: 'Online Membership Management', desc: 'Digital member directory with e-cards, profile self-service, renewal reminders, and bulk CSV onboarding for legacy members.' },
   { title: 'Event & CME Management', desc: 'Run conferences, workshops, and CME programmes with online registration, delegate fee collection, and auto-generated attendance certificates.' },
   { title: 'Photo Gallery & News', desc: 'Showcase society events with categorised photo galleries, news updates, press releases, and homepage highlights.' },
-  { title: 'Online Fee & Dues Payment', desc: 'Razorpay-integrated annual membership dues, life membership payments, and event fees with instant GST-compliant receipts.' },
+  { title: 'Online Fee & Dues Payment', desc: 'Optional Razorpay integration for annual dues, life membership payments and event fees, with receipt fields configured to the society’s approved requirements.' },
   { title: 'Executive Committee & Office Bearers', desc: 'Publish current and past Executive Committee members, office bearers, and term history with photos and designations.' },
   { title: 'Circulars & Document Library', desc: 'Organised repository of society circulars, AGM minutes, guidelines, and downloadable reference documents for members.' },
-  { title: 'Online Election Module', desc: 'Secure digital voting for Executive Committee elections with voter roll, candidate manifestos, and audited ballot results.' },
+  { title: 'Optional Election Module', desc: 'A separately scoped voting workflow with voter rolls, candidate information, access controls and agreed audit evidence.' },
   { title: 'Member Communication', desc: 'Bulk email and SMS broadcast to segmented member groups for announcements, renewals, and policy updates.' },
 ];
 
@@ -42,6 +44,7 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'AWS S3'
 ---
 
 <BaseLayout
+  ogImage="/images/og/products.png"
   title="Medical Society Portal | Association Management Software India - eLan"
   description="Association management software for IMA chapters and specialty medical societies. Online membership, CME events, e-voting elections, fee payments, circulars, and photo gallery in one portal."
   schema={schema}
@@ -80,7 +83,7 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'AWS S3'
         </h1>
 
         <p class="max-w-2xl text-lg sm:text-xl text-white/85 leading-relaxed mb-8">
-          A complete association management platform for IMA chapters and specialty medical societies - online membership, CME events, e-voting, fee collection, and society circulars in one white-labelled portal.
+          A configurable association portal for IMA chapters and specialty medical societies, with selected membership, CME, payment, communication and optional governance workflows in one branded environment.
         </p>
 
         <div class="flex flex-wrap gap-3 mb-6">
@@ -104,6 +107,34 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'AWS S3'
     </div>
   </section>
 
+
+  <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <AnswerSummary
+      eyebrow="Product answer"
+      title="How the IMA Society Portal is supplied"
+      intro="The platform is available and can be configured for the society’s membership, events, payments, documents and governance workflows."
+      accentVar={product.cssVar}
+      items={[
+        { question: 'Can modules be changed?', answer: 'Yes. Membership types, renewals, event flows, permissions and integrations are scoped for each society.' },
+        { question: 'Who owns the deployment?', answer: 'Deployment and source-code rights are recorded in the signed proposal and depend on the agreed commercial terms.' },
+        { question: 'What remains separate?', answer: 'Hosting, maintenance, payment charges, messaging services and later upgrades are separate unless included in the proposal.' },
+      ]}
+    />
+  </div>
+
+  <ProductPrivacyPanel
+    title="Govern member records, elections, payments and society access"
+    intro="A society portal may retain professional membership information for several years and give different access to members, office bearers, administrators and vendors. Governance rules should therefore be translated into fields, permissions, notices and retention settings before migration."
+    accentVar={product.cssVar}
+    subject="IMA Society Portal privacy enquiry"
+    items={[
+      { title: 'Membership records', text: 'The society defines required member fields, verification, directory visibility, renewal history and who may correct or export records. Public profiles should not be assumed.' },
+      { title: 'Fees, events and communication', text: 'Payment hand-off, receipts, attendance, certificates, segmented email and SMS use only the agreed fields and providers. Marketing should not be bundled into essential member notices.' },
+      { title: 'Elections and governance', text: 'Eligibility, voter roll access, authentication, ballot secrecy, audit evidence and result publication must follow the society’s approved rules and separately agreed technical design.' },
+      { title: 'Migration and office-bearer changes', text: 'Legacy spreadsheets should be cleaned and transferred securely. Administrator access, exports and credentials should be reviewed whenever office bearers or vendors change.' },
+    ]}
+    note="The portal provides configurable workflows; it does not itself validate membership status, statutory governance, election legality or accounting treatment. The society remains responsible for approved rules, member notices, retention and authorised publication."
+  />
 
   <!-- ═══ TWO-COLUMN LAYOUT ═══════════════════════════════════════════════ -->
   <section class="bg-[var(--bg)] py-14 md:py-20">
@@ -177,7 +208,7 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'AWS S3'
                 </div>
                 <div>
                   <dt class="text-[11px] uppercase tracking-wide text-[var(--text-muted)]">Licensing</dt>
-                  <dd class="font-semibold text-[var(--text)]">One-time purchase · White-label</dd>
+                  <dd class="font-semibold text-[var(--text)]">Defined in your proposal</dd>
                 </div>
                 <div>
                   <dt class="text-[11px] uppercase tracking-wide text-[var(--text-muted)]">Delivery</dt>

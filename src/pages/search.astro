@@ -5,7 +5,6 @@ import { services } from '../data/services';
 import { cities } from '../data/cities';
 import { countries } from '../data/countries';
 import { products } from '../data/products';
-import { projects } from '../data/portfolio';
 import { breadcrumbSchema } from '../utils/schema';
 import { isPublishedPost } from '../utils/blog';
 
@@ -54,6 +53,12 @@ serviceEntries.push(
     d: 'Custom Medusa.js storefronts, modules, workflows, subscriptions, Razorpay, PhonePe, shipping, B2B, marketplaces, and ERP integrations.',
     u: '/services/ecommerce/medusa-js-development/',
     c: 'Service',
+  },
+  {
+    t: 'Payload CMS & Directus Development',
+    d: 'Platform-specific Payload CMS and Directus implementation, customisation, content modelling, migration and API integration.',
+    u: '/services/payload-directus-development/',
+    c: 'Service',
   }
 );
 serviceEntries.unshift({
@@ -76,7 +81,7 @@ const countryEntries: IndexEntry[] = countries
   .filter((c) => c.hasLandingPage)
   .map((c) => ({
     t: `Outsource Web Design to India from ${c.name}`,
-    d: `${c.primaryKeyword}. Save ${c.costComparison.savings} vs local agencies. Timezone: ${c.timezone}.`,
+    d: `${c.primaryKeyword}. Remote delivery from our India studio, with scope, testing and collaboration agreed in writing. Timezone: ${c.timezone}.`,
     u: `/web-design-company-${c.slug}/`,
     c: 'Country',
   }));
@@ -94,13 +99,6 @@ productEntries.unshift({
   c: 'Product',
 });
 
-const portfolioEntries: IndexEntry[] = projects.map((p) => ({
-  t: `${p.title} - ${p.category} Case Study`,
-  d: p.description,
-  u: `/portfolio/case-study/${p.slug}/`,
-  c: 'Case Study',
-}));
-
 const blogEntries: IndexEntry[] = blogPosts
   .filter((p) => isPublishedPost(p.data))
   .map((p) => ({
@@ -116,7 +114,6 @@ const searchIndex: IndexEntry[] = [
   ...productEntries,
   ...cityEntries,
   ...countryEntries,
-  ...portfolioEntries,
   ...blogEntries,
 ];
 

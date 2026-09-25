@@ -1,5 +1,9 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import logo from '../assets/brand/elan-tech-logo.svg';
+import BlogPrivacyNotice from '../components/BlogPrivacyNotice.astro';
 
 interface Props {
   title: string;
@@ -12,7 +16,7 @@ interface Props {
   publishDate: string;
   author?: string;
   readTime?: string;
-  coverImage?: string;
+  coverImage?: ImageMetadata;
   category?: string;
   tags?: string[];
 }
@@ -80,7 +84,7 @@ const ecommerceResources = [
 ];
 
 // Build social share URLs from canonical/current path
-const currentUrl = canonical ?? '';
+const currentUrl = canonical ? new URL(canonical, Astro.site ?? Astro.url.origin).toString() : Astro.url.toString();
 const shareTwitter = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(title)}`;
 const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`;
 ---
@@ -89,7 +93,7 @@ const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${enc
   title={title}
   description={description}
   canonical={canonical}
-  ogImage={ogImage ?? coverImage}
+  ogImage={ogImage ?? coverImage?.src ?? '/images/og/blog.png'}
   ogType={ogType}
   noindex={noindex}
   schema={schema}
@@ -103,12 +107,13 @@ const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${enc
       <>
         <!-- Background cover image with overlay -->
         <div class="absolute inset-0">
-          <img
+          <Image
             src={coverImage}
             alt=""
             aria-hidden="true"
-            width="1400"
-            height="600"
+            widths={[320, 640, 960, 1280]}
+            sizes="100vw"
+            format="avif"
             loading="eager"
             decoding="async"
             class="h-full w-full object-cover"
@@ -174,6 +179,8 @@ const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${enc
       </div>
     )}
   </header>
+
+  <BlogPrivacyNotice context="article" category={category} />
 
 
   <!-- ═══════════════════════════════════════════════════════════════════════
@@ -272,7 +279,7 @@ const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${enc
               <div>
                 <p class="font-semibold text-[var(--text)]">
                   {isAccessibility
-                    ? 'Need a defensible accessibility plan?'
+                    ? 'Need a documented accessibility plan?'
                     : isEcommerce
                       ? 'Planning a Shopify or Medusa.js build?'
                       : 'Need help implementing these ideas?'}
@@ -289,7 +296,7 @@ const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${enc
                 )}
               </div>
               <a
-                href={isAccessibility ? '/get-quote/?service=ada-audit' : isEcommerce ? '/schedule-consultation/' : '/contact/'}
+                href={isAccessibility ? '/services/ada-compliant-web-design/' : isEcommerce ? '/schedule-consultation/' : '/contact/'}
                 class="inline-flex shrink-0 items-center gap-2 rounded-full bg-[var(--accent)] px-6 py-2.5 text-sm font-semibold text-[var(--bg)] hover:brightness-110 transition-all"
               >
                 {isAccessibility ? 'Request an Accessibility Audit →' : isEcommerce ? 'Plan Your eCommerce Build →' : 'Talk to Our Team →'}
@@ -314,8 +321,8 @@ const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${enc
 
           <!-- About the author / company -->
           <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 text-center">
-            <img
-              src="/images/elan-tech-logo.svg"
+            <Image
+              src={logo}
               alt="eLan Technology"
               width="120"
               height="34"
@@ -324,7 +331,7 @@ const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${enc
               class="mx-auto mb-4 h-8 w-auto"
             />
             <p class="text-sm text-[var(--text-dim)] leading-relaxed mb-4">
-              eLan Technology builds high-performance websites, digital marketing solutions, and custom software for businesses worldwide.
+              eLan Technology provides website, ecommerce, accessibility-first development and digital marketing services from Nagpur for businesses in India and overseas.
             </p>
             <a
               href="/about/"

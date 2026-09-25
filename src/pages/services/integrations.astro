@@ -53,15 +53,15 @@ const integrationFaqs = [
   },
   {
     question: 'Can you integrate with APIs not listed on this page?',
-    answer: 'Absolutely. We work with any REST or GraphQL API that provides documentation. If you have an internal system, a niche SaaS tool, or a legacy ERP that needs connecting to your website, we can build the integration from scratch using the provider\'s API documentation.',
+    answer: 'We can assess documented REST, GraphQL and other supported interfaces, including internal or legacy systems. Feasibility depends on API capability, authentication, rate limits, sandbox access, provider terms, data quality and the client’s authority to connect the systems.',
   },
   {
     question: 'Do you handle ongoing maintenance for integrations?',
-    answer: 'Yes. APIs change - providers deprecate endpoints, update authentication methods, and modify response formats. Our maintenance plans include monitoring integration health, updating code when APIs change, and handling error recovery. This ensures your integrations remain reliable over time.',
+    answer: 'Ongoing monitoring, provider-change updates, error recovery and response targets can be included in a maintenance plan. No integration can be guaranteed continuously available because provider APIs, credentials, networks, quotas and connected systems can change or fail.',
   },
   {
     question: 'How do you ensure security in payment integrations?',
-    answer: 'We follow PCI DSS guidelines, never store raw card data on your servers, use tokenisation for repeat payments, implement webhook signature verification, and set up HTTPS-only communication. All payment flows are tested end-to-end in sandbox environments before going live.',
+    answer: 'We prefer hosted or tokenised payment flows where suitable, protect secrets, verify supported webhook signatures and test agreed journeys in the provider sandbox. PCI DSS scope and responsibility depend on the selected gateway, integration method, merchant environment and parties involved; this service page does not claim certification.',
   },
   {
     question: 'Can you connect multiple systems together?',

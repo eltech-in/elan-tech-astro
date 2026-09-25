@@ -54,10 +54,10 @@ const city = !isLegacy ? (props.city as CityData) : null;
 const pageUrl = city ? `/web-design-company-${city.slug}/` : '';
 
 const title = city
-  ? (props.title ?? city.seoTitle ?? `Best Web Design Company in ${city.name} | eLan Technology`)
+  ? (props.title ?? city.seoTitle ?? `Web Design Company Serving ${city.name} | eLan Technology`)
   : legacyTitle;
 const description = city
-  ? (props.description ?? city.seoDescription ?? `Top-rated web design & development company in ${city.name}, ${city.state}. ${city.tagline}. WCAG 2.1 AA compliant. 500+ clients. Since 2002.`)
+  ? (props.description ?? city.seoDescription ?? `Web design and development for ${city.name}, ${city.state}, delivered from Nagpur with accessibility-first development and a written project scope.`)
   : legacyDescription;
 
 const breadcrumbs = city
@@ -77,11 +77,10 @@ if (city) {
   const cityBusinessSchema = city.isHQ
     ? localBusinessSchema(city.name, {
         url: `https://elan-tech.net${pageUrl}`,
-        description: `Professional web design & digital marketing services in ${city.name}. WCAG/ADA compliant websites. Since 2002.`,
+        description: `Professional web design, digital marketing and accessibility-first development services in ${city.name}. Operating since 2002.`,
       })
     : serviceAreaBusinessSchema(city.name, city.state, {
         url: `https://elan-tech.net${pageUrl}`,
-        geo: { latitude: city.geo.lat, longitude: city.geo.lng },
       });
   const faq = city.faq.length > 0 ? faqSchema(city.faq) : null;
   const crumbSchema = breadcrumbSchema(
@@ -96,19 +95,21 @@ const trustLine = city
     : `${city.distanceFromNagpur} from our Nagpur HQ · 24+ years · 500+ clients`
   : '';
 
-const heroHeading = city ? `Best Web Design Company in ${city.name}` : legacyHeroHeading;
+const heroHeading = city ? (props.heroHeading ?? (city.isHQ ? `Web Design Company in ${city.name}` : `Web Design Company Serving ${city.name}`)) : legacyHeroHeading;
 const heroSubtext = city ? city.tagline : legacyHeroSubtext;
 const badge = city
   ? city.isHQ ? `Headquartered in ${city.name}` : `Serving ${city.name} businesses`
   : `${legacyCity}, ${legacyState}`;
-const auditHref = city ? `/free-website-audit/?city=${encodeURIComponent(city.slug)}` : '/free-website-audit/';
-const quoteHref = city ? `/get-quote/?city=${encodeURIComponent(city.slug)}&service=web-design` : '/get-quote/';
+// Keep crawlable internal links canonical. City context is stated on the page
+// and can be entered in the form without creating indexable parameter variants.
+const auditHref = '/free-website-audit/';
+const quoteHref = '/get-quote/';
 ---
 <BaseLayout
   title={title}
   description={description}
   canonical={city ? `https://elan-tech.net${pageUrl}` : props.canonical}
-  ogImage={props.ogImage}
+  ogImage={props.ogImage ?? '/images/og/locations-india.png'}
   ogType={props.ogType}
   schema={allSchemas}
   noindex={props.noindex}

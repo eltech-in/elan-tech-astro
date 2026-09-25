@@ -13,12 +13,12 @@ const heading = hasLocalClients
   : `Relevant Project Experience for ${city.name} Businesses`;
 
 // Use city portfolio data, fall back to generic showcase
-const projects = city.portfolio.length > 0
+const projects = hasLocalClients && city.portfolio.length > 0
   ? city.portfolio
   : [
-      { name: 'Aastha Hospital', category: 'Healthcare', desc: 'A healthcare website that helps patients understand services, find doctors and take the next step.', href: '/portfolio/case-study/aastha-hospital/' },
-      { name: 'Trimit Architects', category: 'Architecture and real estate', desc: 'A visual portfolio website that organises projects and creates a clearer path for prospective clients.', href: '/portfolio/case-study/trimit-architects/' },
-      { name: 'CIPL Corporate Portal', category: 'Enterprise operations', desc: 'A role-based internal portal supporting HR workflows, document access and more than 500 staff members.', href: '/portfolio/case-study/cipl-corporate-portal/' },
+      { name: 'Aastha Hospital', category: 'Healthcare', desc: 'A healthcare website that helps patients understand services, find doctors and take the next step.', href: 'https://www.asthahospital.in/' },
+      { name: 'Trimit Architects', category: 'Architecture and real estate', desc: 'A visual portfolio website that organises projects and creates a clearer path for prospective clients.', href: 'https://www.trimitarch.com/' },
+      { name: 'CIPL Corporate Portal', category: 'Enterprise operations', desc: 'A role-based internal portal supporting HR workflows, document access and more than 500 staff members.', href: '/portfolio/#project-archive' },
     ];
 ---
 
@@ -43,8 +43,8 @@ const projects = city.portfolio.length > 0
           <h3 class="font-heading font-bold text-[var(--text)] text-lg mb-3">{p.name}</h3>
           <p class="text-sm text-[var(--text-dim)] leading-relaxed">{p.desc}</p>
           {p.href && (
-            <a class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--text)] hover:text-[var(--accent)]" href={p.href}>
-              Read case study
+            <a class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--text)] hover:text-[var(--accent)]" href={p.href} target={p.href.startsWith('http') ? '_blank' : undefined} rel={p.href.startsWith('http') ? 'noopener noreferrer' : undefined}>
+              {p.href.startsWith('http') ? 'Visit website' : 'View project'}
               <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
             </a>
           )}

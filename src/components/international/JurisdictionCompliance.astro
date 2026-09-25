@@ -1,0 +1,128 @@
+---
+import type { CountryData } from '../../data/countries';
+
+interface Props { country: CountryData; }
+interface Requirement {
+  title: string;
+  summary: string;
+  implementation: string;
+  source?: { label: string; href: string };
+}
+interface Profile {
+  eyebrow: string;
+  intro: string;
+  requirements: Requirement[];
+  questions: string[];
+}
+
+const { country } = Astro.props;
+
+const profiles: Record<string, Profile> = {
+  usa: {
+    eyebrow: 'US project scoping',
+    intro: 'US requirements depend on the organisation, state, sector, audience and whether the work is for a private business, public entity or federal supplier.',
+    requirements: [
+      { title: 'ADA and digital accessibility', summary: 'Title III can apply to online goods and services offered by businesses open to the public. State and local government work has a separate Title II rule, while federal procurement may introduce Section 508.', implementation: 'Define the applicable buyer type, WCAG baseline, tested templates and journeys, manual and assistive-technology coverage, evidence, retesting and issue-reporting route.', source: { label: 'US DOJ web guidance', href: 'https://www.ada.gov/resources/web-guidance/' } },
+      { title: 'State privacy requirements', summary: 'California and other states can create notice, access, correction, deletion, sensitive-data and sale or sharing opt-out duties when their applicability thresholds are met.', implementation: 'Inventory data and vendors, provide notices at collection where required, map request handling, and honour applicable browser privacy signals such as Global Privacy Control.', source: { label: 'California CCPA guidance', href: 'https://www.oag.ca.gov/privacy/ccpa' } },
+      { title: 'Commercial email', summary: 'CAN-SPAM regulates commercial email, including business-to-business messages.', implementation: 'Use accurate sender and subject information, a valid postal address, a clear opt-out and a suppression process; monitor providers sending on the organisation’s behalf.', source: { label: 'FTC CAN-SPAM guide', href: 'https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business' } },
+      { title: 'Security and sector scope', summary: 'Healthcare, education, finance, children’s services, public procurement and other sectors may introduce requirements beyond a general business website.', implementation: 'Identify sector and state requirements before architecture, analytics, forms, accounts or integrations are approved. Obtain US legal review where applicability is uncertain.' },
+    ],
+    questions: ['Which US states and users are targeted?', 'Is the organisation private, public, federally funded or a federal supplier?', 'Does the site sell or share data for advertising?', 'Will it process health, financial, education, child or other sensitive information?'],
+  },
+  canada: {
+    eyebrow: 'Canada project scoping',
+    intro: 'Canadian projects may involve federal privacy and accessibility rules, provincial requirements and separate electronic-marketing obligations.',
+    requirements: [
+      { title: 'PIPEDA and provincial privacy', summary: 'PIPEDA uses fair-information principles including accountability, identified purposes, consent, collection limitation, safeguards, openness, access and correction. Provincial laws may apply instead or alongside it.', implementation: 'Document the applicable jurisdiction, purposes, data fields, consent or other authority, providers, retention, safeguards, request handling and breach route.', source: { label: 'OPC PIPEDA guidance', href: 'https://www.priv.gc.ca/en/privacy-topics/privacy-laws-in-canada/the-personal-information-protection-and-electronic-documents-act-pipeda/' } },
+      { title: 'ACA and AODA accessibility', summary: 'The Accessible Canada Act concerns federally regulated organisations. Ontario’s AODA website requirements apply to designated public-sector organisations and qualifying businesses and nonprofits with 50 or more employees.', implementation: 'Confirm jurisdiction and organisation type before naming a standard. Define WCAG scope, exceptions, content ownership, testing, evidence and ongoing maintenance.', source: { label: 'Ontario website guidance', href: 'https://www.ontario.ca/page/how-make-websites-accessible' } },
+      { title: 'CASL messaging', summary: 'Commercial electronic messages generally require an applicable consent basis, sender identification and a working unsubscribe mechanism.', implementation: 'Keep consent evidence, separate a requested enquiry response from later promotion, include required sender details and maintain a central unsubscribe record.', source: { label: 'CRTC CASL guidance', href: 'https://web.crtc.gc.ca/eng/internet/anti/reg.htm' } },
+      { title: 'Language and locality', summary: 'French-language and provincial obligations cannot be satisfied merely by adding an automated language switcher.', implementation: 'Scope professional translation, linguistic approval, province-specific notices, metadata, document accessibility and content governance separately.' },
+    ],
+    questions: ['Which province or territory applies?', 'Is the organisation federally regulated or public sector?', 'How many employees does it have where a threshold is relevant?', 'Are English, French or other languages required?'],
+  },
+  australia: {
+    eyebrow: 'Australia project scoping',
+    intro: 'Australian projects should connect privacy, overseas delivery, accessibility, marketing consent and consumer-facing transaction design.',
+    requirements: [
+      { title: 'Privacy Act and APPs', summary: 'The Australian Privacy Principles address collection, notification, use, disclosure, direct marketing, quality, security, access and correction for covered entities.', implementation: 'Build an information-flow map, point-of-collection notices, access and correction route, retention schedule, security ownership and breach-response process.', source: { label: 'OAIC APP guidance', href: 'https://www.oaic.gov.au/privacy/australian-privacy-principles' } },
+      { title: 'Overseas disclosure', summary: 'APP 8 can require reasonable steps before personal information is disclosed to an overseas recipient, and the Australian entity may remain accountable in some circumstances.', implementation: 'Record whether India-based access is a use or disclosure, authorised people, purposes, storage, security, deletion, incident notification, onward providers and contract controls.', source: { label: 'OAIC APP 8 guidance', href: 'https://www.oaic.gov.au/privacy/australian-privacy-principles/australian-privacy-principles-guidelines/chapter-8-app-8-cross-border-disclosure-of-personal-information' } },
+      { title: 'DDA and accessibility', summary: 'Australian Human Rights Commission guidance treats WCAG as the established reference for equal access to digital goods and services.', implementation: 'Define the agreed WCAG baseline and test real journeys with automated and manual methods. Provide evidence without presenting it as a permanent legal certification.', source: { label: 'Australian accessibility guidance', href: 'https://humanrights.gov.au/?a=68429' } },
+      { title: 'Spam Act and consumer journeys', summary: 'Commercial messages require an applicable consent basis, accurate sender details and an easy unsubscribe. Ecommerce also needs clear, non-misleading prices, subscriptions and cancellation journeys.', implementation: 'Keep consent records, identify the sender, process unsubscribe requests, avoid preselected marketing and review checkout, recurring-payment and refund content.', source: { label: 'ACMA spam guidance', href: 'https://www.acma.gov.au/avoid-sending-spam' } },
+    ],
+    questions: ['Is the organisation covered by the Privacy Act?', 'Will India-based staff access Australian personal information?', 'Are email, SMS, telemarketing or remarketing planned?', 'Does the site sell, subscribe, book or take payments?'],
+  },
+  'european-union': {
+    eyebrow: 'European Union project scoping',
+    intro: 'EU delivery should be scoped around the actual member states, service model, users, personal data, tracking and whether the site is a store, marketplace or intermediary.',
+    requirements: [
+      { title: 'GDPR roles and user rights', summary: 'GDPR may apply when goods or services are offered to people in the EU or their behaviour is monitored. Controller and processor responsibilities must reflect the real processing.', implementation: 'Document purposes, lawful basis, minimisation, notices, Article 28 processor terms, providers, retention, user rights, security, breach responsibilities and DPIA needs.', source: { label: 'European Commission privacy guidance', href: 'https://commission.europa.eu/digital-life/protecting-your-data-and-privacy_en' } },
+      { title: 'Cookies and marketing', summary: 'Non-essential cookies or similar technologies commonly require prior choice under EU privacy rules, while direct marketing rules also vary by channel and member state.', implementation: 'Block optional tags before consent, provide balanced allow and reject controls, retain a consent record, support withdrawal, and keep marketing permission separate from an enquiry.', source: { label: 'EU online privacy guidance', href: 'https://europa.eu/youreurope/business/growing/digitalising/online-privacy/index_en.htm' } },
+      { title: 'Transfers to India', summary: 'Transfers of EEA personal data to India require an applicable transfer mechanism and appropriate safeguards.', implementation: 'Identify exporters, importers, transfer purposes, systems, subprocessors and security measures. Where chosen by the client and counsel, support SCC annexes and the technical inputs to a transfer assessment.', source: { label: 'EU transfer rules', href: 'https://commission.europa.eu/law/law-topic/data-protection/international-dimension/data-protection-standard-contractual-clauses-scc_en' } },
+      { title: 'EAA, ecommerce and platforms', summary: 'The European Accessibility Act applies to covered products and services placed on the market after 28 June 2025, subject to scope and exemptions. Marketplaces and intermediaries may also have Digital Services Act duties.', implementation: 'Confirm whether ecommerce, ticketing, banking, communication or a marketplace is in scope; then define accessibility information, testing, seller traceability, notices, complaints and non-deceptive interfaces.', source: { label: 'EU accessibility guidance', href: 'https://europa.eu/youreurope/business/selling-in-eu/selling-goods-services/accessibility/index_en.htm' } },
+    ],
+    questions: ['Which EU member states and languages are targeted?', 'Is the client a controller, processor, store, marketplace or intermediary?', 'Which personal data and optional tracking will be used?', 'Will EEA data be accessed from or stored in India?'],
+  },
+  japan: {
+    eyebrow: 'Japan project scoping',
+    intro: 'Japanese delivery should separate APPI data responsibilities, JIS accessibility testing, language approval and ecommerce disclosure requirements.',
+    requirements: [
+      { title: 'APPI data handling', summary: 'Japan’s APPI governs personal-information handling, security, individual rights, breach handling and certain third-party or overseas transfers.', implementation: 'Document purposes, data fields, providers, security controls, request handling, breach responsibilities, overseas access and deletion. Qualified Japanese advice should confirm applicability.', source: { label: 'Japan PPC laws and guidance', href: 'https://www.ppc.go.jp/en/legal/' } },
+      { title: 'Cookies and related identifiers', summary: 'Cookie and device-identifier information may be personally referable information depending on how it is used and connected with other data.', implementation: 'Inventory analytics, advertising and platform identifiers; disclose purposes and recipients; determine when consent, confirmation or another control is required.', source: { label: 'PPC APPI questions and answers', href: 'https://www.ppc.go.jp/personalinfo/faq/APPI_QA/' } },
+      { title: 'JIS web accessibility', summary: 'JIS X 8341-3:2016 is Japan’s principal web-accessibility reference. Japan’s Digital Agency also uses WCAG 2.2 criteria to address newer requirements.', implementation: 'Define pages and functionality in scope, target level, test method, sample, results and Japanese conformance terminology. Automated scans alone are insufficient.', source: { label: 'Japan Digital Agency accessibility', href: 'https://www.digital.go.jp/en/accessibility-statement' } },
+      { title: 'Online sales disclosures', summary: 'Japan’s Specified Commercial Transactions Act can require visible seller, price, payment, delivery and cancellation information for mail-order and online sales.', implementation: 'Provide the required disclosure route, make a paid order unmistakable, show key terms before submission and allow customers to confirm and correct the order.', source: { label: 'Consumer Affairs Agency guide', href: 'https://www.no-trouble.caa.go.jp/foreignlanguage/english/mailorder/' } },
+    ],
+    questions: ['Will Japanese residents’ information be handled or transferred overseas?', 'Is the site informational, transactional or subscription-based?', 'Is a formal JIS conformance statement required?', 'Who provides professional Japanese translation and legal-content approval?'],
+  },
+};
+
+const genericProfile: Profile = {
+  eyebrow: `${country.name} project scoping`,
+  intro: `A ${country.name} project should begin by identifying the organisation, users, sector, data, languages, transactions and local advisers rather than applying a generic “compliant” label.`,
+  requirements: [
+    { title: 'Privacy and data', summary: 'Identify the local privacy rules, regulator guidance, notices, user rights, marketing controls and breach obligations that may apply.', implementation: 'Map fields, purposes, providers, locations, access, retention, security, requests and deletion before implementing forms, accounts or analytics.' },
+    { title: 'Accessibility', summary: `Use ${country.accessibilityLaw} and relevant procurement requirements as discovery inputs—not as an automatic certification claim.`, implementation: 'Agree the technical baseline, pages, journeys, languages, test methods, evidence and remediation responsibilities.' },
+    { title: 'Transactions and communications', summary: 'Ecommerce, subscriptions, bookings, advertising, email and messaging may create separate consumer and anti-spam duties.', implementation: 'Review prices, renewals, cancellations, refunds, sender identity, permission records and unsubscribe handling for the intended market.' },
+    { title: 'India-based delivery', summary: 'Remote development may give authorised India-based personnel access to systems or information controlled by the client.', implementation: 'The contract should define roles, permitted access, providers, data locations, security, incident reporting, retention, handover and any required transfer mechanism.' },
+  ],
+  questions: ['Where is the organisation established and regulated?', 'Which users, languages and sectors are in scope?', 'What personal or sensitive information is involved?', 'Which requirements have local counsel or procurement teams confirmed?'],
+};
+
+const profile = profiles[country.slug] ?? genericProfile;
+---
+
+<section class="px-4 py-16 sm:px-6 lg:px-8" aria-labelledby={`${country.slug}-compliance-title`}>
+  <div class="mx-auto max-w-7xl">
+    <div class="mx-auto mb-10 max-w-3xl text-center">
+      <p class="text-xs font-black uppercase tracking-[0.2em] text-[var(--ac-indigo)]">{profile.eyebrow}</p>
+      <h2 id={`${country.slug}-compliance-title`} class="mt-3 font-heading text-3xl font-black leading-tight text-[var(--text)] sm:text-4xl">Requirements to confirm before development</h2>
+      <p class="mt-4 leading-relaxed text-[var(--text-dim)]">{profile.intro}</p>
+    </div>
+    <div class="grid gap-5 lg:grid-cols-2">
+      {profile.requirements.map((item, index) => (
+        <article class="rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-7">
+          <div class="flex items-start gap-4">
+            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--ac-indigo)]/10 text-xs font-black text-[var(--ac-indigo)]">{String(index + 1).padStart(2, '0')}</span>
+            <div>
+              <h3 class="font-heading text-lg font-bold text-[var(--text)]">{item.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">{item.summary}</p>
+              <p class="mt-3 border-l-2 border-[var(--ac-indigo)]/35 pl-3 text-sm leading-relaxed text-[var(--text-muted)]"><strong class="text-[var(--text)]">Implementation:</strong> {item.implementation}</p>
+              {item.source && <a href={item.source.href} target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex text-xs font-bold text-[var(--ac-indigo)] underline underline-offset-4">{item.source.label} <span aria-hidden="true">↗</span></a>}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+    <div class="mt-6 grid gap-6 rounded-3xl border border-[var(--border)] bg-[var(--bg)] p-6 sm:p-8 lg:grid-cols-[1fr_0.85fr]">
+      <div>
+        <h3 class="font-heading text-xl font-bold text-[var(--text)]">Questions for discovery</h3>
+        <ul class="mt-4 grid gap-3 sm:grid-cols-2" role="list">
+          {profile.questions.map((question) => <li class="flex gap-2 text-sm leading-relaxed text-[var(--text-dim)]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--ac-indigo)]" aria-hidden="true"></span>{question}</li>)}
+        </ul>
+      </div>
+      <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
+        <p class="text-xs font-black uppercase tracking-[0.16em] text-[var(--ac-indigo)]">Responsibility boundary</p>
+        <p class="mt-3 text-sm leading-relaxed text-[var(--text-dim)]">eLan Technology can implement agreed technical controls, testing and documentation. The client identifies its organisation, purposes and legal obligations, approves notices and operational decisions, and obtains qualified local advice where required. No page, audit or technology creates automatic legal compliance.</p>
+      </div>
+    </div>
+  </div>
+</section>

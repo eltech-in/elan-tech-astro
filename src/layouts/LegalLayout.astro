@@ -22,6 +22,16 @@ const formattedDate = lastUpdated
       day: 'numeric',
     })
   : null;
+
+const policyLinks = [
+  { href: '/privacy-policy/', label: 'Privacy' },
+  { href: '/cookie-policy/', label: 'Cookies' },
+  { href: '/terms-conditions/', label: 'Terms' },
+  { href: '/cancellation-refund-policy/', label: 'Cancellation & refunds' },
+  { href: '/nda-confidentiality-policy/', label: 'Confidentiality' },
+  { href: '/accessibility-statement/', label: 'Accessibility' },
+  { href: '/disclaimer/', label: 'Disclaimer' },
+];
 ---
 
 <BaseLayout title={title} description={description}>
@@ -46,6 +56,17 @@ const formattedDate = lastUpdated
   <div class="bg-[var(--bg)] px-4 py-14 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-3xl legal-content">
       <slot />
+
+      <nav class="related-policies" aria-label="Related legal and policy pages">
+        <h2>Related policies</h2>
+        <ul>
+          {policyLinks.map((item) => (
+            <li>
+              <a href={item.href} aria-current={Astro.url.pathname === item.href ? 'page' : undefined}>{item.label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </div>
   </div>
 
@@ -242,5 +263,41 @@ const formattedDate = lastUpdated
 
   .legal-content :global(tr:last-child td) {
     border-bottom: none;
+  }
+
+  .related-policies {
+    margin-top: 3rem;
+    padding-top: 0.5rem;
+  }
+
+  .legal-content .related-policies :global(ul) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .legal-content .related-policies :global(li) {
+    display: block;
+    padding: 0;
+    background: transparent;
+    border: 0;
+  }
+
+  .legal-content .related-policies :global(li::before) { content: none; }
+
+  .legal-content .related-policies :global(a) {
+    display: inline-flex;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.45rem 0.8rem;
+    font-size: 0.82rem;
+    line-height: 1.2;
+  }
+
+  .legal-content .related-policies :global(a[aria-current="page"]) {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
   }
 </style>

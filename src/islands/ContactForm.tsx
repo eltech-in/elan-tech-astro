@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { redirectToThankYou, submitLead } from '../lib/submitLead';
 
 const schema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -10,6 +11,9 @@ const schema = z.object({
   website: z.url('Please enter a valid URL').optional().or(z.literal('')),
   service: z.string().optional(),
   message: z.string().min(10, 'Message must be at least 10 characters'),
+  privacyAccepted: z.boolean().refine((value) => value, {
+    message: 'Please confirm that you have read the enquiry privacy notice',
+  }),
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -46,6 +50,16 @@ export default function ContactForm() {
     reset,
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
+    defaultValues: {
+      name: '',
+      email: '',
+      phone: '',
+      company: '',
+      website: '',
+      service: '',
+      message: '',
+      privacyAccepted: false,
+    },
     resolver: (values) => {
       const errs = validate(values);
       const hasErrors = Object.keys(errs).length > 0;
@@ -63,27 +77,32 @@ export default function ContactForm() {
   type Status = 'idle' | 'success' | 'error';
   const [status, setStatus] = useState<Status>('idle');
   const [errorMsg, setErrorMsg] = useState('');
+  const [honeypot, setHoneypot] = useState('');
+  const startedAt = useRef(Date.now());
 
   async function onSubmit(data: FormValues) {
     setStatus('idle');
+
+    if (honeypot) {
+      setStatus('success');
+      return;
+    }
+
+    if (Date.now() - startedAt.current < 2000) {
+      setStatus('error');
+      setErrorMsg('Please wait a moment, then submit the form again.');
+      return;
+    }
+
     try {
-      const res = await fetch('https://formsubmit.co/ajax/info@elantech.in', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          _subject: `New Contact Request from ${data.name}`,
-          ...data,
-        }),
+      await submitLead('contact', {
+        _subject: `New Contact Request from ${data.name}`,
+        _honey: honeypot,
+        _privacyNoticeVersion: 'contact-2026-09-23',
+        ...data,
       });
-      if (res.ok) {
-        reset();
-        setStatus('success');
-      } else {
-        throw new Error('Server error');
-      }
+      reset();
+      redirectToThankYou('contact');
     } catch {
       setStatus('error');
       setErrorMsg('Something went wrong. Please try again or contact us directly.');
@@ -116,7 +135,20 @@ export default function ContactForm() {
     'w-full rounded-lg border border-[var(--border)] bg-[var(--bg)] px-4 py-2.5 text-sm text-[var(--text)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] transition-all';
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
+    <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4" aria-describedby="contact-form-privacy-summary">
+      <div className="absolute -left-[10000px] h-px w-px overflow-hidden" aria-hidden="true">
+        <label htmlFor="cf-website-check">Leave this field empty</label>
+        <input
+          id="cf-website-check"
+          name="website_check"
+          type="text"
+          value={honeypot}
+          onChange={(event) => setHoneypot(event.target.value)}
+          autoComplete="off"
+          tabIndex={-1}
+        />
+      </div>
+
       {/* Name + Email */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Name */}
@@ -167,7 +199,7 @@ export default function ContactForm() {
       {/* Phone + Company */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="cf-phone" className="block text-sm font-medium text-[var(--text)] mb-1.5">Phone</label>
+          <label htmlFor="cf-phone" className="block text-sm font-medium text-[var(--text)] mb-1.5">Phone <span className="text-xs font-normal text-[var(--text-muted)]">(optional)</span></label>
           <input
             id="cf-phone"
             type="tel"
@@ -184,7 +216,7 @@ export default function ContactForm() {
           )}
         </div>
         <div>
-          <label htmlFor="cf-company" className="block text-sm font-medium text-[var(--text)] mb-1.5">Company</label>
+          <label htmlFor="cf-company" className="block text-sm font-medium text-[var(--text)] mb-1.5">Company <span className="text-xs font-normal text-[var(--text-muted)]">(optional)</span></label>
           <input
             id="cf-company"
             type="text"
@@ -204,7 +236,7 @@ export default function ContactForm() {
 
       {/* Website URL */}
       <div>
-        <label htmlFor="cf-website" className="block text-sm font-medium text-[var(--text)] mb-1.5">Website URL</label>
+        <label htmlFor="cf-website" className="block text-sm font-medium text-[var(--text)] mb-1.5">Website URL <span className="text-xs font-normal text-[var(--text-muted)]">(optional)</span></label>
         <input
           id="cf-website"
           type="url"
@@ -222,7 +254,7 @@ export default function ContactForm() {
 
       {/* Service */}
       <div>
-        <label htmlFor="cf-service" className="block text-sm font-medium text-[var(--text)] mb-1.5">Service</label>
+        <label htmlFor="cf-service" className="block text-sm font-medium text-[var(--text)] mb-1.5">Service <span className="text-xs font-normal text-[var(--text-muted)]">(optional)</span></label>
         <select
           id="cf-service"
           aria-describedby={errors.service ? 'cf-service-error' : undefined}
@@ -250,14 +282,53 @@ export default function ContactForm() {
           id="cf-message"
           rows={5}
           aria-required="true"
-          aria-describedby={errors.message ? 'cf-message-error' : undefined}
+          aria-describedby={errors.message ? 'cf-message-help cf-message-error' : 'cf-message-help'}
           {...register('message')}
           className={inputClass}
           placeholder="Tell us about your project..."
         />
+        <p id="cf-message-help" className="mt-1.5 text-xs leading-relaxed text-[var(--text-muted)]">
+          Please do not include passwords, payment details, health information or other sensitive personal data.
+        </p>
         {errors.message && (
           <p id="cf-message-error" role="alert" aria-live="polite" className="mt-1 text-xs text-red-400">
             {errors.message.message}
+          </p>
+        )}
+      </div>
+
+      <div id="contact-form-privacy-summary" className="rounded-xl border border-[var(--border)] bg-[var(--bg)]/70 p-4">
+        <p className="text-sm font-semibold text-[var(--text)]">How we use this enquiry</p>
+        <p className="mt-1 text-xs leading-relaxed text-[var(--text-dim)]">
+          We use the details you provide only to review and respond to this enquiry. They are stored in our private
+          hosting area and may be sent through Brevo for the reply notification. If that delivery route is unavailable,
+          FormSubmit may be used as a temporary fallback. An unconverted enquiry is retained for up to 12 months,
+          unless a longer period is required for an active project or by law. We do not add you to marketing lists from this form.
+        </p>
+        <p className="mt-2 text-xs text-[var(--text-muted)]">
+          Read our <a href="/privacy-policy/" className="font-semibold text-[var(--accent)] underline underline-offset-2">Privacy Policy</a>
+          {' '}or contact <a href="mailto:privacy@elan-tech.net" className="font-semibold text-[var(--accent)] underline underline-offset-2">privacy@elan-tech.net</a> to exercise your data rights.
+        </p>
+      </div>
+
+      <div>
+        <label htmlFor="cf-privacy" className="flex cursor-pointer items-start gap-3 rounded-xl border border-[var(--border)] p-3.5 transition-colors hover:bg-[var(--bg)]">
+          <input
+            id="cf-privacy"
+            type="checkbox"
+            aria-required="true"
+            aria-describedby={errors.privacyAccepted ? 'cf-privacy-error' : 'contact-form-privacy-summary'}
+            {...register('privacyAccepted')}
+            className="mt-0.5 h-5 w-5 flex-none rounded border-[var(--border)] accent-[var(--accent)]"
+          />
+          <span className="text-sm leading-relaxed text-[var(--text-dim)]">
+            I have read the enquiry privacy notice and agree that eLan Technology may use my details to respond.
+            <span aria-hidden="true" className="text-red-400"> *</span>
+          </span>
+        </label>
+        {errors.privacyAccepted && (
+          <p id="cf-privacy-error" role="alert" aria-live="polite" className="mt-1.5 text-xs text-red-400">
+            {errors.privacyAccepted.message}
           </p>
         )}
       </div>

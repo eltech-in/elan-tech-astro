@@ -1,174 +1,113 @@
-// ─────────────────────────────────────────────────────────────────────────────
-// Digital Launchpad - Single source of truth for all plan data, FAQs & config.
-// NEVER hardcode plan data inside component or page files - import from here.
-// Final anniversary offer: valid through August 15, 2026 · 9 slots total
-// ─────────────────────────────────────────────────────────────────────────────
+// Digital Launchpad: single source of truth for the September 2026 offer.
 
-export const OFFER_END     = new Date('2026-08-15T23:59:59+05:30');
-export const TOTAL_SLOTS   = 9;
-export const FINAL_OFFER_LABEL =
-  '+20% final anniversary price - offer closes 15 Aug 2026';
-export const WHATSAPP_URL  =
-  'https://wa.me/918788834630?text=Hi%20I%27m%20interested%20in%20the%20Digital%20Launchpad%20plan';
+export const OFFER_START_ISO = '2026-09-14T00:00:00+05:30';
+export const OFFER_END_ISO = '2026-09-25T23:59:59+05:30';
+export const OFFER_START = new Date(OFFER_START_ISO);
+export const OFFER_END = new Date(OFFER_END_ISO);
+export const OFFER_PRICE = 32000;
+export const OFFER_LABEL = 'Ganesh Chaturthi offer: 14 to 25 September 2026';
+export const WHATSAPP_URL =
+  'https://wa.me/918788834630?text=Hi%20eLan%20Technology%2C%20I%27m%20interested%20in%20the%20Digital%20Launchpad%20plan%20at%20%E2%82%B932%2C000%20plus%20GST.%20Please%20share%20the%20scope%20and%20booking%20terms.';
 
-function monthlyReframe(price: number): string {
-  return `₹${Math.round(price / 48).toLocaleString('en-IN')}/month`;
+export function isOfferActive(now = new Date()): boolean {
+  return now >= OFFER_START && now <= OFFER_END;
 }
 
-// ─── Interfaces ──────────────────────────────────────────────────────────────
+export type OfferPhase = 'upcoming' | 'active' | 'ended';
+
+export function getOfferPhase(now = new Date()): OfferPhase {
+  if (now < OFFER_START) return 'upcoming';
+  if (now <= OFFER_END) return 'active';
+  return 'ended';
+}
 
 export interface LaunchpadPlan {
-  id:             string;
-  emoji:          string;
-  name:           string;
-  tagline:        string;
-  price:          number;
-  pages:          string;
-  monthlyReframe: string;   // e.g. "₹417/month" - cost amortised over 48 months
-  featured:       boolean;
-  features:       string[]; // tier-specific features (shown on card)
-  baseFeatures:   string[]; // identical across all tiers (render once or toggle)
-  whatsappText:   string;   // URL-encoded pre-fill for wa.me link
+  id: string;
+  emoji: string;
+  name: string;
+  tagline: string;
+  price: number;
+  pages: string;
+  monthlyReframe: string;
+  featured: boolean;
+  features: string[];
+  baseFeatures: string[];
+  whatsappText: string;
 }
 
-// ─── Base features - common to ALL tiers ─────────────────────────────────────
-
 const BASE_FEATURES: string[] = [
-  '.in or .co.in domain registered in <strong>YOUR NAME</strong> - 4 years paid (.com / .org at actual cost)',
-  'Free SSL certificate (https://)',
-  'Contact form with email notifications',
-  'Floating WhatsApp chat button',
-  'Google Maps location embed',
-  'Google Analytics 4 setup',
-  'Mobile-first responsive design',
+  '.in or .co.in domain registration for 4 years, subject to availability',
+  'Shared website hosting and SSL for 4 years',
+  'Mobile-friendly responsive design',
+  'Contact form with email notification',
+  'WhatsApp contact link and Google Maps integration where required',
+  'Basic on-page SEO setup for the agreed pages',
+  'Google Analytics 4 setup when the client provides or approves the account',
 ];
-
-// ─── Plans ────────────────────────────────────────────────────────────────────
 
 export const PLANS: LaunchpadPlan[] = [
   {
-    id:             'starter',
-    emoji:          '🌱',
-    name:           'eLan Starter',
-    tagline:        'Freelancers, consultants, solo professionals',
-    price:          28800,
-    pages:          '5–6 pages',
-    monthlyReframe: monthlyReframe(28800),
-    featured:       false,
+    id: 'launchpad',
+    emoji: '🚀',
+    name: 'Digital Launchpad',
+    tagline: 'A practical business website package for small organisations and professionals',
+    price: OFFER_PRICE,
+    pages: 'Up to 20 agreed pages',
+    monthlyReframe: '₹667/month equivalent',
+    featured: true,
     features: [
-      '5–6 page custom HTML website',
-      'Home · About · Services · Contact · Gallery',
-      'Fast, secure shared hosting - 4 years paid',
-      'Basic on-page SEO (meta tags, schema markup)',
-      '1 content update per month based on GSC data',
-      'No admin access - all updates managed by eLan Tech team',
-      'Uptime monitoring + annual backup',
-      'Delivered in 10 working days',
+      'Custom-designed business website with up to 20 agreed pages',
+      'Home, about, services or products, and contact journeys planned around the business',
+      'One small content-update request per month during the included 4-year period',
+      'Uptime monitoring and an annual backup',
+      'Content, integrations and functions outside the written scope are quoted separately',
+      'Delivery schedule begins after content, payment and approvals are available',
     ],
     baseFeatures: BASE_FEATURES,
     whatsappText:
-      'Hi%2C%20I%27m%20interested%20in%20the%20eLan%20Starter%20plan%20%28%E2%82%B928%2C800%29.%20Please%20share%20details.',
-  },
-  {
-    id:             'business',
-    emoji:          '🏪',
-    name:           'eLan Business',
-    tagline:        'Clinics, salons, retailers, NGOs, coaching centres',
-    price:          37400,
-    pages:          '8–10 pages',
-    monthlyReframe: monthlyReframe(37400),
-    featured:       true,
-    features: [
-      '8–10 page custom UI/UX designed website',
-      'Services or Products detail pages',
-      'Photo gallery or portfolio section',
-      'Testimonials section',
-      'FAQ page',
-      'Blog (static, up to 5 posts included)',
-      'Monthly blog posting at extra cost',
-      'WCAG accessibility basics',
-      'Annual website performance review call',
-      'Fast, secure shared hosting - 4 years paid',
-      'Basic on-page SEO (meta tags, schema markup)',
-      '1 content update per month for 4 years',
-      'Uptime monitoring + annual backup',
-      'Delivered in 15 working days',
-    ],
-    baseFeatures: BASE_FEATURES,
-    whatsappText:
-      'Hi%2C%20I%27m%20interested%20in%20the%20eLan%20Business%20plan%20%28%E2%82%B937%2C400%29.%20Please%20share%20details.',
-  },
-  {
-    id:             'complete',
-    emoji:          '🎯',
-    name:           'eLan Complete',
-    tagline:        'Professional services, manufacturers, B2B companies',
-    price:          46100,
-    pages:          'Up to 20 pages',
-    monthlyReframe: monthlyReframe(46100),
-    featured:       false,
-    features: [
-      'Everything in eLan Business',
-      'Up to 20 pages',
-      'Brand colour palette + typography guidelines',
-      'Copywriting for all pages (up to 1,500 words)',
-      'Social media banner set (3 platforms)',
-      'Google Business Profile setup + optimisation',
-      'Business email setup guidance',
-      'Priority WhatsApp support response',
-      'Fast, secure dedicated hosting - 4 years paid',
-      'Advanced on-page SEO with 1 blog post per month',
-      '2 content updates per month based on GSC data',
-      'Uptime monitoring + monthly backup',
-      'Delivered in 15 working days',
-    ],
-    baseFeatures: BASE_FEATURES,
-    whatsappText:
-      'Hi%2C%20I%27m%20interested%20in%20the%20eLan%20Complete%20plan%20%28%E2%82%B946%2C100%29.%20Please%20share%20details.',
+      'Hi%20eLan%20Technology%2C%20I%27m%20interested%20in%20the%20Digital%20Launchpad%20plan%20at%20%E2%82%B932%2C000%20plus%20GST.%20Please%20share%20the%20scope%20and%20booking%20terms.',
   },
 ];
 
-// ─── FAQs ─────────────────────────────────────────────────────────────────────
-
 export const FAQS = [
+  {
+    question: 'What does the ₹32,000 price cover?',
+    answer:
+      'The Digital Launchpad package covers the website, domain, hosting and maintenance items listed on this page. GST is extra. The written proposal confirms the pages, content responsibilities, delivery dependencies and any exclusions before work begins.',
+  },
+  {
+    question: 'Is GST included?',
+    answer:
+      'No. The offer price is ₹32,000 plus applicable GST. The quotation and invoice show the tax separately.',
+  },
+  {
+    question: 'When can I book the offer?',
+    answer:
+      'Bookings are open from 14 September through 25 September 2026. An enquiry does not reserve the package. A booking is confirmed only after the written scope and payment terms are accepted.',
+  },
   {
     question: 'Will the domain be registered in my name?',
     answer:
-      'Yes. Your .in or .co.in domain is registered directly in your name with NIXI - the official .in registry in India. You are the legal owner. eLan Technology manages the DNS settings on your behalf. If you ever want to transfer to another provider after the 4 years, you can do so at no transfer charge from us.',
+      'The included .in or .co.in domain can be registered using the client’s approved ownership details, subject to availability and the registrar’s requirements. Other domain extensions are quoted separately.',
   },
   {
-    question: 'What happens after 4 years?',
+    question: 'What happens after the included 4-year period?',
     answer:
-      'You have three options: renew the maintenance plan with eLan at the prevailing rate; transfer everything (domain + files) to your own hosting provider; or upgrade to a new eLan package. All your website files, content, and the domain belong to you. There is no exit lock-in.',
+      'Before the included period ends, we share the available renewal, transfer or upgrade options and their current costs. Domain, hosting and third-party services remain subject to their providers’ terms.',
   },
   {
-    question: 'Can I choose a .com domain instead?',
+    question: 'What counts as a small content update?',
     answer:
-      'This plan includes .in or .co.in domains only. These are actually better for local SEO - Google gives strong preference to country-code domains for local search results. For Nagpur and central India-focused businesses, .in or .co.in ranks faster than .com. If you need a .com specifically, contact us for a custom quote.',
+      'A small update may include replacing supplied text or images, changing business hours, or correcting contact details on an existing page. New pages, redesigns, integrations and new functions are quoted separately. Unused monthly requests do not accumulate.',
   },
   {
-    question: 'What counts as a "content update"?',
+    question: 'Can I add more pages or functions?',
     answer:
-      'Starter & Business plans include 1 update request per month; Complete includes 2. Typical requests: text changes, new photos, updated business hours, contact number change, adding or removing items from a list, etc. Requests are fulfilled within 5 business days. Adding new pages, redesigning sections, or integrating new features are quoted separately.',
+      'Yes. Requirements outside the package can be added through a separate written estimate. The revised scope may affect the delivery schedule and ongoing costs.',
   },
   {
-    question: 'Why full advance payment only?',
+    question: 'When will the website be delivered?',
     answer:
-      'On day one, we purchase your domain and 4 years of hosting - costs that are non-refundable from our suppliers. Full advance payment ensures we can deliver and maintain your site uninterrupted for the complete 4-year period without billing disputes.',
-  },
-  {
-    question: 'When does the final anniversary offer end?',
-    answer:
-      'The final Digital Launchpad anniversary offer closes at 11:59 PM IST on August 15, 2026, or earlier if all 9 slots are reserved. The prices shown on this page are the final offer prices.',
-  },
-  {
-    question: 'Can I upgrade to a larger plan later?',
-    answer:
-      'Yes. At any point during the 4 years, you can upgrade. The new plan cost is quoted at the prevailing rate, with a credit for the remaining months on your current plan.',
-  },
-  {
-    question: 'Is GST included in these prices?',
-    answer:
-      'No. Prices shown are exclusive of GST (18%). For example, eLan Business at ₹37,400 + 18% GST = ₹44,132 total. A GST invoice is provided for all Indian clients, eligible for input tax credit.',
+      'The proposal provides the project schedule after the page list, content readiness, integrations and approval process are understood. Delays in client content, approvals or third-party access can change the schedule.',
   },
 ];

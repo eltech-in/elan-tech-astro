@@ -1,31 +1,27 @@
 // JSON-LD Schema generator functions for every page type
 // Used by SEOHead.astro and SchemaMarkup.astro
 
-const SITE_URL = 'https://elan-tech.net';
-const ORG_NAME = 'eLan Technology';
-const OFFICE_PHONE = '+91-9822231642';
-const WHATSAPP_PHONE = '+91-8788834630';
-const STREET_ADDRESS = 'Basement Floor, PTG IT Park, Plot No. 21, IT Park Rd, Gayatri Nagar';
-const ADDRESS_LOCALITY = 'Nagpur';
-const ADDRESS_REGION = 'Maharashtra';
-const POSTAL_CODE = '440022';
-const ADDRESS_COUNTRY = 'IN';
+import { SOCIAL_PROFILE_URLS } from '../data/social';
+import { COMPANY, COMPANY_IDS } from '../data/company';
 
-// ─── WebSite (Homepage - enables sitelinks search box) ───────────────────────
+const SITE_URL = COMPANY.siteUrl;
+const ORG_NAME = COMPANY.name;
+const OFFICE_PHONE = COMPANY.officePhone.international;
+const WHATSAPP_PHONE = COMPANY.whatsapp.international;
+const STREET_ADDRESS = COMPANY.address.street;
+const ADDRESS_LOCALITY = COMPANY.address.locality;
+const ADDRESS_REGION = COMPANY.address.region;
+const POSTAL_CODE = COMPANY.address.postalCode;
+const ADDRESS_COUNTRY = COMPANY.address.countryCode;
+
+// WebSite schema for the homepage.
 export function webSiteSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': COMPANY_IDS.website,
     name: ORG_NAME,
     url: SITE_URL,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${SITE_URL}/search?q={search_term_string}`,
-      },
-      'query-input': 'required name=search_term_string',
-    },
   };
 }
 
@@ -34,6 +30,7 @@ export function organizationSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': COMPANY_IDS.organization,
     name: ORG_NAME,
     url: SITE_URL,
     logo: {
@@ -45,7 +42,6 @@ export function organizationSchema() {
     foundingDate: '2005-08-15',
     description:
       'Web design, custom ecommerce, accessibility, and digital technology company officially launched on 15 August 2005, with operations that began as a freelance and startup unit in 2002.',
-    numberOfEmployees: { '@type': 'QuantitativeValue', value: 10 },
     address: {
       '@type': 'PostalAddress',
       streetAddress: STREET_ADDRESS,
@@ -68,16 +64,9 @@ export function organizationSchema() {
         telephone: WHATSAPP_PHONE,
         contactType: 'sales',
         availableLanguage: ['English', 'Hindi', 'Marathi'],
-        contactOption: 'TollFree',
       },
     ],
-    sameAs: [
-      'https://www.linkedin.com/company/elan-technology',
-      'https://www.facebook.com/eLanTechnology',
-      'https://www.instagram.com/elan_tech',
-      'https://x.com/eLanTechnology',
-      'https://www.youtube.com/c/eLanTechnology',
-    ],
+    sameAs: SOCIAL_PROFILE_URLS,
   };
 }
 
@@ -95,7 +84,7 @@ export function localBusinessSchema(city = 'Nagpur', overrides: LocalBusinessOve
   return {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    '@id': `${SITE_URL}/#localbusiness`,
+    '@id': COMPANY_IDS.localBusiness,
     name: `${ORG_NAME} - Web Design Company in ${city}`,
     url: overrides.url ?? SITE_URL,
     telephone: overrides.telephone ?? OFFICE_PHONE,
@@ -135,18 +124,12 @@ export function localBusinessSchema(city = 'Nagpur', overrides: LocalBusinessOve
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-        opens: '10:00',
-        closes: '19:00',
+        dayOfWeek: COMPANY.hours.days,
+        opens: COMPANY.hours.opens,
+        closes: COMPANY.hours.closes,
       },
     ],
-    sameAs: [
-      'https://www.linkedin.com/company/elan-technology',
-      'https://www.facebook.com/eLanTechnology',
-      'https://www.instagram.com/elantechnology',
-      'https://twitter.com/elantechnology',
-      'https://www.youtube.com/@elantechnology',
-    ],
+    sameAs: SOCIAL_PROFILE_URLS,
   };
 }
 
@@ -157,7 +140,6 @@ export function localBusinessSchema(city = 'Nagpur', overrides: LocalBusinessOve
 export interface ServiceAreaOverrides {
   url?: string;
   description?: string;
-  geo?: { latitude: number; longitude: number };
 }
 
 export function serviceAreaBusinessSchema(
@@ -174,7 +156,7 @@ export function serviceAreaBusinessSchema(
     email: 'info@elan-tech.net',
     description:
       overrides.description ??
-      `Professional web design & digital marketing services for businesses in ${city}, ${state}. Remote delivery from our Nagpur HQ. WCAG/ADA compliant. Since 2002.`,
+      `Web design, digital marketing and accessibility-first development for businesses in ${city}, ${state}, delivered remotely from our Nagpur headquarters. Operating since 2002.`,
     priceRange: '₹₹',
     image: `${SITE_URL}/images/elan-tech-logo.svg`,
     areaServed: {
@@ -184,23 +166,11 @@ export function serviceAreaBusinessSchema(
     },
     provider: {
       '@type': 'Organization',
-      '@id': `${SITE_URL}/#localbusiness`,
+      '@id': COMPANY_IDS.organization,
       name: ORG_NAME,
       url: SITE_URL,
     },
-    ...(overrides.geo
-      ? {
-          geo: {
-            '@type': 'GeoCoordinates',
-            latitude: overrides.geo.latitude,
-            longitude: overrides.geo.longitude,
-          },
-        }
-      : {}),
-    sameAs: [
-      'https://www.linkedin.com/company/elan-technology',
-      'https://www.facebook.com/eLanTechnology',
-    ],
+    sameAs: SOCIAL_PROFILE_URLS,
   };
 }
 
@@ -280,7 +250,7 @@ export function reviewSchema(reviews: ReviewItem[], itemName = ORG_NAME) {
 }
 
 // ─── Service ──────────────────────────────────────────────────────────────────
-export function serviceSchema(name: string, description: string, url: string) {
+export function serviceSchema(name: string, description: string, url: string, areaServed = 'India', areaServedType: 'Country' | 'AdministrativeArea' = 'Country') {
   return {
     '@context': 'https://schema.org',
     '@type': 'Service',
@@ -289,12 +259,13 @@ export function serviceSchema(name: string, description: string, url: string) {
     url: url.startsWith('http') ? url : `${SITE_URL}${url}`,
     provider: {
       '@type': 'Organization',
+      '@id': COMPANY_IDS.organization,
       name: ORG_NAME,
       url: SITE_URL,
     },
     areaServed: {
-      '@type': 'Country',
-      name: 'India',
+      '@type': areaServedType,
+      name: areaServed,
     },
   };
 }
@@ -309,20 +280,19 @@ export interface SoftwareAppData {
 }
 
 export function softwareAppSchema(product: SoftwareAppData) {
+  const productUrl = product.url.startsWith('http') ? product.url : `${SITE_URL}${product.url}`;
   return {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
+    '@id': `${productUrl}#software`,
     name: product.name,
     description: product.description,
-    url: product.url.startsWith('http') ? product.url : `${SITE_URL}${product.url}`,
+    url: productUrl,
     applicationCategory: product.applicationCategory ?? 'BusinessApplication',
     operatingSystem: product.operatingSystem ?? 'Web',
-    offers: {
-      '@type': 'Offer',
-      availability: 'https://schema.org/InStock',
-    },
-    author: {
+    creator: {
       '@type': 'Organization',
+      '@id': COMPANY_IDS.organization,
       name: ORG_NAME,
       url: SITE_URL,
     },

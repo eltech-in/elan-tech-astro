@@ -4,7 +4,18 @@ interface Props {
 }
 const { schema } = Astro.props;
 const schemas = Array.isArray(schema) ? schema : [schema];
+
+// Keep HTML-like text inside JSON-LD from being parsed or counted as markup.
+// Escaping these characters also prevents an embedded closing script sequence.
+function serializeSchema(value: object): string {
+  return JSON.stringify(value)
+    .replace(/&/g, '\\u0026')
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+    .replace(/\u2028/g, '\\u2028')
+    .replace(/\u2029/g, '\\u2029');
+}
 ---
 {schemas.map((s) => (
-  <script is:inline type="application/ld+json" set:html={JSON.stringify(s)} />
+  <script is:inline type="application/ld+json" set:html={serializeSchema(s)} />
 ))}

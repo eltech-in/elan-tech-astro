@@ -29,7 +29,7 @@ RewriteRule ^(.*)$ https://elan-tech.net/$1 [L,R=301]
 # Old internal links used /get-quote?service=ada-emergency. The "?" at the end
 # of the substitution clears the query string from the redirect target.
 RewriteCond %{QUERY_STRING} ^service=ada-emergency$ [NC]
-RewriteRule ^get-quote/?$ /services/ada-compliant-web-design? [L,R=301]
+RewriteRule ^get-quote/?$ /services/ada-compliant-web-design/? [L,R=301]
 
 # ─── 4. Old flat blog URLs → new /blog/<category>/<slug>/ URLs ──────────────
 # Trailing slash on destinations avoids a second mod_dir hop.
@@ -53,16 +53,14 @@ RewriteRule ^blog/ai-web-development-2026/?$                /blog/technology-tre
 # ─── 5. Dead pages — redirects & 410 Gone ───────────────────────────────────
 # Removed service page (was at /wcag-accessibility-audit, now part of ADA service)
 RewriteRule ^wcag-accessibility-audit/?$  /services/ada-compliant-web-design/ [L,R=301]
+RewriteRule ^ada-compliant-web-design/?$  /services/ada-compliant-web-design/ [L,R=301]
 
 # India page never existed — send to Nagpur HQ
 RewriteRule ^web-design-company-india/?$  /web-design-company-nagpur/ [L,R=301]
 
-# Portfolio case studies: renamed or removed
-RewriteRule ^portfolio/case-study/stems/?$       /portfolio/case-study/stems-flower-studio/ [L,R=301]
-RewriteRule ^portfolio/case-study/meme-hub/?$    /portfolio/ [L,R=301]
-RewriteRule ^portfolio/case-study/sheabm/?$      /portfolio/ [L,R=301]
-RewriteRule ^portfolio/case-study/zest/?$        /portfolio/ [L,R=301]
-RewriteRule ^portfolio/case-study/anirwan/?$     /portfolio/ [L,R=301]
+# Individual portfolio case studies are being rebuilt with verified content.
+# Keep every previously indexed case-study URL useful in the meantime.
+RewriteRule ^portfolio/case-study(?:/.*)?$ /portfolio/ [L,R=301]
 
 # Cloudflare email-protection artifact (CF is DNS-only; this path never exists on Hostinger)
 RewriteRule ^cdn-cgi(/.*)?$  /contact/ [L,R=301]
@@ -71,8 +69,10 @@ RewriteRule ^cdn-cgi(/.*)?$  /contact/ [L,R=301]
 # These were WP social/festival posts & tag archives; no equivalents exist.
 RewriteRule ^social-media(/.*)?$   -  [G,L]
 RewriteRule ^festivals(/.*)?$      -  [G,L]
-RewriteRule ^appointments/?$       -  [G,L]
 RewriteRule ^tag(/.*)?$            -  [G,L]
+
+# Malformed literal wildcard URL reported by GSC. It was never a real page.
+RewriteRule ^\*$                   -  [G,L]
 
 # ─── 6. WordPress / common attack paths → home ──────────────────────────────
 RewriteRule ^wp-admin(/.*)?$        /  [L,R=301]
@@ -125,8 +125,8 @@ RewriteRule ^website-design-raipur$             /web-design-company-raipur  [L,R
 RewriteRule ^web-design-company-in-raipur$      /web-design-company-raipur  [L,R=301]
 
 # Old policies
-RewriteRule ^privacy$                /privacy-policy              [L,R=301]
-RewriteRule ^terms$                  /terms-conditions            [L,R=301]
+RewriteRule ^privacy$                /privacy-policy/             [L,R=301]
+RewriteRule ^terms$                  /terms-conditions/           [L,R=301]
 RewriteRule ^terms-and-conditions$   /terms-conditions            [L,R=301]
 RewriteRule ^refund-policy$          /cancellation-refund-policy  [L,R=301]
 RewriteRule ^cancellation-policy$    /cancellation-refund-policy  [L,R=301]
@@ -139,12 +139,18 @@ RewriteRule ^our-work$               /portfolio  [L,R=301]
 RewriteRule ^case-studies$           /portfolio  [L,R=301]
 RewriteRule ^work$                   /portfolio  [L,R=301]
 
-# Digital Launchpad short URLs (campaign — temporary 302, remove after 15 Aug 2026)
-RewriteRule ^launchpad/?$       /pricing/digital-launchpad/  [L,R=302]
-RewriteRule ^4year/?$           /pricing/digital-launchpad/  [L,R=302]
-RewriteRule ^offer/?$           /pricing/digital-launchpad/  [L,R=302]
+# Consolidated 21st anniversary article
+RewriteRule ^blog/company-news/elan-technology-21st-anniversary-2026/?$ /blog/nagpur-business/digital-independence-21-years/ [L,R=301]
+
+# DigiBizID moved from the software products catalogue to eLan Ventures
+RewriteRule ^products/digital-business-card/?$ /ventures/digibizid/ [L,R=301]
+
+# Digital Launchpad campaign retired. Keep the source as an internal backup,
+# while permanently consolidating the public landing page and old aliases.
+RewriteRule ^(?:pricing/digital-launchpad|launchpad|4year|offer)/?$ /pricing/ [L,R=301]
 
 # Old CTAs
+RewriteRule ^appointments/?$    /schedule-consultation/   [L,R=301]
 RewriteRule ^free-audit/?$      /free-website-audit/      [L,R=301]
 RewriteRule ^website-audit/?$   /free-website-audit/      [L,R=301]
 RewriteRule ^get-a-quote$       /get-quote                [L,R=301]
@@ -164,9 +170,6 @@ RewriteRule ^success$           /thank-you                [L,R=301]
 # requests to real directories when Options -Indexes is set. Explicit rules
 # take priority over the mod_dir trailing-slash redirect.
 RewriteRule ^blog/web-design/wordpress-vs-custom-website$    /blog/web-design/wordpress-vs-custom-website/   [L,R=301]
-RewriteRule ^portfolio/case-study/abhirama$                  /portfolio/case-study/abhirama-international/   [L,R=301]
-RewriteRule ^portfolio/case-study/aastha-hospital$           /portfolio/case-study/aastha-hospital/          [L,R=301]
-RewriteRule ^portfolio/case-study/meme-hub$                  /portfolio/                                      [L,R=301]
 RewriteRule ^web-design-company-hyderabad$                   /web-design-company-hyderabad/                   [L,R=301]
 
 # ─── 8. Fallback rewrite — serve /foo/index.html for non-directory paths ────
@@ -192,7 +195,7 @@ ErrorDocument 404 /404.html
   Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
   Header set Cross-Origin-Opener-Policy "same-origin-allow-popups"
   Header set Cross-Origin-Resource-Policy "same-site"
-  Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net https://www.clarity.ms https://*.clarity.ms; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https: blob:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://*.clarity.ms; frame-src 'self' https://calendly.com https://www.google.com/maps https://maps.google.com; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+  Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net https://www.clarity.ms https://*.clarity.ms https://assets.calendly.com; style-src 'self' 'unsafe-inline' https://assets.calendly.com; font-src 'self'; img-src 'self' data: https: blob:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://*.clarity.ms https://formsubmit.co https://calendly.com https://*.calendly.com; frame-src 'self' https://calendly.com https://*.calendly.com https://www.google.com/maps https://maps.google.com https://*.sibforms.com; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
   Header unset X-Powered-By
   Header unset Server
 
@@ -205,9 +208,15 @@ ErrorDocument 404 /404.html
 
 # ─── 11. Cache control ──────────────────────────────────────────────────────
 <IfModule mod_headers.c>
-  # Hashed Astro assets (content-addressable) — 1 year, immutable
-  <FilesMatch "\.(js|mjs|css|woff2?|ttf|eot|otf)$">
+  # Hashed Astro code assets (content-addressable) — 1 year, immutable
+  <FilesMatch "\.(js|mjs|css)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Fonts use stable filenames, so allow periodic revalidation instead of
+  # pinning a failed or outdated response in browsers for a full year.
+  <FilesMatch "\.(woff2?|ttf|eot|otf)$">
+    Header set Cache-Control "public, max-age=2592000, stale-while-revalidate=86400"
   </FilesMatch>
 
   # Images — 30 days + SWR
@@ -221,7 +230,7 @@ ErrorDocument 404 /404.html
   </FilesMatch>
 
   # Sitemap & robots — 1 hour
-  <FilesMatch "(sitemap.*\.xml|robots\.txt)$">
+  <FilesMatch "(sitemap.*\.xml|sitemap\.xsl|robots\.txt)$">
     Header set Cache-Control "public, max-age=3600"
   </FilesMatch>
 </IfModule>

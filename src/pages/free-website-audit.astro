@@ -1,8 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { breadcrumbSchema, faqSchema } from '../utils/schema';
-import AuditPricingButton from '../islands/AuditPricingButton';
+import RazorpayPaymentGate from '../components/RazorpayPaymentGate.astro';
 import FreeAuditForm from '../islands/FreeAuditForm';
+
+const RAZORPAY_AUDIT_INR = 'pl_Sqm5fZAebJ6xx7';
+const RAZORPAY_AUDIT_USD = 'pl_FdcrA4b2oE0mIl';
 
 /* ───────────────────────────────────────────────────────────────────────────
    SEO target keywords (primary + secondary) baked into headings & copy:
@@ -88,7 +91,7 @@ const faqs = [
   {
     question: 'I need to fix my eCommerce accessibility before a lawsuit deadline - who can help fast?',
     answer:
-      'If you have already received a demand letter or court summons, time is the lever. The fastest path is: (1) book an emergency WCAG audit today - we deliver in 24 hours; (2) start visible remediation immediately, even before completion, because courts treat active remediation as a mitigating factor in settlement negotiations; (3) obtain VPAT documentation as formal evidence of compliance work. Demand letters typically settle near $5,000 when you respond fast with a remediation plan, versus $30,000–$85,000 if ignored. eLan Technology provides 24-hour emergency audits with VPAT-ready documentation specifically for businesses on a deadline. <a href="/services/ada-compliant-web-design/">See our emergency ADA remediation service</a> or jump straight to the paid WCAG 2.2 AA audit below.',
+      'If you have already received a demand letter or court summons, time matters. The fastest path is: (1) request an emergency WCAG assessment, with an initial response from us within 48 hours; (2) begin visible remediation as soon as the scope is clear; and (3) keep formal records of the audit, fixes and retesting. eLan Technology provides emergency accessibility assessments and VPAT-ready documentation for businesses working to a deadline. <a href="/services/ada-compliant-web-design/">See our emergency ADA remediation service</a> or jump straight to the paid WCAG 2.2 AA audit below.',
   },
 ];
 
@@ -227,6 +230,7 @@ const deliverables = [
 <BaseLayout
   title="Free Website Audit: SEO, Speed & Security"
   description="Get a free, human-reviewed website audit covering SEO, ranking drops, Core Web Vitals, mobile usability and security. Prioritized PDF report in 24–48 hours."
+  ogImage="/images/og/audit.png"
   schema={schemas}
 >
   <!-- ══════════════════════════════════════════════════════════════════════
@@ -624,8 +628,30 @@ const deliverables = [
             </ul>
           </div>
 
-          <div class="md:pl-6 md:border-l md:border-[var(--border)] flex flex-col items-start md:items-center text-center">
-            <AuditPricingButton client:visible />
+          <div class="md:pl-6 md:border-l md:border-[var(--border)]">
+            <div class="mb-5 text-center">
+              <p class="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--text-muted)]">Flat fee · one public domain</p>
+              <div class="mt-3 grid grid-cols-2 gap-3">
+                <div class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-3">
+                  <p class="font-heading text-2xl font-extrabold" style="color:var(--ac-blue);">₹9,999</p>
+                  <p class="mt-1 text-[11px] text-[var(--text-muted)]">Indian billing</p>
+                </div>
+                <div class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-3">
+                  <p class="font-heading text-2xl font-extrabold" style="color:var(--ac-blue);">$99</p>
+                  <p class="mt-1 text-[11px] text-[var(--text-muted)]">International billing</p>
+                </div>
+              </div>
+              <p class="mt-3 text-xs leading-relaxed text-[var(--text-muted)]">Detailed PDF report with WCAG 2.2 AA findings, severity ratings, code-level remediation guidance and a VPAT template.</p>
+            </div>
+            <RazorpayPaymentGate
+              instanceId="paid-accessibility-audit"
+              inrButtonId={RAZORPAY_AUDIT_INR}
+              usdButtonId={RAZORPAY_AUDIT_USD}
+              eyebrow="Paid audit checkout"
+              noticeLead="Use this checkout only for the one-domain paid accessibility audit described here. Contact us before payment if the website requires a login, covers multiple domains or needs an urgent schedule."
+              currencyHelp="Choose INR for Indian billing or USD for international billing."
+              noticeVersion="paid-audit-payment-2026-09-24"
+            />
           </div>
         </div>
       </article>

@@ -102,9 +102,9 @@ export const cities: CityData[] = [
     population: '2.9 million',
     knownFor: 'Orange City, MIDC industrial hub, geographical centre of India',
     distanceFromNagpur: 'HQ',
-    tagline: "Nagpur's Most Experienced Web Design Agency - Since 2002",
+    tagline: "Web design, ecommerce and accessibility-first development from Nagpur",
     seoTitle: 'Web Design Company in Nagpur | Custom Websites, Apps & SEO | eLan Technology',
-    seoDescription: "Nagpur's #1 web design company since 2002 - 500+ clients, 1,500+ projects. Custom websites from ₹21,000. Mobile apps, SEO, WCAG 2.1 AA. Free audit at our Gayatri Nagar office.",
+    seoDescription: "Nagpur web design company operating since 2002. Custom websites, ecommerce, mobile apps, SEO and accessibility-first development from our local office.",
     primaryKeyword: 'web design company Nagpur',
     secondaryKeywords: [
       'website design Nagpur',
@@ -151,54 +151,54 @@ export const cities: CityData[] = [
     whyChooseContent:
       'eLan Technology has been designing websites for Nagpur businesses since 2002. We understand the unique commercial ecosystems of areas like Sitabuldi\'s retail district, Dharampeth\'s professional services corridor, Wardha Road\'s industrial belt, and Ramdaspeth\'s growing corporate sector. Visit our office at PTG IT Park for a face-to-face consultation.',
     pricingNote:
-      'Website costs in Nagpur range from ₹21,000 for a basic 5-page site to ₹1,50,000+ for enterprise solutions. Our Professional package starts at ₹45,000 and includes custom design, SEO setup, and WCAG accessibility compliance.',
+      'Website costs depend on the agreed pages, content, design, integrations, testing and support. Published packages provide a starting point; the written proposal identifies accessibility work, hosting, third-party charges and ownership terms.',
     faq: [
       {
         question: 'Which is the best web design company in Nagpur?',
         answer:
-          "eLan Technology is Nagpur's most experienced web design company, operating since 2002. With 500+ clients across 10+ countries, 1,500+ projects delivered, and proprietary products like our Real Estate Portal and Medical Conference Portal, we offer depth no other Nagpur agency can match. We are also the only web design company in Nagpur to offer WCAG 2.1 AA accessibility as standard - not an upsell - on every project.",
+          "eLan Technology has operated from Nagpur since 2002. Our work spans business websites, custom ecommerce, accessibility services, digital marketing and configurable software products. Accessibility is considered during design and development, while formal conformance work is scoped to the standard, testing and evidence required for each project.",
       },
       {
         question: 'How much does website development cost in Nagpur?',
         answer:
-          'Website development costs in Nagpur range from ₹21,000 for a basic 5-page site to ₹2,00,000+ for custom web applications. A standard business website typically costs ₹25,000–₹60,000. eCommerce stores start at ₹40,000. Our fixed-price packages include design, development, mobile responsiveness, basic SEO setup, and a 30-day post-launch support window - no surprise add-ons.',
+          'Published Nagpur packages currently begin at ₹21,000 for the listed starter scope. Business websites, ecommerce and custom applications are quoted after confirming pages, content, design, integrations, accessibility testing, licences, hosting and support. The written proposal identifies the final price, taxes, third-party charges, ownership terms and any post-launch support.',
       },
       {
         question: 'Does eLan Technology have an office in Nagpur?',
         answer:
-          "Yes - our headquarters is at PTG IT Park, Gayatri Nagar, Nagpur, Maharashtra. We have been based here since 2002. Walk in for a face-to-face consultation, or connect over video call. We are the only web design company in Nagpur with 24+ years of continuous operations from the same city.",
+          "Yes. Our headquarters is at PTG IT Park, Gayatri Nagar, Nagpur, Maharashtra. Operations began in Nagpur in 2002. Please schedule a visit or connect with us by video call.",
       },
       {
         question: 'How long does it take to build a website for a Nagpur business?',
         answer:
-          'A standard business website takes 2–4 weeks from kick-off to launch. eCommerce stores typically take 4–8 weeks. Complex web applications or portals - government, healthcare, real estate - may take 3–6 months. We share a milestone calendar at project start, and delays on our end come with credit guarantees.',
+          'A small, well-defined business website may take several weeks, while ecommerce stores and custom portals require more time. The proposal confirms the schedule after the pages, content, integrations, approvals and access requirements are understood.',
       },
       {
         question: 'Do you provide local SEO and digital marketing services in Nagpur?',
         answer:
-          "Yes. Our local SEO service targets customers in Sitabuldi, Dharampeth, Wardha Road, and the MIDC industrial corridors. We combine Google Business Profile optimisation, on-page SEO, and content strategy to rank your business on page 1. SEO packages start at ₹12,000/month. We've helped 200+ businesses rank on page 1 of Google for competitive Nagpur keywords.",
+          'Yes. Local SEO work can include Google Business Profile guidance, technical and on-page improvements, location content and measurement. Rankings are influenced by competition, relevance, authority and the client’s wider market activity, so no particular position is guaranteed.',
       },
       {
         question: 'Can you redesign my existing Nagpur business website?',
         answer:
-          'Absolutely - website redesign is one of our most requested services. We migrate your existing content to a modern, fast, mobile-first design while preserving SEO rankings and improving Core Web Vitals and accessibility. Most redesigns are completed in 3–5 weeks. We audit your old site first so you know exactly what is being improved.',
+          'Yes. We start by auditing the existing URLs, content, analytics, search visibility and technical dependencies. The redesign plan includes a redirect map and acceptance checks; rankings and Core Web Vitals cannot be guaranteed, but changes are measured before and after launch.',
       },
       {
         question: 'Do you build WCAG 2.1 AA and ADA compliant websites in Nagpur?',
         answer:
-          'Yes. eLan Technology is the only web design company in Nagpur that offers WCAG 2.1 AA and ADA compliance as standard on most projects. This is critical for Nagpur businesses exporting services to the USA, UK, Canada, or EU, where ADA and EAA accessibility laws apply. We provide VPAT 2.5 documentation and optional automated monitoring.',
+          'Yes. eLan Technology offers accessibility-first design and development, WCAG audits, remediation and ongoing monitoring. Formal conformance and documentation are scoped to the applicable standard, tested journeys and evidence required by the client.',
       },
     ],
     portfolio: [
       {
         name: 'Aasthaa Hospital',
         category: 'Healthcare, Nagpur',
-        desc: 'A WCAG 2.1 AA compliant hospital website with online appointment booking, doctor profiles, and patient information portal. Achieved 3x increase in online appointments within 3 months.',
+        desc: 'A healthcare website structured around departments, doctor information, patient resources and appointment enquiries.',
       },
       {
         name: 'Trimit Architects',
         category: 'Architecture & Real Estate',
-        desc: 'A portfolio website with project galleries, 3D visualisation integrations, and a lead generation system. Ranked on page 1 for "architects in Nagpur" within 60 days.',
+        desc: 'An architecture portfolio website with structured project galleries, clear service information and enquiry routes.',
       },
       {
         name: 'CIPL',
@@ -220,9 +220,9 @@ export const cities: CityData[] = [
     population: '1.2 million',
     knownFor: 'Steel capital, Naya Raipur smart city, industrial hub',
     distanceFromNagpur: '285 km (5 hours drive)',
-    tagline: "Raipur's Trusted Web Design Partner - Powered by Nagpur's Best Agency",
+    tagline: 'Web design and development for Raipur businesses, delivered from Nagpur',
     seoTitle: 'Website Design & Development Company in Raipur, Chhattisgarh | eLan Technology',
-    seoDescription: "Top web design & development company in Raipur - custom sites for steel, Naya Raipur smart city & healthcare. 24+ yrs, 500+ clients. Fixed pricing from ₹21,000. Free audit.",
+    seoDescription: 'Web design and development for Raipur businesses, including corporate sites, ecommerce, SEO foundations and accessibility-first delivery from Nagpur.',
     primaryKeyword: 'web design company Raipur',
     secondaryKeywords: [
       'website design Raipur',
@@ -253,56 +253,56 @@ export const cities: CityData[] = [
     introContent:
       "Raipur, the capital of Chhattisgarh, is witnessing a digital transformation driven by the Naya Raipur smart city initiative, a booming steel and mining sector, and an increasingly tech-savvy consumer base. Yet most local businesses still lack professional web presence - creating a massive opportunity for those who invest in quality digital infrastructure now.",
     whyChooseContent:
-      "eLan Technology serves Raipur businesses from our Nagpur headquarters, just 285 km away. With 24+ years of experience and 500+ clients across 10 countries, we bring a level of expertise that exceeds what most local Raipur agencies can offer - at competitive pricing. We understand Chhattisgarh's industrial landscape and government sector requirements.",
+      'eLan Technology serves Raipur businesses remotely from our Nagpur headquarters. We begin with the audience, content and required customer journey, then document pages, integrations, ownership, testing, launch and support in the proposal.',
     pricingNote:
-      'Website costs for Raipur businesses start at ₹21,000 for basic sites and go up to ₹1,50,000+ for custom applications. Our pricing is transparent and competitive - often 30-40% less than equivalent quality from metro city agencies.',
+      'Website costs for Raipur businesses depend on the scope, content, integrations and support. Published packages provide a starting point; every proposal identifies inclusions, exclusions, third-party charges and ownership terms.',
     faq: [
       {
         question: 'Which website design company in Raipur do you recommend?',
         answer:
-          "eLan Technology is a top-rated website design company serving Raipur businesses from our Nagpur headquarters, just 285 km away. With 24+ years of experience, 500+ clients across 10+ countries, and deep knowledge of Chhattisgarh's steel, government, and healthcare sectors, we deliver results that exceed most local Raipur agencies - at competitive, fixed pricing.",
+          'Compare agencies using live work, a written scope, mobile quality, accessibility approach, ownership terms and support. eLan Technology serves Raipur from Nagpur and states that remote delivery model clearly.',
       },
       {
         question: 'Which website development company in Raipur handles Chhattisgarh industry clients?',
         answer:
-          "eLan Technology is the website development company in Raipur's extended market with the deepest experience across Chhattisgarh's key sectors: steel & mining, power & energy, Naya Raipur smart city projects, government institutions, and healthcare networks. We understand the procurement, compliance, and language requirements unique to CG clients.",
+          'We can scope corporate websites, catalogues, portals and ecommerce for industrial and service businesses. Sector-specific procurement, language and compliance requirements are confirmed during discovery rather than assumed.',
       },
       {
         question: 'Can I hire an experienced web designer in Raipur for a custom project?',
         answer:
-          'Yes. Our senior web designers serve Raipur clients through a proven remote-first process - video kick-off, Figma prototypes with live commenting, Slack for daily collaboration, and in-person visits to Raipur for larger engagements (above ₹2 lakh) at no extra travel cost. Every project is led by a designer with 8+ years of experience, not a fresher.',
+          'Yes. Raipur projects can use video discovery, shared design reviews, written approvals and project tracking. The named team, meeting schedule and any travel requirements are confirmed in the proposal.',
       },
       {
         question: 'How much does website design in Raipur cost?',
         answer:
-          'Website design costs for Raipur businesses start at ₹21,000 for a 5-page responsive site and go up to ₹1,50,000+ for custom web applications. Our most popular Professional package at ₹45,000 includes custom design, WCAG 2.1 AA compliance, advanced SEO, and a CMS. Pricing is fixed - no hidden charges. We are typically 30–40% less than equivalent-quality metro city agencies.',
+          'Cost depends on the page and template scope, content, design depth, integrations, accessibility testing and support. The proposal identifies the agreed total, GST, payment milestones, third-party charges and recurring services.',
       },
       {
         question: 'What should I look for in a web development company in Raipur?',
         answer:
-          'Look for three things: (1) a verifiable portfolio of live sites - not template demos; (2) WCAG 2.1 AA accessibility and Core Web Vitals compliance, which most Raipur agencies ignore; (3) fixed-price quoting with source code handover and no lock-in. eLan Technology has operated since 2002 and can share Chhattisgarh-specific client references on request.',
+          'Review real live work, the written scope, mobile experience, accessibility approach, ownership terms and post-launch support. eLan Technology has operated since 2002 and serves Raipur remotely from Nagpur. Source-code rights and handover terms are defined in the proposal.',
       },
       {
         question: 'Do you provide local SEO and digital marketing services in Raipur?',
         answer:
-          'Yes - we offer complete digital marketing services for Raipur businesses including local SEO targeting Pandri, Telibandha, Shankar Nagar, and Naya Raipur, plus Google Ads, Meta Ads, and content marketing. Our SEO process is specifically calibrated for Chhattisgarh search behaviour and competition levels, which differ significantly from Maharashtra or Delhi markets.',
+          'Yes. A Raipur-focused plan can include technical SEO, location content, Google Business Profile guidance, measurement and paid-campaign support. The actual channels and geography are chosen from search demand and business goals.',
       },
       {
         question: 'Can you build an eCommerce website for my Raipur business?',
         answer:
-          "Absolutely. We build eCommerce websites for Raipur retailers and manufacturers with Razorpay, PayU, and GST-compliant invoicing. Whether you sell locally across Chhattisgarh or nationally, we wire up the payment gateway, shipping API, and inventory management that fits your operational model. eCommerce projects start at ₹40,000.",
+          'Yes. Shopify, WooCommerce or a custom commerce stack can be selected after reviewing the catalogue, payments, shipping, tax, inventory and fulfilment workflow. Provider charges and custom integration work are scoped separately.',
       },
     ],
     portfolio: [
       {
-        name: 'Chhattisgarh Industrial Client',
-        category: 'Manufacturing',
-        desc: 'B2B industrial website with product catalogue, inquiry management, and GST-compliant invoicing system.',
+        name: 'CIPL',
+        category: 'Industrial project delivered from Nagpur',
+        desc: 'A live industrial company website demonstrating structured products, applications and B2B enquiry pathways.',
       },
       {
-        name: 'Raipur Healthcare Provider',
-        category: 'Healthcare',
-        desc: 'Patient-centric hospital website with appointment booking, doctor profiles, and health information portal.',
+        name: 'Aasthaa Hospital',
+        category: 'Healthcare project delivered from Nagpur',
+        desc: 'A live healthcare website demonstrating department information, doctor discovery and patient enquiry pathways.',
       },
     ],
   },
@@ -322,7 +322,7 @@ export const cities: CityData[] = [
     population: '20.7 million',
     knownFor: 'Financial capital, Bollywood, startup ecosystem',
     distanceFromNagpur: '860 km',
-    tagline: 'Mumbai-Quality Websites at Nagpur Prices',
+    tagline: 'Web design and development for Mumbai businesses, delivered from Nagpur',
     primaryKeyword: 'web design company Mumbai',
     secondaryKeywords: [
       'website design Mumbai',
@@ -344,41 +344,41 @@ export const cities: CityData[] = [
     businessDistricts: ['Andheri', 'BKC', 'Lower Parel', 'Navi Mumbai', 'Powai', 'Goregaon'],
     nearbyClients: [],
     introContent:
-      "Mumbai is India's financial capital and one of the most competitive digital markets in the country. From Andheri's bustling agency corridor to BKC's corporate towers, businesses here demand world-class websites - but pay premium prices for them. eLan Technology offers Mumbai businesses the same quality at 60-70% less cost.",
+      "Mumbai is one of India's most competitive digital markets. Businesses across BKC, Andheri and the wider metropolitan region need clear service positioning, reliable mobile journeys and websites that can support complex content and integrations.",
     whyChooseContent:
-      "Mumbai agencies charge ₹2-5 lakh for what we deliver at ₹45,000-₹1,50,000. Same technologies (React, Next.js, MERN stack), same standards, same communication tools - at 60-70% less cost. We're in the same state, the same timezone, and just a short flight away.",
+      'We serve Mumbai remotely from Nagpur in the same state and timezone. Proposals identify pages, integrations, testing, ownership and support so buyers can compare actual scope instead of broad percentage-saving claims.',
     pricingNote:
-      'Mumbai web agencies typically charge ₹2-5 lakh for a standard business website. We deliver the same quality at ₹45,000-₹1,50,000 - saving you 60-70% without compromising on design, performance, or accessibility.',
+      'Website pricing depends on the agreed scope, content, integrations, performance targets, testing and support. We identify GST, third-party charges and recurring services in writing.',
     faq: [
       {
         question: 'Why should a Mumbai business hire a Nagpur web agency?',
         answer:
-          "Mumbai agencies charge premium rates driven by high operating costs. eLan Technology delivers the same quality - React, Next.js, MERN stack, WCAG compliance - at 60-70% less cost. We're in Maharashtra, same timezone, and work with Mumbai clients via Slack, Zoom, and Jira with the same responsiveness as a Bandra-based agency.",
+          'Compare the actual scope, team, ownership, acceptance tests and ongoing costs. We work from Nagpur in the same timezone and agree the communication process before delivery begins.',
       },
       {
         question: 'How much does a website cost compared to Mumbai agencies?',
         answer:
-          'A standard business website from a Mumbai agency costs ₹2-5 lakh. We deliver equivalent quality at ₹45,000-₹1,50,000. For eCommerce, Mumbai agencies charge ₹5-15 lakh - our equivalent starts at ₹80,000. Same technologies, same standards, dramatically lower cost.',
+          'Cost depends on pages, content, integrations, testing, hosting and support. Compare itemised proposals rather than assuming equivalent quality from headline prices alone.',
       },
       {
         question: 'Can you handle the requirements of Mumbai startups?',
         answer:
-          "Absolutely. We've built MVPs, SaaS dashboards, and scalable web applications for startups across India. We understand lean delivery, rapid iteration, and investor-ready design. Our React/Next.js expertise matches anything coming out of Powai or Andheri.",
+          'Yes. We can scope MVPs, dashboards and web applications after confirming users, workflows, integrations, security and acceptance criteria. The technology and delivery schedule follow that discovery.',
       },
       {
         question: 'Do you visit Mumbai for client meetings?',
         answer:
-          'We primarily work remotely via Slack, Zoom, and project management tools - which most Mumbai businesses prefer anyway. For larger enterprise projects, we can arrange in-person meetings. Nagpur to Mumbai is a 1.5-hour flight.',
+          'We primarily work remotely through agreed meeting and project-review tools. In-person meetings can be arranged when useful, with travel and related costs confirmed in advance.',
       },
       {
         question: 'What Mumbai industries do you serve?',
         answer:
-          "We serve Mumbai's key sectors: finance and banking, media and entertainment, real estate, startups and SaaS, fashion retail, and healthcare. Our WCAG/ADA compliance expertise is especially valuable for Mumbai businesses serving international clients.",
+          'Projects can be scoped for finance, media, real estate, technology, retail and healthcare. Regulatory, security and accessibility requirements are confirmed for the actual organisation and target market.',
       },
       {
         question: 'How do you handle communication with Mumbai clients?',
         answer:
-          'We use the same tools every Mumbai agency uses: Slack for daily communication, Zoom for meetings, Jira/Trello for project management, and Figma for design collaboration. Same timezone, no lag, no barriers.',
+          'The project plan identifies meeting cadence, review tools, named contacts, response responsibilities and handover. We work in the same Indian timezone as Mumbai teams.',
       },
     ],
     portfolio: [
@@ -407,7 +407,7 @@ export const cities: CityData[] = [
     population: '7.4 million',
     knownFor: 'IT hub, educational centre, automotive industry',
     distanceFromNagpur: '690 km',
-    tagline: "Pune's Affordable Alternative to Overpriced IT Agencies",
+    tagline: 'Web design and development for Pune businesses, delivered from Nagpur',
     primaryKeyword: 'web design company Pune',
     secondaryKeywords: [
       'website design Pune',
@@ -435,26 +435,26 @@ export const cities: CityData[] = [
     ],
     nearbyClients: [],
     introContent:
-      "Pune's IT corridor is filled with expensive agencies - but not all businesses need to pay Hinjewadi prices. eLan Technology offers Pune businesses the same React, Next.js, and MERN stack expertise at a fraction of the cost. We speak your tech language, we understand your startup culture, and we deliver at Nagpur efficiency.",
+      'Pune businesses span software, manufacturing, education and growing consumer brands. Their websites may need product content, integrations, multilingual publishing, recruitment journeys or custom application workflows.',
     whyChooseContent:
-      "Pune's IT corridor already knows React and Node.js. We speak your tech language - at half the cost of Hinjewadi agencies. Many Pune startups and SMEs choose us for cost-effective development without compromising quality. Same Maharashtra, same timezone, dramatically better value.",
+      'We serve Pune remotely from Nagpur in the same state and timezone. The proposal identifies technology, scope, acceptance tests, ownership, third-party services and support.',
     pricingNote:
-      'Pune IT agencies charge ₹1.5-4 lakh for standard websites. We deliver equivalent quality at ₹45,000-₹1,50,000 - letting Pune startups and SMEs invest saved budget into growth and marketing.',
+      'Pricing depends on the agreed pages, content, integrations, testing, hosting and support. Published packages provide a starting point and the proposal records the final scope and recurring costs.',
     faq: [
       {
         question: 'Why choose a Nagpur agency over a Pune web design company?',
         answer:
-          "Pune's IT corridor drives up agency prices. eLan Technology offers the same technical expertise - React, Next.js, MERN, WordPress - at 40-60% less cost. We're in the same state, same timezone, and most Pune businesses work remotely with their vendors anyway.",
+          'We serve Pune from Nagpur in the same state and timezone. Technology, scope, acceptance tests, ownership and support are selected for the project rather than justified through a broad market-saving claim.',
       },
       {
         question: 'How much does a website cost compared to Pune agencies?',
         answer:
-          'A standard Pune agency charges ₹1.5-4 lakh. We deliver equivalent quality at ₹45,000-₹1,50,000. For startups building MVPs, this cost difference can mean extending your runway by months.',
+          'Pricing varies with discovery, UX, integrations, security, testing and support. We provide an itemised proposal instead of promising a standard saving against Pune agencies.',
       },
       {
         question: 'Do you work with Pune-based startups?',
         answer:
-          'Yes. We understand lean methodology, rapid prototyping, and investor-ready design. We\'ve built MVPs, dashboards, and SaaS platforms. Our development speed matches Hinjewadi output - at Nagpur pricing.',
+          'Yes. We can scope MVPs, dashboards and SaaS workflows after confirming users, integrations, security and acceptance criteria. Delivery milestones are based on the agreed product scope.',
       },
       {
         question: 'What technologies do you use for Pune tech companies?',
@@ -464,12 +464,12 @@ export const cities: CityData[] = [
       {
         question: 'Can you handle Pune automotive and manufacturing clients?',
         answer:
-          "Absolutely. We've built B2B websites, product catalogues, and dealer portals for manufacturing clients. We understand Pune's automotive ecosystem and can create digital solutions that serve both B2B and B2C audiences.",
+          'Yes. B2B websites, catalogues and dealer workflows can be scoped around the actual products, audiences, integrations and access requirements.',
       },
       {
         question: 'How do you manage projects with Pune clients remotely?',
         answer:
-          'Slack for daily communication, Zoom for weekly calls, Jira/Trello for task management, Figma for design reviews, GitHub for code. Same tools, same process as any Pune agency - just better value.',
+          'The project plan confirms communication channels, meeting frequency, design reviews, code access and handover rather than assuming a fixed toolset for every client.',
       },
     ],
     portfolio: [
@@ -498,7 +498,7 @@ export const cities: CityData[] = [
     population: '10.5 million',
     knownFor: 'HITEC City, pharma hub, pearl city',
     distanceFromNagpur: '570 km',
-    tagline: 'Hyderabad Businesses Deserve World-Class Web Design',
+    tagline: 'Web design and development for Hyderabad businesses, delivered from Nagpur',
     primaryKeyword: 'web design company Hyderabad',
     secondaryKeywords: [
       'website design Hyderabad',
@@ -520,41 +520,41 @@ export const cities: CityData[] = [
     businessDistricts: ['HITEC City', 'Gachibowli', 'Madhapur', 'Banjara Hills', 'Jubilee Hills'],
     nearbyClients: [],
     introContent:
-      "Hyderabad's HITEC City sets a high bar for technology - and so should your website. As Telangana's capital races ahead with pharma, IT, and real estate booms, businesses need digital presence that matches their ambition. eLan Technology delivers HITEC City-quality web solutions from our Nagpur base at significantly lower cost.",
+      "Hyderabad's technology, pharma, healthcare and real-estate sectors often need dependable content, integrations, security controls and clear mobile journeys for varied audiences.",
     whyChooseContent:
-      "HITEC City sets the standard - we match it from Nagpur. Whether you need pharma compliance websites, government portal experience, or a startup MVP for Gachibowli's tech corridor, we deliver enterprise-grade quality at Central India prices.",
+      'We serve Hyderabad remotely from Nagpur. Industry, security, accessibility, ownership and support requirements are confirmed during discovery and recorded in the proposal.',
     pricingNote:
-      'Hyderabad IT agencies charge ₹2-5 lakh for standard websites. We deliver equivalent quality at ₹45,000-₹1,50,000 - the same React/Next.js expertise without HITEC City overhead.',
+      'Pricing depends on scope, content, integrations, testing and support. Regulated and enterprise projects require separate discovery, controls and evidence.',
     faq: [
       {
         question: 'Why should a Hyderabad business choose eLan over local agencies?',
         answer:
-          "Hyderabad's HITEC City agencies charge premium rates. eLan delivers the same technologies - React, Next.js, Node.js - at 50-60% less cost. We understand pharma compliance, government portal requirements, and startup speed. 570 km away, same quality, better value.",
+          'We serve Hyderabad remotely from Nagpur. Technology, industry requirements, security, accessibility and delivery responsibilities are agreed during discovery and documented in the proposal.',
       },
       {
         question: 'Do you serve pharma and biotech companies in Hyderabad?',
         answer:
-          "Yes. We build compliance-aware websites for pharma companies, biotech startups, and healthcare providers in Hyderabad. This includes HIPAA-aware designs, product catalogues with regulatory information, and clinical trial portals.",
+          'We can scope websites and portals for pharma, biotech and healthcare organisations. Applicable regulations, data roles, security controls and validation evidence must be identified with the client before implementation.',
       },
       {
         question: 'How much does a website cost compared to Hyderabad agencies?',
         answer:
-          'Hyderabad agencies typically charge ₹2-5 lakh. We deliver the same quality at ₹45,000-₹1,50,000. For pharma and enterprise projects, savings can be ₹3-5 lakh per project.',
+          'Pricing depends on scope, integrations, content, testing and support. Regulated and enterprise projects require separate discovery and evidence rather than a generic price comparison.',
       },
       {
         question: 'Can you work with Hyderabad government projects?',
         answer:
-          "We have experience building government and semi-government portals. Our websites meet accessibility standards (WCAG 2.1 AA) which are increasingly required for government digital assets. We understand Telangana's e-governance requirements.",
+          'Government and institutional work can include WCAG or GIGW-aligned design, testing and documentation. Procurement, hosting, security and accessibility requirements are confirmed for the specific tender or engagement.',
       },
       {
         question: 'What is the communication process for Hyderabad clients?',
         answer:
-          'Slack, Zoom, Jira - same tools used by HITEC City companies. We provide dedicated project managers, weekly progress calls, and real-time design review via Figma. No timezone difference, no communication barriers.',
+          'The project plan confirms named contacts, meeting frequency, review tools, decision responsibilities and escalation routes. We work in the same Indian timezone as Hyderabad teams.',
       },
       {
         question: 'Do you provide SEO for Hyderabad businesses?',
         answer:
-          'Yes. We offer local SEO targeting Hyderabad and Telangana keywords, Google My Business optimisation, and content marketing. We understand the Hyderabad market and can help you rank for city-specific search terms.',
+          'Yes. A plan can include technical SEO, location content, Google Business Profile guidance and measurement. No particular ranking is guaranteed, and priorities follow verified search demand and business goals.',
       },
     ],
     portfolio: [
@@ -583,7 +583,7 @@ export const cities: CityData[] = [
     population: '32 million',
     knownFor: 'National capital, political centre, diverse economy',
     distanceFromNagpur: '1,100 km',
-    tagline: "Delhi NCR's Cost-Effective Web Design Alternative",
+    tagline: 'Web design and development for Delhi NCR businesses, delivered from Nagpur',
     primaryKeyword: 'web design company Delhi',
     secondaryKeywords: [
       'website design Delhi NCR',
@@ -612,41 +612,41 @@ export const cities: CityData[] = [
     ],
     nearbyClients: [],
     introContent:
-      "Delhi NCR is India's most competitive digital market - and its most expensive. From Connaught Place boardrooms to Noida's tech parks and Gurugram's corporate towers, businesses here need enterprise-grade web solutions. But they don't need to pay Delhi prices to get them.",
+      'Delhi NCR organisations range from public institutions and education groups to retailers, media companies and startups. Their websites may require complex content, accessibility, integrations, multilingual publishing or custom workflows.',
     whyChooseContent:
-      "NCR's business scale demands enterprise-grade web solutions. eLan Technology delivers the same quality as South Delhi and Gurugram agencies at 60-70% lower cost. From government portals to startup MVPs, we match NCR output without NCR overhead.",
+      "NCR's scale creates varied requirements, from service websites to portals and commerce. We serve these projects from Nagpur with a written scope, shared reviews and agreed acceptance criteria.",
     pricingNote:
-      'Delhi NCR agencies charge ₹3-8 lakh for standard business websites. We deliver the same at ₹45,000-₹1,50,000 - the biggest cost advantage of any market we serve.',
+      'Pricing depends on pages, content, integrations, testing, hosting and support. The proposal identifies GST, recurring services, third-party charges and ownership terms.',
     faq: [
       {
         question: 'Why should a Delhi business hire a web agency from Nagpur?',
         answer:
-          'Delhi NCR has the highest web agency rates in India - ₹3-8 lakh for standard websites. eLan delivers equivalent quality at ₹45,000-₹1,50,000 using the same technologies (React, Next.js, WordPress). Remote collaboration tools eliminate distance entirely.',
+          'We serve Delhi NCR remotely from Nagpur. Compare the written scope, team, integrations, acceptance tests, ownership, hosting and support rather than assuming equivalent quality from city-based pricing.',
       },
       {
         question: 'How much can Delhi businesses save with eLan?',
         answer:
-          'Delhi businesses typically save 60-70% compared to local NCR agencies. A website that costs ₹5 lakh from a Gurugram agency costs ₹1.5-2 lakh from us. Same tech stack, same quality, dramatically better value.',
+          'Compare deliverables, ownership, integrations, testing, hosting and support rather than headline prices alone. We quote the requirements after discovery.',
       },
       {
         question: 'Do you serve Noida and Gurugram businesses?',
         answer:
-          'Yes. We serve businesses across the entire Delhi NCR region including Delhi, Noida, Greater Noida, Gurugram, Faridabad, and Ghaziabad. Our remote-first approach means location within NCR makes no difference.',
+          'Yes. Projects can be delivered remotely for organisations in Delhi, Noida, Greater Noida, Gurugram, Faridabad and Ghaziabad, with any on-site requirement agreed separately.',
       },
       {
         question: 'Can you handle government and institutional projects?',
         answer:
-          'Yes. We have experience with government portals, educational institution websites, and institutional projects. Our WCAG 2.1 AA compliance meets government accessibility requirements.',
+          'Institutional work can include WCAG or GIGW-aligned design, testing and documentation. The applicable procurement, hosting, security and accessibility requirements are confirmed for the specific engagement.',
       },
       {
         question: 'What is the turnaround time for Delhi projects?',
         answer:
-          'Same as local NCR agencies: 4-8 weeks for standard websites, 8-16 weeks for complex applications. We work in your timezone with daily Slack updates and weekly Zoom calls.',
+          'The schedule is confirmed after pages, content, integrations, approvals, access and testing requirements are understood. The milestone and communication plan is documented before delivery.',
       },
       {
         question: 'Do you provide ongoing support for Delhi clients?',
         answer:
-          'Yes. All projects include post-launch support. We also offer maintenance plans starting at ₹3,999/month covering security updates, content changes, performance monitoring, and priority support.',
+          'Post-launch support and maintenance are available when included in the proposal or a separate service agreement. Scope, response targets, exclusions and recurring charges are stated in writing.',
       },
     ],
     portfolio: [
@@ -675,7 +675,7 @@ export const cities: CityData[] = [
     population: '13.2 million',
     knownFor: "India's Silicon Valley, startup capital",
     distanceFromNagpur: '1,050 km',
-    tagline: "Silicon Valley Alternatives Shouldn't Cost Silicon Valley Prices",
+    tagline: 'Web design and application development for Bangalore businesses, delivered from Nagpur',
     primaryKeyword: 'web design company Bangalore',
     secondaryKeywords: [
       'website design Bangalore',
@@ -696,26 +696,26 @@ export const cities: CityData[] = [
     ],
     nearbyClients: [],
     introContent:
-      "India's startup capital needs startup-speed delivery. Bangalore businesses understand technology - they know what React, Next.js, and microservices mean. What they also know is that Koramangala agencies charge a premium for the postcode. eLan Technology delivers MVP in 3 weeks, production-ready in 6 - at Nagpur prices.",
+      'Bangalore startups and established technology teams often need product discovery, dependable integrations, measurable performance, security controls and clear technical handover.',
     whyChooseContent:
-      "Bangalore's startup capital needs startup-speed delivery. MVP in 3 weeks. Production-ready in 6. At Nagpur prices. We match Koramangala quality without the Koramangala overhead. Your developers will respect our code - clean, tested, documented.",
+      'We serve Bangalore remotely from Nagpur. Product scope, architecture, testing, documentation, ownership, deployment and support are agreed before implementation.',
     pricingNote:
-      'Bangalore agencies charge ₹3-8 lakh for startup MVPs. We deliver equivalent quality at ₹1-2.5 lakh - potentially saving Bangalore startups 3-6 months of runway.',
+      'MVP and application pricing depends on product discovery, UX, integrations, security, testing and support. We provide an itemised proposal instead of a generic city comparison.',
     faq: [
       {
         question: 'Can a Nagpur agency match Bangalore startup speed?',
         answer:
-          'Absolutely. We deliver MVPs in 3 weeks, production-ready applications in 6-8 weeks. Same React/Next.js/Node.js stack used by Koramangala agencies. We understand lean methodology and rapid iteration.',
+          'A small, well-defined MVP can move quickly, but the schedule depends on users, workflows, integrations, content, approvals and testing. Milestones are confirmed after discovery.',
       },
       {
         question: 'How much cheaper are you compared to Bangalore agencies?',
         answer:
-          'Bangalore agencies charge ₹3-8 lakh for startup MVPs and ₹2-5 lakh for standard websites. We deliver equivalent quality at 50-70% less. For funded startups, this means extending runway by months.',
+          'Startup and business-site pricing varies with product discovery, UX, integrations, testing and support. We provide an itemised proposal instead of promising a standard saving against Bangalore agencies.',
       },
       {
         question: 'Do Bangalore developers respect your code quality?',
         answer:
-          'Yes - our code is clean, tested, and well-documented. We use TypeScript, write unit tests, follow Git best practices, and maintain comprehensive documentation. Your Bangalore tech team can seamlessly take over or extend our work.',
+          'Code standards, automated tests, documentation, repository access and handover are defined for the engagement. A receiving technical team can review the agreed artefacts before acceptance.',
       },
       {
         question: 'What tech stack do you use for Bangalore startups?',
@@ -725,12 +725,12 @@ export const cities: CityData[] = [
       {
         question: 'How do you handle communication with Bangalore teams?',
         answer:
-          'Slack, Zoom, Jira, GitHub, Figma - same tools every Bangalore startup uses. Daily standups, weekly demos, CI/CD pipelines. No friction, no timezone issues.',
+          'Communication, demos, repository access, deployment workflow and meeting frequency are selected with the client and recorded in the project plan.',
       },
       {
         question: 'Do you sign NDAs for Bangalore startup projects?',
         answer:
-          'Yes, we proactively sign NDAs for all client projects. Your intellectual property is legally protected. We can also work under white-label arrangements if needed.',
+          'NDAs and white-label arrangements are available where agreed. Intellectual-property, confidentiality, source-code and handover terms are defined by the signed documents rather than assumed.',
       },
     ],
     portfolio: [
@@ -759,7 +759,7 @@ export const cities: CityData[] = [
     population: '11.5 million',
     knownFor: 'Auto hub, IT corridor, cultural capital of South India',
     distanceFromNagpur: '1,150 km',
-    tagline: "Chennai's Partner for High-Performance Web Solutions",
+    tagline: 'Web design and development for Chennai businesses, delivered from Nagpur',
     primaryKeyword: 'web design company Chennai',
     secondaryKeywords: [
       'website design Chennai',
@@ -781,41 +781,41 @@ export const cities: CityData[] = [
     businessDistricts: ['OMR (IT Corridor)', 'Guindy', 'T. Nagar', 'Anna Nagar', 'Adyar'],
     nearbyClients: [],
     introContent:
-      "Chennai's Old Mahabalipuram Road (OMR) IT corridor understands performance - and so do we. Lighthouse scores of 95+, Core Web Vitals optimised, ADA compliant. For Chennai's automotive, manufacturing, and IT sectors, we deliver websites built for speed, security, and global reach.",
+      "Chennai's automotive, manufacturing, healthcare and technology businesses often need fast mobile experiences, clear product or service information, dependable integrations and content suitable for domestic and international audiences.",
     whyChooseContent:
-      "OMR's IT corridor understands performance. Lighthouse 95+ scores. Core Web Vitals optimised. ADA compliant. We match Chennai's IT standards while offering Central India pricing - a combination local OMR agencies simply can't match.",
+      'We serve Chennai remotely from Nagpur with written scope, shared design reviews and agreed testing. Performance and accessibility targets are measured against the actual website rather than promised as universal scores.',
     pricingNote:
-      'Chennai agencies charge ₹1.5-4 lakh for standard websites. We deliver equivalent quality at ₹45,000-₹1,50,000. For automotive and manufacturing B2B sites, savings can exceed ₹2 lakh per project.',
+      'Website costs depend on content, templates, integrations, performance requirements, localisation and support. The proposal identifies the scope, GST, recurring costs and ownership terms.',
     faq: [
       {
         question: 'Can you serve Chennai automotive and manufacturing clients?',
         answer:
-          "Yes. We've built B2B websites, product catalogues, dealer portals, and export-ready corporate sites. We understand Chennai's automotive ecosystem - from Ambattur to Sriperumbudur - and deliver websites that serve both domestic and international audiences.",
+          'Yes. B2B websites, catalogues and dealer workflows can be scoped around products, domestic and international audiences, integrations and access requirements.',
       },
       {
         question: 'How much does a website cost compared to Chennai agencies?',
         answer:
-          'Chennai OMR agencies charge ₹1.5-4 lakh for standard websites. We deliver equivalent quality at ₹45,000-₹1,50,000 - same React/Next.js stack, same performance standards, 40-60% less cost.',
+          'Cost depends on the scope rather than the city alone. Compare pages, content, integrations, testing, ownership, hosting and support in writing before comparing totals.',
       },
       {
         question: 'Do you build websites that perform well on Lighthouse?',
         answer:
-          'Yes. We target Lighthouse scores of 95+ across Performance, Accessibility, Best Practices, and SEO. Our Astro and Next.js builds consistently achieve these benchmarks. Chennai IT teams can verify our scores independently.',
+          'We set page-specific performance budgets and verify production pages with appropriate tools. Scores depend on content, third-party scripts, hosting, devices and test conditions, so a universal number is not guaranteed.',
       },
       {
         question: 'Do you support Tamil language websites?',
         answer:
-          'Yes, we build multilingual websites including Tamil. Our Unicode-optimised typography ensures Tamil script renders beautifully across devices. We also handle bilingual SEO for English and Tamil search queries.',
+          'Yes. We can build Tamil-English websites with suitable typography, language navigation and separately indexable content where bilingual search visibility is required. Translation and keyword responsibilities are agreed before work begins.',
       },
       {
         question: 'What shipping and logistics websites have you built?',
         answer:
-          "We've built logistics dashboards, shipment tracking portals, and fleet management interfaces. For Chennai's port and shipping industry, we can create digital solutions that integrate with existing logistics software.",
+          'Shipment, tracking and fleet workflows can be scoped after reviewing users, data sources, existing software, security and API availability.',
       },
       {
         question: 'How do you handle project delivery for Chennai?',
         answer:
-          'Same process as local Chennai agencies: Slack for communication, Zoom for meetings, Jira for task tracking, GitHub for code delivery. No timezone difference, dedicated project manager, weekly progress reports.',
+          'The project plan confirms communication channels, meeting frequency, task tracking, code access, decision responsibilities and handover. We work in the same Indian timezone as Chennai teams.',
       },
     ],
     portfolio: [
@@ -847,9 +847,9 @@ export const cities: CityData[] = [
     population: '2.4 million',
     knownFor: 'City of Lakes, state capital, education & government hub',
     distanceFromNagpur: '350 km',
-    tagline: "Bhopal's Most Trusted Web Design Company - Central India's Senior Agency Since 2002",
+    tagline: 'Web design and development for Bhopal businesses, delivered from Nagpur',
     seoTitle: 'Web Design & Development Company in Bhopal | eLan Technology',
-    seoDescription: 'Web design & development company in Bhopal - custom sites for MP Nagar, Arera Colony & government clients. WCAG 2.1 AA, GIGW portals, fixed pricing from ₹21,000. Free audit.',
+    seoDescription: 'Web design and development for Bhopal businesses, with custom websites, ecommerce, SEO foundations and accessibility-first delivery from Nagpur.',
     primaryKeyword: 'web design company in Bhopal',
     secondaryKeywords: [
       'website design in Bhopal',
@@ -876,27 +876,27 @@ export const cities: CityData[] = [
     businessDistricts: ['MP Nagar', 'Arera Colony', 'New Market', 'TT Nagar', 'Hoshangabad Road'],
     nearbyClients: [],
     introContent:
-      "If you are looking for a serious <strong>web design company in Bhopal</strong> - or a <strong>website designing company in Bhopal</strong> that ships clean code, accessibility-ready interfaces, and the search-engine groundwork to actually rank - you have arrived at the right page. Madhya Pradesh's capital has more ambition than its local web market currently serves: government institutions, BU/RGPV-trained graduates, MP Nagar SMEs, and a growing Hoshangabad Road IT corridor all need digital partners who think beyond template builders.",
+      "Bhopal organisations need different kinds of websites: clear service and enquiry journeys for MP Nagar businesses, dependable content management for institutions, multilingual publishing where required, and mobile-first information for healthcare, tourism and education audiences.",
     whyChooseContent:
-      "We are not just a local studio - we are the senior <strong>web designing Bhopal</strong> partner with metro-grade engineering. Just 350 km from our Nagpur HQ, our team has delivered <strong>custom website development in Bhopal</strong> for over a decade through remote-first collaboration, with the same standards we ship to clients in the US, UK, UAE, and Australia. When local Bhopal businesses want the kind of website usually reserved for metros, this is where they come.",
+      'eLan Technology serves Bhopal remotely from its Nagpur headquarters. Discovery, design reviews, content approvals, testing, ownership and support responsibilities are documented so distance does not create ambiguity.',
     pricingNote:
-      "Website design and development costs in Bhopal start at ₹21,000 - and our Professional package at ₹45,000 routinely outperforms quotes 2–3× higher from Mumbai or Delhi agencies. Honest pricing, no hidden costs, full source code handover.",
+      "Website design and development costs depend on the pages, content, integrations, accessibility work and support required. We provide an itemised proposal and identify hosting, third-party charges and ownership terms before work begins.",
     pricing: { starter: '₹21,000', professional: '₹45,000', enterprise: '₹1,00,000+' },
     faq: [
       {
         question: 'Which is the best web design company in Bhopal?',
         answer:
-          "We will not claim the crown for ourselves - but here is what to look for in any best web design company in Bhopal (or the best website designing company in Bhopal, depending on how you phrase the search): a 5+ year track record, a real portfolio of live client sites (not template demos), WCAG 2.1 AA accessibility baked in, transparent fixed-price quotes, and full source-code handover. The best web developer company in Bhopal will also handover full source code with no lock-in clauses. eLan Technology has been shipping websites since 2002, has delivered 1,500+ projects across India and 10+ countries, and is happy to share Bhopal-specific references on request.",
+          "When comparing web design companies serving Bhopal, review real live work, the written scope, mobile quality, accessibility approach, ownership terms and post-launch support. eLan Technology has operated since 2002 and serves Bhopal remotely from Nagpur. Source-code rights, hosting and handover terms are defined in each proposal rather than assumed.",
       },
       {
         question: 'How much does website design in Bhopal cost?',
         answer:
-          'Website design in Bhopal varies widely - from ₹8,000 template builds at the bottom end to ₹2-3 lakh agency engagements at the top. Our packages start at ₹21,000 for a Starter site (5 pages, mobile-responsive, basic SEO) and ₹45,000 for our Professional package (custom design, WCAG 2.1 AA compliance, advanced SEO, CMS). Enterprise builds with custom web apps or eCommerce start at ₹1 lakh+. Every quote is fixed-price with no surprise add-ons.',
+          'Pricing depends on pages, templates, content, integrations, testing and support. Published packages provide a starting point, while the proposal confirms GST, payment stages, exclusions, recurring costs and ownership terms.',
       },
       {
         question: 'Who is the best website developer in Bhopal for a small business?',
         answer:
-          "The best website developer in Bhopal for a small business is the one who can actually explain - in plain Hindi or English - what your business needs versus what is just upsell. We deliberately quote down small-business projects when a simpler stack will serve you better. Most Bhopal SMEs do not need a custom React app; they need a fast WordPress or Astro site with clean SEO and a working contact form. That is what we build at ₹21,000-₹45,000, on a 4-6 week timeline, with the source code in your hands at the end.",
+          'Choose a developer who can explain the scope, editing workflow, mobile testing, search foundations, ownership and post-launch costs. A straightforward WordPress or Astro site may suit many SMEs; source-code rights and delivery dates depend on the agreed proposal and payment terms.',
       },
       {
         question: 'Do you offer custom website development in Bhopal?',
@@ -911,44 +911,44 @@ export const cities: CityData[] = [
       {
         question: 'What makes the best web development company in Bhopal stand out from local agencies?',
         answer:
-          'When evaluating any web development company in Bhopal - or the broader best website agency in Bhopal shortlist - look for three signals. (1) Standards: every site shipped is WCAG 2.1 AA accessible and Core Web Vitals optimised - most local agencies still ignore both. (2) Engineering depth: a top web developer company in Bhopal uses modern frameworks (React, Next.js, Astro) instead of drag-and-drop builders, which means your site is faster, more secure, and easier to extend. (3) Senior team: every Bhopal project must be led by an engineer with 8+ years of experience, not a fresher subcontractor. The trade-off is the best website development company in Bhopal will cost slightly more than ₹8K template shops - but the resulting sites last 5-7 years instead of needing a rebuild every 18 months.',
+          'Look for relevant live work, a clear architecture recommendation, named acceptance tests, ownership terms and a realistic maintenance plan. No framework guarantees speed, security or longevity; those results depend on implementation, content, hosting and ongoing operation.',
       },
       {
         question: 'Can you handle web designing in Bhopal remotely from your Nagpur office?',
         answer:
-          'Yes - and we have done so for hundreds of clients across MP, Maharashtra, Gujarat, the Gulf, and the West. Web designing in Bhopal works seamlessly remote: kick-off and major milestones happen over Zoom or Google Meet, day-to-day collaboration runs on Slack and WhatsApp, design reviews on Figma with live commenting, and project tracking on a shared dashboard. For Bhopal clients specifically, our team visits in-person for larger engagements (>₹2 lakh) at no extra travel cost. The 350 km Nagpur-Bhopal distance is a half-day train ride - fully reachable when needed.',
+          'Yes. A remote engagement can use video meetings, shared design reviews, written approvals and project tracking. Meeting frequency, response windows, project tools and any travel are agreed before work begins.',
       },
       {
         question: 'What industries do you serve in Bhopal?',
         answer:
-          "We serve Bhopal's key sectors: government and PSU institutions (WCAG-compliant portals, document management, RTI/citizen interfaces); educational institutions (BU, RGPV, MANIT-affiliated colleges, coaching centres); tourism operators (Bhimbetka, Sanchi, Bhojpur circuit, Upper Lake hospitality); healthcare providers (multi-specialty hospitals, diagnostic chains, doctor portals); real estate developers around MP Nagar, Arera Colony, and Hoshangabad Road; and the emerging IT sector around STPI Bhopal and Mansarovar IT Park.",
+          "The page is designed around common needs in government and institutional publishing, education, tourism, healthcare, professional services and real estate. Any sector-specific integration, compliance requirement or bilingual workflow is confirmed during discovery.",
       },
       {
         question: 'How fast can you deliver a website for a Bhopal client?',
         answer:
-          'Standard business websites take 4-6 weeks end-to-end (discovery, design, development, QA, launch). Government and institutional projects with multi-stage approvals typically take 6-12 weeks. Emergency rebuilds - if you are facing a brand event, legal deadline, or a competitor launch - can compress to 2-3 weeks with our priority team. We share a milestone calendar at kick-off and missed deadlines on our side come with credit guarantees.',
+          'The delivery schedule depends on the page scope, content readiness, integrations, accessibility requirements and approval process. We provide a milestone calendar after these dependencies are understood and revise it when the agreed scope changes.',
       },
       {
         question: 'Do you build government and institutional websites for Bhopal organisations?',
         answer:
-          'Yes. Our websites meet GIGW (Guidelines for Indian Government Websites) and WCAG 2.1 AA accessibility standards mandated for government digital assets. We have experience building institutional portals with bilingual (Hindi/English) content, document management, public notice boards, citizen inquiry systems, and integration with DigiLocker and other GoI platforms. We also handle the security and accessibility audits required for departmental sign-off.',
+          'Institutional portals can be scoped with bilingual content, document publishing, notice boards and enquiry workflows. GIGW, security audit, hosting, integration and formal accessibility requirements must be identified in the tender or proposal and independently verified where required.',
       },
     ],
     portfolio: [
       {
-        name: 'MP Government Institution',
-        category: 'Government, Bhopal',
-        desc: 'Accessible, bilingual (Hindi/English) institutional portal with document management, public notice board, citizen inquiry system, and DigiLocker integration. Cleared GIGW compliance audit.',
+        name: 'ISA Nagpur',
+        category: 'Association website delivered from Nagpur',
+        desc: 'A live professional-association website demonstrating structured information, event communication and member-focused navigation.',
       },
       {
-        name: 'Hoshangabad Road Healthcare Network',
-        category: 'Healthcare, Bhopal',
-        desc: 'Multi-location hospital network site with online appointment booking, doctor profiles, specialty department pages, and Hindi/English language toggle for patient accessibility.',
+        name: 'Aasthaa Hospital',
+        category: 'Healthcare website delivered from Nagpur',
+        desc: 'A live healthcare website demonstrating department information, doctor discovery and patient enquiry routes.',
       },
       {
-        name: 'MP Nagar Real Estate Portal',
-        category: 'Real Estate, Bhopal',
-        desc: 'Multi-vendor property listing platform covering MP Nagar, Arera Colony, and Hoshangabad Road developments. Map-based search, virtual tour embeds, lead-capture forms wired to WhatsApp Business.',
+        name: 'Samarth Realty',
+        category: 'Real estate website delivered from Nagpur',
+        desc: 'A live real-estate project demonstrating property presentation, location information and enquiry pathways.',
       },
     ],
   },
@@ -965,7 +965,7 @@ export const cities: CityData[] = [
     population: '3.4 million',
     knownFor: "MP's commercial capital, cleanest city, startup growth",
     distanceFromNagpur: '560 km',
-    tagline: "MP's Commercial Capital is Going Digital - Are You?",
+    tagline: 'Web design and development for Indore businesses, delivered from Nagpur',
     seoTitle: 'Web Design & Development Company in Indore',
     seoDescription:
       'Web design and development for Indore businesses, startups and manufacturers. Custom websites from ₹21,000, eCommerce and web apps. Get a free audit.',
@@ -991,7 +991,7 @@ export const cities: CityData[] = [
     introContent:
       "Indore businesses range from early-stage teams around the Super Corridor to manufacturers serving customers from Pithampur. Their websites have different jobs: validate a new offer, generate qualified B2B enquiries, present a product catalogue, or support online sales. eLan Technology plans the content, design, technology and measurement around that job, with delivery managed remotely from our Nagpur headquarters.",
     whyChooseContent:
-      "Indore companies work with us for a defined scope, published starting prices and a senior team that can handle business websites, eCommerce stores and custom applications.",
+      'Indore companies can engage us for business websites, ecommerce stores and custom applications through a defined scope, named responsibilities and documented handover.',
     pricingNote:
       'Business website packages start at ₹21,000. Final pricing depends on page count, content, integrations, eCommerce features and accessibility requirements.',
     marketNeeds: [
@@ -1028,22 +1028,22 @@ export const cities: CityData[] = [
       {
         question: 'Can you build eCommerce sites for Indore businesses?',
         answer:
-          "Absolutely. We build WooCommerce, Shopify, and custom eCommerce platforms for Indore's textile, food processing, and retail businesses. Features include Indian payment gateways, shipping API integration, and GST-compliant invoicing.",
+          'Yes. Shopify, WooCommerce or custom commerce can be selected after reviewing the catalogue, payments, tax, shipping, inventory and fulfilment workflow. Provider charges and custom integrations are scoped separately.',
       },
       {
         question: 'Do you serve Pithampur industrial clients?',
         answer:
-          "Yes. We build B2B company profiles, product catalogues, and export-ready websites for Pithampur's manufacturing and pharmaceutical companies. Our experience with industrial B2B marketing helps your website generate quality leads.",
+          'Yes. B2B company profiles, catalogues and export-facing websites can be scoped around the actual products, buyer information, regulatory content and enquiry workflow.',
       },
       {
         question: 'What startup services do you offer for Indore?',
         answer:
-          "We offer MVP development, landing page design, SaaS dashboard development, and brand identity design. Indore's Super Corridor startups benefit from our modern tech stack (React, Next.js, Node.js) at prices that extend their runway.",
+          'We offer MVP planning, landing pages, SaaS dashboards and brand identity work. The stack, milestones and budget are selected after confirming users, workflows and integrations.',
       },
       {
         question: 'How quickly can you deliver projects for Indore clients?',
         answer:
-          'Standard websites: 4-6 weeks. MVPs and landing pages: 2-3 weeks. eCommerce stores: 6-10 weeks. We provide milestone-based delivery with weekly progress updates.',
+          'Delivery time depends on scope, content, integrations, access, approvals and testing. The proposal records milestones, dependencies and review cadence after discovery.',
       },
     ],
     portfolio: [
@@ -1051,19 +1051,19 @@ export const cities: CityData[] = [
         name: 'CIPL Corporate Portal',
         category: 'Enterprise operations',
         desc: 'A role-based internal portal supporting HR workflows, document access and more than 500 staff members.',
-        href: '/portfolio/case-study/cipl-corporate-portal/',
+        href: '/portfolio/#project-archive',
       },
       {
         name: 'MSME Hub',
         category: 'Business ecosystem platform',
         desc: 'A scalable Next.js and Strapi platform built to connect and support a growing MSME ecosystem.',
-        href: '/portfolio/case-study/msmehub/',
+        href: 'https://msmehub.co.in/',
       },
       {
         name: '77 Mishti',
         category: 'Retail and packaging',
         desc: 'A product-led digital presence designed to present a distinctive retail and packaging brand clearly.',
-        href: '/portfolio/case-study/77mishti/',
+        href: 'https://77mishtipackaging.com/',
       },
     ],
   },
@@ -1080,7 +1080,7 @@ export const cities: CityData[] = [
     population: '15 million',
     knownFor: 'Cultural capital, finance, jute industry, IT growth',
     distanceFromNagpur: '1,100 km',
-    tagline: 'East Meets Excellence - Modern Websites for Kolkata Businesses',
+    tagline: 'Web design and development for Kolkata businesses, delivered from Nagpur',
     seoTitle: 'Web Design & Development Company in Kolkata',
     seoDescription:
       'Web design and development for Kolkata companies, exporters and institutions. Custom websites from ₹21,000, eCommerce, multilingual content and SEO.',
@@ -1136,7 +1136,7 @@ export const cities: CityData[] = [
       {
         question: 'What Kolkata industries do you serve?',
         answer:
-          "We serve Kolkata's key sectors: finance and banking, IT and BPO, jute and tea exporters, educational institutions, healthcare providers, and retail businesses. Our B2B expertise is particularly relevant for Kolkata's export industries.",
+          'Projects can be scoped for finance, technology, exporters, education, healthcare and retail. Sector-specific regulations, content and integrations are confirmed during discovery.',
       },
       {
         question: 'Do you build Bengali language websites?',
@@ -1151,7 +1151,7 @@ export const cities: CityData[] = [
       {
         question: 'Do you provide digital marketing for Kolkata businesses?',
         answer:
-          'Yes. We offer local SEO, Google Ads, social media marketing, and content strategy for Kolkata businesses. We target Kolkata-specific keywords and understand the West Bengal market.',
+          'Yes. A plan can include technical SEO, location content, paid campaigns and measurement. Channels and keywords follow verified demand and business goals; no particular ranking is guaranteed.',
       },
     ],
     portfolio: [
@@ -1159,19 +1159,19 @@ export const cities: CityData[] = [
         name: '77 Mishti',
         category: 'Retail and packaging',
         desc: 'A product-led digital presence designed to present a distinctive retail and packaging brand clearly.',
-        href: '/portfolio/case-study/77mishti/',
+        href: 'https://77mishtipackaging.com/',
       },
       {
         name: 'Indo Advisors',
         category: 'Professional services',
         desc: 'A consulting website that organises expertise and services into a clear path for prospective clients.',
-        href: '/portfolio/case-study/indo-advisors/',
+        href: 'https://www.indoadvisors.com/',
       },
       {
         name: 'MSME Hub',
         category: 'Business ecosystem platform',
         desc: 'A scalable Next.js and Strapi platform built to connect and support a growing MSME ecosystem.',
-        href: '/portfolio/case-study/msmehub/',
+        href: 'https://msmehub.co.in/',
       },
     ],
   },
@@ -1188,7 +1188,7 @@ export const cities: CityData[] = [
     population: '8.6 million',
     knownFor: "Gujarat's entrepreneurial spirit, textile capital, pharma, GIFT City",
     distanceFromNagpur: '1,000 km',
-    tagline: "Gujarat's Entrepreneurial Spirit Needs a Digital Partner to Match",
+    tagline: 'Web design and development for Ahmedabad businesses, delivered from Nagpur',
     primaryKeyword: 'web design company Ahmedabad',
     secondaryKeywords: [
       'website design Ahmedabad',
@@ -1209,41 +1209,41 @@ export const cities: CityData[] = [
     businessDistricts: ['SG Highway', 'Ashram Road', 'CG Road', 'Prahlad Nagar', 'GIFT City'],
     nearbyClients: [],
     introContent:
-      "Ahmedabad - Gujarat's commercial powerhouse - runs on entrepreneurial energy. From the textile mills of Naroda to the fintech towers of GIFT City, Ahmedabad businesses think big and move fast. They need web partners who can match that pace and ambition, without the Mumbai or Bangalore price tag.",
+      'Ahmedabad businesses span textiles, pharma, manufacturing, real estate and financial services. Their websites may need detailed catalogues, multilingual content, distributor enquiries, ecommerce or regulated information workflows.',
     whyChooseContent:
-      "Gujarat's entrepreneurial spirit needs a digital partner. Textile, pharma, GIFT City fintech - we serve Ahmedabad's diverse industries with enterprise-grade web solutions at Central India prices. Think of it as Gujarati value meets global quality.",
+      'We serve Ahmedabad remotely from Nagpur with written scope, shared reviews and agreed acceptance criteria. Sector, security, accessibility and ownership requirements are confirmed during discovery.',
     pricingNote:
-      'Ahmedabad businesses benefit from our competitive pricing starting at ₹21,000. We deliver the same quality as SG Highway agencies at 40-50% less cost.',
+      'Ahmedabad businesses receive a scope-based proposal covering pages, content, integrations, testing, hosting, ownership and support.',
     faq: [
       {
         question: 'Do you serve Ahmedabad and Gujarat businesses?',
         answer:
-          "Yes. We serve businesses across Ahmedabad, Surat, Vadodara, and the broader Gujarat market. Our expertise in B2B websites, eCommerce, and export-ready digital platforms is particularly relevant for Gujarat's entrepreneurial economy.",
+          'Yes. We can remotely serve organisations across Ahmedabad, Surat, Vadodara and the wider Gujarat market, with any on-site requirement agreed separately.',
       },
       {
         question: 'How much does a website cost compared to Ahmedabad agencies?',
         answer:
-          'Ahmedabad agencies charge ₹1-3 lakh for standard websites. We deliver equivalent quality at ₹45,000-₹1,50,000. For eCommerce and textile catalogue sites, savings are substantial.',
+          'Cost depends on pages, content, catalogue complexity, integrations, testing, hosting and support. Compare itemised proposals rather than assuming equivalent quality from headline prices.',
       },
       {
         question: 'Can you build B2B websites for Gujarat exporters?',
         answer:
-          "Absolutely. We've built export catalogues, B2B inquiry systems, and international-facing websites for manufacturers and exporters. Multi-currency, multi-language, and SEO for international markets.",
+          'Yes. Export catalogues and B2B enquiry journeys can include multilingual or multi-currency requirements where agreed, with target markets and content responsibilities confirmed first.',
       },
       {
         question: 'Do you support Gujarati language websites?',
         answer:
-          'Yes. We build multilingual websites including Gujarati. Our Unicode-optimised typography and bilingual SEO ensure your website connects with local and NRI Gujarati audiences.',
+          'Yes. We can build Gujarati-English websites with suitable typography, language navigation and separately indexable content where bilingual search visibility is required.',
       },
       {
         question: 'Can you build fintech websites for GIFT City companies?',
         answer:
-          'Yes. We build compliance-aware fintech websites with secure architectures, investor dashboards, and regulatory documentation portals. Our WCAG compliance ensures accessibility for international stakeholders.',
+          'Fintech websites and portals require discovery covering regulation, data roles, security, accessibility and hosting. Formal conformance or audit evidence is scoped to the actual requirement.',
       },
       {
         question: 'What is the delivery timeline for Ahmedabad projects?',
         answer:
-          'Standard business websites: 4-6 weeks. eCommerce stores: 6-10 weeks. Custom web applications: 8-16 weeks. We provide milestone-based delivery with regular progress updates via Zoom and Slack.',
+          'Delivery time depends on scope, content, integrations, access, approvals and testing. The proposal records milestones, dependencies and review cadence after discovery.',
       },
     ],
     portfolio: [
@@ -1267,7 +1267,7 @@ export const cities: CityData[] = [
     population: '4.1 million',
     knownFor: 'Pink City, tourism, gems & jewellery, handicrafts',
     distanceFromNagpur: '1,050 km',
-    tagline: 'Pink City. Vibrant Businesses. Stunning Websites.',
+    tagline: 'Web design and development for Jaipur businesses, delivered from Nagpur',
     primaryKeyword: 'web design company Jaipur',
     secondaryKeywords: [
       'website design Jaipur',
@@ -1288,41 +1288,41 @@ export const cities: CityData[] = [
     businessDistricts: ['Malviya Nagar', 'C-Scheme', 'Vaishali Nagar', 'Sitapura IT Park', 'MI Road'],
     nearbyClients: [],
     introContent:
-      "Jaipur - the Pink City - is Rajasthan's economic engine. Tourism, gems, handicrafts, and a growing IT sector drive the economy. But many Jaipur businesses still lack digital presence that matches their real-world excellence. A stunning haveli hotel with an outdated website is leaving money on the table.",
+      'Jaipur businesses across tourism, jewellery, handicrafts, education and technology need clear mobile journeys, strong visual presentation and dependable enquiry, booking or commerce workflows.',
     whyChooseContent:
-      "Pink City. Vibrant businesses. Stunning websites. Tourism, gems, handicrafts - we showcase your Jaipur brand online with the same visual richness that makes the city famous. Our tourism website expertise is especially relevant for Rajasthan's hospitality sector.",
+      'We serve Jaipur remotely from Nagpur. Visual direction, booking or commerce integrations, multilingual content, ownership and support are defined in the written scope.',
     pricingNote:
-      'Jaipur businesses get excellent value - our packages start at ₹21,000 for business websites and ₹40,000 for tourism and eCommerce sites with booking integrations.',
+      'Published packages provide a starting point. Booking, ecommerce, multilingual content, third-party charges, hosting and support are estimated after discovery.',
     faq: [
       {
         question: 'Do you build tourism websites for Jaipur businesses?',
         answer:
-          "Yes. We specialise in visually rich tourism websites with booking integrations, virtual tours, multilingual content (English, Hindi, and other languages for international tourists), and Google Maps integration. Perfect for Jaipur's hotels, tour operators, and heritage properties.",
+          'Yes. Tourism websites can include booking integrations, maps, visual media and multilingual content where included in scope. Provider fees, content production and translation are identified separately.',
       },
       {
         question: 'How much does a website cost in Jaipur?',
         answer:
-          'Business websites start at ₹21,000. Tourism and hospitality websites with booking systems start at ₹40,000. eCommerce for gems and handicrafts starts at ₹50,000. All include responsive design, SEO, and WCAG compliance.',
+          'Published business-site packages begin at ₹21,000. Booking systems, ecommerce, accessibility testing and multilingual content are quoted after discovery; the proposal identifies GST and third-party charges.',
       },
       {
         question: 'Can you build eCommerce for Jaipur gems and handicrafts?',
         answer:
-          "Absolutely. We build beautiful eCommerce stores for gems, jewellery, and handicraft businesses with high-resolution product photography showcases, secure payment gateways, and international shipping integration - essential for Jaipur's export-oriented craft economy.",
+          'Yes. Commerce stores can be scoped for product media, payments, tax and domestic or international shipping. Photography, provider costs and custom integrations are identified separately.',
       },
       {
         question: 'Do you provide SEO for Jaipur tourism businesses?',
         answer:
-          'Yes. We offer tourism-specific SEO targeting keywords like "Jaipur hotels", "Rajasthan tour packages", and location-specific terms. Our local SEO expertise helps Jaipur businesses rank in Google Maps and local search results.',
+          'Yes. Tourism SEO can include technical work, local content, Google Business Profile guidance and measurement. Keyword priorities follow verified demand and no particular ranking is guaranteed.',
       },
       {
         question: 'Can you build multilingual sites for international tourists?',
         answer:
-          "Yes. We build multilingual websites in English, Hindi, French, German, Spanish, and more - crucial for Jaipur's international tourism market. Each language version is SEO-optimised for that market.",
+          'Yes. Multilingual architecture can be included where required. Translation, localisation, keyword research, review responsibility and indexation are agreed for each language.',
       },
       {
         question: 'What is the project delivery process?',
         answer:
-          'Discovery call → wireframes → design mockups → development → testing → launch. Standard timeline: 4-8 weeks. We use Zoom, Slack, and Figma for seamless remote collaboration with Jaipur clients.',
+          'Discovery, design, development, testing and launch are arranged as documented milestones. Timing and collaboration tools depend on scope, content, integrations and client approvals.',
       },
     ],
     portfolio: [
@@ -1346,7 +1346,7 @@ export const cities: CityData[] = [
     population: '3.7 million',
     knownFor: "UP's IT city, state capital, government hub",
     distanceFromNagpur: '950 km',
-    tagline: "UP's IT City is Growing Fast - Your Website Should Too",
+    tagline: 'Web design and development for Lucknow organisations, delivered from Nagpur',
     seoTitle: 'Web Design & Development Company in Lucknow',
     seoDescription:
       'Website design and development for Lucknow businesses and institutions. Custom sites from ₹21,000, bilingual content, web apps and accessibility.',
@@ -1402,17 +1402,17 @@ export const cities: CityData[] = [
       {
         question: 'Can you build government portals for Lucknow organisations?',
         answer:
-          'Yes. We build WCAG 2.1 AA compliant government websites that meet accessibility requirements. Our experience includes institutional portals, public information websites, and citizen-facing applications.',
+          'Institutional and public-information websites can be scoped with accessibility-first design. Formal WCAG or government requirements, testing and evidence must be named in the engagement and independently verified where required.',
       },
       {
         question: 'Do you work with Lucknow IT startups?',
         answer:
-          "Yes. We offer rapid MVP development, SaaS platform building, and modern web application development for Lucknow's growing startup ecosystem. React, Next.js, Node.js - the full modern stack.",
+          'Yes. We can scope MVPs, SaaS workflows and web applications after confirming users, integrations, security and acceptance criteria. The technology follows the requirement.',
       },
       {
         question: 'What is the delivery timeline for Lucknow projects?',
         answer:
-          'Standard websites: 4-6 weeks. Government projects: 6-12 weeks (accounting for approval processes). Startup MVPs: 2-4 weeks. We provide clear milestone-based timelines.',
+          'Delivery time depends on scope, content, procurement, integrations, access, approvals and testing. Milestones and dependencies are confirmed after discovery.',
       },
       {
         question: 'Do you provide Hindi language website support?',
@@ -1425,19 +1425,19 @@ export const cities: CityData[] = [
         name: 'MSME Hub',
         category: 'Business ecosystem platform',
         desc: 'A scalable Next.js and Strapi platform built to connect and support a growing MSME ecosystem.',
-        href: '/portfolio/case-study/msmehub/',
+        href: 'https://msmehub.co.in/',
       },
       {
         name: 'Aastha Hospital',
         category: 'Healthcare',
         desc: 'A healthcare website that helps patients understand services, find doctors and take the next step.',
-        href: '/portfolio/case-study/aastha-hospital/',
+        href: 'https://www.asthahospital.in/',
       },
       {
         name: 'PropertyCab',
         category: 'Real estate platform',
         desc: 'A property discovery platform built around structured listings and practical search journeys.',
-        href: '/portfolio/case-study/propertycab/',
+        href: 'https://propertycab.elantech.cloud/',
       },
     ],
   },
@@ -1454,7 +1454,7 @@ export const cities: CityData[] = [
     population: '1.2 million',
     knownFor: "India's first planned city, IT hub, education centre",
     distanceFromNagpur: '1,250 km',
-    tagline: "India's First Planned City Deserves a Planned Digital Strategy",
+    tagline: 'Web design and development for Chandigarh Tricity, delivered from Nagpur',
     seoTitle: 'Web Design Company in Chandigarh | Websites & Landing Pages',
     seoDescription:
       'Web design for Chandigarh, Mohali and Panchkula businesses. Custom sites and landing pages from ₹21,000, plus web apps, SEO and accessibility.',
@@ -1500,7 +1500,7 @@ export const cities: CityData[] = [
       {
         question: 'Do you serve Chandigarh, Mohali, and Panchkula businesses?',
         answer:
-          'Yes. We serve the entire Chandigarh tricity area including Chandigarh, Mohali, and Panchkula. Our remote collaboration process is seamless for businesses in the IT Park, Sector 17, and the broader tricity region.',
+          'Yes. We can serve Chandigarh, Mohali and Panchkula remotely from Nagpur, with communication, reviews and any on-site requirement agreed in the project plan.',
       },
       {
         question: 'How much does a website cost in Chandigarh?',
@@ -1515,12 +1515,12 @@ export const cities: CityData[] = [
       {
         question: 'Do you work with Chandigarh education institutions?',
         answer:
-          'Yes. We build institutional websites and web applications for programme discovery, enquiries, admissions workflows and content publishing. The STDA India case study on this page shows relevant education-sector work.',
+          'Yes. We build institutional websites and web applications for programme discovery, enquiries, admissions workflows and content publishing. The CSRI-BSB case study on this page shows relevant education and training work.',
       },
       {
         question: 'What technologies do you use?',
         answer:
-          'React, Next.js, Astro, Node.js, MongoDB, WordPress, Shopify - the full modern stack. We recommend the best technology based on your specific requirements and budget.',
+          'We work with Astro, React, Next.js, Node.js, WordPress, Shopify and related platforms. The recommendation follows content, integration, security, maintenance and budget requirements.',
       },
       {
         question: 'How do you manage projects remotely?',
@@ -1530,22 +1530,22 @@ export const cities: CityData[] = [
     ],
     portfolio: [
       {
-        name: 'STDA India',
-        category: 'Education',
-        desc: 'An institutional website that presents programmes and supports a clearer discovery and enrolment journey.',
-        href: '/portfolio/case-study/stda/',
+        name: 'CSRI-BSB International',
+        category: 'Education and Training',
+        desc: 'An international training website that presents programmes and supports a clearer discovery and enquiry journey.',
+        href: 'https://www.csrtraininginstitute.com/',
       },
       {
         name: 'Aastha Hospital',
         category: 'Healthcare',
         desc: 'A healthcare website that helps patients understand services, find doctors and take the next step.',
-        href: '/portfolio/case-study/aastha-hospital/',
+        href: 'https://www.asthahospital.in/',
       },
       {
         name: 'MSME Hub',
         category: 'Business ecosystem platform',
         desc: 'A scalable Next.js and Strapi platform built to connect and support a growing MSME ecosystem.',
-        href: '/portfolio/case-study/msmehub/',
+        href: 'https://msmehub.co.in/',
       },
     ],
   },
@@ -1562,7 +1562,7 @@ export const cities: CityData[] = [
     population: '2.1 million',
     knownFor: "Kerala's IT hub, tourism, spices, shipping",
     distanceFromNagpur: '1,500 km',
-    tagline: "Kerala's IT Hub Meets Nagpur's Web Design Expertise",
+    tagline: 'Web design and development for Kochi businesses, delivered from Nagpur',
     primaryKeyword: 'web design company Kochi',
     secondaryKeywords: [
       'website design Kochi',
@@ -1583,41 +1583,41 @@ export const cities: CityData[] = [
     businessDistricts: ['Infopark', 'Kakkanad', 'MG Road', 'Marine Drive', 'SmartCity Kochi'],
     nearbyClients: [],
     introContent:
-      "Kochi - Kerala's IT hub and India's spice trading capital - blends tradition with technology. From Infopark's IT corridor to Fort Kochi's heritage tourism district, businesses here need websites that reflect both innovation and cultural richness. eLan Technology brings 24 years of web expertise to Kerala's most dynamic city.",
+      'Kochi businesses across technology, tourism, shipping, healthcare and exports may need multilingual content, booking or enquiry journeys, catalogues and integrations suited to domestic and international audiences.',
     whyChooseContent:
-      "Kerala's IT hub meets Nagpur's web design expertise. Tourism, spice trade, Infopark businesses - we build websites that serve Kochi's unique mix of traditional and modern industries with enterprise-grade quality at Central India pricing.",
+      'We serve Kochi remotely from Nagpur with a written scope, shared reviews and agreed acceptance criteria. Content, integrations, accessibility, ownership and support are confirmed during discovery.',
     pricingNote:
-      'Kochi businesses benefit from our Central India pricing - ₹45,000 for professional websites that match Infopark agency quality. Tourism websites with booking systems start at ₹50,000.',
+      'Published packages provide a starting point. Booking systems, ecommerce, multilingual content, integrations, hosting and support are estimated after discovery.',
     faq: [
       {
         question: 'Do you serve businesses in Kochi and Kerala?',
         answer:
-          "Yes. We serve businesses across Kochi, Thiruvananthapuram, and the broader Kerala market. Our experience with tourism websites and IT company portfolios is particularly relevant for Kerala's key industries.",
+          'Yes. We can serve organisations across Kochi, Thiruvananthapuram and the wider Kerala market remotely, with any on-site requirement agreed separately.',
       },
       {
         question: 'Can you build tourism websites for Kerala businesses?',
         answer:
-          "Absolutely. Kerala's tourism industry deserves stunning websites. We build visually rich tourism sites with booking engines, virtual tours, multilingual content, and Google Maps integration - showcasing Kerala's backwaters, heritage, and wellness tourism.",
+          'Yes. Tourism websites can include booking integrations, maps, visual media and multilingual content when included in scope. Provider fees, content production and translation are identified separately.',
       },
       {
         question: 'How much does a website cost for a Kochi business?',
         answer:
-          'Business websites start at ₹21,000. Tourism websites with booking systems start at ₹50,000. eCommerce for spice and export businesses starts at ₹40,000. All include responsive design, SEO, and WCAG compliance.',
+          'Published business-site packages begin at ₹21,000. Booking, ecommerce, accessibility testing and multilingual requirements are quoted after discovery, with GST and third-party charges identified.',
       },
       {
         question: 'Do you work with Infopark and SmartCity companies?',
         answer:
-          "Yes. We build corporate websites, SaaS platforms, and product showcases for IT companies. Our React, Next.js, and Node.js expertise matches Infopark standards. We understand the needs of Kochi's tech ecosystem.",
+          'Yes. Corporate websites, product showcases and SaaS workflows can be scoped after confirming users, integrations, security, testing and handover requirements.',
       },
       {
         question: 'Do you support Malayalam language websites?',
         answer:
-          'Yes. We build multilingual websites including Malayalam. Our Unicode-optimised typography ensures Malayalam script renders beautifully, and we handle bilingual SEO for English and Malayalam search queries.',
+          'Yes. We can build Malayalam-English websites with suitable typography, language navigation and separately indexable content where bilingual search visibility is required.',
       },
       {
         question: 'Can you build export-ready websites for spice traders?',
         answer:
-          "Yes. We build B2B export websites for Kerala's spice industry with multi-currency pricing, international shipping integration, product catalogues with quality certifications, and inquiry management systems.",
+          'Yes. Export websites can include catalogues, certifications, multi-currency display, shipping integrations and enquiry workflows where included in scope. Provider and compliance responsibilities are confirmed first.',
       },
     ],
     portfolio: [

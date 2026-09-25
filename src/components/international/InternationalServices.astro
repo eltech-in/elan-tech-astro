@@ -8,13 +8,16 @@ interface Props {
 const { country } = Astro.props;
 
 const services = [
-  { title: 'Website Design', desc: `Custom, mobile-first websites for ${country.name} businesses. Modern design, fast performance, and WCAG accessibility.`, href: '/services/website-design/' },
-  { title: 'Web Development', desc: `Full-stack development using React, Next.js, Astro, Node.js. Enterprise-grade applications for ${country.name} clients.`, href: '/services/web-development/' },
-  { title: 'eCommerce', desc: `Shopify, WooCommerce, and custom eCommerce solutions with ${country.currency} support and local payment gateways.`, href: '/services/ecommerce/' },
-  { title: 'SEO & Digital Marketing', desc: `International SEO, Google Ads, and content marketing targeting ${country.name} audiences and search patterns.`, href: '/services/seo/' },
-  { title: 'Mobile Apps', desc: `iOS and Android app development using React Native and Flutter for ${country.name} market requirements.`, href: '/services/mobile-app-development/' },
-  { title: 'Branding', desc: `Complete brand identity - logo, colours, typography, guidelines - designed for the ${country.name} market.`, href: '/services/branding/' },
-  { title: 'Maintenance & Security', desc: 'Monthly maintenance, security monitoring, SSL, backups, and performance optimisation with priority support.', href: '/services/maintenance-security/' },
+  { title: 'Website Design', desc: `Custom, mobile-first websites for ${country.name} businesses, with performance and accessibility requirements defined in the project scope.`, href: '/services/website-design/' },
+  { title: 'Web Development', desc: `Custom web development using an appropriate stack selected after discovery, with responsibilities and acceptance criteria agreed in writing.`, href: '/services/web-development/' },
+  { title: 'eCommerce', desc: `Shopify, WooCommerce and Medusa commerce solutions. Currency, tax, payment and fulfilment providers are confirmed for the actual market and merchant account.`, href: '/services/ecommerce/' },
+  { title: 'SEO & Digital Marketing', desc: `Search, content and campaign work informed by ${country.name} audience requirements and available evidence. Rankings, reach and enquiries are not guaranteed.`, href: '/services/seo/' },
+  { title: 'Mobile Apps', desc: `iOS and Android app development with permissions, SDKs, store accounts and regional requirements documented during discovery.`, href: '/services/mobile-app-development/' },
+  { title: 'Branding', desc: `Identity systems covering agreed logos, colours, typography and guidelines. Translation, cultural review and trademark clearance are separately scoped where needed.`, href: '/services/branding/' },
+  { title: 'Maintenance & Security', desc: 'Maintenance, monitoring, backups and performance work under an agreed plan. Coverage, response windows and included work depend on that plan.', href: '/services/maintenance-security/' },
+  { title: 'Custom CRM & ERP', desc: `Custom business workflows and ERPNext customisation for ${country.name} organisations. Data regions, migration, access, licences and continuing support are agreed for the actual deployment.`, href: '/services/custom-crm-erp-solutions/' },
+  { title: 'Privacy & Data Governance', desc: `Technical implementation for forms, consent, analytics, retention and rights workflows. Applicable ${country.name} requirements and India DPDP responsibilities are scoped separately; this is not legal advice or certification.`, href: '/services/dpdp-compliance-implementation/' },
+  { title: 'Headless CMS Development', desc: 'Composable content systems for websites and applications, including Payload CMS and Directus, with editorial roles, protected APIs, migration, deployment and handover defined in writing.', href: '/services/headless-cms-development/' },
 ];
 ---
 
@@ -25,7 +28,7 @@ const services = [
         Services for {country.name} Businesses
       </h2>
       <p class="text-[var(--text-dim)] max-w-2xl mx-auto">
-        End-to-end web design, development, and digital marketing - delivered from India to {country.name} with seamless communication.
+        Website, development and digital services delivered from India through agreed communication, approval and support arrangements.
       </p>
     </div>
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

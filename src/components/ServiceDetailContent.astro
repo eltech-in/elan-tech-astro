@@ -1,0 +1,120 @@
+---
+interface Card { title: string; text: string }
+interface Step { number: string; title: string; text: string }
+interface FAQ { question: string; answer: string }
+
+interface Props {
+  eyebrow: string;
+  heading: string;
+  intro: string;
+  features: string[];
+  outcomes: Card[];
+  deliverables: Card[];
+  process: Step[];
+  suitableFor: string[];
+  responsibilities: string[];
+  faqs: FAQ[];
+  accentVar: string;
+  disclaimer: string;
+}
+
+const { eyebrow, heading, intro, features, outcomes, deliverables, process, suitableFor, responsibilities, faqs, accentVar, disclaimer } = Astro.props;
+---
+
+<section class="service-hero-grid" style={`--detail-accent: var(${accentVar});`}>
+  <div>
+    <p class="text-xs font-black uppercase tracking-[0.2em] text-[var(--detail-accent)]">{eyebrow}</p>
+    <h1 class="mt-3 font-heading font-black text-[var(--text)]">{heading}</h1>
+    <p class="mt-5 max-w-3xl text-base leading-relaxed text-[var(--text-muted)] md:text-lg">{intro}</p>
+    <div class="mt-8 grid gap-3 sm:flex sm:flex-wrap sm:items-center sm:gap-5">
+      <a href="/schedule-consultation/" class="inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-[var(--detail-accent)] px-6 py-3 text-center text-sm font-bold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md sm:w-auto">Discuss the requirement</a>
+      <a href="/get-quote/" class="inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--bg)] px-6 py-3 text-center text-sm font-bold text-[var(--text)] transition hover:-translate-y-0.5 hover:border-[var(--detail-accent)] sm:w-auto">Request a scoped quote</a>
+    </div>
+  </div>
+  <aside class="service-hero-aside" aria-label="Service coverage">
+    <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--detail-accent)]">What we can cover</p>
+    <ul class="mt-4 grid gap-2 sm:grid-cols-2 md:grid-cols-1" role="list">
+      {features.map((feature) => (
+        <li class="flex items-start gap-2 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] px-3 py-2.5 text-sm font-semibold text-[var(--text)]">
+          <span class="mt-0.5 text-[var(--detail-accent)]" aria-hidden="true">✓</span>{feature}
+        </li>
+      ))}
+    </ul>
+  </aside>
+</section>
+
+<section aria-labelledby="outcomes-title">
+  <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--detail-accent)]">Business outcomes</p>
+  <h2 id="outcomes-title" class="mt-2 font-heading text-3xl font-bold text-[var(--text)]">Designed around the operating problem—not a feature checklist</h2>
+  <div class="mt-7 grid gap-4 md:grid-cols-3">
+    {outcomes.map((item) => (
+      <article class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+        <h3 class="font-heading text-lg font-bold text-[var(--text)]">{item.title}</h3>
+        <p class="mt-3 text-sm leading-relaxed text-[var(--text-muted)]">{item.text}</p>
+      </article>
+    ))}
+  </div>
+</section>
+
+<section class="rounded-[1.75rem] border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8 lg:p-10" aria-labelledby="deliverables-title">
+  <div class="grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
+    <div>
+      <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--detail-accent)]">Scope and deliverables</p>
+      <h2 id="deliverables-title" class="mt-2 font-heading text-3xl font-bold text-[var(--text)]">A proposal you can verify</h2>
+      <p class="mt-4 text-sm leading-relaxed text-[var(--text-muted)]">The accepted proposal identifies included workflows, integrations, migration, environments, testing, responsibilities, handover and ongoing costs. Items not recorded are not assumed.</p>
+    </div>
+    <div class="grid gap-4 sm:grid-cols-2">
+      {deliverables.map((item, index) => (
+        <article class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-5">
+          <span class="text-[10px] font-black uppercase tracking-[0.16em] text-[var(--detail-accent)]">{String(index + 1).padStart(2, '0')}</span>
+          <h3 class="mt-2 font-heading text-base font-bold text-[var(--text)]">{item.title}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{item.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="process-title">
+  <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--detail-accent)]">Delivery process</p>
+  <h2 id="process-title" class="mt-2 font-heading text-3xl font-bold text-[var(--text)]">Clear decisions from discovery to handover</h2>
+  <ol class="mt-7 grid gap-4 md:grid-cols-4">
+    {process.map((item) => (
+      <li class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
+        <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[var(--detail-accent)] text-xs font-black text-white">{item.number}</span>
+        <h3 class="mt-4 font-heading text-base font-bold text-[var(--text)]">{item.title}</h3>
+        <p class="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{item.text}</p>
+      </li>
+    ))}
+  </ol>
+</section>
+
+<section class="grid gap-6 lg:grid-cols-2" aria-label="Fit and client responsibilities">
+  <article class="rounded-[1.75rem] border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8">
+    <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--detail-accent)]">A good fit when</p>
+    <ul class="mt-5 space-y-3" role="list">
+      {suitableFor.map((item) => <li class="flex gap-3 text-sm leading-relaxed text-[var(--text-muted)]"><span class="font-black text-[var(--detail-accent)]" aria-hidden="true">→</span>{item}</li>)}
+    </ul>
+  </article>
+  <article class="rounded-[1.75rem] border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8">
+    <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--detail-accent)]">What we need from the client</p>
+    <ul class="mt-5 space-y-3" role="list">
+      {responsibilities.map((item) => <li class="flex gap-3 text-sm leading-relaxed text-[var(--text-muted)]"><span class="font-black text-[var(--detail-accent)]" aria-hidden="true">✓</span>{item}</li>)}
+    </ul>
+  </article>
+  <p class="lg:col-span-2 rounded-2xl border border-amber-500/30 bg-amber-500/[0.07] p-5 text-xs leading-relaxed text-[var(--text-muted)]"><strong class="text-[var(--text)]">Important:</strong> {disclaimer}</p>
+</section>
+
+<section aria-labelledby="service-faq-title">
+  <h2 id="service-faq-title" class="font-heading text-3xl font-bold text-[var(--text)]">Frequently asked questions</h2>
+  <div class="mt-7 space-y-3">
+    {faqs.map((faq) => (
+      <details class="group rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]">
+        <summary class="flex min-h-14 cursor-pointer items-center justify-between gap-4 px-5 py-4 font-heading text-base font-bold text-[var(--text)] marker:content-none">
+          {faq.question}<span class="text-[var(--detail-accent)] transition-transform group-open:rotate-45" aria-hidden="true">＋</span>
+        </summary>
+        <p class="px-5 pb-5 text-sm leading-relaxed text-[var(--text-muted)]">{faq.answer}</p>
+      </details>
+    ))}
+  </div>
+</section>

@@ -2,6 +2,8 @@
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import ServicesCloud from '../components/ServicesCloud.astro';
+import InternationalPrivacyNotice from '../components/international/InternationalPrivacyNotice.astro';
+import JurisdictionCompliance from '../components/international/JurisdictionCompliance.astro';
 import type { CountryData } from '../data/countries';
 import { serviceSchema, faqSchema, breadcrumbSchema } from '../utils/schema';
 
@@ -17,8 +19,8 @@ interface Props {
 
 const {
   country,
-  title = `Outsource Web Design to India from ${country.name} | eLan Technology`,
-  description = `Affordable, high-quality web design & development for ${country.name} businesses. Save ${country.costComparison.savings} vs local agencies. WCAG compliant. Since 2002.`,
+  title = `Web Development Partner in India for ${country.name} Businesses | eLan Technology`,
+  description = `Web design, ecommerce, accessibility-first development and remote delivery for ${country.name} businesses from eLan Technology's India studio.`,
   canonical,
   ogImage,
   noindex,
@@ -36,8 +38,10 @@ const breadcrumbs = [
 // Build schemas - Service schema for international (not LocalBusiness)
 const svc = serviceSchema(
   `Web Design & Development Services for ${country.name}`,
-  `Professional web design, development, and digital marketing services for ${country.name} businesses. Save ${country.costComparison.savings} compared to local ${country.name} agencies.`,
-  `https://elan-tech.net${pageUrl}`
+  `Web design, development, ecommerce and accessibility services for ${country.name} businesses, delivered remotely from eLan Technology's India studio.`,
+  `https://elan-tech.net${pageUrl}`,
+  country.name,
+  country.code === 'EU' ? 'AdministrativeArea' : 'Country'
 );
 const faq = country.faq.length > 0 ? faqSchema(country.faq) : null;
 const crumbSchema = breadcrumbSchema(
@@ -50,7 +54,7 @@ const allSchemas = [svc, crumbSchema, ...(faq ? [faq] : []), ...extraSchema];
   title={title}
   description={description}
   canonical={canonical ?? `https://elan-tech.net${pageUrl}`}
-  ogImage={ogImage}
+  ogImage={ogImage ?? '/images/og/international.png'}
   schema={allSchemas}
   noindex={noindex}
 >
@@ -75,11 +79,11 @@ const allSchemas = [svc, crumbSchema, ...(faq ? [faq] : []), ...extraSchema];
       </p>
 
       <h1 class="font-heading text-4xl font-bold leading-tight text-[var(--text)] sm:text-5xl lg:text-6xl">
-        Web Design & Development for {country.name}
+        Web Development Partner for {country.name} Businesses
       </h1>
 
       <p class="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-[var(--text-dim)]">
-        High-quality websites at a fraction of {country.name} agency prices. Save {country.costComparison.savings} with India's most experienced web design company.
+        Plan, design and improve business websites with an experienced India-based team. Scope, ownership, testing, delivery and ongoing costs are agreed in writing for every engagement.
       </p>
 
       <!-- Key stats -->
@@ -109,6 +113,9 @@ const allSchemas = [svc, crumbSchema, ...(faq ? [faq] : []), ...extraSchema];
       </div>
     </div>
   </section>
+
+  <InternationalPrivacyNotice country={country} />
+  <JurisdictionCompliance country={country} />
 
   <!-- Page content -->
   <slot />

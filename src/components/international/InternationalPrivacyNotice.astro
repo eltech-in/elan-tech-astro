@@ -1,0 +1,50 @@
+---
+import type { CountryData } from '../../data/countries';
+
+interface Props {
+  country: CountryData;
+}
+
+const { country } = Astro.props;
+---
+
+<section class="border-y border-[var(--border)] bg-[var(--bg-card)] px-4 py-14 sm:px-6 lg:px-8" aria-labelledby={`${country.slug}-privacy-title`}>
+  <div class="mx-auto max-w-7xl">
+    <div class="relative overflow-hidden rounded-3xl border border-[var(--border)] p-6 sm:p-8 lg:p-10" style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-cyan) 10%, var(--bg)) 0%, var(--bg) 68%);">
+      <span aria-hidden="true" class="absolute inset-x-0 top-0 h-1 bg-[var(--ac-cyan)]"></span>
+      <div class="relative grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--ac-cyan)]">Privacy for cross-border enquiries</p>
+          <h2 id={`${country.slug}-privacy-title`} class="mt-3 font-heading text-2xl font-bold leading-tight text-[var(--text)] sm:text-3xl">
+            Know what happens before you share project information
+          </h2>
+          <p class="mt-4 text-sm leading-relaxed text-[var(--text-dim)]">
+            This page is informational and has no enquiry or newsletter form. Quote, audit and consultation links open dedicated pages that explain their fields, purpose, providers and retention before submission.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="/privacy-policy/" class="inline-flex min-h-11 items-center rounded-full bg-[var(--accent)] px-5 py-2.5 text-sm font-bold text-white transition-opacity hover:opacity-90">Privacy policy</a>
+            <a href="/cookie-policy/" class="inline-flex min-h-11 items-center rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-5 py-2.5 text-sm font-bold text-[var(--text)] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]">Cookie policy</a>
+          </div>
+        </div>
+
+        <ul class="grid gap-4 sm:grid-cols-2" role="list">
+          {[
+            { title: 'What to share initially', text: 'Use business contact details and a concise requirement. Do not send passwords, payment credentials, customer lists, patient or employee records, or confidential production data through an initial enquiry.' },
+            { title: 'Communication providers', text: 'Email, phone and WhatsApp open only when selected. WhatsApp is then governed by Meta’s terms. Choosing a contact channel does not automatically subscribe you to marketing.' },
+            { title: 'Analytics and cookies', text: 'Necessary preference storage may operate, while optional Google Analytics and Microsoft Clarity remain off until the visitor allows analytics through the site’s privacy controls.' },
+            { title: 'International project delivery', text: `If a ${country.name} organisation appoints our India-based team, the proposal or contract should identify authorised access, hosting and service providers, project tools, data locations, security, retention, handover and any required international-transfer terms.` },
+          ].map((item, index) => (
+            <li class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/85 p-5">
+              <span class="text-[10px] font-black uppercase tracking-[0.16em] text-[var(--ac-cyan)]">{String(index + 1).padStart(2, '0')}</span>
+              <h3 class="mt-2 font-heading text-sm font-bold text-[var(--text)]">{item.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">{item.text}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <p class="relative mt-6 border-t border-[var(--border)] pt-5 text-xs leading-relaxed text-[var(--text-muted)]">
+        eLan Technology is based in Nagpur, India and does not claim an office in {country.name}. This page is general service information, not local legal advice or a guarantee of accessibility conformance, search rankings, savings, delivery time or commercial results. Privacy questions, access or correction requests and grievances can be sent to <a href={`mailto:privacy@elan-tech.net?subject=${encodeURIComponent(`${country.name} service privacy question`)}`} class="font-semibold text-[var(--accent)] underline underline-offset-2">privacy@elan-tech.net</a>.
+      </p>
+    </div>
+  </div>
+</section>

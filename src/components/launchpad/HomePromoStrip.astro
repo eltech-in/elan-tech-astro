@@ -1,101 +1,85 @@
 ---
-// HomePromoStrip - server-side date-gated promo strip for the homepage.
-// Renders nothing after OFFER_END; no client JS required.
-// Placed after the Stats section, before the logo carousel.
-
-import { PLANS, OFFER_END, FINAL_OFFER_LABEL } from '../../data/digitalLaunchpad';
-
-const now = new Date();
-const isActive = now <= OFFER_END;
-
-// Format with Indian comma style
-function fmt(n: number) {
-  return n.toLocaleString('en-IN');
-}
+// Homepage showcase for DigiBizID. The retired campaign source remains in the
+// repository as a reusable backup, but it is intentionally not rendered.
 ---
 
-{isActive && (
-  <section
-    aria-label="Digital Launchpad limited-time offer"
-    class="relative overflow-hidden border-y"
-    style="border-color: rgba(242,103,34,0.30); background: linear-gradient(135deg, rgba(242,103,34,0.10) 0%, rgba(29,59,109,0.12) 50%, rgba(242,103,34,0.08) 100%);"
-  >
-    <!-- Decorative blobs -->
-    <span
-      aria-hidden="true"
-      class="pointer-events-none absolute -left-20 top-1/2 -translate-y-1/2 h-48 w-48 rounded-full opacity-[0.08] blur-3xl"
-      style="background:#F26722;"
-    ></span>
-    <span
-      aria-hidden="true"
-      class="pointer-events-none absolute -right-20 top-1/2 -translate-y-1/2 h-48 w-48 rounded-full opacity-[0.06] blur-3xl"
-      style="background:#3B82F6;"
-    ></span>
+<section aria-labelledby="launch-showcase-heading" class="launch-showcase relative overflow-hidden border-y border-[var(--border)] bg-[var(--bg)] py-12 sm:py-16">
+  <div aria-hidden="true" class="showcase-orb showcase-orb-one"></div>
+  <div aria-hidden="true" class="showcase-orb showcase-orb-two"></div>
 
-    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-7 md:py-8">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-
-        <!-- Left: label + headline -->
-        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left">
-          <!-- Fire pill -->
-          <div
-            class="shrink-0 flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold uppercase tracking-widest"
-            style="background:#F26722; color:#1a0800;"
-          >
-            🔥 <span>New</span>
-          </div>
-          <div>
-            <p class="font-heading text-base sm:text-lg font-bold text-[var(--text)] leading-snug">
-              Digital Launchpad - Complete Website from ₹{fmt(PLANS[0].price)}
-            </p>
-            <p class="mt-0.5 text-sm text-[var(--text-dim)]">
-              Domain · Hosting · SSL · 4-year maintenance · WhatsApp button.
-              <span class="font-semibold" style="color:var(--orange-text);">
-                {FINAL_OFFER_LABEL}
-              </span>
-            </p>
-          </div>
-        </div>
-
-        <!-- Centre: plan price pills -->
-        <div class="flex flex-wrap justify-center gap-2 shrink-0">
-          {PLANS.map((plan) => (
-            <a
-              href="/pricing/digital-launchpad/"
-              class="flex flex-col items-center rounded-xl border px-4 py-2.5 text-center transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
-              style={plan.featured
-                ? 'border-color:rgba(242,103,34,0.7); background:rgba(242,103,34,0.12);'
-                : 'border-color:rgba(242,103,34,0.25); background:rgba(242,103,34,0.05);'}
-            >
-              <span class="text-base" aria-hidden="true">{plan.emoji}</span>
-              <span class="text-[10px] font-semibold text-[var(--text-muted)] mt-0.5 whitespace-nowrap">{plan.name.replace('eLan ', '')}</span>
-              <span class="font-heading text-sm font-bold mt-0.5" style="color:var(--orange-text);">₹{fmt(plan.price)}</span>
-              {plan.featured && (
-                <span class="mt-1 rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider" style="background:#F26722;color:#1a0800;">Popular</span>
-              )}
-            </a>
-          ))}
-        </div>
-
-        <!-- Right: CTAs -->
-        <div class="flex flex-col sm:flex-row items-center gap-3 shrink-0">
-          <a
-            href="/pricing/digital-launchpad/"
-            class="shrink-0 rounded-full px-6 py-3 text-sm font-bold transition-all duration-200 hover:opacity-90 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 whitespace-nowrap"
-            style="background:#F26722;color:#1a0800;min-height:44px;display:inline-flex;align-items:center;outline-color:#1a0800;"
-          >
-            Reserve a Slot →
-          </a>
-          <a
-            href="/schedule-consultation/"
-            class="shrink-0 rounded-full border px-6 py-3 text-sm font-bold transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 whitespace-nowrap"
-            style="border-color:rgba(242,103,34,0.5);color:var(--text);min-height:44px;display:inline-flex;align-items:center;outline-color:#1a0800;"
-          >
-            Schedule a Meeting
-          </a>
-        </div>
-
-      </div>
+  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-8 max-w-2xl">
+      <p class="text-xs font-extrabold uppercase tracking-[0.2em] text-[var(--accent)]">An eLan Technology venture</p>
+      <h2 id="launch-showcase-heading" class="mt-3 font-heading text-3xl font-extrabold leading-tight text-[var(--text)] sm:text-4xl">Make every business introduction count.</h2>
+      <p class="mt-3 text-base leading-relaxed text-[var(--text-dim)]">Give your contact details, profile and important links one polished digital home.</p>
     </div>
-  </section>
-)}
+
+    <div class="grid gap-5">
+      <article class="offer-card digibiz-card group relative isolate flex min-h-[26rem] flex-col overflow-hidden rounded-[1.75rem] border p-6 sm:p-8 lg:p-10">
+        <div class="card-grid pointer-events-none absolute inset-0" aria-hidden="true"></div>
+        <div class="digibiz-glow pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full" aria-hidden="true"></div>
+        <div class="qr-motif pointer-events-none absolute right-7 top-24 hidden grid-cols-3 gap-1.5 opacity-20 sm:grid" aria-hidden="true">
+          {Array.from({ length: 9 }).map((_, index) => <span class:list={['h-5 w-5 rounded-[4px] bg-white', { 'opacity-30': [1, 3, 5, 7].includes(index) }]}></span>)}
+        </div>
+
+        <div class="relative flex h-full flex-1 flex-col">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <span class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.16em] text-white backdrop-blur-md"><span aria-hidden="true">✦</span> eLan Technology venture</span>
+            <span class="text-[11px] font-extrabold uppercase tracking-[0.13em] text-blue-100">Digital business identity</span>
+          </div>
+
+          <div class="mt-8">
+            <p class="text-xs font-extrabold uppercase tracking-[0.18em] text-cyan-200">DigiBizID</p>
+            <h3 class="mt-3 max-w-lg font-heading text-3xl font-black leading-[1.08] text-white sm:text-[2.35rem]">One smart identity for every business connection.</h3>
+            <p class="mt-4 max-w-xl text-sm leading-relaxed text-blue-100 sm:text-base">Share your contact details, profile and important business links through one mobile-friendly page and a scannable QR code.</p>
+          </div>
+
+          <div class="mt-6 flex flex-wrap gap-2" aria-label="DigiBizID highlights">
+            <span class="digibiz-pill">Digital business profile</span>
+            <span class="digibiz-pill">Easy QR sharing</span>
+            <span class="digibiz-pill">Made for mobile</span>
+          </div>
+
+          <div class="mt-auto pt-8">
+            <p class="mb-5 max-w-md text-sm font-semibold leading-relaxed text-white">A polished, memorable way to introduce yourself and keep your business details within easy reach.</p>
+            <div class="flex flex-col gap-3 sm:flex-row">
+              <a href="/ventures/digibizid/" class="card-action digibiz-action">Discover DigiBizID <span aria-hidden="true">→</span></a>
+              <a href="https://elanvcard.elantech.cloud/" target="_blank" rel="noopener noreferrer" class="card-secondary digibiz-secondary">Visit Website <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .launch-showcase { background-image: linear-gradient(135deg, color-mix(in srgb, var(--accent) 4%, var(--bg)), var(--bg) 42%, color-mix(in srgb, #3157d5 5%, var(--bg))); }
+  .showcase-orb { position: absolute; border-radius: 9999px; filter: blur(80px); pointer-events: none; }
+  .showcase-orb-one { left: -8rem; top: 0; width: 20rem; height: 20rem; background: rgba(249, 115, 22, 0.09); }
+  .showcase-orb-two { right: -7rem; bottom: -5rem; width: 22rem; height: 22rem; background: rgba(37, 99, 235, 0.09); }
+  .offer-card { transition: transform 240ms ease, box-shadow 240ms ease; }
+  .offer-card:hover { transform: translateY(-4px); }
+  .launchpad-card { border-color: rgba(234, 88, 12, 0.25); background: linear-gradient(145deg, #fff9f1 0%, #fff1de 52%, #ffd7aa 100%); box-shadow: 0 20px 45px rgba(154, 52, 18, 0.13); }
+  .launchpad-card:hover { box-shadow: 0 26px 55px rgba(154, 52, 18, 0.19); }
+  .digibiz-card { border-color: rgba(96, 165, 250, 0.38); background: linear-gradient(145deg, #172554 0%, #1d4ed8 58%, #4f46e5 100%); box-shadow: 0 20px 45px rgba(30, 64, 175, 0.22); }
+  .digibiz-card:hover { box-shadow: 0 26px 58px rgba(30, 64, 175, 0.29); }
+  .card-grid { opacity: 0.35; background-image: linear-gradient(rgba(255,255,255,.16) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.16) 1px, transparent 1px); background-size: 28px 28px; mask-image: linear-gradient(135deg, transparent 10%, black 90%); }
+  .launchpad-card .card-grid { background-image: linear-gradient(rgba(145,69,20,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(145,69,20,.08) 1px, transparent 1px); }
+  .launchpad-sun { background: rgba(251, 146, 60, 0.32); filter: blur(4px); }
+  .digibiz-glow { background: rgba(34, 211, 238, 0.22); filter: blur(5px); }
+  .feature-pill, .digibiz-pill { display: inline-flex; min-height: 2.25rem; align-items: center; border-radius: .7rem; padding: .45rem .7rem; font-size: .72rem; font-weight: 750; }
+  .feature-pill { border: 1px solid rgba(154,52,18,.16); background: rgba(255,255,255,.58); color: #4a2b1c; }
+  .feature-pill::before { content: '✓'; margin-right: .4rem; color: #047857; font-weight: 900; }
+  .digibiz-pill { border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.1); color: #fff; backdrop-filter: blur(8px); }
+  .digibiz-pill::before { content: '✓'; margin-right: .4rem; color: #67e8f9; font-weight: 900; }
+  .card-action, .card-secondary { display: inline-flex; min-height: 3rem; align-items: center; justify-content: center; gap: .5rem; border-radius: .8rem; padding: .7rem 1.15rem; font-size: .84rem; font-weight: 800; transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease; }
+  .card-action:hover, .card-secondary:hover { transform: translateY(-2px); }
+  .card-action:focus-visible, .card-secondary:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+  .launchpad-action { background: #17213d; color: #fff; box-shadow: 0 10px 24px rgba(23,33,61,.2); }
+  .launchpad-secondary { border: 1px solid rgba(74,43,28,.24); background: rgba(255,255,255,.45); color: #342219; }
+  .digibiz-action { background: #fff; color: #183a9e; box-shadow: 0 10px 25px rgba(3,7,18,.2); }
+  .digibiz-secondary { border: 1px solid rgba(255,255,255,.3); background: rgba(255,255,255,.1); color: #fff; }
+  @media (max-width: 639px) { .offer-card { min-height: 0; } }
+  @media (prefers-reduced-motion: reduce) { .offer-card, .card-action, .card-secondary { transition: none; } }
+</style>

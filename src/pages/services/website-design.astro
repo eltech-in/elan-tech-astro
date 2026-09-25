@@ -9,23 +9,23 @@ const service = services.find((s) => s.slug === 'website-design')!;
 const serviceFaqs = [
   {
     question: 'How long does a website design project take?',
-    answer: 'Most website design projects take 4–8 weeks from kickoff to launch, depending on the scope. A standard 5–8 page business website typically takes 4–6 weeks. Larger projects with custom functionality, e-commerce integration, or complex animations may take 8–12 weeks. We provide a detailed timeline during the discovery phase.',
+    answer: 'A website design project can often take 4–8 weeks, but the agreed schedule depends on page count, content readiness, review turnaround, integrations, accessibility evidence and functional scope. The proposal records the working timeline, client dependencies and change process before work begins.',
   },
   {
     question: 'Do you use templates or custom designs?',
-    answer: 'Every website we design is 100% custom - no page builders, no off-the-shelf templates. Our designers create original mockups in Figma tailored specifically to your brand, audience, and goals. This ensures your website stands out from competitors and perfectly reflects your business identity.',
+    answer: 'We can provide an original interface and component system, customise an appropriate theme or work within an existing platform when that is the better business decision. The proposal states whether the engagement includes custom design, a licensed theme, page-builder work or adaptation of an existing system, together with relevant licence terms.',
   },
   {
     question: 'Will my website be mobile-responsive?',
-    answer: 'Absolutely. We follow a mobile-first design approach, which means your website is designed for small screens first and then progressively enhanced for tablets and desktops. Every design is tested across 10+ device and browser combinations before launch, ensuring a flawless experience for all users.',
+    answer: 'Responsive behaviour is included in the agreed design and tested across the representative browsers, devices and viewport sizes listed for the project. No website can be guaranteed flawless on every historic or future device, so required browser support and acceptance criteria are confirmed in the scope.',
   },
   {
     question: 'Do you offer website redesign services?',
-    answer: 'Yes. Redesigning an existing website is one of our most common engagements. We begin with a comprehensive audit of your current site - reviewing performance, SEO, user experience, and conversion rates. This data informs the new design so that you gain measurably better results, not just a prettier interface.',
+    answer: 'Yes. A redesign can begin with a review of the current website’s content, accessibility, performance, search visibility and user journeys. The resulting priorities inform the proposed design, but traffic, ranking, enquiry and conversion outcomes depend on many factors and are not guaranteed.',
   },
   {
     question: 'What happens after the website is launched?',
-    answer: 'Every project includes a 30-day post-launch support window where we fix any bugs, address feedback, and make minor adjustments at no additional cost. After that, we offer structured maintenance plans (Basic, Standard, Premium) covering security updates, speed optimization, content edits, backups, and uptime monitoring.',
+    answer: 'The accepted proposal defines any included defect-support window, content adjustments, response route and exclusions. Ongoing maintenance can be quoted separately for updates, backups, monitoring, security work and agreed content changes.',
   },
 ];
 
@@ -87,16 +87,16 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
   <!-- ── WHAT'S INCLUDED ───────────────────────────────────────────────────── -->
   <section class="mb-16">
     <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-2">What's Included in Our {service.shortTitle} Services</h2>
-    <p class="text-[var(--text-muted)] mb-8">Every engagement is tailored to your goals, but here's what you can expect as standard from our website design service.</p>
+    <p class="text-[var(--text-muted)] mb-8">Every engagement is tailored to your goals. The accepted proposal confirms which of these capabilities, deliverables and review stages are included.</p>
     <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
       {[
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>', name: 'UI/UX Design', desc: 'We design intuitive interfaces backed by user research and usability best practices. Every screen is optimised for conversion and ease of navigation, reducing bounce rates and increasing engagement.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>', name: 'Responsive Design', desc: 'Your website will look and function perfectly on every device - mobile, tablet, laptop, and widescreen. We use a mobile-first approach to ensure the smallest screens are prioritised, where most traffic originates.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>', name: 'Wireframing & Prototyping', desc: 'Before any visual design begins, we map out the full user journey through detailed wireframes and interactive Figma prototypes. This saves time, reduces rework, and aligns stakeholders early in the process.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>', name: 'Landing Page Design', desc: 'High-converting landing pages for PPC campaigns, product launches, or lead generation. We apply proven conversion design principles - clear CTAs, trust signals, and minimal friction - to maximise your return on ad spend.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0118.8-4.3M22 12.5a10 10 0 01-18.8 4.2"/></svg>', name: 'Redesign & Revamp', desc: "If your existing website looks dated or underperforms, we offer comprehensive redesign services. We audit your current site's UX, SEO, and performance before designing a replacement that retains what works and fixes what doesn't." },
+        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>', name: 'UI/UX Design', desc: 'We design interfaces around the agreed audience, content and user journeys. Where research or testing is included, its participants, method, personal-data use and success measures are documented in advance.' },
+        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>', name: 'Responsive Design', desc: 'Layouts are designed for representative mobile, tablet, laptop and wide-screen contexts. The proposal identifies supported browsers, viewports and any device-specific journeys requiring additional testing.' },
+        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>', name: 'Wireframing & Prototyping', desc: 'Where included, wireframes and interactive prototypes help confirm information architecture and user flows before development. Client review and approval points are defined in the project plan.' },
+        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>', name: 'Landing Page Design', desc: 'Landing pages can support campaigns, product launches or lead generation with clear actions and appropriate disclosures. Advertising return, enquiries and conversion improvements depend on the offer, audience, traffic and campaign operation.' },
+        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0118.8-4.3M22 12.5a10 10 0 01-18.8 4.2"/></svg>', name: 'Redesign & Revamp', desc: "A redesign can include a scoped review of the existing website’s user experience, accessibility, search foundations and performance. Existing content, URLs, analytics and integrations are migrated only as agreed." },
         { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>', name: 'Design Systems', desc: 'For growing businesses and products, we build scalable design systems in Figma - consistent component libraries, typography scales, colour tokens, and spacing guidelines that keep your brand coherent across every touchpoint.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>', name: 'WCAG 2.1 AA Compliance', desc: 'Every website we design meets WCAG 2.1 Level AA accessibility standards - colour contrast, keyboard navigation, ARIA labels, and screen reader support. This protects you legally and broadens your potential audience.' },
+        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>', name: 'Accessibility-First Design', desc: 'We consider colour contrast, keyboard use, clear labels and screen-reader behaviour throughout the design process. Formal WCAG conformance testing can be included when the project requires documented evidence.' },
         { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>', name: 'Brand-Aligned Visual Design', desc: 'We don\'t just design websites - we design brand experiences. Your website will reflect your visual identity, tone of voice, and values, creating a cohesive impression across every page and interaction.' },
       ].map(({ icon, name, desc }) => (
         <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
@@ -110,20 +110,20 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
 
   <!-- ── WHY CUSTOM BEATS TEMPLATES ────────────────────────────────────────── -->
   <section class="mb-16 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 md:p-10">
-    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-4">Why Custom Design Beats Templates</h2>
-    <p class="text-[var(--text-muted)] mb-8">Template-based sites may seem cost-effective, but they come with hidden trade-offs that affect your brand, SEO, and long-term growth.</p>
+    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-4">Custom Design or a Carefully Chosen Template?</h2>
+    <p class="text-[var(--text-muted)] mb-8">Both can be valid. We recommend the approach that fits the approved budget, brand needs, content, required ownership, accessibility work and future change requirements.</p>
     <div class="grid gap-6 md:grid-cols-3">
       <div class="rounded-xl bg-[var(--bg)] border border-[var(--border)] p-5">
         <h3 class="font-heading text-base font-semibold text-[var(--text)] mb-2">Brand Differentiation</h3>
-        <p class="text-sm text-[var(--text-muted)]">When hundreds of businesses use the same template, you blend in rather than stand out. Custom design gives you a unique visual identity that competitors cannot easily replicate. Your website becomes a genuine extension of your brand rather than a digital brochure that looks like everyone else's.</p>
+        <p class="text-sm text-[var(--text-muted)]">Custom design offers more control over visual identity and user journeys. A well-selected and properly customised template can still be appropriate when time, budget or platform constraints are more important than complete visual differentiation.</p>
       </div>
       <div class="rounded-xl bg-[var(--bg)] border border-[var(--border)] p-5">
         <h3 class="font-heading text-base font-semibold text-[var(--text)] mb-2">Performance & Speed</h3>
-        <p class="text-sm text-[var(--text-muted)]">Templates are built for general use cases and carry significant bloat - unused CSS, JavaScript, and plugins that slow your site down. Custom-built websites contain only what your project needs, resulting in faster load times, better Core Web Vitals scores, and improved SEO rankings.</p>
+        <p class="text-sm text-[var(--text-muted)]">Some themes include unused code or plugins, while others are efficient. Performance depends on implementation, hosting, media, scripts and ongoing content—not simply whether a template was used. Performance targets should be agreed and tested.</p>
       </div>
       <div class="rounded-xl bg-[var(--bg)] border border-[var(--border)] p-5">
         <h3 class="font-heading text-base font-semibold text-[var(--text)] mb-2">Scalability & Control</h3>
-        <p class="text-sm text-[var(--text-muted)]">As your business evolves, your website needs to evolve with it. Custom designs are architecturally flexible - adding features, changing layouts, or integrating new systems is straightforward. With a template, you're at the mercy of the template vendor's roadmap and update cycles.</p>
+        <p class="text-sm text-[var(--text-muted)]">A custom system may provide greater architectural control, while a maintained commercial theme can reduce initial effort. We identify licences, vendor dependencies, ownership, update responsibilities and foreseeable integration limits before recommending either route.</p>
       </div>
     </div>
   </section>
@@ -131,11 +131,11 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
   <!-- ── PORTFOLIO TEASER ──────────────────────────────────────────────────── -->
   <section class="mb-16">
     <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-2">Projects We're Proud Of</h2>
-    <p class="text-[var(--text-muted)] mb-8">A glimpse into work we've delivered - each project uniquely designed, each outcome measurably better.</p>
+    <p class="text-[var(--text-muted)] mb-8">Examples of delivered work. Each description reflects that project’s scope and is not a promise of identical outcomes.</p>
     <div class="grid gap-6 md:grid-cols-3">
       {[
-        { client: 'Trimit Architects', outcome: 'A sophisticated portfolio website for a Nagpur-based architecture firm, featuring full-screen project galleries, smooth page transitions, and a design language that reflects the precision and artistry of their practice. Enquiry rate improved significantly post-launch.' },
-        { client: 'Aasthaa Hospital', outcome: 'A WCAG 2.1 AA compliant healthcare website for a multi-specialty hospital, designed for clarity and patient trust. Features include department pages, doctor profiles, online appointment booking, and a resource centre for health information.' },
+        { client: 'Trimit Architects', outcome: 'A portfolio website for a Nagpur-based architecture firm, featuring project galleries, page transitions and a visual system designed around the studio’s work.' },
+        { client: 'Aasthaa Hospital', outcome: 'A healthcare website designed for clarity and patient trust, with department pages, doctor profiles, appointment enquiries and health information.' },
         { client: 'CIPL', outcome: 'A B2B corporate website for an industrial products company, designed to communicate technical expertise and support a national sales team. Custom product catalogue with filtering, downloadable spec sheets, and a lead generation system integrated with CRM.' },
       ].map(({ client, outcome }) => (
         <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
@@ -152,10 +152,10 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
     <p class="text-[var(--text-muted)] mb-8">A clear, collaborative four-phase approach that keeps you informed and in control throughout the project.</p>
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {[
-        { n: '1', title: 'Discovery & Strategy', desc: 'We conduct stakeholder interviews, competitive analysis, and user research to build a solid brief. We define goals, personas, sitemap, and success metrics before any design work begins.' },
+        { n: '1', title: 'Discovery & Strategy', desc: 'The agreed discovery can cover stakeholder input, comparable websites, audiences, content, sitemap and success measures. Personal data used for research or testing must have a documented purpose and appropriate participant notice.' },
         { n: '2', title: 'Design & Planning', desc: 'Wireframes establish information architecture and user flows. High-fidelity Figma mockups follow, complete with interactive prototypes you can click through and share with stakeholders for feedback.' },
-        { n: '3', title: 'Development & Testing', desc: 'Designs are coded into pixel-perfect, responsive HTML/CSS/JS and integrated with your CMS. We run WCAG audits, cross-browser tests, performance checks, and load-time optimisations before anything goes live.' },
-        { n: '4', title: 'Launch & Support', desc: 'We handle deployment, redirect mapping, DNS updates, and post-launch monitoring. Our 30-day support window ensures any post-launch issues are resolved quickly. Maintenance plans available thereafter.' },
+        { n: '3', title: 'Development & Testing', desc: 'Approved designs are implemented for the selected platform. The scope identifies responsive, browser, accessibility and performance testing, along with the acceptance criteria and any documented evidence required.' },
+        { n: '4', title: 'Launch & Support', desc: 'The agreed launch can cover deployment, redirects, DNS, backups and post-launch checks. Included defect support, content changes and any continuing maintenance are defined in the proposal.' },
       ].map(({ n, title, desc }) => (
         <div class="relative rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
           <div class="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-full font-heading text-sm font-bold text-white" style="background: var(--ac-pink);">{n}</div>
@@ -164,6 +164,41 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
         </div>
       ))}
     </div>
+  </section>
+
+  <!-- ── DESIGN DATA & CONTENT RESPONSIBILITIES ──────────────────────────── -->
+  <section class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 md:p-9" aria-labelledby="design-privacy-title">
+    <div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[0.18em]" style="color: var(--ac-pink);">Privacy-aware website design</p>
+        <h2 id="design-privacy-title" class="mt-3 font-heading text-2xl font-bold leading-tight text-[var(--text)] md:text-3xl">Content, forms and tracking need decisions before design approval.</h2>
+        <p class="mt-4 text-sm leading-relaxed text-[var(--text-muted)]">
+          Visual approval alone is not enough. Before development, the project should identify what personal data the finished website will request, why it is needed, where it goes and how visitors can understand their choices.
+        </p>
+        <a href="/privacy-policy/" class="mt-5 inline-flex min-h-11 items-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--bg)] px-5 py-2.5 text-sm font-bold text-[var(--text)] transition-colors hover:border-[var(--ac-pink)]" style="color: var(--ac-pink);">
+          Read eLan Technology’s privacy policy <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <ul class="grid gap-4 sm:grid-cols-2" role="list">
+        {[
+          { title: 'People and supplied content', text: 'The client confirms it is authorised to provide staff profiles, photographs, testimonials, customer logos and other identifiable content. Private or unnecessary information should not be supplied.' },
+          { title: 'Forms and user journeys', text: 'For each form, define required and optional fields, purpose, recipient, storage location, retention period, acknowledgement, security controls and the appropriate privacy notice.' },
+          { title: 'Analytics, embeds and cookies', text: 'Analytics, advertising tags, videos, maps, booking widgets, chat tools and other third-party content should be inventoried and gated by an appropriate user choice where required.' },
+          { title: 'Research and test data', text: 'User interviews and usability tests should use informed participants and only necessary information. Prototypes, screenshots and test environments should avoid live customer or employee records.' },
+          { title: 'Assets, fonts and licences', text: 'Images, copy, video, fonts, themes and plugins need an identified source and suitable licence. Third-party subscriptions and continuing usage charges are recorded separately.' },
+          { title: 'Handover and future changes', text: 'Handover should identify account ownership, authorised administrators, consent settings, deletion or retention of working files, and who reviews new forms, scripts or integrations added later.' },
+        ].map(item => (
+          <li class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-5">
+            <h3 class="font-heading text-sm font-bold text-[var(--text)]">{item.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{item.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <p class="mt-6 border-t border-[var(--border)] pt-5 text-xs leading-relaxed text-[var(--text-muted)]">
+      Accessibility-first and privacy-aware design reduce avoidable barriers and data collection, but do not by themselves guarantee WCAG, ADA, DPDP, GDPR or other legal compliance. Formal testing, legal review and documented operational processes may need separate scope.
+    </p>
   </section>
 
   <!-- ── FAQ ───────────────────────────────────────────────────────────────── -->
@@ -185,7 +220,7 @@ const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
   <!-- ── CITY LINKS ─────────────────────────────────────────────────────────── -->
   <section class="mb-16">
     <h2 class="font-heading text-xl font-bold text-[var(--text)] md:text-2xl mb-2">Website Design Services Across India</h2>
-    <p class="text-sm text-[var(--text-muted)] mb-6">We serve clients in all major Indian cities with the same quality and commitment as our home base in Nagpur.</p>
+    <p class="text-sm text-[var(--text-muted)] mb-6">We serve clients across Indian cities from our Nagpur studio, with the remote delivery and review process agreed before work begins.</p>
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
       {featuredCities.map((city) => (
         <a

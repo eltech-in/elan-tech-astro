@@ -2,6 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { softwareAppSchema, breadcrumbSchema } from '../../utils/schema';
 import { getProductBySlug, products } from '../../data/products';
+import AnswerSummary from '../../components/AnswerSummary.astro';
+import ProductPrivacyPanel from '../../components/ProductPrivacyPanel.astro';
 
 const product = getProductBySlug('resort-management-system');
 const others = products.filter(p => p.slug !== product.slug);
@@ -23,7 +25,7 @@ const schema = [
 const features = [
   { title: 'Online Room Booking Engine', desc: 'Direct booking with real-time availability, room-type selection, and Razorpay payment gateway to reduce OTA commissions.' },
   { title: 'Occupancy Dashboard', desc: 'Live occupancy rates, upcoming check-ins, room status, and revenue metrics at a glance.' },
-  { title: 'GST Billing & Invoicing', desc: 'Automated bill generation, GST-compliant invoicing, and multi-payment-mode settlement for guests.' },
+  { title: 'Billing & Invoicing', desc: 'Configurable bill generation, invoice fields and multi-payment settlement workflows based on the property’s approved accounting requirements.' },
   { title: 'Housekeeping Management', desc: 'Room assignment for housekeeping staff, cleaning status tracking, and maintenance request workflows.' },
   { title: 'Rate Plan & Seasonal Pricing', desc: 'Configure weekend, peak-season, and package rate plans with automatic calendar-based pricing updates.' },
   { title: 'Multi-Property Dashboard', desc: 'Centralised view across your portfolio of resorts or boutique stays with property-level drill-down.' },
@@ -42,6 +44,7 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'Razorpa
 ---
 
 <BaseLayout
+  ogImage="/images/og/products.png"
   title="Resort & Hotel Property Management System (PMS) India - eLan Technology"
   description="Resort and hotel PMS software with online booking engine, occupancy dashboard, GST billing, housekeeping, rate plans, and multi-property analytics. Built for Indian hospitality."
   schema={schema}
@@ -72,7 +75,7 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'Razorpa
           <span class="h-1.5 w-1.5 rounded-full animate-pulse" style={`background: var(${product.cssVar})`} aria-hidden="true"></span>
           Hospitality Management Software
           <span class="text-white/50">·</span>
-          <span class="text-white/85 normal-case tracking-normal">GST-compliant</span>
+          <span class="text-white/85 normal-case tracking-normal">Configurable workflows</span>
         </span>
 
         <h1 id="rms-h1" class="font-heading text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.05] mb-5 drop-shadow-lg">
@@ -104,6 +107,34 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'Razorpa
     </div>
   </section>
 
+
+  <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <AnswerSummary
+      eyebrow="Product answer"
+      title="How the Resort Management Portal is supplied"
+      intro="The product is available and can be configured around the property’s rooms, rates, booking, billing, housekeeping and operational requirements."
+      accentVar={product.cssVar}
+      items={[
+        { question: 'Is every deployment identical?', answer: 'No. Property setup, booking rules, integrations, permissions and reports follow the approved requirements.' },
+        { question: 'Can it run on our server?', answer: 'Client-server deployment is available. Hosting architecture and technical responsibility are documented before implementation.' },
+        { question: 'What affects delivery?', answer: 'Property complexity, integrations, data migration, custom reports, content readiness and review time determine the schedule.' },
+      ]}
+    />
+  </div>
+
+  <ProductPrivacyPanel
+    title="Control guest, booking, staff and payment-related information"
+    intro="Hospitality workflows can expose guest contact details, stay history, identity information, payment references, staff assignments and operational notes. Access and retention should be designed around front desk, management, housekeeping and support responsibilities."
+    accentVar={product.cssVar}
+    subject="Resort Management Portal privacy enquiry"
+    items={[
+      { title: 'Booking and guest fields', text: 'Collect only information needed for reservations, guest service, billing and applicable legal records. Optional preferences or special requests should have a clear operational purpose.' },
+      { title: 'Payments and identity records', text: 'Payment credentials remain with the selected gateway. Any government-ID or statutory guest records require restricted access, justified retention and appropriate operational controls.' },
+      { title: 'Staff and property access', text: 'Front desk, housekeeping, finance and management receive role-based views. Staff accounts, action logs, exports and access removal should follow the property’s responsibilities.' },
+      { title: 'Notifications and connected services', text: 'Email, SMS, payment, accounting, analytics and channel integrations are enabled only when scoped, with their fields, providers and retention settings documented.' },
+    ]}
+    note="The product can support agreed billing and operational workflows, but it does not independently guarantee tax, hospitality, identity-record or privacy compliance. The property operator should obtain professional advice for its jurisdiction and configure procedures accordingly."
+  />
 
   <!-- ═══ TWO-COLUMN LAYOUT ═══════════════════════════════════════════════ -->
   <section class="bg-[var(--bg)] py-14 md:py-20">
@@ -184,11 +215,11 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'Razorpa
                 </div>
                 <div>
                   <dt class="text-[11px] uppercase tracking-wide text-[var(--text-muted)]">Licensing</dt>
-                  <dd class="font-semibold text-[var(--text)]">One-time purchase · White-label</dd>
+                  <dd class="font-semibold text-[var(--text)]">Defined in your proposal</dd>
                 </div>
                 <div>
                   <dt class="text-[11px] uppercase tracking-wide text-[var(--text-muted)]">Delivery</dt>
-                  <dd class="font-semibold text-[var(--text)]">4–8 weeks typical</dd>
+                  <dd class="font-semibold text-[var(--text)]">Based on approved scope</dd>
                 </div>
                 <div>
                   <dt class="text-[11px] uppercase tracking-wide text-[var(--text-muted)] mb-1.5">Technology</dt>

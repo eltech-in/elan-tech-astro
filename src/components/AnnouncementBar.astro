@@ -2,16 +2,17 @@
 // SSR announcement bar - no React island, no CLS.
 // Dismiss via localStorage is handled by the inline script below.
 // Dark text (#1a0800) on #F26722 orange passes WCAG AA (6.25:1).
-import { OFFER_END, PLANS } from '../data/digitalLaunchpad';
+import { PLANS } from '../data/digitalLaunchpad';
 
-const offerActive = new Date() <= OFFER_END;
 const isLaunchpadPage = Astro.url.pathname.startsWith('/pricing/digital-launchpad');
 const startingPrice = PLANS[0].price.toLocaleString('en-IN');
 ---
 
-{offerActive && !isLaunchpadPage && (
+{!isLaunchpadPage && (
   <div
     id="ann-bar"
+    data-launchpad-offer
+    data-launchpad-upcoming
     role="region"
     aria-label="Digital Launchpad limited-time offer"
     class="relative z-[60] flex items-center justify-center gap-3 px-10 py-2.5 text-sm"
@@ -21,17 +22,15 @@ const startingPrice = PLANS[0].price.toLocaleString('en-IN');
 
     <p class="text-center leading-snug">
       <strong class="font-bold">Digital Launchpad</strong>
-      {' - '}All-in website from ₹{startingPrice}.{' '}
+      <span class="hidden sm:inline"> · One business website plan</span>
+      {' at '}₹{startingPrice} + GST · 14–25 Sep 2026.{' '}
       <a
         href="/pricing/digital-launchpad/"
         class="font-semibold underline underline-offset-2 hover:opacity-70 transition-opacity focus-visible:outline focus-visible:outline-2 rounded-sm"
         style="color: #1a0800; outline-color: #1a0800;"
       >
-        Reserve your slot →
+        View plan →
       </a>
-      <span class="ml-2 text-xs font-medium">
-        Final offer ends 15 Aug 2026.
-      </span>
     </p>
 
     <button
@@ -64,11 +63,11 @@ const startingPrice = PLANS[0].price.toLocaleString('en-IN');
   (function () {
     var bar = document.getElementById('ann-bar');
     if (!bar) return;
-    try { if (localStorage.getItem('lp-bar-final') === '1') { bar.style.display = 'none'; return; } } catch (e) {}
+    try { if (localStorage.getItem('lp-bar-ganesh-2026') === '1') { bar.hidden = true; return; } } catch (e) {}
     var btn = document.getElementById('ann-dismiss');
     if (btn) btn.addEventListener('click', function () {
-      bar.style.display = 'none';
-      try { localStorage.setItem('lp-bar-final', '1'); } catch (e) {}
+      bar.hidden = true;
+      try { localStorage.setItem('lp-bar-ganesh-2026', '1'); } catch (e) {}
     });
   })();
 </script>

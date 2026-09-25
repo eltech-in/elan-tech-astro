@@ -5,12 +5,13 @@ export interface PricingTier {
   name: string;
   tagline: string;
   prices: Record<Currency, number>;
+  customPricing?: boolean;
   features: string[];
   highlighted: boolean; // most popular
   cta: string;
   ctaHref: string;
   deliveryDays: number;
-  revisions: number | 'Unlimited';
+  revisions: number | 'As agreed';
   support: string;
 }
 
@@ -20,7 +21,7 @@ export const pricingTiers: PricingTier[] = [
     name: 'Starter',
     tagline: 'Perfect for small businesses and startups',
     prices: {
-      INR: 16999,
+      INR: 20999,
       USD: 300,
       AUD: 450,
       AED: 1100,
@@ -28,7 +29,7 @@ export const pricingTiers: PricingTier[] = [
       JPY: 45000,
     },
     features: [
-      'Up to 5 Pages',
+      'Up to 10 Pages',
       'Responsive (Mobile-Friendly) Design',
       'Contact Form Integration',
       'Basic On-Page SEO Setup',
@@ -41,7 +42,7 @@ export const pricingTiers: PricingTier[] = [
     cta: 'Get a Quote',
     ctaHref: '/get-quote/',
     deliveryDays: 14,
-    revisions: 3,
+    revisions: 2,
     support: '30 days',
   },
   {
@@ -49,7 +50,7 @@ export const pricingTiers: PricingTier[] = [
     name: 'Professional',
     tagline: 'The complete package for growing businesses',
     prices: {
-      INR: 29999,
+      INR: 30999,
       USD: 720,
       AUD: 1080,
       AED: 2640,
@@ -57,7 +58,7 @@ export const pricingTiers: PricingTier[] = [
       JPY: 108000,
     },
     features: [
-      'Up to 15 Pages',
+      'Up to 20 Pages',
       'Custom UI/UX Design',
       'CMS Integration (WordPress / Headless)',
       'Advanced On-Page SEO',
@@ -73,30 +74,31 @@ export const pricingTiers: PricingTier[] = [
     cta: 'Get a Quote',
     ctaHref: '/get-quote/',
     deliveryDays: 30,
-    revisions: 10,
+    revisions: 4,
     support: '90 days',
   },
   {
     id: 'enterprise',
     name: 'Enterprise',
     tagline: 'Full-scale solutions for large organizations',
+    customPricing: true,
     prices: {
-      INR: 49999,
-      USD: 1440,
-      AUD: 2160,
-      AED: 5280,
-      GBP: 1152,
-      JPY: 216000,
+      INR: 0,
+      USD: 0,
+      AUD: 0,
+      AED: 0,
+      GBP: 0,
+      JPY: 0,
     },
     features: [
-      'Unlimited Pages',
+      'Pages and modules based on final requirements',
       'Custom Design System',
       'Headless CMS / Custom CMS Development',
       'Full SEO Audit & Strategy',
       'Advanced Analytics & Reporting Dashboard',
       'Custom API & Third-Party Integrations',
       'eCommerce / Booking / Portal Features',
-      'Performance Optimization (sub-2s load)',
+      'Performance optimisation for the agreed pages and content',
       'WCAG AA Accessibility Compliance',
       'Security Hardening & Firewall Setup',
       'Daily Automated Backups',
@@ -104,10 +106,10 @@ export const pricingTiers: PricingTier[] = [
       'Dedicated Project Manager',
     ],
     highlighted: false,
-    cta: 'Get a Quote',
-    ctaHref: '/get-quote/',
+    cta: 'Contact for Pricing',
+    ctaHref: '/contact/',
     deliveryDays: 60,
-    revisions: 'Unlimited',
+    revisions: 'As agreed',
     support: '1 year',
   },
 ];

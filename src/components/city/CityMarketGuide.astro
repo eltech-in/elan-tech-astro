@@ -7,7 +7,7 @@ interface Props {
 
 const { city } = Astro.props;
 const needs = city.marketNeeds ?? [];
-const quoteHref = `/get-quote/?city=${encodeURIComponent(city.slug)}&service=web-design`;
+const quoteHref = '/get-quote/';
 ---
 
 {needs.length > 0 && (

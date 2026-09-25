@@ -32,6 +32,9 @@ export default defineConfig({
           '/schedule-consultation',
           '/request-demo',
           '/search',
+          '/blog/category/web-design',
+          '/blog/category/seo',
+          '/pricing/digital-launchpad',
         ]
         return !excluded.some((path) => page.includes(path))
       },
@@ -85,6 +88,13 @@ export default defineConfig({
           return item
         }
 
+        // eLan Technology ventures
+        if (url.includes('/ventures/')) {
+          item.priority = 0.85
+          item.changefreq = ChangeFreqEnum.MONTHLY
+          return item
+        }
+
         // Blog posts: /blog/<category>/<slug>
         if (url.match(/\/blog\/[a-z-]+\/[a-z0-9-]+$/)) {
           item.priority = 0.8
@@ -99,21 +109,9 @@ export default defineConfig({
           return item
         }
 
-        // Portfolio index + case studies
+        // Portfolio index
         if (url.endsWith('/portfolio')) {
           item.priority = 0.75
-          item.changefreq = ChangeFreqEnum.WEEKLY
-          return item
-        }
-        if (url.includes('/portfolio/case-study/')) {
-          item.priority = 0.7
-          item.changefreq = ChangeFreqEnum.MONTHLY
-          return item
-        }
-
-        // Digital Launchpad landing page — campaign priority
-        if (url.endsWith('/pricing/digital-launchpad')) {
-          item.priority = 0.9
           item.changefreq = ChangeFreqEnum.WEEKLY
           return item
         }
@@ -167,7 +165,9 @@ export default defineConfig({
     compressor({
       gzip: true,
       brotli: true,
-      fileExtensions: ['.css', '.js', '.mjs', '.svg', '.xml', '.json'],
+      // XML stays uncompressed in dist so the postbuild step can attach the
+      // human-readable sitemap stylesheet. LiteSpeed compresses it in transit.
+      fileExtensions: ['.css', '.js', '.mjs', '.svg', '.json'],
     }),
   ],
 
@@ -184,6 +184,9 @@ export default defineConfig({
 
   image: {
     service: { entrypoint: 'astro/assets/services/sharp' },
+    // Source SVGs are repository-owned artwork. Allow Astro to rasterise them
+    // into the requested responsive AVIF variants used by blog cards.
+    dangerouslyProcessSVG: true,
   },
 
   redirects: {
@@ -198,13 +201,8 @@ export default defineConfig({
     '/blog/website-development-trends-april-2026': '/blog/technology-trends/website-development-trends-april-2026/',
     '/blog/ai-web-development-2026': '/blog/technology-trends/ai-web-development-2026/',
     '/blog/wcag-explained-business-owners': '/blog/accessibility/wcag-explained-business-owners/',
-    // Renamed / removed case-study slugs
-    '/portfolio/case-study/abhirama': '/portfolio/case-study/abhirama-international/',
-    '/portfolio/case-study/stems': '/portfolio/case-study/stems-flower-studio/',
-    '/portfolio/case-study/sheabm': '/portfolio/',
-    '/portfolio/case-study/zest': '/portfolio/',
-    '/portfolio/case-study/anirwan': '/portfolio/',
     // Old service / audit URLs
+    '/ada-compliant-web-design': '/services/ada-compliant-web-design/',
     '/wcag-accessibility-audit': '/services/ada-compliant-web-design/',
     '/website-audit': '/free-website-audit/',
     '/appointments': '/schedule-consultation/',

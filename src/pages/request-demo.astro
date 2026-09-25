@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import RequestDemoForm from '../islands/RequestDemoForm';
 import { breadcrumbSchema } from '../utils/schema';
 
 const schema = breadcrumbSchema([
@@ -16,6 +17,7 @@ const steps = [
 ---
 
 <BaseLayout
+  ogImage="/images/og/contact.png"
   title="Request a Product Demo - eLan Technology"
   description="Schedule a free 30-minute live demo of our real estate portal, medical conference portal, IMA society portal, or resort management system."
   schema={schema}
@@ -86,109 +88,23 @@ const steps = [
         Book Your Free Demo
       </h2>
       <p class="text-center text-[var(--text-dim)] mb-8">
-        Fill in the form and we'll confirm your session within 24 hrs.
+        Tell us which product you want to explore. We’ll review your request and contact you to arrange a suitable session.
       </p>
 
-      <!-- TODO: RequestDemoForm island (Step 3) -->
-      <form action="/api/demo-request" method="POST" class="space-y-6">
-
-        <fieldset>
-          <legend class="font-semibold text-[var(--text)] mb-3">Which product would you like to see? <span aria-hidden="true">*</span></legend>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <label class="flex items-center gap-3 p-4 rounded-xl border border-[var(--border)] cursor-pointer has-[:checked]:border-[var(--accent)] has-[:checked]:bg-[var(--accent)]/5 transition-colors">
-              <input type="radio" name="product" value="real-estate-portal" required class="accent-[var(--accent)]" />
-              <span class="text-sm font-medium text-[var(--text)]">Real Estate Portal</span>
-            </label>
-            <label class="flex items-center gap-3 p-4 rounded-xl border border-[var(--border)] cursor-pointer has-[:checked]:border-[var(--accent)] has-[:checked]:bg-[var(--accent)]/5 transition-colors">
-              <input type="radio" name="product" value="medical-conference-portal" class="accent-[var(--accent)]" />
-              <span class="text-sm font-medium text-[var(--text)]">Medical Conference Portal</span>
-            </label>
-            <label class="flex items-center gap-3 p-4 rounded-xl border border-[var(--border)] cursor-pointer has-[:checked]:border-[var(--accent)] has-[:checked]:bg-[var(--accent)]/5 transition-colors">
-              <input type="radio" name="product" value="ima-society-portal" class="accent-[var(--accent)]" />
-              <span class="text-sm font-medium text-[var(--text)]">IMA Society Portal</span>
-            </label>
-            <label class="flex items-center gap-3 p-4 rounded-xl border border-[var(--border)] cursor-pointer has-[:checked]:border-[var(--accent)] has-[:checked]:bg-[var(--accent)]/5 transition-colors">
-              <input type="radio" name="product" value="resort-management-system" class="accent-[var(--accent)]" />
-              <span class="text-sm font-medium text-[var(--text)]">Resort Management System</span>
-            </label>
-          </div>
-        </fieldset>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label for="demo-name" class="block text-sm font-medium text-[var(--text)] mb-1">Full Name <span aria-hidden="true">*</span></label>
-            <input
-              id="demo-name"
-              name="name"
-              type="text"
-              required
-              autocomplete="name"
-              class="w-full rounded-lg border border-[var(--border)] bg-[var(--bg)] px-4 py-2.5 text-sm text-[var(--text)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
-            />
-          </div>
-          <div>
-            <label for="demo-email" class="block text-sm font-medium text-[var(--text)] mb-1">Email <span aria-hidden="true">*</span></label>
-            <input
-              id="demo-email"
-              name="email"
-              type="email"
-              required
-              autocomplete="email"
-              class="w-full rounded-lg border border-[var(--border)] bg-[var(--bg)] px-4 py-2.5 text-sm text-[var(--text)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
-            />
-          </div>
-          <div>
-            <label for="demo-phone" class="block text-sm font-medium text-[var(--text)] mb-1">Phone</label>
-            <input
-              id="demo-phone"
-              name="phone"
-              type="tel"
-              autocomplete="tel"
-              class="w-full rounded-lg border border-[var(--border)] bg-[var(--bg)] px-4 py-2.5 text-sm text-[var(--text)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
-            />
-          </div>
-          <div>
-            <label for="demo-company" class="block text-sm font-medium text-[var(--text)] mb-1">Company</label>
-            <input
-              id="demo-company"
-              name="company"
-              type="text"
-              autocomplete="organization"
-              class="w-full rounded-lg border border-[var(--border)] bg-[var(--bg)] px-4 py-2.5 text-sm text-[var(--text)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
-            />
-          </div>
-        </div>
-
-        <div>
-          <label for="demo-notes" class="block text-sm font-medium text-[var(--text)] mb-1">Notes / Questions</label>
-          <textarea
-            id="demo-notes"
-            name="notes"
-            rows={3}
-            class="w-full rounded-lg border border-[var(--border)] bg-[var(--bg)] px-4 py-2.5 text-sm text-[var(--text)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] resize-y"
-          ></textarea>
-        </div>
-
-        <button
-          type="submit"
-          class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[var(--bg)] hover:opacity-90 transition-opacity w-full justify-center"
-        >
-          Request My Demo →
-        </button>
-      </form>
+      <RequestDemoForm client:visible />
     </div>
   </section>
 
 
   <!-- ═══════════════════════════════════════════════════════════════════════
-       RESPONSE PROMISE
+       RESPONSE EXPECTATION
   ════════════════════════════════════════════════════════════════════════ -->
   <section class="bg-[var(--bg-card)] border-t border-[var(--border)] py-10">
     <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
       <div class="flex items-center justify-center gap-3">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--accent)]" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         <p class="text-[var(--text-dim)] text-sm">
-          <strong class="text-[var(--text)]">Response promise:</strong> We confirm your demo within 4 business hours.
+          <strong class="text-[var(--text)]">What happens next:</strong> We review the request and contact you to agree on a suitable demo time.
         </p>
       </div>
     </div>

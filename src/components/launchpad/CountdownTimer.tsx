@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 
-// Target: August 15, 2026 23:59:59 IST (final offer close)
-const OFFER_END = new Date('2026-08-15T23:59:59+05:30');
+// Target: September 25, 2026 23:59:59 IST (Ganesh Chaturthi offer close)
+const OFFER_END = new Date('2026-09-25T23:59:59+05:30');
 
 interface TimeLeft {
   days: number;
@@ -84,7 +84,7 @@ export default function CountdownTimer() {
           fontWeight: 600,
         }}
       >
-        🎉 Offer ends on our 21st Anniversary - Aug 15, 2026
+        🎉 Ganesh Chaturthi offer ends September 25, 2026
       </div>
     );
   }

@@ -10,7 +10,7 @@ const { city } = Astro.props;
 const services = [
   {
     title: `Website Design in ${city.name}`,
-    desc: `Custom, mobile-first website design tailored to ${city.name} businesses. We create visually compelling sites that convert visitors into customers.`,
+    desc: `Custom, mobile-first website design for ${city.name} businesses, shaped around the agreed audience, content and customer journey.`,
     href: '/services/website-design/',
     icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>',
   },
@@ -22,13 +22,13 @@ const services = [
   },
   {
     title: `eCommerce Solutions ${city.name}`,
-    desc: `Online stores with Indian payment gateways (Razorpay, PayU), GST-compliant invoicing, and logistics integrations for ${city.name} retailers.`,
+    desc: `Online stores can include Indian payment gateways, tax workflows and logistics integrations when included in the agreed scope.`,
     href: '/services/ecommerce/',
     icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>',
   },
   {
     title: `SEO & Digital Marketing ${city.name}`,
-    desc: `Local SEO, Google Ads, Meta Ads, and content marketing for ${city.name} businesses. Target local keywords to drive qualified traffic.`,
+    desc: `Local SEO, paid campaigns and content support for ${city.name} businesses, with channels, geography and measurement agreed in writing.`,
     href: '/services/seo/',
     icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>',
   },
@@ -46,9 +46,27 @@ const services = [
   },
   {
     title: 'Maintenance & Security',
-    desc: `Monthly website maintenance, security hardening, SSL, backups, and performance monitoring for ${city.name} businesses from ₹3,999/month.`,
+    desc: `Maintenance can include updates, security hardening, backups and performance monitoring under an agreed service scope.`,
     href: '/services/maintenance-security/',
     icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+  },
+  {
+    title: `Custom CRM & ERP for ${city.name}`,
+    desc: `Custom business workflows and ERPNext customisation for ${city.name} organisations, with roles, migration, integrations and ownership defined in the project scope.`,
+    href: '/services/custom-crm-erp-solutions/',
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="9" y="15" width="6" height="6" rx="1"/><path d="M6 9v2a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9M12 13v2"/></svg>',
+  },
+  {
+    title: 'DPDP Website Implementation',
+    desc: `Form, cookie, analytics, vendor and retention implementation support for ${city.name} businesses preparing their websites and digital workflows for India’s DPDP requirements.`,
+    href: '/services/dpdp-compliance-implementation/',
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>',
+  },
+  {
+    title: 'Headless CMS Development',
+    desc: `Composable content systems for websites and applications, including Payload CMS, Directus, content modelling, editorial permissions, APIs, migration and deployment.`,
+    href: '/services/headless-cms-development/',
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>',
   },
 ];
 ---
@@ -78,7 +96,7 @@ const services = [
       ))}
     </div>
     <p class="mt-8 text-center text-sm text-[var(--text-muted)]">
-      Available in {city.name}: Website Design · Web Development · eCommerce · SEO · Mobile Apps · Branding · Maintenance
+      Available in {city.name}: Website Design · Web Development · eCommerce · CRM & ERP · ERPNext · DPDP Implementation · Headless CMS · Payload CMS · Directus · SEO · Mobile Apps · Branding · Maintenance
     </p>
   </div>
 </section>

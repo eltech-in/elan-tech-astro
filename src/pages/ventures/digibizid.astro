@@ -1,0 +1,203 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AnswerSummary from '../../components/AnswerSummary.astro';
+import { breadcrumbSchema, faqSchema } from '../../utils/schema';
+
+const ventureUrl = '/ventures/digibizid/';
+const ventureSite = 'https://elanvcard.elantech.cloud/';
+
+const features = [
+  'Shareable digital profile and QR code',
+  'Contact-saving and direct action links',
+  'Website and selected social profile links',
+  'Template and branding options based on the selected plan',
+  'Profile updates without reprinting a physical card',
+  'Analytics where included in the selected plan',
+];
+
+const faqs = [
+  {
+    question: 'What is DigiBizID?',
+    answer: 'DigiBizID is an eLan Technology venture offering subscription-based digital business profiles. It brings contact details, business links and selected social profiles together on one shareable page.',
+  },
+  {
+    question: 'When does DigiBizID launch?',
+    answer: 'DigiBizID launched on 14 September 2026. Current plans and service information are available on the venture website at elanvcard.elantech.cloud.',
+  },
+  {
+    question: 'Can people save my contact details?',
+    answer: 'DigiBizID supports contact saving along with direct links for calling, messaging, websites and social profiles, based on the selected plan and completed profile.',
+  },
+  {
+    question: 'Is GST included in the subscription price?',
+    answer: 'No. Applicable GST is charged separately. The DigiBizID website provides the current subscription price and included features.',
+  },
+  {
+    question: 'Can a business use DigiBizID for several team members?',
+    answer: 'Business and team requirements can be discussed with DigiBizID. The number of profiles, branding options and support are confirmed in the selected plan or quotation.',
+  },
+  {
+    question: 'Is the information on a DigiBizID profile public?',
+    answer: 'A published profile is intended to be opened through its link or QR code. Profile owners should publish only approved professional information and should obtain permission before adding another person’s photograph, phone number, email address or other personal details.',
+  },
+  {
+    question: 'Does this eLan Technology page collect my DigiBizID profile details?',
+    answer: 'No. This page explains the venture and does not contain a DigiBizID sign-up or profile form. Selecting Visit DigiBizID opens the separately hosted venture website, where the current privacy notice and service terms apply.',
+  },
+];
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Brand',
+    name: 'DigiBizID',
+    description: 'An eLan Technology venture offering subscription-based digital business profiles for professionals and teams.',
+    url: `https://elan-tech.net${ventureUrl}`,
+    parentOrganization: {
+      '@type': 'Organization',
+      name: 'eLan Technology',
+      url: 'https://elan-tech.net/',
+    },
+  },
+  faqSchema(faqs),
+  breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'eLan Ventures', url: ventureUrl },
+    { name: 'DigiBizID', url: ventureUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title="DigiBizID Digital Business Identity | An eLan Technology Venture"
+  description="DigiBizID is an eLan Technology venture offering shareable digital business profiles with contact details, QR sharing and direct links. Launched 14 September 2026."
+  ogImage="/images/og/products.png"
+  schema={schema}
+>
+  <main>
+    <section class="relative overflow-hidden border-b border-[var(--border)] bg-[var(--bg)] py-16 sm:py-20" aria-labelledby="digibizid-title">
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 opacity-[0.04] [background-image:linear-gradient(var(--text)_1px,transparent_1px),linear-gradient(90deg,var(--text)_1px,transparent_1px)] [background-size:48px_48px]"></div>
+      <div aria-hidden="true" class="pointer-events-none absolute -right-28 -top-32 h-96 w-96 rounded-3xl bg-[var(--ac-blue)]/15 blur-[100px]"></div>
+      <div class="relative mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:px-8">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[0.2em] text-[var(--ac-blue)]">An eLan Technology venture · Launched 14 September 2026</p>
+          <h1 id="digibizid-title" class="mt-4 max-w-3xl font-heading text-4xl font-black leading-tight text-[var(--text)] sm:text-5xl">
+            Your Business Identity, Ready to Share
+          </h1>
+          <p class="mt-5 max-w-2xl text-lg leading-relaxed text-[var(--text-dim)]">
+            DigiBizID gives professionals and teams one mobile-friendly place for their contact details, business links and professional profile. Share it through a link or QR code and update your details without printing a new card.
+          </p>
+          <div class="mt-7 flex flex-wrap gap-3">
+            <a href={ventureSite} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-xl bg-[var(--ac-blue)] px-6 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5">
+              Visit DigiBizID <span aria-hidden="true">↗</span>
+            </a>
+            <a href="/contact/" class="inline-flex items-center rounded-xl border border-[var(--border)] bg-[var(--bg-card)] px-6 py-3 text-sm font-bold text-[var(--text)] transition-colors hover:border-[var(--ac-blue)] hover:text-[var(--ac-blue)]">
+              Ask a Question
+            </a>
+          </div>
+          <p class="mt-4 text-sm text-[var(--text-muted)]">Subscription pricing and applicable GST are shown separately on the DigiBizID website.</p>
+        </div>
+
+        <aside class="relative overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-xl" aria-label="DigiBizID at a glance">
+          <span class="inline-flex rounded-lg bg-[var(--ac-blue)]/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[var(--ac-blue)]">DigiBizID</span>
+          <h2 class="mt-4 font-heading text-2xl font-bold text-[var(--text)]">One profile. Several ways to connect.</h2>
+          <ul class="mt-5 grid gap-3 sm:grid-cols-2" role="list">
+            {features.map((feature, index) => (
+              <li class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-4 text-sm leading-relaxed text-[var(--text-dim)]">
+                <span class="mb-2 block text-xs font-black text-[var(--ac-blue)]">{String(index + 1).padStart(2, '0')}</span>
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="border-y border-[var(--border)] bg-[var(--bg-card)] py-14 sm:py-20" aria-labelledby="digibizid-privacy-title">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
+          <div>
+            <p class="text-xs font-bold uppercase tracking-[0.2em] text-[var(--ac-blue)]">Privacy by clear choice</p>
+            <h2 id="digibizid-privacy-title" class="mt-3 font-heading text-3xl font-bold leading-tight text-[var(--text)] sm:text-4xl">
+              You decide what belongs on your public profile.
+            </h2>
+            <p class="mt-4 leading-relaxed text-[var(--text-dim)]">
+              A DigiBizID link and QR code are designed to be shared. Treat every published field as public and include only professional details you are comfortable distributing.
+            </p>
+            <a href="/privacy-policy/" class="mt-6 inline-flex min-h-11 items-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--bg)] px-5 py-2.5 text-sm font-bold text-[var(--text)] transition-colors hover:border-[var(--ac-blue)] hover:text-[var(--ac-blue)]">
+              Read eLan Technology’s privacy policy <span aria-hidden="true">→</span>
+            </a>
+          </div>
+
+          <ol class="grid gap-4 sm:grid-cols-3" aria-label="How DigiBizID information moves">
+            <li class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-5">
+              <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--ac-blue)]/10 text-sm font-black text-[var(--ac-blue)]">01</span>
+              <h3 class="mt-4 font-heading text-lg font-bold text-[var(--text)]">Choose</h3>
+              <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">Provide only the professional name, role, business details, photo, contact methods and links you want included.</p>
+            </li>
+            <li class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-5">
+              <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--ac-blue)]/10 text-sm font-black text-[var(--ac-blue)]">02</span>
+              <h3 class="mt-4 font-heading text-lg font-bold text-[var(--text)]">Approve</h3>
+              <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">Check spelling, links and visibility before publication. Obtain permission before supplying another person’s identifiable information.</p>
+            </li>
+            <li class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-5">
+              <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--ac-blue)]/10 text-sm font-black text-[var(--ac-blue)]">03</span>
+              <h3 class="mt-4 font-heading text-lg font-bold text-[var(--text)]">Share</h3>
+              <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">Anyone with the profile link or QR code may view, copy or save its public contact details. Avoid private or sensitive information.</p>
+            </li>
+          </ol>
+        </div>
+
+        <aside class="mt-8 grid gap-4 rounded-2xl border border-[var(--ac-blue)]/25 bg-[var(--ac-blue)]/[0.06] p-5 sm:grid-cols-2 sm:p-6" aria-label="DigiBizID data responsibility notice">
+          <div>
+            <h3 class="font-heading text-lg font-bold text-[var(--text)]">On this eLan Technology page</h3>
+            <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">
+              No DigiBizID account or profile information is collected here. Optional website analytics run only according to your cookie choice. “Ask a Question” uses eLan Technology’s contact page and its stated enquiry retention period.
+            </p>
+          </div>
+          <div>
+            <h3 class="font-heading text-lg font-bold text-[var(--text)]">On the venture website</h3>
+            <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">
+              “Visit DigiBizID” opens a separately hosted website in a new tab. Review its current privacy notice, subscription terms, included fields and service providers before submitting profile, account or billing information.
+            </p>
+          </div>
+        </aside>
+
+        <p class="mt-5 text-sm leading-relaxed text-[var(--text-muted)]">
+          To request access, correction or removal of personal information handled by eLan Technology, email
+          <a class="font-semibold text-[var(--ac-blue)] underline underline-offset-4" href="mailto:privacy@elan-tech.net?subject=DigiBizID%20privacy%20request">privacy@elan-tech.net</a>.
+          We may use proportionate verification to protect the profile owner from unauthorised changes.
+        </p>
+      </div>
+    </section>
+
+    <section class="bg-[var(--bg)] py-14 sm:py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <AnswerSummary
+          eyebrow="Quick answer"
+          title="Is a digital business identity right for you?"
+          intro="DigiBizID is useful when you regularly share the same professional details and want one link that works well on a phone."
+          items={[
+            { question: 'What can I share?', answer: 'Your approved contact information, business introduction, website and selected social or action links.' },
+            { question: 'How do I share it?', answer: 'Send the profile link digitally or show its QR code during an in-person conversation.' },
+            { question: 'What should I check before subscribing?', answer: 'Review the current plan, included features, billing period, support terms and GST on the DigiBizID website.' },
+          ]}
+        />
+      </div>
+    </section>
+
+    <section class="border-y border-[var(--border)] bg-[var(--bg-card)] py-14 sm:py-20" aria-labelledby="digibizid-faq">
+      <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <h2 id="digibizid-faq" class="font-heading text-3xl font-bold text-[var(--text)]">DigiBizID Questions</h2>
+        <div class="mt-7 space-y-3">
+          {faqs.map((faq) => (
+            <details class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-5">
+              <summary class="cursor-pointer font-semibold text-[var(--text)]">{faq.question}</summary>
+              <p class="mt-3 leading-relaxed text-[var(--text-dim)]">{faq.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

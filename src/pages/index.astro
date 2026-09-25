@@ -1,22 +1,24 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { services } from '../data/services';
+import { services, accessibilityService, coreServices, newBusinessServices } from '../data/services';
 import { testimonials } from '../data/testimonials';
 import { faqs } from '../data/faq';
 import { cities } from '../data/cities';
 import { countries } from '../data/countries';
-import { webSiteSchema, organizationSchema, localBusinessSchema, faqSchema, reviewSchema, breadcrumbSchema, speakableSchema } from '../utils/schema';
+import { webSiteSchema, organizationSchema, localBusinessSchema, faqSchema, breadcrumbSchema, speakableSchema } from '../utils/schema';
 import StatsRebuild from '../islands/StatsRebuild';
-import KineticPhrase from '../islands/KineticPhrase';
 import TestimonialCarousel from '../islands/TestimonialCarousel';
 import ProjectCarousel from '../components/ProjectCarousel.astro';
+import { Image } from 'astro:assets';
+import { getClientLogo } from '../lib/images';
 import TechStackCarousel from '../components/TechStackCarousel.astro';
 import BlogPreview from '../components/BlogPreview.astro';
 import ChapterLabel from '../components/ChapterLabel.astro';
-import HeroDashboard from '../components/HeroDashboard.astro';
 import ScrollProgressRail from '../components/ScrollProgressRail.astro';
 import HomePromoStrip from '../components/launchpad/HomePromoStrip.astro';
 import { products } from '../data/products';
+import { homepageSeoBaseline } from '../data/seoStability';
+import heroCommerceArtwork from '../assets/hero/elan-commerce-accessibility-growth-v2.avif';
 
 // Accent hex values (light-mode values used as Lighthouse defaults to light theme).
 const accentHex: Record<string, string> = {
@@ -40,7 +42,7 @@ function hexRgba(hex: string, alpha: number): string {
 }
 
 // Data prep
-const featuredTestimonials = testimonials.filter(t => t.isFeatured);
+const homepageTestimonials = testimonials;
 const homeFaqs = faqs.filter(f => f.category === 'general').slice(0, 8);
 const featuredCities = cities.filter(c => c.isFeatured);
 const featuredCountries = countries.filter(c => c.isFeatured && c.slug !== 'india');
@@ -55,20 +57,12 @@ const moreCountries = countries.filter(c => c.hasLandingPage && !c.isFeatured &&
 const flagEmoji = (code: string) =>
   [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join('');
 
-// reviewSchema expects ReviewItem[] with { author, reviewBody, ratingValue }
-const reviewItems = featuredTestimonials.map(t => ({
-  author: t.author,
-  reviewBody: t.quote,
-  ratingValue: t.rating,
-}));
-
 // Schemas
 const schemas = [
   webSiteSchema(),
   organizationSchema(),
   localBusinessSchema('Nagpur'),
   faqSchema(homeFaqs),
-  reviewSchema(reviewItems),
   breadcrumbSchema([{ name: 'Home', url: '/' }]),
   // AEO: tell answer engines which DOM regions to lift for voice / featured snippets
   speakableSchema('/', ['h1', '[data-speakable]', '.faq-answer']),
@@ -91,8 +85,8 @@ function logoAlt(filename: string): string {
 ---
 
 <BaseLayout
-  title="Web Design & Development Company in Nagpur | eLan Technology"
-  description="Nagpur web design and development company with 24+ years' experience and 500+ clients. Custom websites, eCommerce and ADA/WCAG accessibility. Free audit."
+  title={homepageSeoBaseline.title}
+  description={homepageSeoBaseline.description}
   schema={schemas}
 >
 
@@ -100,7 +94,7 @@ function logoAlt(filename: string): string {
   <ScrollProgressRail />
 
   <!-- ═══════════════════════════════════════════════════════════════════════
-       SECTION 1: HERO - split screen (left: text, right: mission-control card)
+       SECTION 1: HERO - business outcome message + visual service story
   ════════════════════════════════════════════════════════════════════════ -->
   <section
     aria-labelledby="hero-heading"
@@ -114,47 +108,39 @@ function logoAlt(filename: string): string {
     </div>
 
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div class="grid min-w-0 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         <!-- LEFT: heading + CTAs + trust badges -->
-        <div class="text-center lg:text-left">
+        <div class="min-w-0 text-center lg:text-left">
           <!-- Pre-heading badge -->
-          <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)]/60 px-4 py-2 text-sm text-[var(--text-muted)] backdrop-blur-sm">
-            <span class="h-2 w-2 rounded-full bg-[#00E5A0] animate-pulse" aria-hidden="true"></span>
-            Nagpur's accessibility-first web studio · Since 2002
+          <div class="mb-6 inline-flex max-w-full items-center justify-center gap-2 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/60 px-3 py-2 text-center text-xs leading-5 text-[var(--text-muted)] backdrop-blur-sm sm:rounded-full sm:px-4 sm:text-sm">
+            <span class="h-2 w-2 shrink-0 rounded-full bg-[#00E5A0] animate-pulse" aria-hidden="true"></span>
+            <span>Web design · eCommerce · Accessibility · Since 2002</span>
           </div>
 
           <!-- H1 -->
           <h1
             id="hero-heading"
-            class="font-heading text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.05] text-[var(--text)] mb-6"
+            class="max-w-full font-heading text-[clamp(2.25rem,10vw,3rem)] sm:text-5xl lg:text-[3.25rem] xl:text-6xl font-bold leading-[1.06] text-[var(--text)] mb-6 [overflow-wrap:anywhere]"
           >
-            Web Design &amp; Development<br class="hidden sm:block" />
-            Trusted by{' '}
-            <KineticPhrase
-              client:load
-              phrases={[
-                '500+ Businesses',
-                `${yearsExp}+ Years`,
-                '10+ Countries',
-                '100s of Brands',
-              ]}
-            />
+            <span class="block">{homepageSeoBaseline.h1Lead}</span>
+            <span class="block bg-gradient-to-r from-emerald-600 via-cyan-600 to-indigo-600 bg-clip-text text-transparent">{homepageSeoBaseline.h1Proof}</span>
           </h1>
 
           <!-- Subheading -->
-          <p class="mb-8 max-w-xl mx-auto lg:mx-0 text-lg text-[var(--text-dim)] leading-relaxed">
-            The award-winning <a href="/web-design-company-nagpur/" class="text-[var(--text)] underline decoration-[var(--accent)]/40 underline-offset-2 hover:decoration-[var(--accent)]">web design company in Nagpur</a>,
-            building WCAG/ADA-compliant websites, <a href="/services/ecommerce/shopify-development/" class="text-[var(--text)] underline decoration-emerald-400/40 underline-offset-2 hover:decoration-emerald-400">custom Shopify stores</a>, <a href="/services/ecommerce/medusa-js-development/" class="text-[var(--text)] underline decoration-cyan-400/40 underline-offset-2 hover:decoration-cyan-400">Medusa.js commerce platforms</a>, and digital marketing campaigns
-            for businesses in Nagpur, <a href="/web-design-company-raipur/" class="text-[var(--text)] underline decoration-[var(--accent)]/40 underline-offset-2 hover:decoration-[var(--accent)]">Raipur</a>, <a href="/web-design-company-bhopal/" class="text-[var(--text)] underline decoration-[var(--accent)]/40 underline-offset-2 hover:decoration-[var(--accent)]">Bhopal</a> &amp; across India since 2002.
+          <p class="mb-8 max-w-xl min-w-0 mx-auto lg:mx-0 text-base sm:text-lg text-[var(--text-dim)] leading-relaxed [overflow-wrap:anywhere]">
+            We create fast, accessible websites and custom online stores on{' '}
+            <a href="/services/ecommerce/shopify-development/" class="text-[var(--text)] underline decoration-emerald-400/50 underline-offset-2 hover:decoration-emerald-400">Shopify</a>,{' '}
+            <a href="/services/ecommerce/medusa-js-development/" class="text-[var(--text)] underline decoration-cyan-400/50 underline-offset-2 hover:decoration-cyan-400">Medusa.js</a>{' '}
+            and WooCommerce. Based in <a href="/web-design-company-nagpur/" class="text-[var(--text)] underline decoration-[var(--accent)]/40 underline-offset-2 hover:decoration-[var(--accent)]">Nagpur</a>, trusted by 500+ businesses since 2002.
           </p>
 
           <!-- CTA Buttons -->
           <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-10">
             <a
-              href="/free-website-audit/"
+              href="/get-quote/"
               class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-4 text-base font-semibold text-[var(--bg)] shadow-lg shadow-[var(--accent)]/25 transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
             >
-              Get Free Website Audit
+              Request a Quote
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
@@ -163,7 +149,7 @@ function logoAlt(filename: string): string {
               href="/portfolio/"
               class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-transparent px-8 py-4 text-base font-semibold text-[var(--text)] transition-all duration-300 hover:border-[var(--accent)] hover:text-[var(--accent)] hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
             >
-              View Our Work
+              Explore Our Work
             </a>
           </div>
 
@@ -176,8 +162,8 @@ function logoAlt(filename: string): string {
             {[
               `${yearsExp}+ Years`,
               '500+ Clients',
-              'WCAG 2.1 AA',
-              'ADA Compliant',
+              'Accessibility-first',
+              'WCAG Testing',
             ].map(badge => (
               <div
                 role="listitem"
@@ -192,9 +178,27 @@ function logoAlt(filename: string): string {
           </div>
         </div>
 
-        <!-- RIGHT: mission-control dashboard card -->
-        <div class="relative">
-          <HeroDashboard />
+        <!-- RIGHT: visual summary of ecommerce, accessibility and growth -->
+        <div class="relative min-w-0">
+          <div class="absolute inset-x-[8%] bottom-[14%] h-[42%] rounded-full bg-gradient-to-r from-emerald-400/18 via-cyan-400/12 to-indigo-500/18 blur-3xl" aria-hidden="true"></div>
+          <div class="relative bg-transparent p-1 sm:p-2">
+            <Image
+              src={heroCommerceArtwork}
+              alt="Custom ecommerce storefront shown across desktop and mobile with accessibility and business growth elements"
+              widths={[480, 720, 960]}
+              sizes="(min-width: 1024px) 48vw, 92vw"
+              format="avif"
+              quality={82}
+              loading="eager"
+              fetchpriority="high"
+              class="aspect-[3/2] h-auto w-full object-contain"
+            />
+            <div class="grid grid-cols-3 gap-2 px-1 pb-1 pt-3 text-center sm:gap-3">
+              <a href="/services/website-design/" class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)]/80 px-2 py-2.5 text-xs font-semibold text-[var(--text)] shadow-sm backdrop-blur-md transition hover:border-[var(--accent)] hover:text-[var(--accent)] sm:text-sm">Accessible Web</a>
+              <a href="/services/ecommerce/" class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)]/80 px-2 py-2.5 text-xs font-semibold text-[var(--text)] shadow-sm backdrop-blur-md transition hover:border-[var(--accent)] hover:text-[var(--accent)] sm:text-sm">Custom Commerce</a>
+              <a href="/services/seo/" class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)]/80 px-2 py-2.5 text-xs font-semibold text-[var(--text)] shadow-sm backdrop-blur-md transition hover:border-[var(--accent)] hover:text-[var(--accent)] sm:text-sm">Built to Grow</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -213,7 +217,7 @@ function logoAlt(filename: string): string {
 
 
   <!-- ═══════════════════════════════════════════════════════════════════════
-       DIGITAL LAUNCHPAD PROMO STRIP (server-gated, auto-hides after 15 Aug 2026)
+       DIGITAL LAUNCHPAD PROMO STRIP (scheduled for 14-25 Sep 2026)
   ════════════════════════════════════════════════════════════════════════ -->
   <HomePromoStrip />
 
@@ -244,17 +248,17 @@ function logoAlt(filename: string): string {
       <div class="flex w-fit animate-scroll-ltr items-center">
         {(() => {
           const logos = [
-            '6simplex.avif', '77mishti-packaging.webp', 'Aarch-Meraki.svg', 'Abhirama.svg',
+            '6simplex.avif', '77mishti-packaging.avif', 'Aarch-Meraki.svg', 'Abhirama.svg',
             'Alessandra-Ramos.avif', 'Astha-Hospital.avif', 'Avani-Associates.avif', 'Bakre-Associates.svg',
             'Blue-Ladder.avif', 'CBBF.avif', 'Cambian.avif', 'Chandak-Instruments.avif',
             'DFyne.avif', 'Geo-Spatial-Studio.avif', 'GlenEGrant.avif', 'Guru-Nanak-College.avif',
             'IAPM.avif', 'IFBB-Elite-PRO.avif', 'ISA-Nagpur.avif', 'Indo-Advisors.avif',
             'Mahavir-Mevawala.avif', 'Ontario-Amateur-Fitness-Association.avif', 'Opthalmological-Society-Nagpur.avif', 'PM-Industries.avif',
-            'Pinakk-Digital-Media.svg', 'Pradnyalok.avif', 'Production-Modeling-India.avif', 'PropertyCab.png',
+            'Pinakk-Digital-Media.svg', 'Pradnyalok.avif', 'Production-Modeling-India.avif', 'PropertyCab.avif',
             'Psychiatric-Society-Nagpur.avif', 'Puritas.svg', 'SS-Carmen.avif', 'Sakhi-Products.avif',
             'Silaris.avif', 'The-Material-Palette.svg', 'The-Natural-Farms.avif', 'The-People.avif',
-            'YogForYourself.avif', 'ZestRenew.png', 'abc-wiindo.svg', 'brandear.avif',
-            'Rushmore-Group.avif', 'deetya-allaboutinteriors.svg', 'dizviz.webp', 'elite-wealth.avif',
+            'YogForYourself.avif', 'ZestRenew.avif', 'abc-wiindo.svg', 'brandear.avif',
+            'Rushmore-Group.avif', 'deetya-allaboutinteriors.svg', 'dizviz.avif', 'elite-wealth.avif',
             'eminent-tech.avif', 'gokhale-insurance.svg', 'hotel-manomay-homes.avif', 'icon-hospital.avif',
             'jpdata.avif', 'lotus-care-exim.svg', 'media-flow-house.svg', 'merraki-expert.svg',
             'msmehub.svg', 'navsamaj.avif', 'new-earth-infra.svg', 'nexus-cowork.svg',
@@ -263,15 +267,15 @@ function logoAlt(filename: string): string {
             'vasundhara-pariwar.avif', 'we4change.avif', 'yashoda-maternity.avif',
           ];
           return [...logos, ...logos].map((logo) => (
-            <div class="mx-3 md:mx-5 shrink-0 flex items-center justify-center h-12 md:h-14 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300">
-              <img
-                src={`/elan-client-logos/${logo}`}
+            <div class="mx-2 flex h-16 w-36 shrink-0 items-center justify-center px-3 py-2 opacity-90 transition-opacity duration-300 hover:opacity-100 md:mx-3 md:h-[4.5rem] md:w-44 md:px-4">
+              <Image
+                src={getClientLogo(`/elan-client-logos/${logo}`)}
                 alt={logoAlt(logo)}
-                width="120"
-                height="48"
+                width={180}
+                format={getClientLogo(`/elan-client-logos/${logo}`).format === 'svg' ? undefined : 'avif'}
                 loading="lazy"
                 decoding="async"
-                class="h-full w-auto max-w-[100px] md:max-w-[130px] object-contain"
+                class="block h-auto max-h-full w-auto max-w-full object-contain"
               />
             </div>
           ));
@@ -350,7 +354,7 @@ function logoAlt(filename: string): string {
           row 2+: 4 regular services in a standard 4-up grid
       */}
       <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-5" role="list">
-        {services.slice(0, -1).map((service, i) => {
+        {coreServices.map((service, i) => {
           const featured = i < 2; // first two are flagship (span 3 of 6 → half width)
           const num = String(i + 1).padStart(2, '0');
           return (
@@ -446,7 +450,7 @@ function logoAlt(filename: string): string {
 
       <!-- ADA & WCAG Compliance - full-width horizontal card -->
       {(() => {
-        const ada = services[services.length - 1];
+        const ada = accessibilityService;
         return (
           <a
             href={`/services/${ada.slug}/`}
@@ -481,12 +485,35 @@ function logoAlt(filename: string): string {
         );
       })()}
 
+      <div class="mt-8 rounded-[1.75rem] border border-[var(--border)] bg-[var(--bg-card)] p-5 sm:p-7">
+        <div class="mb-6 max-w-3xl">
+          <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">New business capabilities</p>
+          <h3 class="mt-2 font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">Systems, privacy and composable content</h3>
+          <p class="mt-3 text-sm leading-relaxed text-[var(--text-muted)]">Move from disconnected tools to clearly governed workflows—without treating a platform, policy or compliance label as a one-size-fits-all answer.</p>
+        </div>
+        <ul class="grid gap-4 lg:grid-cols-3" role="list">
+          {newBusinessServices.map((service, index) => (
+            <li>
+              <a href={`/services/${service.slug}/`} class="group flex h-full flex-col rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-5 transition hover:-translate-y-1 hover:border-[var(--card-accent)] hover:shadow-lg" style={`--card-accent: var(${service.cssVar});`}>
+                <div class="flex items-center justify-between gap-3">
+                  <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--bg-card)] text-[var(--card-accent)]" set:html={service.iconSvg} aria-hidden="true" />
+                  <span class="text-[10px] font-black uppercase tracking-[0.18em] text-[var(--card-accent)]">New · {String(index + 11).padStart(2, '0')}</span>
+                </div>
+                <h4 class="mt-5 font-heading text-lg font-bold text-[var(--text)]">{service.title}</h4>
+                <p class="mt-2 flex-1 text-sm leading-relaxed text-[var(--text-muted)]">{service.description}</p>
+                <span class="mt-5 inline-flex items-center gap-2 text-sm font-bold text-[var(--card-accent)]">Explore service <span class="transition-transform group-hover:translate-x-1" aria-hidden="true">→</span></span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <!-- Specialist Capabilities - focused sub-service cards -->
       <div class="mt-8">
         <p class="text-center text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)] mb-5">Specialist Capabilities</p>
         <ul class="grid grid-cols-2 lg:grid-cols-4 gap-4" role="list">
           {[
-            { name: 'Headless CMS & Jamstack', desc: 'Composable Astro, Next.js & Sanity front ends decoupled from the back office', cssVar: '--ac-indigo', href: '/services/web-development/', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 14h4"/></svg>' },
+            { name: 'Headless CMS Development', desc: 'Payload CMS, Directus and composable content architecture for modern digital experiences', cssVar: '--ac-indigo', href: '/services/headless-cms-development/', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 14h4"/></svg>' },
             { name: 'Security Audits & Hardening', desc: 'OWASP reviews, CSP tuning, secret rotation & automated patch pipelines', cssVar: '--ac-red', href: '/services/maintenance-security/', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg>' },
             { name: 'Core Web Vitals Engineering', desc: 'Budget-driven LCP, INP & CLS tuning enforced in continuous integration', cssVar: '--ac-amber', href: '/services/web-development/', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14l4-4"/><path d="M3.5 17a9 9 0 1 1 17 0"/><circle cx="12" cy="14" r="1"/></svg>' },
             { name: 'ADA & WCAG Remediation', desc: 'Hybrid audits, VPAT 2.5 documentation & WCAG 2.1 AA conformance', cssVar: '--ac-emerald', href: '/blog/accessibility/ada-wcag-compliance-us-canada-2026/', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M5 9h14"/><path d="M12 9v5"/><path d="M8 20l4-6 4 6"/></svg>' },
@@ -567,10 +594,10 @@ function logoAlt(filename: string): string {
         id="products-heading"
         class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--text)] text-center mb-4"
       >
-        Products we own, end-to-end.
+        Products built around real business needs.
       </h2>
       <p class="text-lg text-[var(--text-dim)] text-center mb-12 max-w-2xl mx-auto">
-        Custom-built business management platforms - own your digital infrastructure
+        Configurable platforms for property, conferences, associations and hospitality operations.
       </p>
 
       <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" role="list">
@@ -615,7 +642,6 @@ function logoAlt(filename: string): string {
     </div>
   </section>
 
-
   <!-- ═══════════════════════════════════════════════════════════════════════
        SECTION 7: TESTIMONIAL CAROUSEL
   ════════════════════════════════════════════════════════════════════════ -->
@@ -629,10 +655,10 @@ function logoAlt(filename: string): string {
         Teams that trust us.
       </h2>
       <p class="text-lg text-[var(--text-dim)] text-center mb-12 max-w-2xl mx-auto">
-        Real results from real businesses - across India and around the world
+        Selected client feedback from India and international projects
       </p>
 
-      <TestimonialCarousel client:visible testimonials={featuredTestimonials} />
+      <TestimonialCarousel client:visible testimonials={homepageTestimonials} />
     </div>
   </section>
 

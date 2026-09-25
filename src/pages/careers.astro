@@ -7,6 +7,22 @@ const schema = breadcrumbSchema([
   { name: 'Careers', url: '/careers/' },
 ]);
 
+const applicationMailto = (role: string) => {
+  const subject = encodeURIComponent(`Application: ${role}`);
+  const body = encodeURIComponent(
+    `Hello eLan Technology,\n\nI would like to apply for the ${role} position.\n\nName:\nCurrent city:\nPortfolio or LinkedIn (optional):\n\nPrivacy preference — please keep one option and remove the other:\n1. Consider my application for this role only.\n2. Also consider me for suitable roles for up to 12 months.\n\nI have attached my CV without government IDs, bank details, passwords or unnecessary sensitive information.`,
+  );
+  return `mailto:careers@elan-tech.net?subject=${subject}&body=${body}`;
+};
+
+const generalInterestMailto = (() => {
+  const subject = encodeURIComponent('General career interest');
+  const body = encodeURIComponent(
+    `Hello eLan Technology,\n\nI would like to be considered for suitable future roles. I understand that this general-interest application may be retained for up to 12 months.\n\nName:\nArea of work:\nCurrent city:\nPortfolio or LinkedIn (optional):\n\nI have attached my CV without government IDs, bank details, passwords or unnecessary sensitive information.`,
+  );
+  return `mailto:careers@elan-tech.net?subject=${subject}&body=${body}`;
+})();
+
 const perks = [
   {
     title: 'Remote-Friendly',
@@ -203,6 +219,22 @@ const jobs = rawJobs.map((job) => ({ ...job, ...splitJobContent(job.sections, PR
         We're Hiring
       </h2>
 
+      <aside id="applicant-privacy-note" class="mx-auto mb-10 max-w-5xl rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 sm:p-8" aria-labelledby="applicant-privacy-heading">
+        <div class="grid gap-6 md:grid-cols-[0.85fr_1.15fr] md:items-start">
+          <div>
+            <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Applicant privacy</p>
+            <h3 id="applicant-privacy-heading" class="mt-2 font-heading text-xl font-bold text-[var(--text)] sm:text-2xl">Apply with only what we need</h3>
+            <p id="application-email-note" class="mt-3 text-sm leading-relaxed text-[var(--text-dim)]">Application links open your email app. Nothing is sent to eLan Technology until you choose to send the email.</p>
+          </div>
+          <ul class="space-y-3 text-sm leading-relaxed text-[var(--text-dim)]">
+            <li><strong class="text-[var(--text)]">Purpose:</strong> we use your CV, contact details, work history, skills and optional portfolio only to assess and communicate about employment opportunities. We do not use solely automated hiring decisions.</li>
+            <li><strong class="text-[var(--text)]">Retention:</strong> role-specific unsuccessful applications are normally removed within six months after that recruitment process closes. We retain an application for other suitable roles for up to 12 months only when you select that preference. General-interest applications are retained for up to 12 months.</li>
+            <li><strong class="text-[var(--text)]">Please do not send:</strong> Aadhaar, PAN, passport, bank or card details, passwords, full home address, medical records, family information or other unnecessary sensitive documents at the application stage.</li>
+          </ul>
+        </div>
+        <p class="mt-5 border-t border-[var(--border)] pt-4 text-xs leading-relaxed text-[var(--text-muted)]">Access is limited to people involved in recruitment. Email transmission also involves your email provider and ours. You may request access, correction, withdrawal or deletion by writing to <a href="mailto:privacy@elan-tech.net?subject=Applicant%20privacy%20request" class="font-semibold text-[var(--text)] underline underline-offset-2">privacy@elan-tech.net</a>. See our <a href="/privacy-policy/" class="font-semibold text-[var(--text)] underline underline-offset-2">Privacy Policy</a>.</p>
+      </aside>
+
       <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-5" role="list">
         {jobs.map((job, i) => (
           <li class="lg:col-span-3">
@@ -241,11 +273,12 @@ const jobs = rawJobs.map((job) => ({ ...job, ...splitJobContent(job.sections, PR
                     </div>
                   </div>
                   <a
-                    href={`mailto:careers@elan-tech.net?subject=Application: ${encodeURIComponent(job.title)}`}
+                    href={applicationMailto(job.title)}
+                    aria-describedby="application-email-note"
                     class="inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition-opacity hover:opacity-90 shrink-0"
                     style={`background: var(${job.cssVar}); color: var(--bg);`}
                   >
-                    Apply Now
+                    Apply by Email
                   </a>
                 </div>
 
@@ -323,14 +356,16 @@ const jobs = rawJobs.map((job) => ({ ...job, ...splitJobContent(job.sections, PR
           Don't See a Matching Role?
         </h2>
         <p class="text-[var(--text-dim)] mb-6 leading-relaxed">
-          We're always looking for talented people. Send us your resume and tell us what you're great at - we'll keep it on file and reach out when the right opportunity arises.
+          You can send a general-interest application when no listed role fits. We will use it only to consider you for suitable openings and retain it for up to 12 months, after which we remove it unless another lawful need applies.
         </p>
         <a
-          href="mailto:careers@elan-tech.net"
+          href={generalInterestMailto}
+          aria-describedby="application-email-note"
           class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[var(--bg)] hover:opacity-90 transition-opacity"
         >
-          Send Us Your Resume →
+          Send a General-Interest Application →
         </a>
+        <p class="mt-4 text-xs leading-relaxed text-[var(--text-muted)]">The email template records your 12-month talent-pool preference. Please review the applicant privacy notice above before sending.</p>
       </div>
     </div>
   </section>

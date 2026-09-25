@@ -2,6 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { softwareAppSchema, breadcrumbSchema } from '../../utils/schema';
 import { getProductBySlug, products } from '../../data/products';
+import AnswerSummary from '../../components/AnswerSummary.astro';
+import ProductPrivacyPanel from '../../components/ProductPrivacyPanel.astro';
 
 const product = getProductBySlug('real-estate-portal');
 const others = products.filter(p => p.slug !== product.slug);
@@ -23,7 +25,7 @@ const schema = [
 const features = [
   { title: 'Comprehensive Listings', desc: 'Buying, renting & selling with rich galleries, floor plans, and RERA-ready listing templates.' },
   { title: 'Advanced Search & Filters', desc: 'Filter by location, budget, BHK, property type, RERA status, and proximity to schools/metros.' },
-  { title: 'Verified RERA Listings', desc: 'RERA registration badges and compliance fields baked into every listing for buyer trust.' },
+  { title: 'RERA Information Fields', desc: 'Display registration information and optional status badges using details entered and managed by the portal operator.' },
   { title: 'Joint Ventures Platform', desc: 'Connect land owners with investors via a dedicated JV-matching module with NDA flow.' },
   { title: 'Specialized Categories', desc: 'Agricultural, Commercial, Residential & Land plots with category-specific metadata.' },
   { title: 'Agent & Admin Dashboard', desc: 'Centralised dashboards for agents to manage leads, listings, and client communications.' },
@@ -42,8 +44,9 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'AWS S3'
 ---
 
 <BaseLayout
+  ogImage="/images/og/products.png"
   title="Real Estate Portal Development India | RERA-Ready Property Listing Software"
-  description="Custom real estate portal with property listings, advanced search, RERA-verified badges, agent dashboards, lead CRM, and map integration. Built for Indian agencies, developers, and builders."
+  description="Customisable real estate portal with property listings, search, RERA information fields, agent dashboards, lead management and maps for agencies, developers and builders."
   schema={schema}
 >
 
@@ -104,6 +107,64 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'AWS S3'
           ))}
         </div>
       </div>
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <AnswerSummary
+      eyebrow="Product answer"
+      title="What is the eLan Real Estate Portal?"
+      intro="It is a configurable product foundation for property businesses, not an identical package or compulsory monthly SaaS product."
+      accentVar={product.cssVar}
+      items={[
+        { question: 'Can it be white-labelled?', answer: 'Yes, when the approved proposal includes the client branding, workflows and required integrations.' },
+        { question: 'Who owns the code and deployment?', answer: 'Source-code rights, deployed-application ownership and reuse rights depend on the signed proposal and completed payment terms.' },
+        { question: 'What is charged separately?', answer: 'Hosting, maintenance, paid APIs, payment services and future upgrades are separate unless the proposal includes them.' },
+      ]}
+    />
+  </div>
+
+  <ProductPrivacyPanel
+    title="Protect property leads, agent accounts and listing records"
+    intro="A property portal can connect identifiable buyers, tenants, owners, agents and developers. Its privacy design should follow the actual lead journey—from a listing enquiry or saved search through assignment, follow-up, export and deletion."
+    accentVar={product.cssVar}
+    subject="Real Estate Portal privacy enquiry"
+    items={[
+      { title: 'Lead fields and notice', text: 'Collect only the contact and requirement details needed for the stated enquiry. The portal operator supplies its identity, purpose, privacy notice and any required consent language.' },
+      { title: 'Agent and administrator access', text: 'Roles should restrict who can view, assign, export or alter leads and listings. Shared administrator accounts and unrestricted spreadsheets should be avoided.' },
+      { title: 'Maps, messaging and integrations', text: 'Map providers, CRM connections, WhatsApp, email, SMS, analytics and advertising tags are documented before activation, including the records sent to each provider.' },
+      { title: 'Listings and retention', text: 'The operator is responsible for authorised property content, owner information, RERA-related information and retention of leads. Correction, deletion and account-closure workflows can be scoped.' },
+    ]}
+    note="eLan Technology supplies a configurable technical foundation; it does not verify property ownership, listings, regulatory status or the operator’s legal basis for contacting a lead. Security, hosting, support, data migration and response procedures depend on the signed scope."
+  />
+
+  <section class="border-b border-[var(--border)] bg-[var(--bg-card)] py-12" aria-labelledby="commercial-model-heading">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid gap-6 lg:grid-cols-[0.9fr_2.1fr] lg:items-start">
+        <header>
+          <p class="text-xs font-bold uppercase tracking-widest mb-2" style={`color: var(${product.cssVar});`}>Clear commercial model</p>
+          <h2 id="commercial-model-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)]">A product foundation, configured for your business</h2>
+          <p class="mt-3 text-sm leading-relaxed text-[var(--text-dim)]">PropertyCab is a client implementation that demonstrates our real-estate capability. It is not the name of a fixed, identical package sold to every buyer.</p>
+        </header>
+
+        <div class="grid gap-4 sm:grid-cols-3">
+          {[
+            { n: '01', title: 'What you start with', text: 'A working foundation for listings, search, agents, enquiries, maps and administration.' },
+            { n: '02', title: 'What we agree', text: 'Branding, features, integrations, delivery, licensing, source-code rights, hosting and support.' },
+            { n: '03', title: 'What remains separate', text: 'Hosting, maintenance, paid APIs, gateway charges and later upgrades unless your proposal includes them.' },
+          ].map(item => (
+            <article class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-5">
+              <span class="text-xs font-black" style={`color: var(${product.cssVar});`}>{item.n}</span>
+              <h3 class="mt-2 font-semibold text-[var(--text)]">{item.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <aside class="mt-6 rounded-xl border border-[var(--border)] bg-[var(--bg)] px-5 py-4 text-sm leading-relaxed text-[var(--text-dim)]" aria-label="Commercial and regulatory information">
+        <strong class="text-[var(--text)]">Important:</strong> One-time commercial terms are common, but they are not automatic. Client-server deployment is available. Source-code ownership, reuse rights and deployed-application ownership depend on the signed proposal and completed payment terms. Delivery in 4–8 weeks may be possible for a standard implementation with timely content and approvals; major functional changes or integrations require a revised schedule. RERA fields and badges help display information supplied by the portal operator; eLan Technology does not independently verify property listings or provide legal or regulatory approval.
+      </aside>
     </div>
   </section>
 
@@ -187,11 +248,11 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'AWS S3'
                 </div>
                 <div>
                   <dt class="text-[11px] uppercase tracking-wide text-[var(--text-muted)]">Licensing</dt>
-                  <dd class="font-semibold text-[var(--text)]">One-time purchase · White-label</dd>
+                  <dd class="font-semibold text-[var(--text)]">Defined in your proposal</dd>
                 </div>
                 <div>
                   <dt class="text-[11px] uppercase tracking-wide text-[var(--text-muted)]">Delivery</dt>
-                  <dd class="font-semibold text-[var(--text)]">4–8 weeks typical</dd>
+                  <dd class="font-semibold text-[var(--text)]">Based on approved scope</dd>
                 </div>
                 <div>
                   <dt class="text-[11px] uppercase tracking-wide text-[var(--text-muted)] mb-1.5">Technology</dt>

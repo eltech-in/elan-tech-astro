@@ -6,7 +6,7 @@ import { z } from 'astro/zod'
 
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.mdx', base: './src/content/blog' }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     description: z.string(),
     publishDate: z.coerce.date(),
@@ -28,9 +28,12 @@ const blog = defineCollection({
     tags: z.array(z.string()).default([]),
     readTime: z.number(),
     featuredImage: z.object({
-      src: z.string(),
+      src: image(),
       alt: z.string(),
     }),
+    // Poster-style artwork can remain in cards and social previews while the
+    // article itself uses a clean text-first hero when this is false.
+    heroUsesCover: z.boolean().default(true),
     draft: z.boolean().default(false),
     seo: z
       .object({

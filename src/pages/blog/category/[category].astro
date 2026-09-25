@@ -3,6 +3,8 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { breadcrumbSchema } from '../../../utils/schema';
 import { isPublishedPost } from '../../../utils/blog';
+import { Image } from 'astro:assets';
+import BlogPrivacyNotice from '../../../components/BlogPrivacyNotice.astro';
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('blog');
@@ -34,6 +36,10 @@ const categoryLabels: Record<string, string> = {
 
 const categoryLabel = categoryLabels[category] ?? category;
 const isAccessibility = category === 'accessibility';
+// Thin archives duplicate their article cards without adding enough independent
+// search value. Keep them useful to visitors while withholding them from the
+// index until the category contains at least three published articles.
+const noindexCategory = posts.length < 3;
 
 // SEO descriptions: each category page needs real prose above the post grid
 // or Google treats it as thin content and skips indexing.
@@ -46,7 +52,7 @@ const categoryHeadings: Record<string, { h1: string; intro: string }> = {
   'seo': {
     h1: 'SEO Guides for Small & Mid-Size Businesses',
     intro:
-      "Search engine optimisation strategies tailored for businesses across India and international markets. Our SEO team shares step-by-step guides on keyword research, local SEO for Nagpur and other Indian cities, technical SEO audits, Google Business Profile optimisation, and proven ranking tactics for competitive niches. Updated regularly with algorithm change insights.",
+      "Search engine optimisation guidance for businesses across India and international markets. Topics include keyword research, local SEO for Nagpur and other Indian cities, technical audits, Google Business Profile improvements and measurement for competitive searches. Rankings depend on relevance, authority, demand, competitors and search-engine changes and cannot be guaranteed.",
   },
   'technology-trends': {
     h1: 'Web Technology Trends - What Matters for Your Business',
@@ -144,10 +150,12 @@ const schema = breadcrumbSchema([
 ---
 
 <BaseLayout
+  ogImage="/images/og/blog.png"
   title={seo.title}
   description={seo.description}
   canonical={`/blog/category/${category}/`}
   schema={schema}
+  noindex={noindexCategory}
 >
 
   <!-- HERO -->
@@ -167,6 +175,8 @@ const schema = breadcrumbSchema([
       <p class="mt-6 text-sm text-[var(--text-muted)]">{posts.length} article{posts.length !== 1 ? 's' : ''}</p>
     </div>
   </section>
+
+  <BlogPrivacyNotice context="category" category={category} />
 
   {isAccessibility && (
     <section class="border-y border-[var(--border)] bg-[var(--bg-card)] py-12">
@@ -245,11 +255,12 @@ const schema = breadcrumbSchema([
                   <article class="group rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] overflow-hidden flex flex-col hover:border-[var(--accent)]/40 hover:-translate-y-0.5 transition-all duration-300 shadow-sm hover:shadow-lg">
                     {post.data.featuredImage?.src && (
                       <a href={`/blog/${post.data.category}/${post.id}/`} aria-hidden="true" tabindex="-1" class="block aspect-video overflow-hidden">
-                        <img
+                        <Image
                           src={post.data.featuredImage.src}
                           alt={post.data.featuredImage.alt}
-                          width="480"
-                          height="270"
+                          widths={[320, 640, 960, 1280]}
+                          sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 32vw"
+                          format="avif"
                           loading="lazy"
                           decoding="async"
                           class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -286,7 +297,7 @@ const schema = breadcrumbSchema([
           <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
             <h3 class="font-heading text-base font-bold text-[var(--text)] mb-5 flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--accent)]" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-              Popular Posts
+              Longer Reads
             </h3>
             <ul class="space-y-4">
               {popularPosts.map((p, i) => (

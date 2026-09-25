@@ -16,7 +16,7 @@ const {
   title,
   description,
   canonical,
-  ogImage = '/images/elantech-00.jpg',
+  ogImage = '/images/og/home.png',
   ogType = 'website',
   noindex = false,
   schema,
@@ -107,7 +107,7 @@ const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogI
 )}
 
 <!-- Self-hosted fonts - preload critical WOFF2 files -->
-<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/dm-sans-latin.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/sora-latin.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/dm-sans-latin.woff2?v=20260817" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/sora-latin.woff2?v=20260817" />
 
 {schema && <SchemaMarkup schema={schema} />}

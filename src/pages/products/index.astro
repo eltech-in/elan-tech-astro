@@ -2,13 +2,15 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { breadcrumbSchema } from '../../utils/schema';
 import { products } from '../../data/products';
+import AnswerSummary from '../../components/AnswerSummary.astro';
+import ProductPrivacyPanel from '../../components/ProductPrivacyPanel.astro';
 
 const schema = breadcrumbSchema([
   { name: 'Home', url: '/' },
   { name: 'Products', url: '/products/' },
 ]);
 
-// Bento slot pattern for 4 products: big · tall · wide · small
+// Bento slot pattern for the product collection.
 const bentoSlots = [
   'lg:col-span-4 lg:row-span-2',   // 0 – hero product
   'lg:col-span-2 lg:row-span-2',   // 1 – tall
@@ -18,8 +20,9 @@ const bentoSlots = [
 ---
 
 <BaseLayout
-  title="Proprietary Software Products | Own Your Platform - eLan Technology"
-  description="White-labelled software: Real Estate, Medical Conference, IMA Society & Resort PMS portals. Own it once - no SaaS fees."
+  title="Customisable Business Software Products | eLan Technology"
+  description="Explore eLan Technology's configurable business software foundations for property, medical conferences, associations and resort operations."
+  ogImage="/images/og/products.png"
   schema={schema}
 >
 
@@ -36,14 +39,14 @@ const bentoSlots = [
           <span aria-hidden="true" class="absolute -left-10 -bottom-10 h-72 w-72 rotate-[-20deg] opacity-[0.07]" style="background: var(--ac-indigo);"></span>
           <span class="relative inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg)]/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[var(--ac-teal)] backdrop-blur-sm">
             <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--ac-teal)]" aria-hidden="true"></span>
-            4 Proprietary Products
+            {products.length} Configurable Products
           </span>
           <h1 id="products-hero-h1" class="relative mt-5 font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--text)] leading-[1.05]">
-            Own Your<br/>
-            <span style="background:linear-gradient(90deg,var(--ac-teal),var(--ac-indigo),var(--ac-pink),var(--ac-amber));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Business Platform.</span>
+            Practical Digital Products<br/>
+            <span style="background:linear-gradient(90deg,var(--ac-teal),var(--ac-indigo),var(--ac-pink),var(--ac-amber));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Built Around Your Work.</span>
           </h1>
           <p class="relative mt-5 max-w-2xl text-base sm:text-lg text-[var(--text-dim)] leading-relaxed">
-            Why rent SaaS forever? We build white-labelled, fully custom products you own outright - real estate portals, medical conference platforms, society management, and hospitality PMS. One investment, your servers, your data.
+            Start with a proven platform foundation and adapt its features, branding, deployment and support to your organisation’s requirements.
           </p>
           <div class="relative mt-7 flex flex-wrap gap-3">
             <a href="#products-grid" class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[var(--accent)]/25 hover:brightness-110 transition-all">
@@ -51,17 +54,17 @@ const bentoSlots = [
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
             </a>
             <a href="/get-quote/" class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] px-6 py-3 text-sm font-semibold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
-              Discuss a Custom Build
+              Request a Quote
             </a>
           </div>
         </div>
 
         <!-- Stat bento -->
         {[
-          { value: '4',     label: 'Production Products', token: '--ac-teal' },
-          { value: '3',     label: 'Live Demos Available', token: '--ac-amber' },
-          { value: '0',     label: 'Monthly SaaS Fees',    token: '--ac-emerald' },
-          { value: '100%',  label: 'Source Code Yours',    token: '--ac-violet' },
+          { value: String(products.length), label: 'Products Available', token: '--ac-teal' },
+          { value: 'Custom', label: 'Configuration', token: '--ac-amber' },
+          { value: 'Clear', label: 'Proposal and Terms', token: '--ac-emerald' },
+          { value: 'Flexible', label: 'Deployment Options', token: '--ac-violet' },
         ].map(stat => (
           <div class="lg:col-span-2 relative overflow-hidden rounded-2xl border border-[var(--border)] p-5" style={`background: linear-gradient(140deg, color-mix(in srgb, var(${stat.token}) 14%, var(--bg-card)) 0%, var(--bg-card) 75%);`}>
             <span aria-hidden="true" class="absolute -right-4 -top-4 h-16 w-16 rounded-full opacity-[0.18]" style={`background: var(${stat.token});`}></span>
@@ -82,16 +85,16 @@ const bentoSlots = [
 
       <header class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
         <div>
-          <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-2">Battle-Tested Products</p>
+          <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-2">Product Collection</p>
           <h2 id="products-grid-h2" class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)]">
-            4 Platforms You Can Own
+            Products for Businesses and Organisations
           </h2>
           <p class="mt-2 text-[var(--text-dim)] max-w-xl">
-            Each product is refined across multiple real-world deployments. Buy, white-label, deploy.
+            Each platform can be configured around your organisation, users, workflows and integrations.
           </p>
         </div>
         <span class="shrink-0 text-sm text-[var(--text-muted)] border border-[var(--border)] rounded-full px-4 py-1.5">
-          {products.length} products · 3 live demos
+          {products.length} products and platforms
         </span>
       </header>
 
@@ -191,15 +194,42 @@ const bentoSlots = [
 
 
   <!-- ═══ OWN vs SUBSCRIBE - BENTO PAIR ═══════════════════════════════════ -->
+  <div class="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+    <AnswerSummary
+      eyebrow="Product answer"
+      title="How eLan’s configurable products work"
+      intro="These four platform foundations can be adapted to client requirements. The approved proposal defines exactly what is included."
+      items={[
+        { question: 'Can the platforms be white-labelled?', answer: 'White-label branding and client-specific workflows can be included when they form part of the approved platform scope.' },
+        { question: 'Do I receive source code?', answer: 'Source-code access, ownership and reuse rights depend on the signed proposal and completed payment terms.' },
+        { question: 'Are hosting and support included?', answer: 'Hosting, maintenance, third-party services and future upgrades are listed separately unless the proposal includes them.' },
+      ]}
+    />
+  </div>
+
+  <ProductPrivacyPanel
+    title="Define the data lifecycle before a product is configured"
+    intro="These platforms may handle information belonging to customers, delegates, members, guests, staff or property leads. The proposal should identify the product operator, eLan Technology’s delivery or support role, the minimum fields required and every external provider before implementation begins."
+    accentVar="--ac-teal"
+    subject="Products page privacy enquiry"
+    items={[
+      { title: 'Roles and instructions', text: 'The client normally determines why operational records are collected and how long they are retained. eLan Technology processes project or support data only for the documented engagement and authorised instructions.' },
+      { title: 'Data map and permissions', text: 'Fields, user roles, administrator access, exports, notifications and deletion workflows are agreed for the selected modules. Unneeded sensitive fields should not be collected.' },
+      { title: 'Providers and deployment', text: 'Hosting, payment gateways, email, SMS, maps, storage, analytics and other integrations are disclosed in the approved architecture. Their contracts, locations and retention settings remain relevant.' },
+      { title: 'Testing, handover and closure', text: 'Use generated or masked records for testing where practical. Production credentials, access removal, backups, migration, handover and end-of-service treatment should be recorded.' },
+    ]}
+    note="A configurable product does not make the client automatically compliant with the DPDP Act or another law. Legal notices, consent or other lawful-use decisions, statutory retention and operational responses remain shared project responsibilities and should be reviewed for the actual deployment."
+  />
+
   <section class="py-16 md:py-24 bg-[var(--bg-card)] border-y border-[var(--border)]" aria-labelledby="own-vs-sub-h2">
     <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
       <header class="text-center mb-12">
-        <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-2">The Case for Ownership</p>
+        <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-2">Choose the Right Fit</p>
         <h2 id="own-vs-sub-h2" class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)]">
-          Own Your Platform, Don't Rent It
+          Choose the Right Commercial Model
         </h2>
         <p class="mt-3 max-w-2xl mx-auto text-[var(--text-dim)]">
-          SaaS is rented software with rented margins. Ownership flips the maths.
+          Deployment, licensing, support and source-code rights should match how your organisation intends to use the platform.
         </p>
       </header>
 
@@ -212,16 +242,16 @@ const bentoSlots = [
               <div class="flex h-11 w-11 items-center justify-center rounded-xl" style="background: color-mix(in srgb, var(--ac-red) 18%, transparent);">
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--ac-red)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
               </div>
-              <h3 class="font-heading text-xl font-bold text-[var(--text)]">SaaS Subscription</h3>
+              <h3 class="font-heading text-xl font-bold text-[var(--text)]">Subscription Product</h3>
             </div>
             <ul class="space-y-2.5" role="list">
               {[
-                'Pay $200–$2,000/month forever',
-                'Limited customization',
-                'Vendor can raise prices or shut down',
-                'Your data lives on their servers',
-                'Generic features - not your workflow',
-                'No competitive moat',
+                'Start from a published plan',
+                'Pay on the stated billing cycle',
+                'Use the features included in that plan',
+                'Receive updates under the product terms',
+                'A practical fit for standardised needs',
+                'Published plan and support terms apply',
               ].map(item => (
                 <li class="flex items-start gap-2.5 text-sm text-[var(--text-dim)]">
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ac-red)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -240,16 +270,16 @@ const bentoSlots = [
               <div class="flex h-11 w-11 items-center justify-center rounded-xl" style="background: color-mix(in srgb, var(--ac-emerald) 18%, transparent);">
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--ac-emerald)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
               </div>
-              <h3 class="font-heading text-xl font-bold text-[var(--text)]">One-time Custom Product</h3>
+              <h3 class="font-heading text-xl font-bold text-[var(--text)]">Configured Product Foundation</h3>
             </div>
             <ul class="space-y-2.5" role="list">
               {[
-                'Pay once - own forever',
-                'Fully customised to your business',
-                'Hosted on your own servers',
-                'Your data, your control',
-                'Built around your exact workflow',
-                'Unique competitive advantage',
+                'One-time development or licensing is often available',
+                'Features are agreed for your business',
+                'Client-server deployment can be included',
+                'Data responsibilities are documented',
+                'Source-code rights are defined in the agreement',
+                'Hosting, support and third-party costs are transparent',
               ].map(item => (
                 <li class="flex items-start gap-2.5 text-sm text-[var(--text-dim)]">
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ac-emerald)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
@@ -271,10 +301,10 @@ const bentoSlots = [
         <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-[var(--ac-teal)] via-[var(--ac-indigo)] to-[var(--ac-pink)] opacity-20 blur-xl" aria-hidden="true"></div>
         <div class="relative rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-10">
           <h2 id="products-cta-h2" class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] mb-4">
-            Ready to Build Your Own Platform?
+            Which Product Fits Your Requirement?
           </h2>
           <p class="text-lg text-[var(--text-dim)] mb-8 leading-relaxed max-w-xl mx-auto">
-            White-label one of our products or build something entirely custom - we deliver in 4-12 weeks.
+            Adapt one of our product foundations to your organisation. We will explain the scope, commercial model and next step clearly.
           </p>
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a href="/get-quote/" class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3.5 text-sm font-bold text-white shadow-lg shadow-[var(--accent)]/25 hover:brightness-110 transition-all">

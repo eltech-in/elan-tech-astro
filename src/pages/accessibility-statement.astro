@@ -4,14 +4,14 @@ import SchemaMarkup from '../components/SchemaMarkup.astro';
 import { webPageSchema, breadcrumbSchema } from '../utils/schema';
 
 const schema = [
-  webPageSchema('Accessibility Statement', 'eLan Technology accessibility statement - our WCAG 2.1 AA, ADA, and Section 508 compliance commitment.', '/accessibility-statement/'),
+  webPageSchema('Accessibility Statement', 'eLan Technology accessibility statement - our accessibility-first approach, feedback channel and current limitations.', '/accessibility-statement/'),
   breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Accessibility Statement', url: '/accessibility-statement/' }]),
 ];
 ---
 <LegalLayout
   title="Accessibility Statement"
-  description="eLan Technology accessibility statement - our WCAG 2.1 AA, ADA, and Section 508 compliance commitment."
-  lastUpdated="2025-01-01"
+  description="eLan Technology accessibility statement - our accessibility-first approach, feedback channel and current limitations."
+  lastUpdated="2026-09-24"
 >
   <SchemaMarkup schema={schema} />
 
@@ -19,32 +19,36 @@ const schema = [
   <p>
     eLan Technology is committed to ensuring digital accessibility for people with disabilities. We
     believe that everyone deserves equal access to information and services online, regardless of
-    ability. We continually review and improve the user experience for all visitors, and we apply
-    relevant accessibility standards across our website and client projects.
+    ability. We use an accessibility-first development approach for this website and continue to
+    review barriers as content, code and third-party services change. Client-project requirements
+    and testing are separately defined in each accepted scope.
   </p>
 
   <h2>Conformance Status</h2>
-  <p>We aim to conform to the following accessibility standards:</p>
+  <p>
+    Our present target for this website is WCAG 2.1 Level AA. This is a conformance target, not a
+    certification or a claim that every page, third-party component or future content change is free
+    from accessibility barriers.
+  </p>
   <ul>
     <li>
       <strong>WCAG 2.1 Level AA</strong> - Web Content Accessibility Guidelines 2.1 published by the
-      World Wide Web Consortium (W3C). Our goal is full conformance with all Level A and Level AA
-      success criteria.
+      World Wide Web Consortium (W3C), used as the primary technical reference for review and remediation.
     </li>
     <li>
-      <strong>ADA (Americans with Disabilities Act)</strong> - Our website follows ADA web
-      accessibility guidelines to ensure equitable access for users in the United States.
+      <strong>ADA (Americans with Disabilities Act)</strong> - legal applicability and compliance are
+      fact-specific. WCAG-informed work can support accessibility but does not by itself constitute a
+      legal certification.
     </li>
     <li>
-      <strong>Section 508 of the Rehabilitation Act of 1973</strong> - We apply Section 508
-      standards to support users who rely on assistive technologies.
+      <strong>Section 508 of the Rehabilitation Act</strong> - relevant requirements may apply to
+      particular United States federal contexts; they are not automatically applicable to every website.
     </li>
   </ul>
 
   <h2>Technical Specifications</h2>
   <p>
-    Our website relies on the following technologies to deliver accessible content and ensure
-    conformance with the standards listed above:
+    Our website relies on the following technologies to deliver content and support accessible use:
   </p>
   <ul>
     <li>HTML5</li>
@@ -64,42 +68,42 @@ const schema = [
       landmark elements to define page regions clearly for screen reader users.
     </li>
     <li>
-      <strong>Skip navigation link:</strong> a "Skip to main content" link is the first focusable
-      element on every page, allowing keyboard users to bypass the navigation menu.
+      <strong>Skip navigation link:</strong> shared page templates place a "Skip to main content"
+      link before the primary navigation so keyboard users can bypass repeated controls.
     </li>
     <li>
-      <strong>Descriptive alt text:</strong> all meaningful images include descriptive
-      <code>alt</code> attributes. Decorative images use <code>alt=""</code> to be ignored by
-      screen readers.
+      <strong>Image alternatives:</strong> meaningful images are intended to include useful text
+      alternatives, while decorative images should be hidden from assistive technology. New and
+      changed content requires continued editorial review.
     </li>
     <li>
-      <strong>Colour contrast:</strong> we maintain a minimum contrast ratio of 4.5:1 for normal
-      text and 3:1 for large text, meeting WCAG 2.1 AA requirements.
+      <strong>Colour contrast:</strong> the design system targets WCAG 2.1 AA contrast thresholds;
+      individual images, embedded content and future changes may require separate verification.
     </li>
     <li>
-      <strong>Full keyboard navigation:</strong> all interactive elements (links, buttons, forms,
-      modals) are fully operable using only a keyboard - no mouse is required.
+      <strong>Keyboard use:</strong> navigation, forms and custom controls are designed for keyboard
+      operation and are reviewed when interaction patterns change.
     </li>
     <li>
-      <strong>Visible focus indicators:</strong> all interactive elements display a clearly visible
-      focus ring or outline when focused via keyboard navigation.
+      <strong>Visible focus indicators:</strong> the interface provides a visible focus treatment for
+      keyboard interaction; third-party components may use their own focus presentation.
     </li>
     <li>
-      <strong>Labelled form fields:</strong> every form input has a programmatically associated
-      <code>&lt;label&gt;</code>. We do not rely on placeholder text alone as a substitute for labels.
+      <strong>Labelled form fields:</strong> first-party forms are designed with programmatically
+      associated labels and should not rely on placeholder text alone.
     </li>
     <li>
-      <strong>Accessible error messages:</strong> form validation errors are linked to specific fields
-      using <code>aria-describedby</code>, so assistive technologies can identify the relevant field.
+      <strong>Error communication:</strong> first-party validation is designed to identify the
+      affected field and describe the correction needed.
     </li>
     <li>
-      <strong>Responsive and zoomable:</strong> our layout is fully responsive and content remains
-      readable at up to 400% zoom without horizontal scrolling, in compliance with WCAG 1.4.10
-      (Reflow).
+      <strong>Responsive and zoomable:</strong> layouts are designed to reflow and remain usable at
+      increased zoom. Complex tables, code, third-party content and unusually long strings may need
+      horizontal scrolling or an alternative presentation.
     </li>
     <li>
-      <strong>No seizure-inducing content:</strong> no content on our website flashes more than 3
-      times per second, meeting the WCAG guideline for photosensitive seizure prevention.
+      <strong>Flashing content:</strong> we do not intentionally publish content that flashes at a
+      frequency known to create a seizure risk.
     </li>
     <li>
       <strong>Reduced motion support:</strong> we respect the <code>prefers-reduced-motion</code>
@@ -112,13 +116,12 @@ const schema = [
       relying on CSS positioning.
     </li>
     <li>
-      <strong>Page language declared:</strong> the <code>lang="en"</code> attribute is set on the
-      <code>&lt;html&gt;</code> element of every page to enable correct pronunciation by screen
-      readers.
+      <strong>Page language declared:</strong> shared templates declare English as the primary page
+      language to support pronunciation and language processing by assistive technology.
     </li>
     <li>
-      <strong>Descriptive link text:</strong> all links use meaningful, context-aware text. We avoid
-      ambiguous phrases such as "click here" or "read more" as standalone link text.
+      <strong>Descriptive link text:</strong> we aim to use meaningful, context-aware link text and
+      avoid ambiguous standalone phrases when creating or revising content.
     </li>
   </ul>
 
@@ -159,7 +162,10 @@ const schema = [
       Address: <a href="https://share.google/PklD3tFGBBqsPHjli" target="_blank" rel="noopener noreferrer">eLan Technology, Basement Floor, PTG IT Park, Plot No. 21, IT Park Rd, Gayatri Nagar, Nagpur, Maharashtra 440022, India</a>
     </li>
   </ul>
-  <p>We aim to respond to all accessibility enquiries within <strong>2 business days</strong>.</p>
+  <p>
+    We aim to acknowledge accessibility enquiries within <strong>2 business days</strong>.
+    Investigation and remediation time depends on the barrier, affected content and third-party involvement.
+  </p>
 
   <h2>Formal Complaints</h2>
   <p>
@@ -175,26 +181,26 @@ const schema = [
   </p>
   <ul>
     <li>
-      <strong>axe DevTools</strong> browser extension - automated accessibility scanning integrated
-      into our development workflow.
+      <strong>Automated checks</strong> - suitable scanning tools can identify a subset of detectable
+      issues; automated scores are not treated as proof of conformance.
     </li>
     <li>
-      <strong>Google Lighthouse</strong> accessibility audits - run against all key pages during
-      development and before deployment.
+      <strong>Lighthouse reviews</strong> - used as one development signal on selected templates and
+      important user journeys.
     </li>
     <li>
-      <strong>Manual keyboard testing</strong> - all pages and interactive components are tested
-      using keyboard-only navigation to verify tab order, focus management, and operability.
+      <strong>Manual keyboard review</strong> - selected templates and important interactions are
+      reviewed for focus order, visibility and operability, with repeat checks after material changes.
     </li>
     <li>
-      <strong>Screen reader testing</strong> - we test with NVDA on Windows and VoiceOver on macOS
-      to verify that content is correctly announced and navigable for screen reader users.
+      <strong>Assistive-technology review</strong> - representative journeys may be reviewed with
+      technologies such as NVDA and VoiceOver. This is not continuous coverage of every combination.
     </li>
   </ul>
 
   <h2>Statement Date</h2>
   <p>
-    This Accessibility Statement was last reviewed and updated on <strong>1 January 2025</strong>.
+    This Accessibility Statement was last reviewed and updated on <strong>24 September 2026</strong>.
     We review this statement at least annually and whenever significant changes are made to the
     website.
   </p>

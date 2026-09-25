@@ -1,16 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { testimonials } from '../data/testimonials';
-import { reviewSchema, breadcrumbSchema } from '../utils/schema';
-
-const reviewItems = testimonials.map((t) => ({
-  author: t.author,
-  reviewBody: t.quote,
-  ratingValue: t.rating,
-}));
+import { breadcrumbSchema } from '../utils/schema';
 
 const schema = [
-  reviewSchema(reviewItems),
   breadcrumbSchema([
     { name: 'Home', url: '/' },
     { name: 'Testimonials', url: '/testimonials/' },
@@ -19,6 +12,16 @@ const schema = [
 
 const featured = testimonials.filter((t) => t.isFeatured);
 const all = testimonials;
+
+function formatPublishedDate(date?: string) {
+  if (!date) return null;
+  return new Intl.DateTimeFormat('en-IN', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(new Date(`${date}T00:00:00Z`));
+}
 
 function getInitials(name: string) {
   return name
@@ -34,7 +37,7 @@ const industries = ['Healthcare', 'Real Estate', 'Hospitality', 'Education', 'Ma
 
 <BaseLayout
   title="Client Testimonials & Reviews - eLan Technology"
-  description="See what 500+ clients across India and internationally say about eLan Technology's web design, development, and digital marketing services."
+  description="Read selected, source-identified client feedback, LinkedIn recommendations and Google reviews for eLan Technology's web design, development and digital marketing work."
   schema={schema}
 >
 
@@ -49,7 +52,7 @@ const industries = ['Healthcare', 'Real Estate', 'Hospitality', 'Education', 'Ma
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
       <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)]/60 px-4 py-2 text-sm text-[var(--text-muted)] backdrop-blur-sm">
         <span class="h-2 w-2 rounded-full bg-[var(--accent)] animate-pulse" aria-hidden="true"></span>
-        Trusted by 500+ Clients
+        Selected, source-identified feedback
       </div>
 
       <h1
@@ -59,46 +62,34 @@ const industries = ['Healthcare', 'Real Estate', 'Hospitality', 'Education', 'Ma
         What Our Clients Say
       </h1>
       <p class="mx-auto max-w-2xl text-lg text-[var(--text-dim)] leading-relaxed mb-4">
-        Real results, real businesses, real feedback. Here's what 500+ clients across India and internationally say about working with eLan Technology.
+        Client feedback, LinkedIn recommendations and public Google reviews. Names are abbreviated for privacy, and each item identifies its source.
       </p>
     </div>
   </section>
 
-
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       AGGREGATE RATING DISPLAY
-  ════════════════════════════════════════════════════════════════════════ -->
-  <section aria-label="Aggregate rating" class="bg-[var(--bg-card)] border-y border-[var(--border)] py-12">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-16">
-        <div class="text-center">
-          <p class="font-heading text-6xl font-bold text-[var(--accent)]" role="img" aria-label="4.9 out of 5 stars">4.9</p>
-          <div class="flex gap-1 justify-center my-2" aria-hidden="true">
-            {"★★★★★".split('').map(() => (
-              <span class="text-[var(--accent)] text-2xl">★</span>
-            ))}
+  <section aria-labelledby="review-publication-heading" class="bg-[var(--bg)] pb-6">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="review-publication-card overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] shadow-sm">
+        <div class="grid gap-6 p-6 md:grid-cols-[minmax(0,.85fr)_minmax(0,1.5fr)] md:p-8">
+          <div>
+            <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Review publication</p>
+            <h2 id="review-publication-heading" class="mt-2 font-heading text-2xl font-black text-[var(--text)]">Real feedback, clearly attributed</h2>
+            <p class="mt-3 text-sm leading-relaxed text-[var(--text-dim)]">We publish only the professional context needed to understand the feedback.</p>
           </div>
-          <p class="text-sm text-[var(--text-muted)]">Average Rating</p>
+          <div class="grid gap-3 text-sm leading-relaxed text-[var(--text-muted)] sm:grid-cols-2">
+            <p><strong class="text-[var(--text)]">Identity:</strong> names are shortened by default. A full professional name appears only when that attribution was supplied for publication.</p>
+            <p><strong class="text-[var(--text)]">Wording:</strong> recommendations may be lightly edited for length, spelling and clarity without intentionally changing their meaning.</p>
+            <p><strong class="text-[var(--text)]">Source:</strong> every item is labelled as direct feedback, a LinkedIn recommendation or a public Google review. Available original publication dates are shown.</p>
+            <p><strong class="text-[var(--text)]">Results:</strong> any outcome described is that client’s experience, has not been independently audited by us and is not a promise of similar results.</p>
+          </div>
         </div>
-        <div class="hidden sm:block w-px h-16 bg-[var(--border)]"></div>
-        <div class="text-center">
-          <div class="font-heading text-6xl font-bold text-[var(--text)]">500<span class="text-[var(--accent)]">+</span></div>
-          <p class="text-sm text-[var(--text-muted)] mt-2">Happy Clients</p>
-        </div>
-        <div class="hidden sm:block w-px h-16 bg-[var(--border)]"></div>
-        <div class="text-center">
-          <div class="font-heading text-6xl font-bold text-[var(--text)]">9<span class="text-[var(--accent)]">+</span></div>
-          <p class="text-sm text-[var(--text-muted)] mt-2">Years in Business</p>
-        </div>
-        <div class="hidden sm:block w-px h-16 bg-[var(--border)]"></div>
-        <div class="text-center">
-          <div class="font-heading text-6xl font-bold text-[var(--text)]">10<span class="text-[var(--accent)]">+</span></div>
-          <p class="text-sm text-[var(--text-muted)] mt-2">Industries Served</p>
+        <div class="flex flex-col gap-2 border-t border-[var(--border)] bg-[var(--bg)]/70 px-6 py-4 text-xs leading-relaxed text-[var(--text-muted)] sm:flex-row sm:items-center sm:justify-between md:px-8">
+          <p>Featured here and want an attribution corrected, shortened or removed?</p>
+          <a href="mailto:privacy@elan-tech.net?subject=Testimonial%20correction%20or%20removal%20request" class="font-bold text-[var(--text)] underline decoration-[var(--accent)] underline-offset-4">Write to privacy@elan-tech.net</a>
         </div>
       </div>
     </div>
   </section>
-
 
   <!-- ═══════════════════════════════════════════════════════════════════════
        FEATURED TESTIMONIALS
@@ -113,11 +104,15 @@ const industries = ['Healthcare', 'Real Estate', 'Hospitality', 'Education', 'Ma
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {featured.map((t) => (
           <blockquote class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 flex flex-col">
-            <div class="flex gap-0.5 mb-6" role="img" aria-label={`${t.rating} out of 5 stars`}>
-              {Array.from({ length: t.rating }).map(() => (
-                <span class="text-[var(--accent)] text-lg" aria-hidden="true">★</span>
-              ))}
-            </div>
+            {t.rating ? (
+              <div class="flex gap-0.5 mb-6" role="img" aria-label={`${t.rating} out of 5 stars`}>
+                {Array.from({ length: t.rating }).map(() => (
+                  <span class="text-[var(--accent)] text-lg" aria-hidden="true">★</span>
+                ))}
+              </div>
+            ) : (
+              <p class="mb-6 text-xs font-bold uppercase tracking-wider text-[var(--accent)]">{t.source}</p>
+            )}
             <p class="text-base italic text-[var(--text)] mb-6 flex-1 leading-relaxed">"{t.quote}"</p>
             <footer class="flex items-center gap-4">
               <div
@@ -129,6 +124,8 @@ const industries = ['Healthcare', 'Real Estate', 'Hospitality', 'Education', 'Ma
               <div class="min-w-0">
                 <cite class="font-semibold text-[var(--text)] not-italic block truncate">{t.author}</cite>
                 <p class="text-sm text-[var(--text-muted)] truncate">{t.role}, {t.company}</p>
+                <p class="mt-1 text-xs font-semibold text-[var(--accent)]">{t.source}</p>
+                {t.datePublished && <p class="mt-0.5 text-[11px] text-[var(--text-muted)]">Published {formatPublishedDate(t.datePublished)}</p>}
               </div>
             </footer>
           </blockquote>
@@ -162,14 +159,20 @@ const industries = ['Healthcare', 'Real Estate', 'Hospitality', 'Education', 'Ma
                 <cite class="font-semibold text-[var(--text)] not-italic text-sm block truncate">{t.author}</cite>
                 <p class="text-xs text-[var(--text-muted)] truncate">{t.role}, {t.company}</p>
               </div>
-              <div class="ml-auto flex gap-0.5 shrink-0" role="img" aria-label={`${t.rating} stars`}>
-                {Array.from({ length: t.rating }).map(() => (
-                  <span class="text-[var(--accent)] text-sm" aria-hidden="true">★</span>
-                ))}
-              </div>
+              {t.rating ? (
+                <div class="ml-auto flex gap-0.5 shrink-0" role="img" aria-label={`${t.rating} stars`}>
+                  {Array.from({ length: t.rating }).map(() => (
+                    <span class="text-[var(--accent)] text-sm" aria-hidden="true">★</span>
+                  ))}
+                </div>
+              ) : (
+                <span class="ml-auto text-[10px] font-bold uppercase tracking-wide text-[var(--accent)]">LinkedIn</span>
+              )}
             </div>
             <p class="text-sm text-[var(--text-dim)] leading-relaxed flex-1">"{t.quote}"</p>
             <p class="mt-3 text-xs text-[var(--text-muted)] font-medium">{t.industry}</p>
+            <p class="mt-1 text-xs font-semibold text-[var(--accent)]">Source: {t.source}</p>
+            {t.datePublished && <p class="mt-1 text-[11px] text-[var(--text-muted)]">Published {formatPublishedDate(t.datePublished)}</p>}
           </blockquote>
         ))}
       </div>
@@ -203,10 +206,10 @@ const industries = ['Healthcare', 'Real Estate', 'Hospitality', 'Education', 'Ma
   <section aria-labelledby="testimonials-cta-heading" class="bg-[var(--bg-card)] py-16 md:py-20 border-t border-[var(--border)]">
     <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
       <h2 id="testimonials-cta-heading" class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] mb-4">
-        Join 500+ Happy Clients
+        Start a Conversation About Your Project
       </h2>
       <p class="text-lg text-[var(--text-dim)] mb-8 leading-relaxed">
-        Ready to become our next success story? Let's build something remarkable together.
+        Share what you need, and we will recommend a practical scope with clear responsibilities and commercial terms.
       </p>
       <a
         href="/get-quote/"
