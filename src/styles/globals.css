@@ -109,6 +109,15 @@ body {
   --ac-violet:  #C084FC;  /* 6.1:1 - bumped from #A855F7 (4.3:1) */
   --ac-red:     #F87171;  /* 5.7:1 - bumped from #EF4444 (4.2:1) */
   --ac-blue:    #60A5FA;  /* 5.9:1 - bumped from #3B82F6 (4.8:1) */
+  /* Distinct identities for the expanded service families and their detail pages. */
+  --svc-integrations: #CBD5E1;
+  --svc-crm: #F0ABFC;
+  --svc-dpdp: #BEF264;
+  --svc-headless: #FDBA74;
+  --svc-payload: #5EEAD4;
+  --svc-shopify: #86EFAC;
+  --svc-medusa: #67E8F9;
+  --svc-emergency: #FB7185;
   /* Orange text - passes 4.5:1 on dark bg */
   --orange-text: #F26722;
   /* Indigo pill text - bright enough for 4.5:1 on dark indigo-tinted bg */
@@ -136,10 +145,29 @@ body {
   --ac-violet:  #6D28D9;  /* 7.10:1 - darkened so it clears AA on its own 16–18% pill tint (#7C3AED only hit 4.47:1 there) */
   --ac-red:     #B91C1C;  /* 6.36:1 */
   --ac-blue:    #1D4ED8;  /* 8.59:1 */
+  --svc-integrations: #334155;
+  --svc-crm: #86198F;
+  --svc-dpdp: #3F6212;
+  --svc-headless: #9A3412;
+  --svc-payload: #0F766E;
+  --svc-shopify: #166534;
+  --svc-medusa: #0E7490;
+  --svc-emergency: #BE123C;
   /* Orange text - passes 4.5:1 on light bg */
   --orange-text: #994200;
   /* Indigo pill text - same as dark ac-indigo, AA on light */
   --pill-indigo-text: #4338CA;
+}
+
+/* A slim accent edge keeps each service card tied to its own page theme. */
+.service-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 1;
+  height: 3px;
+  background: linear-gradient(90deg, var(--card-color, var(--service-accent, var(--accent))), transparent 85%);
+  pointer-events: none;
 }
 
 /* Project carousel infinite scroll */

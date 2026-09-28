@@ -10,7 +10,7 @@ const breadcrumbs = [
   { name: 'Integrations', href: '/services/integrations/' },
 ];
 
-const accent = 'var(--ac-cyan)'; // sky-500
+const accent = 'var(--svc-integrations)';
 
 const categories = [...new Set(integrations.map((i) => i.category))];
 
@@ -86,9 +86,9 @@ const schema = [
 >
 
   <!-- ── HERO ─────────────────────────────────────────────────────────────── -->
-  <section class="service-card relative mb-12 overflow-hidden rounded-2xl border border-[var(--border)] p-8 md:p-12" style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-cyan) 12%, var(--bg-card)) 0%, var(--bg-card) 65%);">
-    <span aria-hidden="true" class="service-card__num pointer-events-none absolute top-4 right-6 font-heading font-black leading-none select-none" style="color: var(--ac-cyan); font-size: 7rem;">09</span>
-    <span aria-hidden="true" class="service-card__stripe pointer-events-none absolute -left-12 -bottom-12 h-60 w-60 rotate-[-20deg] opacity-[0.08]" style="background: var(--ac-cyan);"></span>
+  <section class="service-card relative mb-12 overflow-hidden rounded-2xl border border-[var(--border)] p-8 md:p-12" style="background: linear-gradient(135deg, color-mix(in srgb, var(--svc-integrations) 12%, var(--bg-card)) 0%, var(--bg-card) 65%);">
+    <span aria-hidden="true" class="service-card__num pointer-events-none absolute top-4 right-6 font-heading font-black leading-none select-none" style="color: var(--svc-integrations); font-size: 7rem;">09</span>
+    <span aria-hidden="true" class="service-card__stripe pointer-events-none absolute -left-12 -bottom-12 h-60 w-60 rotate-[-20deg] opacity-[0.08]" style="background: var(--svc-integrations);"></span>
     <div class="relative">
     <div class="grid gap-10 md:grid-cols-2 md:items-center">
       <div>

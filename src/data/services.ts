@@ -221,8 +221,8 @@ export const services: Service[] = [
     ],
     icon: 'Workflow',
     iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="9" y="15" width="6" height="6" rx="1"/><path d="M6 9v2a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9M12 13v2"/></svg>`,
-    accent: '#7C3AED',
-    cssVar: '--ac-violet',
+    accent: '#D946EF',
+    cssVar: '--svc-crm',
   },
   {
     slug: 'dpdp-compliance-implementation',
@@ -242,8 +242,8 @@ export const services: Service[] = [
     ],
     icon: 'Privacy',
     iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/><path d="M12 7v1"/></svg>`,
-    accent: '#047857',
-    cssVar: '--ac-emerald',
+    accent: '#84CC16',
+    cssVar: '--svc-dpdp',
   },
   {
     slug: 'headless-cms-development',
@@ -263,8 +263,8 @@ export const services: Service[] = [
     ],
     icon: 'Database',
     iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>`,
-    accent: '#0E7490',
-    cssVar: '--ac-cyan',
+    accent: '#EA580C',
+    cssVar: '--svc-headless',
   },
 ];
 
