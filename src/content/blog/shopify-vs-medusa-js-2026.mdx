@@ -2,6 +2,7 @@
 title: "Medusa.js vs Shopify: Costs, Ownership and Best Fit in 2026"
 description: "An experience-led comparison of Shopify and Medusa.js across launch speed, customisation, subscriptions, payments, ownership, operations, and total platform fit."
 publishDate: 2026-06-30
+updatedDate: 2026-10-01
 author: "eLan Technology Team"
 category: "ecommerce"
 tags: ["Shopify vs Medusa", "Medusa.js", "Shopify development", "headless commerce", "ecommerce platform comparison"]
@@ -94,7 +95,7 @@ With Medusa.js, a team can build payment and fulfilment modules directly around 
 
 Shopify merchants own their business data and storefront content but operate inside Shopify’s platform and extension model. This tradeoff is often reasonable because Shopify takes on substantial infrastructure and platform responsibility.
 
-With Medusa.js, the merchant can own the application code, database, infrastructure, and roadmap. That reduces platform constraints but increases engineering responsibility.
+With Medusa.js, the merchant can control the application code, database, infrastructure and roadmap. Source-code handover, intellectual-property rights, third-party licences and access credentials must still be specified in the development contract and payment terms. Open-source software does not automatically transfer ownership of every custom component.
 
 Ownership without an operating plan is not independence. It is unmanaged risk.
 
@@ -116,7 +117,28 @@ Compare:
 
 Shopify often has a lower operational burden. Medusa can deliver better long-term fit when custom workflows would otherwise require expensive workarounds.
 
-## SEO and performance
+## Hosting, maintenance and the real budget
+
+| Budget item | Shopify | Medusa.js |
+|---|---|---|
+| Platform | Recurring plan; verify the current India price and billing period | Open-source framework; managed hosting or infrastructure is a separate cost |
+| Hosting | Hosted storefront included; a headless frontend can add hosting costs | Budget backend, database, frontend, storage and any supporting services |
+| Payments | Gateway charges and any applicable platform transaction fees | Gateway charges plus engineering and maintenance of the payment integration |
+| Extensions | App subscriptions, licences and custom-app work | Custom modules, third-party subscriptions and integration support |
+| Maintenance | Theme/app upkeep; Shopify manages its platform | Security updates, backups, monitoring, recovery tests and version upgrades |
+| Exit | Export data and plan how platform-specific functionality is replaced | Handover code, data, deployment instructions and agreed licences |
+
+Ask for a **12-month and 36-month total-cost estimate**, with one-time development, recurring charges, GST, third-party fees and exclusions shown separately. See [Shopify's current India plans](https://www.shopify.com/in/pricing); promotional or annual-billing prices are not a permanent all-inclusive project quotation. Medusa's framework licence is not a promise of free operation.
+
+## Migration: what must be agreed before switching
+
+A move in either direction should begin with a sample import—not a promise to reproduce everything automatically. Inventory products, variants, customers, orders, discounts, subscriptions, tax rules, shipping and integrations. Identify fields or workflows that cannot move directly. Passwords, saved payment methods and subscription billing require provider-specific checks; never assume they transfer.
+
+Keep a map of every existing product, category and content URL. Preserve useful URLs or add relevant one-hop redirects, verify canonicals and structured data, then test checkout, refunds, stock updates and transactional emails. Agree a cutover window, rollback procedure and responsibility for reconciling orders placed during migration. Compare Search Console and confirmed orders after launch, not just a speed score.
+
+For a proposal, use our [Shopify development service](/services/ecommerce/shopify-development/) or [Medusa.js development service](/services/ecommerce/medusa-js-development/). This article owns the two-platform comparison; the [three-platform guide](/blog/ecommerce/shopify-woocommerce-medusa-which-platform/) helps when WooCommerce is also on your shortlist.
+
+## SEO and performance considerations
 
 Both platforms can support strong technical SEO and fast storefronts. Neither guarantees them.
 

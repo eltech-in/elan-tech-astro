@@ -18,6 +18,7 @@ async function postBackup(
   notify: boolean,
 ): Promise<Response> {
   return fetch(BACKUP_URL, {
+    signal: AbortSignal.timeout(20000),
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -52,7 +53,7 @@ export async function submitLead(formType: string, fields: LeadFields): Promise<
 
   try {
     const response = await postBackup(id, formType, fields, true);
-    backupRejected = response.status === 400 || response.status === 422;
+    backupRejected = [400, 403, 413, 422, 429].includes(response.status);
     const result = response.ok ? await response.json() as BackupResult : null;
     backupStored = Boolean(response.ok && result?.stored);
     reliableServerAlert = Boolean(response.ok && result?.notified && result?.notificationReliable);
@@ -70,6 +71,7 @@ export async function submitLead(formType: string, fields: LeadFields): Promise<
   if (!reliableServerAlert) {
     try {
       const response = await fetch(FORM_SUBMIT_URL, {
+        signal: AbortSignal.timeout(15000),
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -77,7 +79,8 @@ export async function submitLead(formType: string, fields: LeadFields): Promise<
         },
         body: JSON.stringify(fields),
       });
-      fallbackEmailDelivered = response.ok;
+      const result = response.ok ? await response.json() as { success?: boolean | string } : null;
+      fallbackEmailDelivered = Boolean(response.ok && (result?.success === true || result?.success === 'true'));
     } catch {
       // The private backup may still have captured the enquiry.
     }
@@ -95,7 +98,7 @@ export function redirectToThankYou(formType: string): void {
       createdAt: Date.now(),
     }));
   } catch {
-    // The redirect and page-view conversion still work when storage is blocked.
+    // Still show confirmation, but do not count an unverified thank-you visit.
   }
 
   window.location.assign(`/thank-you/?form=${encodeURIComponent(formType)}`);

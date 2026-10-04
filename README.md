@@ -4,6 +4,11 @@ Astro website for [elan-tech.net](https://elan-tech.net), deployed as a static b
 
 ## Local development
 
+Use Node.js 24 or newer (Node 26 is also supported). The build stack uses
+Astro 7, React 19 and Tailwind CSS 4. TypeScript 7 runs the standalone type
+check; the TypeScript 6 API compatibility package remains available for Astro's
+language tooling.
+
 ```sh
 npm install
 npm run dev

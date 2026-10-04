@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { breadcrumbSchema } from '../utils/schema';
+import { COMPANY } from '../data/company';
 
 const schema = breadcrumbSchema([
   { name: 'Home', url: '/' },
@@ -89,7 +90,7 @@ const afterSteps = [
           </div>
           <ul class="space-y-2 text-sm text-[var(--text-dim)]">
             <li class="flex items-center gap-2">
-              <span class="text-[var(--accent)]">→</span> Available Mon–Sat, 10am–6pm IST
+              <span class="text-[var(--accent)]">→</span> Business hours: {COMPANY.hours.weekdayLabel}; {COMPANY.hours.saturdayLabel}. Consultation slots are subject to appointment availability.
             </li>
             <li class="flex items-center gap-2">
               <span class="text-[var(--accent)]">→</span> International clients welcome

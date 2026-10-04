@@ -201,6 +201,17 @@ if ($shouldPruneLeads) {
     }
     @touch($retentionMarker);
     @chmod($retentionMarker, 0600);
+    foreach (glob($storageRoot . '/alert-status-*.jsonl') ?: [] as $statusFile) {
+        if (!is_file($statusFile)) continue;
+        $keptStatus = [];
+        foreach (file($statusFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [] as $savedStatus) {
+            $statusRecord = json_decode($savedStatus, true);
+            $recordedAt = is_array($statusRecord) ? strtotime((string) ($statusRecord['recordedAt'] ?? '')) : false;
+            if ($recordedAt === false || $recordedAt >= $leadCutoff) $keptStatus[] = $savedStatus;
+        }
+        file_put_contents($statusFile, $keptStatus === [] ? '' : implode(PHP_EOL, $keptStatus) . PHP_EOL, LOCK_EX);
+        @chmod($statusFile, 0600);
+    }
 }
 
 $clientIp = (string) ($_SERVER['REMOTE_ADDR'] ?? 'unknown');
@@ -382,6 +393,24 @@ if ($notify) {
             $notificationChannel = 'php-mail';
         }
     }
+}
+
+// A provider accepting mail is not proof of inbox delivery. Retain operational
+// status alongside the private lead backup so unalerted enquiries can be found.
+$alertStatus = json_encode([
+    'recordedAt' => gmdate('c'),
+    'submissionId' => $submissionId,
+    'formType' => $formType,
+    'stored' => $stored,
+    'notificationRequested' => $notify,
+    'notificationAccepted' => $notified,
+    'notificationReliable' => $notificationReliable,
+    'channel' => $notificationChannel,
+], JSON_UNESCAPED_SLASHES);
+if ($alertStatus !== false) {
+    $statusPath = $storageRoot . '/alert-status-' . gmdate('Y-m') . '.jsonl';
+    @file_put_contents($statusPath, $alertStatus . "\n", FILE_APPEND | LOCK_EX);
+    @chmod($statusPath, 0600);
 }
 
 respond(200, [

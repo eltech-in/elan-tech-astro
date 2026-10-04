@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { breadcrumbSchema, localBusinessSchema } from "../utils/schema";
 import ContactForm from "../islands/ContactForm";
+import { COMPANY } from "../data/company";
 
 const schema = [
   breadcrumbSchema([
@@ -115,7 +116,7 @@ const schema = [
             <div class="relative">
               <p class="font-semibold text-[var(--text)] text-sm mb-0.5">Phone</p>
               <p class="font-medium text-sm" style="color: var(--ac-amber);">+91 98222 31642</p>
-              <p class="text-xs text-[var(--text-muted)] mt-0.5">10:00 AM – 7:00 PM IST</p>
+              <p class="text-xs text-[var(--text-muted)] mt-0.5">{COMPANY.hours.weekdayLabel}<br />{COMPANY.hours.saturdayLabel}</p>
             </div>
           </a>
 
@@ -180,9 +181,9 @@ const schema = [
             </div>
             <div class="relative">
               <p class="font-semibold text-[var(--text)] text-sm mb-0.5">Business Hours</p>
-              <p class="text-xs text-[var(--text-dim)]">Monday – Saturday</p>
-              <p class="text-sm font-semibold text-[var(--text)]">10:00 AM – 7:00 PM IST</p>
-              <p class="text-xs text-[var(--text-muted)] mt-0.5">Closed Sundays & public holidays</p>
+              <p class="text-sm font-semibold text-[var(--text)]">{COMPANY.hours.weekdayLabel}</p>
+              <p class="text-sm font-semibold text-[var(--text)]">{COMPANY.hours.saturdayLabel}</p>
+              <p class="text-xs text-[var(--text-muted)] mt-0.5">{COMPANY.hours.sundayLabel}. Holiday hours may vary.</p>
             </div>
           </div>
 

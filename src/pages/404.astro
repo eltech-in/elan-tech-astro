@@ -17,6 +17,20 @@ const quickLinks = [
   noindex={true}
 >
 
+  <script is:inline>
+    (function () {
+      var sent = false;
+      function recordMissingPage() {
+        if (sent || typeof window.__elanTrackEvent !== 'function') return;
+        var referrer = '';
+        try { var url = new URL(document.referrer); referrer = url.origin + url.pathname; } catch (_) {}
+        sent = window.__elanTrackEvent('page_not_found', { page_path: location.pathname, referring_page: referrer });
+      }
+      recordMissingPage();
+      window.addEventListener('elan:analytics-ready', recordMissingPage);
+    })();
+  </script>
+
   <section class="bg-[var(--bg)] py-24 md:py-32">
     <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
 

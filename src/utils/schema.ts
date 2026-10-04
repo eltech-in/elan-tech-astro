@@ -128,6 +128,12 @@ export function localBusinessSchema(city = 'Nagpur', overrides: LocalBusinessOve
         opens: COMPANY.hours.opens,
         closes: COMPANY.hours.closes,
       },
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Saturday'],
+        opens: COMPANY.hours.saturday.opens,
+        closes: COMPANY.hours.saturday.closes,
+      },
     ],
     sameAs: SOCIAL_PROFILE_URLS,
   };

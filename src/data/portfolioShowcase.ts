@@ -180,6 +180,17 @@ export const internationalProjects: PortfolioShowcaseItem[] = [
 
 export const launchingSoon: PortfolioShowcaseItem[] = [
   {
+    title: 'Healthy Genie',
+    label: 'Medusa.js redevelopment · In development',
+    description: 'Redesigning and redeveloping Healthy Genie’s Pune-based meal-commerce website using Medusa.js. The development preview presents meal browsing, subscription plans, food preferences and corporate enquiries. Planned commerce workflows remain subject to implementation and testing.',
+    image: '/elan-client-logos/healthy-genie.avif',
+    liveUrl: 'https://healthygenie.elantech.cloud/',
+    launchUrl: 'https://www.healthygenie.in/',
+    note: 'In development - not the production store',
+    stack: ['Medusa.js', 'Meal Commerce', 'Redesign in Progress'],
+    location: 'Pune, India',
+  },
+  {
     title: 'ASBIM Consulting',
     label: 'BIM Consulting',
     description: 'A structured service website that makes complex architectural, structural and MEP BIM expertise easy to understand.',

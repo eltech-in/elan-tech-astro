@@ -1,0 +1,41 @@
+---
+import { testimonials } from '../../data/testimonials';
+interface Props { city: 'nagpur' | 'bhopal' | 'raipur' }
+const { city } = Astro.props;
+const guides = {
+  nagpur: { name: 'Nagpur', heading: 'A local website partner, not just a website quotation.', intro: 'Meet our Nagpur team to plan a business website, clinic enquiry journey, product catalogue or custom portal. Start with the customer action you need, then agree pages, content, integrations and support.', testimonial: 6, needs: ['Clinic and professional-service enquiries', 'Industrial catalogues and quotation requests', 'Editable content and accessible mobile journeys'] },
+  bhopal: { name: 'Bhopal', heading: 'Plan the content and enquiry workflow before commissioning your Bhopal website.', intro: 'For education, professional services and organisations serving Bhopal, we scope publishing permissions, admissions or enquiry forms and accessible information journeys. Delivery is from Nagpur through agreed remote reviews; we do not claim a Bhopal office.', testimonial: 4, needs: ['Course, programme and admissions information', 'Service pages with clear enquiry routing', 'CMS permissions, approvals and handover'] },
+  raipur: { name: 'Raipur', heading: 'Turn your Raipur product or service catalogue into a clear buying journey.', intro: 'For manufacturers, distributors and growing service businesses, start with product categories, technical information, quotation requests and the handoff to your sales team. Delivery is from Nagpur; visits and travel costs are agreed separately.', testimonial: 4, needs: ['Product specifications and downloadable catalogues', 'Trade enquiries with useful qualification fields', 'CRM integration and sales follow-up responsibilities'] },
+};
+const guide = guides[city];
+const review = testimonials.find(item => item.id === guide.testimonial)!;
+---
+<section class="border-b border-[var(--border)] bg-[var(--bg-card)] py-12" aria-labelledby="city-buying-guide">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid gap-8 lg:grid-cols-[1.3fr_1fr]">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">Choosing a web partner in {guide.name}</p>
+        <h2 id="city-buying-guide" class="mt-3 font-heading text-2xl font-bold sm:text-3xl">{guide.heading}</h2>
+        <p class="mt-4 leading-relaxed text-[var(--text-dim)]">{guide.intro}</p>
+        <ul class="mt-5 space-y-2">{guide.needs.map(need => <li class="text-sm">✓ {need}</li>)}</ul>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a class="rounded-xl bg-[var(--accent)] px-5 py-3 font-semibold text-white" href="/pricing/">See scope and pricing</a>
+          <a class="rounded-xl border border-[var(--border)] px-5 py-3 font-semibold" href="/get-quote/">Request a written proposal</a>
+        </div>
+        {city === 'nagpur' && <a class="mt-4 inline-block text-sm underline" href="/blog/nagpur-business/website-cost-nagpur/">What affects a Nagpur website quotation?</a>}
+      </div>
+      <aside class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6">
+        <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">Approved client recommendation</p>
+        <blockquote class="mt-4 leading-relaxed">“{review.quote}”</blockquote>
+        <p class="mt-4 text-sm font-semibold">{review.author} · {review.role}, {review.company}</p>
+        <p class="mt-2 text-xs text-[var(--text-muted)]">{review.source}{review.datePublished && ` · ${review.datePublished}`}. This is evidence of our work, not a claim that the client is based in {guide.name}.</p>
+        <a class="mt-4 inline-block text-sm underline" href="/testimonials/">Read more client feedback</a>
+      </aside>
+    </div>
+    <div class="mt-8 grid gap-4 border-t border-[var(--border)] pt-6 md:grid-cols-3">
+      <div><h3 class="font-semibold">What is included?</h3><p class="mt-2 text-sm text-[var(--text-dim)]">The accepted proposal lists pages, revisions, features, content responsibilities, launch checks and support. Custom integrations are not assumed to be included in a brochure-site price.</p></div>
+      <div><h3 class="font-semibold">Who owns the website?</h3><p class="mt-2 text-sm text-[var(--text-dim)]">Confirm source-code handover, licences, domain and hosting access, and payment conditions in writing. Third-party services keep their own terms.</p></div>
+      <div><h3 class="font-semibold">How do we measure success?</h3><p class="mt-2 text-sm text-[var(--text-dim)]">Agree confirmed enquiries, useful landing pages and customer journeys. Analytics requires visitor consent; a phone or WhatsApp click is not a confirmed sale.</p></div>
+    </div>
+  </div>
+</section>

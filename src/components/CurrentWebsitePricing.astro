@@ -1,0 +1,11 @@
+---
+import { pricingTiers } from '../data/pricing';
+---
+<div class="my-8 grid gap-4 sm:grid-cols-3" aria-label="Current business website plans">
+{pricingTiers.map(tier => <article class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
+  <h3 class="font-heading text-lg font-bold">{tier.name}</h3>
+  <p class="mt-3 font-bold text-[var(--accent)]">{tier.customPricing ? 'Contact for pricing' : `₹${tier.prices.INR.toLocaleString('en-IN')} + GST`}</p>
+  <p class="mt-3 text-sm">{tier.features[0]} · {tier.revisions} revisions</p>
+  <a class="mt-4 inline-block text-sm underline" href="/pricing/">Review full inclusions and exclusions</a>
+</article>)}
+</div>

@@ -27,9 +27,13 @@ export const COMPANY = {
     country: 'India',
   },
   hours: {
-    days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
     opens: '10:00',
-    closes: '19:00',
+    closes: '19:30',
+    saturday: { opens: '10:00', closes: '17:30' },
+    weekdayLabel: 'Monday–Friday: 10:00 AM–7:30 PM IST',
+    saturdayLabel: 'Saturday: 10:00 AM–5:30 PM IST',
+    sundayLabel: 'Sunday: Closed',
     timezone: 'Asia/Kolkata',
   },
   timeline: {

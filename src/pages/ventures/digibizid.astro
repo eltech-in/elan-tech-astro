@@ -1,10 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AnswerSummary from '../../components/AnswerSummary.astro';
+import { campaignUrl } from '../../utils/campaign';
 import { breadcrumbSchema, faqSchema } from '../../utils/schema';
 
 const ventureUrl = '/ventures/digibizid/';
-const ventureSite = 'https://elanvcard.elantech.cloud/';
+const ventureSite = campaignUrl('https://elanvcard.elantech.cloud/', 'elan_technology', 'referral', 'digibizid', 'venture_page');
 
 const features = [
   'Shareable digital profile and QR code',

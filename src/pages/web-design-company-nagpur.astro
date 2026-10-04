@@ -1,5 +1,7 @@
 ---
 import CityLayout from '../layouts/CityLayout.astro';
+import { pricingTiers } from '../data/pricing';
+import CityBuyerGuide from '../components/city/CityBuyerGuide.astro';
 import ChapterLabel from '../components/ChapterLabel.astro';
 import CityHQSection from '../components/city/CityHQSection.astro';
 import CityFAQ from '../components/city/CityFAQ.astro';
@@ -129,33 +131,18 @@ const portfolio = city.portfolio;
 const portfolioAccents = ['--ac-cyan', '--ac-violet', '--ac-amber'];
 
 // ── Pricing packages with accent gradients ─────────────────────────────
-const packages = [
-  {
-    name: 'Starter',
-    price: '₹21,000',
-    desc: 'Small businesses & startups',
-    cssVar: '--ac-cyan',
-    features: ['5 Pages', 'Mobile responsive', 'Basic SEO setup', 'Contact form', 'SSL certificate'],
-  },
-  {
-    name: 'Professional',
-    price: '₹45,000',
-    desc: 'Growing businesses that need more',
-    cssVar: '--ac-amber',
-    features: ['10–15 Pages', 'Custom design', 'SEO foundations', 'Accessibility-first UI', 'CMS integration', 'Analytics setup'],
-    popular: true,
-  },
-  {
-    name: 'Enterprise',
-    price: '₹1,50,000+',
-    desc: 'Custom solutions for large teams',
-    cssVar: '--ac-violet',
-    features: ['Agreed page and module scope', 'Custom web app', 'eCommerce options', 'API integrations', 'Scoped support', 'Performance budgets'],
-  },
-];
+const packages = pricingTiers.map((tier, index) => ({
+  name: tier.name,
+  price: tier.customPricing ? 'Contact for pricing' : '₹' + tier.prices.INR.toLocaleString('en-IN') + ' + GST',
+  desc: tier.tagline,
+  cssVar: ['--ac-cyan', '--ac-amber', '--ac-violet'][index],
+  features: [...tier.features.slice(0, 5), String(tier.revisions) + ' revisions'],
+  popular: tier.highlighted,
+}));
 ---
 
 <CityLayout city={city} heroHeading="Web Design Company in Nagpur">
+  <CityBuyerGuide city="nagpur" />
 
   <!-- ═══════════════════════════════════════════════════════════════════════
        SECTION 1: INTRO + KEY STATS BENTO

@@ -1,4 +1,5 @@
 ---
+import { COMPANY } from '../../data/company';
 // HQ-only section. Renders on the Nagpur city page to reinforce the
 // canonical LocalBusiness signal: full NAP with microdata, embedded GMB map,
 // business hours, and a direct "Get Directions" CTA to the Google Business
@@ -161,10 +162,11 @@
             </div>
             <div>
               <p class="font-semibold text-[var(--text)] text-sm mb-1">Business Hours</p>
-              <p class="text-sm text-[var(--text-dim)]">Monday – Saturday</p>
-              <p class="text-sm font-semibold text-[var(--text)]">10:00 AM – 7:00 PM IST</p>
-              <p class="text-xs text-[var(--text-muted)] mt-1">Closed Sundays & public holidays</p>
-              <meta itemprop="openingHours" content="Mo-Sa 10:00-19:00" />
+              <p class="text-sm font-semibold text-[var(--text)]">{COMPANY.hours.weekdayLabel}</p>
+              <p class="text-sm font-semibold text-[var(--text)]">{COMPANY.hours.saturdayLabel}</p>
+              <p class="text-xs text-[var(--text-muted)] mt-1">{COMPANY.hours.sundayLabel}. Holiday hours may vary.</p>
+              <meta itemprop="openingHours" content={`Mo-Fr ${COMPANY.hours.opens}-${COMPANY.hours.closes}`} />
+              <meta itemprop="openingHours" content={`Sa ${COMPANY.hours.saturday.opens}-${COMPANY.hours.saturday.closes}`} />
             </div>
           </div>
         </div>

@@ -1,12 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import QRCode from 'qrcode';
+import { campaignUrl } from '../../utils/campaign';
 import { breadcrumbSchema } from '../../utils/schema';
 
 const pageUrl = 'https://elan-tech.net/about/nishant-barde/';
+const contactUrl = campaignUrl(pageUrl, 'nishant_vcard', 'qr', 'professional_profile', 'saved_contact');
 const phone = '+918788834630';
 const email = 'nishant@elan-tech.net';
-const vcard = `BEGIN:VCARD\r\nVERSION:3.0\r\nN:Barde;Nishant;;;\r\nFN:Nishant Barde\r\nORG:eLan Technology\r\nTITLE:Digital Growth Consultant\r\nTEL;TYPE=CELL,VOICE:${phone}\r\nEMAIL;TYPE=INTERNET,WORK:${email}\r\nURL;TYPE=WORK:https://elan-tech.net/\r\nURL:${pageUrl}\r\nX-SOCIALPROFILE;TYPE=linkedin:https://www.linkedin.com/in/bnishant/\r\nNOTE:Websites, web applications, SEO, ecommerce, security, performance audits, and ADA and WCAG accessibility services.\r\nREV:20260912T120000Z\r\nEND:VCARD`;
+const vcard = `BEGIN:VCARD\r\nVERSION:3.0\r\nN:Barde;Nishant;;;\r\nFN:Nishant Barde\r\nORG:eLan Technology\r\nTITLE:Digital Growth Consultant\r\nTEL;TYPE=CELL,VOICE:${phone}\r\nEMAIL;TYPE=INTERNET,WORK:${email}\r\nURL;TYPE=WORK:https://elan-tech.net/\r\nURL:${contactUrl}\r\nX-SOCIALPROFILE;TYPE=linkedin:https://www.linkedin.com/in/bnishant/\r\nNOTE:Websites, web applications, SEO, ecommerce, security, performance audits, and ADA and WCAG accessibility services.\r\nREV:20261001T040000Z\r\nEND:VCARD`;
 
 const qrSvg = await QRCode.toString(vcard, {
   type: 'svg',
@@ -292,7 +294,7 @@ const schema = [
         const shareData = {
           title: 'Nishant Barde | Digital Growth Consultant',
           text: 'Connect with Nishant Barde at eLan Technology.',
-          url: window.location.href,
+          url: 'https://elan-tech.net/about/nishant-barde/?utm_source=nishant_card&utm_medium=referral&utm_campaign=professional_profile&utm_content=share_button',
         };
         try {
           if (navigator.share) {

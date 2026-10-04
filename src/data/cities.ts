@@ -103,7 +103,7 @@ export const cities: CityData[] = [
     knownFor: 'Orange City, MIDC industrial hub, geographical centre of India',
     distanceFromNagpur: 'HQ',
     tagline: "Web design, ecommerce and accessibility-first development from Nagpur",
-    seoTitle: 'Web Design Company in Nagpur | Custom Websites, Apps & SEO | eLan Technology',
+    seoTitle: 'Nagpur Website Design: Local Projects, Scope & Pricing | eLan Technology',
     seoDescription: "Nagpur web design company operating since 2002. Custom websites, ecommerce, mobile apps, SEO and accessibility-first development from our local office.",
     primaryKeyword: 'web design company Nagpur',
     secondaryKeywords: [

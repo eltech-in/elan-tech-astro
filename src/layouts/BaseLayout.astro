@@ -59,6 +59,9 @@ const { title, description, canonical, ogImage, ogType, noindex, schema, geo, st
       (function () {
         var STORAGE_KEY = 'elan:privacy-consent';
         var CONSENT_VERSION = 2;
+        var MEASUREMENT_ID = 'G-EC0W1VE3NS';
+        var isDevelopment = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+        window.__elanAnalyticsAllowed = false;
         window.dataLayer = window.dataLayer || [];
         function gtag(){ dataLayer.push(arguments); }
         window.gtag = window.gtag || gtag;
@@ -93,26 +96,46 @@ const { title, description, canonical, ogImage, ogType, noindex, schema, geo, st
         }
 
         window.__elanLoadOptionalAnalytics = function () {
-          if (window.__elanAnalyticsLoaded) return;
-          window.__elanAnalyticsLoaded = true;
+          if (isDevelopment) return;
+          window.__elanAnalyticsAllowed = true;
           gtag('consent', 'update', {
             analytics_storage: 'granted',
             ad_storage: 'denied',
             ad_user_data: 'denied',
             ad_personalization: 'denied'
           });
+          if (window.__elanAnalyticsLoaded) {
+            if (typeof window.clarity === 'function') window.clarity('consentv2', { ad_Storage: 'denied', analytics_Storage: 'granted' });
+            window.dispatchEvent(new Event('elan:analytics-ready'));
+            return;
+          }
+          window.__elanAnalyticsLoaded = true;
 
-          // GTM is the single Google deployment path. GA4 must be configured in GTM.
-          (function (w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-            var f = d.getElementsByTagName(s)[0],
-              j = d.createElement(s),
-              dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-          })(window, document, 'script', 'dataLayer', 'GTM-5H7FHGJ');
+          // Direct GA4 is the sole Google route: the old GTM container is empty.
+          // Keep only campaign parameters; never send form/query-string personal data.
+          var page = new URL(location.href);
+          var cleanPage = new URL(page.origin + page.pathname);
+          ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function (key) {
+            var value = page.searchParams.get(key);
+            if (value && /^[a-zA-Z0-9_.~-]{1,100}$/.test(value)) cleanPage.searchParams.set(key, value);
+          });
+          var referrer = '';
+          try { var ref = new URL(document.referrer); referrer = ref.origin + ref.pathname; } catch (_) {}
+          gtag('js', new Date());
+          var googleConfig = {
+            page_location: cleanPage.href,
+            page_referrer: referrer,
+            allow_google_signals: false,
+            allow_ad_personalization_signals: false
+          };
+          // Do not populate debug_mode:false: GA's developer filter matches
+          // populated debug parameters, not only the boolean true.
+          if (page.searchParams.get('analytics_debug') === '1') googleConfig.debug_mode = true;
+          gtag('config', MEASUREMENT_ID, googleConfig);
+          var googleScript = document.createElement('script');
+          googleScript.async = true;
+          googleScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + MEASUREMENT_ID;
+          document.head.appendChild(googleScript);
 
           // Microsoft Clarity, with advertising storage permanently denied.
           (function (c, l, a, r, i, t, y) {
@@ -121,9 +144,11 @@ const { title, description, canonical, ogImage, ogType, noindex, schema, geo, st
             y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
           })(window, document, 'clarity', 'script', 'ff08posqyo');
           window.clarity('consentv2', { ad_Storage: 'denied', analytics_Storage: 'granted' });
+          window.dispatchEvent(new Event('elan:analytics-ready'));
         };
 
         window.__elanRevokeOptionalAnalytics = function () {
+          window.__elanAnalyticsAllowed = false;
           gtag('consent', 'update', {
             analytics_storage: 'denied',
             ad_storage: 'denied',
@@ -136,6 +161,21 @@ const { title, description, canonical, ogImage, ogType, noindex, schema, geo, st
           }
           clearAnalyticsCookies();
         };
+
+        window.__elanTrackEvent = function (name, parameters) {
+          if (!window.__elanAnalyticsAllowed || isDevelopment) return false;
+          if (['generate_lead', 'whatsapp_click', 'phone_click', 'page_not_found'].indexOf(name) === -1) return false;
+          // Callers supply only fixed labels and paths, never contact details.
+          gtag('event', name, Object.assign({ send_to: MEASUREMENT_ID }, parameters || {}));
+          return true;
+        };
+        document.addEventListener('click', function (event) {
+          var link = event.target instanceof Element ? event.target.closest('a[href]') : null;
+          if (!link) return;
+          var href = link.getAttribute('href') || '';
+          var name = /^tel:/i.test(href) ? 'phone_click' : /^https:\/\/(wa\.me|api\.whatsapp\.com|web\.whatsapp\.com)\//i.test(href) ? 'whatsapp_click' : '';
+          if (name) window.__elanTrackEvent(name, { page_path: location.pathname, placement: link.getAttribute('data-analytics-placement') || 'page' });
+        });
 
         try {
           var saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');

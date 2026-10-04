@@ -32,9 +32,10 @@ export default defineConfig({
           '/schedule-consultation',
           '/request-demo',
           '/search',
-          '/blog/category/web-design',
           '/blog/category/seo',
           '/pricing/digital-launchpad',
+          '/blog/technology-trends/astro-7-business-websites',
+          '/blog/astro-7-business-websites',
         ]
         return !excluded.some((path) => page.includes(path))
       },
@@ -165,9 +166,13 @@ export default defineConfig({
     compressor({
       gzip: true,
       brotli: true,
+      // Hostinger rules serve gzip/Brotli variants, not Zstandard sidecars.
+      zstd: false,
       // XML stays uncompressed in dist so the postbuild step can attach the
       // human-readable sitemap stylesheet. LiteSpeed compresses it in transit.
-      fileExtensions: ['.css', '.js', '.mjs', '.svg', '.json'],
+      hooks: {
+        fileFilter: ({ filePath }) => /\.(?:css|js|mjs|svg|json)$/.test(filePath),
+      },
     }),
   ],
 
@@ -190,6 +195,9 @@ export default defineConfig({
   },
 
   redirects: {
+    '/pricing/digital-launchpad': '/pricing/',
+    '/blog/technology-trends/astro-7-business-websites': '/blog/technology-trends/what-is-astro-7-business-guide/',
+    '/blog/astro-7-business-websites': '/blog/technology-trends/what-is-astro-7-business-guide/',
     '/about-elantech': '/about/',
     '/services/web-design': '/services/website-design/',
     '/services/social-media': '/services/digital-marketing/',

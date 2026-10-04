@@ -24,25 +24,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       var isRecentSubmission = pending
         && pending.formType === formType
         && typeof pending.createdAt === 'number'
+        && Date.now() - pending.createdAt >= 0
         && Date.now() - pending.createdAt < 300000;
 
       if (!isRecentSubmission) return;
 
-      try {
-        sessionStorage.removeItem('elan:lead-conversion-pending');
-      } catch (_) {}
-
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({
-        event: 'elan_form_submission',
-        form_name: formType,
-      });
-
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', 'generate_lead', {
-          form_name: formType,
-        });
+      var sent = false;
+      function recordConfirmedLead() {
+        if (sent || Date.now() - pending.createdAt >= 300000) return;
+        if (typeof window.__elanTrackEvent !== 'function') return;
+        if (window.__elanTrackEvent('generate_lead', { form_name: formType })) {
+          sent = true;
+          try { sessionStorage.removeItem('elan:lead-conversion-pending'); } catch (_) {}
+        }
       }
+      recordConfirmedLead();
+      window.addEventListener('elan:analytics-ready', recordConfirmedLead);
     })();
   </script>
 
@@ -76,7 +73,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </h1>
 
       <p class="text-lg text-[var(--text-dim)] leading-relaxed mb-12">
-        We've received your message and will get back to you within 24 hrs. Keep an eye on your inbox - we're already reviewing your submission.
+        Your request has been received. We aim to respond within two business days. For an urgent request, please call or WhatsApp us rather than waiting for an email response.
       </p>
 
 

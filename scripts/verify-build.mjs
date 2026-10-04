@@ -28,6 +28,7 @@
 
 import { existsSync, readFileSync, readdirSync } from 'fs';
 import { dirname, join, resolve } from 'path';
+import { brotliDecompressSync, gunzipSync } from 'node:zlib';
 
 const DIST = resolve(process.cwd(), 'dist');
 const SRC = resolve(process.cwd(), 'src');
@@ -137,7 +138,7 @@ check('Human-readable sitemap stylesheet',      fileContains('sitemap-index.xml'
 check('robots.txt',                             fileExists('robots.txt'));
 check('pricing/index.html',                     fileExists('pricing/index.html'));
 check('lead backup endpoint',                   fileContains('api/submit-lead.php', 'elan-tech-private/leads', 'info@elan-tech.net'));
-check('thank-you conversion event',             fileContains('thank-you/index.html', 'elan_form_submission', 'generate_lead'));
+check('thank-you conversion event',             fileContains('thank-you/index.html', '__elanTrackEvent', 'generate_lead', 'lead-conversion-pending'));
 check('Branded Open Graph image set',           [
   'home.png', 'services.png', 'accessibility.png', 'pricing.png', 'contact.png',
   'locations-india.png', 'international.png', 'products.png', 'blog.png', 'audit.png',
@@ -146,55 +147,59 @@ check('Cloudflare _headers excluded',           fileNotExists('_headers'));
 check('Cloudflare _redirects excluded',         fileNotExists('_redirects'));
 check('Cloudflare _routes.json excluded',       fileNotExists('_routes.json'));
 
+// Hostinger must never receive pre-compressed HTML/XML or unsupported Zstd
+// variants. Also verify each generated gzip/Brotli file round-trips correctly.
+function buildFiles(directory) {
+  return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const path = join(directory, entry.name);
+    return entry.isDirectory() ? buildFiles(path) : [path];
+  });
+}
+const compressionFiles = existsSync(DIST) ? buildFiles(DIST) : [];
+const compressedAssets = compressionFiles.filter((path) => /\.(?:br|gz)$/.test(path));
+check('No pre-compressed HTML or XML files', !compressionFiles.some((path) => /\.(?:html|xml)\.(?:br|gz|zst)$/.test(path)));
+check('No unsupported Zstandard sidecars', !compressionFiles.some((path) => path.endsWith('.zst')));
+check('Gzip and Brotli asset variants exist',
+  compressedAssets.some((path) => path.endsWith('.gz')) && compressedAssets.some((path) => path.endsWith('.br')));
+check('Compressed assets decode to the original files', compressedAssets.length > 0 && compressedAssets.every((path) => {
+  try {
+    const original = path.replace(/\.(?:br|gz)$/, '');
+    const decode = path.endsWith('.gz') ? gunzipSync : brotliDecompressSync;
+    return existsSync(original) && decode(readFileSync(path)).equals(readFileSync(original));
+  } catch {
+    return false;
+  }
+}));
+
 // ── B. Digital Launchpad landing page ─────────────────────────────────────────
 
-section('B  Digital Launchpad landing page  /pricing/digital-launchpad/');
+section('B  Retired Digital Launchpad');
 const LP = 'pricing/digital-launchpad/index.html';
-check('Page exists',                            fileExists(LP));
-check('Title contains "Digital Launchpad"',     fileContains(LP, 'Digital Launchpad'));
-check('Canonical tag present',                  fileContains(LP, '/pricing/digital-launchpad/'));
-check('Single ₹32,000 + GST plan',              fileContains(LP, '32,000', 'GST'));
-check('Old three-plan prices removed',          fileNotContains(LP, '28,800') && fileNotContains(LP, '37,400') && fileNotContains(LP, '46,100'));
-check('Expired offer stages removed',          fileNotContains(LP, '30 Jun 2026') && fileNotContains(LP, '12 Jul 2026') && fileNotContains(LP, 'prices rise'));
-check('CountdownTimer island mounted',          fileContains(LP, 'CountdownTimer'));
-check('Core inclusions rendered',               fileContains(LP, 'Up to 20 agreed pages', 'Shared website hosting and SSL', 'WhatsApp contact link'));
-check('BookingForm present',                    fileContains(LP, 'lp-form', 'Request Booking Details on WhatsApp'));
-check('Service schema (JSON-LD)',               fileContains(LP, '"@type":"Service"'));
-check('FAQPage schema (JSON-LD)',               fileContains(LP, '"@type":"FAQPage"'));
-check('BreadcrumbList schema',                  fileContains(LP, '"@type":"BreadcrumbList"'));
-check('No WCAG 2.2 reference',                  fileNotContains(LP, 'WCAG 2.2'));
-check('WhatsApp number correct (918788834630)', fileContains(LP, '918788834630'));
-
-// ── C. Pricing page ───────────────────────────────────────────────────────────
-
-section('C  Pricing page  /pricing/  (Step 4)');
+check('Retired page redirects to current pricing', fileContains(LP, 'http-equiv="refresh"', '/pricing/'));
+check('No active booking or offer schema remains', fileNotContains(LP, 'lp-form') && fileNotContains(LP, '"@type":"Offer"'));
+check('Campaign backup retained outside published routes', existsSync(join(process.cwd(), 'backups/campaigns/digital-launchpad-september-2026.astro.txt')));
+section('C  Current pricing');
 const PR = 'pricing/index.html';
-check('4A: Offer banner present',               fileContains(PR, 'Review the Plan'));
-check('4B: Single PlanCard rendered',           fileContains(PR, 'Digital Launchpad', '32,000') && fileNotContains(PR, '28,800'));
-check('4B: Full scope link',                    fileContains(PR, 'See full scope, dates and frequently asked questions'));
-check('4B: Standard Packages divider',          fileContains(PR, 'Our Standard Packages'));
-check('4C: Campaign FAQs match offer',          fileContains(PR, 'What is the Digital Launchpad plan', 'Does the Digital Launchpad include a .com'));
-check('Existing FAQs intact',                   fileContains(PR, 'monthly payment plans', 'hidden fees'));
-
-// ── D. Homepage ───────────────────────────────────────────────────────────────
-
-section('D  Homepage  /  (Steps 5–6)');
+check('Current standard prices are displayed', fileContains(PR, '20,999', '30,999'));
+check('Current page counts and revisions are displayed', fileContains(PR, 'Up to 10 Pages', 'Up to 20 Pages'));
+check('Enterprise has custom pricing', fileContains(PR, 'Contact for Pricing'));
+check('Expired campaign is not promoted', fileNotContains(PR, '/pricing/digital-launchpad/'));
+check('Existing FAQs intact', fileContains(PR, 'monthly payment plans', 'hidden fees'));
+section('D  Homepage');
 const HP = 'index.html';
-check('Step 5: Dual launch showcase rendered',  fileContains(HP, 'Explore the Plan', 'Discover DigiBizID'));
-check('Step 5: Single plan price in strip',     fileContains(HP, '32,000', 'GST') && fileNotContains(HP, '28,800'));
-check('Step 6: AnnouncementBar (SSR) rendered', fileContains(HP, 'ann-bar', 'Digital Launchpad limited-time offer'));
-check('Scheduled promotions carry timing hooks', fileContains(HP, 'data-launchpad-offer', 'data-launchpad-upcoming') && fileContains(PR, 'data-launchpad-offer', 'data-launchpad-upcoming'));
-check('Accessibility-first footer wording',     fileContains(HP, 'Accessibility-first development'));
-check('"ISO Certified" removed',               fileNotContains(HP, 'ISO Certified'));
-check('Homepage service-focus pre-heading',      fileContains(HP, 'Web design · eCommerce · Accessibility · Since 2002'));
-check('Raipur city link in subheading',         fileContains(HP, 'web-design-company-raipur'));
-check('Bhopal city link in subheading',         fileContains(HP, 'web-design-company-bhopal'));
+check('DigiBizID remains a venture', fileContains(HP, 'Discover DigiBizID', '/ventures/digibizid/'));
+check('Expired Launchpad promotion is absent', fileNotContains(HP, '/pricing/digital-launchpad/'));
+check('Accessibility-first footer wording', fileContains(HP, 'Accessibility-first development'));
+check('"ISO Certified" removed', fileNotContains(HP, 'ISO Certified'));
+check('Homepage service-focus pre-heading', fileContains(HP, 'Web design · eCommerce · Accessibility · Since 2002'));
+check('Raipur city link in subheading', fileContains(HP, 'web-design-company-raipur'));
+check('Bhopal city link in subheading', fileContains(HP, 'web-design-company-bhopal'));
 
 // ── E. Header + Footer ────────────────────────────────────────────────────────
 
 section('E  Header + Footer  (Steps 7B/7C)');
-check('7B: NEW pill in nav (header)',           fileContains(HP, 'NEW'));
-check('7C: Launchpad price in footer',          fileContains(HP, 'Digital Launchpad: ₹32,000 + GST'));
+check('Primary pricing navigation remains', fileContains(HP, '/pricing/'));
+check('No expired Launchpad footer price', fileNotContains(HP, 'Digital Launchpad: ₹32,000 + GST'));
 check('7C: Footer orange link colour',          fileContains(HP, 'F26722'));
 check('Search icon in header',                  fileContains(HP, '/search/'));
 check('Verified social profiles in footer/schema', fileContains(
@@ -208,22 +213,8 @@ check('Verified social profiles in footer/schema', fileContains(
 
 section('F  .htaccess  (Step 7D)');
 const HT = '.htaccess';
-check('Campaign aliases use temporary redirects during the offer', fileContains(
-  HT,
-  '^launchpad/?$       /pricing/digital-launchpad/  [L,R=302]',
-  '^4year/?$           /pricing/digital-launchpad/  [L,R=302]',
-  '^offer/?$           /pricing/digital-launchpad/  [L,R=302]',
-));
-check('Campaign is hidden before 14 Sep 2026', fileContains(
-  HT,
-  'RewriteCond %{TIME} <20260914000000',
-  '^(?:pricing/digital-launchpad|launchpad|4year|offer)/?$ /pricing/ [L,R=302]',
-));
-check('Campaign retirement is scheduled after 25 Sep 2026', fileContains(
-  HT,
-  'RewriteCond %{TIME} >20260925235959',
-  '^(?:pricing/digital-launchpad|launchpad|4year|offer)/?$ /pricing/ [L,R=301]',
-));
+check('All retired campaign aliases redirect permanently', fileContains(HT, '^(?:pricing/digital-launchpad|launchpad|4year|offer)/?$ /pricing/ [L,R=301]'));
+check('Consolidated Astro routes redirect in one hop', fileContains(HT, '^blog/(?:technology-trends/)?astro-7-business-websites/?$ /blog/technology-trends/what-is-astro-7-business-guide/ [R=301,L]'));
 check('Retired campaign URLs avoid 404 errors', fileContains(HT, '/pricing/ [L,R=301]'));
 check('HTTPS force rule intact',                fileContains(HT, 'Force HTTPS'));
 check('Security headers intact',                fileContains(HT, 'Strict-Transport-Security'));
@@ -252,16 +243,8 @@ check('Former digital-card product URL redirects to DigiBizID venture', fileCont
 
 section('G  Sitemap  (Step 7A)');
 const SM = 'sitemap-0.xml';
-check('Launchpad URL in sitemap for scheduled activation', fileContains(SM, 'pricing/digital-launchpad'));
-check('Launchpad sitemap settings', (() => {
-  const path = join(DIST, SM);
-  if (!existsSync(path)) return false;
-  const xml = readFileSync(path, 'utf8');
-  const lpIdx = xml.indexOf('pricing/digital-launchpad');
-  if (lpIdx === -1) return false;
-  const nearby = xml.slice(lpIdx, lpIdx + 200);
-  return nearby.includes('<priority>0.9</priority>') && nearby.includes('<changefreq>weekly</changefreq>');
-})());
+check('Expired campaign is absent from sitemap', fileNotContains(SM, 'pricing/digital-launchpad'));
+check('Retired Astro article is absent from sitemap', fileNotContains(SM, '/astro-7-business-websites/'));
 check('DigiBizID venture page and sitemap entry', fileContains('ventures/digibizid/index.html', 'DigiBizID', 'An eLan Technology venture', 'elanvcard.elantech.cloud') && fileContains(SM, 'ventures/digibizid'));
 check('DigiBizID is absent from the products catalogue', fileNotContains('products/index.html', '/products/digital-business-card/') && fileNotContains('products/index.html', 'elanvcard.elantech.cloud') && !fileContains(SM, 'products/digital-business-card'));
 check('Homepage priority = 1.0',               fileContains(SM, '<priority>1.0</priority>'));
@@ -296,7 +279,7 @@ check('ADA service: remediation + WCAG title and 48-hour response', fileContains
 ));
 check('Free audit: concise benefit-led title', fileContains(
   'free-website-audit/index.html',
-  '<title>Free Website Audit: SEO, Speed &amp; Security | eLan Technology</title>',
+  '<title>Free Website Audit: Scope, Findings &amp; Next Steps | eLan Technology</title>',
 ));
 check('April trends: query-aligned title', fileContains(
   'blog/technology-trends/website-development-trends-april-2026/index.html',
@@ -319,7 +302,7 @@ check('25 August Shopify SEO checklist is published and indexed', fileContains(
 ));
 check('1 September Astro 7 business guide is published and indexed', fileContains(
   'blog/technology-trends/what-is-astro-7-business-guide/index.html',
-  '<title>What Is Astro 7? Plain-English Business Guide | eLan Technology</title>',
+  '<title>What Is Astro 7? Benefits, Costs &amp; Limits for Business Websites | eLan Technology</title>',
   '<link rel="canonical" href="https://elan-tech.net/blog/technology-trends/what-is-astro-7-business-guide/">',
   '2026-09-01T00:00:00.000Z',
   'FAQPage',
@@ -340,13 +323,7 @@ check('Medusa comparison matches dominant query order', fileContains(
   'blog/ecommerce/shopify-vs-medusa-js-2026/index.html',
   'Medusa.js vs Shopify: Costs, Ownership',
 ));
-check('Astro articles serve distinct search intent', fileContains(
-  'blog/technology-trends/astro-7-business-websites/index.html',
-  'Astro 7 Website Development: Speed, SEO, Migration',
-) && fileContains(
-  'blog/technology-trends/what-is-astro-7-business-guide/index.html',
-  'What Is Astro 7? A Plain-English Guide',
-));
+check('Astro articles are consolidated', fileContains('blog/technology-trends/astro-7-business-websites/index.html', 'http-equiv="refresh"', '/blog/technology-trends/what-is-astro-7-business-guide/') && fileContains('blog/technology-trends/what-is-astro-7-business-guide/index.html', 'Before migration: editing, security and launch checks'));
 check('WCAG explainer uses query-aligned heading', fileContains(
   'blog/accessibility/wcag-explained-business-owners/index.html',
   'WCAG 2.2 AA Requirements in Plain English',
@@ -420,22 +397,9 @@ for (const [label, page, image] of ogImageChecks) {
 // ── K. Analytics disclosure ──────────────────────────────────────────────────
 
 section('K  Analytics disclosure');
-check('Consent popup is removed', fileNotContains(
-  HP,
-  'id="cookie-consent"',
-  'Accept analytics',
-  'Reject analytics',
-));
-check('Footer analytics notice is available', fileContains(
-  HP,
-  'aria-label="Analytics notice"',
-  'We use website analytics to learn what visitors find useful and improve our services.',
-  '/cookie-policy/',
-));
-check('Analytics load without a consent popup', fileContains(
-  HP,
-  'if (!hasPrivacySignal()) loadTags();',
-));
+check('Consent choices and withdrawal remain available', fileContains(HP, 'id="privacy-consent-banner"', 'id="privacy-accept"', 'id="privacy-reject"', 'id="privacy-choices-float"'));
+check('Consent-first GA4 route uses the verified stream', fileContains(HP, "var MEASUREMENT_ID = 'G-EC0W1VE3NS'", '__elanAnalyticsAllowed', 'window.__elanLoadOptionalAnalytics') && fileNotContains(HP, "j.src = 'https://www.googletagmanager.com/gtm.js"));
+check('Separate intent and missing-page events are present', fileContains(HP, 'whatsapp_click', 'phone_click') && fileContains('404.html', 'page_not_found', 'referring_page'));
 check('GPC and DNT privacy signals are respected', fileContains(
   HP,
   'globalPrivacyControl',
@@ -447,7 +411,7 @@ check('Unconditional GTM noscript iframe removed', fileNotContains(
 ));
 check('Cookie policy names analytics providers', fileContains(
   'cookie-policy/index.html',
-  'Google Analytics and Google Tag Manager',
+  'Google Analytics 4',
   'Microsoft Clarity',
   'Global Privacy Control',
 ));
@@ -530,12 +494,8 @@ check('Tracking parameters remain crawlable for canonical discovery',
   && fileNotContains('robots.txt', 'utm_medium=')
   && fileNotContains('robots.txt', 'utm_campaign=')
 );
-check('Thin blog categories are noindex and absent from sitemap',
-  fileContains('blog/category/web-design/index.html', '<meta name="robots" content="noindex,nofollow">')
-  && fileContains('blog/category/seo/index.html', '<meta name="robots" content="noindex,nofollow">')
-  && fileNotContains('sitemap-0.xml', '/blog/category/web-design/')
-  && fileNotContains('sitemap-0.xml', '/blog/category/seo/')
-);
+check('Thin SEO archive remains noindex and absent from sitemap', fileContains('blog/category/seo/index.html', '<meta name="robots" content="noindex,nofollow">') && fileNotContains('sitemap-0.xml', '/blog/category/seo/'));
+check('Useful web-design archive is indexed after content expansion', fileContains('blog/category/web-design/index.html', '<meta name="robots" content="index,follow">') && fileContains('sitemap-0.xml', '/blog/category/web-design/'));
 check('Internal CTAs avoid crawlable form parameters',
   generatedHtmlFiles(DIST).every((path) => {
     const html = readFileSync(path, 'utf8');
@@ -578,11 +538,10 @@ check('Obsolete sitelinks SearchAction schema is removed', fileNotContains(
   'SearchAction',
   'search_term_string',
 ));
-check('Emergency accessibility response is consistently 48 hours', fileContains(
+check('Emergency accessibility timing is confirmed against scope and availability', fileContains(
   'services/ada-compliant-web-design/emergency-remediation/index.html',
-  'emergency assessment within 48 hours',
-  'emergency assessments within 48 hours',
-  'delivered in 48–72 hours',
+  'We prioritise emergency assessment requests',
+  'availability and technical scope',
 ) && fileNotContains(
   'services/ada-compliant-web-design/emergency-remediation/index.html',
   'emergency assessment within 24 hours',

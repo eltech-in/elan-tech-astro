@@ -63,7 +63,7 @@ const schema = [
         </tr>
         <tr>
           <td class="border border-[var(--border)] px-4 py-2 font-medium"><code>_ga</code>, <code>_ga_*</code>, <code>_gid</code> and <code>_gat*</code></td>
-          <td class="border border-[var(--border)] px-4 py-2">Google Analytics audience and session measurement, delivered through Google Tag Manager.</td>
+          <td class="border border-[var(--border)] px-4 py-2">Google Analytics 4 audience, session and consented enquiry/intent measurement, delivered through the Google tag.</td>
           <td class="border border-[var(--border)] px-4 py-2">Varies by cookie; <code>_ga</code> may last up to two years</td>
           <td class="border border-[var(--border)] px-4 py-2">No - consent required</td>
         </tr>
@@ -81,7 +81,7 @@ const schema = [
   <p>Some pages on our website include content from third-party services that may set their own cookies:</p>
   <ul>
     <li>
-      <strong>Google Analytics and Google Tag Manager:</strong> used to understand website traffic and measure useful actions.
+      <strong>Google Analytics 4:</strong> the Google tag loads only after analytics consent, to understand traffic and measure confirmed form enquiries and separate phone/WhatsApp clicks. Contact details and arbitrary URL query strings are not sent by our custom events.
       Governed by the <a href="https://policies.google.com/privacy" rel="noopener noreferrer" target="_blank">Google Privacy Policy</a>.
     </li>
     <li>
@@ -109,6 +109,7 @@ const schema = [
   </p>
 
   <h2>Managing Cookies</h2>
+  <p><code>elan:lead-conversion-pending</code> is short-lived session storage used to distinguish a successful form redirect from a direct thank-you-page visit. It contains only a form label and timestamp, is eligible for measurement for five minutes, and does not bypass analytics consent.</p>
   <p>You have several options for managing cookies:</p>
   <ul>
     <li>
