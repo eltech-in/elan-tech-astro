@@ -5,6 +5,7 @@ import react from '@astrojs/react'
 import sitemap, { ChangeFreqEnum } from '@astrojs/sitemap'
 import mdx from '@astrojs/mdx'
 import compressor from 'astro-compressor'
+import { isIndexedLocationSlug } from './src/data/indexPolicy.ts'
 
 export default defineConfig({
   site: 'https://elan-tech.net',
@@ -37,7 +38,14 @@ export default defineConfig({
           '/blog/technology-trends/astro-7-business-websites',
           '/blog/astro-7-business-websites',
         ]
-        return !excluded.some((path) => page.includes(path))
+        if (excluded.some((path) => page.includes(path))) return false
+
+        // City and country pages are indexable only when listed in
+        // src/data/indexPolicy.ts, the same list the layouts use for robots meta.
+        const location = page.match(/\/web-design-company-([a-z-]+)\/?$/)
+        if (location && !isIndexedLocationSlug(location[1])) return false
+
+        return true
       },
       changefreq: 'weekly',
       priority: 0.7,

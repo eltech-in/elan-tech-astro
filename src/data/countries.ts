@@ -19,6 +19,12 @@ export interface CountryData {
   keyIndustries: string[];
   costComparison: { localCost: string; eLanCost: string; savings: string };
   faq: CountryFAQ[];
+  /**
+   * Owner-approved, deliberately generic statement for markets where much of the
+   * work is under NDA. It may say that work exists, never name clients, sectors,
+   * stacks or results. Rendered by NdaExperienceNote; omit to render nothing.
+   */
+  ndaExperience?: string;
   hasLandingPage: boolean;
   isFeatured: boolean;
 }
@@ -67,7 +73,13 @@ export const countries: CountryData[] = [
       { question: 'How is an international website project priced?', answer: 'Pricing depends on pages, content, design depth, integrations, testing, deployment and support. We provide a written proposal so a buyer can compare scope and ongoing costs rather than rely on an unverified percentage-saving claim.' },
       { question: 'What timezone do you use for US clients?', answer: 'The team works in India Standard Time and schedules agreed calls during US morning or India evening overlap. Exact availability and response windows are confirmed for each project.' },
       { question: 'Can you work with an existing US-based team?', answer: 'Yes. We can collaborate with an internal team or another specialist using the project tools agreed at kickoff. Responsibilities, repository access and approval ownership are documented in the scope.' },
+      { question: 'Can you take over or migrate an existing ecommerce project?', answer: 'We first review the platform, code access, integrations, data and critical customer journeys. A Shopify or Medusa.js migration needs a sample import, relevant URL redirects, payment and subscription checks, and a cutover plan. We do not assume every feature or payment token can move automatically.' },
+      { question: 'What does a scoped WCAG audit deliver?', answer: 'The proposal defines the WCAG version and level, sampled pages and journeys, automated and manual testing, assistive-technology coverage, findings and remediation priorities. Source-level fixes and retesting are included only when agreed. An initial free website review is not a complete conformance audit or a legal guarantee.' },
+      { question: 'Do you offer white-label web development for US agencies?', answer: 'Yes, where agreed in writing. We can build behind an agency’s brand, communicate through the agency’s chosen channels and keep the end-client relationship with the agency. The NDA, ownership, handover and support terms are settled before work begins.' },
+      { question: 'Will you sign an NDA before we share project details?', answer: 'Yes. We routinely work under NDAs. That also means we cannot name or show much of our US client work, but we can describe the type of work we have delivered and our process in a call.' },
     ],
+    ndaExperience:
+      'Much of our work for US clients over the past two decades is covered by NDAs. We cannot name those clients or show their websites, but we have delivered those projects and can discuss the type of work and our process in a call.',
     hasLandingPage: true,
     isFeatured: true,
   },
@@ -92,7 +104,13 @@ export const countries: CountryData[] = [
       { question: 'How much does a Canadian web project cost?', answer: 'The price depends on scope, content, integrations, testing, hosting and support. We quote the actual requirements and identify third-party or recurring charges separately.' },
       { question: 'How do you collaborate with Canadian teams?', answer: 'We agree overlap hours, meeting frequency, written updates and approval owners before work begins. The India-based delivery model is stated clearly and does not imply a Canadian office.' },
       { question: 'Can you build a bilingual English-French website?', answer: 'A bilingual architecture, language switcher and market-specific metadata can be scoped. Translation, linguistic review and legal-content approval remain separate responsibilities unless explicitly included.' },
+      { question: 'Can you maintain a Canadian website after launch?', answer: 'Yes. We can scope ongoing content changes, updates, backups, monitoring and development support. Response windows, included work, exclusions, hosting responsibilities and recurring costs are agreed in writing; a development project does not automatically include unlimited maintenance.' },
+      { question: 'Is the free website review a full AODA audit?', answer: 'No. The initial review covers public website signals and helps identify next steps. A formal accessibility engagement separately defines the technical standard, sample, manual testing and evidence. AODA applicability is specific to the organisation and Ontario requirements, not a blanket Canadian certification.' },
+      { question: 'Do you offer white-label web development for Canadian agencies?', answer: 'Yes, where agreed in writing. We can build behind an agency’s brand, communicate through the agency’s chosen channels and keep the end-client relationship with the agency. The NDA, ownership, handover and support terms are settled before work begins.' },
+      { question: 'Will you sign an NDA before we share project details?', answer: 'Yes. We routinely work under NDAs. That also means we cannot name or show much of our Canadian client work, but we can describe the type of work we have delivered and our process in a call.' },
     ],
+    ndaExperience:
+      'Much of our work for Canadian clients over the past two decades is covered by NDAs. We cannot name those clients or show their websites, but we have delivered those projects and can discuss the type of work and our process in a call.',
     hasLandingPage: true,
     isFeatured: true,
   },
@@ -142,6 +160,8 @@ export const countries: CountryData[] = [
       { question: 'Do you support Japanese accessibility requirements?', answer: 'We can scope accessibility-first development and testing against an agreed WCAG or JIS-related requirement. A qualified local specialist should confirm legal applicability and Japanese-language usability.' },
       { question: 'How is a Japanese web project priced?', answer: 'Pricing depends on content, localisation, templates, integrations, testing, deployment and support. Currency and payment terms are confirmed in the proposal.' },
     ],
+    ndaExperience:
+      'We have launched a website for a Japanese client and are currently working on further projects for Japanese clients. Client details are confidential, so we cannot name or show them.',
     hasLandingPage: true,
     isFeatured: true,
   },

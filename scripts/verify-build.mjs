@@ -599,14 +599,14 @@ check('Commerce platforms are prominent and linked', fileContains(
   '/services/ecommerce/shopify-development/',
   '/services/ecommerce/medusa-js-development/',
 ));
-check('Five upcoming launches remain after recent production launches', fileContains(
+check('Upcoming work includes new previews and retains earlier projects', fileContains(
   'portfolio/index.html',
-  'ASBIM Consulting',
   'PropertyCab',
-  'Parekh Opticals',
-  'Divine Advisory',
+  'Healthy Genie', 'Jog Hospitality', 'Chandak Instruments Pvt. Ltd.',
+  'MMSintered', 'AviForge', 'AnyCore BPO', 'MASS Architects', 'New Edge Ventures',
   'CITL',
 ));
+check('ASBIM and Parekh use production domains and Divine is removed', fileContains('portfolio/index.html', 'https://asbimconsulting.com/', 'https://theparekhopticals.in/') && fileNotContains('portfolio/index.html', 'Divine Advisory') && fileNotContains('portfolio/index.html', 'https://asbim.elantech.cloud/') && fileNotContains('portfolio/index.html', 'https://parekh.elantech.in/'));
 check('Beautiphi is featured as a live production launch', fileContains(
   'portfolio/index.html',
   'Beautiphi Esthetic Clinics',
@@ -630,12 +630,14 @@ check('Alessanddra redesign is identified as a custom Astro build', fileContains
   'custom Astro photography website',
   '/_astro/anirwan.',
 ));
+// propertycab.in does not resolve yet, so the working elantech.cloud demo is the
+// only PropertyCab destination until the production domain is live.
 check('Confirmed launch domains are displayed', fileContains(
   'portfolio/index.html',
   'kenglobal.in',
   'asbimconsulting.com',
-  'propertycab.in',
-));
+  'propertycab.elantech.cloud',
+) && fileNotContains('portfolio/index.html', 'https://propertycab.in/'));
 check('International client projects are added once to the portfolio', fileContains(
   'portfolio/index.html',
   'Wind-Tech Auto Glass',
@@ -785,8 +787,87 @@ check('Profile has its dedicated 1200×630 social image',
     'https://elan-tech.net/images/og/nishant-barde-digital-card.jpg',
   ));
 
+section('R  Zoho Commerce capability');
+check('eCommerce page includes the dedicated Zoho section and scoped FAQ', fileContains(
+  'services/ecommerce/index.html', 'id="zoho-commerce"',
+  'Can eLan Technology implement and customise Zoho Commerce?',
+  'Features and integrations depend on the selected Zoho plan',
+  'no partner or certification status is implied',
+));
+check('Homepage includes the Zoho practice card', fileContains(
+  'index.html', 'Your storefront, connected to the way you work',
+  '/services/ecommerce/#zoho-commerce',
+));
+check('Service catalogue and integration page include Zoho',
+  fileContains('services/index.html', 'Zoho Commerce') &&
+  fileContains('services/integrations/index.html', 'Zoho Commerce', 'Store implementation and supported API workflows'));
+check('AI discovery file includes the scoped Zoho capability', fileContains(
+  'llms.txt', 'Zoho Commerce implementation and customisation',
+  'No Zoho client case study is claimed here.',
+));
+
+section('S  Evidence-led international and ecommerce pages');
+check('US page has focused positioning, genuine project context and scoped delivery', fileContains(
+  'web-design-company-usa/index.html', 'Scope my US project', 'WCAG audit',
+  'barbecue rotisserie brand', 'Wind-Tech Auto Glass', 'Bob G.', 'signed proposal',
+));
+check('Canada page has relevant proof and qualified accessibility scope', fileContains(
+  'web-design-company-canada/index.html', 'Scope my Canadian project', 'Pan Pro Windows',
+  'Eric H.', 'Regal Health Services', 'AODA applicability', 'French translation',
+));
+check('Comparison has both project examples, operating costs and migration checkpoints', fileContains(
+  'blog/ecommerce/shopify-vs-medusa-js-2026/index.html', 'Rangresha', 'Puritas',
+  'like-for-like cost estimate', 'Cutover and rollback', 'comparison-table',
+  '/services/ecommerce/shopify-development/', '/services/ecommerce/medusa-js-development/',
+));
+check('Generated image recovery rules do not redirect probes to sales pages',
+  fileContains('.htaccess', '# BEGIN LEGACY CLIENT ASSETS', '/_astro/') &&
+  fileNotContains('.htaccess', 'RewriteRule ^probe-test') &&
+  fileNotContains('.htaccess', 'RewriteRule ^__probe'));
+
 // ── Summary ───────────────────────────────────────────────────────────────────
 
+section('T  Focused UAE, audit preview and city buying information');
+check('UAE page qualifies language, location and integration scope', fileContains('web-design-company-dubai-uae/index.html', 'Scope my UAE project', 'qualified Arabic specialist', 'merchant onboarding', 'not UAE client claims', 'signed scope'));
+check('Free audit preserves positioning and labels sample findings', fileContains('free-website-audit/index.html', 'A free website audit with a clear scope', 'fictional examples', 'Not included:', 'Three short steps:', 'Request my free review'));
+for (const city of ['nagpur', 'bhopal', 'raipur']) {
+  check(`${city} has actionable buying questions and linked evidence`, fileContains(`web-design-company-${city}/index.html`, 'See the work before choosing the scope', 'page/revision limits', 'No ranking or enquiry-volume guarantee'));
+}
+section('U  20 October Canada accessibility article');
+const canadaAuditArticle = 'blog/accessibility/website-accessibility-audit-deliverables-canada/index.html';
+check('Canada audit article is emitted with practical scope and limitations', fileContains(canadaAuditArticle, 'What Should a Website Accessibility Audit Deliver?', 'Ontario legislation', 'Retesting with a record', 'Illustrative finding', 'not legal advice'));
+check('Canada audit article links authoritative guidance and service journeys', fileContains(canadaAuditArticle, 'https://www.ontario.ca/page/how-make-websites-accessible', 'https://www.w3.org/WAI/test-evaluate/', '/web-design-company-canada/', '/services/ada-compliant-web-design/', '/get-quote/'));
+check('Canada page and earlier article link the new guide', fileContains('web-design-company-canada/index.html', '/blog/accessibility/website-accessibility-audit-deliverables-canada/') && fileContains('blog/accessibility/accessibility-audit-vs-remediation/index.html', '/blog/accessibility/website-accessibility-audit-deliverables-canada/'));
+check('New guide is discoverable from homepage, blog and sitemap', fileContains('index.html', 'website-accessibility-audit-deliverables-canada') && fileContains('blog/index.html', 'website-accessibility-audit-deliverables-canada') && fileContains('sitemap-0.xml', '/blog/accessibility/website-accessibility-audit-deliverables-canada/'));
+section('V  Late-October UAE article and portfolio release');
+const uaeGuidePath = 'blog/ecommerce/uae-ecommerce-implementation-checklist/';
+check('UAE guide has scoped bilingual, payment and operational guidance', fileContains(`${uaeGuidePath}index.html`, 'UAE Ecommerce Checklist', 'Zoho Commerce', 'stock', 'Arabic', 'qualified', 'https://u.ae/en/information-and-services/business/ecommerce/', '/web-design-company-dubai-uae/'));
+check('UAE guide is linked from homepage, blog, market page and sitemap', ['index.html', 'blog/index.html', 'web-design-company-dubai-uae/index.html', 'sitemap-0.xml'].every(path => fileContains(path, uaeGuidePath)));
+const octoberPortfolio = readFileSync(join(DIST, 'portfolio/index.html'), 'utf8');
+const octoberUpcoming = octoberPortfolio.match(/<section id="launching-soon"[\s\S]*?<\/section>/)?.[0] ?? '';
+check('ASBIM and Parekh are no longer upcoming', octoberUpcoming.length > 0 && !/ASBIM Consulting|Parekh Opticals|Divine Advisory/.test(octoberUpcoming));
+check('All five supplied new preview URLs are present', ['https://jog-hospitality.netlify.app/', 'https://starlit-semolina-bd9639.netlify.app/', 'https://mmsintered.netlify.app/', 'https://aviforge.netlify.app/', 'https://wandering-frost-5791.elantech-pms.workers.dev/'].every(url => octoberUpcoming.includes(url)));
+check('Projects awaiting preview have no empty destination links', octoberUpcoming.includes('MASS Architects') && octoberUpcoming.includes('New Edge Ventures') && octoberUpcoming.includes('Preview link coming soon') && !/href=""/.test(octoberUpcoming));
+check('Healthy Genie is the latest production launch, not upcoming', fileContains('portfolio/index.html', 'Medusa.js Meal Commerce', 'https://healthygenie.in/', 'Latest launch') && !octoberUpcoming.includes('Healthy Genie') && fileNotContains('portfolio/index.html', 'healthygenie.elantech.cloud'));
+check('Healthy Genie service proof reflects production status', fileContains('services/ecommerce/medusa-js-development/index.html', 'Medusa.js meal commerce', 'Launched', 'https://healthygenie.in/', 'Visit launched website') && fileNotContains('services/ecommerce/medusa-js-development/index.html', 'healthygenie.elantech.cloud'));
+section('W  Location-page index policy (src/data/indexPolicy.ts)');
+const indexedLocations = ['nagpur', 'pune', 'raipur', 'usa', 'canada', 'australia', 'japan', 'new-zealand'];
+const noindexLocations = [
+  'ahmedabad', 'bangalore', 'bhopal', 'chandigarh', 'chennai', 'delhi', 'hyderabad', 'indore', 'jaipur', 'kochi', 'kolkata', 'lucknow', 'mumbai',
+  'brazil', 'dubai-uae', 'european-union', 'ghana', 'saudi-arabia',
+];
+check('Core city and country pages are indexable and in the sitemap', indexedLocations.every(slug =>
+  fileContains(`web-design-company-${slug}/index.html`, '<meta name="robots" content="index,follow">')
+  && fileContains('sitemap-0.xml', `/web-design-company-${slug}/`)));
+check('Other city and country pages are noindex and absent from the sitemap', noindexLocations.every(slug =>
+  fileContains(`web-design-company-${slug}/index.html`, '<meta name="robots" content="noindex,nofollow">')
+  && fileNotContains('sitemap-0.xml', `/web-design-company-${slug}/`)));
+check('NDA experience notes appear on US, Canada and Japan only', ['usa', 'canada', 'japan'].every(slug =>
+  fileContains(`web-design-company-${slug}/index.html`, 'Confidential client work', '/nda-confidentiality-policy/'))
+  && ['australia', 'new-zealand', 'nagpur'].every(slug => fileNotContains(`web-design-company-${slug}/index.html`, 'Confidential client work')));
+check('NDA notes name no clients, sectors or stacks', ['usa', 'canada', 'japan'].every(slug =>
+  fileNotContains(`web-design-company-${slug}/index.html`, 'WordPress project')
+  && fileNotContains(`web-design-company-${slug}/index.html`, 'Contentful')));
 const total = passed + failed;
 console.log(`\n${'─'.repeat(60)}`);
 if (failed === 0) {

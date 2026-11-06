@@ -381,18 +381,7 @@ export const cities: CityData[] = [
           'The project plan identifies meeting cadence, review tools, named contacts, response responsibilities and handover. We work in the same Indian timezone as Mumbai teams.',
       },
     ],
-    portfolio: [
-      {
-        name: 'Financial Services Client',
-        category: 'Finance, Mumbai',
-        desc: 'Secure, compliant fintech website with KYC integration and investor portal. Built to meet RBI digital lending guidelines.',
-      },
-      {
-        name: 'Mumbai Real Estate Developer',
-        category: 'Real Estate',
-        desc: 'Property showcase website with virtual tours, floor plans, and lead capture system generating 200+ qualified leads monthly.',
-      },
-    ],
+    portfolio: [],
   },
 
   {
@@ -472,18 +461,7 @@ export const cities: CityData[] = [
           'The project plan confirms communication channels, meeting frequency, design reviews, code access and handover rather than assuming a fixed toolset for every client.',
       },
     ],
-    portfolio: [
-      {
-        name: 'Pune EdTech Startup',
-        category: 'Education Technology',
-        desc: 'LMS platform with video hosting, quiz engine, and certificate generation. Serving 5,000+ students across Maharashtra.',
-      },
-      {
-        name: 'Automotive Parts Dealer',
-        category: 'Automotive, Pune',
-        desc: 'B2B catalogue website with dealer portal, inquiry management, and parts specification search for 500+ SKUs.',
-      },
-    ],
+    portfolio: [],
   },
 
   {
@@ -557,18 +535,7 @@ export const cities: CityData[] = [
           'Yes. A plan can include technical SEO, location content, Google Business Profile guidance and measurement. No particular ranking is guaranteed, and priorities follow verified search demand and business goals.',
       },
     ],
-    portfolio: [
-      {
-        name: 'Pharma Research Portal',
-        category: 'Pharma, Hyderabad',
-        desc: 'Compliance-aware research portal with clinical data management, document library, and investigator dashboard.',
-      },
-      {
-        name: 'Hyderabad Real Estate Group',
-        category: 'Real Estate',
-        desc: 'Property listing platform with 3D virtual tours, floor plan viewer, and integrated CRM for lead management.',
-      },
-    ],
+    portfolio: [],
   },
 
   {
@@ -649,18 +616,7 @@ export const cities: CityData[] = [
           'Post-launch support and maintenance are available when included in the proposal or a separate service agreement. Scope, response targets, exclusions and recurring charges are stated in writing.',
       },
     ],
-    portfolio: [
-      {
-        name: 'NCR Media House',
-        category: 'Media & Publishing',
-        desc: 'High-performance news portal with real-time content management, ad integration, and 50,000+ daily visitors.',
-      },
-      {
-        name: 'Delhi Education Group',
-        category: 'Education',
-        desc: 'Multi-campus educational institution website with admission portal, LMS integration, and parent communication system.',
-      },
-    ],
+    portfolio: [],
   },
 
   {
@@ -733,18 +689,7 @@ export const cities: CityData[] = [
           'NDAs and white-label arrangements are available where agreed. Intellectual-property, confidentiality, source-code and handover terms are defined by the signed documents rather than assumed.',
       },
     ],
-    portfolio: [
-      {
-        name: 'SaaS Dashboard Platform',
-        category: 'Startup, Bangalore',
-        desc: 'Full-stack SaaS application with multi-tenant architecture, real-time analytics dashboard, and subscription billing.',
-      },
-      {
-        name: 'Biotech Research Portal',
-        category: 'Biotech',
-        desc: 'Research collaboration platform with data visualisation, document sharing, and compliance-aware access controls.',
-      },
-    ],
+    portfolio: [],
   },
 
   {
@@ -818,18 +763,7 @@ export const cities: CityData[] = [
           'The project plan confirms communication channels, meeting frequency, task tracking, code access, decision responsibilities and handover. We work in the same Indian timezone as Chennai teams.',
       },
     ],
-    portfolio: [
-      {
-        name: 'Automotive Parts Exporter',
-        category: 'Automotive, Chennai',
-        desc: 'Export-ready B2B catalogue with multi-currency pricing, inquiry management, and integration with shipping logistics.',
-      },
-      {
-        name: 'Chennai IT Services Firm',
-        category: 'IT Services',
-        desc: 'Corporate website with service showcase, case studies, and career portal handling 100+ applications monthly.',
-      },
-    ],
+    portfolio: [],
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -1246,13 +1180,7 @@ export const cities: CityData[] = [
           'Delivery time depends on scope, content, integrations, access, approvals and testing. The proposal records milestones, dependencies and review cadence after discovery.',
       },
     ],
-    portfolio: [
-      {
-        name: 'Gujarat Textile Exporter',
-        category: 'Textiles, Ahmedabad',
-        desc: 'Multi-language B2B catalogue with international shipping integration, sample ordering, and buyer inquiry management.',
-      },
-    ],
+    portfolio: [],
   },
 
   {
@@ -1325,13 +1253,7 @@ export const cities: CityData[] = [
           'Discovery, design, development, testing and launch are arranged as documented milestones. Timing and collaboration tools depend on scope, content, integrations and client approvals.',
       },
     ],
-    portfolio: [
-      {
-        name: 'Jaipur Heritage Hotel',
-        category: 'Tourism, Jaipur',
-        desc: 'Visually stunning hotel website with direct booking engine, virtual room tours, and multilingual content for international guests.',
-      },
-    ],
+    portfolio: [],
   },
 
   {
@@ -1620,13 +1542,7 @@ export const cities: CityData[] = [
           'Yes. Export websites can include catalogues, certifications, multi-currency display, shipping integrations and enquiry workflows where included in scope. Provider and compliance responsibilities are confirmed first.',
       },
     ],
-    portfolio: [
-      {
-        name: 'Kerala Tourism Property',
-        category: 'Tourism, Kochi',
-        desc: 'Immersive tourism website with direct booking engine, virtual backwater tours, and multilingual content for international visitors.',
-      },
-    ],
+    portfolio: [],
   },
 ];
 

@@ -12,7 +12,7 @@ export interface PortfolioShowcaseItem {
   location?: string;
 }
 
-export const latestLaunch: PortfolioShowcaseItem = {
+const beautiphiLaunch: PortfolioShowcaseItem = {
   title: 'Beautiphi Esthetic Clinics',
   label: 'Aesthetic Healthcare',
   description:
@@ -23,7 +23,38 @@ export const latestLaunch: PortfolioShowcaseItem = {
   note: 'Launched 25 August 2026',
 };
 
+const asbimLaunch: PortfolioShowcaseItem = {
+  title: 'ASBIM Consulting',
+  label: 'BIM Consulting',
+  description: 'A structured service website presenting architectural, structural and MEP BIM expertise, with clear routes to explore services and make an enquiry.',
+  image: '/portfolio/asbim.avif',
+  liveUrl: 'https://asbimconsulting.com/',
+  stack: ['B2B Website', 'Service Information', 'Enquiry Journey'],
+  note: 'Recently launched',
+};
+
+export const latestLaunch: PortfolioShowcaseItem = {
+  title: 'Healthy Genie',
+  label: 'Medusa.js Meal Commerce',
+  description: 'A launched Medusa.js meal-commerce website for Healthy Genie in Pune, bringing meal discovery, subscription plans and corporate meal enquiries into a clear customer journey.',
+  image: '/elan-client-logos/healthy-genie.avif',
+  liveUrl: 'https://healthygenie.in/',
+  stack: ['Medusa.js', 'Meal Commerce', 'Subscription Plans'],
+  note: 'Latest launch',
+  location: 'Pune, India',
+};
+
 export const recentLaunches: PortfolioShowcaseItem[] = [
+  asbimLaunch,
+  {
+    title: 'Parekh Opticals',
+    label: 'Optical Retail',
+    description: 'A recently launched website introducing Parekh Opticals and giving visitors a clear route to explore the business and get in touch.',
+    image: '/portfolio/parekh.avif',
+    liveUrl: 'https://theparekhopticals.in/',
+    stack: ['Retail Website', 'Business Information', 'Enquiries'],
+  },
+  beautiphiLaunch,
   {
     title: 'KEN Global Designs',
     label: 'Apparel Manufacturing',
@@ -132,11 +163,11 @@ export const ecommerceProjects: PortfolioShowcaseItem[] = [
 export const internationalProjects: PortfolioShowcaseItem[] = [
   {
     title: 'Ribolator USA',
-    label: 'USA B2B Platform',
-    description: 'A custom B2B lead-generation platform created for an industrial equipment distributor serving customers across North America.',
+    label: 'USA BBQ Product Website',
+    description: 'A product-led website for the Rib-O-Lator barbecue rotisserie brand, bringing product information, cooking inspiration and shopping into one experience.',
     image: '/portfolio/ribolator-usa.avif',
     liveUrl: 'https://ribolator.com/',
-    stack: ['Custom Development', 'B2B Platform', 'Lead Generation'],
+    stack: ['Product Website', 'Online Store', 'Brand Content'],
     country: 'United States',
     countrySlug: 'usa',
     location: 'United States',
@@ -180,49 +211,70 @@ export const internationalProjects: PortfolioShowcaseItem[] = [
 
 export const launchingSoon: PortfolioShowcaseItem[] = [
   {
-    title: 'Healthy Genie',
-    label: 'Medusa.js redevelopment · In development',
-    description: 'Redesigning and redeveloping Healthy Genie’s Pune-based meal-commerce website using Medusa.js. The development preview presents meal browsing, subscription plans, food preferences and corporate enquiries. Planned commerce workflows remain subject to implementation and testing.',
-    image: '/elan-client-logos/healthy-genie.avif',
-    liveUrl: 'https://healthygenie.elantech.cloud/',
-    launchUrl: 'https://www.healthygenie.in/',
-    note: 'In development - not the production store',
-    stack: ['Medusa.js', 'Meal Commerce', 'Redesign in Progress'],
-    location: 'Pune, India',
-  },
-  {
-    title: 'ASBIM Consulting',
-    label: 'BIM Consulting',
-    description: 'A structured service website that makes complex architectural, structural and MEP BIM expertise easy to understand.',
-    image: '/portfolio/asbim.avif',
-    liveUrl: 'https://asbim.elantech.cloud/',
-    launchUrl: 'https://asbimconsulting.com/',
-    stack: ['B2B Website', 'Service UX', 'Lead Generation'],
+    title: 'Jog Hospitality',
+    label: 'Hospitality · In development',
+    description: 'A new hospitality website in development. Explore the working preview; content and functionality may change before launch.',
+    image: '',
+    liveUrl: 'https://jog-hospitality.netlify.app/',
+    note: 'Development preview - not the final production website',
   },
   {
     title: 'PropertyCab',
     label: 'Real Estate Platform',
     description: 'A modern property discovery platform for verified residential, commercial and agricultural listings.',
     image: '/portfolio/propertycab.avif',
+    // propertycab.in is not resolving yet. The elantech.cloud demo is the working
+    // site, so no separate production destination is published until it is live.
     liveUrl: 'https://propertycab.elantech.cloud/',
-    launchUrl: 'https://propertycab.in/',
     stack: ['Property Search', 'Custom Development', 'Responsive UX'],
   },
   {
-    title: 'Parekh Opticals',
-    label: 'Eye Care and Retail',
-    description: 'A fresh digital experience for a trusted Nagpur optical brand serving families since 1972.',
-    image: '/portfolio/parekh.avif',
-    liveUrl: 'https://parekh.elantech.in/',
-    stack: ['Retail Website', 'Appointments', 'Local Search'],
+    title: 'Chandak Instruments Pvt. Ltd.',
+    label: 'Corporate Website · In development',
+    description: 'A new company website in development for Chandak Instruments Pvt. Ltd. The preview is a work in progress, not the final production release.',
+    image: '/elan-client-logos/Chandak-Instruments.avif',
+    liveUrl: 'https://starlit-semolina-bd9639.netlify.app/',
+    note: 'Client logo shown · Development preview',
   },
   {
-    title: 'Divine Advisory',
-    label: 'Professional Services',
-    description: 'A clear, credible corporate presence designed to introduce the firm and make its advisory services approachable.',
-    image: '/portfolio/divine.avif',
-    liveUrl: 'https://divine.elantech.in/',
-    stack: ['Corporate Website', 'Service Pages', 'Lead Generation'],
+    title: 'MMSintered',
+    label: 'Business Website · In development',
+    description: 'A new website for MMSintered, currently in development. The working preview may change as content and design are reviewed.',
+    image: '',
+    liveUrl: 'https://mmsintered.netlify.app/',
+    note: 'Development preview - not the final production website',
+  },
+  {
+    title: 'AviForge',
+    label: 'Business Website · In development',
+    description: 'A new AviForge website in development, with a working preview available for an early look at the project.',
+    image: '',
+    liveUrl: 'https://aviforge.netlify.app/',
+    note: 'Development preview - not the final production website',
+  },
+  {
+    title: 'AnyCore BPO',
+    label: 'BPO Website · In development',
+    description: 'A new website for AnyCore BPO, currently in development. Preview content and functionality remain subject to review and testing.',
+    image: '',
+    liveUrl: 'https://wandering-frost-5791.elantech-pms.workers.dev/',
+    note: 'Development preview - not the final production website',
+  },
+  {
+    title: 'MASS Architects',
+    label: 'Architecture · In development',
+    description: 'A new website project for MASS Architects. A public preview link will be added when available.',
+    image: '',
+    liveUrl: '',
+    note: 'In development · Preview not yet available',
+  },
+  {
+    title: 'New Edge Ventures',
+    label: 'Business Website · In development',
+    description: 'A new website project for New Edge Ventures. A public preview link will be added when available.',
+    image: '',
+    liveUrl: '',
+    note: 'In development · Preview not yet available',
   },
   {
     title: 'CITL',

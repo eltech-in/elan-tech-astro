@@ -1,0 +1,42 @@
+---
+// Confidential-work note for country pages.
+//
+// Much of eLan's US and Canada work is covered by NDAs, and the Japan work is
+// either confidential or still in progress. This renders one owner-approved
+// sentence per country so that experience is stated honestly without naming
+// clients, sectors, technologies or results. Copy lives in
+// countries[].ndaExperience; a country without the field renders nothing.
+import type { CountryData } from '../../data/countries';
+
+interface Props {
+  country: CountryData;
+}
+
+const { country } = Astro.props;
+---
+
+{
+  country.ndaExperience && (
+    <section
+      class="px-4 pb-4 pt-12 sm:px-6 lg:px-8"
+      aria-labelledby={`${country.slug}-confidential-work`}
+    >
+      <div class="mx-auto max-w-3xl rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8">
+        <h2
+          id={`${country.slug}-confidential-work`}
+          class="font-heading text-xl font-bold text-[var(--text)] sm:text-2xl"
+        >
+          Confidential client work
+        </h2>
+        <p class="mt-3 text-base leading-7 text-[var(--text-dim)]">{country.ndaExperience}</p>
+        <p class="mt-3 text-sm leading-6 text-[var(--text-muted)]">
+          Read how we handle client confidentiality in our{' '}
+          <a href="/nda-confidentiality-policy/" class="font-semibold text-[var(--accent)] underline-offset-2 hover:underline">
+            NDA and confidentiality policy
+          </a>
+          .
+        </p>
+      </div>
+    </section>
+  )
+}

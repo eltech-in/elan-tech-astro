@@ -3,6 +3,7 @@ import BaseLayout from './BaseLayout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import ServicesCloud from '../components/ServicesCloud.astro';
 import type { CityData } from '../data/cities';
+import { isIndexedLocationSlug } from '../data/indexPolicy';
 import { localBusinessSchema, serviceAreaBusinessSchema, faqSchema, breadcrumbSchema } from '../utils/schema';
 
 // Support both new CityData-based props AND legacy string-based props
@@ -104,6 +105,10 @@ const badge = city
 // and can be entered in the form without creating indexable parameter variants.
 const auditHref = '/free-website-audit/';
 const quoteHref = '/get-quote/';
+
+// City pages without delivered work behind them stay live but out of the index.
+// An explicit noindex prop still wins; legacy string-based pages are unaffected.
+const noindex = props.noindex ?? (city ? !isIndexedLocationSlug(city.slug) : undefined);
 ---
 <BaseLayout
   title={title}
@@ -112,7 +117,7 @@ const quoteHref = '/get-quote/';
   ogImage={props.ogImage ?? '/images/og/locations-india.png'}
   ogType={props.ogType}
   schema={allSchemas}
-  noindex={props.noindex}
+  noindex={noindex}
   geo={city ? { region: stateISOCodes[city.state] ?? 'IN', placename: city.name, lat: city.geo.lat, lng: city.geo.lng } : undefined}
 >
   <!-- City Hero -->
