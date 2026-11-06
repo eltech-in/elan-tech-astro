@@ -7,14 +7,6 @@ const schema = breadcrumbSchema([
   { name: 'Careers', url: '/careers/' },
 ]);
 
-const applicationMailto = (role: string) => {
-  const subject = encodeURIComponent(`Application: ${role}`);
-  const body = encodeURIComponent(
-    `Hello eLan Technology,\n\nI would like to apply for the ${role} position.\n\nName:\nCurrent city:\nPortfolio or LinkedIn (optional):\n\nPrivacy preference — please keep one option and remove the other:\n1. Consider my application for this role only.\n2. Also consider me for suitable roles for up to 12 months.\n\nI have attached my CV without government IDs, bank details, passwords or unnecessary sensitive information.`,
-  );
-  return `mailto:careers@elan-tech.net?subject=${subject}&body=${body}`;
-};
-
 const generalInterestMailto = (() => {
   const subject = encodeURIComponent('General career interest');
   const body = encodeURIComponent(
@@ -45,116 +37,11 @@ const perks = [
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`,
   },
 ];
-
-// Splits a job's labeled sections into an always-visible preview (first
-// `previewCount` items) and the remainder, grouped back into their
-// original labeled sections for the "show more" details panel.
-const PREVIEW_COUNT = 5;
-function splitJobContent(sections: { label?: string; items: string[] }[], previewCount: number) {
-  let remaining = previewCount;
-  const preview: string[] = [];
-  const rest: { label?: string; items: string[]; continuesPreview: boolean }[] = [];
-  for (const section of sections) {
-    if (remaining > 0) {
-      const take = Math.min(remaining, section.items.length);
-      preview.push(...section.items.slice(0, take));
-      remaining -= take;
-      const leftover = section.items.slice(take);
-      if (leftover.length) rest.push({ label: section.label, items: leftover, continuesPreview: take > 0 });
-    } else {
-      rest.push({ label: section.label, items: section.items, continuesPreview: false });
-    }
-  }
-  return { preview, rest, previewLabel: sections[0]?.label };
-}
-
-const rawJobs = [
-  {
-    title: 'SEO Executive',
-    experience: '2+ Years Experience',
-    type: 'Full-time',
-    location: 'Nagpur / Remote',
-    desc: "Are you passionate about ranking websites, driving organic traffic, and staying ahead of Google's ever-changing algorithms? Join eLan Technology and work on exciting national and international projects.",
-    sections: [
-      {
-        items: [
-          '2+ years of hands-on SEO experience',
-          'Strong knowledge of On-Page, Off-Page & Technical SEO',
-          'Experience with keyword research, competitor analysis & content optimization',
-          'Proficiency in Google Search Console, Google Analytics (GA4), Google Tag Manager & Looker Studio',
-          'Hands-on experience with SEO tools like Ahrefs, SEMrush, Screaming Frog, Moz or similar',
-          'Ability to perform website SEO audits and recommend actionable improvements',
-          'Knowledge of Core Web Vitals, PageSpeed optimization, Schema Markup & XML Sitemaps',
-          'Experience in local SEO, Google Business Profile optimization & citation building',
-          'Understanding of WordPress SEO, HTML/CSS basics, canonical tags, robots.txt & redirects',
-          'Familiarity with AEO (Answer Engine Optimization), GEO (Generative Engine Optimization) and AI-powered search trends is a strong advantage',
-          'Excellent analytical, reporting and communication skills',
-        ],
-      },
-    ],
-    bonus: 'Experience with Google Ads, content writing, backlink outreach, AI tools (ChatGPT, Gemini, Claude), and basic graphic/video editing.',
-    closing: "If you're data-driven, growth-focused, and love improving search rankings, we'd love to have you on our team!",
-    cssVar: '--ac-amber',
-  },
-  {
-    title: 'Digital Marketing Executive',
-    experience: '1–2 Years Experience',
-    type: 'Full-time',
-    location: 'Nagpur',
-    desc: 'We are seeking a dynamic and results-driven Digital Marketing Executive with 1–2 years of hands-on experience in social media management, creative content development, and paid advertising. The ideal candidate should be both creative and analytical, capable of executing impactful campaigns across multiple digital platforms.',
-    sections: [
-      {
-        label: 'Key Responsibilities',
-        items: [
-          'Plan, create, and publish engaging social media posts across platforms such as Instagram, Facebook, LinkedIn, and others',
-          'Design basic creatives, banners, and marketing visuals using tools like Canva, Photoshop, or similar',
-          'Manage day-to-day activities of social media accounts including posting, engagement, and performance tracking',
-          'Execute and optimize paid advertising campaigns on platforms like Meta Ads (Facebook & Instagram), LinkedIn Ads, and others',
-          'Monitor campaign performance, analyze metrics, and provide actionable insights to improve ROI',
-          'Coordinate with internal teams for content, branding, and campaign alignment',
-          'Stay updated with the latest digital marketing trends, tools, and best practices',
-        ],
-      },
-      {
-        label: 'Required Skills & Qualifications',
-        items: [
-          '1–2 years of experience in digital marketing or social media management',
-          'Strong understanding of social media platforms and content strategies',
-          'Hands-on experience with paid ad campaigns (Meta Ads is a must; Google Ads is a plus)',
-          'Basic graphic design skills (Canva / Adobe tools preferred)',
-          'Good written and verbal communication skills',
-          'Analytical mindset with the ability to interpret campaign data',
-          'Ability to manage multiple campaigns and meet deadlines',
-        ],
-      },
-      {
-        label: 'Preferred Qualifications',
-        items: [
-          'Experience working with agencies or handling multiple client accounts',
-          'Familiarity with SEO basics and content marketing',
-          'Knowledge of marketing automation tools is an added advantage',
-        ],
-      },
-      {
-        label: 'What We Offer',
-        items: [
-          'Opportunity to work on diverse projects and brands',
-          'Growth-oriented and collaborative work environment',
-          'Hands-on exposure to advanced marketing strategies',
-          'Competitive salary based on experience',
-        ],
-      },
-    ],
-    cssVar: '--ac-cyan',
-  },
-];
-
-const jobs = rawJobs.map((job) => ({ ...job, ...splitJobContent(job.sections, PREVIEW_COUNT) }));
 ---
 
 <BaseLayout
   title="Careers at eLan Technology - Join Our Team in Nagpur"
-  description="Join eLan Technology's team of designers, developers, and marketers in Nagpur. Remote-friendly roles with competitive pay, learning support, and meaningful work."
+  description="Careers at eLan Technology in Nagpur. We have no open positions at the moment, but you can share your CV for future roles. Learn what it is like to work with our team."
   schema={schema}
 >
 
@@ -170,7 +57,7 @@ const jobs = rawJobs.map((job) => ({ ...job, ...splitJobContent(job.sections, PR
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
       <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)]/60 px-4 py-2 text-sm text-[var(--text-muted)] backdrop-blur-sm">
         <span class="h-2 w-2 rounded-full bg-[var(--accent)] animate-pulse" aria-hidden="true"></span>
-        {jobs.length} Open Positions
+        No open positions at the moment
       </div>
 
       <h1
@@ -214,17 +101,20 @@ const jobs = rawJobs.map((job) => ({ ...job, ...splitJobContent(job.sections, PR
   ════════════════════════════════════════════════════════════════════════ -->
   <section aria-labelledby="positions-heading" class="bg-[var(--bg-card)] py-16 md:py-20 border-y border-[var(--border)]">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <p class="text-center text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-3">Open Positions</p>
-      <h2 id="positions-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] text-center mb-12">
-        We're Hiring
+      <p class="text-center text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-3">Current Openings</p>
+      <h2 id="positions-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] text-center mb-4">
+        No Open Positions Right Now
       </h2>
+      <p class="mx-auto mb-10 max-w-2xl text-center text-[var(--text-dim)] leading-relaxed">
+        Thank you for your interest in eLan Technology. We are not recruiting for any role at the moment. We grow our team as our project work grows, and any future openings will be listed on this page. If you would like us to consider you when a suitable role opens, please share your CV below.
+      </p>
 
       <aside id="applicant-privacy-note" class="mx-auto mb-10 max-w-5xl rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 sm:p-8" aria-labelledby="applicant-privacy-heading">
         <div class="grid gap-6 md:grid-cols-[0.85fr_1.15fr] md:items-start">
           <div>
             <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Applicant privacy</p>
             <h3 id="applicant-privacy-heading" class="mt-2 font-heading text-xl font-bold text-[var(--text)] sm:text-2xl">Apply with only what we need</h3>
-            <p id="application-email-note" class="mt-3 text-sm leading-relaxed text-[var(--text-dim)]">Application links open your email app. Nothing is sent to eLan Technology until you choose to send the email.</p>
+            <p id="application-email-note" class="mt-3 text-sm leading-relaxed text-[var(--text-dim)]">The application link below opens your email app. Nothing is sent to eLan Technology until you choose to send the email.</p>
           </div>
           <ul class="space-y-3 text-sm leading-relaxed text-[var(--text-dim)]">
             <li><strong class="text-[var(--text)]">Purpose:</strong> we use your CV, contact details, work history, skills and optional portfolio only to assess and communicate about employment opportunities. We do not use solely automated hiring decisions.</li>
@@ -235,113 +125,6 @@ const jobs = rawJobs.map((job) => ({ ...job, ...splitJobContent(job.sections, PR
         <p class="mt-5 border-t border-[var(--border)] pt-4 text-xs leading-relaxed text-[var(--text-muted)]">Access is limited to people involved in recruitment. Email transmission also involves your email provider and ours. You may request access, correction, withdrawal or deletion by writing to <a href="mailto:privacy@elan-tech.net?subject=Applicant%20privacy%20request" class="font-semibold text-[var(--text)] underline underline-offset-2">privacy@elan-tech.net</a>. See our <a href="/privacy-policy/" class="font-semibold text-[var(--text)] underline underline-offset-2">Privacy Policy</a>.</p>
       </aside>
 
-      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-5" role="list">
-        {jobs.map((job, i) => (
-          <li class="lg:col-span-3">
-            <article
-              class="group relative h-full overflow-hidden rounded-2xl border border-[var(--border)] p-6 sm:p-7 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
-              style={`background: linear-gradient(135deg, color-mix(in srgb, var(${job.cssVar}) 14%, var(--bg)) 0%, var(--bg) 60%);`}
-            >
-              <span aria-hidden="true" class="absolute inset-x-0 top-0 h-[3px]" style={`background: var(${job.cssVar});`}></span>
-              <span
-                aria-hidden="true"
-                class="font-heading font-black absolute top-1 right-4 select-none pointer-events-none leading-none"
-                style={`color: var(${job.cssVar}); opacity: 0.12; font-size: 6rem;`}
-              >
-                {String(i + 1).padStart(2, '0')}
-              </span>
-
-              <div class="relative z-10 flex flex-col h-full">
-                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
-                  <div>
-                    <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-2">{job.title}</h3>
-                    <div class="flex flex-wrap gap-2">
-                      <span
-                        class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold"
-                        style={`background: color-mix(in srgb, var(${job.cssVar}) 16%, transparent); color: var(${job.cssVar});`}
-                      >
-                        {job.type}
-                      </span>
-                      {job.experience && (
-                        <span class="inline-flex items-center rounded-full bg-[var(--bg-card)] border border-[var(--border)] px-3 py-1 text-xs font-medium text-[var(--text-muted)]">
-                          {job.experience}
-                        </span>
-                      )}
-                      <span class="inline-flex items-center rounded-full bg-[var(--bg-card)] border border-[var(--border)] px-3 py-1 text-xs font-medium text-[var(--text-muted)]">
-                        {job.location}
-                      </span>
-                    </div>
-                  </div>
-                  <a
-                    href={applicationMailto(job.title)}
-                    aria-describedby="application-email-note"
-                    class="inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition-opacity hover:opacity-90 shrink-0"
-                    style={`background: var(${job.cssVar}); color: var(--bg);`}
-                  >
-                    Apply by Email
-                  </a>
-                </div>
-
-                <p class="text-[var(--text-dim)] text-sm leading-relaxed mb-4">{job.desc}</p>
-
-                <div class="mt-1">
-                  {job.previewLabel && (
-                    <p class="text-xs font-semibold uppercase tracking-wide mb-2" style={`color: var(${job.cssVar});`}>
-                      {job.previewLabel}
-                    </p>
-                  )}
-                  <ul class="space-y-1.5 mb-3">
-                    {job.preview.map((item) => (
-                      <li class="flex items-start gap-2 text-sm text-[var(--text-dim)] leading-relaxed">
-                        <span aria-hidden="true" class="mt-0.5 shrink-0" style={`color: var(${job.cssVar});`}>✔</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {job.rest.length > 0 && (
-                    <details>
-                      <summary
-                        class="cursor-pointer list-none text-sm font-semibold [&::-webkit-details-marker]:hidden"
-                        style={`color: var(${job.cssVar});`}
-                      >
-                        + {job.rest.reduce((sum, group) => sum + group.items.length, 0)} more details
-                      </summary>
-                      <div class="mt-3 space-y-4">
-                        {job.rest.map((group) => (
-                          <div>
-                            {group.label && !group.continuesPreview && (
-                              <p class="text-xs font-semibold uppercase tracking-wide mb-2" style={`color: var(${job.cssVar});`}>
-                                {group.label}
-                              </p>
-                            )}
-                            <ul class="space-y-1.5">
-                              {group.items.map((item) => (
-                                <li class="flex items-start gap-2 text-sm text-[var(--text-dim)] leading-relaxed">
-                                  <span aria-hidden="true" class="mt-0.5 shrink-0" style={`color: var(${job.cssVar});`}>✔</span>
-                                  <span>{item}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))}
-                        {job.bonus && (
-                          <p class="text-sm text-[var(--text-dim)] leading-relaxed">
-                            <span class="font-semibold" style={`color: var(${job.cssVar});`}>✨ Bonus Skills:</span> {job.bonus}
-                          </p>
-                        )}
-                        {job.closing && (
-                          <p class="text-sm text-[var(--text-muted)] italic leading-relaxed">{job.closing}</p>
-                        )}
-                      </div>
-                    </details>
-                  )}
-                </div>
-              </div>
-            </article>
-          </li>
-        ))}
-      </ul>
     </div>
   </section>
 
@@ -353,10 +136,10 @@ const jobs = rawJobs.map((job) => ({ ...job, ...splitJobContent(job.sections, PR
     <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
       <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 text-center">
         <h2 class="font-heading text-2xl font-bold text-[var(--text)] mb-4">
-          Don't See a Matching Role?
+          Interested in Future Opportunities?
         </h2>
         <p class="text-[var(--text-dim)] mb-6 leading-relaxed">
-          You can send a general-interest application when no listed role fits. We will use it only to consider you for suitable openings and retain it for up to 12 months, after which we remove it unless another lawful need applies.
+          Send us a general-interest application and tell us the area you work in. We will use it only to consider you for suitable openings and retain it for up to 12 months, after which we remove it unless another lawful need applies.
         </p>
         <a
           href={generalInterestMailto}
