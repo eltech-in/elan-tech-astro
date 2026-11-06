@@ -1,9 +1,9 @@
 ---
 import InternationalLayout from '../layouts/InternationalLayout.astro';
-import InternationalWhyOutsource from '../components/international/InternationalWhyOutsource.astro';
-import InternationalCostComparison from '../components/international/InternationalCostComparison.astro';
-import InternationalServices from '../components/international/InternationalServices.astro';
+import InternationalMarketFocus from '../components/international/InternationalMarketFocus.astro';
+import InternationalDeliveryPlan from '../components/international/InternationalDeliveryPlan.astro';
 import InternationalProjectProof from '../components/international/InternationalProjectProof.astro';
+import InternationalAgencyPartner from '../components/international/InternationalAgencyPartner.astro';
 import InternationalFAQ from '../components/international/InternationalFAQ.astro';
 import InternationalContact from '../components/international/InternationalContact.astro';
 import { getCountryBySlug } from '../data/countries';
@@ -11,11 +11,26 @@ import { getCountryBySlug } from '../data/countries';
 const country = getCountryBySlug('canada')!;
 ---
 
-<InternationalLayout country={country}>
-  <InternationalWhyOutsource country={country} />
-  <InternationalCostComparison country={country} />
-  <InternationalServices country={country} />
-  <InternationalProjectProof country={country} />
+<InternationalLayout country={country}
+  title="Outsourced Web Development & WCAG Audits for Canada | eLan Technology"
+  description="Outsource web development to an India-based team: business websites, ecommerce, white-label delivery for agencies and scoped WCAG audits for Canadian organisations."
+  heading="Outsourced web development & accessibility audits for Canadian businesses"
+  introduction="Make your website easier to understand, use and maintain. From service-led websites to ecommerce and scoped accessibility testing, work with an India-based delivery partner and a clear plan for ongoing care."
+  primaryAction={{ href: '/get-quote/', label: 'Scope my Canadian project' }}>
+  <Fragment slot="market-introduction">
+    <InternationalMarketFocus market="canada" />
+    <InternationalProjectProof country={country} />
+  </Fragment>
+  <InternationalDeliveryPlan market="canada" />
+  <InternationalAgencyPartner market="canada" />
+  <section class="px-4 pb-14 sm:px-6 lg:px-8" aria-labelledby="canada-audit-guide">
+    <div class="mx-auto max-w-6xl rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8">
+      <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">A practical buyer’s guide</p>
+      <h2 id="canada-audit-guide" class="mt-3 font-heading text-2xl font-bold sm:text-3xl">What should your accessibility audit actually deliver?</h2>
+      <p class="mt-4 max-w-3xl leading-7 text-[var(--text-dim)]">Compare scope, manual testing, reproducible findings and retesting terms—not just scanner scores. Our Canada guide separates the technical evaluation target from jurisdiction-specific legal requirements.</p>
+      <a href="/blog/accessibility/website-accessibility-audit-deliverables-canada/" class="mt-5 inline-flex min-h-11 items-center font-semibold text-[var(--accent)]">Read the audit-deliverables checklist →</a>
+    </div>
+  </section>
   <InternationalFAQ country={country} />
   <InternationalContact country={country} />
 </InternationalLayout>

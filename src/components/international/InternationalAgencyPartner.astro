@@ -1,0 +1,49 @@
+---
+// "For agencies and in-house teams" section for the US and Canada pages.
+//
+// Everything here restates terms already published in the country FAQs and the
+// NDA policy (NDA and white-label arrangements where agreed, collaboration with
+// an existing team, documented ownership). It deliberately makes no client
+// counts, savings figures or named-client claims.
+interface Props { market: 'usa' | 'canada'; }
+const { market } = Astro.props;
+const place = market === 'usa' ? 'US' : 'Canadian';
+const models = [
+  {
+    number: '01',
+    title: 'White-label delivery for agencies',
+    text: `If you sell web projects to your own clients, we can build behind your brand. An NDA comes first, communication runs through the channels you choose, and your client relationship stays yours. White-label arrangements are agreed in writing.`,
+  },
+  {
+    number: '02',
+    title: 'Extend your in-house team',
+    text: `We can work alongside an internal ${place} team or another specialist. Repository access, review owners and approval steps are documented at kickoff, so it is clear who decides what.`,
+  },
+  {
+    number: '03',
+    title: 'Specialist work on a defined scope',
+    text: 'Bring us in for a self-contained piece: a Shopify or Medusa.js build, a store migration, a custom application, or WCAG audit and remediation. Scope, exclusions and handover are written down before work starts.',
+  },
+];
+---
+<section class="px-4 py-14 sm:px-6 lg:px-8" aria-labelledby={`${market}-agency-title`}>
+  <div class="mx-auto max-w-6xl">
+    <div class="max-w-3xl">
+      <p class="text-xs font-bold uppercase tracking-[.18em] text-[var(--accent)]">Outsourcing web development to India</p>
+      <h2 id={`${market}-agency-title`} class="mt-3 font-heading text-3xl font-bold leading-tight">For agencies and teams that need a reliable delivery partner.</h2>
+      <p class="mt-5 leading-7 text-[var(--text-dim)]">Outsourcing works best when responsibilities are explicit. These are the ways {place} agencies and businesses can work with eLan Technology, and what is agreed before any code is written.</p>
+    </div>
+    <div class="mt-8 grid gap-5 lg:grid-cols-3">
+      {models.map((model) => (
+        <article class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-7">
+          <span class="font-heading text-sm font-bold text-[var(--accent)]">{model.number}</span>
+          <h3 class="mt-4 font-heading text-xl font-bold">{model.title}</h3>
+          <p class="mt-3 text-sm leading-7 text-[var(--text-dim)]">{model.text}</p>
+        </article>
+      ))}
+    </div>
+    <p class="mt-7 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5 text-sm leading-7 text-[var(--text-dim)]">
+      Source-code rights, custom IP, payment milestones, hosting and support are set out in the signed proposal. Delivery is from India and no local {place} office is implied. Read our <a href="/nda-confidentiality-policy/" class="font-semibold text-[var(--accent)] underline underline-offset-2">NDA and confidentiality policy</a>, or <a href="/schedule-consultation/" class="font-semibold text-[var(--accent)] underline underline-offset-2">book a call to discuss a partnership</a>.
+    </p>
+  </div>
+</section>

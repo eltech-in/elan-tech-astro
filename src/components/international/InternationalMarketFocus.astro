@@ -1,0 +1,39 @@
+---
+import { testimonials } from '../../data/testimonials';
+interface Props { market: 'usa' | 'canada'; }
+const { market } = Astro.props;
+const isUS = market === 'usa';
+const testimonial = testimonials.find((item) => item.id === (isUS ? 2 : 15))!;
+const services = isUS ? [
+  { number: '01', title: 'Custom ecommerce', text: 'Choose a merchant-friendly Shopify storefront or a Medusa.js implementation for business-specific commerce workflows. Start with the operating model, not a platform preference.', href: '/services/ecommerce/', label: 'Explore ecommerce development' },
+  { number: '02', title: 'Websites & applications', text: 'Build a clearer service website, replace a brittle application or connect your existing systems. Scope the content, integrations, responsibilities and handover before development.', href: '/services/web-development/', label: 'Explore web development' },
+  { number: '03', title: 'WCAG audit & remediation', text: 'Find barriers through automated and manual checks, implement source-level fixes and retest agreed journeys. Technical evidence supports accessibility work; it is not a legal-outcome guarantee.', href: '/services/ada-compliant-web-design/', label: 'Explore accessibility services' },
+] : [
+  { number: '01', title: 'Service-led business websites', text: 'Give customers a clear route from understanding your services to contacting your business. Plan content, navigation and enquiries around the people who use the website.', href: '/services/website-design/', label: 'Explore website design' },
+  { number: '02', title: 'Accessibility audits & fixes', text: 'Scope WCAG testing, source-level remediation and retesting around your audience and procurement requirements. AODA applicability must be assessed for the organisation, not assumed across Canada.', href: '/services/ada-compliant-web-design/', label: 'Explore accessibility services' },
+  { number: '03', title: 'Ecommerce & ongoing care', text: 'Develop the storefront and integrations your operation needs, with a separate plan for updates, monitoring, backups and support. Translation and bilingual review can be scoped explicitly.', href: '/services/ecommerce/', label: 'Explore ecommerce development' },
+];
+---
+<section class="px-4 py-14 sm:px-6 sm:py-20 lg:px-8" aria-labelledby={`${market}-focus-title`}>
+  <div class="mx-auto max-w-6xl">
+    <div class="max-w-3xl">
+      <p class="text-xs font-bold uppercase tracking-[.18em] text-[var(--accent)]">A focused delivery partner, not another generic agency pitch</p>
+      <h2 id={`${market}-focus-title`} class="mt-3 font-heading text-3xl font-bold leading-tight sm:text-4xl">{isUS ? 'Commerce, custom development and accessibility. Built around your next move.' : 'Clearer websites. Accessible journeys. A dependable long-term partner.'}</h2>
+      <p class="mt-5 leading-7 text-[var(--text-dim)]">{isUS ? 'For US businesses and teams that need a capable implementation partner: eLan Technology delivers remotely from Nagpur, India, with written scope, practical review windows and transparent handover terms.' : 'For Canadian service businesses and organisations improving an existing website or planning a new one: work directly with an India-based studio, with responsibilities and communication agreed before the project starts.'}</p>
+    </div>
+    <div class="mt-8 grid gap-5 lg:grid-cols-3">
+      {services.map((service) => <article class="flex flex-col rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-7">
+        <span class="font-heading text-sm font-bold text-[var(--accent)]">{service.number}</span>
+        <h3 class="mt-4 font-heading text-xl font-bold">{service.title}</h3>
+        <p class="mt-3 flex-1 text-sm leading-7 text-[var(--text-dim)]">{service.text}</p>
+        <a href={service.href} class="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-bold text-[var(--accent)]">{service.label}<span aria-hidden="true">→</span></a>
+      </article>)}
+    </div>
+    <figure class="mt-7 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8">
+      <p class="text-xs font-bold uppercase tracking-wider text-[var(--accent)]">Client perspective · {testimonial.source}</p>
+      <blockquote class="mt-4 max-w-4xl font-heading text-lg font-medium leading-8">“{testimonial.quote}”</blockquote>
+      <figcaption class="mt-4 text-sm text-[var(--text-dim)]"><span class="font-bold text-[var(--text)]">{isUS ? testimonial.author : 'Eric H.'}</span> · {testimonial.role}, {testimonial.company}{testimonial.datePublished && <span> · {testimonial.datePublished}</span>}</figcaption>
+      <a href="/testimonials/" class="mt-3 inline-flex min-h-11 items-center text-sm font-bold text-[var(--accent)]">Read more client feedback →</a>
+    </figure>
+  </div>
+</section>

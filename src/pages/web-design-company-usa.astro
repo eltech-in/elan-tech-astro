@@ -1,9 +1,9 @@
 ---
 import InternationalLayout from '../layouts/InternationalLayout.astro';
-import InternationalWhyOutsource from '../components/international/InternationalWhyOutsource.astro';
-import InternationalCostComparison from '../components/international/InternationalCostComparison.astro';
-import InternationalServices from '../components/international/InternationalServices.astro';
+import InternationalMarketFocus from '../components/international/InternationalMarketFocus.astro';
+import InternationalDeliveryPlan from '../components/international/InternationalDeliveryPlan.astro';
 import InternationalProjectProof from '../components/international/InternationalProjectProof.astro';
+import InternationalAgencyPartner from '../components/international/InternationalAgencyPartner.astro';
 import InternationalFAQ from '../components/international/InternationalFAQ.astro';
 import InternationalContact from '../components/international/InternationalContact.astro';
 import { getCountryBySlug } from '../data/countries';
@@ -11,11 +11,18 @@ import { getCountryBySlug } from '../data/countries';
 const country = getCountryBySlug('usa')!;
 ---
 
-<InternationalLayout country={country}>
-  <InternationalWhyOutsource country={country} />
-  <InternationalCostComparison country={country} />
-  <InternationalServices country={country} />
-  <InternationalProjectProof country={country} />
+<InternationalLayout country={country}
+  title="Outsourced Web Development & WCAG Remediation for US Businesses | eLan Technology"
+  description="Outsource web development to an India-based team: custom ecommerce, white-label delivery for agencies and scoped WCAG remediation for US businesses, with clear handover terms."
+  heading="Outsourced web development, ecommerce & accessibility for US businesses"
+  introduction="Turn complex requirements into a dependable website or commerce platform. Work with eLan Technology’s India studio for custom development, practical accessibility improvements and a clearly scoped handover."
+  primaryAction={{ href: '/get-quote/', label: 'Scope my US project' }}>
+  <Fragment slot="market-introduction">
+    <InternationalMarketFocus market="usa" />
+    <InternationalProjectProof country={country} />
+  </Fragment>
+  <InternationalDeliveryPlan market="usa" />
+  <InternationalAgencyPartner market="usa" />
   <InternationalFAQ country={country} />
   <InternationalContact country={country} />
 </InternationalLayout>
