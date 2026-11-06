@@ -1,0 +1,46 @@
+---
+// Renders the published "starts at" figure for a product.
+//
+// This exists so the visible price and the schema.org `offers` node can never
+// drift apart: both read products[].startingPriceINR. Google requires the
+// markup to match what a visitor sees, so a product without the field renders
+// nothing here AND emits no offers.
+interface Props {
+  /** Lowest implementation price in INR, or undefined for quote-only products. */
+  startingPriceINR?: number;
+  /** Brand accent CSS custom property name, e.g. '--ac-teal'. */
+  cssVar?: string;
+  /** Set on dark hero backgrounds. */
+  onDark?: boolean;
+}
+
+const { startingPriceINR, cssVar, onDark = false } = Astro.props;
+
+const inrFormatter = new Intl.NumberFormat('en-IN', {
+  style: 'currency',
+  currency: 'INR',
+  maximumFractionDigits: 0,
+});
+---
+
+{
+  startingPriceINR && (
+    <p
+      class:list={[
+        'mb-6 flex flex-wrap items-baseline gap-x-2 gap-y-1 text-sm',
+        onDark ? 'text-white/80' : 'text-[var(--text-dim)]',
+      ]}
+    >
+      <span class="font-semibold uppercase tracking-wide text-xs opacity-80">Implementation from</span>
+      <span
+        class={onDark ? 'text-2xl font-black text-white' : 'text-2xl font-black text-[var(--text)]'}
+        style={cssVar && !onDark ? `color: var(${cssVar});` : undefined}
+      >
+        {inrFormatter.format(startingPriceINR)}
+      </span>
+      <span class="opacity-80">
+        — final scope, integrations, licences and support are confirmed in a written proposal.
+      </span>
+    </p>
+  )
+}

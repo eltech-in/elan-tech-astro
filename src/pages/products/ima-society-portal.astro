@@ -1,12 +1,25 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { softwareAppSchema, breadcrumbSchema } from '../../utils/schema';
+import { softwareAppSchema, breadcrumbSchema, faqSchema } from '../../utils/schema';
 import { getProductBySlug, products } from '../../data/products';
 import AnswerSummary from '../../components/AnswerSummary.astro';
+import ProductStartingPrice from '../../components/ProductStartingPrice.astro';
 import ProductPrivacyPanel from '../../components/ProductPrivacyPanel.astro';
+import ProductFaq from '../../components/ProductFaq.astro';
 
 const product = getProductBySlug('ima-society-portal');
 const others = products.filter(p => p.slug !== product.slug);
+
+const startingPrice = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(product.startingPriceINR ?? 0);
+
+const faqs = [
+  { question: 'What is the IMA Society Portal?', answer: 'It is a configurable member portal for medical associations and societies. Modules include membership management, events and CME, fee and dues payment, circulars and documents, galleries and news, and member communication.' },
+  { question: 'Can members renew and pay dues online?', answer: 'Yes. Optional Razorpay integration supports annual dues, life membership payments and event fees. Receipt fields are configured to the society’s approved requirements, and renewal reminders can be sent to members.' },
+  { question: 'Is e-voting included?', answer: 'Not by default. The election module is optional and scoped separately, with voter rolls, candidate information, access controls and audit evidence agreed with the society before it is built.' },
+  { question: 'Can we import our existing member list?', answer: 'Yes. Bulk CSV onboarding is supported for legacy members. Data quality, duplicate handling and consent for communication are checked with the society before import.' },
+  { question: 'Is there a live demo?', answer: 'A public demo is not available yet. You can book a walkthrough, and we will show the modules relevant to your society.' },
+  { question: 'How much does it cost?', answer: `Implementation starts from ${startingPrice}. The final figure depends on the modules, branding, integrations and support you need, and is confirmed in a written proposal. Hosting, maintenance, payment-gateway charges and later upgrades are separate unless the proposal includes them.` },
+];
 
 const schema = [
   softwareAppSchema({
@@ -14,12 +27,14 @@ const schema = [
     description: product.desc,
     url: `/products/${product.slug}/`,
     applicationCategory: product.schemaCategory,
+    startingPriceINR: product.startingPriceINR,
   }),
   breadcrumbSchema([
     { name: 'Home', url: '/' },
     { name: 'Products', url: '/products/' },
     { name: product.title, url: `/products/${product.slug}/` },
   ]),
+  faqSchema(faqs),
 ];
 
 const features = [
@@ -85,6 +100,8 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'AWS S3'
         <p class="max-w-2xl text-lg sm:text-xl text-white/85 leading-relaxed mb-8">
           A configurable association portal for IMA chapters and specialty medical societies, with selected membership, CME, payment, communication and optional governance workflows in one branded environment.
         </p>
+
+        <ProductStartingPrice startingPriceINR={product.startingPriceINR} cssVar={product.cssVar} onDark />
 
         <div class="flex flex-wrap gap-3 mb-6">
           <span class="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-bold text-white shadow-xl"
@@ -274,6 +291,8 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'AWS S3'
     </div>
   </section>
 
+
+  <ProductFaq items={faqs} accentVar={product.cssVar} title={`${product.title} FAQs`} />
 
   <!-- ═══ OTHER PRODUCTS STRIP ═════════════════════════════════════════════ -->
   <section class="py-14 bg-[var(--bg-card)] border-t border-[var(--border)]" aria-labelledby="others-h2">

@@ -1,12 +1,26 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { softwareAppSchema, breadcrumbSchema } from '../../utils/schema';
+import { softwareAppSchema, breadcrumbSchema, faqSchema } from '../../utils/schema';
 import { getProductBySlug, products } from '../../data/products';
 import AnswerSummary from '../../components/AnswerSummary.astro';
+import ProductStartingPrice from '../../components/ProductStartingPrice.astro';
 import ProductPrivacyPanel from '../../components/ProductPrivacyPanel.astro';
+import ProductFaq from '../../components/ProductFaq.astro';
 
 const product = getProductBySlug('resort-management-system');
 const others = products.filter(p => p.slug !== product.slug);
+
+const startingPrice = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(product.startingPriceINR ?? 0);
+
+const faqs = [
+  { question: 'What is the Resort Management Portal?', answer: 'It is a configurable operations portal for resorts and boutique stays. It covers direct bookings, an occupancy dashboard, billing and invoicing, housekeeping, rate plans, staff scheduling, multi-property views and reports.' },
+  { question: 'Can guests book and pay online?', answer: 'Yes. The booking engine shows real-time availability by room type and takes payment through Razorpay, which supports direct bookings without OTA commission on those reservations.' },
+  { question: 'Does it connect to OTAs or a channel manager?', answer: 'Channel-manager and OTA connections are not part of the standard feature list. If you need them, they are scoped separately after we review the providers and their APIs.' },
+  { question: 'How are billing and tax invoices handled?', answer: 'Billing, invoice fields and multi-payment settlement are configured to the property’s approved accounting requirements. Confirm your tax-invoice format with your accountant so we can set it up correctly.' },
+  { question: 'Can it manage more than one property?', answer: 'Yes. A multi-property dashboard gives a portfolio view with property-level drill-down, and reports include ADR and RevPAR trends with Excel export.' },
+  { question: 'Can I see a demo?', answer: 'Yes. A live demo is linked on this page, and you can book a walkthrough to cover your own workflow.' },
+  { question: 'How much does it cost?', answer: `Implementation starts from ${startingPrice}. The final figure depends on the modules, branding, integrations and support you need, and is confirmed in a written proposal. Hosting, maintenance, payment-gateway charges and later upgrades are separate unless the proposal includes them.` },
+];
 
 const schema = [
   softwareAppSchema({
@@ -14,12 +28,14 @@ const schema = [
     description: product.desc,
     url: `/products/${product.slug}/`,
     applicationCategory: product.schemaCategory,
+    startingPriceINR: product.startingPriceINR,
   }),
   breadcrumbSchema([
     { name: 'Home', url: '/' },
     { name: 'Products', url: '/products/' },
     { name: product.title, url: `/products/${product.slug}/` },
   ]),
+  faqSchema(faqs),
 ];
 
 const features = [
@@ -85,6 +101,8 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'Razorpa
         <p class="max-w-2xl text-lg sm:text-xl text-white/85 leading-relaxed mb-8">
           {product.longDesc}
         </p>
+
+        <ProductStartingPrice startingPriceINR={product.startingPriceINR} cssVar={product.cssVar} onDark />
 
         <div class="flex flex-wrap gap-3 mb-6">
           <a href={`https://wa.me/918788834630?text=Hi%20eLan%20Technology%2C%20I%27d%20like%20to%20schedule%20a%20demo%20for%20the%20Resort%20Management%20Portal.`}
@@ -283,6 +301,8 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'Razorpa
     </div>
   </section>
 
+
+  <ProductFaq items={faqs} accentVar={product.cssVar} title={`${product.title} FAQs`} />
 
   <!-- ═══ OTHER PRODUCTS STRIP ═════════════════════════════════════════════ -->
   <section class="py-14 bg-[var(--bg-card)] border-t border-[var(--border)]" aria-labelledby="others-h2">

@@ -1,12 +1,25 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { softwareAppSchema, breadcrumbSchema } from '../../utils/schema';
+import { softwareAppSchema, breadcrumbSchema, faqSchema } from '../../utils/schema';
 import { getProductBySlug, products } from '../../data/products';
 import AnswerSummary from '../../components/AnswerSummary.astro';
+import ProductStartingPrice from '../../components/ProductStartingPrice.astro';
 import ProductPrivacyPanel from '../../components/ProductPrivacyPanel.astro';
+import ProductFaq from '../../components/ProductFaq.astro';
 
 const product = getProductBySlug('medical-conference-portal');
 const others = products.filter(p => p.slug !== product.slug);
+
+const startingPrice = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(product.startingPriceINR ?? 0);
+
+const faqs = [
+  { question: 'What is the Medical Conference Portal?', answer: 'It is a configurable portal for medical conferences and CME events. It covers multi-tier delegate registration, abstract submission, the scientific programme, faculty and committee pages, certificates, sponsor management and online payment of registration fees.' },
+  { question: 'Can delegates pay registration fees online?', answer: 'Yes. Registration fees are collected through an integrated payment gateway, with instant confirmation and invoice generation. Razorpay is part of the current stack, and other gateways can be scoped. Card or UPI credentials are handled by the payment provider, not stored in the portal.' },
+  { question: 'Does it support abstract submission and review?', answer: 'Yes. Speakers submit abstracts online, and the portal supports a review workflow, acceptance notifications and scheduling. Reviewers, scoring rules and publication choices follow the organiser’s approved scientific process.' },
+  { question: 'Can it issue CME certificates?', answer: 'Yes. Certificates can be generated and delivered automatically for delegates and speakers. Whether an event carries CME credits is decided by the accrediting body, not by the software.' },
+  { question: 'Can I see a demo?', answer: 'Yes. A live demo is linked on this page, and you can book a guided walkthrough if you would like the features explained against your own event.' },
+  { question: 'How much does it cost?', answer: `Implementation starts from ${startingPrice}. The final figure depends on the modules, branding, integrations and support you need, and is confirmed in a written proposal. Hosting, maintenance, payment-gateway charges and later upgrades are separate unless the proposal includes them.` },
+];
 
 const schema = [
   softwareAppSchema({
@@ -14,12 +27,14 @@ const schema = [
     description: product.desc,
     url: `/products/${product.slug}/`,
     applicationCategory: product.schemaCategory,
+    startingPriceINR: product.startingPriceINR,
   }),
   breadcrumbSchema([
     { name: 'Home', url: '/' },
     { name: 'Products', url: '/products/' },
     { name: product.title, url: `/products/${product.slug}/` },
   ]),
+  faqSchema(faqs),
 ];
 
 const features = [
@@ -85,6 +100,8 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'AWS S3'
         <p class="max-w-2xl text-lg sm:text-xl text-white/85 leading-relaxed mb-8">
           {product.longDesc}
         </p>
+
+        <ProductStartingPrice startingPriceINR={product.startingPriceINR} cssVar={product.cssVar} onDark />
 
         <div class="flex flex-wrap gap-3 mb-6">
           <a href={`https://wa.me/918788834630?text=Hi%20eLan%20Technology%2C%20I%27d%20like%20to%20schedule%20a%20demo%20for%20the%20Medical%20Conference%20Portal.`}
@@ -283,6 +300,8 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'AWS S3'
     </div>
   </section>
 
+
+  <ProductFaq items={faqs} accentVar={product.cssVar} title={`${product.title} FAQs`} />
 
   <!-- ═══ OTHER PRODUCTS STRIP ═════════════════════════════════════════════ -->
   <section class="py-14 bg-[var(--bg-card)] border-t border-[var(--border)]" aria-labelledby="others-h2">

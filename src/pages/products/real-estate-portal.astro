@@ -1,12 +1,25 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { softwareAppSchema, breadcrumbSchema } from '../../utils/schema';
+import { softwareAppSchema, breadcrumbSchema, faqSchema } from '../../utils/schema';
 import { getProductBySlug, products } from '../../data/products';
 import AnswerSummary from '../../components/AnswerSummary.astro';
+import ProductStartingPrice from '../../components/ProductStartingPrice.astro';
 import ProductPrivacyPanel from '../../components/ProductPrivacyPanel.astro';
+import ProductFaq from '../../components/ProductFaq.astro';
 
 const product = getProductBySlug('real-estate-portal');
 const others = products.filter(p => p.slug !== product.slug);
+
+const startingPrice = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(product.startingPriceINR ?? 0);
+
+const faqs = [
+  { question: 'What is the Real Estate Portal?', answer: 'It is a configurable property portal for agencies, developers and builders. It includes listings for buying, renting and selling, advanced search, agent and admin dashboards, lead capture and map-based search.' },
+  { question: 'Does it verify RERA registrations?', answer: 'No. The portal has RERA information fields and optional status badges, but the details are entered and maintained by the portal operator. Verifying registrations remains the operator’s responsibility.' },
+  { question: 'How does lead capture work?', answer: 'Enquiry forms and WhatsApp integration feed a lead-tracking view, with follow-up reminders for agents. Who receives which leads, and how they are assigned, is configured for your team.' },
+  { question: 'Does it support joint ventures and land categories?', answer: 'Yes. There is a Joint Ventures module that connects land owners with investors, including an NDA step, plus category-specific listings for agricultural, commercial and residential land and plots.' },
+  { question: 'Can I see a demo?', answer: 'Yes. The live demo is linked on this page. It shows listings, search and the map view, and the final design is adapted to your brand and workflow.' },
+  { question: 'How much does it cost?', answer: `Implementation starts from ${startingPrice}. The final figure depends on the modules, branding, integrations and support you need, and is confirmed in a written proposal. Hosting, maintenance, payment-gateway charges and later upgrades are separate unless the proposal includes them.` },
+];
 
 const schema = [
   softwareAppSchema({
@@ -14,12 +27,14 @@ const schema = [
     description: product.desc,
     url: `/products/${product.slug}/`,
     applicationCategory: product.schemaCategory,
+    startingPriceINR: product.startingPriceINR,
   }),
   breadcrumbSchema([
     { name: 'Home', url: '/' },
     { name: 'Products', url: '/products/' },
     { name: product.title, url: `/products/${product.slug}/` },
   ]),
+  faqSchema(faqs),
 ];
 
 const features = [
@@ -85,6 +100,8 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'AWS S3'
         <p class="max-w-2xl text-lg sm:text-xl text-white/85 leading-relaxed mb-8">
           {product.longDesc}
         </p>
+
+        <ProductStartingPrice startingPriceINR={product.startingPriceINR} cssVar={product.cssVar} onDark />
 
         <div class="flex flex-wrap gap-3 mb-6">
           {product.demoUrl && (
@@ -316,6 +333,8 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'AWS S3'
     </div>
   </section>
 
+
+  <ProductFaq items={faqs} accentVar={product.cssVar} title={`${product.title} FAQs`} />
 
   <!-- ═══ OTHER PRODUCTS STRIP (mobile / secondary discovery) ═══════════════ -->
   <section class="py-14 bg-[var(--bg-card)] border-t border-[var(--border)]" aria-labelledby="others-h2">

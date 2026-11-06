@@ -21,6 +21,15 @@ export interface Product {
   targetAudience: string[];
   /** applicationCategory for SoftwareApplication schema */
   schemaCategory: string;
+  /**
+   * Lowest implementation price in INR, for products where we are willing to
+   * publish one. Setting it does two things at once: the figure is rendered on
+   * the product page AND emitted as schema.org `offers`. Google requires the
+   * markup to match what a visitor can see, so never set this without the
+   * page showing it — the template handles that automatically.
+   * Leave undefined for products that stay quote-only.
+   */
+  startingPriceINR?: number;
   /** Live demo URL - undefined means "coming soon" */
   demoUrl?: string;
   /** If true, replace "Try Demo" with call/contact CTA instead of linking to demoUrl */
@@ -51,6 +60,7 @@ export const products: Product[] = [
     ],
     targetAudience: ['Home buyers', 'Renters', 'Property developers', 'Real estate investors'],
     schemaCategory: 'RealEstateApplication',
+    startingPriceINR: 100000,
     demoUrl: 'https://propertycab.elantech.cloud/',
   },
   {
@@ -81,6 +91,7 @@ export const products: Product[] = [
       'Pharmaceutical sponsors',
     ],
     schemaCategory: 'HealthApplication',
+    startingPriceINR: 100000,
     demoUrl: 'https://elanconf.elantech.cloud/',
     contactForDemo: true,
   },
@@ -111,6 +122,7 @@ export const products: Product[] = [
       'Indian healthcare policy makers',
     ],
     schemaCategory: 'BusinessApplication',
+    startingPriceINR: 100000,
     // Live demo coming soon
   },
   {
@@ -141,6 +153,7 @@ export const products: Product[] = [
       'Hospitality Groups',
     ],
     schemaCategory: 'TravelApplication',
+    startingPriceINR: 100000,
     demoUrl: 'https://resort.elantech.cloud/auth',
     contactForDemo: true,
   },
