@@ -25,10 +25,11 @@
   <circle cx="110" cy="790" r="290" fill="#087f5b" opacity=".08"/>
   <rect x="88" y="70" width="240" height="48" rx="24" fill="#0f1b36"/>
   <text x="208" y="101" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="2">BUYER'S GUIDE</text>
-  <text x="88" y="215" fill="#0f1b36" font-family="Arial, sans-serif" font-size="76" font-weight="800">What should a</text>
-  <text x="88" y="302" fill="#0f1b36" font-family="Arial, sans-serif" font-size="76" font-weight="800">website quote include?</text>
-  <rect x="88" y="342" width="610" height="10" rx="5" fill="url(#accent)"/>
-  <text x="88" y="410" fill="#40516f" font-family="Arial, sans-serif" font-size="28">Compare scope, ownership, testing and support</text>
+  <text x="88" y="196" fill="#0f1b36" font-family="Arial, sans-serif" font-size="76" font-weight="800">What should a</text>
+  <text x="88" y="272" fill="#0f1b36" font-family="Arial, sans-serif" font-size="76" font-weight="800">website quote</text>
+  <text x="88" y="348" fill="#0f1b36" font-family="Arial, sans-serif" font-size="76" font-weight="800">include?</text>
+  <rect x="88" y="382" width="610" height="10" rx="5" fill="url(#accent)"/>
+  <text x="88" y="446" fill="#40516f" font-family="Arial, sans-serif" font-size="28">Compare scope, ownership, testing and support</text>
 
   <g transform="translate(815 80) rotate(3 320 360)" filter="url(#shadow)">
     <rect width="650" height="730" rx="34" fill="#fff" stroke="#dbe4ef" stroke-width="3"/>

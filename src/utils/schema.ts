@@ -14,6 +14,13 @@ const ADDRESS_REGION = COMPANY.address.region;
 const POSTAL_CODE = COMPANY.address.postalCode;
 const ADDRESS_COUNTRY = COMPANY.address.countryCode;
 
+// Google rejects SVG for Organization/publisher logos and for the image of a
+// LocalBusiness — consumers need a raster they can resize deterministically.
+// Keep the dimensions in sync with public/images/elan-tech-logo.png.
+const LOGO_URL = `${SITE_URL}/images/elan-tech-logo.png`;
+const LOGO_WIDTH = 1280;
+const LOGO_HEIGHT = 465;
+
 // WebSite schema for the homepage.
 export function webSiteSchema() {
   return {
@@ -35,9 +42,9 @@ export function organizationSchema() {
     url: SITE_URL,
     logo: {
       '@type': 'ImageObject',
-      url: `${SITE_URL}/images/elan-tech-logo.svg`,
-      width: 200,
-      height: 50,
+      url: LOGO_URL,
+      width: LOGO_WIDTH,
+      height: LOGO_HEIGHT,
     },
     foundingDate: '2005-08-15',
     description:
@@ -93,7 +100,7 @@ export function localBusinessSchema(city = 'Nagpur', overrides: LocalBusinessOve
       overrides.description ??
       `Professional web design & digital marketing services in ${city}. WCAG/ADA compliant websites.`,
     priceRange: '₹₹',
-    image: `${SITE_URL}/images/elan-tech-logo.svg`,
+    image: LOGO_URL,
     address: {
       '@type': 'PostalAddress',
       streetAddress: STREET_ADDRESS,
@@ -164,7 +171,7 @@ export function serviceAreaBusinessSchema(
       overrides.description ??
       `Web design, digital marketing and accessibility-first development for businesses in ${city}, ${state}, delivered remotely from our Nagpur headquarters. Operating since 2002.`,
     priceRange: '₹₹',
-    image: `${SITE_URL}/images/elan-tech-logo.svg`,
+    image: LOGO_URL,
     areaServed: {
       '@type': 'City',
       name: city,
@@ -221,39 +228,17 @@ export function breadcrumbSchema(items: BreadcrumbItem[]) {
 }
 
 // ─── AggregateRating + Reviews ────────────────────────────────────────────────
-export interface ReviewItem {
-  author: string;
-  reviewBody: string;
-  ratingValue: number;
-  datePublished?: string;
-}
-
-export function reviewSchema(reviews: ReviewItem[], itemName = ORG_NAME) {
-  const avgRating = reviews.reduce((sum, r) => sum + r.ratingValue, 0) / reviews.length;
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: itemName,
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: avgRating.toFixed(1),
-      reviewCount: reviews.length,
-      bestRating: 5,
-      worstRating: 1,
-    },
-    review: reviews.map((r) => ({
-      '@type': 'Review',
-      reviewBody: r.reviewBody,
-      reviewRating: {
-        '@type': 'Rating',
-        ratingValue: r.ratingValue,
-        bestRating: 5,
-      },
-      author: { '@type': 'Person', name: r.author },
-      ...(r.datePublished ? { datePublished: r.datePublished } : {}),
-    })),
-  };
-}
+// Deliberately not implemented.
+//
+// Google does not show review rich results for reviews about a business that
+// are collected and hosted by that same business ("self-serving reviews"), and
+// marking them up anyway risks a structured-data manual action. The content on
+// /testimonials/ is exactly that: our own client feedback on our own site.
+//
+// A reviewSchema() helper used to live here, unreferenced. It was removed
+// rather than wired up, because wiring it up would have introduced a policy
+// violation, not a rich result. Ratings belong on the Google Business Profile,
+// where Google collects them itself.
 
 // ─── Service ──────────────────────────────────────────────────────────────────
 export function serviceSchema(name: string, description: string, url: string, areaServed = 'India', areaServedType: 'Country' | 'AdministrativeArea' = 'Country') {
@@ -283,6 +268,14 @@ export interface SoftwareAppData {
   url: string;
   applicationCategory?: string;
   operatingSystem?: string;
+  /**
+   * Lowest implementation price actually published on the page, in INR.
+   * Google needs `offers` before SoftwareApplication can produce a rich
+   * result, and its guidelines require the markup to match visible content —
+   * so this is only ever set for products whose page states the figure.
+   * Leave undefined and no `offers` node is emitted.
+   */
+  startingPriceINR?: number;
 }
 
 export function softwareAppSchema(product: SoftwareAppData) {
@@ -296,6 +289,22 @@ export function softwareAppSchema(product: SoftwareAppData) {
     url: productUrl,
     applicationCategory: product.applicationCategory ?? 'BusinessApplication',
     operatingSystem: product.operatingSystem ?? 'Web',
+    ...(product.startingPriceINR
+      ? {
+          offers: {
+            '@type': 'Offer',
+            price: String(product.startingPriceINR),
+            priceCurrency: 'INR',
+            availability: 'https://schema.org/InStock',
+            url: productUrl,
+            seller: {
+              '@type': 'Organization',
+              '@id': COMPANY_IDS.organization,
+              name: ORG_NAME,
+            },
+          },
+        }
+      : {}),
     creator: {
       '@type': 'Organization',
       '@id': COMPANY_IDS.organization,
@@ -314,6 +323,10 @@ export interface ArticleData {
   dateModified?: string;
   authorName?: string;
   imageUrl?: string;
+  /** Intrinsic dimensions of imageUrl. Google uses these to decide whether the
+   *  post qualifies for a large-image result (needs >=1200px wide). */
+  imageWidth?: number;
+  imageHeight?: number;
 }
 
 export function articleSchema(post: ArticleData) {
@@ -334,7 +347,9 @@ export function articleSchema(post: ArticleData) {
       name: ORG_NAME,
       logo: {
         '@type': 'ImageObject',
-        url: `${SITE_URL}/images/elan-tech-logo.svg`,
+        url: LOGO_URL,
+        width: LOGO_WIDTH,
+        height: LOGO_HEIGHT,
       },
     },
     ...(post.imageUrl
@@ -342,6 +357,8 @@ export function articleSchema(post: ArticleData) {
           image: {
             '@type': 'ImageObject',
             url: post.imageUrl.startsWith('http') ? post.imageUrl : `${SITE_URL}${post.imageUrl}`,
+            ...(post.imageWidth ? { width: post.imageWidth } : {}),
+            ...(post.imageHeight ? { height: post.imageHeight } : {}),
           },
         }
       : {}),

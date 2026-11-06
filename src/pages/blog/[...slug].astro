@@ -47,6 +47,8 @@ const schemas = [
     dateModified: updatedDateStr,
     authorName: post.data.author ?? 'eLan Technology Team',
     imageUrl: post.data.featuredImage?.src.src,
+    imageWidth: post.data.featuredImage?.src.width,
+    imageHeight: post.data.featuredImage?.src.height,
   }),
   breadcrumbSchema(breadcrumbs),
   // AEO: H1, lede, summary box, and structured-answer blocks are speakable.
