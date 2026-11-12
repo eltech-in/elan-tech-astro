@@ -27,6 +27,11 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
 RewriteCond %{HTTP_HOST} ^www\.elan-tech\.net$ [NC]
 RewriteRule ^(.*)$ https://elan-tech.net/$1 [L,R=301]
 
+# Image paths observed in GA4 now resolve to their exact Astro-built assets.
+# The postbuild step fills this block; use dist/.htaccess for deployment.
+# BEGIN LEGACY CLIENT ASSETS
+# END LEGACY CLIENT ASSETS
+
 # ─── 3. Redirect /get-quote?service=ada-emergency ───────────────────────────
 # Old internal links used /get-quote?service=ada-emergency. The "?" at the end
 # of the substitution clears the query string from the redirect target.

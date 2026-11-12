@@ -35,7 +35,7 @@ const schemas = [breadcrumbSchema([{name:'Home',url:'/'},{name:'Free Website Aud
         <h1 class="mt-4 font-heading text-4xl font-bold leading-tight sm:text-5xl">A free website audit with a clear scope—and a useful next step.</h1>
         <p class="mt-6 text-lg leading-relaxed text-[var(--text-dim)]">Tell us what is not working. We review your public homepage and representative pages, then explain the priority issues, why they matter and what to do next. No password required. No obligation to buy.</p>
         <div class="mt-7 flex flex-wrap gap-3">
-          <a href="#audit-form" class="rounded-xl bg-[var(--accent)] px-6 py-3 font-semibold text-white">Request my free review</a>
+          <a href="#audit-form" class="rounded-xl bg-[var(--accent)] px-6 py-3 font-semibold text-[var(--bg)]">Request my free review</a>
           <a href="#what-you-get" class="rounded-xl border border-[var(--border)] px-6 py-3 font-semibold">See exactly what is checked</a>
         </div>
       </div>
@@ -62,6 +62,21 @@ const schemas = [breadcrumbSchema([{name:'Home',url:'/'},{name:'Free Website Aud
       <p class="mt-6 rounded-xl border border-[var(--border)] p-5 text-sm leading-relaxed"><strong>Not included:</strong> an exhaustive site crawl, private account access, penetration testing, malware removal, remediation, formal WCAG certification or a promise of higher rankings. Do not submit passwords or personal customer data. These require separate written scope and authorisation.</p>
     </div>
   </section>
+  <section class="px-4 pb-16 sm:px-6 lg:px-8" aria-labelledby="sample-findings">
+    <div class="mx-auto max-w-7xl rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8">
+      <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">Illustrative preview · fictional examples, not findings about your site</p>
+      <h2 id="sample-findings" class="mt-3 font-heading text-3xl font-bold">An observation. Its impact. A practical next step.</h2>
+      <p class="mt-4 max-w-3xl leading-7 text-[var(--text-dim)]">Your report will reflect the pages actually reviewed. These examples show the format, not a promised number of findings or a prediction of results.</p>
+      <div class="mt-7 grid gap-4 md:grid-cols-3">
+        {[
+          { priority: 'High · enquiry journey', observation: 'Example: the enquiry button leads to a missing page.', impact: 'A visitor cannot reach the intended form.', action: 'Correct the destination and retest the complete journey on mobile.' },
+          { priority: 'Medium · loading', observation: 'Example: an oversized image delays the main content.', impact: 'The first useful screen may take longer to appear.', action: 'Resize and optimise the image, then compare repeatable measurements.' },
+          { priority: 'Investigate · search', observation: 'Example: a public page declares a different canonical URL.', impact: 'The intended indexing signal may be inconsistent.', action: 'Check whether this is intentional; use authorised Search Console data before deciding.' },
+        ].map(item => <article class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-5"><p class="text-xs font-bold text-[var(--accent)]">{item.priority}</p><h3 class="mt-3 font-semibold leading-6">{item.observation}</h3><p class="mt-3 text-sm leading-6 text-[var(--text-dim)]"><strong>Why it matters:</strong> {item.impact}</p><p class="mt-3 text-sm leading-6 text-[var(--text-dim)]"><strong>Next step:</strong> {item.action}</p></article>)}
+      </div>
+      <a href="#audit-form" class="mt-6 inline-flex min-h-11 items-center font-semibold text-[var(--accent)]">Request findings for my website →</a>
+    </div>
+  </section>
   <section class="border-y border-[var(--border)] bg-[var(--bg-card)] py-14">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <h2 class="font-heading text-3xl font-bold">From request to a decision</h2>
@@ -78,6 +93,7 @@ const schemas = [breadcrumbSchema([{name:'Home',url:'/'},{name:'Free Website Aud
       <h2 class="font-heading text-3xl font-bold">Request your free initial review</h2>
       <p class="mb-8 mt-4 text-[var(--text-dim)]">One free review per domain every 90 days. We use your details to respond to this request—not to enrol you in a newsletter. Read the form notice before submitting.</p>
       <FreeAuditForm client:load />
+      <p class="mt-5 text-sm leading-6 text-[var(--text-dim)]">Three short steps: website and contact details → optional priorities → notes and permission. Phone, company and notes are optional. After submission, a confirmation page acknowledges receipt; the findings follow by email after review. If you cannot complete the form, <a href="/contact/" class="font-semibold underline">contact us</a> without sharing passwords or customer records.</p>
     </div>
   </section>
   <section id="paid-wcag-audit" class="py-16 md:py-20 bg-[var(--bg-card)] border-t border-[var(--border)] scroll-mt-20" aria-labelledby="ada-heading">

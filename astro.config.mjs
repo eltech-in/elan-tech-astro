@@ -33,6 +33,7 @@ export default defineConfig({
           '/schedule-consultation',
           '/request-demo',
           '/search',
+          '/dubai/',
           '/blog/category/seo',
           '/pricing/digital-launchpad',
           '/blog/technology-trends/astro-7-business-websites',

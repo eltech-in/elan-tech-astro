@@ -4,7 +4,7 @@ import { serviceSchema, faqSchema, breadcrumbSchema } from '../../utils/schema';
 
 const title = 'eCommerce Website Development Company';
 const description =
-  'Custom ecommerce design and development for ambitious brands. eLan Technology builds Shopify, WooCommerce, Medusa.js, headless, and custom commerce solutions with payments, subscriptions, shipping, and integrations.';
+  'Custom ecommerce development with Shopify, WooCommerce, Medusa.js and Zoho Commerce implementation, storefront customisation and business integrations.';
 
 const breadcrumbs = [
   { name: 'Home', href: '/' },
@@ -14,9 +14,13 @@ const breadcrumbs = [
 
 const faqs = [
   {
-    question: 'Should I choose Shopify, WooCommerce, or Medusa.js?',
+    question: 'Can eLan Technology implement and customise Zoho Commerce?',
+    answer: 'Yes. We scope store setup, supported theme customisation, product and content migration, and integrations with sales, inventory and accounting tools. Availability depends on the Zoho plan, theme, region and supported APIs. Platform subscriptions, provider charges, custom-code rights, maintenance and delivery are agreed in the proposal; Zoho remains a hosted third-party platform.',
+  },
+  {
+    question: 'Should I choose Shopify, WooCommerce, Medusa.js or Zoho Commerce?',
     answer:
-      'Choose Shopify when you want a hosted platform and familiar commerce administration. Choose WooCommerce when WordPress content flexibility and hosting control are central. Consider Medusa.js when custom commerce logic, integrations or an owned deployment model matter. Source-code and application ownership, licences, infrastructure and support always depend on the selected platform, proposal and payment terms.',
+      'Choose Shopify when you want a hosted platform and familiar commerce administration. Choose WooCommerce when WordPress content flexibility and hosting control are central. Consider Medusa.js when custom commerce logic, integrations or an owned deployment model matter. Consider Zoho Commerce when a hosted storefront and connections to Zoho business tools fit your operations. Source-code and application ownership, licences, infrastructure and support always depend on the selected platform, proposal and payment terms.',
   },
   {
     question: 'Can eLan Technology create a completely custom Shopify design?',
@@ -31,7 +35,7 @@ const faqs = [
   {
     question: 'What can you customise in Medusa.js?',
     answer:
-      'Medusa.js lets us extend data models, workflows, APIs, admin tools, payments, fulfilment, pricing, promotions, subscriptions, and integrations. Our Puritas implementation includes a custom storefront, subscription commerce, Razorpay and PhonePe modules, and purpose-built shipping workflows.',
+      'Medusa.js lets us extend data models, workflows, APIs, admin tools, payments, fulfilment, pricing, promotions, subscriptions, and integrations. Our production Medusa.js work includes custom storefronts, subscription commerce, Razorpay and PhonePe modules, and purpose-built shipping workflows.',
   },
   {
     question: 'Do you handle migration and ecommerce SEO?',
@@ -89,6 +93,7 @@ const commercePlatforms = [
   { name: 'Shopify', fit: 'A dependable hosted store that is easy for your team to manage', cssVar: '--ac-emerald', href: '/services/ecommerce/shopify-development/' },
   { name: 'WooCommerce', fit: 'A flexible online store built around WordPress content', cssVar: '--ac-violet', href: 'https://larishaayurved.com/' },
   { name: 'Medusa.js', fit: 'A custom store when standard platforms cannot support the way you sell', cssVar: '--ac-cyan', href: '/services/ecommerce/medusa-js-development/' },
+  { name: 'Zoho Commerce', fit: 'A hosted storefront connected to your sales, stock and accounting workflows', cssVar: '--ac-red', href: '#zoho-commerce' },
   { name: 'Magento / Adobe Commerce', fit: 'Large catalogues, multiple stores, and established retail operations', cssVar: '--ac-red', href: '/schedule-consultation/' },
   { name: 'BigCommerce', fit: 'Hosted commerce with strong catalogue and business selling features', cssVar: '--ac-blue', href: '/schedule-consultation/' },
   { name: 'Wix eCommerce', fit: 'A straightforward store for smaller catalogues and service businesses', cssVar: '--ac-pink', href: '/schedule-consultation/' },
@@ -100,7 +105,7 @@ const commercePlatforms = [
 ---
 
 <ServiceLayout
-  title="eCommerce Development | Shopify, WooCommerce & Medusa.js"
+  title="eCommerce Development | Shopify, Medusa.js & Zoho Commerce"
   description={description}
   canonical="/services/ecommerce/"
   ogImage="/images/ecommerce-og-2026.png"
@@ -152,9 +157,9 @@ const commercePlatforms = [
           <span class="text-xs font-semibold uppercase tracking-wider text-amber-500">Recent Shopify launch</span>
           <strong class="mt-1 block text-[var(--text)]">Rangresha - custom storefront</strong>
         </a>
-        <a href="https://puritas.in/" target="_blank" rel="noopener noreferrer" class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-4 transition hover:border-emerald-400">
+        <a href="https://healthygenie.in/" target="_blank" rel="noopener noreferrer" class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-4 transition hover:border-emerald-400">
           <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400">Recent Medusa.js launch</span>
-          <strong class="mt-1 block text-[var(--text)]">Puritas - subscriptions, payments, shipping</strong>
+          <strong class="mt-1 block text-[var(--text)]">Healthy Genie - meal plans and subscriptions</strong>
         </a>
         <a href="https://larishaayurved.com/" target="_blank" rel="noopener noreferrer" class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-4 transition hover:border-violet-400">
           <span class="text-xs font-semibold uppercase tracking-wider text-violet-400">WooCommerce experience</span>
@@ -200,23 +205,54 @@ const commercePlatforms = [
     </div>
   </section>
 
+  <section id="zoho-commerce" aria-labelledby="zoho-commerce-heading" class="relative mb-16 scroll-mt-64 overflow-hidden rounded-3xl border border-red-500/25 bg-[var(--bg-card)] p-7 md:p-10">
+    <div aria-hidden="true" class="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-red-500/10 blur-3xl"></div>
+    <div class="relative grid gap-8 lg:grid-cols-2">
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-wider text-red-500">Zoho Commerce implementation &amp; customisation</p>
+        <h2 id="zoho-commerce-heading" class="mt-3 font-heading text-3xl font-bold text-[var(--text)]">A storefront is only the beginning. Connect the business behind it.</h2>
+        <p class="mt-5 leading-relaxed text-[var(--text-dim)]">Already working with Zoho, or looking for a hosted store? We shape the storefront around your brand and map how products, customers and orders should move through your business before implementing the agreed workflows.</p>
+        <div class="mt-7 flex flex-wrap gap-3">
+          <a href="/schedule-consultation/" class="rounded-full bg-red-600 px-6 py-3 text-sm font-bold text-white transition hover:bg-red-700">Plan your Zoho store →</a>
+          <a href="/get-quote/" class="rounded-full border border-[var(--border)] px-6 py-3 text-sm font-semibold text-[var(--text)] transition hover:border-red-500">Request a scoped quote</a>
+        </div>
+      </div>
+      <div class="grid gap-3 sm:grid-cols-2">
+        {[
+          ['Build your foundation', 'Store setup, catalogue structure, domain configuration and supported payment, tax and shipping settings.'],
+          ['Make it feel like you', 'Theme configuration, brand styling, mobile layouts and supported custom sections.'],
+          ['Connect the everyday work', 'Plan connections to Zoho CRM, Books, Inventory or other tools using supported integrations and APIs.'],
+          ['Move, test and hand over', 'Migration mapping, URL planning, order-flow testing and practical guidance for your store team.'],
+        ].map(([heading, text]) => (
+          <article class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-5">
+            <h3 class="font-heading text-base font-bold text-[var(--text)]">{heading}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-[var(--text-dim)]">{text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+    <p class="relative mt-7 border-t border-[var(--border)] pt-5 text-sm leading-relaxed text-[var(--text-muted)]">Features and integrations depend on the selected Zoho plan, theme, region and APIs. Subscriptions and provider fees are separate from our implementation work unless expressly included. Custom-code rights, migration scope and support follow the accepted proposal. Accessibility testing and privacy/consent implementation are scoped to the store and connected vendors; neither platform choice nor implementation guarantees legal compliance.</p>
+    <p class="relative mt-3 text-xs text-[var(--text-muted)]">Platform references: <a href="https://www.zoho.com/commerce/help/storefront/" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2">Zoho storefront customisation</a> · <a href="https://www.zoho.com/commerce/api/introduction.html" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2">Zoho Commerce APIs</a>. Zoho trademarks belong to their respective owner; no partner or certification status is implied.</p>
+  </section>
+
   <section class="mb-16 rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-7 md:p-10">
     <h2 class="font-heading text-3xl font-bold text-[var(--text)]">Compare the core commerce approaches</h2>
     <div class="mt-7 overflow-x-auto">
-      <table class="w-full min-w-[860px] text-left text-sm">
+      <table class="w-full min-w-[1050px] text-left text-sm">
         <thead>
           <tr class="border-b border-[var(--border)] text-[var(--text)]">
             <th class="p-4">Decision</th>
             <th class="p-4">Shopify</th>
             <th class="p-4">WooCommerce</th>
             <th class="p-4">Medusa.js</th>
+            <th class="p-4">Zoho Commerce</th>
           </tr>
         </thead>
         <tbody class="text-[var(--text-dim)]">
-          <tr class="border-b border-[var(--border)]"><th class="p-4 font-semibold text-[var(--text)]">Best fit</th><td class="p-4">Fast, dependable D2C and omnichannel launches</td><td class="p-4">Content-led stores and WordPress-centred businesses</td><td class="p-4">Differentiated, complex, or composable commerce</td></tr>
-          <tr class="border-b border-[var(--border)]"><th class="p-4 font-semibold text-[var(--text)]">Operations</th><td class="p-4">Hosted platform with familiar merchant tools</td><td class="p-4">Self-hosted WordPress with configurable extensions</td><td class="p-4">Custom application with owned infrastructure and code</td></tr>
-          <tr class="border-b border-[var(--border)]"><th class="p-4 font-semibold text-[var(--text)]">Customisation</th><td class="p-4">Themes, apps, Functions, APIs, and custom storefronts</td><td class="p-4">Themes, plugins, hooks, checkout, content, and APIs</td><td class="p-4">Data models, modules, workflows, APIs, admin, and storefront</td></tr>
-          <tr><th class="p-4 font-semibold text-[var(--text)]">Typical reason to choose</th><td class="p-4">Lower operational overhead and shorter launch path</td><td class="p-4">Strong content-commerce flexibility and platform control</td><td class="p-4">Business logic that must not be forced into platform constraints</td></tr>
+          <tr class="border-b border-[var(--border)]"><th class="p-4 font-semibold text-[var(--text)]">Best fit</th><td class="p-4">Fast, dependable D2C and omnichannel launches</td><td class="p-4">Content-led stores and WordPress-centred businesses</td><td class="p-4">Differentiated, complex, or composable commerce</td><td class="p-4">Stores aligned with Zoho-centred business operations</td></tr>
+          <tr class="border-b border-[var(--border)]"><th class="p-4 font-semibold text-[var(--text)]">Operations</th><td class="p-4">Hosted platform with familiar merchant tools</td><td class="p-4">Self-hosted WordPress with configurable extensions</td><td class="p-4">Custom application with owned infrastructure and code</td><td class="p-4">Hosted Zoho platform with separately scoped integrations</td></tr>
+          <tr class="border-b border-[var(--border)]"><th class="p-4 font-semibold text-[var(--text)]">Customisation</th><td class="p-4">Themes, apps, Functions, APIs, and custom storefronts</td><td class="p-4">Themes, plugins, hooks, checkout, content, and APIs</td><td class="p-4">Data models, modules, workflows, APIs, admin, and storefront</td><td class="p-4">Supported themes, custom sections and API workflows</td></tr>
+          <tr><th class="p-4 font-semibold text-[var(--text)]">Typical reason to choose</th><td class="p-4">Lower operational overhead and shorter launch path</td><td class="p-4">Strong content-commerce flexibility and platform control</td><td class="p-4">Business logic that must not be forced into platform constraints</td><td class="p-4">A storefront connected to existing Zoho tools</td></tr>
         </tbody>
       </table>
     </div>

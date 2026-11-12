@@ -27,12 +27,12 @@ const faqs = [
   {
     question: 'Can you build subscriptions with Medusa.js?',
     answer:
-      'Yes. Subscription commerce can be modelled around plans, billing state, order generation, customer actions, payment events, shipping cycles, retries, cancellations, and operational reporting. For Puritas, we developed a custom subscription module alongside Razorpay, PhonePe, and shipping modules.',
+      'Yes. Subscription commerce can be modelled around plans, billing state, order generation, customer actions, payment events, shipping cycles, retries, cancellations, and operational reporting. On a production Medusa.js store, we developed a custom subscription module alongside Razorpay, PhonePe, and shipping modules.',
   },
   {
     question: 'Can you integrate Indian payment gateways and shipping providers?',
     answer:
-      'Yes. We build Medusa payment and fulfilment modules around the provider APIs, webhook events, security model, refund flow, serviceability, rates, tracking, and exception states required by the project. Puritas includes custom Razorpay, PhonePe, and shipping implementations.',
+      'Yes. We build Medusa payment and fulfilment modules around the provider APIs, webhook events, security model, refund flow, serviceability, rates, tracking, and exception states required by the project. Our production Medusa.js work includes custom Razorpay, PhonePe, and shipping implementations.',
   },
   {
     question: 'Who operates and maintains a Medusa.js platform?',
@@ -100,7 +100,7 @@ const capabilities = [
         </p>
         <div class="mt-8 flex flex-wrap gap-3">
           <a href="/schedule-consultation/" class="rounded-full bg-cyan-400 px-6 py-3 text-sm font-bold text-slate-950 hover:brightness-110">Discuss Your Medusa Build</a>
-          <a href="https://puritas.in/" target="_blank" rel="noopener noreferrer" class="rounded-full border border-[var(--border)] px-6 py-3 text-sm font-semibold text-[var(--text)] hover:border-cyan-400">Visit the Puritas platform</a>
+          <a href="https://healthygenie.in/" target="_blank" rel="noopener noreferrer" class="rounded-full border border-[var(--border)] px-6 py-3 text-sm font-semibold text-[var(--text)] hover:border-cyan-400">Visit the Healthy Genie website</a>
         </div>
       </div>
       <aside class="service-hero-aside" aria-label="Medusa.js custom commerce layers">
@@ -124,27 +124,17 @@ const capabilities = [
     </div>
   </section>
 
-  <section class="mb-16 grid gap-8 rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-7 md:p-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-    <div>
-      <p class="text-sm font-semibold uppercase tracking-wider text-cyan-400">Production Medusa.js project</p>
-      <h2 class="mt-2 font-heading text-3xl font-bold text-[var(--text)]">Puritas</h2>
-      <p class="mt-4 leading-relaxed text-[var(--text-dim)]">
-        A custom-designed Medusa.js ecommerce platform for a premium wellness brand. The project connects an original storefront to subscriptions, Indian payment gateways, and shipping workflows tailored to the business.
-      </p>
-      <a href="https://puritas.in/" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex font-semibold text-cyan-400 hover:underline">Visit Puritas →</a>
-    </div>
-    <div class="grid gap-3 sm:grid-cols-2">
-      {['Custom storefront design', 'Medusa.js commerce backend', 'Subscription module', 'Razorpay module', 'PhonePe module', 'Custom shipping module'].map((item) => (
-        <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-4 text-sm font-semibold text-[var(--text)]">✓ {item}</div>
-      ))}
-    </div>
-  </section>
-
   <section class="mb-16 rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-7 md:p-10" aria-labelledby="healthy-genie-project">
     <p class="text-sm font-semibold uppercase tracking-wider text-[var(--service-accent)]">Medusa.js meal commerce · Launched</p>
     <h2 id="healthy-genie-project" class="mt-2 font-heading text-3xl font-bold text-[var(--text)]">Healthy Genie</h2>
+    <a href="/blog/ecommerce/medusa-js-implementation-running-costs/" class="mt-3 inline-flex min-h-11 items-center font-semibold text-[var(--service-accent)] underline">Read the Medusa.js implementation and running-cost guide →</a>
     <p class="mt-4 max-w-3xl leading-relaxed text-[var(--text-dim)]">We redesigned and redeveloped Healthy Genie’s meal-commerce website using Medusa.js. The launched Pune-based website presents meals, snacks, subscription plans, food preferences and corporate meal enquiries.</p>
     <p class="mt-3 max-w-3xl text-sm leading-relaxed text-[var(--text-muted)]">Explore the production website as an example of our commerce implementation work. No sales uplift, performance score or payment-processing outcome is claimed here.</p>
+    <ul class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" role="list">
+      {['Custom storefront design', 'Medusa.js commerce backend', 'Next.js storefront', 'Meal plans and subscriptions', 'Customer accounts and cart', 'Corporate and party order enquiries'].map((item) => (
+        <li class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-4 text-sm font-semibold text-[var(--text)]">✓ {item}</li>
+      ))}
+    </ul>
     <div class="mt-6 flex flex-wrap gap-4">
       <a href="https://healthygenie.in/" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center rounded-xl bg-[var(--service-accent)] px-5 py-3 font-semibold text-[var(--bg)]">Visit launched website ↗</a>
     </div>

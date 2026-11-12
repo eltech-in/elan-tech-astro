@@ -624,6 +624,18 @@ const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${enc
   }
 
   /* Tables */
+  .blog-article :global(.comparison-table) {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    margin-bottom: 1.5rem;
+    border-radius: .5rem;
+  }
+  .blog-article :global(.comparison-table table) {
+    min-width: 36rem;
+    margin-bottom: 0;
+  }
   .blog-article :global(table) {
     width: 100%;
     border-collapse: collapse;

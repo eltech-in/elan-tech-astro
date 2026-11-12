@@ -3,12 +3,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import QRCode from 'qrcode';
 import { campaignUrl } from '../../utils/campaign';
 import { breadcrumbSchema } from '../../utils/schema';
+import { cardDesigns, cardServices as services } from '../../data/digital-card';
 
 const pageUrl = 'https://elan-tech.net/about/nishant-barde/';
 const contactUrl = campaignUrl(pageUrl, 'nishant_vcard', 'qr', 'professional_profile', 'saved_contact');
 const phone = '+918788834630';
 const email = 'nishant@elan-tech.net';
-const vcard = `BEGIN:VCARD\r\nVERSION:3.0\r\nN:Barde;Nishant;;;\r\nFN:Nishant Barde\r\nORG:eLan Technology\r\nTITLE:Digital Growth Consultant\r\nTEL;TYPE=CELL,VOICE:${phone}\r\nEMAIL;TYPE=INTERNET,WORK:${email}\r\nURL;TYPE=WORK:https://elan-tech.net/\r\nURL:${contactUrl}\r\nX-SOCIALPROFILE;TYPE=linkedin:https://www.linkedin.com/in/bnishant/\r\nNOTE:Websites, web applications, SEO, ecommerce, security, performance audits, and ADA and WCAG accessibility services.\r\nREV:20261001T040000Z\r\nEND:VCARD`;
+const vcard = `BEGIN:VCARD\r\nVERSION:3.0\r\nN:Barde;Nishant;;;\r\nFN:Nishant Barde\r\nORG:eLan Technology\r\nTITLE:Digital Growth Consultant\r\nTEL;TYPE=CELL,VOICE:${phone}\r\nEMAIL;TYPE=INTERNET,WORK:${email}\r\nURL;TYPE=WORK:https://elan-tech.net/\r\nURL:${contactUrl}\r\nX-SOCIALPROFILE;TYPE=linkedin:https://www.linkedin.com/in/bnishant/\r\nNOTE:Websites / ecommerce / DPDP implementation / CRM and ERP / ERPNext / headless CMS / SEO / security / performance / accessibility. Technical services are scoped and do not guarantee legal compliance.\r\nREV:20261020T040000Z\r\nEND:VCARD`;
 
 const qrSvg = await QRCode.toString(vcard, {
   type: 'svg',
@@ -18,14 +19,7 @@ const qrSvg = await QRCode.toString(vcard, {
   color: { dark: '#12213f', light: '#ffffff' },
 });
 
-const services = [
-  { label: 'Website Design', href: '/services/website-design/' },
-  { label: 'Web Applications', href: '/services/web-development/' },
-  { label: 'eCommerce', href: '/services/ecommerce/' },
-  { label: 'SEO', href: '/services/seo/' },
-  { label: 'Accessibility', href: '/services/ada-compliant-web-design/' },
-  { label: 'Security & Care', href: '/services/maintenance-security/' },
-];
+const designIds = cardDesigns.map(design => design.id);
 
 const schema = [
   {
@@ -44,7 +38,7 @@ const schema = [
       name: 'eLan Technology',
       url: 'https://elan-tech.net/',
     },
-    knowsAbout: ['Web design', 'Web applications', 'SEO', 'eCommerce', 'Website security', 'Web performance', 'ADA and WCAG accessibility'],
+    knowsAbout: ['Web design', 'Web applications', 'SEO', 'eCommerce', 'Website security', 'Web performance', 'ADA and WCAG accessibility', 'DPDP implementation', 'CRM and ERP workflows', 'ERPNext customisation', 'Payload CMS', 'Directus'],
     sameAs: ['https://www.linkedin.com/in/bnishant/'],
   },
   breadcrumbSchema([
@@ -57,13 +51,32 @@ const schema = [
 
 <BaseLayout
   title="Nishant Barde | Digital Growth Consultant at eLan Technology"
-  description="Connect with Nishant Barde, Digital Growth Consultant at eLan Technology. Website strategy, ecommerce, SEO, accessibility, security and performance guidance."
+  description="Connect with Nishant Barde at eLan Technology for websites, ecommerce, DPDP implementation, accessibility, CRM/ERP workflows and headless CMS development."
   canonical="/about/nishant-barde/"
   ogImage="/images/og/nishant-barde-digital-card.jpg"
   ogType="profile"
   schema={schema}
   standalone={true}
 >
+  <script slot="head" is:inline define:vars={{ designIds }}>
+    // Visual choice only: no cookies, storage, identifiers, analytics or requests.
+    // Fragment overrides are allowlisted for review and are not sent to the server.
+    (function () {
+      var selected = 'classic';
+      try {
+        var requested = new URLSearchParams(location.hash.slice(1)).get('design');
+        if (designIds.indexOf(requested) !== -1) selected = requested;
+        else {
+          var sample = new Uint32Array(1);
+          if (window.crypto && window.crypto.getRandomValues) {
+            window.crypto.getRandomValues(sample);
+            selected = designIds[Math.floor((sample[0] / 4294967296) * designIds.length)];
+          } else selected = designIds[Math.floor(Math.random() * designIds.length)];
+        }
+      } catch (_) { /* Keep the usable classic design if selection is unavailable. */ }
+      document.documentElement.dataset.cardDesign = selected;
+    })();
+  </script>
   <section class="profile-page relative overflow-hidden pb-44 pt-6 sm:py-16 lg:py-20">
     <div class="profile-grid pointer-events-none absolute inset-0" aria-hidden="true"></div>
     <div class="profile-glow glow-one" aria-hidden="true"></div>
@@ -75,7 +88,7 @@ const schema = [
           <div class="cover-grid pointer-events-none absolute inset-0" aria-hidden="true"></div>
           <div class="cover-orb orb-blue pointer-events-none absolute -right-12 -top-20 h-72 w-72 rounded-full" aria-hidden="true"></div>
           <div class="cover-orb orb-green pointer-events-none absolute -bottom-24 left-1/3 h-64 w-64 rounded-full" aria-hidden="true"></div>
-          <div class="relative flex items-start justify-between gap-5">
+          <div class="profile-brand-row relative flex items-start justify-between gap-5">
             <a href="/" aria-label="eLan Technology home" class="brand-logo inline-flex rounded-xl border border-[var(--border)] bg-white px-3 py-2">
               <img src="../../images/elan-tech-logoh.svg" alt="eLan Technology" width="158" height="42" class="h-8 w-auto" loading="eager" decoding="async" />
             </a>
@@ -94,7 +107,15 @@ const schema = [
             <div class="mobile-portrait-wrap sm:hidden">
               <div class="mobile-portrait-halo" aria-hidden="true"></div>
               <div class="mobile-portrait-frame">
-                <img src="../../images/nishant-barde.avif" alt="Nishant Barde, Digital Growth Consultant" width="500" height="500" class="h-full w-full object-cover" loading="eager" decoding="async" fetchpriority="high" />
+                <picture>
+                  <source data-card-portrait-new srcset="/images/nishant-pp01.avif" media="not all" />
+                  <img src="../../images/nishant-barde.avif" alt="Nishant Barde, Digital Growth Consultant" width="500" height="500" class="h-full w-full object-cover" loading="eager" decoding="async" fetchpriority="high" />
+                </picture>
+                <script is:inline>
+                  if (['studio', 'midnight', 'aurora'].includes(document.documentElement.dataset.cardDesign)) {
+                    document.currentScript.previousElementSibling.querySelector('source').media = 'all';
+                  }
+                </script>
               </div>
             </div>
           </div>
@@ -103,11 +124,19 @@ const schema = [
           </svg>
         </header>
 
-        <div class="relative px-6 pb-8 sm:px-10 sm:pb-10">
-          <div class="mt-5 flex items-end justify-center gap-6 sm:-mt-24 sm:justify-between">
+        <div class="profile-body relative px-6 pb-8 sm:px-10 sm:pb-10">
+          <div class="profile-identity-row mt-5 flex items-end justify-center gap-6 sm:-mt-24 sm:justify-between">
             <div class="relative hidden w-fit sm:block">
               <div class="profile-photo-frame h-36 w-36 overflow-hidden rounded-[1.65rem] border-[5px] border-[var(--bg-card)] bg-[var(--bg)] shadow-xl sm:h-44 sm:w-44 sm:rounded-[2rem] sm:border-[6px]">
-                <img src="../../images/nishant-barde.avif" alt="Nishant Barde, Digital Growth Consultant" width="500" height="500" class="h-full w-full object-cover" loading="eager" decoding="async" fetchpriority="high" />
+                <picture>
+                  <source data-card-portrait-new srcset="/images/nishant-pp01.avif" media="not all" />
+                  <img src="../../images/nishant-barde.avif" alt="Nishant Barde, Digital Growth Consultant" width="500" height="500" class="h-full w-full object-cover" loading="eager" decoding="async" fetchpriority="high" />
+                </picture>
+                <script is:inline>
+                  if (['studio', 'midnight', 'aurora'].includes(document.documentElement.dataset.cardDesign)) {
+                    document.currentScript.previousElementSibling.querySelector('source').media = 'all';
+                  }
+                </script>
               </div>
             </div>
             <div class="social-cluster hidden pb-1 sm:block">
@@ -141,19 +170,19 @@ const schema = [
             </button>
           </nav>
 
-          <div class="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_17rem] lg:items-start">
-            <div>
+          <div class="profile-details-grid mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_17rem] lg:items-start">
+            <div class="profile-introduction">
               <p class="text-xs font-extrabold uppercase tracking-[0.18em] text-[var(--accent)]">eLan Technology</p>
               <h1 class="mt-2 font-heading text-4xl font-black leading-tight text-[var(--text)] sm:text-5xl">Nishant Barde</h1>
               <p class="mt-2 text-xl font-bold text-[var(--ac-blue)]">Digital Growth Consultant</p>
               <p class="mt-5 max-w-2xl text-base leading-relaxed text-[var(--text-dim)]">
-                I help businesses plan, build and improve websites that are clear, fast, secure and easier for people to use. From a first website to a custom commerce platform, the focus stays on what your business genuinely needs.
+                I help businesses plan, build and improve websites, commerce platforms and business workflows—with practical accessibility, privacy implementation and ongoing care shaped around what the business genuinely needs.
               </p>
 
               <div class="mt-6 flex flex-wrap gap-2" aria-label="Areas of expertise">
-                {['Websites', 'Web Applications', 'SEO', 'eCommerce', 'Security', 'Performance Audits', 'ADA & WCAG'].map((item) => <span class="expertise-chip">{item}</span>)}
+                {['Websites', 'eCommerce', 'DPDP Implementation', 'CRM & ERP', 'Headless CMS', 'SEO', 'Security', 'Performance Audits', 'ADA & WCAG'].map((item) => <span class="expertise-chip">{item}</span>)}
               </div>
-              <p class="mt-5 text-sm font-semibold leading-relaxed text-[var(--text-dim)]">WordPress • Shopify • Medusa.js • Headless CMS</p>
+              <p class="mt-5 text-sm font-semibold leading-relaxed text-[var(--text-dim)]">WordPress • Shopify • Medusa.js • Zoho Commerce • ERPNext • Payload CMS • Directus</p>
               <p class="mt-1 text-sm leading-relaxed text-[var(--text-muted)]">Customisation • Maintenance • Security • Speed improvements • Website management</p>
             </div>
 
@@ -183,7 +212,7 @@ const schema = [
             </button>
           </nav>
 
-          <div class="mt-8 grid gap-3 sm:grid-cols-2">
+          <div class="profile-contact-rows mt-8 grid gap-3 sm:grid-cols-2">
             <a href={`mailto:${email}`} class="contact-row">
               <span class="contact-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg></span>
               <span><small>Email</small><strong>{email}</strong></span><span aria-hidden="true">→</span>
@@ -236,6 +265,14 @@ const schema = [
               <a class="social-link x-social" href="https://x.com/eLanTechnology" target="_blank" rel="noopener noreferrer" aria-label="eLan Technology on X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.8 3h3.7l-8 9.2L24 21h-7.4l-5.8-7.6L4.2 21H.5l8.6-9.8L0 3h7.6l5.2 6.9L18.8 3Zm-1.3 16h2L6.5 4.9H4.3L17.5 19Z"/></svg></a>
             </div>
           </div>
+
+          <aside class="privacy-service mt-6 rounded-2xl border border-[var(--border)] p-5" aria-labelledby="card-dpdp-service">
+            <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">Privacy, put into practice</p>
+            <h2 id="card-dpdp-service" class="mt-2 font-heading text-xl font-bold">DPDP implementation for your website</h2>
+            <p class="mt-3 text-sm leading-7 text-[var(--text-dim)]">Map forms, cookies, analytics and vendor data flows. Implement agreed consent controls, notices and retention workflows, then test the customer journey.</p>
+            <a href="/services/dpdp-compliance-implementation/" class="mt-3 inline-flex min-h-11 items-center font-bold text-[var(--accent)]">Explore DPDP implementation →</a>
+            <p class="mt-2 text-xs leading-6 text-[var(--text-muted)]">Technical implementation support—not legal advice, regulatory certification or a guarantee of compliance.</p>
+          </aside>
 
           <a href="/free-website-audit/" class="audit-cta mt-5 flex flex-col gap-4 rounded-2xl p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
             <span>
@@ -421,6 +458,225 @@ const schema = [
     .mobile-actions .qr-action { --action-colour: #7c3aed; --action-gradient: linear-gradient(135deg, #6131bd, #8558df); }
     .mobile-actions .quick-action:hover { transform: translateY(-2px); filter: saturate(1.08) brightness(1.04); }
     .mobile-actions .quick-action:active { transform: scale(.975); filter: saturate(1.04); }
+  }
+  /* Studio: same semantic content, a different editorial / portrait-rail layout.
+     All overrides are opt-in; classic remains the no-JS and error fallback. */
+  .privacy-service { background: linear-gradient(120deg, color-mix(in srgb, var(--accent) 7%, var(--bg-card)), var(--bg-card)); }
+  :global(html[data-card-design="studio"]) .profile-page { background: radial-gradient(ellipse at top left, color-mix(in srgb, var(--ac-blue) 9%, var(--bg)), var(--bg) 60%); }
+  :global(html[data-card-design="studio"]) .profile-grid { background-size: 60px 60px; opacity: .22; }
+  :global(html[data-card-design="studio"]) .profile-card { border-radius: 1rem; border-top: 0; box-shadow: 0 24px 70px rgba(15,23,42,.12); }
+  :global(html[data-card-design="studio"]) .profile-card::before { height: 7px; background: linear-gradient(90deg, var(--accent) 0 70%, #f26722 70% 84%, var(--ac-blue) 84%); }
+  :global(html[data-card-design="studio"]) .profile-cover { background: linear-gradient(155deg, color-mix(in srgb, var(--accent) 13%, var(--bg-card)), var(--bg-card) 65%); }
+  :global(html[data-card-design="studio"]) .profile-wave,
+  :global(html[data-card-design="studio"]) .cover-orb { display: none; }
+  :global(html[data-card-design="studio"]) .cover-grid { background-size: 14px 14px; mask-image: linear-gradient(to bottom, transparent, black); opacity: .2; }
+  :global(html[data-card-design="studio"]) .brand-logo { border-radius: .6rem; box-shadow: none; }
+  :global(html[data-card-design="studio"]) .mobile-portrait-halo { border-radius: 50%; inset: -.2rem; transform: none; background: linear-gradient(140deg, var(--accent), var(--ac-blue) 65%, #f26722); }
+  :global(html[data-card-design="studio"]) .mobile-portrait-frame { border-radius: 50%; transform: none; box-shadow: 0 14px 28px rgba(15,23,42,.12); }
+  :global(html[data-card-design="studio"]) .expertise-chip { border-radius: 2rem; background: transparent; }
+  :global(html[data-card-design="studio"]) .contact-row { border-radius: .5rem; box-shadow: 4px 0 0 var(--accent) inset; }
+  :global(html[data-card-design="studio"]) .social-link { border-radius: 50%; box-shadow: none; }
+  :global(html[data-card-design="studio"]) .privacy-service { border-left: 4px solid var(--accent); border-radius: .5rem; }
+  :global(html[data-card-design="studio"]) .share-card-action { border-radius: .5rem; box-shadow: none; }
+  :global(html[data-card-design="studio"]) .audit-cta { border-radius: .5rem; background: #ffdebc; box-shadow: none; }
+  @media (min-width: 900px) {
+    :global(html[data-card-design="studio"]) .profile-card { display: grid; grid-template-columns: 18rem minmax(0,1fr); }
+    :global(html[data-card-design="studio"]) .profile-card::before,
+    :global(html[data-card-design="studio"]) .profile-card > footer { grid-column: 1 / -1; }
+    :global(html[data-card-design="studio"]) .profile-cover { padding: 2rem 1.5rem; border-right: 1px solid var(--border); }
+    :global(html[data-card-design="studio"]) .profile-cover > .relative.flex { flex-direction: column; gap: 1rem; }
+    :global(html[data-card-design="studio"]) .profile-cover-hero { display: flex; flex-direction: column; align-items: flex-start; margin-top: 2.5rem; gap: 1.5rem; }
+    :global(html[data-card-design="studio"]) .mobile-portrait-wrap { display: block; order: -1; align-self: center; padding: .4rem; }
+    :global(html[data-card-design="studio"]) .mobile-portrait-frame { height: 11rem; width: 11rem; border-width: 6px; }
+    :global(html[data-card-design="studio"]) .cover-statement { font-size: 1.9rem; }
+    :global(html[data-card-design="studio"]) .profile-body { padding: 2rem 1.75rem; }
+    :global(html[data-card-design="studio"]) .profile-identity-row { margin-top: 0; justify-content: flex-end; }
+    :global(html[data-card-design="studio"]) .profile-identity-row > .relative { display: none; }
+    :global(html[data-card-design="studio"]) .profile-details-grid { grid-template-columns: minmax(0,1fr); }
+    :global(html[data-card-design="studio"]) .qr-preview { display: none; }
+    :global(html[data-card-design="studio"]) .quick-action { border-radius: .6rem; }
+  }
+  @media (min-width: 640px) and (max-width: 899px) {
+    :global(html[data-card-design="studio"]) .profile-cover { padding-bottom: 2rem; }
+    :global(html[data-card-design="studio"]) .profile-identity-row { margin-top: 1.5rem; }
+  }
+  @media (max-width: 639px) {
+    :global(html[data-card-design="studio"]) .profile-page { padding-top: 1rem; }
+    :global(html[data-card-design="studio"]) .profile-cover { padding: 1.2rem 1.15rem 1.6rem; border-bottom: 1px solid var(--border); }
+    :global(html[data-card-design="studio"]) .profile-cover-hero { grid-template-columns: 6.4rem minmax(0,1fr); align-items: center; gap: 1rem; margin-top: 1.5rem; }
+    :global(html[data-card-design="studio"]) .mobile-portrait-wrap { grid-column: 1; grid-row: 1; align-self: center; justify-self: start; padding: .25rem; }
+    :global(html[data-card-design="studio"]) .mobile-portrait-frame { width: 6.15rem; height: 6.15rem; }
+    :global(html[data-card-design="studio"]) .profile-cover-copy { grid-column: 2; grid-row: 1; padding: 0; }
+    :global(html[data-card-design="studio"]) .profile-cover-copy > p:first-child { font-size: .56rem; letter-spacing: .12em; }
+    :global(html[data-card-design="studio"]) .cover-statement { font-size: clamp(1.12rem, 5vw, 1.45rem); line-height: 1.15; }
+    :global(html[data-card-design="studio"]) .cover-specialisms { font-size: .5rem; letter-spacing: .07em; }
+    :global(html[data-card-design="studio"]) .profile-identity-row { display: none; }
+    :global(html[data-card-design="studio"]) .profile-body { padding-left: 1.2rem; padding-right: 1.2rem; }
+    :global(html[data-card-design="studio"]) .profile-body h1 { font-size: 2.25rem; }
+    :global(html[data-card-design="studio"]) .mobile-actions { border-radius: .85rem; background: var(--bg-card); backdrop-filter: none; }
+    :global(html[data-card-design="studio"]) .mobile-actions .quick-action { border-radius: .6rem; }
+  }
+  /* Midnight: a self-contained dark palette, independent of the site's saved theme. */
+  :global(html:root[data-card-design="midnight"]) {
+    color-scheme: dark;
+    --bg: #080f1b;
+    --bg-card: #101c2d;
+    --text: #f1f5fc;
+    --text-dim: #c7d5e7;
+    --text-muted: #a4b7cf;
+    --border: #35455d;
+    --accent: #70e5c1;
+    --ac-blue: #9ebaff;
+    --ac-violet: #c4adff;
+  }
+  :global(html[data-card-design="midnight"]) .profile-page { background: radial-gradient(ellipse at 15% 0, #123c44 0, transparent 40%), radial-gradient(ellipse at 95% 35%, #192954 0, transparent 45%), #080f1b; }
+  :global(html[data-card-design="midnight"]) .profile-grid { opacity: .2; background-size: 54px 54px; }
+  :global(html[data-card-design="midnight"]) .glow-one { background: #16d2ae12; }
+  :global(html[data-card-design="midnight"]) .glow-two { background: #7489ff14; }
+  :global(html[data-card-design="midnight"]) .profile-card { border-radius: 1.8rem; border-color: #426077; background: #101c2d; box-shadow: 0 40px 100px #0008, 0 0 65px #39d5b00b; }
+  :global(html[data-card-design="midnight"]) .profile-card::before { height: 4px; background: linear-gradient(90deg, #70e5c1, #7c99ff 70%, #ffaf78); }
+  :global(html[data-card-design="midnight"]) .profile-cover { padding-bottom: 2rem; background: radial-gradient(ellipse at 95% 0, #294b714d, transparent 65%), linear-gradient(120deg, #152b39, #101a30); border-bottom: 1px solid #385268; }
+  :global(html[data-card-design="midnight"]) .profile-wave,
+  :global(html[data-card-design="midnight"]) .cover-orb { display: none; }
+  :global(html[data-card-design="midnight"]) .cover-grid { background-size: 36px 36px; opacity: .3; }
+  :global(html[data-card-design="midnight"]) .brand-logo { background: #fff; border: 0; border-radius: .65rem; box-shadow: 0 8px 28px #0003; }
+  :global(html[data-card-design="midnight"]) .availability { border-color: #54736b; color: #b8ffe2; background: #142e2a; }
+  :global(html[data-card-design="midnight"]) .cover-statement { color: #f1f5fc; }
+  :global(html[data-card-design="midnight"]) .mobile-portrait-halo { border-radius: 1.5rem; inset: -.25rem; background: linear-gradient(140deg, #70e5c1, #87a3ff 55%, #ffa669); opacity: 1; transform: rotate(3deg); }
+  :global(html[data-card-design="midnight"]) .mobile-portrait-frame { background: #e7eef2; border: 5px solid #101c2d; border-radius: 1.3rem; transform: none; box-shadow: 0 20px 45px #0006; }
+  :global(html[data-card-design="midnight"]) .profile-identity-row { margin-top: 1.5rem; }
+  :global(html[data-card-design="midnight"]) .expertise-chip { background: #17293b; border-color: #3b526b; border-radius: .5rem; color: #d5e7f8; }
+  :global(html[data-card-design="midnight"]) .social-link { background: #192b40; border-color: #46607a; color: #d4e6ff; box-shadow: none; }
+  :global(html[data-card-design="midnight"]) .social-link:hover { color: #fff; background: #283e57; border-color: #70e5c1; }
+  :global(html[data-card-design="midnight"]) .contact-row { background: #132337; border-color: #3d536f; }
+  :global(html[data-card-design="midnight"]) .contact-icon { color: #b7d1ff; background: #243b59; }
+  :global(html[data-card-design="midnight"]) .share-card-action { background: linear-gradient(110deg, #233657, #183c3d); border-color: #59739a; box-shadow: none; }
+  :global(html[data-card-design="midnight"]) .share-card-icon { background: #31466a; color: #dceaff; }
+  :global(html[data-card-design="midnight"]) .card-privacy { background: #0e1b2b; border-color: #354b65; box-shadow: none; }
+  :global(html[data-card-design="midnight"]) .privacy-service { background: linear-gradient(120deg, #123932, #12282e); border-color: #4b8374; box-shadow: inset 4px 0 #70e5c1; }
+  :global(html[data-card-design="midnight"]) .audit-cta { background: linear-gradient(110deg, #ffd6ac, #ffb67b); box-shadow: 0 12px 30px #0003; }
+  :global(html[data-card-design="midnight"]) .call-action { background: linear-gradient(130deg, #2548af, #315fd0); color: #fff; border-color: #688ee5; }
+  :global(html[data-card-design="midnight"]) .whatsapp-action { background: linear-gradient(130deg, #086549, #097455); color: #fff; border-color: #4dba94; }
+  :global(html[data-card-design="midnight"]) .save-action { background: linear-gradient(130deg, #9d3b0b, #ac470e); color: #fff; border-color: #df9866; }
+  :global(html[data-card-design="midnight"]) .qr-action { background: linear-gradient(130deg, #543196, #6940ba); color: #fff; border-color: #ae8fe2; }
+  :global(html[data-card-design="midnight"]) .mobile-actions { background: #101c2df5; border-color: #526681; box-shadow: 0 16px 45px #0008; }
+  :global(html[data-card-design="midnight"]) .qr-dialog a[download] { color: #080f1b; }
+  :global(html[data-card-design="midnight"]) a:focus-visible,
+  :global(html[data-card-design="midnight"]) button:focus-visible { outline: 3px solid #ffbf8d; outline-offset: 4px; }
+  @media (min-width: 640px) {
+    :global(html[data-card-design="midnight"]) .profile-cover-hero { display: grid; grid-template-columns: minmax(0,1fr) 13rem; align-items: center; gap: 2rem; margin-top: 2.5rem; }
+    :global(html[data-card-design="midnight"]) .mobile-portrait-wrap { display: block; justify-self: end; align-self: center; padding: .4rem; }
+    :global(html[data-card-design="midnight"]) .mobile-portrait-frame { width: 12rem; height: 12rem; }
+    :global(html[data-card-design="midnight"]) .profile-identity-row { margin-top: 1.5rem; justify-content: flex-end; }
+    :global(html[data-card-design="midnight"]) .profile-identity-row > .relative { display: none; }
+    :global(html[data-card-design="midnight"]) .profile-body { padding-top: .5rem; }
+    :global(html[data-card-design="midnight"]) .qr-preview { border-color: #3b526b; background: #0b1524; }
+  }
+  @media (max-width: 639px) {
+    :global(html[data-card-design="midnight"]) .profile-cover { padding-bottom: 1.75rem; }
+    :global(html[data-card-design="midnight"]) .profile-cover-hero { align-items: center; gap: 1rem; }
+    :global(html[data-card-design="midnight"]) .profile-cover-copy { padding-bottom: 0; }
+    :global(html[data-card-design="midnight"]) .profile-identity-row { display: none; }
+    :global(html[data-card-design="midnight"]) .profile-body h1 { color: #f1f5fc; letter-spacing: -.035em; }
+  }
+  /* Aurora: an editorial dark identity card with a portrait medallion and
+     asymmetric composition. Shared content remains a single source of truth. */
+  :global(html:root[data-card-design="aurora"]) {
+    color-scheme: dark;
+    --bg: #100f19; --bg-card: #1a1827; --text: #f8f2e9;
+    --text-dim: #d7cfdc; --text-muted: #b8adbf; --border: #51455d;
+    --accent: #dfedaa; --ac-blue: #c3b8ff; --ac-violet: #e0b4fa;
+  }
+  :global(html[data-card-design="aurora"]) .profile-page { background: radial-gradient(ellipse at 8% 5%, #583d5c66, transparent 45%), radial-gradient(ellipse at 98% 65%, #49503444, transparent 50%), #100f19; }
+  :global(html[data-card-design="aurora"]) .profile-grid { opacity: .1; background-size: 80px 80px; mask-image: linear-gradient(to bottom, black, transparent); }
+  :global(html[data-card-design="aurora"]) .profile-glow { display: none; }
+  :global(html[data-card-design="aurora"]) .profile-card { position: relative; border: 1px solid #7a657e; border-radius: 2rem; background: linear-gradient(125deg, #24202f, #181722 60%); box-shadow: 0 40px 120px #0009, 0 1px 0 #d4bdce44 inset; }
+  :global(html[data-card-design="aurora"]) .profile-card::before { height: 3px; background: linear-gradient(90deg, #e8c6b0, #bfa2e8 40%, #dfedaa); }
+  :global(html[data-card-design="aurora"]) .profile-cover { isolation: isolate; background: radial-gradient(ellipse at 0 60%, #a18b7b22, transparent 60%), linear-gradient(155deg, #342738, #201c2e 65%, #252e26); }
+  :global(html[data-card-design="aurora"]) .profile-wave,
+  :global(html[data-card-design="aurora"]) .cover-orb { display: none; }
+  :global(html[data-card-design="aurora"]) .cover-grid { opacity: .22; background: repeating-linear-gradient(125deg, transparent 0 47px, #e4d0eb35 48px, transparent 49px 96px); mask-image: linear-gradient(to bottom, transparent, black 50%, transparent); }
+  :global(html[data-card-design="aurora"]) .brand-logo { border: 0; border-radius: .7rem; background: #fff; padding: .65rem .85rem; box-shadow: 0 10px 25px #0003; }
+  :global(html[data-card-design="aurora"]) .availability { border: 1px solid #89966a; background: #30372b; color: #e3efc7; border-radius: 2rem; box-shadow: 0 0 25px #d4eca00d; }
+  :global(html[data-card-design="aurora"]) .cover-statement { color: #f5e9de; font-weight: 600; letter-spacing: -.04em; }
+  :global(html[data-card-design="aurora"]) .mobile-portrait-wrap { position: relative; padding: .9rem; }
+  :global(html[data-card-design="aurora"]) .mobile-portrait-wrap::before { content: ''; position: absolute; inset: -.65rem; border: 1px solid #d0b7cd70; border-radius: 50%; border-left-color: transparent; border-bottom-color: transparent; transform: rotate(-25deg); pointer-events: none; }
+  :global(html[data-card-design="aurora"]) .mobile-portrait-wrap::after { content: ''; position: absolute; width: .8rem; height: .8rem; right: .4rem; top: .35rem; border-radius: 50%; background: #dfedaa; box-shadow: 0 0 0 7px #dfedaa12, 0 0 24px #dfedaa44; pointer-events: none; }
+  :global(html[data-card-design="aurora"]) .mobile-portrait-halo { inset: .15rem; border-radius: 50%; transform: none; filter: none; opacity: 1; background: conic-gradient(from 40deg, #d6b7a6, #746180 40%, #dec3e8 65%, #dceaa9, #d6b7a6); }
+  :global(html[data-card-design="aurora"]) .mobile-portrait-frame { position: relative; border: 6px solid #292331; border-radius: 50%; background: #eee7df; transform: none; box-shadow: 0 25px 40px #0005; }
+  :global(html[data-card-design="aurora"]) .profile-body h1 { color: #f8f2e9; font-weight: 600; letter-spacing: -.055em; }
+  :global(html[data-card-design="aurora"]) .profile-introduction > p:first-child { color: #dfedaa; }
+  :global(html[data-card-design="aurora"]) .profile-introduction > p:nth-of-type(2) { color: #d3c1ff; }
+  :global(html[data-card-design="aurora"]) .expertise-chip { border-radius: .45rem; border-color: #65556f; background: #30283b; color: #eadff3; font-weight: 500; }
+  :global(html[data-card-design="aurora"]) .social-link { width: 2.6rem; height: 2.6rem; border-radius: 50%; color: #f6edff; background: #332b40; border-color: #7a6588; box-shadow: 0 5px 12px #0002; }
+  :global(html[data-card-design="aurora"]) .linkedin { background: #183d68; border-color: #497aa5; }
+  :global(html[data-card-design="aurora"]) .facebook { background: #1d3575; border-color: #6078bd; }
+  :global(html[data-card-design="aurora"]) .instagram { background: linear-gradient(135deg, #5c286f, #8f3057, #8a4d25); border-color: #b46d9b; }
+  :global(html[data-card-design="aurora"]) .youtube { background: #842c3a; border-color: #bd6573; }
+  :global(html[data-card-design="aurora"]) .x-social { background: #25232d; border-color: #8c8295; }
+  :global(html[data-card-design="aurora"]) .social-link:hover { color: #fff; border-color: #dfedaa; }
+  :global(html[data-card-design="aurora"]) .quick-action { border-radius: 1rem; border: 1px solid #ffffff40; color: #fff; box-shadow: 0 8px 20px #0003, 0 1px 0 #ffffff20 inset; }
+  :global(html[data-card-design="aurora"]) .call-action { background: linear-gradient(135deg, #2b438e, #3f54aa); }
+  :global(html[data-card-design="aurora"]) .whatsapp-action { background: linear-gradient(135deg, #15533f, #276a50); }
+  :global(html[data-card-design="aurora"]) .save-action { background: linear-gradient(135deg, #8a3d22, #a34c29); }
+  :global(html[data-card-design="aurora"]) .qr-action { background: linear-gradient(135deg, #503278, #6a4498); }
+  :global(html[data-card-design="aurora"]) .contact-row { background: #262231; border-color: #65546f; border-radius: 1rem; }
+  :global(html[data-card-design="aurora"]) .contact-icon { background: #44364f; color: #e9d6ff; border-radius: 50%; }
+  :global(html[data-card-design="aurora"]) .share-card-action { background: linear-gradient(105deg, #403247, #333e30); border-color: #8f7d95; box-shadow: none; }
+  :global(html[data-card-design="aurora"]) .share-card-icon { background: #51435b; color: #f5e4ff; }
+  :global(html[data-card-design="aurora"]) .card-privacy { background: #211e2a; box-shadow: none; border-color: #55495e; }
+  :global(html[data-card-design="aurora"]) .privacy-service { position: relative; overflow: hidden; background: radial-gradient(ellipse at top right, #99af4933, transparent 70%), #293225; border: 1px solid #879b64; box-shadow: 0 1px 0 #e0f0b422 inset; }
+  :global(html[data-card-design="aurora"]) .privacy-service::after { content: ''; position: absolute; right: -2.5rem; bottom: -3rem; width: 9rem; height: 9rem; border: 1px solid #dceaa72b; border-radius: 50%; pointer-events: none; }
+  :global(html[data-card-design="aurora"]) .audit-cta { background: linear-gradient(115deg, #eed5bb, #e1b895); border: 1px solid #f3dfc7; box-shadow: 0 12px 25px #0003; }
+  :global(html[data-card-design="aurora"]) .profile-card > footer { background: #14131e; border-color: #67556e; }
+  :global(html[data-card-design="aurora"]) .mobile-actions { background: #201b2bf5; border-color: #8c7593; box-shadow: 0 15px 40px #0009, 0 1px 0 #cbb4d530 inset; }
+  :global(html[data-card-design="aurora"]) .qr-dialog a[download] { color: #100f19; }
+  :global(html[data-card-design="aurora"]) a:focus-visible,
+  :global(html[data-card-design="aurora"]) button:focus-visible { outline: 3px solid #dfedaa; outline-offset: 4px; }
+  @media (min-width: 900px) {
+    :global(html[data-card-design="aurora"]) .profile-card { display: grid; grid-template-columns: minmax(0,.85fr) minmax(0,1.25fr); }
+    :global(html[data-card-design="aurora"]) .profile-card::before,
+    :global(html[data-card-design="aurora"]) .profile-card > footer { grid-column: 1 / -1; }
+    :global(html[data-card-design="aurora"]) .profile-cover { padding: 2rem 2rem 3rem; border-right: 1px solid #68536e; }
+    :global(html[data-card-design="aurora"]) .profile-brand-row { flex-direction: column; align-items: center; gap: 1.25rem; }
+    :global(html[data-card-design="aurora"]) .profile-cover-hero { display: flex; flex-direction: column; align-items: center; gap: 2.8rem; margin-top: 3rem; }
+    :global(html[data-card-design="aurora"]) .mobile-portrait-wrap { display: block; order: -1; align-self: center; justify-self: center; }
+    :global(html[data-card-design="aurora"]) .mobile-portrait-frame { width: 14rem; height: 14rem; }
+    :global(html[data-card-design="aurora"]) .profile-cover-copy { text-align: center; }
+    :global(html[data-card-design="aurora"]) .cover-statement { font-size: 2.5rem; line-height: 1.12; }
+    :global(html[data-card-design="aurora"]) .profile-cover-copy > p:last-child:not(.cover-specialisms) { font-size: .9rem; line-height: 1.8; }
+    :global(html[data-card-design="aurora"]) .profile-body { padding: 1.75rem; }
+    :global(html[data-card-design="aurora"]) .profile-identity-row { margin: 0; justify-content: flex-end; }
+    :global(html[data-card-design="aurora"]) .profile-identity-row > .relative,
+    :global(html[data-card-design="aurora"]) .qr-preview { display: none; }
+    :global(html[data-card-design="aurora"]) .profile-details-grid { grid-template-columns: minmax(0,1fr); margin-top: 2rem; }
+    :global(html[data-card-design="aurora"]) .profile-body h1 { font-size: 3.6rem; line-height: 1; }
+    :global(html[data-card-design="aurora"]) .profile-body nav[aria-label="Contact actions"] { gap: .55rem; }
+    :global(html[data-card-design="aurora"]) .quick-action { font-size: .7rem; }
+    :global(html[data-card-design="aurora"]) .profile-contact-rows { grid-template-columns: minmax(0,1fr); }
+  }
+  @media (min-width: 640px) and (max-width: 899px) {
+    :global(html[data-card-design="aurora"]) .profile-cover { padding-bottom: 2rem; }
+    :global(html[data-card-design="aurora"]) .profile-identity-row { margin-top: 1.5rem; }
+  }
+  @media (max-width: 639px) {
+    :global(html[data-card-design="aurora"]) .profile-page { padding-top: .85rem; }
+    :global(html[data-card-design="aurora"]) .profile-cover { padding: 1.25rem 1.15rem 1.65rem; border-bottom: 1px solid #725c79; }
+    :global(html[data-card-design="aurora"]) .profile-brand-row { gap: .75rem; align-items: center; }
+    :global(html[data-card-design="aurora"]) .availability { padding: .5rem; font-size: .5rem; letter-spacing: .08em; }
+    :global(html[data-card-design="aurora"]) .profile-cover-hero { grid-template-columns: 7.4rem minmax(0,1fr); align-items: center; gap: 1rem; margin-top: 2rem; }
+    :global(html[data-card-design="aurora"]) .mobile-portrait-wrap { grid-column: 1; grid-row: 1; align-self: center; justify-self: start; padding: .45rem; }
+    :global(html[data-card-design="aurora"]) .mobile-portrait-wrap::before { inset: -.25rem; }
+    :global(html[data-card-design="aurora"]) .mobile-portrait-wrap::after { width: .5rem; height: .5rem; right: .1rem; }
+    :global(html[data-card-design="aurora"]) .mobile-portrait-frame { width: 6.8rem; height: 6.8rem; border-width: 4px; }
+    :global(html[data-card-design="aurora"]) .profile-cover-copy { grid-column: 2; grid-row: 1; padding: 0; }
+    :global(html[data-card-design="aurora"]) .profile-cover-copy > p:first-child { font-size: .54rem; letter-spacing: .09em; }
+    :global(html[data-card-design="aurora"]) .cover-statement { font-size: clamp(1.24rem, 5.6vw, 1.55rem); line-height: 1.13; }
+    :global(html[data-card-design="aurora"]) .cover-specialisms { font-size: .49rem; letter-spacing: .04em; }
+    :global(html[data-card-design="aurora"]) .profile-identity-row { display: none; }
+    :global(html[data-card-design="aurora"]) .profile-body { padding: 0 1.25rem 1.75rem; }
+    :global(html[data-card-design="aurora"]) .profile-body h1 { font-size: 2.7rem; line-height: 1.05; }
+    :global(html[data-card-design="aurora"]) .mobile-actions { border-radius: 1.3rem; padding: .5rem; }
   }
   @media (prefers-reduced-motion: reduce) { .social-link, .quick-action, .contact-row, .share-card-action, .audit-cta { transition: none; } }
 </style>

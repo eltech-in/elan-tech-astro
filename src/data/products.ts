@@ -30,6 +30,11 @@ export interface Product {
    * Leave undefined for products that stay quote-only.
    */
   startingPriceINR?: number;
+  /**
+   * Technology stack of the current product build, grouped for display.
+   * List only what is confirmed. Leave undefined and the page shows no stack.
+   */
+  stack?: { group: string; items: string[] }[];
   /** Live demo URL - undefined means "coming soon" */
   demoUrl?: string;
   /** If true, replace "Try Demo" with call/contact CTA instead of linking to demoUrl */
@@ -61,6 +66,13 @@ export const products: Product[] = [
     targetAudience: ['Home buyers', 'Renters', 'Property developers', 'Real estate investors'],
     schemaCategory: 'RealEstateApplication',
     startingPriceINR: 100000,
+    stack: [
+      { group: 'Frontend', items: ['Next.js', 'React', 'Tailwind CSS', 'TypeScript'] },
+      { group: 'Backend', items: ['Node.js', 'Express'] },
+      { group: 'Database', items: ['MongoDB'] },
+      { group: 'Integrations', items: ['Google Maps', 'Razorpay', 'AWS S3'] },
+      { group: 'Delivery', items: ['Cloudflare'] },
+    ],
     demoUrl: 'https://propertycab.elantech.cloud/',
   },
   {
@@ -92,6 +104,14 @@ export const products: Product[] = [
     ],
     schemaCategory: 'HealthApplication',
     startingPriceINR: 100000,
+    stack: [
+      { group: 'Frontend', items: ['React', 'Vite', 'Radix UI', 'Tailwind CSS', 'TypeScript'] },
+      { group: 'Backend', items: ['Node.js', 'Express', 'REST API'] },
+      { group: 'Database', items: ['MongoDB'] },
+      { group: 'Payments', items: ['Razorpay', 'PhonePe'] },
+      { group: 'Integrations', items: ['AWS S3', 'NodeMailer', 'Google Maps'] },
+      { group: 'Delivery', items: ['Cloudflare'] },
+    ],
     demoUrl: 'https://elanconf.elantech.cloud/',
     contactForDemo: true,
   },
@@ -124,6 +144,13 @@ export const products: Product[] = [
     schemaCategory: 'BusinessApplication',
     startingPriceINR: 100000,
     // Live demo coming soon
+    stack: [
+      { group: 'Frontend', items: ['React', 'Next.js', 'Tailwind CSS', 'TypeScript'] },
+      { group: 'Backend', items: ['Node.js', 'Express'] },
+      { group: 'Database', items: ['MongoDB'] },
+      { group: 'Payments', items: ['Razorpay'] },
+      { group: 'Integrations', items: ['AWS S3', 'NodeMailer'] },
+    ],
   },
   {
     id: 'resort-management-system',
@@ -154,7 +181,73 @@ export const products: Product[] = [
     ],
     schemaCategory: 'TravelApplication',
     startingPriceINR: 100000,
+    stack: [
+      { group: 'Frontend', items: ['React', 'Vite', 'Radix UI', 'Tailwind CSS', 'TypeScript'] },
+      { group: 'Backend', items: ['Node.js', 'Express', 'REST API'] },
+      { group: 'Database', items: ['MongoDB'] },
+      { group: 'Payments', items: ['Razorpay'] },
+      { group: 'Integrations', items: ['AWS S3', 'NodeMailer'] },
+      { group: 'Delivery', items: ['Cloudflare'] },
+    ],
     demoUrl: 'https://resort.elantech.cloud/auth',
+    contactForDemo: true,
+  },
+  {
+    id: 'project-management-system',
+    title: 'Project Management System',
+    slug: 'project-management-system',
+    desc: 'A configurable project management system for agencies and service businesses, covering clients, projects, tasks, billing, enquiries and renewal reminders.',
+    longDesc:
+      'Our Project Management System brings client records, projects, tasks, team schedules, billing, enquiries and reminders into one workspace. We run our own client engagements on it. Modules, roles, branding, deployment and integrations are agreed for each implementation.',
+    accent: '#60A5FA',
+    cssVar: '--ac-blue',
+    features: [
+      'Portfolio dashboard for active projects, enquiries, renewals, reminders and outstanding payments.',
+      'Client records and project codes with a project status tracker.',
+      'Tasks, schedule and team management.',
+      'Billing with pending and overdue payment tracking.',
+      'Domain renewal tracking and reminders.',
+    ],
+    benefits: [
+      'One place for delivery, billing and follow-up.',
+      'Renewals and payments surfaced before they are missed.',
+      'Role-based access for administrators and team members.',
+    ],
+    targetAudience: ['Digital agencies', 'IT service companies', 'Consultancies', 'Project teams'],
+    schemaCategory: 'BusinessApplication',
+    stack: [
+      { group: 'Frontend', items: ['React', 'Vite'] },
+    ],
+    contactForDemo: true,
+  },
+  {
+    id: 'insurance-agency-management-portal',
+    title: 'Insurance Agency Management Portal',
+    slug: 'insurance-agency-management-portal',
+    desc: 'A configurable management portal for insurance agencies, covering LIC, health, motor and general policies, deposits, renewals, commissions, sub-agents and customer records.',
+    longDesc:
+      'Our Insurance Agency Management Portal helps an agency manage policies, customers and commissions in one system: LIC, health, motor and general insurance, recurring and fixed deposits, renewals, quotations and sub-agents. Modules, branding, deployment and integrations are agreed for each implementation.',
+    accent: '#10B981',
+    cssVar: '--ac-emerald',
+    features: [
+      'LIC, health, motor and general insurance management.',
+      'Recurring deposit (RD) and fixed deposit (FD) management.',
+      'Renewal tracking and quotation management.',
+      'Commission management and sub-agent management.',
+      'CRM with customer family records.',
+    ],
+    benefits: [
+      'Policies, customers and commissions in one system.',
+      'Renewals tracked across every policy type.',
+      'Sub-agents and their commissions managed centrally.',
+    ],
+    targetAudience: ['Insurance agencies', 'Insurance agents and advisors', 'Sub-agent networks', 'Financial product distributors'],
+    schemaCategory: 'BusinessApplication',
+    stack: [
+      { group: 'Frontend', items: ['Next.js'] },
+      { group: 'Backend', items: ['NestJS'] },
+      { group: 'Database', items: ['MySQL'] },
+    ],
     contactForDemo: true,
   },
 ];

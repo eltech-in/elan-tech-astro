@@ -2,6 +2,7 @@
 import SEOHead from '../components/SEOHead.astro';
 import SkipLink from '../components/SkipLink.astro';
 import Header from '../components/Header.astro';
+import TripBanner from '../components/TripBanner.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 import StickyContactBar from '../components/StickyContactBar.astro';
@@ -190,9 +191,11 @@ const { title, description, canonical, ogImage, ogType, noindex, schema, geo, st
         }
       })();
     </script>
+    <slot name="head" />
   </head>
   <body class="bg-[var(--bg)] text-[var(--text)] font-sans antialiased">
     {!standalone && <nav aria-label="Skip navigation"><SkipLink /></nav>}
+    {!standalone && <TripBanner />}
     {!standalone && <Header />}
     <main id="main-content" tabindex="-1">
       <slot />

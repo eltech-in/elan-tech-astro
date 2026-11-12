@@ -1,8 +1,7 @@
 ---
 import InternationalLayout from '../layouts/InternationalLayout.astro';
-import InternationalWhyOutsource from '../components/international/InternationalWhyOutsource.astro';
-import InternationalCostComparison from '../components/international/InternationalCostComparison.astro';
-import InternationalServices from '../components/international/InternationalServices.astro';
+import UAEImplementation from '../components/international/UAEImplementation.astro';
+import UAEMarketFit from '../components/international/UAEMarketFit.astro';
 import InternationalFAQ from '../components/international/InternationalFAQ.astro';
 import InternationalContact from '../components/international/InternationalContact.astro';
 import { getCountryBySlug } from '../data/countries';
@@ -10,10 +9,14 @@ import { getCountryBySlug } from '../data/countries';
 const country = getCountryBySlug('dubai-uae')!;
 ---
 
-<InternationalLayout country={country}>
-  <InternationalWhyOutsource country={country} />
-  <InternationalCostComparison country={country} />
-  <InternationalServices country={country} />
+<InternationalLayout country={country}
+  title="Ecommerce & Business-System Implementation for UAE | eLan Technology"
+  description="Shopify, Medusa.js, Zoho Commerce and custom CRM/ERP implementation for UAE businesses. India-based delivery with scoped Arabic/English interfaces and integrations."
+  heading="Ecommerce & business-system implementation for UAE businesses"
+  introduction="Build a storefront and business workflows that work together. Our Nagpur studio delivers remotely, with Arabic/English scope, integrations, approvals and support agreed before development."
+  primaryAction={{ href: '/get-quote/', label: 'Scope my UAE project' }}>
+  <UAEImplementation slot="market-introduction" />
+  <UAEMarketFit />
   <InternationalFAQ country={country} />
   <InternationalContact country={country} />
 </InternationalLayout>

@@ -21,7 +21,7 @@ export const faqs: FAQItem[] = [
   {
     question: 'What technologies do you use to build websites?',
     answer:
-      'We use modern, industry-standard technologies including React, Next.js, Node.js, PostgreSQL, WordPress, Shopify, Medusa.js, and Astro. For mobile apps, we use React Native. We recommend the right technology based on business requirements, operational responsibility, budget, and long-term growth plans.',
+      'We use modern, industry-standard technologies including React, Next.js, Node.js, PostgreSQL, WordPress, Shopify, Medusa.js, Zoho Commerce, and Astro. For mobile apps, we use React Native. We recommend the right technology based on business requirements, operational responsibility, budget, and long-term growth plans.',
     category: 'general',
   },
   {

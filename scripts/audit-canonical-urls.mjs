@@ -108,6 +108,25 @@ for (const file of htmlFiles) {
       report('redirect-target', normalizedPath, sourceRoute);
     }
   }
+
+  // Image migrations must not silently introduce broken src/srcset requests.
+  for (const tag of html.matchAll(/<(?:img|source|script|video|audio)\b[^>]*>/gi)) {
+    for (const attribute of tag[0].matchAll(/\b(src|srcset|poster)=["']([^"']+)["']/gi)) {
+      const value = decodeAttribute(attribute[2].trim());
+      if (value.startsWith('data:') || value.startsWith('blob:')) continue;
+      const candidates = attribute[1].toLowerCase() === 'srcset'
+        ? value.split(',').map(item => item.trim().split(/\s+/)[0]) : [value];
+      for (const candidate of candidates) {
+        if (!candidate) continue;
+        let asset;
+        try { asset = new URL(candidate, sourceUrl); } catch { report('invalid-resource', candidate, sourceRoute); continue; }
+        if (asset.origin !== SITE_ORIGIN) continue;
+        if (!existsSync(generatedPathFor(decodeURIComponent(asset.pathname)))) {
+          report('missing-resource', asset.pathname, sourceRoute);
+        }
+      }
+    }
+  }
 }
 
 const sitemapPath = join(DIST, 'sitemap-0.xml');

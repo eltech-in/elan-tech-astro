@@ -104,6 +104,13 @@ export const integrations: Integration[] = [
 
   // eCommerce & ERP
   {
+    id: 'zoho-commerce',
+    name: 'Zoho Commerce',
+    category: 'eCommerce & ERP',
+    description: 'Store implementation and supported API workflows connecting catalogue, orders and customer data to business tools; plan and provider capabilities are confirmed during discovery.',
+    icon: 'Store',
+  },
+  {
     id: 'shopify',
     name: 'Shopify',
     category: 'eCommerce & ERP',

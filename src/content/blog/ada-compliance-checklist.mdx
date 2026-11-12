@@ -124,35 +124,24 @@ Print this page or use your browser's **Save as PDF** function to keep it offlin
 
 A focused team can knock these out for a 10–25 page site in a single afternoon. If you do nothing else from this checklist, do these six.
 
-## One Checklist, Many Search Queries
-
-Searchers arrive here looking for slightly different things - the **ADA compliance website checklist**, the **website ADA compliance checklist**, an **ADA compliant website checklist**, **ADA compliance for websites checklist**, the **ADA web compliance checklist**, an **ADA website checklist**, or more general phrasing like **ADA compliance website**, **ada accessible website** requirements, or a generic **accessibility compliance checklist**. They are all asking the same thing in different words: what does it take to make a website meet ADA Title III, which the courts measure against WCAG 2.1 Level AA?
-
-This guide is structured to answer that question completely. If you came here researching **ADA compliant website requirements** or the basic **requirements for ADA** Title III digital accessibility, the 30-step checklist below is the answer, and the FAQ at the bottom covers the legal and procedural questions everyone asks.
-
 ## Why This ADA Compliance Checklist Matters in 2026
 
-ADA Title III prohibits discrimination against people with disabilities in places of public accommodation. Federal courts have ruled consistently - across the 1st, 2nd, 3rd, 6th, 9th, and 11th Circuits - that commercial websites qualify. The DOJ's April 2026 Title II rule formalised **WCAG 2.1 Level AA** as the standard for state and local governments, and plaintiff attorneys now cite that rule directly when arguing private-sector cases.
+ADA Title III prohibits discrimination against people with disabilities in places of public accommodation. US federal courts do not agree on how far that reaches online: some apply it to a website only when the site is connected to a physical location, while others have applied it to online-only businesses. The Department of Justice's [guidance on web accessibility and the ADA](https://www.ada.gov/resources/web-guidance/) states that the ADA applies to the websites of businesses open to the public.
 
-The practical consequences:
+The DOJ's Title II web rule, published in April 2024, names **WCAG 2.1 Level AA** as the technical standard for state and local governments. No equivalent rule sets one technical standard for every private business, which is why WCAG Level AA is used as the practical engineering baseline.
 
-- **New York** filed 1,021 ADA digital lawsuits in 2025 (33% of all federal filings).
-- **Florida** filed 487 (nearly doubled YoY).
-- **California** filed 380.
-- **Illinois** filed 237 - a 746% YoY increase as plaintiff firms expand into new jurisdictions.
+Private businesses continue to receive demand letters and lawsuits over website barriers, so a documented review against WCAG Level AA is a sensible starting point for any business serving US customers. For the broader context on how ADA and WCAG interact across US and Canadian jurisdictions, see our companion guide on [ADA & WCAG compliance for US and Canada in 2026](/blog/accessibility/ada-wcag-compliance-us-canada-2026/).
 
-If your business has any US-facing presence, ADA compliance is no longer optional. For the broader context on how ADA and WCAG interact across US and Canadian jurisdictions, see our companion guide on [ADA & WCAG compliance for US and Canada in 2026](/blog/accessibility/ada-wcag-compliance-us-canada-2026/).
+## The 6 Most Common Website Accessibility Failures
 
-## The 6 Most Common ADA Website Violations
+The [WebAIM Million 2026 report](https://webaim.org/projects/million/) tested the home pages of the top 1,000,000 websites. These six failure types were the most common, and together they make up **96% of all the errors WebAIM detected**.
 
-The WebAIM Million 2025 study analysed the top 1 million US websites. These are the violations they found on the homepage of the average site - and they account for roughly **96% of real-world ADA lawsuits**.
-
-1. **Low contrast text** - 79.1% of homepages fail. Fix by checking every text/background pair against 4.5:1 (normal) or 3:1 (large text, 18pt+/14pt+ bold).
-2. **Missing alt text on images** - 55.5% fail. Fix by adding descriptive alt to every meaningful image; empty `alt=""` only for decorative ones.
-3. **Missing form input labels** - 48.2% fail. Fix with `<label for="email">Email</label><input id="email" type="email">` or `aria-label="Email"`.
-4. **Empty links** - 44.6% fail. Usually icon links or images-as-links with no accessible name. Add visible text or `aria-label`.
-5. **Missing document language** - 37.1% fail. Fix by setting `<html lang="en">` (or your language code) in every page's HTML.
-6. **Empty buttons** - 26.3% fail. Icon-only buttons (hamburger, close, search) need `aria-label`. Plain `<button>` with no text content is invisible to screen readers.
+1. **Low contrast text** - found on 83.9% of home pages. Fix by checking every text/background pair against 4.5:1 (normal) or 3:1 (large text, 18pt+/14pt+ bold).
+2. **Missing alt text on images** - 53.1%. Fix by adding descriptive alt to every meaningful image; empty `alt=""` only for decorative ones.
+3. **Missing form input labels** - 51%. Fix with `<label for="email">Email</label><input id="email" type="email">` or `aria-label="Email"`.
+4. **Empty links** - 46.3%. Usually icon links or images-as-links with no accessible name. Add visible text or `aria-label`.
+5. **Empty buttons** - 30.6%. Icon-only buttons (hamburger, close, search) need `aria-label`. Plain `<button>` with no text content is invisible to screen readers.
+6. **Missing document language** - 13.5%. Fix by setting `<html lang="en">` (or your language code) in every page's HTML.
 
 These six are the lowest-hanging fruit and the highest-impact fixes. If you have an existing site, run [a free website audit](/free-website-audit/) to see which of them your site has - and how many of each.
 
@@ -274,24 +263,7 @@ If you **have** received a demand letter or complaint, send it to qualified lega
 
 For planned work, our [ADA and WCAG accessibility service](/services/ada-compliant-web-design/) covers audit, remediation, retesting, and documentation.
 
-## Frequently Asked Questions
-
-**What is an ADA website compliance checklist?**
-A checklist translates WCAG requirements into practical review steps. It helps identify common barriers and organise remediation, but it does not replace a complete conformance evaluation.
-
-**What is required for a website to be ADA compliant in 2026?**
-The answer depends on the organisation and jurisdiction. Use the version and level named by the applicable obligation, and treat WCAG Level AA as the practical engineering baseline.
-
-**Is there a free ADA compliance kit or checklist I can download?**
-Use your browser's Print or Save as PDF function for an offline copy of this checklist.
-
-**Does an accessibility widget make my site ADA compliant?**
-An overlay cannot establish WCAG conformance by itself. Many barriers must be fixed in the source and verified manually.
-
-**How much does ADA website compliance cost?**
-Our rapid audit and remediation plan starts at $1,500 USD. Full remediation is quoted after the evaluated surface and repeated issue types are understood.
-
-For more questions on scope, current DOJ dates, audit methods, and documentation, see the FAQ section on our [ADA and WCAG service page](/services/ada-compliant-web-design/#faq).
+Questions on scope, current DOJ dates, audit methods, and documentation are also answered in the FAQ on our [ADA and WCAG service page](/services/ada-compliant-web-design/#faq).
 
 ## Accessibility Pays - Beyond Compliance
 

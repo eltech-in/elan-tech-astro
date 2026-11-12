@@ -107,13 +107,16 @@ const { standalone = false } = Astro.props;
   .privacy-banner {
     position: fixed;
     z-index: 10000;
-    right: 1rem;
-    bottom: 1rem;
-    left: auto;
+    right: auto;
+    bottom: calc(var(--contact-controls-height, 0px) + 1rem);
+    left: max(1rem, env(safe-area-inset-left));
     display: grid;
     gap: 1.25rem;
     width: min(32rem, calc(100% - 2rem));
     max-width: 32rem;
+    max-height: calc(100dvh - var(--contact-controls-height, 0px) - 2rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
     margin: 0;
     padding: 1rem;
     border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
@@ -139,8 +142,8 @@ const { standalone = false } = Astro.props;
   .privacy-button--primary { border-color: var(--accent); background: var(--accent); color: var(--bg); }
   .privacy-button--primary:disabled { cursor: not-allowed; opacity: .45; transform: none; }
   .privacy-button--secondary { background: var(--bg); color: var(--text); }
-  .privacy-choices-float { position: fixed; z-index: 9990; left: 1rem; bottom: 5.5rem; display: inline-flex; align-items: center; gap: .5rem; min-height: 42px; border: 1px solid var(--border); border-radius: 999px; padding: .55rem .8rem; background: var(--bg-card); box-shadow: 0 12px 34px rgb(2 6 23 / 18%); color: var(--text); font-size: .72rem; font-weight: 800; cursor: pointer; }
-  .privacy-choices-float--standalone { left: auto; right: 1rem; bottom: calc(8rem + env(safe-area-inset-bottom)); }
+  .privacy-choices-float { position: fixed; z-index: 9990; left: max(1rem, env(safe-area-inset-left)); bottom: calc(var(--contact-controls-height, 0px) + 1rem); display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; border: 1px solid var(--border); border-radius: 999px; padding: .55rem .8rem; background: var(--bg-card); box-shadow: 0 12px 34px rgb(2 6 23 / 18%); color: var(--text); font-size: .72rem; font-weight: 800; cursor: pointer; }
+  .privacy-choices-float--standalone { left: auto; right: max(1rem, env(safe-area-inset-right)); }
   .privacy-choices-float svg { width: 1rem; height: 1rem; fill: none; stroke: var(--accent); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
   .privacy-dialog { width: min(36rem, calc(100% - 2rem)); max-height: calc(100vh - 2rem); margin: auto; padding: 0; overflow: auto; border: 1px solid var(--border); border-radius: 1.25rem; background: var(--bg-card); color: var(--text); box-shadow: 0 30px 90px rgb(2 6 23 / 38%); }
   .privacy-dialog::backdrop { background: rgb(2 6 23 / 68%); backdrop-filter: blur(5px); }
@@ -164,11 +167,6 @@ const { standalone = false } = Astro.props;
   @media (min-width: 760px) {
     .privacy-banner { padding: 1.2rem 1.3rem; }
     .privacy-dialog__actions { grid-template-columns: 1fr auto; }
-    .privacy-choices-float { bottom: 1rem; }
-  }
-  @media (max-width: 759px) {
-    .privacy-banner { bottom: 5.5rem; }
-    .privacy-banner--standalone { bottom: calc(8rem + env(safe-area-inset-bottom)); }
   }
 </style>
 
@@ -190,6 +188,34 @@ const { standalone = false } = Astro.props;
     var analyticsLock = document.getElementById('privacy-analytics-lock');
 
     if (!banner || !dialog || !floatButton || !analyticsToggle) return;
+
+    // Measure the real dock, not a guessed height: text zoom, safe areas and
+    // the card's two-row buttons can all change the occupied screen space.
+    var root = document.documentElement;
+    var docks = Array.from(document.querySelectorAll('#sticky-contact-bar, .mobile-actions'));
+    function updateControlSpace() {
+      var dockHeight = docks.reduce(function (height, dock) {
+        var style = getComputedStyle(dock);
+        if (style.position !== 'fixed' || style.display === 'none' || !dock.getClientRects().length) return height;
+        return Math.max(height, window.innerHeight - dock.getBoundingClientRect().top);
+      }, 0);
+      root.style.setProperty('--contact-controls-height', Math.ceil(dockHeight) + 'px');
+      root.classList.toggle('privacy-banner-visible', !banner.hidden);
+      var visibleControl = banner.hidden ? floatButton : banner;
+      var reserve = visibleControl.hidden ? dockHeight : Math.max(dockHeight, window.innerHeight - visibleControl.getBoundingClientRect().top);
+      root.style.setProperty('--floating-controls-reserve', Math.ceil(reserve + 16) + 'px');
+    }
+    var controlFrame;
+    function scheduleControlSpace() {
+      cancelAnimationFrame(controlFrame);
+      controlFrame = requestAnimationFrame(updateControlSpace);
+    }
+    if (typeof ResizeObserver !== 'undefined') {
+      var observer = new ResizeObserver(scheduleControlSpace);
+      [banner, floatButton].concat(docks).forEach(function (control) { observer.observe(control); });
+    }
+    window.addEventListener('resize', scheduleControlSpace);
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', scheduleControlSpace);
 
     function privacySignalActive() {
       return navigator.globalPrivacyControl === true ||
@@ -230,6 +256,7 @@ const { standalone = false } = Astro.props;
 
       banner.hidden = true;
       floatButton.hidden = false;
+      scheduleControlSpace();
       analyticsToggle.checked = record.analytics;
       if (dialog.open) dialog.close();
 
@@ -263,6 +290,7 @@ const { standalone = false } = Astro.props;
       banner.hidden = false;
       floatButton.hidden = true;
     }
+    updateControlSpace();
 
     acceptButton.addEventListener('click', function () { choose(true, 'banner-accept'); });
     rejectButton.addEventListener('click', function () { choose(false, 'banner-reject'); });

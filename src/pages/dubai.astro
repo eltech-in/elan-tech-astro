@@ -1,0 +1,162 @@
+---
+// Landing page for the Dubai visit, reached from the QR code and the site
+// banner. It is kept out of Google (noindex, not in the sitemap) because it is
+// a meeting follow-up page, not a search page. Nothing here claims a UAE
+// office or UAE clients.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '../utils/schema';
+import { dubaiTrip } from '../data/trip';
+import { products } from '../data/products';
+import { provenTechnologies } from '../data/techStack';
+
+const schema = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Dubai visit', url: dubaiTrip.pageUrl },
+]);
+
+const stats = [
+  { value: '2002', label: 'Founded' },
+  { value: '24+', label: 'Years in business' },
+  { value: '500+', label: 'Clients served' },
+  { value: '1,500+', label: 'Projects delivered' },
+];
+
+const offers = [
+  {
+    title: 'Start from a ready-built product',
+    text: 'Six working products for property, hospitality, conferences, associations, insurance agencies and project teams. We adapt one to your business, so you do not start from a blank page.',
+    href: '/products/',
+    label: 'See the products',
+  },
+  {
+    title: 'Build something custom',
+    text: 'Websites, online stores on Shopify or Medusa.js, and business systems such as CRM and ERP workflows, designed around how your team works.',
+    href: '/services/',
+    label: 'See the services',
+  },
+  {
+    title: 'Add delivery capacity',
+    text: 'Agencies and IT firms can use us as a delivery team for design, development and accessibility work, under their own brand and with an NDA in place.',
+    href: '/nda-confidentiality-policy/',
+    label: 'NDA and confidentiality policy',
+  },
+];
+
+const productCards = products.map((product) => ({
+  title: product.title,
+  desc: product.desc,
+  href: `/products/${product.slug}/`,
+  cssVar: product.cssVar,
+  stack: [...new Set((product.stack ?? []).flatMap((group) => group.items))].slice(0, 5),
+}));
+
+// The headline stacks only; the Technologies page has the full list with proof.
+const headlineGroups = ['Frontend', 'Commerce', 'Backend', 'Database'];
+const headlineTech = provenTechnologies.filter((tech) => headlineGroups.includes(tech.group)).map((tech) => tech.name);
+---
+
+<BaseLayout
+  title={`eLan Technology in Dubai, ${dubaiTrip.dateLabel}`}
+  description={`eLan Technology is in Dubai, ${dubaiTrip.dateLabel}. See who we are, the products and technology stacks we build with, and how to book a meeting.`}
+  noindex={true}
+  schema={schema}
+>
+  <section class="relative overflow-hidden border-b border-[var(--border)] bg-[var(--bg)] py-14 sm:py-20" aria-labelledby="dubai-title">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">Dubai visit · {dubaiTrip.dateLabel}</p>
+      <h1 id="dubai-title" class="mt-3 font-heading text-4xl font-bold leading-tight text-[var(--text)] sm:text-5xl">eLan Technology in Dubai</h1>
+      <p class="mt-5 max-w-3xl text-lg leading-relaxed text-[var(--text-dim)]">
+        We build websites, online stores and business software from Nagpur, India. Whether we have already met in Dubai or you would like to meet during our visit, this page has who we are, what we build and how to reach us.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href={dubaiTrip.whatsappUrl} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-bold text-white transition hover:brightness-110">
+          Message us on WhatsApp<span class="sr-only"> (opens in a new tab)</span>
+        </a>
+        <a href="/schedule-consultation/" class="inline-flex min-h-11 items-center rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-6 py-3 text-sm font-bold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">Book a call</a>
+        <a href="/about/nishant-barde/" class="inline-flex min-h-11 items-center rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-6 py-3 text-sm font-bold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">Save our contact card</a>
+      </div>
+      <dl class="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {stats.map((stat) => (
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-4">
+            <dt class="text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">{stat.label}</dt>
+            <dd class="mt-1 font-heading text-2xl font-bold text-[var(--text)]">{stat.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="border-b border-[var(--border)] bg-[var(--bg-card)] py-14 sm:py-16" aria-labelledby="dubai-offers">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <h2 id="dubai-offers" class="font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">Three ways to work with us</h2>
+      <ul class="mt-7 grid gap-5 md:grid-cols-3" role="list">
+        {offers.map((offer) => (
+          <li class="flex flex-col rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6">
+            <h3 class="font-heading text-lg font-bold text-[var(--text)]">{offer.title}</h3>
+            <p class="mt-3 flex-1 text-sm leading-7 text-[var(--text-dim)]">{offer.text}</p>
+            <a href={offer.href} class="mt-4 inline-flex min-h-11 items-center text-sm font-semibold text-[var(--accent)]">{offer.label} →</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="border-b border-[var(--border)] bg-[var(--bg)] py-14 sm:py-16" aria-labelledby="dubai-products">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <h2 id="dubai-products" class="font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">Our products and what they are built with</h2>
+      <p class="mt-3 max-w-3xl leading-7 text-[var(--text-dim)]">
+        These were built for Indian businesses first. Arabic, VAT, local payment providers and sector rules are scoped for each UAE implementation.
+      </p>
+      <ul class="mt-7 grid gap-5 md:grid-cols-2" role="list">
+        {productCards.map((card) => (
+          <li class="flex flex-col rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+            <h3 class="font-heading text-lg font-bold text-[var(--text)]">{card.title}</h3>
+            <p class="mt-2 flex-1 text-sm leading-7 text-[var(--text-dim)]">{card.desc}</p>
+            {card.stack.length > 0 && (
+              <ul class="mt-4 flex flex-wrap gap-2" role="list" aria-label={`${card.title} technology`}>
+                {card.stack.map((item) => (
+                  <li class="rounded-full border border-[var(--border)] px-3 py-1 text-xs font-semibold text-[var(--text)]">{item}</li>
+                ))}
+              </ul>
+            )}
+            <a href={card.href} class="mt-4 inline-flex min-h-11 items-center text-sm font-semibold" style={`color: var(${card.cssVar});`}>See the {card.title} →</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="border-b border-[var(--border)] bg-[var(--bg-card)] py-14 sm:py-16" aria-labelledby="dubai-tech">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <h2 id="dubai-tech" class="font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">Technology we build with</h2>
+      <p class="mt-3 max-w-3xl leading-7 text-[var(--text-dim)]">Each of these is backed by a published project or one of our products.</p>
+      <ul class="mt-6 flex flex-wrap gap-2" role="list">
+        {headlineTech.map((name) => (
+          <li class="rounded-full border border-[var(--border)] bg-[var(--bg)] px-3 py-1.5 text-sm font-semibold text-[var(--text)]">{name}</li>
+        ))}
+      </ul>
+      <div class="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+        <a href="/technologies/" class="inline-flex min-h-11 items-center font-semibold text-[var(--accent)]">All technologies, with the projects that use them →</a>
+        <a href="/portfolio/" class="inline-flex min-h-11 items-center font-semibold text-[var(--accent)]">Portfolio →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-[var(--bg)] py-14 sm:py-16" aria-labelledby="dubai-working">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8">
+        <h2 id="dubai-working" class="font-heading text-2xl font-bold text-[var(--text)]">Working with a UAE business</h2>
+        <p class="mt-3 max-w-3xl leading-7 text-[var(--text-dim)]">
+          We are based in Nagpur, India and deliver remotely. UAE time is 1.5 hours behind India, so most of the working day overlaps. We do not have a UAE office and we do not claim UAE clients; we are here to meet businesses and partners we can work with.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="/web-design-company-dubai-uae/" class="inline-flex min-h-11 items-center rounded-full border border-[var(--border)] px-6 py-3 text-sm font-bold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">How we work with UAE teams</a>
+          <a href={dubaiTrip.whatsappUrl} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-bold text-white transition hover:brightness-110">
+            Message us on WhatsApp<span class="sr-only"> (opens in a new tab)</span>
+          </a>
+          <a href="/contact/" class="inline-flex min-h-11 items-center rounded-full border border-[var(--border)] px-6 py-3 text-sm font-bold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">Contact us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

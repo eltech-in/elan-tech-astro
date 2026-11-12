@@ -9,6 +9,11 @@ const guides = {
 };
 const guide = guides[city];
 const review = testimonials.find(item => item.id === guide.testimonial)!;
+const buying = {
+  nagpur: { title: 'Bring these to your first Nagpur planning meeting', items: ['List the services or products that need enquiries, with a named person to approve content.', 'Decide whether you need a simple enquiry, appointment request or a separately integrated booking system.', 'Agree who will update the site after launch and whether training or ongoing maintenance is required.'], proof: [{ name: 'ISA Nagpur', href: 'https://www.isanagpur.org/', text: 'Nagpur City Branch association website: explore how programmes and member information are organised.' }, { name: 'Ophthalmological Society Nagpur', href: 'https://osnnagpur.org/', text: 'A Nagpur association example for society updates and professional resources.' }] },
+  bhopal: { title: 'Before requesting an institutional or service-site quotation', items: ['Count page templates separately from course, programme, notice or resource entries.', 'Specify English/Hindi content responsibilities, document formats and publishing approval roles.', 'Identify admissions, payment or account requirements early; these need their own scope, access and testing.'], proof: [{ name: 'ISA Nagpur', href: 'https://www.isanagpur.org/', text: 'Association information and programmes: a relevant publishing example, not a Bhopal deployment.' }, { name: 'Samarth Realty', href: 'https://samarthrealty.co.in/', text: 'Property presentation and bilingual content: relevant experience, not a Bhopal client claim.' }] },
+  raipur: { title: 'Scope a catalogue and enquiry workflow—not just a page count', items: ['Count product families, variants, specifications and downloads; identify who supplies and approves each.', 'Decide whether buyers need a quotation form, dealer routing or online checkout. These are different workflows.', 'Map sales follow-up, CRM or ERP connections and catalogue updates; validate API access before quoting integrations.'], proof: [{ name: 'KEN Global Designs', href: 'https://kenglobal.in/', text: 'Apparel-manufacturing company presentation: a sector-relevant example, not a Raipur deployment.' }, { name: 'Healthy Genie', href: 'https://healthygenie.in/', text: 'Medusa.js commerce experience for buyers considering transactions rather than enquiry-only catalogues; not a Raipur client claim.' }] },
+}[city];
 ---
 <section class="border-b border-[var(--border)] bg-[var(--bg-card)] py-12" aria-labelledby="city-buying-guide">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -19,7 +24,7 @@ const review = testimonials.find(item => item.id === guide.testimonial)!;
         <p class="mt-4 leading-relaxed text-[var(--text-dim)]">{guide.intro}</p>
         <ul class="mt-5 space-y-2">{guide.needs.map(need => <li class="text-sm">✓ {need}</li>)}</ul>
         <div class="mt-6 flex flex-wrap gap-3">
-          <a class="rounded-xl bg-[var(--accent)] px-5 py-3 font-semibold text-white" href="/pricing/">See scope and pricing</a>
+          <a class="rounded-xl bg-[var(--accent)] px-5 py-3 font-semibold text-[var(--bg)]" href="/pricing/">See scope and pricing</a>
           <a class="rounded-xl border border-[var(--border)] px-5 py-3 font-semibold" href="/get-quote/">Request a written proposal</a>
         </div>
         {city === 'nagpur' && <a class="mt-4 inline-block text-sm underline" href="/blog/nagpur-business/website-cost-nagpur/">What affects a Nagpur website quotation?</a>}
@@ -31,6 +36,10 @@ const review = testimonials.find(item => item.id === guide.testimonial)!;
         <p class="mt-2 text-xs text-[var(--text-muted)]">{review.source}{review.datePublished && ` · ${review.datePublished}`}. This is evidence of our work, not a claim that the client is based in {guide.name}.</p>
         <a class="mt-4 inline-block text-sm underline" href="/testimonials/">Read more client feedback</a>
       </aside>
+    </div>
+    <div class="mt-8 grid gap-6 border-t border-[var(--border)] pt-7 lg:grid-cols-2">
+      <article><h3 class="font-heading text-xl font-bold">{buying.title}</h3><ol class="mt-4 list-decimal space-y-3 pl-5 text-sm leading-7 text-[var(--text-dim)]">{buying.items.map(item => <li>{item}</li>)}</ol><p class="mt-4 text-sm leading-7 text-[var(--text-dim)]">Standard website plans and their page/revision limits are listed on our <a href="/pricing/" class="font-semibold underline">pricing page</a>. Portals, ecommerce and integrations require a separate scoped proposal. Content readiness and approval times affect the delivery schedule.</p></article>
+      <article><h3 class="font-heading text-xl font-bold">See the work before choosing the scope</h3><div class="mt-4 space-y-4">{buying.proof.map(project => <div class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-4"><a href={project.href} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center font-semibold text-[var(--accent)]">{project.name} ↗</a><p class="text-sm leading-7 text-[var(--text-dim)]">{project.text}</p></div>)}</div><p class="mt-4 text-xs leading-6 text-[var(--text-muted)]">Public project examples demonstrate experience, not independently measured commercial outcomes. No ranking or enquiry-volume guarantee is implied.</p></article>
     </div>
     <div class="mt-8 grid gap-4 border-t border-[var(--border)] pt-6 md:grid-cols-3">
       <div><h3 class="font-semibold">What is included?</h3><p class="mt-2 text-sm text-[var(--text-dim)]">The accepted proposal lists pages, revisions, features, content responsibilities, launch checks and support. Custom integrations are not assumed to be included in a brochure-site price.</p></div>

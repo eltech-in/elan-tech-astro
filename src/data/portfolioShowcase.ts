@@ -39,7 +39,7 @@ export const latestLaunch: PortfolioShowcaseItem = {
   description: 'A launched Medusa.js meal-commerce website for Healthy Genie in Pune, bringing meal discovery, subscription plans and corporate meal enquiries into a clear customer journey.',
   image: '/elan-client-logos/healthy-genie.avif',
   liveUrl: 'https://healthygenie.in/',
-  stack: ['Medusa.js', 'Meal Commerce', 'Subscription Plans'],
+  stack: ['Medusa.js', 'Next.js', 'Subscription Plans'],
   note: 'Latest launch',
   location: 'Pune, India',
 };
@@ -124,12 +124,12 @@ export const ecommerceProjects: PortfolioShowcaseItem[] = [
     stack: ['Shopify', 'Custom Theme', 'Mobile Commerce'],
   },
   {
-    title: 'Puritas',
-    label: 'Custom Medusa.js',
-    description: 'Subscription commerce built around the brand, including Razorpay, PhonePe and custom shipping workflows.',
-    image: '/elan-client-logos/Puritas.svg',
-    liveUrl: 'https://puritas.in/',
-    stack: ['Medusa.js', 'Subscriptions', 'Custom Payments'],
+    title: 'Healthy Genie',
+    label: 'Medusa.js Meal Commerce',
+    description: 'Meal commerce built on Medusa.js for a Pune food brand, with meal discovery, subscription plans and corporate meal enquiries.',
+    image: '/elan-client-logos/healthy-genie.avif',
+    liveUrl: 'https://healthygenie.in/',
+    stack: ['Medusa.js', 'Next.js', 'Subscription Plans'],
   },
   {
     title: 'Mahavir Mevawala',

@@ -35,6 +35,9 @@ const blog = defineCollection({
     // article itself uses a clean text-first hero when this is false.
     heroUsesCover: z.boolean().default(true),
     draft: z.boolean().default(false),
+    // Explicit editorial approval to include a dated post in an upload-ready
+    // static build. Uploading the build publishes it immediately; no timer runs.
+    publishEarly: z.boolean().default(false),
     seo: z
       .object({
         focusKeyword: z.string().optional(),

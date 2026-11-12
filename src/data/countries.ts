@@ -1,3 +1,4 @@
+import { isIndexedLocationSlug } from './indexPolicy';
 interface CountryFAQ {
   question: string;
   answer: string;
@@ -338,6 +339,9 @@ export const countries: CountryData[] = [
 ];
 
 export const internationalCountries = countries.filter((c) => c.code !== 'IN' && c.hasLandingPage);
+
+/** Country pages that are indexable (see indexPolicy.ts). Use this for any list of links. */
+export const indexedCountries = internationalCountries.filter((c) => isIndexedLocationSlug(c.slug));
 
 export function getCountryBySlug(slug: string): CountryData | undefined {
   return countries.find((c) => c.slug === slug);

@@ -1,3 +1,4 @@
+import { isIndexedLocationSlug } from './indexPolicy';
 // ─── City Data for Geo-Targeted Landing Pages ──────────────────────────────
 // Each city ha s full SEO, content, and schema data for its landing page.
 // Cities are grouped into tiers by priority and search volume.
@@ -1550,6 +1551,9 @@ export const cities: CityData[] = [
 
 /** All cities with landing pages */
 export const citiesWithPages = cities.filter((c) => c.hasLandingPage);
+
+/** City pages that are indexable (see indexPolicy.ts). Use this for any list of links. */
+export const indexedCities = cities.filter((c) => c.hasLandingPage && isIndexedLocationSlug(c.slug));
 
 /** Featured cities for homepage/footer display */
 export const featuredCities = cities.filter((c) => c.isFeatured);

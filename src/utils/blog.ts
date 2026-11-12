@@ -1,9 +1,10 @@
 type BlogPublicationData = {
   draft?: boolean;
+  publishEarly?: boolean;
   publishDate: Date;
 };
 
-/** Keep drafts and future-dated posts out of every public blog surface. */
+/** Future posts stay hidden unless explicitly approved for an upload-ready build. */
 export function isPublishedPost(data: BlogPublicationData, now = new Date()) {
-  return data.draft !== true && data.publishDate.getTime() <= now.getTime();
+  return data.draft !== true && (data.publishEarly === true || data.publishDate.getTime() <= now.getTime());
 }

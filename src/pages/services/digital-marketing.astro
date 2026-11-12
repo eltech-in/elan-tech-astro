@@ -1,7 +1,7 @@
 ---
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
 import { services } from '../../data/services';
-import { cities } from '../../data/cities';
+import { indexedCities } from '../../data/cities';
 import { serviceSchema, faqSchema, breadcrumbSchema } from '../../utils/schema';
 
 const service = services.find((s) => s.slug === 'digital-marketing')!;
@@ -43,7 +43,7 @@ const schemas = [
   breadcrumbSchema(schemaBreadcrumbs),
 ];
 
-const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
+const featuredCities = indexedCities;
 ---
 <ServiceLayout
   title="Digital Marketing Agency in Nagpur | Google Ads, SEO & Social Media | eLan Technology"

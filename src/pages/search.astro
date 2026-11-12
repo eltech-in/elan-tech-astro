@@ -2,8 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { services } from '../data/services';
-import { cities } from '../data/cities';
-import { countries } from '../data/countries';
+import { indexedCities } from '../data/cities';
+import { indexedCountries } from '../data/countries';
 import { products } from '../data/products';
 import { breadcrumbSchema } from '../utils/schema';
 import { isPublishedPost } from '../utils/blog';
@@ -27,6 +27,7 @@ const staticPages: IndexEntry[] = [
   { t: 'DigiBizID', d: 'An eLan Technology venture for digital business profiles, contact sharing and QR codes.', u: '/ventures/digibizid/', c: 'Venture' },
   { t: 'FAQ', d: 'Frequently asked questions about our services, process, pricing, and timelines.', u: '/faq/', c: 'Page' },
   { t: 'Careers', d: 'Careers at eLan Technology in Nagpur - no open positions at the moment; share your CV for future roles.', u: '/careers/', c: 'Page' },
+  { t: 'Technologies', d: 'The technology stacks we build with, each linked to a project or product that uses it: Next.js, React, Astro, Medusa.js, Shopify, WordPress.', u: '/technologies/', c: 'Page' },
   { t: 'Portfolio', d: '500+ projects delivered across web design, development, eCommerce, and custom software.', u: '/portfolio/', c: 'Portfolio' },
   { t: 'Testimonials', d: 'Reviews from our clients in India, the United States, and worldwide.', u: '/testimonials/', c: 'Page' },
   { t: 'Get a Project Quote', d: 'Tell us about your project and receive a detailed quote within 24 hours.', u: '/get-quote/', c: 'Page' },
@@ -69,8 +70,7 @@ serviceEntries.unshift({
   c: 'Service',
 });
 
-const cityEntries: IndexEntry[] = cities
-  .filter((c) => c.hasLandingPage)
+const cityEntries: IndexEntry[] = indexedCities
   .map((c) => ({
     t: `Web Design Company in ${c.name}`,
     d: c.tagline,
@@ -78,8 +78,7 @@ const cityEntries: IndexEntry[] = cities
     c: 'City',
   }));
 
-const countryEntries: IndexEntry[] = countries
-  .filter((c) => c.hasLandingPage)
+const countryEntries: IndexEntry[] = indexedCountries
   .map((c) => ({
     t: `Outsource Web Design to India from ${c.name}`,
     d: `${c.primaryKeyword}. Remote delivery from our India studio, with scope, testing and collaboration agreed in writing. Timezone: ${c.timezone}.`,

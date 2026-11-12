@@ -14,6 +14,7 @@ import {
 } from '../../data/portfolioShowcase';
 import { breadcrumbSchema } from '../../utils/schema';
 import { projects } from '../../data/portfolio';
+import { confirmedTech } from '../../data/techStack';
 
 const schema = breadcrumbSchema([
   { name: 'Home', url: '/' },
@@ -39,7 +40,7 @@ const showcaseUrls = new Set([
   ...launchingSoon,
   ...selectedProjects,
   legacyProject,
-].map(project => normalizedUrl(project.liveUrl)));
+].filter(project => project.liveUrl).map(project => normalizedUrl(project.liveUrl)));
 const archiveProjects = projects.filter(project => !project.liveUrl || !showcaseUrls.has(normalizedUrl(project.liveUrl)));
 ---
 
@@ -68,12 +69,15 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
             From a first idea to a growing online store, we design digital experiences that feel clear, look distinctive and make it easier for customers to take the next step.
           </p>
           <div class="mt-7 flex flex-wrap gap-3">
-            <a href="#recent-work" class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[var(--accent)]/20 transition hover:-translate-y-0.5 hover:brightness-110">
+            <a href="/portfolio/#recent-work" class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[var(--accent)]/20 transition hover:-translate-y-0.5 hover:brightness-110">
               Explore recent work
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
             </a>
             <a href="/get-quote/" class="inline-flex items-center rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-6 py-3 text-sm font-bold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">
               Request a quote
+            </a>
+            <a href="/technologies/" class="inline-flex items-center rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-6 py-3 text-sm font-bold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">
+              Technologies we use
             </a>
           </div>
           <dl class="mt-10 hidden max-w-lg grid-cols-3 gap-3 sm:grid">
@@ -95,13 +99,13 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
         <article class="hero-project group relative min-h-[420px] overflow-hidden rounded-[2rem] border border-[var(--border)] bg-[var(--bg-card)] shadow-2xl shadow-black/10 sm:min-h-[500px]">
           <Image
             src={getProjectImage(latestLaunch.image)}
-            alt={`Homepage preview of ${latestLaunch.title}`}
+            alt={isLogo(latestLaunch) ? `${latestLaunch.title} brand mark` : `Homepage preview of ${latestLaunch.title}`}
             widths={[640, 960, 1280]}
             sizes="(max-width: 1023px) 100vw, 56vw"
             format="avif"
             loading="eager"
             decoding="async"
-            class="absolute inset-0 h-full w-full object-cover object-top transition duration-700 group-hover:scale-[1.025]"
+            class:list={['absolute inset-0 h-full w-full transition duration-700 group-hover:scale-[1.025]', isLogo(latestLaunch) ? 'object-contain bg-white p-12 pb-52' : 'object-cover object-top']}
           />
           <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/35 to-transparent"></div>
           <div class="absolute left-5 top-5 flex items-center gap-2 rounded-full border border-white/30 bg-slate-950/60 px-3 py-1.5 text-xs font-bold text-white backdrop-blur-md sm:left-7 sm:top-7">
@@ -150,12 +154,12 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
 
     <nav class="portfolio-nav sticky top-[var(--header-height,0px)] z-30 border-b border-[var(--border)] bg-[var(--bg)]/90 backdrop-blur-xl" aria-label="Portfolio sections">
       <div class="mx-auto flex max-w-7xl gap-2 overflow-x-auto px-4 py-3 sm:px-6 lg:px-8">
-        <a href="#recent-work">Recent launches</a>
-        <a href="#ecommerce-work">eCommerce</a>
-        <a href="#launching-soon">Launching soon</a>
-        <a href="#selected-work">Selected work</a>
-        <a href="#project-archive">Earlier projects</a>
-        <a href="#long-running-work">Built to last</a>
+        <a href="/portfolio/#recent-work">Recent launches</a>
+        <a href="/portfolio/#ecommerce-work">eCommerce</a>
+        <a href="/portfolio/#launching-soon">Launching soon</a>
+        <a href="/portfolio/#selected-work">Selected work</a>
+        <a href="/portfolio/#project-archive">Earlier projects</a>
+        <a href="/portfolio/#long-running-work">Built to last</a>
       </div>
     </nav>
 
@@ -191,6 +195,7 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
                   <p class="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--ac-teal)]">{project.label}</p>
                   <h3 class="mt-2 font-heading text-xl font-bold text-[var(--text)]">{project.title}</h3>
                   <p class="mt-2 text-sm leading-6 text-[var(--text-dim)]">{project.description}</p>
+                  {project.note && <p class="mt-3 text-xs font-semibold text-[var(--text-muted)]">{project.note}</p>}
                   <div class="mt-4 flex flex-wrap gap-1.5">
                     {project.stack?.map(item => <span class="project-pill">{item}</span>)}
                   </div>
@@ -221,7 +226,7 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
             <span class="platform-index">02</span>
             <span class="platform-name">Medusa.js</span>
             <span class="platform-detail">Owned commerce and custom modules</span>
-            <span class="platform-proof">Featured work: Puritas</span>
+            <span class="platform-proof">Featured work: Healthy Genie</span>
           </a>
           <a href="/services/ecommerce/" class="platform-card platform-woo">
             <span class="platform-index">03</span>
@@ -321,7 +326,7 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
           <div class="max-w-3xl">
             <p class="section-kicker text-[var(--ac-amber)]">Currently in the launch studio</p>
             <h2 id="soon-title" class="section-title">Launching soon</h2>
-            <p class="section-intro">A first look at websites now being prepared for their permanent domains.</p>
+            <p class="section-intro">Websites in development, not completed launches. Working previews can change before release; projects without an approved public link are shown without a preview button.</p>
           </div>
           <span class="inline-flex self-start items-center gap-2 rounded-full border border-amber-500/25 bg-amber-500/10 px-4 py-2 text-xs font-bold text-amber-700 dark:text-amber-300">
             <span class="h-2 w-2 animate-pulse rounded-full bg-amber-500"></span>
@@ -334,16 +339,20 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
             <li class:list={['soon-card group', index === 0 && 'lg:col-span-2']}>
               <div class:list={['grid h-full', index === 0 && 'sm:grid-cols-[1.15fr_0.85fr]']}>
                 <div class="relative min-h-[220px] overflow-hidden">
-                  <Image
+                  {project.image ? <Image
                     src={getProjectImage(project.image)}
-                    alt={`Preview of the upcoming ${project.title} website`}
+                    alt={isLogo(project) ? `${project.title} logo` : `Preview of the upcoming ${project.title} website`}
                     widths={[480, 720, 960, 1280]}
                     sizes={index === 0 ? '(max-width: 1023px) 100vw, 42vw' : '(max-width: 1023px) 50vw, 33vw'}
                     format="avif"
                     loading="lazy"
                     decoding="async"
                     class:list={['absolute inset-0 h-full w-full transition duration-500 group-hover:scale-[1.035]', isLogo(project) ? 'object-contain bg-white p-8' : 'object-cover object-top']}
-                  />
+                  /> : <div class="absolute inset-0 flex flex-col justify-center bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-800 p-7 text-white">
+                    <span class="text-[10px] font-bold uppercase tracking-[.22em] text-cyan-200">eLan Technology · In development</span>
+                    <span class="mt-4 font-heading text-3xl font-bold leading-tight">{project.title}</span>
+                    <span class="mt-3 text-xs text-slate-200">Project preview artwork to follow</span>
+                  </div>}
                   <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent"></div>
                   <span class="absolute left-4 top-4 rounded-full border border-white/30 bg-slate-950/65 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur">Preview {String(index + 1).padStart(2, '0')}</span>
                 </div>
@@ -355,9 +364,9 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
                   {project.launchUrl && (
                     <a href={project.launchUrl} target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex min-h-11 items-center gap-2 text-xs font-semibold text-[var(--text)] hover:underline">{project.title === 'Healthy Genie' ? 'Visit current website' : 'Production destination'}: {destinationLabel(project.launchUrl)} ↗</a>
                   )}
-                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="mt-3 inline-flex min-h-11 items-center gap-2 self-start text-sm font-bold text-[var(--ac-amber)] hover:underline" aria-label={`Preview ${project.title}, opens in a new tab`}>
+                  {project.liveUrl ? <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="mt-3 inline-flex min-h-11 items-center gap-2 self-start text-sm font-bold text-[var(--ac-amber)] hover:underline" aria-label={`Preview ${project.title}, opens in a new tab`}>
                     View preview <span aria-hidden="true">↗</span>
-                  </a>
+                  </a> : <p class="mt-3 inline-flex min-h-11 items-center text-sm font-semibold text-[var(--text-muted)]">Preview link coming soon</p>}
                 </div>
               </div>
             </li>
@@ -440,6 +449,9 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
                     <p class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)]">{project.industry}</p>
                     <h3 class="mt-1 font-heading text-base font-black leading-snug text-[var(--text)]">{project.title}</h3>
                     <p class="mt-2 line-clamp-2 text-xs leading-5 text-[var(--text-dim)]">{project.description}</p>
+                    {confirmedTech(project).length > 0 && (
+                      <p class="mt-2 text-[11px] font-semibold leading-4 text-[var(--text-muted)]">Built with {confirmedTech(project).join(', ')}</p>
+                    )}
                     <div class="mt-3 flex items-center justify-between gap-3 border-t border-[var(--border)] pt-3">
                       <span class="text-xs font-bold" style={`color:${project.accent}`}>{project.liveUrl ? 'Visit website' : 'Portfolio project'}</span>
                       {project.liveUrl && <span class="text-xs text-[var(--text-muted)]" aria-hidden="true">Opens ↗</span>}

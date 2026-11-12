@@ -1,0 +1,213 @@
+---
+// Shared product page. A product gets this template when it has an entry in
+// src/data/productPages.ts. The four original products keep their own files
+// in this folder, which take priority over this route.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { softwareAppSchema, breadcrumbSchema, faqSchema } from '../../utils/schema';
+import { products } from '../../data/products';
+import { productPages } from '../../data/productPages';
+import AnswerSummary from '../../components/AnswerSummary.astro';
+import ProductStartingPrice from '../../components/ProductStartingPrice.astro';
+import ProductPrivacyPanel from '../../components/ProductPrivacyPanel.astro';
+import ProductFaq from '../../components/ProductFaq.astro';
+import ProductStack from '../../components/ProductStack.astro';
+
+export function getStaticPaths() {
+  return products
+    .filter((product) => productPages[product.slug])
+    .map((product) => ({ params: { slug: product.slug }, props: { product } }));
+}
+
+const { product } = Astro.props;
+const page = productPages[product.slug];
+const others = products.filter((p) => p.slug !== product.slug);
+const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.items))];
+const whatsappUrl = `https://wa.me/918788834630?text=${encodeURIComponent(`Hi eLan Technology, I'd like to schedule a demo for the ${product.title}.`)}`;
+
+const schema = [
+  softwareAppSchema({
+    name: product.title,
+    description: product.desc,
+    url: `/products/${product.slug}/`,
+    applicationCategory: product.schemaCategory,
+    startingPriceINR: product.startingPriceINR,
+  }),
+  breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Products', url: '/products/' },
+    { name: product.title, url: `/products/${product.slug}/` },
+  ]),
+  faqSchema(page.faqs),
+];
+---
+
+<BaseLayout ogImage="/images/og/products.png" title={page.metaTitle} description={page.metaDescription} schema={schema}>
+  <!-- Hero -->
+  <section class="relative overflow-hidden" aria-labelledby="product-h1">
+    <div class="absolute inset-0">
+      <div class="absolute inset-0" style={`background: linear-gradient(135deg, color-mix(in srgb, var(${product.cssVar}) 55%, rgba(0,0,0,0.85)) 0%, rgba(0,0,0,0.95) 70%);`}></div>
+      <div class="absolute inset-0 opacity-[0.08] [background-image:linear-gradient(rgba(255,255,255,0.4)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.4)_1px,transparent_1px)] [background-size:56px_56px]"></div>
+      <span aria-hidden="true" class="pointer-events-none absolute -right-20 -top-20 h-[24rem] w-[24rem] rounded-full blur-[120px] opacity-40" style={`background: var(${product.cssVar});`}></span>
+    </div>
+
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 pb-24 sm:pt-28 sm:pb-32">
+      <nav aria-label="Breadcrumb" class="mb-10">
+        <ol class="flex items-center gap-2 text-xs sm:text-sm text-white/70">
+          <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/products/" class="hover:text-white transition-colors">Products</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="text-white font-semibold truncate" aria-current="page">{product.title}</li>
+        </ol>
+      </nav>
+
+      <div class="max-w-4xl">
+        <span class="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-white backdrop-blur-sm mb-6">
+          <span class="h-1.5 w-1.5 rounded-full" style={`background: var(${product.cssVar})`} aria-hidden="true"></span>
+          {page.eyebrow}
+          <span class="text-white/50">·</span>
+          <span class="text-white/85 normal-case tracking-normal">Configurable workflows</span>
+        </span>
+
+        <h1 id="product-h1" class="font-heading text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.05] mb-5 drop-shadow-lg">
+          {product.title}
+        </h1>
+
+        <p class="max-w-2xl text-lg sm:text-xl text-white/85 leading-relaxed mb-8">{product.longDesc}</p>
+
+        <ProductStartingPrice startingPriceINR={product.startingPriceINR} cssVar={product.cssVar} onDark />
+
+        <div class="flex flex-wrap gap-3 mb-6">
+          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all shadow-xl"
+             style={`background: var(${product.cssVar}); box-shadow: 0 12px 30px color-mix(in srgb, var(${product.cssVar}) 40%, transparent);`}>
+            WhatsApp for a demo<span class="sr-only"> (opens in a new tab)</span>
+          </a>
+          <a href="/request-demo/" class="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/5 backdrop-blur-sm px-7 py-3.5 text-sm font-bold text-white hover:bg-white/15 transition-all">
+            Book a walkthrough
+          </a>
+        </div>
+
+        {techStack.length > 0 && (
+          <ul class="flex flex-wrap gap-2" role="list" aria-label={`${product.title} technology`}>
+            {techStack.map((tech) => (
+              <li class="px-3 py-1 rounded-full text-xs bg-white/10 border border-white/20 text-white/90 backdrop-blur-sm">{tech}</li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <AnswerSummary eyebrow="Product answer" title={page.summary.title} intro={page.summary.intro} accentVar={product.cssVar} items={page.summary.items} />
+  </div>
+
+  <ProductPrivacyPanel
+    title={page.privacy.title}
+    intro={page.privacy.intro}
+    accentVar={product.cssVar}
+    subject={page.privacy.subject}
+    items={page.privacy.items}
+    note={page.privacy.note}
+  />
+
+  <!-- Features and audience -->
+  <section class="bg-[var(--bg)] py-14 md:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-14">
+      <div>
+        <header class="mb-6 max-w-3xl">
+          <p class="text-xs font-bold uppercase tracking-widest mb-1" style={`color: var(${product.cssVar});`}>Key Features</p>
+          <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)]">{page.featuresHeading}</h2>
+          <p class="mt-2 text-[var(--text-dim)]">{page.featuresIntro}</p>
+        </header>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" role="list">
+          {page.features.map((feature, index) => (
+            <li class="relative overflow-hidden rounded-2xl border border-[var(--border)] p-5" style={`background: linear-gradient(135deg, color-mix(in srgb, var(${product.cssVar}) 8%, var(--bg-card)) 0%, var(--bg-card) 70%);`}>
+              <span aria-hidden="true" class="absolute top-2 right-3 font-heading font-black text-4xl leading-none select-none" style={`color: var(${product.cssVar}); opacity: 0.15;`}>{String(index + 1).padStart(2, '0')}</span>
+              <div class="relative">
+                <h3 class="font-semibold text-[var(--text)] mb-1.5">{feature.title}</h3>
+                <p class="text-sm text-[var(--text-dim)] leading-relaxed">{feature.desc}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {page.roadmap && page.roadmap.length > 0 && (
+        <div class="rounded-2xl border border-dashed border-[var(--border)] bg-[var(--bg-card)] p-6" aria-labelledby="product-roadmap-heading">
+          <p class="text-xs font-bold uppercase tracking-widest mb-1 text-[var(--text-muted)]">Planned, not yet available</p>
+          <h2 id="product-roadmap-heading" class="font-heading text-xl font-bold text-[var(--text)]">On the roadmap</h2>
+          <ul class="mt-3 flex flex-wrap gap-2" role="list">
+            {page.roadmap.map((item) => (
+              <li class="rounded-full border border-[var(--border)] px-3 py-1 text-sm font-semibold text-[var(--text)]">{item}</li>
+            ))}
+          </ul>
+          <p class="mt-3 text-sm text-[var(--text-dim)]">These modules are planned. They are not part of the current product and carry no delivery date.</p>
+        </div>
+      )}
+
+      <div>
+        <header class="mb-6">
+          <p class="text-xs font-bold uppercase tracking-widest mb-1" style={`color: var(${product.cssVar});`}>Who It's For</p>
+          <h2 class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)]">{page.audienceHeading}</h2>
+        </header>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" role="list">
+          {page.audience.map((item) => (
+            <li class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
+              <h3 class="font-semibold text-[var(--text)] mb-1.5">{item.title}</h3>
+              <p class="text-sm text-[var(--text-dim)] leading-relaxed">{item.desc}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 text-center">
+        <h2 class="font-heading text-xl sm:text-2xl font-bold text-[var(--text)] mb-3">See it in action</h2>
+        <p class="text-[var(--text-dim)] mb-6">Book a guided walkthrough with sample data and your own workflow in mind.</p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          {product.demoUrl && !product.contactForDemo && (
+            <a href={product.demoUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-bold text-white hover:-translate-y-0.5 transition-all" style={`background: var(${product.cssVar});`}>
+              Try the live demo<span class="sr-only"> (opens in a new tab)</span>
+            </a>
+          )}
+          <a href="/request-demo/" class="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--border)] px-7 py-3 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all">
+            Book a walkthrough
+          </a>
+          <a href="/contact/" class="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--border)] px-7 py-3 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all">
+            Contact us
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ProductStack product={product} />
+
+  <ProductFaq items={page.faqs} accentVar={product.cssVar} title={`${product.title} FAQs`} />
+
+  <!-- Other products -->
+  <section class="py-14 bg-[var(--bg-card)] border-t border-[var(--border)]" aria-labelledby="others-h2">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <header class="flex items-end justify-between gap-4 mb-8">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-1">Explore More</p>
+          <h2 id="others-h2" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)]">Other products</h2>
+        </div>
+        <a href="/products/" class="text-sm font-semibold text-[var(--accent)] hover:underline">View all →</a>
+      </header>
+      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" role="list">
+        {others.map((p) => (
+          <li>
+            <a href={`/products/${p.slug}/`} class="group relative block h-full overflow-hidden rounded-2xl border border-[var(--border)] p-6 hover:-translate-y-1 transition-all" style={`background: linear-gradient(135deg, color-mix(in srgb, var(${p.cssVar}) 12%, var(--bg)) 0%, var(--bg) 70%);`}>
+              <span aria-hidden="true" class="absolute inset-x-0 top-0 h-[3px]" style={`background: var(${p.cssVar});`}></span>
+              <h3 class="font-heading font-bold text-[var(--text)] leading-snug mb-1 group-hover:text-[var(--accent)] transition-colors">{p.title}</h3>
+              <p class="text-xs text-[var(--text-dim)] line-clamp-2">{p.desc}</p>
+              <span class="mt-3 inline-flex items-center gap-1 text-xs font-bold" style={`color: var(${p.cssVar})`}>Learn more →</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

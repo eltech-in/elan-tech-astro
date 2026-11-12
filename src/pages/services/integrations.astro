@@ -1,7 +1,7 @@
 ---
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
 import { integrations } from '../../data/integrations';
-import { cities } from '../../data/cities';
+import { indexedCities } from '../../data/cities';
 import { breadcrumbSchema, serviceSchema, faqSchema } from '../../utils/schema';
 
 const breadcrumbs = [
@@ -44,7 +44,7 @@ const features = [
   'Custom API Development',
 ];
 
-const featuredCities = cities.filter((c) => c.isFeatured).slice(0, 6);
+const featuredCities = indexedCities;
 
 const integrationFaqs = [
   {

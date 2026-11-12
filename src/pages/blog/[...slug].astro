@@ -84,4 +84,17 @@ const schemas = [
   schema={schemas}
 >
   <Content />
+  {/* The questions in the FAQPage markup above are shown here, so the markup
+      always matches what a reader can see. */}
+  {post.data.faq && post.data.faq.length > 0 && (
+    <>
+      <h2 id="post-faq">Frequently Asked Questions</h2>
+      {post.data.faq.map((item) => (
+        <>
+          <h3>{item.question}</h3>
+          <p>{item.answer}</p>
+        </>
+      ))}
+    </>
+  )}
 </BlogLayout>

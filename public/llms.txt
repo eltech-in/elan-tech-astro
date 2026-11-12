@@ -27,6 +27,7 @@ Do not substitute employee, developer, vendor or unrelated third-party phone num
 - Ecommerce development: https://elan-tech.net/services/ecommerce/
 - Custom Shopify development: https://elan-tech.net/services/ecommerce/shopify-development/
 - Medusa.js development: https://elan-tech.net/services/ecommerce/medusa-js-development/
+- Zoho Commerce implementation and customisation: https://elan-tech.net/services/ecommerce/#zoho-commerce
 - Accessibility and WCAG services: https://elan-tech.net/services/ada-compliant-web-design/
 - SEO: https://elan-tech.net/services/seo/
 - Digital marketing: https://elan-tech.net/services/digital-marketing/
@@ -57,11 +58,18 @@ For urgent accessibility matters, emergency WCAG 2.1 AA assessment requests answ
 
 ## Custom ecommerce evidence
 
+Zoho Commerce services include store setup, supported storefront customisation,
+catalogue migration and integrations with business tools where supported by the
+selected plan and APIs. Zoho subscriptions, platform hosting, provider fees,
+custom-code delivery and support are scoped separately. Do not imply certified
+Zoho partner status, ownership of Zoho's platform, unlimited customisation or
+automatic legal compliance. No Zoho client case study is claimed here.
+
 - Rangresha: https://rangresha.com/
   Custom Shopify storefront design and development.
-- Puritas: https://puritas.in/
-  Custom Medusa.js implementation with subscription, Razorpay, PhonePe and
-  shipping modules built for the client’s operating requirements.
+- Healthy Genie: https://healthygenie.in/
+  Medusa.js meal-commerce website with a Next.js storefront, meal plans,
+  subscriptions and corporate meal enquiries, launched for a Pune food brand.
 
 Project pages and live websites show implementation experience. Results, platform
 features and commercial terms from one project should not be assumed for another.
@@ -72,7 +80,14 @@ features and commercial terms from one project should not be assumed for another
 - Medical Conference Portal: https://elan-tech.net/products/medical-conference-portal/
 - IMA Society Portal: https://elan-tech.net/products/ima-society-portal/
 - Resort Management Portal: https://elan-tech.net/products/resort-management-system/
-The four products are currently available as configurable product foundations.
+- Project Management System: https://elan-tech.net/products/project-management-system/
+  Clients, projects, tasks, team schedule, billing, enquiries, domain renewals
+  and reminders in one workspace. Built with React.
+- Insurance Agency Management Portal: https://elan-tech.net/products/insurance-agency-management-portal/
+  LIC, health, motor and general insurance, RD and FD, renewals, quotations,
+  commissions, sub-agents, CRM and customer family records. Built with
+  Next.js, NestJS and MySQL. Stock management is planned, not yet available.
+The six products are currently available as configurable product foundations.
 
 ## eLan Technology ventures
 

@@ -193,7 +193,7 @@ check('Accessibility-first footer wording', fileContains(HP, 'Accessibility-firs
 check('"ISO Certified" removed', fileNotContains(HP, 'ISO Certified'));
 check('Homepage service-focus pre-heading', fileContains(HP, 'Web design · eCommerce · Accessibility · Since 2002'));
 check('Raipur city link in subheading', fileContains(HP, 'web-design-company-raipur'));
-check('Bhopal city link in subheading', fileContains(HP, 'web-design-company-bhopal'));
+check('Homepage does not link de-indexed location pages', ['bhopal', 'mumbai', 'brazil', 'saudi-arabia'].every(slug => fileNotContains(HP, `href="/web-design-company-${slug}/"`)));
 
 // ── E. Header + Footer ────────────────────────────────────────────────────────
 
@@ -281,9 +281,9 @@ check('Free audit: concise benefit-led title', fileContains(
   'free-website-audit/index.html',
   '<title>Free Website Audit: Scope, Findings &amp; Next Steps | eLan Technology</title>',
 ));
-check('April trends: query-aligned title', fileContains(
+check('Trends article: title matches what the article delivers', fileContains(
   'blog/technology-trends/website-development-trends-april-2026/index.html',
-  '<title>Web Development Trends &amp; News: April 2026 | eLan Technology</title>',
+  '<title>Web Development Trends 2026: What Is Worth Adopting | eLan Technology</title>',
 ));
 check('AI article: query-aligned title', fileContains(
   'blog/technology-trends/ai-web-development-2026/index.html',
@@ -586,7 +586,7 @@ check('Recent launches are present', fileContains(
 check('Five ecommerce projects are showcased', fileContains(
   'portfolio/index.html',
   'Rangresha',
-  'Puritas',
+  'Featured work: Healthy Genie',
   'Mahavir Mevawala',
   'Stems Flower Studio',
   'Larisha Ayurved',
@@ -851,10 +851,10 @@ check('Projects awaiting preview have no empty destination links', octoberUpcomi
 check('Healthy Genie is the latest production launch, not upcoming', fileContains('portfolio/index.html', 'Medusa.js Meal Commerce', 'https://healthygenie.in/', 'Latest launch') && !octoberUpcoming.includes('Healthy Genie') && fileNotContains('portfolio/index.html', 'healthygenie.elantech.cloud'));
 check('Healthy Genie service proof reflects production status', fileContains('services/ecommerce/medusa-js-development/index.html', 'Medusa.js meal commerce', 'Launched', 'https://healthygenie.in/', 'Visit launched website') && fileNotContains('services/ecommerce/medusa-js-development/index.html', 'healthygenie.elantech.cloud'));
 section('W  Location-page index policy (src/data/indexPolicy.ts)');
-const indexedLocations = ['nagpur', 'pune', 'raipur', 'usa', 'canada', 'australia', 'japan', 'new-zealand'];
+const indexedLocations = ['nagpur', 'pune', 'raipur', 'usa', 'canada', 'australia', 'japan', 'new-zealand', 'dubai-uae'];
 const noindexLocations = [
   'ahmedabad', 'bangalore', 'bhopal', 'chandigarh', 'chennai', 'delhi', 'hyderabad', 'indore', 'jaipur', 'kochi', 'kolkata', 'lucknow', 'mumbai',
-  'brazil', 'dubai-uae', 'european-union', 'ghana', 'saudi-arabia',
+  'brazil', 'european-union', 'ghana', 'saudi-arabia',
 ];
 check('Core city and country pages are indexable and in the sitemap', indexedLocations.every(slug =>
   fileContains(`web-design-company-${slug}/index.html`, '<meta name="robots" content="index,follow">')
@@ -868,6 +868,118 @@ check('NDA experience notes appear on US, Canada and Japan only', ['usa', 'canad
 check('NDA notes name no clients, sectors or stacks', ['usa', 'canada', 'japan'].every(slug =>
   fileNotContains(`web-design-company-${slug}/index.html`, 'WordPress project')
   && fileNotContains(`web-design-company-${slug}/index.html`, 'Contentful')));
+check('Site-wide link blocks skip de-indexed location pages', ['index.html', 'about/index.html', 'services/seo/index.html', 'web-design-company-nagpur/index.html', 'search/index.html'].every(page =>
+  ['bhopal', 'mumbai', 'delhi', 'kochi', 'brazil', 'saudi-arabia'].every(slug => fileNotContains(page, `/web-design-company-${slug}/`))));
+
+// Every page URL written into HTML attributes or JSON-LD must end in "/".
+// A slash-less URL 301s, and Google then files it under "Page with redirect".
+{
+  const htmlFiles = [];
+  const walk = (dir) => {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      const full = join(dir, entry.name);
+      if (entry.isDirectory()) walk(full);
+      else if (entry.name.endsWith('.html')) htmlFiles.push(full);
+    }
+  };
+  walk(DIST);
+  const urlPattern = /https:(?:\\?\/){2}elan-tech\.net((?:\\?\/)[^"'\s<>)]*)/g;
+  const offenders = new Set();
+  for (const file of htmlFiles) {
+    const html = readFileSync(file, 'utf8');
+    for (const match of html.matchAll(urlPattern)) {
+      const path = match[1].replace(/\\\//g, '/').replace(/&amp;/g, '&').split(/[?#]/)[0].replace(/[\\.,;]+$/, '');
+      if (path === '' || path.endsWith('/')) continue;
+      if (/\.[a-z0-9]{2,11}$/i.test(path)) continue; // files: images, feeds, manifests
+      offenders.add(path);
+    }
+  }
+  if (offenders.size > 0) console.log(`    slash-less page URLs: ${[...offenders].slice(0, 10).join(', ')}`);
+  check('No slash-less page URLs anywhere in built HTML (attributes and JSON-LD)', offenders.size === 0);
+}
+
+// Every question in FAQPage markup must also be readable on the page.
+// Google requires marked-up content to be visible to visitors.
+{
+  const pages = [];
+  const walk = (dir) => {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      const full = join(dir, entry.name);
+      if (entry.isDirectory()) walk(full);
+      else if (entry.name === 'index.html') pages.push(full);
+    }
+  };
+  walk(DIST);
+  const decode = (text) => text
+    .replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;|&#x27;|&apos;/g, "'")
+    .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/\s+/g, ' ');
+  const hidden = [];
+  for (const file of pages) {
+    const html = readFileSync(file, 'utf8');
+    const questions = [];
+    for (const match of html.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)) {
+      let data;
+      try { data = JSON.parse(match[1]); } catch { continue; }
+      const nodes = Array.isArray(data) ? data : (data['@graph'] ?? [data]);
+      for (const node of nodes) {
+        if (node?.['@type'] !== 'FAQPage') continue;
+        for (const item of node.mainEntity ?? []) if (item?.name) questions.push(item.name);
+      }
+    }
+    if (questions.length === 0) continue;
+    const visible = decode(html.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<[^>]+>/g, ' '));
+    const missing = questions.filter((q) => !visible.includes(decode(q)));
+    if (missing.length > 0) hidden.push(`${file.replace(DIST, '')} (${missing.length} of ${questions.length})`);
+  }
+  if (hidden.length > 0) console.log(`    FAQ markup not visible on: ${hidden.slice(0, 12).join(', ')}`);
+  check('Every FAQ question in structured data is visible on its page', hidden.length === 0);
+}
+
+// Technology stacks: shown only where a project or product proves them.
+check('Portfolio features Healthy Genie as the Medusa.js project, not Puritas', fileContains('portfolio/index.html', 'Featured work: Healthy Genie') && fileNotContains('portfolio/index.html', 'Puritas'));
+check('Technologies page lists proven stacks with proof links', fileContains(
+  'technologies/index.html',
+  'Technologies we build with', 'Next.js', 'Medusa.js', 'Shopify', 'WordPress',
+  'https://healthygenie.in/', '/products/medical-conference-portal/', '/services/ecommerce/medusa-js-development/',
+));
+const productSlugs = ['real-estate-portal', 'medical-conference-portal', 'ima-society-portal', 'resort-management-system', 'project-management-system', 'insurance-agency-management-portal'];
+check('All six product pages exist and show their stack', productSlugs.every(slug =>
+  fileContains(`products/${slug}/index.html`, 'id="product-stack-heading"', 'href="/technologies/"')));
+check('Product stacks come from one list: no Next.js on the React single-page products', ['medical-conference-portal', 'resort-management-system', 'project-management-system'].every(slug =>
+  fileNotContains(`products/${slug}/index.html`, '>Next.js<')));
+check('Insurance portal states its stack, features and planned module', fileContains('products/insurance-agency-management-portal/index.html',
+  'NestJS', 'MySQL', 'Commission management', 'Sub-agent management', 'Customer family management', 'Planned, not yet available', 'Stock management'));
+check('Project Management System page describes the workspace without exposing it', fileContains('products/project-management-system/index.html',
+  'Portfolio dashboard', 'Domain renewals', 'Book a walkthrough') && fileNotContains('products/project-management-system/index.html', 'pms.elantech.cloud'));
+check('Products index and llms.txt list six products', productSlugs.every(slug => fileContains('products/index.html', `/products/${slug}/`) && fileContains('llms.txt', `/products/${slug}/`)));
+check('Portfolio archive cards name real technologies only', fileContains('portfolio/index.html', 'Built with WordPress') && fileNotContains('portfolio/index.html', 'Built with CSS3') && fileNotContains('portfolio/index.html', 'Custom UI,'));
+
+check('Service, location and homepage proof features Healthy Genie, not Puritas', ['services/ecommerce/medusa-js-development/index.html', 'services/ecommerce/index.html', 'index.html', 'web-design-company-dubai-uae/index.html', 'web-design-company-raipur/index.html', 'llms.txt'].every(page =>
+  fileNotContains(page, 'Puritas') && fileNotContains(page, 'puritas.in'))
+  && fileContains('services/ecommerce/medusa-js-development/index.html', 'Visit the Healthy Genie website', 'Meal plans and subscriptions')
+  && fileContains('services/ecommerce/index.html', 'Healthy Genie - meal plans and subscriptions'));
+
+check('UAE page is indexable, linked site-wide and still makes no UAE client claim', fileContains('web-design-company-dubai-uae/index.html',
+  '<meta name="robots" content="index,follow">', 'not UAE client claims', 'Products that fit UAE sectors', 'https://wa.me/918788834630', 'href="/technologies/"', 'href="/products/real-estate-portal/"')
+  && ['index.html', 'about/index.html'].every(page => fileContains(page, 'href="/web-design-company-dubai-uae/"')));
+
+// Dubai visit: trip page for the QR code, and a dated site-wide banner.
+{
+  const tripSource = readFileSync(join(SRC, 'data/trip.ts'), 'utf8');
+  const endsAt = Date.parse((tripSource.match(/endsAt: '([^']+)'/) ?? [])[1] ?? '');
+  const visitOver = Number.isFinite(endsAt) && Date.now() > endsAt;
+  check('Dubai trip page exists, is kept out of Google and makes no UAE client claim', fileContains('dubai/index.html',
+    '<meta name="robots" content="noindex', 'eLan Technology in Dubai', '6–12 December 2026', 'https://wa.me/918788834630',
+    'We do not have a UAE office and we do not claim UAE clients', '500+', '1,500+', 'href="/technologies/"',
+    'href="/products/insurance-agency-management-portal/"', 'href="/products/project-management-system/"')
+    && fileNotContains('sitemap-0.xml', 'elan-tech.net/dubai/'));
+  check(visitOver ? 'Dubai banner is gone now the visit is over' : 'Dubai banner shows site-wide but not on the trip page',
+    visitOver
+      ? fileNotContains('index.html', 'id="trip-banner"')
+      : ['index.html', 'products/index.html', 'contact/index.html'].every(page => fileContains(page, 'id="trip-banner"', 'href="/dubai/"'))
+        && fileNotContains('dubai/index.html', 'id="trip-banner"'));
+}
+
 const total = passed + failed;
 console.log(`\n${'─'.repeat(60)}`);
 if (failed === 0) {

@@ -1,11 +1,10 @@
 ---
-// Cross-link block: lists every city + country landing page.
-// Drop into a layout's slot tail to give every page a static, SSR-rendered
-// inbound link to all 24+ location pages - the strongest internal-link
-// signal for the GSC "discovered not indexed" report.
+// Cross-link block: lists the indexable city and country landing pages.
+// De-indexed location pages (see src/data/indexPolicy.ts) are deliberately
+// left out so the site does not promote pages it asks search engines to skip.
 
-import { citiesWithPages } from '../data/cities';
-import { internationalCountries } from '../data/countries';
+import { indexedCities } from '../data/cities';
+import { indexedCountries } from '../data/countries';
 
 interface Props {
   heading?: string;
@@ -38,7 +37,7 @@ const { heading = 'Available Across India & Internationally', intro } = Astro.pr
         </h3>
         <nav aria-label="Indian city landing pages">
           <ul class="flex flex-wrap gap-x-3 gap-y-2 text-sm">
-            {citiesWithPages.map((city) => (
+            {indexedCities.map((city) => (
               <li>
                 <a
                   href={`/web-design-company-${city.slug}/`}
@@ -58,7 +57,7 @@ const { heading = 'Available Across India & Internationally', intro } = Astro.pr
         </h3>
         <nav aria-label="International country landing pages">
           <ul class="flex flex-wrap gap-x-3 gap-y-2 text-sm">
-            {internationalCountries.map((country) => (
+            {indexedCountries.map((country) => (
               <li>
                 <a
                   href={`/web-design-company-${country.slug}/`}

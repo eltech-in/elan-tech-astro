@@ -9,16 +9,17 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "postbuild": "node scripts/style-sitemaps.mjs",
+    "postbuild": "node scripts/style-sitemaps.mjs && node scripts/restore-legacy-assets.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check && tsc --noEmit",
-    "verify": "node scripts/verify-build.mjs && node scripts/audit-canonical-urls.mjs",
+    "verify": "node scripts/verify-build.mjs && node scripts/audit-canonical-urls.mjs && node scripts/restore-legacy-assets.mjs --check && npm run verify:measurement",
+    "verify:measurement": "node scripts/verify-measurement.mjs && node scripts/verify-lead-delivery.mjs && node scripts/verify-digital-card.mjs",
     "audit:urls": "node scripts/audit-canonical-urls.mjs",
     "verify:live": "node scripts/verify-live.mjs",
     "generate:og": "node scripts/generate-og-images.mjs",
     "deploy": "bash scripts/deploy.sh",
-    "ship": "npm run build && node scripts/verify-build.mjs"
+    "ship": "npm run build && npm run verify"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",

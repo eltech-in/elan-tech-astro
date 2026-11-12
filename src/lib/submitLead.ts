@@ -101,5 +101,9 @@ export function redirectToThankYou(formType: string): void {
     // Still show confirmation, but do not count an unverified thank-you visit.
   }
 
-  window.location.assign(`/thank-you/?form=${encodeURIComponent(formType)}`);
+  // Keep explicit QA sessions in GA4's developer filter after navigation.
+  // Without this, the thank-you page loses debug_mode and counts a test lead
+  // as ordinary traffic even when the developer exclusion is active.
+  const debug = new URLSearchParams(window.location.search).get('analytics_debug') === '1';
+  window.location.assign(`/thank-you/?form=${encodeURIComponent(formType)}${debug ? '&analytics_debug=1' : ''}`);
 }

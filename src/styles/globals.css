@@ -41,7 +41,21 @@
 /* Prevent horizontal overflow on mobile - use clip instead of hidden to preserve sticky */
 body {
   overflow-x: clip;
+  /* Measured by the privacy UI, including the mobile contact/card dock. */
+  padding-bottom: var(--floating-controls-reserve, 0px);
 }
+
+html { scroll-padding-bottom: calc(var(--floating-controls-reserve, 0px) + 1rem); }
+input, textarea, select, button, a { scroll-margin-bottom: 1rem; }
+.commerce-label--amber { color: #92400e; }
+.commerce-label--shopify { color: #047857; }
+.commerce-label--medusa { color: #0e7490; }
+.commerce-label--zoho { color: #b91c1c; }
+.dark .commerce-label--amber { color: #fbbf24; }
+.dark .commerce-label--shopify { color: #34d399; }
+.dark .commerce-label--medusa { color: #22d3ee; }
+.dark .commerce-label--zoho { color: #fca5a5; }
+.privacy-banner-visible .digibizid-slide { visibility: hidden; pointer-events: none; }
 
 /* ♿ WCAG: Reduced motion - disable ALL animations */
 @media (prefers-reduced-motion: reduce) {

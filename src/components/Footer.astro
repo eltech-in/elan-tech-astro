@@ -3,8 +3,8 @@ import { SOCIAL_PROFILES } from '../data/social';
 import { Image } from 'astro:assets';
 import logo from '../assets/brand/elan-tech-logo.svg';
 
-import { citiesWithPages, featuredCities } from '../data/cities';
-import { internationalCountries } from '../data/countries';
+import { indexedCities } from '../data/cities';
+import { indexedCountries } from '../data/countries';
 
 const year = new Date().getFullYear();
 
@@ -14,6 +14,7 @@ const services: Array<{ label: string; slug?: string; href?: string }> = [
   { label: 'eCommerce', slug: 'ecommerce' },
   { label: 'Custom Shopify Development', href: '/services/ecommerce/shopify-development/' },
   { label: 'Medusa.js Development', href: '/services/ecommerce/medusa-js-development/' },
+  { label: 'Zoho Commerce Implementation', href: '/services/ecommerce/#zoho-commerce' },
   { label: 'SEO', slug: 'seo' },
   { label: 'Digital Marketing', slug: 'digital-marketing' },
   { label: 'Mobile Apps', slug: 'mobile-app-development' },
@@ -234,7 +235,7 @@ const socialLinks = [
           <div>
             <h4 class="mb-2 text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">India</h4>
             <ul class="flex flex-col gap-1.5 text-sm">
-              {featuredCities.map((city) => (
+              {indexedCities.map((city) => (
                 <li>
                   <a
                     href={`/web-design-company-${city.slug}/`}
@@ -245,29 +246,11 @@ const socialLinks = [
                 </li>
               ))}
             </ul>
-            {citiesWithPages.length > featuredCities.length && (
-              <nav aria-label="More Indian cities" class="mt-2">
-                <ul class="flex flex-wrap gap-x-2 gap-y-1 text-xs text-[var(--text-muted)]">
-                  {citiesWithPages
-                    .filter((c) => !c.isFeatured)
-                    .map((city) => (
-                      <li>
-                        <a
-                          href={`/web-design-company-${city.slug}/`}
-                          class="inline-block py-1 transition-colors duration-150 hover:text-[var(--accent)]"
-                        >
-                          {city.name}
-                        </a>
-                      </li>
-                    ))}
-                </ul>
-              </nav>
-            )}
           </div>
           <div>
             <h4 class="mb-2 text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">International</h4>
             <ul class="flex flex-col gap-1.5 text-sm">
-              {internationalCountries.map((country) => (
+              {indexedCountries.map((country) => (
                 <li>
                   <a
                     href={`/web-design-company-${country.slug}/`}
@@ -425,7 +408,7 @@ const socialLinks = [
       <p class="text-xs text-[var(--text-muted)]">
         &copy; 2002&ndash;{year} eLan Technology. All rights reserved.
       </p>
-      <nav aria-label="Legal links" class="flex flex-wrap gap-x-4 gap-y-1">
+      <nav aria-label="Legal links" class="footer-legal flex flex-wrap gap-2">
         {legalLinks.map((link) => (
           <a
             href={link.href}
@@ -445,3 +428,16 @@ const socialLinks = [
     </div>
   </div>
 </footer>
+
+<style>
+  .footer-legal a, .footer-legal button {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: .65rem .75rem;
+    border-radius: .65rem;
+  }
+  .footer-legal a:hover, .footer-legal button:hover {
+    background: var(--bg);
+  }
+</style>

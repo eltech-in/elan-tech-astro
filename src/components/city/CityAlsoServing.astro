@@ -1,5 +1,5 @@
 ---
-import { citiesWithPages } from '../../data/cities';
+import { indexedCities } from '../../data/cities';
 
 interface Props {
   currentSlug: string;
@@ -8,7 +8,7 @@ interface Props {
 const { currentSlug } = Astro.props;
 
 // Group cities by region, excluding the current city
-const otherCities = citiesWithPages.filter((c) => c.slug !== currentSlug);
+const otherCities = indexedCities.filter((c) => c.slug !== currentSlug);
 
 const regions: Record<string, typeof otherCities> = {};
 for (const city of otherCities) {

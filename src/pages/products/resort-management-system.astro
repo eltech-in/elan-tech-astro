@@ -6,6 +6,7 @@ import AnswerSummary from '../../components/AnswerSummary.astro';
 import ProductStartingPrice from '../../components/ProductStartingPrice.astro';
 import ProductPrivacyPanel from '../../components/ProductPrivacyPanel.astro';
 import ProductFaq from '../../components/ProductFaq.astro';
+import ProductStack from '../../components/ProductStack.astro';
 
 const product = getProductBySlug('resort-management-system');
 const others = products.filter(p => p.slug !== product.slug);
@@ -56,7 +57,8 @@ const audience = [
   { title: 'Hospitality Groups', desc: 'Multi-property owners needing centralised visibility across their portfolio of properties.' },
 ];
 
-const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'Razorpay', 'AWS S3', 'NodeMailer', 'Tailwind CSS', 'TypeScript'];
+// One list for the whole page: the stack recorded in products.ts.
+const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.items))];
 ---
 
 <BaseLayout
@@ -277,7 +279,7 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'Razorpa
                       </span>
                       <div class="min-w-0 flex-1">
                         <p class="text-sm font-semibold text-[var(--text)] line-clamp-1 group-hover:text-[var(--accent)] transition-colors">{p.title}</p>
-                        <p class="text-[11px] text-[var(--text-muted)] line-clamp-1">{p.demoUrl ? 'Live demo ready' : 'Demo coming soon'}</p>
+                        <p class="text-[11px] text-[var(--text-muted)] line-clamp-1">{p.demoUrl ? 'Live demo ready' : p.contactForDemo ? 'Demo on request' : 'Demo coming soon'}</p>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-[var(--text-muted)] group-hover:text-[var(--accent)] transition-colors" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </a>
@@ -301,6 +303,8 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'Razorpa
     </div>
   </section>
 
+
+  <ProductStack product={product} />
 
   <ProductFaq items={faqs} accentVar={product.cssVar} title={`${product.title} FAQs`} />
 
@@ -330,7 +334,7 @@ const techStack = ['React', 'Next.js', 'Node.js', 'MongoDB', 'Express', 'Razorpa
                     Live Demo
                   </span>
                 ) : (
-                  <span class="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)]">Coming Soon</span>
+                  <span class="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)]">{p.contactForDemo ? 'Demo on request' : 'Coming Soon'}</span>
                 )}
               </div>
               <h3 class="font-heading font-bold text-[var(--text)] leading-snug mb-1 group-hover:text-[var(--accent)] transition-colors">{p.title}</h3>

@@ -16,6 +16,13 @@ npm run dev
 
 Use `npm run check` for source validation and `npm run ship` for the complete production build and deployment-readiness checks.
 
+The production postbuild step generates exact legacy client-logo redirects in `dist/.htaccess` from `src/data/legacy-assets.json`. Deploy **the built `dist/.htaccess`**, not the source template in `public/.htaccess`. Image targets are matched by file content and regenerated on every build, so no duplicate image files are needed. `npm run verify` checks these targets and the built HTML's internal links/image resources.
+
+Future-dated blog posts are normally excluded. An explicitly approved post can
+set `publishEarly: true` to be included in an upload-ready build; drafts remain
+excluded. Static hosting has no publication timer: uploading that build makes
+the post public immediately, even if its displayed date is tomorrow.
+
 ## Deployment
 
 Run `npm run deploy` after configuring `.env.deploy`. The deployment script supports Hostinger SSH/rsync and FTP, then checks the live redirects and security headers. See the instructions printed by the script when credentials are not configured.

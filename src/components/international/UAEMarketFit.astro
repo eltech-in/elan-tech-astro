@@ -1,0 +1,114 @@
+---
+// UAE page: how we work with a UAE team, and which of our products fit UAE
+// sectors. Product stacks come from products.ts, so only confirmed
+// technologies are shown. Nothing here claims a UAE client or deployment.
+import { products } from '../../data/products';
+
+const workingFacts = [
+  {
+    title: 'Working hours',
+    text: 'UAE time is 1.5 hours behind India, so most of the working day overlaps. Meeting windows and response times are agreed at kickoff.',
+  },
+  {
+    title: 'Quoting currency',
+    text: 'Proposals can be quoted in AED or USD. The proposal names the currency, what is included and any recurring charges.',
+  },
+  {
+    title: 'Languages',
+    text: 'Delivery is in English. Arabic content and right-to-left interfaces are scoped separately and reviewed by a qualified Arabic specialist.',
+  },
+  {
+    title: 'Confidentiality',
+    text: 'We can review a mutual NDA before sensitive project details are shared. Work delivered under NDA is not named or shown.',
+    href: '/nda-confidentiality-policy/',
+    linkLabel: 'NDA and confidentiality policy',
+  },
+];
+
+// Which UAE buyers each product suits. Titles, links and stacks come from products.ts.
+const sectorFit: Record<string, { sector: string; fit: string }> = {
+  'real-estate-portal': {
+    sector: 'Property agencies and developers',
+    fit: 'Listings, advanced search, agent dashboards, maps and lead capture on a portal you control.',
+  },
+  'resort-management-system': {
+    sector: 'Hotels, resorts and holiday homes',
+    fit: 'Online room booking, an occupancy dashboard, billing, and staff and housekeeping scheduling.',
+  },
+  'medical-conference-portal': {
+    sector: 'Medical and professional conferences',
+    fit: 'Delegate registration, abstract submission, speakers, schedules and certificates for conference organisers.',
+  },
+  'ima-society-portal': {
+    sector: 'Membership associations and professional societies',
+    fit: 'Memberships and renewals, events with online registration, documents and fee payments.',
+  },
+  'insurance-agency-management-portal': {
+    sector: 'Insurance agencies and brokers',
+    fit: 'Policies, renewals, quotations, commissions, sub-agents and customer family records in one system.',
+  },
+  'project-management-system': {
+    sector: 'Agencies and service firms',
+    fit: 'Clients, projects, tasks, billing, enquiries and renewal reminders in one workspace.',
+  },
+};
+
+const productCards = Object.entries(sectorFit)
+  .map(([slug, fit]) => {
+    const product = products.find((item) => item.slug === slug);
+    if (!product) return null;
+    const stack = [...new Set((product.stack ?? []).flatMap((group) => group.items))].slice(0, 5);
+    return { ...fit, title: product.title, href: `/products/${product.slug}/`, stack };
+  })
+  .filter((card): card is NonNullable<typeof card> => card !== null);
+---
+
+<section class="border-t border-[var(--border)] px-4 py-16 sm:px-6 lg:px-8" aria-labelledby="uae-working">
+  <div class="mx-auto max-w-6xl">
+    <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">Working with a UAE team</p>
+    <h2 id="uae-working" class="mt-3 max-w-4xl font-heading text-3xl font-bold sm:text-4xl">What a UAE business can expect from us</h2>
+    <ul class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" role="list">
+      {workingFacts.map((fact) => (
+        <li class="flex flex-col rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+          <h3 class="font-heading text-lg font-bold">{fact.title}</h3>
+          <p class="mt-3 flex-1 text-sm leading-7 text-[var(--text-dim)]">{fact.text}</p>
+          {fact.href && <a href={fact.href} class="mt-4 inline-flex min-h-11 items-center text-sm font-semibold text-[var(--accent)]">{fact.linkLabel} →</a>}
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<section class="border-t border-[var(--border)] bg-[var(--bg-card)] px-4 py-16 sm:px-6 lg:px-8" aria-labelledby="uae-products">
+  <div class="mx-auto max-w-6xl">
+    <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">Ready-built foundations</p>
+    <h2 id="uae-products" class="mt-3 max-w-4xl font-heading text-3xl font-bold sm:text-4xl">Products that fit UAE sectors</h2>
+    <p class="mt-5 max-w-3xl leading-7 text-[var(--text-dim)]">
+      Each product is a working foundation that we adapt to the client, so a project starts from tested software and not from a blank page. They were built for Indian businesses first. UAE requirements such as Arabic, VAT, local payment providers, insurer products and sector rules are scoped for each implementation.
+    </p>
+    <ul class="mt-8 grid gap-5 md:grid-cols-2" role="list">
+      {productCards.map((card) => (
+        <li class="flex flex-col rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6">
+          <p class="text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">{card.sector}</p>
+          <h3 class="mt-2 font-heading text-xl font-bold">{card.title}</h3>
+          <p class="mt-3 flex-1 text-sm leading-7 text-[var(--text-dim)]">{card.fit}</p>
+          {card.stack.length > 0 && (
+            <ul class="mt-4 flex flex-wrap gap-2" role="list" aria-label={`${card.title} technology`}>
+              {card.stack.map((item) => (
+                <li class="rounded-full border border-[var(--border)] px-3 py-1 text-xs font-semibold text-[var(--text)]">{item}</li>
+              ))}
+            </ul>
+          )}
+          <a href={card.href} class="mt-5 inline-flex min-h-11 items-center font-semibold text-[var(--accent)]">See the {card.title} →</a>
+        </li>
+      ))}
+    </ul>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href="https://wa.me/918788834630" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-bold text-white transition hover:brightness-110">
+        Message us on WhatsApp<span class="sr-only"> (opens in a new tab)</span>
+      </a>
+      <a href="/schedule-consultation/" class="inline-flex min-h-11 items-center rounded-full border border-[var(--border)] px-6 py-3 text-sm font-bold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">Book a call</a>
+      <a href="/technologies/" class="inline-flex min-h-11 items-center rounded-full border border-[var(--border)] px-6 py-3 text-sm font-bold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">Technologies we build with</a>
+    </div>
+  </div>
+</section>

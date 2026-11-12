@@ -61,13 +61,14 @@ export const services: Service[] = [
     shortTitle: 'eCommerce',
     tagline: 'Online stores built around your products, customers, and team',
     description:
-      'We create online stores that are easy to shop and easy to run. We work with Shopify, WooCommerce, Medusa.js, Magento, BigCommerce, Wix, OpenCart, and custom platforms.',
+      'We create online stores that are easy to shop and easy to run. We work with Shopify, WooCommerce, Medusa.js, Zoho Commerce, Magento, BigCommerce, Wix, OpenCart, and custom platforms.',
     features: [
       'Custom online store design',
       'Shopify and WooCommerce',
       'Magento and BigCommerce',
       'Wix and OpenCart',
       'Medusa.js and custom stores',
+      'Zoho Commerce implementation and customisation',
       'Subscriptions and repeat orders',
       'Payments and shipping',
       'Store migration and support',
