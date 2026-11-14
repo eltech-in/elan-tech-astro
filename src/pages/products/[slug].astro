@@ -134,6 +134,28 @@ const schema = [
         </ul>
       </div>
 
+      {page.flow && (
+        <div aria-labelledby="product-flow-heading">
+          <header class="mb-6 max-w-3xl">
+            <p class="text-xs font-bold uppercase tracking-widest mb-1" style={`color: var(${product.cssVar});`}>{page.flow.eyebrow}</p>
+            <h2 id="product-flow-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)]">{page.flow.title}</h2>
+          </header>
+          <ol class="grid gap-4 md:grid-cols-4" role="list">
+            {page.flow.steps.map((step, index) => (
+              <li class="relative rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
+                <span class="flex h-9 w-9 items-center justify-center rounded-full text-sm font-black text-white" style={`background: var(${product.cssVar});`} aria-hidden="true">{index + 1}</span>
+                <h3 class="mt-3 font-semibold text-[var(--text)]"><span class="sr-only">Step {index + 1}: </span>{step.title}</h3>
+                <p class="mt-1.5 text-sm leading-relaxed text-[var(--text-dim)]">{step.text}</p>
+                {index < page.flow!.steps.length - 1 && (
+                  <span aria-hidden="true" class="absolute -right-3 top-1/2 hidden -translate-y-1/2 text-lg font-bold md:block" style={`color: var(${product.cssVar});`}>→</span>
+                )}
+              </li>
+            ))}
+          </ol>
+          <p class="mt-5 rounded-2xl border border-dashed border-[var(--border)] bg-[var(--bg-card)] p-5 text-sm leading-relaxed text-[var(--text-dim)]">{page.flow.note}</p>
+        </div>
+      )}
+
       {page.roadmap && page.roadmap.length > 0 && (
         <div class="rounded-2xl border border-dashed border-[var(--border)] bg-[var(--bg-card)] p-6" aria-labelledby="product-roadmap-heading">
           <p class="text-xs font-bold uppercase tracking-widest mb-1 text-[var(--text-muted)]">Planned, not yet available</p>

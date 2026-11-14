@@ -22,10 +22,81 @@ export interface ProductPageContent {
   privacy: { title: string; intro: string; subject: string; items: { title: string; text: string }[]; note: string };
   /** Planned modules that do not exist yet. */
   roadmap?: string[];
+  /** Optional step-by-step diagram, e.g. how publishing works. */
+  flow?: { eyebrow: string; title: string; steps: { title: string; text: string }[]; note: string };
   faqs: { question: string; answer: string }[];
 }
 
 export const productPages: Record<string, ProductPageContent> = {
+  'elan-central-cms': {
+    metaTitle: 'eLan Central CMS: Payload CMS for Astro Websites | eLan Technology',
+    metaDescription:
+      'eLan Central CMS is our customised Payload CMS for Astro websites. Edit pages, posts, media and SEO in one dashboard, then publish fast static pages to your own hosting.',
+    eyebrow: 'Content Platform for Astro Websites',
+    featuresHeading: 'Edit in one place. Publish fast, static pages.',
+    featuresIntro: 'eLan Central CMS is Payload CMS, customised by us. It manages the content of the Astro websites we build.',
+    features: [
+      { title: 'One dashboard, many websites', desc: 'Each website has its own space inside one CMS. Our team can move between sites; a client editor sees only their own.' },
+      { title: 'Pages built from blocks', desc: 'Pages are assembled from a shared block library: hero, rich text, services grid, feature list, gallery, testimonials, FAQ, stats, call to action, contact, logo strip, and map or embed.' },
+      { title: 'Blog and news', desc: 'Posts with categories, authors and SEO fields, for websites that publish articles.' },
+      { title: 'Site settings', desc: 'Logo, contact details, social links, header and footer menus, default SEO and analytics IDs, managed for each website.' },
+      { title: 'SEO fields built in', desc: 'Title, meta description, canonical URL, Open Graph and structured data come from CMS fields. The sitemap and robots file are generated when the site is built.' },
+      { title: 'Media with required alt text', desc: 'Images and files are managed in the CMS, and alt text is required, which supports accessibility from the first upload.' },
+      { title: 'Redirects', desc: 'Old-to-new URL redirects are managed in the CMS and written into the website when it is built.' },
+      { title: 'Enquiries by website', desc: 'Form submissions can be stored against the website they came from.' },
+      { title: 'Optional content types', desc: 'Products, doctors, projects, team members, testimonials and FAQs are switched on only for the websites that need them.' },
+    ],
+    flow: {
+      eyebrow: 'How publishing works',
+      title: 'From edit to live in four steps',
+      steps: [
+        { title: 'Edit', text: 'An editor updates content in the CMS.' },
+        { title: 'Publish', text: 'One click on Publish starts a rebuild of that one website.' },
+        { title: 'Build', text: 'Astro builds the website as static files, using only that website’s content.' },
+        { title: 'Go live', text: 'The files are uploaded to the website’s own hosting.' },
+      ],
+      note: 'Visitors only ever load static pages from the website’s own hosting. If the CMS is offline, live websites keep working; only editing pauses.',
+    },
+    audienceHeading: 'Built for teams that want to edit their own website',
+    audience: [
+      { title: 'Businesses editing their own site', desc: 'Update pages, posts and images without asking a developer for each change.' },
+      { title: 'Organisations with several sites', desc: 'Manage more than one website from the same dashboard.' },
+      { title: 'Teams on ordinary hosting', desc: 'The website is static files, so it runs on standard shared hosting. No Node.js is needed on the website’s server.' },
+      { title: 'Sites moving off WordPress', desc: 'We plan content migrations so that existing URLs are kept.' },
+    ],
+    summary: {
+      title: 'How eLan Central CMS is supplied',
+      intro: 'It comes with the Astro websites we build. Each website gets its own space, editors and settings.',
+      items: [
+        { question: 'Is it something I install?', answer: 'No. It is the content system behind websites we build with Astro. We host and maintain the CMS; your website is hosted where you choose.' },
+        { question: 'What if we need strict data isolation?', answer: 'A website with a heavily bespoke content model or strict isolation needs can run on its own separate instance of the same system.' },
+        { question: 'How fast do changes go live?', answer: 'Publishing rebuilds only your website. Changes are usually live within a few minutes.' },
+      ],
+    },
+    privacy: {
+      title: 'Control editor access, content and enquiry data',
+      intro: 'A shared content platform holds several organisations’ content behind one login page, so access is limited by role and by website.',
+      subject: 'eLan Central CMS privacy enquiry',
+      items: [
+        { title: 'Editor accounts', text: 'Each editor should sign in with their own account. Client editors are limited to their own website; creating or removing a website is restricted to eLan administrators.' },
+        { title: 'Enquiry records', text: 'Where form submissions are stored in the CMS, decide who may view and export them and how long they are kept.' },
+        { title: 'Media and documents', text: 'Upload only files that are meant to be public. The website publishes what the CMS holds.' },
+        { title: 'Connected services', text: 'Analytics IDs, email and other integrations are enabled only when scoped, with their providers and data fields documented.' },
+      ],
+      note: 'The platform supports agreed access and publishing workflows. It does not by itself guarantee privacy or accessibility compliance; each organisation remains responsible for the content it publishes.',
+    },
+    faqs: [
+      { question: 'What is eLan Central CMS?', answer: 'It is the content system behind the Astro websites we build. Editors update pages, posts, media and settings in one dashboard and publish. The website is then rebuilt as static files and uploaded to its own hosting.' },
+      { question: 'Is it built on Payload CMS?', answer: 'Yes. It is Payload CMS, which is open source, customised by us with a shared block library, per-website spaces and editor roles. The database is PostgreSQL.' },
+      { question: 'Does my live website depend on the CMS being online?', answer: 'No. Visitors load static pages from your website’s own hosting. If the CMS is offline, the live website keeps working and only editing pauses.' },
+      { question: 'Can we edit our own website?', answer: 'Yes. Your editors get accounts limited to your website. They can update pages, posts, media and settings, then publish.' },
+      { question: 'What hosting does the website need?', answer: 'Any hosting that can serve static files, including standard shared hosting. No Node.js is needed on the website’s server.' },
+      { question: 'Can you move our existing WordPress content?', answer: 'Yes, as a scoped migration. We map your existing content to the CMS and plan the move so that existing URLs are kept.' },
+      { question: 'Can I see it?', answer: 'Yes, on request. We walk you through the editor with sample content.' },
+      { question: 'How much does it cost?', answer: 'It is quoted as part of the website project. The written proposal states what is included and any recurring charges.' },
+    ],
+  },
+
   'project-management-system': {
     metaTitle: 'Project Management System for Agencies and Service Teams | eLan Technology',
     metaDescription:

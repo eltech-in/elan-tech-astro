@@ -17,6 +17,7 @@ import ChapterLabel from '../components/ChapterLabel.astro';
 import ScrollProgressRail from '../components/ScrollProgressRail.astro';
 import HomePromoStrip from '../components/launchpad/HomePromoStrip.astro';
 import { products } from '../data/products';
+import CentralCmsFeature from '../components/CentralCmsFeature.astro';
 import { homepageSeoBaseline } from '../data/seoStability';
 import heroCommerceArtwork from '../assets/hero/elan-commerce-accessibility-growth-v2.avif';
 
@@ -335,6 +336,8 @@ function logoAlt(filename: string): string {
   <!-- ═══════════════════════════════════════════════════════════════════════
        SECTION 4: SERVICES - BENTO GRID with numbered editorial cards
   ════════════════════════════════════════════════════════════════════════ -->
+  <CentralCmsFeature />
+
   <section aria-labelledby="services-heading" class="bg-[var(--bg)] py-16 md:py-24" style="content-visibility:auto;contain-intrinsic-size:auto 600px">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <ChapterLabel number="04" label="What we do" class="mb-6" />
@@ -605,7 +608,7 @@ function logoAlt(filename: string): string {
         Products built around real business needs.
       </h2>
       <p class="text-lg text-[var(--text-dim)] text-center mb-12 max-w-2xl mx-auto">
-        Configurable platforms for property, conferences, associations and hospitality operations.
+        A content platform for Astro websites, and configurable software for property, conferences, associations, hospitality, insurance agencies and project teams.
       </p>
 
       <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" role="list">

@@ -942,8 +942,8 @@ check('Technologies page lists proven stacks with proof links', fileContains(
   'Technologies we build with', 'Next.js', 'Medusa.js', 'Shopify', 'WordPress',
   'https://healthygenie.in/', '/products/medical-conference-portal/', '/services/ecommerce/medusa-js-development/',
 ));
-const productSlugs = ['real-estate-portal', 'medical-conference-portal', 'ima-society-portal', 'resort-management-system', 'project-management-system', 'insurance-agency-management-portal'];
-check('All six product pages exist and show their stack', productSlugs.every(slug =>
+const productSlugs = ['elan-central-cms', 'real-estate-portal', 'medical-conference-portal', 'ima-society-portal', 'resort-management-system', 'project-management-system', 'insurance-agency-management-portal'];
+check('All seven product pages exist and show their stack', productSlugs.every(slug =>
   fileContains(`products/${slug}/index.html`, 'id="product-stack-heading"', 'href="/technologies/"')));
 check('Product stacks come from one list: no Next.js on the React single-page products', ['medical-conference-portal', 'resort-management-system', 'project-management-system'].every(slug =>
   fileNotContains(`products/${slug}/index.html`, '>Next.js<')));
@@ -951,7 +951,7 @@ check('Insurance portal states its stack, features and planned module', fileCont
   'NestJS', 'MySQL', 'Commission management', 'Sub-agent management', 'Customer family management', 'Planned, not yet available', 'Stock management'));
 check('Project Management System page describes the workspace without exposing it', fileContains('products/project-management-system/index.html',
   'Portfolio dashboard', 'Domain renewals', 'Book a walkthrough') && fileNotContains('products/project-management-system/index.html', 'pms.elantech.cloud'));
-check('Products index and llms.txt list six products', productSlugs.every(slug => fileContains('products/index.html', `/products/${slug}/`) && fileContains('llms.txt', `/products/${slug}/`)));
+check('Products index and llms.txt list seven products', productSlugs.every(slug => fileContains('products/index.html', `/products/${slug}/`) && fileContains('llms.txt', `/products/${slug}/`)));
 check('Portfolio archive cards name real technologies only', fileContains('portfolio/index.html', 'Built with WordPress') && fileNotContains('portfolio/index.html', 'Built with CSS3') && fileNotContains('portfolio/index.html', 'Custom UI,'));
 
 check('Service, location and homepage proof features Healthy Genie, not Puritas', ['services/ecommerce/medusa-js-development/index.html', 'services/ecommerce/index.html', 'index.html', 'web-design-company-dubai-uae/index.html', 'web-design-company-raipur/index.html', 'llms.txt'].every(page =>
@@ -979,6 +979,15 @@ check('UAE page is indexable, linked site-wide and still makes no UAE client cla
       : ['index.html', 'products/index.html', 'contact/index.html'].every(page => fileContains(page, 'id="trip-banner"', 'href="/dubai/"'))
         && fileNotContains('dubai/index.html', 'id="trip-banner"'));
 }
+
+// eLan Central CMS: featured on the homepage, service pages and its own page.
+check('Central CMS page explains the publish flow and stack', fileContains('products/elan-central-cms/index.html',
+  'eLan Central CMS', 'Payload CMS', 'PostgreSQL', 'From edit to live in four steps', 'live websites keep working', 'id="product-stack-heading"'));
+check('Central CMS is featured on the homepage and CMS service pages', fileContains('index.html', 'One CMS behind every new website we build', 'href="/products/elan-central-cms/"')
+  && ['services/web-development/index.html', 'services/headless-cms-development/index.html', 'services/payload-directus-development/index.html'].every(page =>
+    fileContains(page, 'eLan Central CMS: Payload CMS for Astro websites', 'href="/products/elan-central-cms/"')));
+check('Central CMS admin URL is not published', ['index.html', 'products/elan-central-cms/index.html', 'technologies/index.html', 'llms.txt'].every(page => fileNotContains(page, 'elancms.elantech.cloud')));
+check('Technologies page lists Payload CMS with the Central CMS as proof', fileContains('technologies/index.html', 'Payload CMS', 'PostgreSQL', '/products/elan-central-cms/'));
 
 const total = passed + failed;
 console.log(`\n${'─'.repeat(60)}`);

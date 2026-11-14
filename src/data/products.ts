@@ -43,6 +43,37 @@ export interface Product {
 
 export const products: Product[] = [
   {
+    id: 'elan-central-cms',
+    title: 'eLan Central CMS',
+    slug: 'elan-central-cms',
+    desc: 'Our customised Payload CMS for Astro websites: one place to edit content, with fast static pages published to the website’s own hosting.',
+    longDesc:
+      'eLan Central CMS is the content system behind the Astro websites we build. Editors update pages, posts, media and settings in one dashboard, then publish. The website is rebuilt as static files and uploaded to its own hosting, so visitors always get fast pages and never touch the CMS.',
+    accent: '#06B6D4',
+    cssVar: '--ac-cyan',
+    features: [
+      'One dashboard for many websites, with each client limited to their own site.',
+      'Pages built from a shared block library.',
+      'SEO fields, redirects and required image alt text built in.',
+      'Publishing rebuilds only that website as static files.',
+      'Live websites keep working even when the CMS is offline.',
+    ],
+    benefits: [
+      'Static-site speed with an editing experience clients can use.',
+      'Works with ordinary hosting; no Node.js needed on the website’s server.',
+      'One platform to maintain instead of one CMS per website.',
+    ],
+    targetAudience: ['Businesses editing their own website', 'Organisations with several sites', 'Marketing and content teams', 'Sites moving off WordPress'],
+    schemaCategory: 'BusinessApplication',
+    stack: [
+      { group: 'CMS', items: ['Payload CMS', 'Next.js', 'TypeScript'] },
+      { group: 'Websites', items: ['Astro'] },
+      { group: 'Database', items: ['PostgreSQL'] },
+      { group: 'Delivery', items: ['Cloudflare'] },
+    ],
+    contactForDemo: true,
+  },
+  {
     id: 'real-estate-portal',
     title: 'Real Estate Portal',
     slug: 'real-estate-portal',

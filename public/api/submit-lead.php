@@ -328,9 +328,187 @@ function sendWithBrevo(
     return $status >= 200 && $status < 300;
 }
 
+/**
+ * Sends the alert through an authenticated SMTP account, such as Gmail with
+ * an app password. Returns [accepted, error]. The error names the stage that
+ * failed and the server's reply code; it never contains the password.
+ */
+function sendWithSmtp(
+    array $smtp,
+    array $recipients,
+    string $fromEmail,
+    string $fromName,
+    string $replyTo,
+    string $subject,
+    string $textBody,
+    string $htmlBody
+): array {
+    $host = (string) ($smtp['host'] ?? '');
+    $port = (int) ($smtp['port'] ?? 0);
+    $username = (string) ($smtp['username'] ?? '');
+    $password = (string) ($smtp['password'] ?? '');
+    $caFile = (string) ($smtp['ca_file'] ?? '');
+    $implicitTls = ($smtp['encryption'] ?? '') === 'ssl';
+    if ($host === '' || $port < 1 || $username === '' || $password === '' || $recipients === []) {
+        return [false, 'not configured'];
+    }
+
+    // The certificate is always verified, so the password is only ever sent
+    // to the real mail server.
+    $ssl = ['verify_peer' => true, 'verify_peer_name' => true, 'peer_name' => $host, 'SNI_enabled' => true];
+    if ($caFile !== '' && is_file($caFile)) {
+        $ssl['cafile'] = $caFile;
+    }
+    $context = stream_context_create(['ssl' => $ssl]);
+    $socket = @stream_socket_client(
+        ($implicitTls ? 'ssl://' : 'tcp://') . $host . ':' . $port,
+        $errorNumber,
+        $errorText,
+        8,
+        STREAM_CLIENT_CONNECT,
+        $context
+    );
+    if (!is_resource($socket)) {
+        return [false, 'connect failed'];
+    }
+    stream_set_timeout($socket, 12);
+
+    $read = static function () use ($socket): int {
+        $code = 0;
+        for ($lineCount = 0; $lineCount < 60; $lineCount++) {
+            $line = fgets($socket, 1024);
+            if ($line === false || strlen($line) < 3) {
+                return 0;
+            }
+            $code = (int) substr($line, 0, 3);
+            // "250-..." continues the reply; "250 ..." ends it.
+            if (strlen($line) < 4 || $line[3] !== '-') {
+                break;
+            }
+        }
+        return $code;
+    };
+    $command = static function (string $line) use ($socket, $read): int {
+        if (@fwrite($socket, $line . "\r\n") === false) {
+            return 0;
+        }
+        return $read();
+    };
+    $fail = static function (string $stage, int $code) use ($socket): array {
+        @fwrite($socket, "QUIT\r\n");
+        @fclose($socket);
+        return [false, $stage . ' rejected (' . $code . ')'];
+    };
+
+    $code = $read();
+    if ($code !== 220) {
+        return $fail('greeting', $code);
+    }
+    $code = $command('EHLO elan-tech.net');
+    if ($code !== 250) {
+        return $fail('EHLO', $code);
+    }
+    if (!$implicitTls) {
+        $code = $command('STARTTLS');
+        if ($code !== 220) {
+            return $fail('STARTTLS', $code);
+        }
+        if (@stream_socket_enable_crypto($socket, true, STREAM_CRYPTO_METHOD_TLS_CLIENT) !== true) {
+            @fclose($socket);
+            return [false, 'TLS handshake failed'];
+        }
+        $code = $command('EHLO elan-tech.net');
+        if ($code !== 250) {
+            return $fail('EHLO after STARTTLS', $code);
+        }
+    }
+
+    $code = $command('AUTH LOGIN');
+    if ($code !== 334) {
+        return $fail('AUTH', $code);
+    }
+    $code = $command(base64_encode($username));
+    if ($code !== 334) {
+        return $fail('AUTH username', $code);
+    }
+    $code = $command(base64_encode($password));
+    if ($code !== 235) {
+        return $fail('AUTH password', $code);
+    }
+
+    $code = $command('MAIL FROM:<' . $username . '>');
+    if ($code !== 250) {
+        return $fail('MAIL FROM', $code);
+    }
+    foreach ($recipients as $recipient) {
+        $code = $command('RCPT TO:<' . $recipient . '>');
+        if ($code !== 250 && $code !== 251) {
+            return $fail('RCPT TO', $code);
+        }
+    }
+    $code = $command('DATA');
+    if ($code !== 354) {
+        return $fail('DATA', $code);
+    }
+
+    $oneLine = static fn (string $value): string => trim((string) preg_replace('/[\r\n]+/', ' ', $value));
+    $encodeHeader = static function (string $value) use ($oneLine): string {
+        $value = $oneLine($value);
+        if (preg_match('/[^\x20-\x7E]/', $value) !== 1) {
+            return $value;
+        }
+        return function_exists('mb_encode_mimeheader')
+            ? mb_encode_mimeheader($value, 'UTF-8', 'B', "\r\n")
+            : '=?UTF-8?B?' . base64_encode($value) . '?=';
+    };
+    $displayName = $oneLine($fromName);
+    $fromHeader = preg_match('/[^\x20-\x7E]/', $displayName) === 1
+        ? $encodeHeader($displayName) . ' <' . $fromEmail . '>'
+        : '"' . addcslashes($displayName, '"\\') . '" <' . $fromEmail . '>';
+    $boundary = 'elan-' . bin2hex(random_bytes(12));
+    $domain = substr((string) strrchr($fromEmail, '@'), 1) ?: 'elan-tech.net';
+
+    $message = implode("\r\n", [
+        'Date: ' . date('r'),
+        'From: ' . $fromHeader,
+        'To: ' . implode(', ', $recipients),
+        'Reply-To: ' . $oneLine($replyTo),
+        'Subject: ' . $encodeHeader($subject),
+        'Message-ID: <' . bin2hex(random_bytes(16)) . '@' . $domain . '>',
+        'MIME-Version: 1.0',
+        'Content-Type: multipart/alternative; boundary="' . $boundary . '"',
+        '',
+        '--' . $boundary,
+        'Content-Type: text/plain; charset=UTF-8',
+        'Content-Transfer-Encoding: base64',
+        '',
+        rtrim(chunk_split(base64_encode($textBody), 76, "\r\n")),
+        '--' . $boundary,
+        'Content-Type: text/html; charset=UTF-8',
+        'Content-Transfer-Encoding: base64',
+        '',
+        rtrim(chunk_split(base64_encode($htmlBody), 76, "\r\n")),
+        '--' . $boundary . '--',
+    ]);
+
+    if (@fwrite($socket, $message . "\r\n.\r\n") === false) {
+        @fclose($socket);
+        return [false, 'message write failed'];
+    }
+    $code = $read();
+    if ($code !== 250) {
+        return $fail('message', $code);
+    }
+    @fwrite($socket, "QUIT\r\n");
+    @fclose($socket);
+
+    return [true, ''];
+}
+
 $notified = false;
 $notificationReliable = false;
 $notificationChannel = null;
+$alertErrors = [];
 if ($notify) {
     $subject = preg_replace('/[\r\n]+/', ' ', (string) ($cleanFields['_subject'] ?? "Website enquiry: {$formType}"));
     $subject = function_exists('mb_substr') ? mb_substr((string) $subject, 0, 150) : substr((string) $subject, 0, 150);
@@ -381,6 +559,49 @@ if ($notify) {
         $notificationChannel = 'brevo';
     }
 
+    // Second route: an authenticated SMTP account, such as Gmail with an app
+    // password. It runs only when its username and password are configured.
+    if (!$notified) {
+        $smtpUsername = trim((string) (getenv('GMAIL_SMTP_USERNAME') ?: ($alertConfig['smtp_username'] ?? '')));
+        $smtpPassword = (string) preg_replace('/\s+/', '', (string) (getenv('GMAIL_APP_PASSWORD') ?: ($alertConfig['smtp_app_password'] ?? '')));
+        if (str_starts_with($smtpPassword, 'PASTE_')) {
+            $smtpPassword = '';
+        }
+        if ($smtpPassword !== '' && filter_var($smtpUsername, FILTER_VALIDATE_EMAIL)) {
+            $smtpPort = (int) ($alertConfig['smtp_port'] ?? 465);
+            $smtpEncryption = (string) ($alertConfig['smtp_encryption'] ?? ($smtpPort === 465 ? 'ssl' : 'starttls'));
+            // Gmail sends as the signed-in account unless a verified alias is set.
+            $smtpFrom = trim((string) ($alertConfig['smtp_from_email'] ?? $smtpUsername));
+            if (!filter_var($smtpFrom, FILTER_VALIDATE_EMAIL)) {
+                $smtpFrom = $smtpUsername;
+            }
+            [$smtpAccepted, $smtpError] = sendWithSmtp(
+                [
+                    'host' => trim((string) ($alertConfig['smtp_host'] ?? 'smtp.gmail.com')),
+                    'port' => $smtpPort,
+                    'encryption' => $smtpEncryption === 'ssl' ? 'ssl' : 'starttls',
+                    'username' => $smtpUsername,
+                    'password' => $smtpPassword,
+                    'ca_file' => trim((string) ($alertConfig['smtp_ca_file'] ?? '')),
+                ],
+                $recipients,
+                $smtpFrom,
+                $senderName,
+                $email,
+                (string) $subject,
+                $body,
+                $htmlBody
+            );
+            if ($smtpAccepted) {
+                $notified = true;
+                $notificationReliable = true;
+                $notificationChannel = 'smtp';
+            } else {
+                $alertErrors[] = 'smtp: ' . $smtpError;
+            }
+        }
+    }
+
     if (!$notified) {
         $headers = [
             'From: ' . $senderName . ' <' . $senderEmail . '>',
@@ -406,6 +627,8 @@ $alertStatus = json_encode([
     'notificationAccepted' => $notified,
     'notificationReliable' => $notificationReliable,
     'channel' => $notificationChannel,
+    // Why a configured route did not send. Stage and reply code only, no secrets.
+    'errors' => $alertErrors,
 ], JSON_UNESCAPED_SLASHES);
 if ($alertStatus !== false) {
     $statusPath = $storageRoot . '/alert-status-' . gmdate('Y-m') . '.jsonl';

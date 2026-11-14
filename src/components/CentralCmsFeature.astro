@@ -1,0 +1,92 @@
+---
+// Feature band for eLan Central CMS, our customised Payload CMS for Astro
+// websites. `variant="full"` is the homepage section with the publish flow;
+// `variant="compact"` is a callout for service pages.
+interface Props {
+  variant?: 'full' | 'compact';
+  /** Heading level context: service pages already have an H1 and H2s. */
+  headingId?: string;
+}
+
+const { variant = 'full', headingId = 'central-cms-heading' } = Astro.props;
+
+const steps = [
+  { title: 'Edit', text: 'Update pages, posts and images in one dashboard.' },
+  { title: 'Publish', text: 'One click rebuilds that one website.' },
+  { title: 'Build', text: 'Astro turns the content into static files.' },
+  { title: 'Go live', text: 'The files are uploaded to the website’s own hosting.' },
+];
+
+const points = [
+  { title: 'Fast for visitors', text: 'Every page is a static file, served from the website’s own hosting.' },
+  { title: 'Easy for editors', text: 'Pages are built from ready-made blocks, with SEO fields and required image alt text.' },
+  { title: 'Safe by design', text: 'Visitors never touch the CMS. If it is offline, the live website keeps working.' },
+];
+---
+
+{variant === 'full' ? (
+  <section aria-labelledby={headingId} class="relative overflow-hidden border-y border-[var(--border)] bg-[var(--bg)] py-16 md:py-24">
+    <span aria-hidden="true" class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full opacity-20 blur-[100px]" style="background: var(--ac-cyan);"></span>
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-widest" style="color: var(--ac-cyan);">How we build websites now</p>
+          <h2 id={headingId} class="mt-3 font-heading text-3xl font-bold leading-tight text-[var(--text)] sm:text-4xl">One CMS behind every new website we build</h2>
+          <p class="mt-5 max-w-xl text-lg leading-relaxed text-[var(--text-dim)]">
+            Our new websites are built with Astro and managed in eLan Central CMS, our customised Payload CMS. Your team edits content in one dashboard, and visitors get fast static pages.
+          </p>
+          <ul class="mt-7 space-y-4" role="list">
+            {points.map((point) => (
+              <li class="flex gap-3">
+                <span aria-hidden="true" class="mt-1.5 h-2 w-2 shrink-0 rounded-full" style="background: var(--ac-cyan);"></span>
+                <p class="text-[var(--text-dim)]"><strong class="text-[var(--text)]">{point.title}.</strong> {point.text}</p>
+              </li>
+            ))}
+          </ul>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="/products/elan-central-cms/" class="inline-flex min-h-11 items-center rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-bold text-white transition hover:brightness-110">See how eLan Central CMS works</a>
+            <a href="/technologies/" class="inline-flex min-h-11 items-center rounded-full border border-[var(--border)] px-6 py-3 text-sm font-bold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">Technologies we build with</a>
+          </div>
+        </div>
+
+        <div class="rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8">
+          <p class="text-xs font-bold uppercase tracking-widest text-[var(--text-muted)]">From edit to live</p>
+          <ol class="mt-5 space-y-4" role="list">
+            {steps.map((step, index) => (
+              <li class="flex gap-4">
+                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-black text-white" style="background: var(--ac-cyan);" aria-hidden="true">{index + 1}</span>
+                <div class="border-b border-[var(--border)] pb-4 last:border-b-0">
+                  <h3 class="font-heading text-lg font-bold text-[var(--text)]"><span class="sr-only">Step {index + 1}: </span>{step.title}</h3>
+                  <p class="mt-1 text-sm leading-relaxed text-[var(--text-dim)]">{step.text}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <ul class="mt-6 flex flex-wrap gap-2 border-t border-[var(--border)] pt-5" role="list" aria-label="eLan Central CMS technology">
+            {['Astro', 'Payload CMS', 'Next.js', 'PostgreSQL', 'TypeScript'].map((tech) => (
+              <li class="rounded-full border border-[var(--border)] px-3 py-1 text-xs font-semibold text-[var(--text)]">{tech}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+) : (
+  <section class="mb-16 rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-7 md:p-10" aria-labelledby={headingId}>
+    <p class="text-xs font-bold uppercase tracking-widest" style="color: var(--ac-cyan);">Our own content platform</p>
+    <h2 id={headingId} class="mt-2 font-heading text-2xl font-bold text-[var(--text)] md:text-3xl">eLan Central CMS: Payload CMS for Astro websites</h2>
+    <p class="mt-4 max-w-3xl leading-relaxed text-[var(--text-dim)]">
+      New websites we build with Astro are managed in eLan Central CMS, our customised Payload CMS. Editors update content in one dashboard and publish; the website is rebuilt as static files and uploaded to its own hosting. Visitors never touch the CMS, so the live website keeps working even if the CMS is offline.
+    </p>
+    <ol class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4" role="list">
+      {steps.map((step, index) => (
+        <li class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-4">
+          <span class="text-xs font-black" style="color: var(--ac-cyan);" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+          <h3 class="mt-1 font-semibold text-[var(--text)]"><span class="sr-only">Step {index + 1}: </span>{step.title}</h3>
+          <p class="mt-1 text-sm leading-relaxed text-[var(--text-dim)]">{step.text}</p>
+        </li>
+      ))}
+    </ol>
+    <a href="/products/elan-central-cms/" class="mt-6 inline-flex min-h-11 items-center font-semibold underline underline-offset-4 hover:no-underline" style="color: var(--ac-cyan);">See how eLan Central CMS works →</a>
+  </section>
+)}

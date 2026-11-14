@@ -2,6 +2,7 @@
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
 import ServiceDetailContent from '../../components/ServiceDetailContent.astro';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../../utils/schema';
+import CentralCmsFeature from '../../components/CentralCmsFeature.astro';
 
 const faqs = [
   { question: 'How do you choose between Payload CMS and Directus?', answer: 'We compare the content model, development stack, permissions, editorial experience, hosting, integrations and ownership requirements. The recommendation follows discovery rather than a preferred platform.' },
@@ -28,4 +29,5 @@ const schema = [serviceSchema('Payload CMS & Directus Development', 'Payload CMS
     accentVar="--svc-payload"
     disclaimer="Platform capability, licence terms and integration availability must be confirmed against current versions and providers. No architecture removes the client’s responsibility for lawful content, privacy, security and operational governance."
   />
+  <div class="mt-10"><CentralCmsFeature variant="compact" /></div>
 </ServiceLayout>

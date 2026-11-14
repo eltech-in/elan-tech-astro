@@ -76,6 +76,11 @@ features and commercial terms from one project should not be assumed for another
 
 ## Configurable software products
 
+- eLan Central CMS: https://elan-tech.net/products/elan-central-cms/
+  Payload CMS customised by eLan Technology as the content platform for the
+  Astro websites it builds. Editors publish from one dashboard; each website
+  is rebuilt as static files and uploaded to its own hosting, so live sites do
+  not depend on the CMS being online. Database: PostgreSQL.
 - Real Estate Portal: https://elan-tech.net/products/real-estate-portal/
 - Medical Conference Portal: https://elan-tech.net/products/medical-conference-portal/
 - IMA Society Portal: https://elan-tech.net/products/ima-society-portal/
@@ -87,7 +92,7 @@ features and commercial terms from one project should not be assumed for another
   LIC, health, motor and general insurance, RD and FD, renewals, quotations,
   commissions, sub-agents, CRM and customer family records. Built with
   Next.js, NestJS and MySQL. Stock management is planned, not yet available.
-The six products are currently available as configurable product foundations.
+The seven products are currently available as configurable product foundations.
 
 ## eLan Technology ventures
 

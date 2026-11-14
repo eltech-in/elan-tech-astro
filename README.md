@@ -45,3 +45,21 @@ On Hostinger, backups are written outside `public_html` to:
 The directory and files are created with owner-only permissions. Set the server environment variable `ELAN_LEAD_STORAGE_DIR` to use a different private location. The endpoint accepts only same-site requests, validates the email and payload, limits submissions per IP, ignores honeypot submissions, and caps request size.
 
 If FormSubmit is unavailable, the endpoint attempts a direct email notification while retaining the stored copy. Check the backup directory during routine maintenance and define a retention period appropriate for enquiry data.
+
+### Email alerts from the endpoint
+
+`/api/submit-lead.php` sends its own alert for every enquiry. It tries each configured route in order and stops at the first that accepts the message:
+
+1. **Brevo**, when `brevo_api_key` is set.
+2. **Gmail or Google Workspace over SMTP**, when `smtp_username` and `smtp_app_password` are set.
+3. **The server's `mail()` function**, as a last resort. This route is not treated as reliable.
+
+When Brevo or Gmail accepts the alert, the browser does not call FormSubmit at all. FormSubmit is used only when neither route is configured or both fail.
+
+To turn on Gmail alerts:
+
+1. Turn on 2-Step Verification for the Google account, then create an app password at `https://myaccount.google.com/apppasswords`.
+2. On the server, copy `deployment/lead-alert-config.example.php` to `~/elan-tech-private/lead-alert-config.php` (outside `public_html`, permission `0600`) and fill in `smtp_username` and `smtp_app_password`.
+3. Submit a test enquiry, then read the last line of `~/elan-tech-private/leads/alert-status-YYYY-MM.jsonl`. `"channel":"smtp"` means Gmail accepted it. If it failed, `errors` names the stage and the mail server's reply code, for example `smtp: AUTH password rejected (535)`.
+
+The app password is never committed, never placed inside `public_html`, and never written to the status file. Use a mailbox kept for website alerts, because an app password opens the whole mailbox. Alerts are sent from that mailbox; the enquirer's address is set as Reply-To. The mail server's certificate is always verified before the password is sent.

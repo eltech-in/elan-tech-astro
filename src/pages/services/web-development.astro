@@ -3,6 +3,7 @@ import ServiceLayout from '../../layouts/ServiceLayout.astro';
 import { services } from '../../data/services';
 import { indexedCities } from '../../data/cities';
 import { serviceSchema, faqSchema, breadcrumbSchema } from '../../utils/schema';
+import CentralCmsFeature from '../../components/CentralCmsFeature.astro';
 
 const service = services.find((s) => s.slug === 'web-development')!;
 
@@ -202,6 +203,8 @@ const technologies = [
   </section>
 
   <!-- ── FAQ ───────────────────────────────────────────────────────────────── -->
+  <CentralCmsFeature variant="compact" />
+
   <section class="mb-16">
     <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-8">Frequently Asked Questions</h2>
     <div class="divide-y divide-[var(--border)] rounded-xl border border-[var(--border)] overflow-hidden">
