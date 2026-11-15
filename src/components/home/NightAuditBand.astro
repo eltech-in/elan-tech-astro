@@ -1,0 +1,30 @@
+---
+// Homepage audit offer in the night-sky style. Prices come from src/data/auditPricing.ts and
+// switch to the visitor's currency (see AuditPrice).
+import '../../styles/night.css';
+import AuditPrice from '../AuditPrice.astro';
+---
+<section aria-labelledby="audit-cta-heading" class="ns band">
+  <div class="ns-stars" aria-hidden="true"></div>
+  <div class="ns-spot" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="ns-pill">Fixed fee · <AuditPrice kind="website" /> per domain</p>
+    <h2 id="audit-cta-heading" class="h2">Get a Website Security &amp; SEO <span class="ns-grad">Audit</span></h2>
+    <p class="sub">We'll analyse your existing website and identify the critical issues, for a fixed fee of <AuditPrice kind="website" /> per domain. No obligation to buy anything else.</p>
+    <div class="ctas">
+      <a href="/website-audit/" class="ns-btn">Request an Audit <span aria-hidden="true">→</span></a>
+      <a href="/services/ada-compliant-web-design/" class="ns-ghost">Accessibility audit <AuditPrice kind="accessibility" /></a>
+    </div>
+    <p class="small">Findings within two business days of confirming the scope.</p>
+  </div>
+</section>
+
+<style>
+  .band { padding: 6.5rem 0 7.5rem; text-align: center; }
+  .wrap { max-width: 52rem; margin: 0 auto; padding: 0 1rem; position: relative; }
+  .h2 { margin-top: 1.4rem; font-family: var(--font-heading, inherit); font-weight: 700; font-size: clamp(2rem, 4.6vw, 3.6rem); line-height: 1.05; letter-spacing: -.035em; }
+  .sub { margin: 1.2rem auto 0; max-width: 38rem; font-size: 1.1rem; line-height: 1.65; color: var(--ns-dim); }
+  .ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; margin-top: 2rem; }
+  .ctas .ns-ghost { gap: .35rem; }
+  .small { margin-top: 1.2rem; font-size: .82rem; color: rgba(226,230,255,.6); }
+</style>

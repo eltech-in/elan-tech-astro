@@ -1,0 +1,88 @@
+---
+// Homepage products: one stacked card per product with its screen (designed mock-ups, sample data).
+// Products come from src/data/products.ts; a product without a screen still gets a card.
+import { Image } from 'astro:assets';
+import { products } from '../../data/products';
+import shotInsurance from '../../assets/uae/insurance.png';
+import shotRealEstate from '../../assets/uae/real-estate.png';
+import shotResort from '../../assets/uae/resort.png';
+import shotConference from '../../assets/uae/conference.png';
+import shotSociety from '../../assets/uae/society.png';
+import shotPms from '../../assets/uae/pms.png';
+import shotCms from '../../assets/uae/central-cms.png';
+
+const SHOTS: Record<string, ImageMetadata> = {
+  'insurance-agency-management-portal': shotInsurance,
+  'real-estate-portal': shotRealEstate,
+  'resort-management-system': shotResort,
+  'medical-conference-portal': shotConference,
+  'ima-society-portal': shotSociety,
+  'project-management-system': shotPms,
+  'elan-central-cms': shotCms,
+};
+const hexToRgb = (hex: string) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16)).join(' ');
+const cards = products.map((p, i) => ({
+  ...p,
+  n: String(i + 1).padStart(2, '0'),
+  shot: SHOTS[p.slug],
+  tint: /^#[0-9a-f]{6}$/i.test(p.accent) ? hexToRgb(p.accent) : '99 102 241',
+  stack: [...new Set((p.stack ?? []).flatMap((g) => g.items))].slice(0, 6),
+}));
+---
+<section aria-labelledby="products-heading" class="products">
+  <div class="wrap">
+    <p class="eyebrow">Proprietary software</p>
+    <h2 id="products-heading" class="h2">Products built around real business needs.</h2>
+    <p class="lead">A content platform for Astro websites, and configurable software for property, conferences, associations, hospitality, insurance agencies and project teams. Each one starts your project from working software, adapted to your business.</p>
+    <ul class="stack" role="list">
+      {cards.map((card, i) => (
+        <li class="pcard" style={`--tint:${card.tint};--i:${i}`}>
+          <div class="copy">
+            <p class="n">{card.n} · Product</p>
+            <h3>{card.title}</h3>
+            <p class="desc">{card.desc}</p>
+            {card.stack.length > 0 && (
+              <ul class="chips" role="list" aria-label={`${card.title} technology`}>
+                {card.stack.map((item) => <li>{item}</li>)}
+              </ul>
+            )}
+            <a href={`/products/${card.slug}/`} class="more" aria-label={`Learn more about ${card.title}`}>Learn More <span aria-hidden="true">→</span></a>
+          </div>
+          {card.shot && (
+            <div class="shot">
+              <Image src={card.shot} alt={`${card.title} screen with sample data`} widths={[640, 1040, 1600]} sizes="(min-width: 1024px) 640px, 92vw" />
+            </div>
+          )}
+        </li>
+      ))}
+    </ul>
+    <p class="note">Screens are designed mock-ups with sample data. <a href="/products/">See all products →</a></p>
+  </div>
+</section>
+
+<style>
+  .products { padding: 6rem 0; background: var(--bg-card); }
+  .wrap { max-width: 76rem; margin: 0 auto; padding: 0 1rem; }
+  @media (min-width: 640px) { .wrap { padding: 0 1.5rem; } }
+  @media (min-width: 1024px) { .wrap { padding: 0 2rem; } }
+  .eyebrow { font-size: .75rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
+  .h2 { margin-top: .8rem; max-width: 48rem; font-family: var(--font-heading, inherit); font-weight: 700; font-size: clamp(1.9rem, 3.8vw, 3.1rem); line-height: 1.08; letter-spacing: -.03em; color: var(--text); }
+  .lead { margin-top: 1.1rem; max-width: 46rem; font-size: 1.06rem; line-height: 1.7; color: var(--text-dim); }
+  .stack { display: grid; gap: 1.4rem; margin-top: 3rem; }
+  .pcard { position: sticky; top: calc(5.5rem + var(--i) * .9rem); display: grid; gap: 1.6rem; align-items: center; padding: 1.8rem; border-radius: 1.8rem;
+    border: 1px solid var(--border); background: linear-gradient(135deg, rgb(var(--tint) / .16), rgb(var(--tint) / .03) 55%), var(--bg);
+    box-shadow: 0 -10px 40px -20px rgba(0,0,0,.25), 0 30px 60px -45px rgb(var(--tint) / .7); }
+  @media (min-width: 1024px) { .pcard { grid-template-columns: .85fr 1.15fr; padding: 2.4rem; min-height: 25rem; } }
+  @media (max-width: 1023px) { .pcard { position: relative; top: 0; } }
+  .n { font-size: .75rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--text-muted); }
+  h3 { margin-top: .7rem; font-family: var(--font-heading, inherit); font-size: clamp(1.5rem, 2.4vw, 2.1rem); font-weight: 700; letter-spacing: -.025em; color: var(--text); }
+  .desc { margin-top: .8rem; line-height: 1.7; color: var(--text-dim); }
+  .chips { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: 1.1rem; }
+  .chips li { padding: .3rem .75rem; border-radius: 999px; font-size: .75rem; font-weight: 700; color: var(--text); background: rgb(var(--tint) / .12); border: 1px solid rgb(var(--tint) / .3); }
+  .more { display: inline-flex; align-items: center; gap: .35rem; min-height: 2.75rem; margin-top: .8rem; font-weight: 700; color: var(--accent); }
+  .more:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .shot { border-radius: 1rem; overflow: hidden; box-shadow: 0 0 0 1px rgb(var(--tint) / .25), 0 25px 60px -25px rgba(0,0,0,.45); }
+  .shot :global(img) { display: block; width: 100%; height: auto; }
+  .note { margin-top: 1.5rem; font-size: .85rem; color: var(--text-muted); }
+  .note a { font-weight: 700; color: var(--accent); }
+</style>

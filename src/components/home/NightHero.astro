@@ -1,0 +1,92 @@
+---
+// Homepage hero in the night-sky style. The pre-heading, H1 wording, subheading links and trust
+// badges are unchanged (the H1 and title are frozen for SEO until the 10 December 2026 review).
+// Product screens are designed mock-ups with sample data.
+import '../../styles/night.css';
+import { Image } from 'astro:assets';
+import { homepageSeoBaseline } from '../../data/seoStability';
+import shotPms from '../../assets/uae/pms.png';
+import shotCms from '../../assets/uae/central-cms.png';
+import shotRealEstate from '../../assets/uae/real-estate.png';
+
+const yearsExp = new Date().getFullYear() - 2002;
+---
+<section aria-labelledby="hero-heading" class="ns hero">
+  <div class="ns-stars" aria-hidden="true"></div>
+  <div class="ns-beam" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="ns-pill">
+      <span class="dot" aria-hidden="true"></span>
+      <span>Web design · eCommerce · Accessibility · Since 2002</span>
+    </p>
+    <h1 id="hero-heading" class="h1">
+      <span class="block">{homepageSeoBaseline.h1Lead}</span>
+      <span class="block ns-grad">{homepageSeoBaseline.h1Proof}</span>
+    </h1>
+    <p class="sub">
+      We create fast, accessible websites and custom online stores on{' '}
+      <a href="/services/ecommerce/shopify-development/">Shopify</a>,{' '}
+      <a href="/services/ecommerce/medusa-js-development/">Medusa.js</a>{' '}
+      and WooCommerce. Based in <a href="/web-design-company-nagpur/">Nagpur</a>, trusted by 500+ businesses since 2002.
+    </p>
+    <div class="ctas">
+      <a href="/get-quote/" class="ns-btn">Request a Quote <span aria-hidden="true">→</span></a>
+      <a href="/portfolio/" class="ns-ghost">Explore Our Work</a>
+    </div>
+    <ul class="badges" aria-label="Trust indicators">
+      {[`${yearsExp}+ Years`, '500+ Clients', '1,500+ Projects', 'Accessibility-first', 'WCAG Testing'].map((badge) => (
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>{badge}</li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="stage" aria-hidden="true">
+    <div class="screen main">
+      <Image src={shotPms} alt="" widths={[800, 1280, 2080]} sizes="(min-width: 1100px) 1040px, 94vw" loading="eager" fetchpriority="high" />
+    </div>
+    <div class="screen left ns-float"><Image src={shotCms} alt="" widths={[480, 800]} sizes="340px" /></div>
+    <div class="screen right ns-float"><Image src={shotRealEstate} alt="" widths={[480, 800]} sizes="360px" /></div>
+    <span class="ns-chip c1 ns-float"><i></i>Shopify · Medusa.js · WooCommerce</span>
+    <span class="ns-chip c2 ns-float"><i></i>WCAG testing built in</span>
+    <span class="ns-chip c3 ns-float"><i></i>Your own CRM, ERP and portals</span>
+  </div>
+  <p class="note">Product screens are designed mock-ups with sample data.</p>
+</section>
+
+<style>
+  .hero { padding: 4.5rem 0 0; text-align: center; }
+  .wrap { max-width: 64rem; margin: 0 auto; padding: 0 1rem; position: relative; }
+  .dot { width: .5rem; height: .5rem; border-radius: 50%; background: #a5b4fc; box-shadow: 0 0 10px #818cf8; }
+  .h1 { margin-top: 1.6rem; font-family: var(--font-heading, inherit); font-weight: 700; font-size: clamp(2.4rem, 6.4vw, 5rem); line-height: 1.03; letter-spacing: -0.04em; overflow-wrap: anywhere; }
+  .sub { margin: 1.5rem auto 0; max-width: 42rem; font-size: 1.15rem; line-height: 1.65; color: var(--ns-dim); }
+  .sub a { color: #fff; text-decoration: underline; text-decoration-color: rgba(165,180,252,.6); text-underline-offset: 3px; }
+  .sub a:hover { text-decoration-color: #fff; }
+  .ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; margin-top: 2rem; }
+  .badges { display: flex; flex-wrap: wrap; justify-content: center; gap: .55rem; margin-top: 2rem; }
+  .badges li { display: inline-flex; align-items: center; gap: .4rem; padding: .35rem .8rem; border-radius: 999px; font-size: .8rem; font-weight: 600; color: var(--ns-dim); background: rgba(255,255,255,.05); border: 1px solid rgba(199,210,254,.2); }
+  .badges svg { width: .8rem; height: .8rem; fill: none; stroke: #a5b4fc; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+
+  .stage { position: relative; max-width: 72rem; margin: 3.5rem auto 0; padding: 0 1rem; perspective: 2200px; }
+  .screen { border-radius: 1rem; overflow: hidden; box-shadow: 0 0 0 1px rgba(199,210,254,.28), 0 30px 80px -20px rgba(0,0,0,.75), 0 0 60px -10px rgba(99,102,241,.55); }
+  .screen :global(img) { display: block; width: 100%; height: auto; }
+  .main { position: relative; max-width: 58rem; margin: 0 auto; transform: rotateX(16deg) scale(.97); transform-origin: 50% 0;
+    -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent 100%); mask-image: linear-gradient(180deg, #000 60%, transparent 100%); }
+  @supports (animation-timeline: view()) {
+    .main { animation: flatten linear both; animation-timeline: view(); animation-range: entry 10% cover 45%; }
+    @keyframes flatten { from { transform: rotateX(22deg) scale(.94); } to { transform: rotateX(0deg) scale(1); } }
+  }
+  .left { position: absolute; left: 0; top: 30%; width: 30%; max-width: 21rem; transform: rotate(-4deg); animation-delay: -3s; }
+  .right { position: absolute; right: 0; top: 10%; width: 32%; max-width: 22rem; transform: rotate(4deg); }
+  .ns-chip { position: absolute; }
+  .c1 { left: 6%; top: -1.2rem; animation-delay: -2s; }
+  .c2 { right: 8%; top: 58%; animation-delay: -4s; }
+  .c3 { left: 3%; top: 72%; animation-delay: -1s; }
+  .note { position: relative; margin-top: -3rem; padding: 0 1rem 1.6rem; font-size: .72rem; color: rgba(226,230,255,.5); }
+  @media (max-width: 767px) {
+    .hero { padding-top: 3rem; }
+    .left, .right, .c3 { display: none; }
+    .c1 { left: 4%; top: -1.4rem; } .c2 { right: 4%; top: auto; bottom: 25%; }
+    .stage { margin-top: 3rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { .main { animation: none !important; } }
+</style>
