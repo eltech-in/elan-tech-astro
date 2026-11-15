@@ -2,13 +2,12 @@
 # Same steps as `npm run deploy` (scripts/deploy.sh), run by GitHub instead of a laptop.
 #
 # One-time setup (GitHub repo → Settings → Secrets and variables → Actions → New repository secret):
-#   HOSTINGER_SSH_HOST         e.g. 123.45.67.89 or srv123.hstgr.io   (hPanel → Advanced → SSH Access)
-#   HOSTINGER_SSH_PORT         65002 on Hostinger shared hosting
-#   HOSTINGER_SSH_USER         e.g. u123456789
-#   HOSTINGER_SSH_PRIVATE_KEY  the private half of a key made only for deploys; add the public half in
-#                              hPanel → Advanced → SSH Access → SSH keys
-# Optional repository variable (same page, "Variables" tab):
-#   HOSTINGER_REMOTE_PATH      defaults to public_html (same as scripts/deploy.sh)
+#   HOSTINGER_SSH_PRIVATE_KEY  the private half of a key made only for deploys (~/.ssh/hostinger_deploy on
+#                              the owner's Mac); its public half is added in hPanel → Advanced → SSH Access
+# The server address, port and username below are not secret. Override them, or the folder, with
+# repository variables (same page, "Variables" tab) if the hosting changes:
+#   HOSTINGER_SSH_HOST (82.112.232.47) · HOSTINGER_SSH_PORT (65002) · HOSTINGER_SSH_USER (u881024201)
+#   HOSTINGER_REMOTE_PATH (domains/elan-tech.net/public_html; ~/public_html is a link to it)
 #
 # The build only uploads after every build check and audit passes. The server-only lead-alert
 # configuration lives outside public_html (~/elan-tech-private) and is never touched.
@@ -74,28 +73,33 @@ jobs:
       - name: Prepare SSH
         if: steps.freeze.outputs.frozen != 'true'
         env:
-          SSH_HOST: ${{ secrets.HOSTINGER_SSH_HOST }}
-          SSH_PORT: ${{ secrets.HOSTINGER_SSH_PORT }}
           SSH_KEY: ${{ secrets.HOSTINGER_SSH_PRIVATE_KEY }}
+        # The server's public host keys, checked on 2026-11-16 against the fingerprints shown in
+        # hPanel (ED25519 SHA256:nz6XFdcgHdJySLhQZZTajHXcfJxEI7doTGGxp6j4n/c). Pinning them means the
+        # upload refuses to run against any other machine. Update these lines if Hostinger moves the site.
         run: |
           install -m 700 -d ~/.ssh
           printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -p "${SSH_PORT:-65002}" "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          cat >> ~/.ssh/known_hosts <<'KEYS'
+          [82.112.232.47]:65002 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ0bgY4WRLNoMa8o/BgK58W3ZDgiLAgIfk+WqdQhVyiN
+          [82.112.232.47]:65002 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBIs4L83AW1VG9KFFjpcTauw/sxzxFxwIDzLjO7B9SSQGkAUYxNLEHnB35sGFhvbWWXT3jB+HXKZauO2xMauuQbQ=
+          KEYS
+          sed -i 's/^ *//' ~/.ssh/known_hosts
 
       - name: Upload dist/ to Hostinger
         if: steps.freeze.outputs.frozen != 'true'
         env:
-          SSH_HOST: ${{ secrets.HOSTINGER_SSH_HOST }}
-          SSH_PORT: ${{ secrets.HOSTINGER_SSH_PORT }}
-          SSH_USER: ${{ secrets.HOSTINGER_SSH_USER }}
-          REMOTE_PATH: ${{ vars.HOSTINGER_REMOTE_PATH || 'public_html' }}
+          SSH_HOST: ${{ vars.HOSTINGER_SSH_HOST || '82.112.232.47' }}
+          SSH_PORT: ${{ vars.HOSTINGER_SSH_PORT || '65002' }}
+          SSH_USER: ${{ vars.HOSTINGER_SSH_USER || 'u881024201' }}
+          REMOTE_PATH: ${{ vars.HOSTINGER_REMOTE_PATH || 'domains/elan-tech.net/public_html' }}
         # --delete removes files that are no longer part of the site (for example the old /dubai/ folder).
         # .well-known/ is kept for SSL certificate checks.
         run: |
           rsync -az --delete --stats \
             --exclude='.well-known/' \
-            -e "ssh -p ${SSH_PORT:-65002} -i ~/.ssh/deploy_key" \
+            -e "ssh -p ${SSH_PORT:-65002} -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes" \
             dist/ "${SSH_USER}@${SSH_HOST}:${REMOTE_PATH}/"
 
       - name: Check the live site

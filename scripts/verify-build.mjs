@@ -964,6 +964,8 @@ check('UAE page is indexable, linked site-wide and still makes no UAE client cla
   && ['index.html', 'about/index.html'].every(page => fileContains(page, 'href="/web-design-company-dubai-uae/"')));
 
 // The Dubai and BNI presentations are independent files, not website pages.
+// Deploys mirror dist/ to the server with --delete, so server-only files must live in public/.
+check('Google Search Console verification file is deployed', fileContains('googlec89e8a0254460df4.html', 'google-site-verification: googlec89e8a0254460df4.html'));
 check('No Dubai trip page or trip banner on the website', !existsSync(join(DIST, 'dubai/index.html')) && fileNotContains('index.html', 'id="trip-banner"'));
 // The BNI Raipur share page is shared by link only: noindex, out of the sitemap, and its
 // presentation copy loads the site's own fonts (the security policy blocks embedded fonts).
