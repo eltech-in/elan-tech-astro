@@ -237,13 +237,13 @@ await checkNoindex('Search results', `${SITE_URL}/search/?q=portfolio`);
 await checkPageText(
   'Emergency accessibility service',
   '/services/ada-compliant-web-design/emergency-remediation/',
-  ['within 48 hours'],
+  ['scoped testing, code-level remediation'],
   ['within 24 hours', '24-hour emergency'],
 );
 await checkPageText(
   'Free website audit',
   '/free-website-audit/',
-  ['initial response from us within 48 hours'],
+  ['initial findings within two business days'],
   ['we deliver in 24 hours', '24-hour emergency audits'],
 );
 await checkPageText(
@@ -255,14 +255,14 @@ await checkPageText(
 await checkPageText(
   'Canada accessibility service',
   '/web-design-company-canada/',
-  ['respond to assessment requests within 48 hours'],
+  ['initial replies are normally sent within one business day'],
   ['results in 24-48 hours'],
 );
 await checkPageText(
   'AI web development article',
   '/blog/technology-trends/ai-web-development-2026/',
-  ['delivered within 24-48 hours'],
-  ['free 24-hour audit'],
+  [],
+  ['free 24-hour audit', 'delivered within 24-48 hours'],
 );
 await checkPageText(
   'LLM service summary',
