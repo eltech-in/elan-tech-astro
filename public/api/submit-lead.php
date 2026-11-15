@@ -40,7 +40,11 @@ $formType = (string) ($request['formType'] ?? '');
 $notify = ($request['notify'] ?? false) === true;
 $fields = $request['fields'] ?? null;
 
-$allowedForms = ['contact', 'free-audit', 'get-quote', 'rush-assessment', 'request-demo'];
+$allowedForms = ['contact', 'website-audit', 'get-quote', 'rush-assessment', 'request-demo'];
+// Pages cached before 16 November 2026 still send the old form name.
+if ($formType === 'free-audit') {
+    $formType = 'website-audit';
+}
 if (!preg_match('/^[a-zA-Z0-9-]{12,64}$/', $submissionId)) {
     respond(400, ['ok' => false, 'error' => 'Invalid submission ID']);
 }
@@ -89,14 +93,16 @@ unset($cleanFields['_honey'], $cleanFields['_captcha'], $cleanFields['_template'
 $privacyNoticeVersions = [
     'contact' => 'contact-2026-09-23',
     'get-quote' => 'get-quote-2026-09-23',
-    'free-audit' => 'free-audit-2026-09-23',
+    'website-audit' => 'website-audit-2026-11-16',
     'request-demo' => 'request-demo-2026-09-24',
     'rush-assessment' => 'rush-assessment-2026-09-24',
 ];
 if (isset($privacyNoticeVersions[$formType])) {
     $privacyAccepted = ($cleanFields['privacyAccepted'] ?? false) === true;
     $privacyNoticeVersion = (string) ($cleanFields['_privacyNoticeVersion'] ?? '');
-    if (!$privacyAccepted || $privacyNoticeVersion !== $privacyNoticeVersions[$formType]) {
+    // The website-audit form was named free-audit before 16 November 2026; accept its notice version from cached pages.
+    $legacyAuditNotice = $formType === 'website-audit' && $privacyNoticeVersion === 'free-audit-2026-09-23';
+    if (!$privacyAccepted || ($privacyNoticeVersion !== $privacyNoticeVersions[$formType] && !$legacyAuditNotice)) {
         respond(422, ['ok' => false, 'error' => 'Privacy acknowledgement is required']);
     }
 }
@@ -110,7 +116,7 @@ if ($formType === 'get-quote') {
     }
 }
 
-if ($formType === 'free-audit') {
+if ($formType === 'website-audit') {
     $auditName = trim((string) ($cleanFields['name'] ?? ''));
     $auditUrl = trim((string) ($cleanFields['url'] ?? ''));
     $parsedAuditUrl = filter_var($auditUrl, FILTER_VALIDATE_URL);
@@ -178,7 +184,7 @@ $retentionMarker = $storageRoot . '/.lead-retention-last-run';
 $shouldPruneLeads = !is_file($retentionMarker) || filemtime($retentionMarker) < time() - 86400;
 if ($shouldPruneLeads) {
     $leadCutoff = time() - (365 * 86400);
-    $formsWithTwelveMonthRetention = ['contact', 'get-quote', 'free-audit', 'request-demo', 'rush-assessment'];
+    $formsWithTwelveMonthRetention = ['contact', 'get-quote', 'website-audit', 'request-demo', 'rush-assessment'];
     $currentLeadFile = 'leads-' . gmdate('Y-m') . '.jsonl';
     foreach (glob($storageRoot . '/leads-*.jsonl') ?: [] as $candidateFile) {
         if (basename($candidateFile) === $currentLeadFile || !is_file($candidateFile)) {

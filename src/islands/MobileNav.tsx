@@ -296,7 +296,7 @@ export default function MobileNav({ services = [], products = [] }: { services?:
               }}
             >
               <a
-                href="/free-website-audit/"
+                href="/website-audit/"
                 onClick={close}
                 style={{
                   display: 'block',

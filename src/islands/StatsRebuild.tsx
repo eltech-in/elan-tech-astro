@@ -27,7 +27,7 @@ const stats: Stat[] = [
     color: 'var(--ac-indigo)',
   },
   {
-    end: 1200,
+    end: 1500,
     suffix: '+',
     label: 'Projects delivered',
     sub: 'On time, on scope',

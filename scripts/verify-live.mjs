@@ -242,7 +242,7 @@ await checkPageText(
 );
 await checkPageText(
   'Free website audit',
-  '/free-website-audit/',
+  '/website-audit/',
   ['initial findings within two business days'],
   ['we deliver in 24 hours', '24-hour emergency audits'],
 );

@@ -55,7 +55,7 @@ assert.equal(accepted.calls().filter(call => call[1] === 'generate_lead').length
 const lead = runtime({ consent: optedIn, pending: { formType: 'contact', createdAt: Date.now() } });
 lead.runConfirmation(); lead.runConfirmation();
 assert.equal(lead.calls().filter(call => call[1] === 'generate_lead').length, 1, 'Confirmed lead is counted once');
-for (const form of ['contact', 'free-audit', 'get-quote', 'rush-assessment', 'request-demo']) {
+for (const form of ['contact', 'website-audit', 'get-quote', 'rush-assessment', 'request-demo']) {
   const submission = runtime({ consent: optedIn, form, pending: { formType: form, createdAt: Date.now() } });
   submission.runConfirmation(); submission.runConfirmation();
   assert.equal(submission.calls().filter(call => call[1] === 'generate_lead').length, 1, `${form}: one conversion per accepted submission`);
@@ -63,7 +63,7 @@ for (const form of ['contact', 'free-audit', 'get-quote', 'rush-assessment', 're
 for (const pending of [
   { formType: 'contact', createdAt: Date.now() - 300001 },
   { formType: 'contact', createdAt: Date.now() + 60000 },
-  { formType: 'free-audit', createdAt: Date.now() },
+  { formType: 'website-audit', createdAt: Date.now() },
 ]) {
   const invalid = runtime({ consent: optedIn, pending });
   invalid.runConfirmation();

@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { breadcrumbSchema, faqSchema } from '../utils/schema';
 import RazorpayPaymentGate from '../components/RazorpayPaymentGate.astro';
-import FreeAuditForm from '../islands/FreeAuditForm';
+import WebsiteAuditForm from '../islands/WebsiteAuditForm';
 import AuditPrice from '../components/AuditPrice.astro';
 import { AUDIT_PRICES, auditPrice } from '../data/auditPricing';
 const RAZORPAY_AUDIT_INR = 'pl_Sqm5fZAebJ6xx7';
@@ -22,14 +22,14 @@ const checks = [
   { title: 'Public security signals', text: 'HTTPS behaviour and publicly returned security headers, with issues described in context.', note: 'No password testing, exploitation, private-data access or vulnerability-scanning promise.' },
   { title: 'Enquiry friction', text: 'Visible calls to action, form labels, error guidance, contact links and consent choices.', note: 'Inbox delivery requires a separately agreed test, not just a successful-looking form.' },
 ];
-const schemas = [breadcrumbSchema([{name:'Home',url:'/'},{name:'Website Audit',url:'/free-website-audit/'}]), faqSchema(faqs), {
+const schemas = [breadcrumbSchema([{name:'Home',url:'/'},{name:'Website Audit',url:'/website-audit/'}]), faqSchema(faqs), {
   '@context':'https://schema.org', '@type':'Service', name:'Website audit',
   provider:{'@type':'Organization',name:'eLan Technology',url:'https://elan-tech.net/'},
   description:'Initial review of public website pages with prioritised findings. Remediation and deeper testing are separately scoped.',
-  offers:{'@type':'Offer',price:String(AUDIT_PRICES.website.INR),priceCurrency:'INR',url:'https://elan-tech.net/free-website-audit/'}
+  offers:{'@type':'Offer',price:String(AUDIT_PRICES.website.INR),priceCurrency:'INR',url:'https://elan-tech.net/website-audit/'}
 }];
 ---
-<BaseLayout ogImage="/images/og/audit.png" title="Website Audit from ₹999: Scope, Findings & Next Steps | eLan Technology" description="A ₹999 review of your website’s SEO foundations, mobile experience, speed and public security signals, with prioritised findings. See the scope, turnaround and next steps." canonical="/free-website-audit/" schema={schemas}>
+<BaseLayout ogImage="/images/og/website-audit.png" title="Website Audit from ₹999: Scope, Findings & Next Steps | eLan Technology" description="A ₹999 review of your website’s SEO foundations, mobile experience, speed and public security signals, with prioritised findings. See the scope, turnaround and next steps." canonical="/website-audit/" schema={schemas}>
   <section class="relative overflow-hidden border-b border-[var(--border)] bg-[var(--bg-card)] py-16 md:py-24">
     <div class="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1.2fr_1fr] lg:px-8">
       <div>
@@ -96,7 +96,7 @@ const schemas = [breadcrumbSchema([{name:'Home',url:'/'},{name:'Website Audit',u
     <div class="mx-auto max-w-3xl px-4 sm:px-6">
       <h2 class="font-heading text-3xl font-bold">Request your website audit</h2>
       <p class="mb-8 mt-4 text-[var(--text-dim)]">The fee is <AuditPrice kind="website" class="font-semibold text-[var(--text)]" /> per domain. After you submit, we confirm the request and send a payment link; the review starts once payment is received. We use your details to respond to this request—not to enrol you in a newsletter. Read the form notice before submitting.</p>
-      <FreeAuditForm client:load />
+      <WebsiteAuditForm client:load />
       <p class="mt-5 text-sm leading-6 text-[var(--text-dim)]">Three short steps: website and contact details → optional priorities → notes and permission. Phone, company and notes are optional. After submission, a confirmation page acknowledges receipt; the findings follow by email after review. If you cannot complete the form, <a href="/contact/" class="font-semibold underline">contact us</a> without sharing passwords or customer records.</p>
     </div>
   </section>

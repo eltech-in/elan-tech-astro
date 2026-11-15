@@ -10,7 +10,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <script is:inline>
     (function () {
-      var allowedForms = ['contact', 'free-audit', 'get-quote', 'rush-assessment', 'request-demo'];
+      var allowedForms = ['contact', 'website-audit', 'get-quote', 'rush-assessment', 'request-demo'];
       var formType = new URLSearchParams(window.location.search).get('form');
       if (!formType || allowedForms.indexOf(formType) === -1) return;
 

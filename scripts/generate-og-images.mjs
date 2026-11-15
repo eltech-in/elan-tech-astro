@@ -55,7 +55,7 @@ const cards = [
     eyebrow: 'LET’S BUILD SOMETHING USEFUL',
     title: ['Tell us what your', 'business needs next'],
     subtitle: 'Talk directly with the eLan Technology team in Nagpur.',
-    tags: ['Request a quote', 'WhatsApp', 'Free consultation'],
+    tags: ['Request a quote', 'WhatsApp', 'Book a consultation'],
     accent: '#E74788',
     secondary: '#FF8C42',
     mark: 'HI',
@@ -100,16 +100,7 @@ const cards = [
     secondary: '#06A6A6',
     mark: 'IDEA',
   },
-  {
-    file: 'audit.png',
-    eyebrow: 'FREE HUMAN-REVIEWED WEBSITE AUDIT',
-    title: ['Find what is holding', 'your website back'],
-    subtitle: 'A practical review of SEO, speed, security and accessibility.',
-    tags: ['Clear priorities', 'No obligation', 'Actionable report'],
-    accent: '#008C72',
-    secondary: '#F26722',
-    mark: '✓',
-  },
+  // The website-audit card (website-audit.png, ₹999) is designed separately; nothing on the site is offered free.
 ];
 
 function escapeXml(value) {

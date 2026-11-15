@@ -141,7 +141,7 @@ check('lead backup endpoint',                   fileContains('api/submit-lead.ph
 check('thank-you conversion event',             fileContains('thank-you/index.html', '__elanTrackEvent', 'generate_lead', 'lead-conversion-pending'));
 check('Branded Open Graph image set',           [
   'home.png', 'services.png', 'accessibility.png', 'pricing.png', 'contact.png',
-  'locations-india.png', 'international.png', 'products.png', 'blog.png', 'audit.png',
+  'locations-india.png', 'international.png', 'products.png', 'blog.png', 'website-audit.png',
 ].every((file) => fileExists(`images/og/${file}`)));
 check('Cloudflare _headers excluded',           fileNotExists('_headers'));
 check('Cloudflare _redirects excluded',         fileNotExists('_redirects'));
@@ -278,7 +278,7 @@ check('ADA service: remediation + WCAG title and 48-hour response', fileContains
   'Emergency response within 48 hours.',
 ));
 check('Website audit: concise title with the fee', fileContains(
-  'free-website-audit/index.html',
+  'website-audit/index.html',
   '<title>Website Audit from ₹999: Scope, Findings &amp; Next Steps | eLan Technology</title>',
 ));
 check('Trends article: title matches what the article delivers', fileContains(
@@ -383,7 +383,7 @@ const ogImageChecks = [
   ['eCommerce service', 'services/ecommerce/index.html', '/images/ecommerce-og-2026.png'],
   ['Pricing', 'pricing/index.html', '/images/og/pricing.png'],
   ['Contact', 'contact/index.html', '/images/og/contact.png'],
-  ['Free audit', 'free-website-audit/index.html', '/images/og/audit.png'],
+  ['Website audit', 'website-audit/index.html', '/images/og/website-audit.png'],
   ['Products', 'products/index.html', '/images/og/products.png'],
   ['Blog hub', 'blog/index.html', '/images/og/blog.png'],
   ['India city page', 'web-design-company-nagpur/index.html', '/images/og/locations-india.png'],
@@ -499,7 +499,7 @@ check('Useful web-design archive is indexed after content expansion', fileContai
 check('Internal CTAs avoid crawlable form parameters',
   generatedHtmlFiles(DIST).every((path) => {
     const html = readFileSync(path, 'utf8');
-    return !/href="\/(?:get-quote|free-website-audit)\/\?/.test(html);
+    return !/href="\/(?:get-quote|website-audit)\/\?/.test(html);
   })
 );
 check('International pages avoid unsupported savings and compliance guarantees',
@@ -549,7 +549,7 @@ check('Emergency accessibility timing is confirmed against scope and availabilit
   'delivered in 24–72 hours',
 ));
 check('Free audit page has no 24-hour emergency accessibility promise', fileNotContains(
-  'free-website-audit/index.html',
+  'website-audit/index.html',
   'we deliver in 24 hours',
   '24-hour emergency audits',
 ));
@@ -829,7 +829,7 @@ check('Generated image recovery rules do not redirect probes to sales pages',
 
 section('T  Focused UAE, audit preview and city buying information');
 check('UAE page qualifies language, location and integration scope', fileContains('web-design-company-dubai-uae/index.html', 'Scope my UAE project', 'qualified Arabic specialist', 'merchant onboarding', 'not UAE client claims', 'signed scope'));
-check('Website audit preserves positioning and labels sample findings', fileContains('free-website-audit/index.html', 'A website audit with a clear scope', 'fictional examples', 'Not included:', 'Three short steps:', 'Request my audit'));
+check('Website audit preserves positioning and labels sample findings', fileContains('website-audit/index.html', 'A website audit with a clear scope', 'fictional examples', 'Not included:', 'Three short steps:', 'Request my audit'));
 
 // From 15 November 2026 nothing on the site is offered free: audits are paid (src/data/auditPricing.ts).
 {
@@ -838,7 +838,7 @@ check('Website audit preserves positioning and labels sample findings', fileCont
     .filter((path) => freeOffer.test(readFileSync(path, 'utf8').replace(/<script[\s\S]*?<\/script>/g, '').replace(/href="[^"]*"/g, '')));
   check('No page offers a free audit, review, consultation or quote', offenders.length === 0, offenders.slice(0, 5).map((f) => f.replace(DIST + '/', '')).join(', '));
 }
-check('Audit page shows the ₹999 fee and paid schema offer', fileContains('free-website-audit/index.html', '₹999', '"price":"999"', 'Accessibility audits start'));
+check('Audit page shows the ₹999 fee and paid schema offer', fileContains('website-audit/index.html', '₹999', '"price":"999"', 'Accessibility audits start'));
 check('Country pages show audit prices in their own currency', fileContains('web-design-company-dubai-uae/index.html', 'AED 69', 'AED 369')
   && fileContains('web-design-company-canada/index.html', 'C$25', 'C$139')
   && fileContains('web-design-company-usa/index.html', 'US$19', 'US$99')

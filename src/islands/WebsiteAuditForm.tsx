@@ -15,7 +15,7 @@ const AUDIT_ASPECTS = [
 const inputClass =
   'w-full rounded-lg border border-[var(--border)] bg-[var(--bg)] px-4 py-2.5 text-sm text-[var(--text)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] transition-all';
 
-export default function FreeAuditForm() {
+export default function WebsiteAuditForm() {
   const [step, setStep] = useState(1);
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
@@ -94,16 +94,16 @@ export default function FreeAuditForm() {
 
     setStatus('submitting');
     try {
-      await submitLead('free-audit', {
+      await submitLead('website-audit', {
         _subject: `Website Audit Request (paid) from ${step1.name}`,
         _honey: honeypot,
         ...step1,
         ...step2,
         notes: step3.notes,
         privacyAccepted,
-        _privacyNoticeVersion: 'free-audit-2026-09-23',
+        _privacyNoticeVersion: 'website-audit-2026-11-16',
       });
-      redirectToThankYou('free-audit');
+      redirectToThankYou('website-audit');
     } catch {
       setStatus('error');
       setErrorMsg('Something went wrong. Please try again or contact us directly.');

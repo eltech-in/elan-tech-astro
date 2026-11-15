@@ -138,7 +138,7 @@ export default defineConfig({
           url.endsWith('/about') ||
           url.endsWith('/contact') ||
           url.endsWith('/careers') ||
-          url.endsWith('/free-website-audit') ||
+          url.endsWith('/website-audit') ||
           url.endsWith('/testimonials')
         ) {
           item.priority = 0.8
@@ -221,7 +221,8 @@ export default defineConfig({
     // Old service / audit URLs
     '/ada-compliant-web-design': '/services/ada-compliant-web-design/',
     '/wcag-accessibility-audit': '/services/ada-compliant-web-design/',
-    '/website-audit': '/free-website-audit/',
+    '/free-website-audit': '/website-audit/',
+    '/free-audit': '/website-audit/',
     '/appointments': '/schedule-consultation/',
     // No India national page yet — send to flagship Nagpur HQ page
     '/web-design-company-india': '/web-design-company-nagpur/',

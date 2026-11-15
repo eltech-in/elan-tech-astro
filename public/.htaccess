@@ -158,8 +158,8 @@ RewriteRule ^(?:pricing/digital-launchpad|launchpad|4year|offer)/?$ /pricing/ [L
 
 # Old CTAs
 RewriteRule ^appointments/?$    /schedule-consultation/   [L,R=301]
-RewriteRule ^free-audit/?$      /free-website-audit/      [L,R=301]
-RewriteRule ^website-audit/?$   /free-website-audit/      [L,R=301]
+RewriteRule ^free-audit/?$         /website-audit/   [L,R=301]
+RewriteRule ^free-website-audit/?$ /website-audit/   [L,R=301]
 RewriteRule ^get-a-quote$       /get-quote                [L,R=301]
 RewriteRule ^request-quote$     /get-quote                [L,R=301]
 RewriteRule ^quote$             /get-quote                [L,R=301]

@@ -40,8 +40,8 @@ try {
   assert.equal(destination, '/thank-you/?form=contact&analytics_debug=1', 'QA flag survives confirmation without personal query data');
   assert.equal(receipt.formType, 'contact');
   window.location.search = '';
-  redirectToThankYou('free-audit');
-  assert.equal(destination, '/thank-you/?form=free-audit', 'Ordinary enquiries are not marked as developer traffic');
+  redirectToThankYou('website-audit');
+  assert.equal(destination, '/thank-you/?form=website-audit', 'Ordinary enquiries are not marked as developer traffic');
   console.log('Lead-delivery checks passed: reliable alert, fallback, storage-only capture, validation failure, total outage, QA redirect and ordinary redirect.');
 } finally {
   globalThis.fetch = originalFetch;
