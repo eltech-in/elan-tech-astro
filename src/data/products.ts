@@ -279,6 +279,7 @@ export const products: Product[] = [
       { group: 'Backend', items: ['NestJS'] },
       { group: 'Database', items: ['MySQL'] },
     ],
+    demoUrl: 'https://insurems.elantech.cloud/',
     contactForDemo: true,
   },
 ];

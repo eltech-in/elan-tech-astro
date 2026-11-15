@@ -963,31 +963,23 @@ check('UAE page is indexable, linked site-wide and still makes no UAE client cla
   '<meta name="robots" content="index,follow">', 'not UAE client claims', 'Products that fit UAE sectors', 'https://wa.me/918788834630', 'href="/technologies/"', 'href="/products/real-estate-portal/"')
   && ['index.html', 'about/index.html'].every(page => fileContains(page, 'href="/web-design-company-dubai-uae/"')));
 
-// Dubai visit: trip page for the QR code, and a dated site-wide banner.
+// The Dubai and BNI presentations are independent files, not website pages.
+check('No Dubai trip page or trip banner on the website', !existsSync(join(DIST, 'dubai/index.html')) && fileNotContains('index.html', 'id="trip-banner"'));
+// The BNI Raipur share page is shared by link only: noindex, out of the sitemap, and its
+// presentation copy loads the site's own fonts (the security policy blocks embedded fonts).
 {
-  const tripSource = readFileSync(join(SRC, 'data/trip.ts'), 'utf8');
-  const endsAt = Date.parse((tripSource.match(/endsAt: '([^']+)'/) ?? [])[1] ?? '');
-  const visitOver = Number.isFinite(endsAt) && Date.now() > endsAt;
-  check('Dubai trip page exists, is kept out of Google and makes no UAE client claim', fileContains('dubai/index.html',
-    '<meta name="robots" content="noindex', 'eLan Technology in Dubai', '6–12 December 2026', 'https://wa.me/918788834630',
-    'We do not have a UAE office and we do not claim UAE clients', '500+', '1,500+', 'href="/technologies/"',
-    'href="/products/insurance-agency-management-portal/"', 'href="/products/project-management-system/"')
-    && fileNotContains('sitemap-0.xml', 'elan-tech.net/dubai/'));
-  check(visitOver ? 'Dubai banner is gone now the visit is over' : 'Dubai banner shows site-wide but not on the trip page',
-    visitOver
-      ? fileNotContains('index.html', 'id="trip-banner"')
-      : ['index.html', 'products/index.html', 'contact/index.html'].every(page => fileContains(page, 'id="trip-banner"', 'href="/dubai/"'))
-        && fileNotContains('dubai/index.html', 'id="trip-banner"'));
+  const page = join(DIST, 'bni-raipur/index.html');
+  const deck = join(DIST, 'bni-raipur/presentation/index.html');
+  const files = ['elan-bni-raipur-presentation.mp4', 'poster.jpg', 'nishant-barde.vcf'].map(f => join(DIST, 'bni-raipur', f));
+  const pageHtml = existsSync(page) ? readFileSync(page, 'utf8') : '';
+  const deckHtml = existsSync(deck) ? readFileSync(deck, 'utf8') : '';
+  const sitemapXml = ['sitemap-0.xml', 'sitemap-index.xml'].map(f => join(DIST, f)).filter(existsSync).map(f => readFileSync(f, 'utf8')).join('');
+  check('BNI Raipur share page is noindex and its files are present',
+    /<meta name="robots" content="noindex/i.test(pageHtml) && files.every(f => existsSync(f)) && pageHtml.includes('/bni-raipur/presentation/'));
+  check('BNI Raipur share page is not in the sitemap', !sitemapXml.includes('/bni-raipur'));
+  check('BNI Raipur presentation is noindex and uses site fonts',
+    /<meta name="robots" content="noindex">/i.test(deckHtml) && deckHtml.includes('url(/fonts/sora-latin.woff2)') && !deckHtml.includes('data:font/woff2'));
 }
-
-// eLan Central CMS: featured on the homepage, service pages and its own page.
-check('Central CMS page explains the publish flow and stack', fileContains('products/elan-central-cms/index.html',
-  'eLan Central CMS', 'Payload CMS', 'PostgreSQL', 'From edit to live in four steps', 'live websites keep working', 'id="product-stack-heading"'));
-check('Central CMS is featured on the homepage and CMS service pages', fileContains('index.html', 'One CMS behind every new website we build', 'href="/products/elan-central-cms/"')
-  && ['services/web-development/index.html', 'services/headless-cms-development/index.html', 'services/payload-directus-development/index.html'].every(page =>
-    fileContains(page, 'eLan Central CMS: Payload CMS for Astro websites', 'href="/products/elan-central-cms/"')));
-check('Central CMS admin URL is not published', ['index.html', 'products/elan-central-cms/index.html', 'technologies/index.html', 'llms.txt'].every(page => fileNotContains(page, 'elancms.elantech.cloud')));
-check('Technologies page lists Payload CMS with the Central CMS as proof', fileContains('technologies/index.html', 'Payload CMS', 'PostgreSQL', '/products/elan-central-cms/'));
 
 const total = passed + failed;
 console.log(`\n${'─'.repeat(60)}`);

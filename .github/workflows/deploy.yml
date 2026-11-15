@@ -1,0 +1,105 @@
+# Builds, checks and deploys elan-tech.net to Hostinger whenever main changes.
+# Same steps as `npm run deploy` (scripts/deploy.sh), run by GitHub instead of a laptop.
+#
+# One-time setup (GitHub repo → Settings → Secrets and variables → Actions → New repository secret):
+#   HOSTINGER_SSH_HOST         e.g. 123.45.67.89 or srv123.hstgr.io   (hPanel → Advanced → SSH Access)
+#   HOSTINGER_SSH_PORT         65002 on Hostinger shared hosting
+#   HOSTINGER_SSH_USER         e.g. u123456789
+#   HOSTINGER_SSH_PRIVATE_KEY  the private half of a key made only for deploys; add the public half in
+#                              hPanel → Advanced → SSH Access → SSH keys
+# Optional repository variable (same page, "Variables" tab):
+#   HOSTINGER_REMOTE_PATH      defaults to public_html (same as scripts/deploy.sh)
+#
+# The build only uploads after every build check and audit passes. The server-only lead-alert
+# configuration lives outside public_html (~/elan-tech-private) and is never touched.
+name: Deploy to Hostinger
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Deploy even during the 6–12 December 2026 trip freeze'
+        type: boolean
+        default: false
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment:
+      name: production
+      url: https://elan-tech.net/
+    steps:
+      # No automatic deploys while the owner is travelling (6–12 December 2026, India time).
+      # A manual run with "force" ticked still deploys. Delete this step after the trip.
+      - name: Check the deploy freeze
+        id: freeze
+        run: |
+          today=$(TZ=Asia/Kolkata date +%Y%m%d)
+          if [ "$today" -ge 20261206 ] && [ "$today" -le 20261212 ] && [ "${{ inputs.force }}" != "true" ]; then
+            echo "Deploy freeze (6–12 December 2026). Run the workflow manually with 'force' to deploy anyway."
+            echo "frozen=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.freeze.outputs.frozen != 'true'
+
+      - uses: actions/setup-node@v4
+        if: steps.freeze.outputs.frozen != 'true'
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install
+        if: steps.freeze.outputs.frozen != 'true'
+        run: npm ci
+
+      - name: Build
+        if: steps.freeze.outputs.frozen != 'true'
+        run: npm run build
+
+      - name: Check the build (205 checks and audits)
+        if: steps.freeze.outputs.frozen != 'true'
+        run: npm run verify
+
+      - name: Prepare SSH
+        if: steps.freeze.outputs.frozen != 'true'
+        env:
+          SSH_HOST: ${{ secrets.HOSTINGER_SSH_HOST }}
+          SSH_PORT: ${{ secrets.HOSTINGER_SSH_PORT }}
+          SSH_KEY: ${{ secrets.HOSTINGER_SSH_PRIVATE_KEY }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "${SSH_PORT:-65002}" "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Upload dist/ to Hostinger
+        if: steps.freeze.outputs.frozen != 'true'
+        env:
+          SSH_HOST: ${{ secrets.HOSTINGER_SSH_HOST }}
+          SSH_PORT: ${{ secrets.HOSTINGER_SSH_PORT }}
+          SSH_USER: ${{ secrets.HOSTINGER_SSH_USER }}
+          REMOTE_PATH: ${{ vars.HOSTINGER_REMOTE_PATH || 'public_html' }}
+        # --delete removes files that are no longer part of the site (for example the old /dubai/ folder).
+        # .well-known/ is kept for SSL certificate checks.
+        run: |
+          rsync -az --delete --stats \
+            --exclude='.well-known/' \
+            -e "ssh -p ${SSH_PORT:-65002} -i ~/.ssh/deploy_key" \
+            dist/ "${SSH_USER}@${SSH_HOST}:${REMOTE_PATH}/"
+
+      - name: Check the live site
+        if: steps.freeze.outputs.frozen != 'true'
+        # Hostinger's CDN can serve old pages for a few minutes; a failure here does not undo the upload.
+        continue-on-error: true
+        run: npm run verify:live

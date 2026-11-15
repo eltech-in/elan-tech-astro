@@ -193,6 +193,11 @@ RewriteRule ^(.+?)/?$ /$1/index.html [L]
 # (it's a special-cased file Astro keeps flat so Apache can resolve it).
 ErrorDocument 404 /404.html
 
+# ─── Media types for shared files (BNI Raipur share page) ───────────────────
+# The contact card opens the phone's "add contact" screen; the video streams.
+AddType text/vcard .vcf
+AddType video/mp4 .mp4
+
 # ─── 10. Security headers ───────────────────────────────────────────────────
 <IfModule mod_headers.c>
   Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
@@ -202,7 +207,7 @@ ErrorDocument 404 /404.html
   Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
   Header set Cross-Origin-Opener-Policy "same-origin-allow-popups"
   Header set Cross-Origin-Resource-Policy "same-site"
-  Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net https://www.clarity.ms https://*.clarity.ms https://assets.calendly.com; style-src 'self' 'unsafe-inline' https://assets.calendly.com; font-src 'self'; img-src 'self' data: https: blob:; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.clarity.ms https://formsubmit.co https://calendly.com https://*.calendly.com; frame-src 'self' https://calendly.com https://*.calendly.com https://www.google.com/maps https://maps.google.com https://*.sibforms.com; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+  Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net https://www.clarity.ms https://*.clarity.ms https://assets.calendly.com; style-src 'self' 'unsafe-inline' https://assets.calendly.com; font-src 'self'; img-src 'self' data: https: blob:; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.clarity.ms https://formsubmit.co https://calendly.com https://*.calendly.com; frame-src 'self' https://www.youtube-nocookie.com https://calendly.com https://*.calendly.com https://www.google.com/maps https://maps.google.com https://*.sibforms.com; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
   Header unset X-Powered-By
   Header unset Server
 
@@ -227,7 +232,7 @@ ErrorDocument 404 /404.html
   </FilesMatch>
 
   # Images — 30 days + SWR
-  <FilesMatch "\.(jpg|jpeg|png|webp|avif|gif|svg|ico)$">
+  <FilesMatch "\.(jpg|jpeg|png|webp|avif|gif|svg|ico|mp4)$">
     Header set Cache-Control "public, max-age=2592000, stale-while-revalidate=86400"
   </FilesMatch>
 

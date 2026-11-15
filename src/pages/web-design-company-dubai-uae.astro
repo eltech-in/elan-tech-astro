@@ -1,22 +1,609 @@
 ---
-import InternationalLayout from '../layouts/InternationalLayout.astro';
-import UAEImplementation from '../components/international/UAEImplementation.astro';
-import UAEMarketFit from '../components/international/UAEMarketFit.astro';
+// UAE market page. A self-contained design (dark "night sky" hero, product screens in
+// perspective, stacked product cards) that still keeps the page's honesty rules:
+// no UAE client, office or deployment is claimed, Arabic needs a qualified specialist,
+// and integrations are validated before they are promised. Copy that verify-build.mjs
+// checks is marked "(checked)". Product screens are designed mock-ups with sample data.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import ServicesCloud from '../components/ServicesCloud.astro';
 import InternationalFAQ from '../components/international/InternationalFAQ.astro';
-import InternationalContact from '../components/international/InternationalContact.astro';
+import InternationalPrivacyNotice from '../components/international/InternationalPrivacyNotice.astro';
+import JurisdictionCompliance from '../components/international/JurisdictionCompliance.astro';
+import { Image } from 'astro:assets';
 import { getCountryBySlug } from '../data/countries';
+import { isIndexedLocationSlug } from '../data/indexPolicy';
+import { products } from '../data/products';
+import { serviceSchema, faqSchema, breadcrumbSchema } from '../utils/schema';
+
+import shotInsurance from '../assets/uae/insurance.png';
+import shotRealEstate from '../assets/uae/real-estate.png';
+import shotResort from '../assets/uae/resort.png';
+import shotConference from '../assets/uae/conference.png';
+import shotSociety from '../assets/uae/society.png';
+import shotPms from '../assets/uae/pms.png';
+import shotCms from '../assets/uae/central-cms.png';
+import visCommerce from '../assets/uae/vis-ecommerce.png';
+import visCrm from '../assets/uae/vis-crm.png';
+import visIntegrations from '../assets/uae/vis-integrations.png';
+import siteHealthyGenie from '../assets/uae/site-healthygenie.png';
+import siteRangresha from '../assets/uae/site-rangresha.png';
+import videoPoster from '../assets/uae/dubai-video-poster.jpg';
 
 const country = getCountryBySlug('dubai-uae')!;
+const pageUrl = `/web-design-company-${country.slug}/`;
+const title = 'Ecommerce & Business-System Implementation for UAE | eLan Technology';
+const description = 'Shopify, Medusa.js, Zoho Commerce and custom CRM/ERP implementation for UAE businesses. India-based delivery with scoped Arabic/English interfaces and integrations.';
+const introduction = 'Build a storefront and business workflows that work together. Our Nagpur studio delivers remotely, with Arabic/English scope, integrations, approvals and support agreed before development.';
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'International', href: '/services/' },
+  { name: country.name, href: pageUrl },
+];
+const schema = [
+  serviceSchema(
+    `Web Design & Development Services for ${country.name}`,
+    `Web design, development, ecommerce and accessibility services for ${country.name} businesses, delivered remotely from eLan Technology's India studio.`,
+    `https://elan-tech.net${pageUrl}`,
+    country.name,
+    'Country'
+  ),
+  breadcrumbSchema(breadcrumbs.map((b) => ({ name: b.name, url: b.href }))),
+  ...(country.faq.length > 0 ? [faqSchema(country.faq)] : []),
+];
+
+// The Dubai visit band shows until the end of the trip (12 December 2026, noon in Dubai).
+// A small script also hides it in the browser after that time, between deploys.
+const TRIP_END = '2026-12-12T08:00:00Z';
+const showTrip = Date.now() < Date.parse(TRIP_END);
+
+// The Dubai introduction video. Paste the YouTube video ID here (the part after "v=" or
+// after "youtu.be/") to play it from YouTube; YouTube loads only when the visitor presses
+// play, through the privacy-enhanced youtube-nocookie.com player. While it is empty the
+// page plays the self-hosted copy in public/videos/ instead.
+const YOUTUBE_ID = '';
+
+const whatsapp = 'https://wa.me/918788834630';
+const platforms = ['Shopify', 'Medusa.js', 'Zoho Commerce', 'Payload CMS', 'Directus', 'ERPNext', 'Next.js', 'Astro', 'Node.js', 'NestJS', 'PostgreSQL', 'MySQL'];
+
+const capabilities = [
+  { title: 'Ecommerce that fits the operation', href: '/services/ecommerce/', text: 'Shopify, Medusa.js or Zoho Commerce implementation and customisation, selected around catalogue complexity, checkout requirements, subscriptions and the team maintaining the store.', image: visCommerce, span: 'lg:col-span-7' },
+  { title: 'Business systems that connect the work', href: '/services/custom-crm-erp-solutions/', text: 'Custom CRM and ERP workflows, ERPNext customisation and scoped integrations for enquiries, approvals, stock and reporting. Discovery establishes which existing systems should remain.', image: visCrm, span: 'lg:col-span-5' },
+  { title: 'Content across languages and channels', href: '/services/headless-cms-development/', text: 'Payload CMS or Directus for structured content and publishing permissions. English and Arabic content architecture, language switching and right-to-left interfaces can be separately scoped.', image: null, span: 'lg:col-span-5' },
+  { title: 'Integrations, validated first', href: '/services/integrations/', text: 'Payment gateways, shipping, accounting and CRM connections are confirmed with each provider before a feature is promised.', image: visIntegrations, span: 'lg:col-span-7' },
+];
+
+// Which UAE buyers each product suits. Titles, links and stacks come from products.ts.
+const sectorFit: Record<string, { sector: string; fit: string; shot: ImageMetadata; tint: string }> = {
+  'insurance-agency-management-portal': { sector: 'Insurance agencies and brokers', fit: 'Policies, renewals, quotations, commissions, sub-agents and customer family records in one system.', shot: shotInsurance, tint: '16 185 129' },
+  'real-estate-portal': { sector: 'Property agencies and developers', fit: 'Listings, advanced search, agent dashboards, maps and lead capture on a portal you control.', shot: shotRealEstate, tint: '0 180 140' },
+  'resort-management-system': { sector: 'Hotels, resorts and holiday homes', fit: 'Online room booking, an occupancy dashboard, billing, and staff and housekeeping scheduling.', shot: shotResort, tint: '245 158 11' },
+  'medical-conference-portal': { sector: 'Medical and professional conferences', fit: 'Delegate registration, abstract submission, speakers, schedules and certificates for conference organisers.', shot: shotConference, tint: '99 102 241' },
+  'ima-society-portal': { sector: 'Membership associations and professional societies', fit: 'Memberships and renewals, events with online registration, documents and fee payments.', shot: shotSociety, tint: '236 72 153' },
+  'project-management-system': { sector: 'Agencies and service firms', fit: 'Clients, projects, tasks, billing, enquiries and renewal reminders in one workspace.', shot: shotPms, tint: '96 165 250' },
+  'elan-central-cms': { sector: 'Marketing and content teams', fit: 'Edit pages, posts and images in one dashboard, and publish fast static pages to your own hosting.', shot: shotCms, tint: '6 182 212' },
+};
+const productCards = Object.entries(sectorFit)
+  .map(([slug, fit]) => {
+    const product = products.find((item) => item.slug === slug);
+    if (!product) return null;
+    const stack = [...new Set((product.stack ?? []).flatMap((group) => group.items))].slice(0, 6);
+    return { ...fit, title: product.title, href: `/products/${product.slug}/`, stack };
+  })
+  .filter((card): card is NonNullable<typeof card> => card !== null);
+
+const workingFacts = [
+  { icon: 'clock', title: 'Working hours', text: 'UAE time is 1.5 hours behind India, so most of the working day overlaps. Meeting windows and response times are agreed at kickoff.' },
+  { icon: 'coins', title: 'Quoting currency', text: 'Proposals can be quoted in AED or USD. The proposal names the currency, what is included and any recurring charges.' },
+  { icon: 'lang', title: 'Languages', text: 'Delivery is in English. Arabic content and right-to-left interfaces are scoped separately and reviewed by a qualified Arabic specialist.' },
+  { icon: 'lock', title: 'Confidentiality', text: 'We can review a mutual NDA before sensitive project details are shared. Work delivered under NDA is not named or shown.', href: '/nda-confidentiality-policy/', linkLabel: 'NDA and confidentiality policy' },
+];
+const steps = [
+  ['Discovery call', 'Your systems, languages, markets and the outcome your team needs.'],
+  ['Written scope', 'A proposal that separates implementation, licences, hosting and support.'],
+  ['Staged demos', 'Working software at agreed checkpoints, in your time zone.'],
+  ['Acceptance and handover', 'Tests you sign off, source code, access and documentation.'],
+];
+const principles = [
+  { title: 'Arabic / English: implementation is not translation', text: 'Agree the language coverage of pages, product data, forms, transactional messages and search metadata. We can implement RTL layouts and language switching; a qualified Arabic specialist must supply or approve translation, terminology and cultural review. Arabic-language support staffing is not assumed.' },
+  { title: 'Integrations: validate before promising', text: 'Confirm payment-gateway eligibility, merchant onboarding, API access, shipping coverage, tax configuration and accounting or CRM interfaces before committing to a feature. Availability depends on the platform plan and provider. Tax and regulatory decisions remain with your qualified advisers.' },
+  { title: 'Remote delivery with written checkpoints', text: 'Agree meeting windows, approval owners, staged demonstrations and acceptance tests at kickoff. Delivery dates depend on signed scope, content readiness and third-party access, not a blanket turnaround promise.' },
+  { title: 'A proposal that separates the costs', text: 'Separate implementation, localisation, hosting, licences, API charges, maintenance and upgrades. Confirm source-code rights, application ownership, hosting location, data access and handover against the proposal and payment terms.' },
+];
+const ICONS: Record<string, string> = {
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  coins: '<ellipse cx="9" cy="7" rx="6" ry="3"/><path d="M3 7v5c0 1.7 2.7 3 6 3s6-1.3 6-3V7"/><path d="M9 15v2c0 1.7 2.7 3 6 3s6-1.3 6-3v-5c0-1.7-2.7-3-6-3"/>',
+  lang: '<path d="M4 5h8M8 3v2M5.5 5c.8 3 3 5.5 6 7M10.5 5c-.8 3-3 5.5-6 7"/><path d="M13 21l4-9 4 9M14.5 18h5"/>',
+  lock: '<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+};
 ---
 
-<InternationalLayout country={country}
-  title="Ecommerce & Business-System Implementation for UAE | eLan Technology"
-  description="Shopify, Medusa.js, Zoho Commerce and custom CRM/ERP implementation for UAE businesses. India-based delivery with scoped Arabic/English interfaces and integrations."
-  heading="Ecommerce & business-system implementation for UAE businesses"
-  introduction="Build a storefront and business workflows that work together. Our Nagpur studio delivers remotely, with Arabic/English scope, integrations, approvals and support agreed before development."
-  primaryAction={{ href: '/get-quote/', label: 'Scope my UAE project' }}>
-  <UAEImplementation slot="market-introduction" />
-  <UAEMarketFit />
-  <InternationalFAQ country={country} />
-  <InternationalContact country={country} />
-</InternationalLayout>
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={`https://elan-tech.net${pageUrl}`}
+  ogImage="/images/og/uae.jpg"
+  schema={schema}
+  noindex={!isIndexedLocationSlug(country.slug)}
+>
+  <div class="uae">
+    <!-- ───────────── Hero ───────────── -->
+    <section class="sky hero" aria-labelledby="uae-title">
+      <div class="stars" aria-hidden="true"></div>
+      <div class="beam" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="crumbs"><Breadcrumb items={breadcrumbs} /></div>
+        <p class="pill" data-reveal>
+          <span aria-hidden="true">{country.flag}</span> Serving United Arab Emirates businesses
+          {showTrip && <span class="pill-trip" data-trip> · Meet us in Dubai, 7–12 December</span>}
+        </p>
+        <h1 id="uae-title" class="display" data-reveal>
+          Ecommerce &amp; business-system implementation <span class="grad">for UAE businesses</span>
+        </h1>
+        <p class="lead" data-reveal>{introduction}</p>
+        <div class="ctas" data-reveal>
+          <a href="/get-quote/" class="btn-glow">Scope my UAE project <span aria-hidden="true">→</span></a>
+          <a href="/schedule-consultation/" class="btn-ghost">Book a call</a>
+        </div>
+        <ul class="trust" role="list" data-reveal>
+          <li><b>24+</b> years in business</li>
+          <li><b>500+</b> clients</li>
+          <li><b>1,500+</b> projects delivered</li>
+          <li><b>1.5 h</b> time difference</li>
+        </ul>
+      </div>
+
+      <div class="stage" aria-hidden="true">
+        <div class="screen-main">
+          <Image src={shotInsurance} alt="" widths={[800, 1280, 2080]} sizes="(min-width: 1100px) 1040px, 94vw" loading="eager" fetchpriority="high" />
+        </div>
+        <div class="float f1"><Image src={shotRealEstate} alt="" widths={[480, 800]} sizes="360px" /></div>
+        <div class="tag t1"><i></i>English <span class="ar" lang="ar" dir="rtl">العربية</span></div>
+        <div class="tag t2"><i></i>Quoted in AED or USD</div>
+        <div class="tag t3"><i></i>Shopify · Medusa.js · Zoho Commerce</div>
+      </div>
+      <p class="sample-note">Product screens are designed mock-ups with sample data.</p>
+    </section>
+
+    <!-- ───────────── Platforms ───────────── -->
+    <section class="strip" aria-label="Platforms and technology we implement">
+      <p>Platforms and technology we implement</p>
+      <div class="marquee"><ul role="list">{[...platforms, ...platforms].map((p, i) => <li aria-hidden={i >= platforms.length ? 'true' : undefined}>{p}</li>)}</ul></div>
+    </section>
+
+    <!-- ───────────── Capabilities ───────────── -->
+    <section class="band" aria-labelledby="uae-implementation">
+      <div class="wrap">
+        <p class="eyebrow" data-reveal>India-based implementation · UAE business requirements</p>
+        <h2 id="uae-implementation" class="h2" data-reveal>Connect your storefront, content and business workflows.</h2>
+        <p class="sub" data-reveal>Work remotely with our Nagpur studio. Start with the systems you operate, the languages your customers use and the outcomes your team needs.</p>
+        <div class="bento">
+          {capabilities.map((c) => (
+            <article class={`card ${c.span}`} data-reveal>
+              <div class="card-copy">
+                <h3>{c.title}</h3>
+                <p>{c.text}</p>
+                <a href={c.href} class="more">Explore the service <span aria-hidden="true">→</span></a>
+              </div>
+              {c.image ? (
+                <div class="card-art"><Image src={c.image} alt="" widths={[640, 1040]} sizes="(min-width: 1024px) 560px, 92vw" /></div>
+              ) : (
+                <div class="card-art bilingual" aria-hidden="true">
+                  <div class="bl-bar"><span class="on">English</span><span lang="ar" dir="rtl">العربية</span></div>
+                  <div class="bl-cols">
+                    <div class="bl-col"><i style="width:70%"></i><i style="width:92%"></i><i style="width:55%"></i><b></b></div>
+                    <div class="bl-col rtl"><i style="width:70%"></i><i style="width:92%"></i><i style="width:55%"></i><b></b></div>
+                  </div>
+                  <p class="bl-cap">Left-to-right and right-to-left layouts from one content model</p>
+                </div>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* Dubai visit (until 12 December 2026) */}
+    {showTrip && (
+      <section class="sky visit" aria-labelledby="uae-visit" data-trip>
+        <div class="stars" aria-hidden="true"></div>
+        <div class="spot" aria-hidden="true"></div>
+        <div class="wrap visit-grid">
+          <div data-reveal>
+            <p class="eyebrow light">In Dubai · 7–12 December 2026</p>
+            <h2 id="uae-visit" class="h2 light">Meet us in Dubai.</h2>
+            <p class="sub light">We are in Dubai from noon on 7 December to noon on 12 December (Dubai time) for meetings with business owners and teams. Book a time to talk about your store, portal or business system.</p>
+            <div class="ctas">
+              <a href="/schedule-consultation/" class="btn-glow">Book a meeting in Dubai <span aria-hidden="true">→</span></a>
+              <a href={`${whatsapp}?text=${encodeURIComponent('Hi Nishant, I would like to meet in Dubai between 7 and 12 December.')}`} target="_blank" rel="noopener noreferrer" data-analytics-placement="uae-visit" class="btn-ghost">Message on WhatsApp<span class="sr-only"> (opens in a new tab)</span></a>
+            </div>
+          </div>
+          <figure class="video" data-reveal>
+            {YOUTUBE_ID ? (
+              <a class="yt" href={`https://www.youtube.com/watch?v=${YOUTUBE_ID}`} data-yt={YOUTUBE_ID} target="_blank" rel="noopener noreferrer">
+                <Image src={videoPoster} alt="" widths={[640, 1280]} sizes="(min-width: 1024px) 620px, 92vw" />
+                <span class="yt-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" /></svg></span>
+                <span class="sr-only">Play the 90-second introduction video (YouTube)</span>
+              </a>
+            ) : (
+              <video controls playsinline preload="none" poster="/videos/elan-dubai-introduction.jpg">
+                <source src="/videos/elan-dubai-introduction.mp4" type="video/mp4" />
+                <a href="/videos/elan-dubai-introduction.mp4">Watch the introduction (MP4)</a>
+              </video>
+            )}
+            <figcaption>Our 90-second introduction: every service and product, built in Nagpur since 2002.</figcaption>
+          </figure>
+        </div>
+      </section>
+    )}
+
+    <!-- ───────────── Products ───────────── -->
+    <section class="band alt" aria-labelledby="uae-products">
+      <div class="wrap">
+        <p class="eyebrow" data-reveal>Ready-built foundations</p>
+        <h2 id="uae-products" class="h2" data-reveal>Products that fit UAE sectors</h2>
+        <p class="sub" data-reveal>Each product is a working foundation that we adapt to the client, so a project starts from tested software and not from a blank page. They were built for Indian businesses first. UAE requirements such as Arabic, VAT, local payment providers, insurer products and sector rules are scoped for each implementation.</p>
+        <ul class="stack" role="list">
+          {productCards.map((card, i) => (
+            <li class="pcard" style={`--tint:${card.tint};--i:${i}`}>
+              <div class="pcard-copy">
+                <p class="pcard-n">{String(i + 1).padStart(2, '0')} · {card.sector}</p>
+                <h3>{card.title}</h3>
+                <p class="pcard-fit">{card.fit}</p>
+                {card.stack.length > 0 && (
+                  <ul class="chips" role="list" aria-label={`${card.title} technology`}>
+                    {card.stack.map((item) => <li>{item}</li>)}
+                  </ul>
+                )}
+                <a href={card.href} class="more">See the {card.title} <span aria-hidden="true">→</span></a>
+              </div>
+              <div class="pcard-shot">
+                <Image src={card.shot} alt={`${card.title} screen with sample data`} widths={[640, 1040, 1600]} sizes="(min-width: 1024px) 640px, 92vw" />
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ───────────── How we work ───────────── -->
+    <section class="band" aria-labelledby="uae-working">
+      <div class="wrap">
+        <p class="eyebrow" data-reveal>Working with a UAE team</p>
+        <h2 id="uae-working" class="h2" data-reveal>What a UAE business can expect from us</h2>
+        <ul class="facts" role="list">
+          {workingFacts.map((fact) => (
+            <li class="fact" data-reveal>
+              <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" set:html={ICONS[fact.icon]} /></span>
+              <h3>{fact.title}</h3>
+              <p>{fact.text}</p>
+              {fact.href && <a href={fact.href} class="more">{fact.linkLabel} <span aria-hidden="true">→</span></a>}
+            </li>
+          ))}
+        </ul>
+
+        <ol class="steps" role="list" data-reveal>
+          {steps.map(([name, text], i) => (
+            <li><span class="dot">{i + 1}</span><b>{name}</b><span>{text}</span></li>
+          ))}
+        </ol>
+
+        <div class="principles">
+          {principles.map((p) => (
+            <article data-reveal><h3>{p.title}</h3><p>{p.text}</p></article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────── Relevant work ───────────── -->
+    <section class="band alt" aria-labelledby="uae-work">
+      <div class="wrap">
+        <p class="eyebrow" data-reveal>Platform experience</p>
+        <h2 id="uae-work" class="h2" data-reveal>Relevant work—not UAE client claims</h2>
+        <p class="sub" data-reveal>Rangresha’s Shopify storefront and Healthy Genie’s Medusa.js commerce implementation show our platform experience. These projects are not presented as UAE deployments or guarantees of results.</p>
+        <div class="work">
+          <a href="https://healthygenie.in/" target="_blank" rel="noopener noreferrer" class="wcard" data-reveal>
+            <div class="wshot"><Image src={siteHealthyGenie} alt="Healthy Genie website home page" widths={[640, 1040, 1440]} sizes="(min-width: 1024px) 560px, 92vw" /></div>
+            <p class="wmeta"><b>Healthy Genie</b> · Medusa.js commerce · meal plans and subscriptions <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></p>
+          </a>
+          <a href="https://rangresha.com/" target="_blank" rel="noopener noreferrer" class="wcard" data-reveal>
+            <div class="wshot"><Image src={siteRangresha} alt="Rangresha website home page" widths={[640, 1040, 1440]} sizes="(min-width: 1024px) 560px, 92vw" /></div>
+            <p class="wmeta"><b>Rangresha</b> · Shopify storefront · handcrafted products <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></p>
+          </a>
+        </div>
+        <div class="links" data-reveal>
+          <a href="/blog/ecommerce/shopify-vs-medusa-js-2026/" class="more">Compare the operating costs of Shopify and Medusa.js <span aria-hidden="true">→</span></a>
+          <a href="/blog/ecommerce/uae-ecommerce-implementation-checklist/" class="more">Read the UAE ecommerce checklist <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <InternationalFAQ country={country} />
+
+    <!-- ───────────── For legal, privacy and procurement teams ───────────── -->
+    <section class="band legal" aria-labelledby="uae-legal">
+      <div class="wrap">
+        <details>
+          <summary>
+            <span>
+              <span class="eyebrow">For legal, privacy and procurement teams</span>
+              <span id="uae-legal" class="legal-title">Privacy, data and compliance details</span>
+            </span>
+            <span class="plus" aria-hidden="true"></span>
+          </summary>
+          <div class="legal-body">
+            <InternationalPrivacyNotice country={country} />
+            <JurisdictionCompliance country={country} />
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ───────────── Final call to action ───────────── -->
+    <section class="sky finale" aria-labelledby="uae-cta">
+      <div class="stars" aria-hidden="true"></div>
+      <div class="spot" aria-hidden="true"></div>
+      <div class="wrap center">
+        <p class="eyebrow light" data-reveal>eLan Technology · Nagpur, India · since 2002</p>
+        <h2 id="uae-cta" class="h2 light big" data-reveal>Let’s scope your UAE project.</h2>
+        <p class="sub light center" data-reveal>Tell us what you sell, the systems you use and the languages your customers need. You get a written proposal, quoted per project, before any work starts. Initial replies are normally sent within one business day.</p>
+        <div class="ctas center" data-reveal>
+          <a href="/get-quote/" class="btn-glow">Scope my UAE project <span aria-hidden="true">→</span></a>
+          <a href={whatsapp} target="_blank" rel="noopener noreferrer" data-analytics-placement="uae-final" class="btn-ghost">Message us on WhatsApp<span class="sr-only"> (opens in a new tab)</span></a>
+          <a href="/schedule-consultation/" class="btn-ghost">Book a call</a>
+        </div>
+        <p class="tiny light" data-reveal><a href="/technologies/">Technologies we build with</a> · <a href="/products/">All products</a> · <a href="/portfolio/">Portfolio</a></p>
+      </div>
+    </section>
+
+    <ServicesCloud location={country.name} />
+  </div>
+
+  <script is:inline define:vars={{ TRIP_END }}>
+    (function () {
+      if (Date.now() >= Date.parse(TRIP_END)) document.querySelectorAll('[data-trip]').forEach(function (el) { el.remove(); });
+      // Click-to-play YouTube: swap the preview for the player only when asked.
+      document.querySelectorAll('.uae a[data-yt]').forEach(function (link) {
+        link.addEventListener('click', function (event) {
+          event.preventDefault();
+          var frame = document.createElement('iframe');
+          frame.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(link.getAttribute('data-yt')) + '?autoplay=1&rel=0&playsinline=1';
+          frame.title = 'eLan Technology: 90-second introduction';
+          frame.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+          frame.allowFullscreen = true;
+          frame.className = 'yt-frame';
+          link.replaceWith(frame);
+        });
+      });
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) return;
+      document.documentElement.classList.add('uae-reveal');
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+      document.querySelectorAll('.uae [data-reveal]').forEach(function (el) { io.observe(el); });
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  .uae {
+    --ink: #eef0ff;
+    --ink-dim: rgba(226, 230, 255, 0.72);
+    --indigo: #6366f1;
+    --violet: #8b5cf6;
+    --sky: #05061a;
+    --u-accent: #4f46e5;
+    --u-card: var(--bg-card);
+  }
+  :global(html.dark) .uae { --u-accent: #a5b4fc; }
+  .wrap { max-width: 76rem; margin: 0 auto; padding: 0 1rem; position: relative; }
+  @media (min-width: 640px) { .wrap { padding: 0 1.5rem; } }
+  @media (min-width: 1024px) { .wrap { padding: 0 2rem; } }
+  .center { text-align: center; margin-left: auto; margin-right: auto; }
+
+  /* ── night-sky sections ── */
+  .sky { position: relative; isolation: isolate; overflow: hidden; background: radial-gradient(120% 80% at 50% 0%, #15184a 0%, #0a0b2a 38%, var(--sky) 72%); color: var(--ink); }
+  .stars { position: absolute; inset: 0; z-index: -1; opacity: 0.9;
+    background-image:
+      radial-gradient(1.4px 1.4px at 12% 18%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 28% 62%, #fff 50%, transparent 51%),
+      radial-gradient(1.2px 1.2px at 46% 12%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 64% 44%, #fff 50%, transparent 51%),
+      radial-gradient(1.6px 1.6px at 78% 22%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 88% 70%, #fff 50%, transparent 51%),
+      radial-gradient(1px 1px at 8% 82%, #fff 50%, transparent 51%), radial-gradient(1.3px 1.3px at 56% 88%, #fff 50%, transparent 51%),
+      radial-gradient(1px 1px at 36% 36%, rgba(255,255,255,.7) 50%, transparent 51%), radial-gradient(1px 1px at 94% 40%, rgba(255,255,255,.7) 50%, transparent 51%);
+    background-size: 520px 520px; animation: twinkle 7s ease-in-out infinite alternate; }
+  @keyframes twinkle { from { opacity: 0.55; } to { opacity: 1; } }
+  .beam { position: absolute; z-index: -1; left: -18%; top: -30%; width: 75%; height: 140%; transform: rotate(-32deg); transform-origin: top left;
+    background: linear-gradient(90deg, transparent 0%, rgba(129, 140, 248, 0.08) 30%, rgba(165, 180, 252, 0.55) 48%, rgba(129, 140, 248, 0.1) 62%, transparent 80%);
+    filter: blur(18px); animation: beam 9s ease-in-out infinite alternate; }
+  @keyframes beam { from { opacity: 0.65; transform: rotate(-32deg) translateX(0); } to { opacity: 1; transform: rotate(-30deg) translateX(3%); } }
+  .spot { position: absolute; z-index: -1; left: 50%; bottom: -10%; width: 70rem; height: 46rem; transform: translateX(-50%);
+    background: radial-gradient(50% 60% at 50% 100%, rgba(129, 140, 248, 0.55), rgba(99, 102, 241, 0.15) 45%, transparent 72%); }
+
+  .hero { padding: 1.5rem 0 0; }
+  .crumbs { margin-bottom: 2.5rem; opacity: 0.85; }
+  .crumbs :global(a), .crumbs :global(span), .crumbs :global(li) { color: rgba(226, 230, 255, 0.75) !important; }
+  .pill { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; padding: 0.45rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600;
+    background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(165, 180, 252, 0.3); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1); }
+  .pill-trip { color: #c7d2fe; }
+  .display { margin-top: 1.4rem; max-width: 56rem; font-family: var(--font-heading, inherit); font-weight: 700; font-size: clamp(2.4rem, 5.6vw, 4.6rem); line-height: 1.04; letter-spacing: -0.035em; }
+  .grad { background: linear-gradient(92deg, #c7d2fe 0%, #a5b4fc 35%, #c4b5fd 65%, #f0abfc 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lead { margin-top: 1.4rem; max-width: 42rem; font-size: 1.15rem; line-height: 1.65; color: var(--ink-dim); }
+  .ctas { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 2rem; }
+  .ctas.center { justify-content: center; }
+  .btn-glow { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 3.1rem; padding: 0 1.6rem; border-radius: 999px; font-weight: 700; color: #fff;
+    background: linear-gradient(180deg, #7c7ff7, #5b5bea); border: 1px solid rgba(199, 210, 254, 0.6);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.18), 0 10px 40px -6px rgba(99, 102, 241, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.45); transition: transform 0.2s, box-shadow 0.2s; }
+  .btn-glow:hover { transform: translateY(-1px); box-shadow: 0 0 0 5px rgba(99, 102, 241, 0.25), 0 14px 50px -6px rgba(129, 140, 248, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.5); }
+  .btn-ghost { display: inline-flex; align-items: center; min-height: 3.1rem; padding: 0 1.5rem; border-radius: 999px; font-weight: 600; color: var(--ink);
+    background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(199, 210, 254, 0.28); transition: background 0.2s; }
+  .btn-ghost:hover { background: rgba(255, 255, 255, 0.11); }
+  .btn-glow:focus-visible, .btn-ghost:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+  .trust { display: flex; flex-wrap: wrap; gap: 0.5rem 1.8rem; margin-top: 2.2rem; font-size: 0.92rem; color: var(--ink-dim); }
+  .trust b { color: var(--ink); font-family: var(--font-heading, inherit); font-size: 1.05rem; margin-right: 0.25rem; }
+
+  .stage { position: relative; max-width: 66rem; margin: 3.5rem auto 0; padding: 0 1rem; perspective: 2200px; }
+  .screen-main { position: relative; border-radius: 1rem; overflow: hidden; transform: rotateX(16deg) scale(0.97); transform-origin: 50% 0;
+    box-shadow: 0 0 0 1px rgba(199, 210, 254, 0.25), 0 40px 120px -20px rgba(99, 102, 241, 0.65), 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+    -webkit-mask-image: linear-gradient(180deg, #000 62%, transparent 100%); mask-image: linear-gradient(180deg, #000 62%, transparent 100%); }
+  .screen-main :global(img) { display: block; width: 100%; height: auto; }
+  @supports (animation-timeline: view()) {
+    .screen-main { animation: flatten linear both; animation-timeline: view(); animation-range: entry 10% cover 45%; }
+    @keyframes flatten { from { transform: rotateX(22deg) scale(0.94); } to { transform: rotateX(0deg) scale(1); } }
+  }
+  .float { position: absolute; width: 34%; max-width: 22rem; right: -1%; top: 12%; border-radius: 0.8rem; overflow: hidden; transform: rotate(4deg);
+    box-shadow: 0 0 0 1px rgba(199, 210, 254, 0.3), 0 30px 70px -15px rgba(0, 0, 0, 0.7), 0 0 60px -10px rgba(139, 92, 246, 0.6); animation: bob 7s ease-in-out infinite; }
+  .float :global(img) { display: block; width: 100%; height: auto; }
+  @keyframes bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
+  .tag { position: absolute; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.9rem; border-radius: 0.8rem; font-size: 0.82rem; font-weight: 600; color: var(--ink);
+    background: rgba(17, 19, 58, 0.78); border: 1px solid rgba(165, 180, 252, 0.35); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.6); animation: bob 8s ease-in-out infinite; }
+  .tag i { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #a5b4fc; box-shadow: 0 0 10px #818cf8; }
+  .tag .ar { font-weight: 700; color: #c7d2fe; }
+  .t1 { left: -1%; top: 18%; animation-delay: -2s; }
+  .t2 { left: 6%; top: 52%; animation-delay: -4s; }
+  .t3 { right: 4%; top: 64%; animation-delay: -1s; }
+  .sample-note { text-align: center; font-size: 0.72rem; color: rgba(226, 230, 255, 0.5); padding: 0.4rem 0 1.5rem; margin-top: -3rem; position: relative; }
+  @media (max-width: 767px) { .float, .t3 { display: none; } .t1 { top: -1.2rem; left: 4%; } .t2 { top: auto; bottom: 22%; left: 4%; } .stage { margin-top: 2.5rem; } }
+
+  /* ── platform strip ── */
+  .strip { background: var(--sky); color: var(--ink-dim); padding: 1.6rem 0 2rem; border-top: 1px solid rgba(165, 180, 252, 0.12); text-align: center; }
+  .strip > p { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(226, 230, 255, 0.55); }
+  .marquee { overflow: hidden; margin-top: 1rem; -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+  .marquee ul { display: flex; width: max-content; gap: 3rem; animation: slide 38s linear infinite; }
+  .marquee li { font-family: var(--font-heading, inherit); font-size: 1.25rem; font-weight: 700; color: rgba(238, 240, 255, 0.82); white-space: nowrap; letter-spacing: -0.01em; }
+  @keyframes slide { to { transform: translateX(-50%); } }
+
+  /* ── light/dark content bands ── */
+  .band { padding: 5.5rem 0; background: var(--bg); }
+  .band.alt { background: var(--bg-card); }
+  .eyebrow { display: block; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--u-accent); }
+  .eyebrow.light { color: #a5b4fc; }
+  .h2 { margin-top: 0.8rem; max-width: 48rem; font-family: var(--font-heading, inherit); font-weight: 700; font-size: clamp(1.9rem, 3.6vw, 3rem); line-height: 1.08; letter-spacing: -0.03em; color: var(--text); }
+  .h2.light { color: var(--ink); }
+  .h2.big { font-size: clamp(2.2rem, 5vw, 4rem); margin-left: auto; margin-right: auto; }
+  .sub { margin-top: 1.1rem; max-width: 44rem; font-size: 1.06rem; line-height: 1.7; color: var(--text-dim); }
+  .sub.light { color: var(--ink-dim); }
+  .more { display: inline-flex; align-items: center; gap: 0.35rem; min-height: 2.75rem; font-weight: 700; color: var(--u-accent); }
+  .more:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  .bento { display: grid; gap: 1.1rem; margin-top: 3rem; }
+  @media (min-width: 1024px) { .bento { grid-template-columns: repeat(12, 1fr); } }
+  .card { display: flex; flex-direction: column; border-radius: 1.6rem; overflow: hidden; border: 1px solid var(--border); background: var(--u-card);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 24px 60px -40px rgba(30, 27, 75, 0.45); transition: transform 0.3s, box-shadow 0.3s; }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 30px 70px -40px rgba(79, 70, 229, 0.55); }
+  .band.alt .card { background: var(--bg); }
+  .card-copy { padding: 1.8rem 1.8rem 0.6rem; }
+  .card h3 { font-family: var(--font-heading, inherit); font-size: 1.35rem; font-weight: 700; color: var(--text); letter-spacing: -0.015em; }
+  .card p { margin-top: 0.7rem; font-size: 0.95rem; line-height: 1.7; color: var(--text-dim); }
+  .card-art { margin: 0.6rem 1.2rem 1.2rem; border-radius: 1rem; overflow: hidden; margin-top: auto; }
+  .card-art :global(img) { display: block; width: 100%; height: auto; }
+  .bilingual { background: linear-gradient(160deg, #1b1d4d, #0d0e2c); padding: 1.1rem; color: #e0e7ff; }
+  .bl-bar { display: inline-flex; gap: 0.25rem; padding: 0.25rem; border-radius: 999px; background: rgba(255, 255, 255, 0.08); font-size: 0.8rem; font-weight: 700; }
+  .bl-bar span { padding: 0.3rem 0.8rem; border-radius: 999px; }
+  .bl-bar .on { background: #6366f1; color: #fff; }
+  .bl-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin-top: 1rem; }
+  .bl-col { display: grid; gap: 0.5rem; padding: 0.9rem; border-radius: 0.8rem; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(165, 180, 252, 0.2); }
+  .bl-col i { display: block; height: 0.5rem; border-radius: 99px; background: rgba(199, 210, 254, 0.45); }
+  .bl-col i:first-child { height: 0.8rem; background: #a5b4fc; }
+  .bl-col b { display: block; width: 45%; height: 1.4rem; border-radius: 99px; background: linear-gradient(90deg, #6366f1, #8b5cf6); margin-top: 0.3rem; }
+  .bl-col.rtl { justify-items: end; }
+  .bl-cap { margin-top: 0.9rem; font-size: 0.78rem; color: rgba(224, 231, 255, 0.7) !important; }
+
+  /* ── Dubai visit ── */
+  .visit { padding: 6rem 0; }
+  .visit-grid { display: grid; gap: 3rem; align-items: center; }
+  @media (min-width: 1024px) { .visit-grid { grid-template-columns: 0.9fr 1.1fr; } }
+  .video { border-radius: 1.2rem; overflow: hidden; background: #000; box-shadow: 0 0 0 1px rgba(199, 210, 254, 0.25), 0 40px 100px -20px rgba(99, 102, 241, 0.7); }
+  .video video { display: block; width: 100%; aspect-ratio: 16 / 9; }
+  .yt { position: relative; display: block; aspect-ratio: 16 / 9; }
+  .yt :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .yt-play { position: absolute; left: 50%; top: 50%; display: grid; place-items: center; width: 5rem; height: 5rem; border-radius: 50%; transform: translate(-50%, -50%);
+    background: linear-gradient(180deg, #7c7ff7, #5b5bea); box-shadow: 0 0 0 8px rgba(99, 102, 241, 0.25), 0 20px 50px -10px rgba(99, 102, 241, 0.9); transition: transform 0.2s; }
+  .yt-play svg { width: 2rem; height: 2rem; margin-left: 0.25rem; fill: #fff; }
+  .yt:hover .yt-play { transform: translate(-50%, -50%) scale(1.06); }
+  .yt:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+  .video :global(.yt-frame) { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; }
+  .video figcaption { padding: 0.8rem 1rem; font-size: 0.85rem; color: var(--ink-dim); background: #0b0c2a; }
+
+  /* ── stacked product cards ── */
+  .stack { display: grid; gap: 1.4rem; margin-top: 3rem; }
+  .pcard { position: sticky; top: calc(5.5rem + var(--i) * 0.9rem); display: grid; gap: 1.6rem; align-items: center; padding: 1.8rem; border-radius: 1.8rem;
+    border: 1px solid var(--border); background: linear-gradient(135deg, rgb(var(--tint) / 0.16), rgb(var(--tint) / 0.03) 55%), var(--bg);
+    box-shadow: 0 -10px 40px -20px rgba(0, 0, 0, 0.25), 0 30px 60px -45px rgb(var(--tint) / 0.7); }
+  @media (min-width: 1024px) { .pcard { grid-template-columns: 0.85fr 1.15fr; padding: 2.4rem; min-height: 26rem; } }
+  @media (max-width: 1023px) { .pcard { position: relative; top: 0; } }
+  .pcard-n { font-size: 0.75rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+  .pcard h3 { margin-top: 0.7rem; font-family: var(--font-heading, inherit); font-size: clamp(1.5rem, 2.4vw, 2.1rem); font-weight: 700; letter-spacing: -0.025em; color: var(--text); }
+  .pcard-fit { margin-top: 0.8rem; line-height: 1.7; color: var(--text-dim); }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.1rem; }
+  .chips li { padding: 0.3rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 700; color: var(--text); background: rgb(var(--tint) / 0.12); border: 1px solid rgb(var(--tint) / 0.3); }
+  .pcard .more { margin-top: 0.8rem; }
+  .pcard-shot { border-radius: 1rem; overflow: hidden; box-shadow: 0 0 0 1px rgb(var(--tint) / 0.25), 0 25px 60px -25px rgba(0, 0, 0, 0.45); }
+  .pcard-shot :global(img) { display: block; width: 100%; height: auto; }
+
+  /* ── how we work ── */
+  .facts { display: grid; gap: 1rem; margin-top: 3rem; }
+  @media (min-width: 640px) { .facts { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1100px) { .facts { grid-template-columns: repeat(4, 1fr); } }
+  .fact { display: flex; flex-direction: column; padding: 1.6rem; border-radius: 1.4rem; border: 1px solid var(--border); background: var(--bg-card); }
+  .ico { display: grid; place-items: center; width: 2.9rem; height: 2.9rem; border-radius: 0.9rem; color: #fff; background: linear-gradient(135deg, #818cf8, #6d28d9); box-shadow: 0 10px 25px -10px rgba(99, 102, 241, 0.9); }
+  .ico svg { width: 1.4rem; height: 1.4rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .fact h3 { margin-top: 1.1rem; font-family: var(--font-heading, inherit); font-size: 1.1rem; font-weight: 700; color: var(--text); }
+  .fact p { margin-top: 0.55rem; flex: 1; font-size: 0.9rem; line-height: 1.65; color: var(--text-dim); }
+  .steps { display: grid; gap: 1rem; margin-top: 2.5rem; padding: 1.6rem; border-radius: 1.4rem; border: 1px solid var(--border); background: var(--bg-card); counter-reset: s; }
+  @media (min-width: 900px) { .steps { grid-template-columns: repeat(4, 1fr); } }
+  .steps li { display: grid; gap: 0.35rem; position: relative; }
+  .steps .dot { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; font-weight: 800; font-size: 0.85rem; color: #fff; background: linear-gradient(135deg, #818cf8, #6d28d9); }
+  .steps b { margin-top: 0.4rem; font-family: var(--font-heading, inherit); color: var(--text); }
+  .steps li > span:last-child { font-size: 0.88rem; line-height: 1.55; color: var(--text-dim); }
+  .principles { display: grid; gap: 1rem; margin-top: 2.5rem; }
+  @media (min-width: 900px) { .principles { grid-template-columns: repeat(2, 1fr); } }
+  .principles article { padding: 1.4rem 1.6rem; border-left: 3px solid #818cf8; background: linear-gradient(90deg, rgba(99, 102, 241, 0.07), transparent 70%); border-radius: 0 1rem 1rem 0; }
+  .principles h3 { font-family: var(--font-heading, inherit); font-size: 1.05rem; font-weight: 700; color: var(--text); }
+  .principles p { margin-top: 0.55rem; font-size: 0.9rem; line-height: 1.7; color: var(--text-dim); }
+
+  /* ── relevant work ── */
+  .work { display: grid; gap: 1.4rem; margin-top: 3rem; }
+  @media (min-width: 900px) { .work { grid-template-columns: 1fr 1fr; } }
+  .wcard { display: block; border-radius: 1.4rem; overflow: hidden; border: 1px solid var(--border); background: var(--bg); transition: transform 0.3s, box-shadow 0.3s; }
+  .wcard:hover { transform: translateY(-4px); box-shadow: 0 30px 60px -35px rgba(79, 70, 229, 0.6); }
+  .wcard:focus-visible { outline: 2px solid var(--u-accent); outline-offset: 3px; }
+  .wshot { aspect-ratio: 16 / 10; overflow: hidden; }
+  .wshot :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 0.6s; }
+  .wcard:hover .wshot :global(img) { transform: scale(1.03); }
+  .wmeta { padding: 1rem 1.3rem; font-size: 0.92rem; color: var(--text-dim); }
+  .wmeta b { color: var(--text); font-family: var(--font-heading, inherit); }
+  .links { display: flex; flex-wrap: wrap; gap: 0.4rem 2rem; margin-top: 1.6rem; }
+
+  /* ── legal details ── */
+  .legal { padding: 3rem 0; }
+  details { border: 1px solid var(--border); border-radius: 1.4rem; background: var(--bg-card); }
+  summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.4rem 1.6rem; cursor: pointer; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary:focus-visible { outline: 2px solid var(--u-accent); outline-offset: 2px; border-radius: 1.4rem; }
+  .legal-title { display: block; margin-top: 0.4rem; font-family: var(--font-heading, inherit); font-size: 1.25rem; font-weight: 700; color: var(--text); }
+  .plus { position: relative; flex: none; width: 2.2rem; height: 2.2rem; border-radius: 50%; border: 1px solid var(--border); }
+  .plus::before, .plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 0.9rem; height: 2px; background: var(--text); transform: translate(-50%, -50%); transition: transform 0.25s; }
+  .plus::after { transform: translate(-50%, -50%) rotate(90deg); }
+  details[open] .plus::after { transform: translate(-50%, -50%) rotate(0deg); }
+  .legal-body { border-top: 1px solid var(--border); }
+
+  /* ── finale ── */
+  .finale { padding: 7rem 0 8rem; }
+  .finale .sub { margin-left: auto; margin-right: auto; }
+  .tiny { margin-top: 2rem; font-size: 0.85rem; color: var(--ink-dim); }
+  .tiny a { color: #c7d2fe; text-decoration: underline; text-underline-offset: 3px; }
+
+  /* ── reveal on scroll (only when JavaScript runs and motion is allowed) ── */
+  :global(html.uae-reveal) .uae [data-reveal] { opacity: 0; transform: translateY(22px); transition: opacity 0.8s ease, transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  :global(html.uae-reveal) .uae [data-reveal].is-in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stars, .beam, .float, .tag, .marquee ul, .screen-main { animation: none !important; }
+    .marquee ul { flex-wrap: wrap; justify-content: center; width: auto; gap: 1rem 2rem; }
+    .marquee li[aria-hidden='true'] { display: none; }
+  }
+</style>

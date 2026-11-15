@@ -49,7 +49,10 @@ function report(type, url, source) {
   issues.push({ type, url, source });
 }
 
-const htmlFiles = walk(DIST).filter((path) => path.endsWith('.html'));
+// Standalone event presentations (noindex, built outside Astro) are not site pages: their
+// links live inside script templates. verify-build.mjs checks them separately.
+const STANDALONE = ['bni-raipur/presentation/'];
+const htmlFiles = walk(DIST).filter((path) => path.endsWith('.html') && !STANDALONE.some((dir) => path.includes(`/${dir}`)));
 
 for (const file of htmlFiles) {
   const html = readFileSync(file, 'utf8');

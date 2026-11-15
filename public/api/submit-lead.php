@@ -552,6 +552,10 @@ if ($notify) {
     }
     $senderName = trim((string) ($alertConfig['sender_name'] ?? 'eLan Technology Website'));
     $brevoApiKey = trim((string) (getenv('BREVO_API_KEY') ?: ($alertConfig['brevo_api_key'] ?? '')));
+    // Brevo is optional. A key still set to the example placeholder counts as not configured.
+    if (str_starts_with($brevoApiKey, 'PASTE_')) {
+        $brevoApiKey = '';
+    }
 
     if (sendWithBrevo($brevoApiKey, $recipients, $senderEmail, $senderName, $email, (string) $subject, $body, $htmlBody)) {
         $notified = true;

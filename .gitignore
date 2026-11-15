@@ -26,3 +26,11 @@ pnpm-debug.log*
 # Claude Code worktrees (linked clones, not submodules)
 .claude/worktrees/
 .env.deploy
+
+# Rendered presentation and film videos, stills and audio (regenerate with the scripts in outputs/dubai-trip)
+outputs/**/*.mp4
+outputs/dubai-trip/film/stills/
+outputs/dubai-trip/film/music.wav
+
+# Personal Claude Code settings
+.claude/settings.local.json

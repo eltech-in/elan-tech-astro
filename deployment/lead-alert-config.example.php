@@ -15,7 +15,8 @@ declare(strict_types=1);
  * Leave a route's placeholder in place to switch that route off.
  */
 return [
-    'brevo_api_key' => 'PASTE_A_BREVO_V3_API_KEY_HERE',
+    // Brevo is optional. Leave this line commented out if you use Gmail below.
+    // 'brevo_api_key' => 'PASTE_A_BREVO_V3_API_KEY_HERE',
     'sender_email' => 'inquiry@elan-tech.net',
     'sender_name' => 'eLanTech Inquiry',
 

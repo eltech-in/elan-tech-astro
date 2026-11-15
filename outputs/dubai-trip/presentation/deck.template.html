@@ -1,0 +1,1038 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#070b16">
+<title><!--if dubai-->eLan Technology in Dubai: presentation<!--endif--><!--if bni-raipur-->eLan Technology at the BNI Conclave, Raipur<!--endif--></title>
+<!--
+  eLan Technology: Dubai presentation. One self-contained file: fonts, logo and QR
+  code are inside it, so it runs offline in any modern browser.
+
+  This file is GENERATED. Edit deck.template.html and run:  node build.mjs
+  Things you are likely to change are at the top of the <script> (DEMOS, CONTACT).
+-->
+<style>
+@font-face{font-family:'Sora';src:url(data:font/woff2;base64,{{SORA}}) format('woff2');font-weight:100 900;font-display:block}
+@font-face{font-family:'DM Sans';src:url(data:font/woff2;base64,{{DMSANS}}) format('woff2');font-weight:100 900;font-display:block}
+
+:root{
+  --bg:#070b16;--ink:#f3f6fb;--dim:#b8c2d6;--muted:#8d9ab5;--accent:#00e5a0;--cyan:#22d3ee;
+  --line:rgba(255,255,255,.15);--glass:rgba(9,14,28,.70);--pad:4.2vw;
+  --font-h:'Sora',system-ui,sans-serif;--font-b:'DM Sans',system-ui,sans-serif;
+  --font-ar:'Geeza Pro','Segoe UI','Noto Naskh Arabic','Noto Sans Arabic','Arial',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:min(1.05vw,1.9vh);background:var(--bg);color:var(--ink);-webkit-text-size-adjust:100%}
+html.tall{font-size:min(3.5vw,1.75vh);--pad:5vw}
+body{font-family:var(--font-b);overflow:hidden;height:100vh;height:100dvh;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+ul,ol{list-style:none}
+
+#app{position:fixed;inset:0;overflow:hidden}
+#sky{position:absolute;inset:0;background:
+  radial-gradient(95% 55% at 76% 100%,rgba(255,150,90,.22),transparent 62%),
+  radial-gradient(80% 50% at 14% 100%,rgba(236,72,153,.14),transparent 60%),
+  linear-gradient(180deg,#04060d 0%,#09112a 42%,#14254a 78%,#22345c 100%)}
+#sky i{position:absolute;border-radius:50%;background:#fff;animation:tw 4.5s ease-in-out infinite}
+@keyframes tw{50%{opacity:.12}}
+#moon{position:absolute;right:9vw;top:9vh;width:5.5rem;height:5.5rem;border-radius:50%;
+  background:radial-gradient(circle at 38% 38%,#fff8e6,#f2dfb0 55%,#d6c08a);box-shadow:0 0 5rem 1rem rgba(255,236,190,.18);opacity:.9}
+.tall #moon{top:4vh;right:6vw;width:3rem;height:3rem}
+.plane{position:absolute;width:.28rem;height:.28rem;border-radius:50%;background:#fff;box-shadow:0 0 .6rem .15rem rgba(255,255,255,.7);animation:fly linear infinite}
+@keyframes fly{from{transform:translateX(-10vw)}to{transform:translateX(112vw)}}
+@keyframes blink{50%{opacity:.2}}
+#sky .neb{position:absolute;border-radius:50%;filter:blur(70px);mix-blend-mode:screen;pointer-events:none}
+#sky .neb.a{width:62vw;height:42vh;left:-12vw;top:6vh;background:radial-gradient(closest-side,rgba(99,102,241,.40),transparent);animation:drift 46s ease-in-out infinite alternate}
+#sky .neb.b{width:52vw;height:38vh;right:-10vw;top:18vh;background:radial-gradient(closest-side,rgba(236,72,153,.28),transparent);animation:drift 62s ease-in-out infinite alternate-reverse}
+#sky .neb.c{width:44vw;height:30vh;left:28vw;top:30vh;background:radial-gradient(closest-side,rgba(34,211,238,.20),transparent);animation:drift 54s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate3d(7vw,3vh,0) scale(1.16)}}
+.shoot{position:absolute;left:12%;top:14%;height:2px;width:9rem;background:linear-gradient(90deg,transparent,#fff 70%);opacity:0;transform:rotate(-24deg);animation:shoot 13s linear infinite}
+@keyframes shoot{0%{opacity:0;transform:translate(0,0) rotate(-24deg)}1.5%{opacity:.95}6%{opacity:0;transform:translate(34vw,15vh) rotate(-24deg)}100%{opacity:0}}
+#vignette{position:absolute;inset:0;pointer-events:none;z-index:3;background:radial-gradient(125% 95% at 50% 46%,transparent 58%,rgba(0,0,0,.5) 100%)}
+#grain{position:absolute;inset:0;pointer-events:none;z-index:3;opacity:.1;mix-blend-mode:overlay}
+#wipe{position:absolute;inset:0;pointer-events:none;z-index:4;opacity:0;background:linear-gradient(105deg,transparent 38%,rgba(0,229,160,0) 44%,rgba(140,255,225,.32) 50%,rgba(0,229,160,0) 56%,transparent 62%);transform:translateX(-110%)}
+#wipe.go{animation:wipe 1.25s cubic-bezier(.4,.1,.2,1)}
+@keyframes wipe{0%{opacity:1;transform:translateX(-110%)}100%{opacity:1;transform:translateX(110%)}}
+.glint{animation:glint 9s linear infinite;mix-blend-mode:screen;transform:translateX(-200px) skewX(-16deg)}
+@keyframes glint{0%{transform:translateX(calc(var(--w)*-1)) skewX(-16deg)}55%,100%{transform:translateX(calc(var(--w)*1.7)) skewX(-16deg)}}
+@keyframes trail{from{transform:translateX(0)}to{transform:translateX(calc(var(--dir,1)*2200px))}}
+.tower.product .body{filter:drop-shadow(0 0 9px color-mix(in srgb,var(--c) 50%,transparent))}
+.lite #grain,.lite #sky .neb,.lite .shoot,.lite .glint,.lite .trails{display:none}
+.lite .tower .body{filter:none!important}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .04em .14em 0;margin:0 -.04em -.14em 0}
+.wi{display:inline-block;transform:translateY(112%);transition:transform 1s cubic-bezier(.2,.85,.2,1);transition-delay:calc(var(--k)*.07s + var(--i,0)*.12s + .15s)}
+.rv.on .wi{transform:none}
+.grad,.grad .wi{background:linear-gradient(90deg,var(--accent),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent;font-style:normal}
+.record #hud .modes,.record #dots,.record #hint,.record .navbtn,.record #paused{display:none!important}
+.record{cursor:none}
+{{VISUALS_CSS}}
+
+#world{position:absolute;inset:0;width:100%;height:100%;display:block}
+.tower{cursor:pointer;transition:opacity .8s ease}
+.tower .rise{transform-box:view-box;transform-origin:0 0;transform:scaleY(.001);transition:transform 1.8s cubic-bezier(.16,.84,.3,1) var(--d,0s)}
+.tower.built .rise{transform:scaleY(1)}
+.tower .windows{opacity:0;transition:opacity 1.5s ease .9s}
+.tower.built .windows{opacity:.92}
+.tower.dim{opacity:.2}
+.tower.soft{opacity:.6}
+.tower .body{transition:filter .6s ease}
+.tower.focus .body{filter:drop-shadow(0 0 26px var(--c))}
+.tower .beacon{animation:blink 2.4s ease-in-out infinite}
+.has-screen #world{opacity:.4;transition:opacity .6s}
+#world{transition:opacity .6s}
+
+#labels{position:absolute;inset:0;pointer-events:none}
+.lbl{position:absolute;left:0;top:0;white-space:nowrap;font:600 .78rem/1 var(--font-b);padding:.4rem .7rem;border-radius:99px;
+  background:rgba(8,12,24,.78);border:1px solid var(--line);color:var(--ink);opacity:0;transition:opacity .5s ease;backdrop-filter:blur(8px)}
+.lbl.on{opacity:1}
+.lbl i{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;margin-right:.45rem;background:var(--c)}
+.lbl.product{border-color:var(--c)}
+.lbl.focus{background:var(--c);color:#06101a;border-color:var(--c);font-weight:700;box-shadow:0 0 1.6rem var(--c)}
+.lbl.focus i{background:#06101a}
+.tall .lbl{font-size:.66rem;padding:.3rem .5rem}
+
+/* ---------- scenes ---------- */
+#scenes{position:absolute;inset:0;pointer-events:none}
+.scene{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .55s ease,visibility 0s .55s}
+.scene.active{opacity:1;visibility:visible;transition:opacity .7s ease .12s,visibility 0s}
+.scene>*{pointer-events:auto}
+.rv{opacity:0;transform:translateY(1rem);transition:opacity .75s ease,transform .75s ease;transition-delay:calc(var(--i,0)*.13s)}
+.rv.on{opacity:1;transform:none}
+
+.eyebrow{font:700 .8rem/1 var(--font-b);letter-spacing:.24em;text-transform:uppercase;color:var(--accent)}
+.display{font:800 4.3rem/1.02 var(--font-h);letter-spacing:-.02em;margin:1.1rem 0 1.2rem}
+.h1{font:800 2.9rem/1.06 var(--font-h);letter-spacing:-.015em;margin:.9rem 0 .9rem}
+.h1.fit{font-size:2.3rem}
+.h2{font:800 2.5rem/1.08 var(--font-h);letter-spacing:-.015em;margin:.8rem 0 .9rem}
+.lead{font-size:1.45rem;line-height:1.45;color:var(--dim);max-width:34rem}
+.note{font-size:1.02rem;line-height:1.55;color:var(--muted);max-width:44rem;margin-top:1rem}
+.ar{font-family:var(--font-ar);direction:rtl;unicode-bidi:isolate;font-size:1.8rem;line-height:1.5;color:var(--accent);margin-top:.9rem;font-weight:600;display:block;width:fit-content}
+.hi{font-family:'Kohinoor Devanagari','Noto Sans Devanagari','Nirmala UI','Mangal','Arial Unicode MS',sans-serif;font-size:1.8rem;line-height:1.5;color:var(--accent);margin-top:.9rem;font-weight:600;display:block;width:fit-content}
+.hero{position:absolute;left:var(--pad);top:15vh;right:var(--pad);max-width:62rem}
+.top{position:absolute;left:var(--pad);right:var(--pad);top:11vh;max-width:78rem}
+.tall .hero{top:11vh}.tall .top{top:10vh}
+.tall .display{font-size:2.9rem}.tall .h1{font-size:2.05rem}.tall .h2{font-size:1.85rem}
+.tall .lead{font-size:1.1rem}.tall .ar,.tall .hi{font-size:1.3rem}.tall .note{font-size:.88rem}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1.6rem;max-width:62rem}
+.stats div{padding:1.2rem 1.3rem;border-radius:1.1rem;background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(12px)}
+.stats strong{display:block;font:800 3.2rem/1 var(--font-h);color:var(--accent);letter-spacing:-.02em}
+.stats span{display:block;margin-top:.5rem;font-size:.95rem;color:var(--dim)}
+.tall .stats{grid-template-columns:1fr 1fr;gap:.6rem}.tall .stats strong{font-size:2rem}.tall .stats div{padding:.8rem}
+
+.path{display:flex;gap:.7rem;margin-top:1.5rem;flex-wrap:wrap}
+.path li{display:flex;align-items:center;gap:.7rem;padding:.7rem 1.1rem .7rem .8rem;border-radius:99px;background:var(--glass);border:1px solid var(--line);
+  color:var(--muted);font:700 1rem/1 var(--font-h);transition:all .5s ease;backdrop-filter:blur(10px)}
+.path li b{display:grid;place-items:center;width:1.8rem;height:1.8rem;border-radius:50%;background:rgba(255,255,255,.1);font-size:.85rem}
+.path li.done{color:var(--ink)}.path li.done b{background:rgba(0,229,160,.28)}
+.path li.on{color:#04120d;background:var(--accent);border-color:var(--accent);box-shadow:0 0 2rem rgba(0,229,160,.45)}.path li.on b{background:rgba(4,18,13,.18)}
+.tall .path li{font-size:.78rem;padding:.5rem .7rem .5rem .5rem}.tall .path li b{width:1.4rem;height:1.4rem;font-size:.7rem}
+.legend{display:flex;gap:1.4rem;margin-top:1.1rem;color:var(--dim);font-size:.95rem;align-items:center}
+.legend .sw{display:inline-block;width:1.4rem;height:1.4rem;border-radius:.3rem;margin-right:.5rem;vertical-align:middle}
+.sw.svc{border:2px solid #7dd3fc;background:rgba(148,170,200,.12)}
+.sw.prd{background:linear-gradient(180deg,#00e5a0,#0b1226)}
+
+.panel{position:absolute;left:var(--pad);top:50%;transform:translateY(-50%);width:min(38vw,35rem)}
+.tall .panel{left:5vw;right:5vw;width:auto;top:9vh;transform:none;max-height:42vh;overflow:hidden}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.2rem}
+.chips button{display:inline-flex;align-items:center;gap:.5rem;padding:.55rem .95rem;border-radius:99px;border:1px solid var(--line);background:var(--glass);
+  font:600 .92rem/1 var(--font-b);color:var(--dim);transition:all .35s ease}
+.chips button i{width:.6rem;height:.6rem;border-radius:50%;background:var(--c)}
+.chips button.on{background:var(--c);color:#06101a;border-color:var(--c);box-shadow:0 0 1.4rem var(--c)}
+.chips button.on i{background:#06101a}
+.tall .chips{margin-top:.7rem;gap:.35rem}.tall .chips button{font-size:.72rem;padding:.4rem .6rem}
+.detail{margin-top:1.1rem;padding:1.2rem 1.4rem;border-radius:1.2rem;background:var(--glass);border:1px solid var(--line);border-left:4px solid var(--c);backdrop-filter:blur(14px);animation:pop .5s ease}
+@keyframes pop{from{opacity:0;transform:translateY(.8rem)}}
+.detail .kind{font:700 .7rem/1 var(--font-b);letter-spacing:.2em;text-transform:uppercase;color:var(--c)}
+.detail h3{font:800 1.75rem/1.1 var(--font-h);margin:.55rem 0 .5rem}
+.detail p{color:var(--dim);font-size:1.05rem;line-height:1.5}
+.stack{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem}
+.stack span{font:600 .74rem/1 var(--font-b);padding:.36rem .65rem;border-radius:99px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--ink)}
+.acts{display:flex;align-items:center;gap:1rem;margin-top:1rem;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.7rem 1.2rem;border-radius:99px;background:var(--c);color:#06101a;font:700 .92rem/1 var(--font-b);text-decoration:none}
+.quoted{font-size:.82rem;color:var(--muted)}
+.tall .detail{margin-top:.6rem;padding:.8rem 1rem}.tall .detail h3{font-size:1.15rem}.tall .detail p{font-size:.82rem}.tall .stack{margin-top:.5rem}.tall .stack span{font-size:.6rem;padding:.25rem .45rem}
+.tall .detail .acts{margin-top:.6rem}.tall .btn{padding:.5rem .8rem;font-size:.75rem}
+.legendbox{margin-top:1.2rem;color:var(--muted);font-size:.95rem;line-height:1.5}
+
+.flow{margin-top:1.2rem;display:grid;gap:.7rem}
+.flow li{display:flex;gap:1rem;padding:.9rem 1.1rem;border-radius:1rem;background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(12px)}
+.flow li b{display:grid;place-items:center;flex:none;width:2.2rem;height:2.2rem;border-radius:50%;background:#22d3ee;color:#04141a;font:800 1rem var(--font-h)}
+.flow strong{display:block;font:700 1.12rem var(--font-h)}.flow span{display:block;margin-top:.2rem;color:var(--dim);font-size:.95rem;line-height:1.4}
+.tall .flow{gap:.35rem;margin-top:.6rem}.tall .flow li{padding:.45rem .7rem;gap:.6rem}.tall .flow strong{font-size:.85rem}.tall .flow span{font-size:.7rem}.tall .flow li b{width:1.5rem;height:1.5rem;font-size:.75rem}
+
+.tgroups{display:grid;grid-template-columns:1.55fr 1fr 1fr 1fr 1fr 1.2fr;gap:1.2rem;margin-top:1.4rem}
+.tg h4{font:700 .72rem/1 var(--font-b);letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.7rem}
+.tg ul{display:flex;flex-direction:row;flex-wrap:wrap;gap:.4rem;align-items:flex-start}
+.tg button{padding:.45rem .8rem;border-radius:99px;border:1px solid var(--line);background:var(--glass);font:600 .92rem/1 var(--font-b);color:var(--dim);transition:all .3s ease}
+.tg button.on{background:var(--accent);color:#04120d;border-color:var(--accent);box-shadow:0 0 1.4rem rgba(0,229,160,.5)}
+.tg button.off{opacity:.38}
+.used{margin-top:1.3rem;font-size:1.15rem;color:var(--dim);min-height:1.6rem}.used b{color:var(--ink)}
+.tall .h1.fit{font-size:1.35rem}.tall .tgroups{grid-template-columns:repeat(2,1fr);gap:.5rem}.tall .tg button{font-size:.62rem;padding:.3rem .5rem}.tall .tg h4{font-size:.55rem;margin-bottom:.4rem}.tall .used{font-size:.8rem;margin-top:.6rem}
+
+.cards{display:grid;gap:1rem;margin-top:1.5rem}
+.cards.c4{grid-template-columns:repeat(4,1fr)}.cards.c3{grid-template-columns:repeat(3,1fr)}
+.card{padding:1.3rem 1.4rem;border-radius:1.2rem;background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(14px)}
+.card h3{font:800 1.3rem/1.15 var(--font-h);margin-bottom:.6rem}.card h3 small{display:block;font:700 .7rem var(--font-b);letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem}
+.card p{color:var(--dim);font-size:1rem;line-height:1.5}
+.tall .cards{gap:.5rem;margin-top:.7rem}.tall .cards.c4{grid-template-columns:1fr 1fr}.tall .cards.c3{grid-template-columns:1fr}
+.tall .card{padding:.65rem .8rem}.tall .card h3{font-size:.85rem;margin-bottom:.3rem}.tall .card p{font-size:.7rem;line-height:1.35}.tall .card h3 small{font-size:.5rem;margin-bottom:.3rem}
+.tall .top.compact .h1{font-size:1.5rem}
+
+.closing{position:absolute;left:var(--pad);right:var(--pad);top:11vh;display:flex;gap:4vw;align-items:flex-start}
+.closing .copy{flex:1;max-width:54rem}
+.contact{margin-top:1.3rem;display:grid;gap:.6rem}
+.contact li{font-size:1.25rem;color:var(--dim)}.contact b{color:var(--ink);font-family:var(--font-h);margin-left:.6rem}
+.sign{margin-top:1.1rem;font:600 1rem var(--font-b);color:var(--ink)}
+.qr{flex:none;text-align:center;color:var(--dim);font-size:.95rem;margin-left:auto;margin-right:17vw}
+.qrbox{width:13rem;height:13rem;padding:.7rem;border-radius:1.2rem;background:#fff;box-shadow:0 0 3rem rgba(0,229,160,.35);margin-bottom:.8rem}
+.qrbox svg{width:100%;height:100%;display:block}
+.tall .closing{flex-direction:column;gap:1rem;top:9vh}.tall .qrbox{width:8.5rem;height:8.5rem}.tall .contact li{font-size:.95rem}.tall .qr{margin:0;align-self:flex-start;display:flex;gap:.8rem;align-items:center;text-align:left}.tall .qrbox{margin:0}
+
+/* ---------- mock screens ("step inside the tower") ---------- */
+#screen{position:absolute;left:43vw;right:3vw;top:10vh;bottom:15vh;pointer-events:none;opacity:0;transform:perspective(1800px) rotateY(-5deg) scale(.96);
+  transform-origin:left center;transition:opacity .6s ease,transform .8s cubic-bezier(.2,.8,.2,1);display:flex;align-items:center}
+.tall #screen{left:4vw;right:4vw;top:50vh;bottom:5vh;transform:scale(.96)}
+#screen.on{opacity:1;transform:perspective(1800px) rotateY(-3deg) scale(1)}
+.tall #screen.on{transform:none}
+.win{width:100%;max-height:100%;border-radius:1rem;overflow:hidden;background:#f6f8fb;color:#0f172a;box-shadow:0 2rem 6rem rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.18),0 0 5rem var(--glow,rgba(0,229,160,.25));
+  font-family:var(--font-b);font-size:.78rem;position:relative}
+.chrome{display:flex;align-items:center;gap:.4rem;padding:.55rem .9rem;background:#e7ecf3;border-bottom:1px solid #d5dce7;color:#64748b;font-size:.7rem}
+.chrome i{width:.6rem;height:.6rem;border-radius:50%;background:#cbd5e1}.chrome i:nth-child(1){background:#fb7185}.chrome i:nth-child(2){background:#fbbf24}.chrome i:nth-child(3){background:#34d399}
+.chrome span{margin-left:.7rem}
+.tag-sample{position:absolute;right:.8rem;top:.4rem;font:700 .58rem var(--font-b);letter-spacing:.14em;text-transform:uppercase;color:#475569;background:#fff;padding:.25rem .55rem;border-radius:99px;border:1px solid #cbd5e1}
+.app{display:grid;grid-template-columns:11rem 1fr}
+.side{background:#0f1b33;color:#cbd5e1;padding:.9rem .7rem;display:flex;flex-direction:column;gap:.9rem}
+.side .brand{display:flex;gap:.5rem;align-items:center;color:#fff}.side .brand b{width:1.6rem;height:1.6rem;border-radius:.45rem;background:linear-gradient(135deg,#f97316,#2563eb)}
+.side .brand strong{display:block;font-size:.72rem}.side .brand small{font-size:.58rem;color:#94a3b8}
+.side nav{display:grid;gap:.15rem}.side a{display:flex;gap:.5rem;align-items:center;padding:.4rem .5rem;border-radius:.45rem;font-size:.7rem}
+.side a u{width:.7rem;height:.7rem;border-radius:.2rem;border:1.5px solid #64748b}.side a.on{background:#1e3a8a;color:#fff}.side a.on u{border-color:#93c5fd}
+.main{padding:1rem 1.2rem;display:grid;gap:.8rem;align-content:start;min-width:0}
+.main header{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
+.main h4{font:800 1.15rem var(--font-h)}.main header p{color:#64748b;font-size:.7rem;margin-top:.2rem}
+.main .btn2{padding:.4rem .75rem;border:1px solid #cbd5e1;border-radius:.5rem;font-size:.68rem;background:#fff;white-space:nowrap}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem}
+.kpi{padding:.7rem .8rem;border-radius:.8rem;background:#fff;border:1px solid #e2e8f0;position:relative;overflow:hidden}
+.kpi::after{content:"";position:absolute;inset:0;opacity:.16;background:linear-gradient(135deg,var(--k),transparent 70%)}
+.kpi small{display:block;font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#64748b}
+.kpi strong{display:block;font:800 1.6rem/1.1 var(--font-h);margin:.25rem 0;color:var(--k)}.kpi em{font-style:normal;font-size:.6rem;color:#64748b}
+.kpi.g{--k:#047857}.kpi.b{--k:#1d4ed8}.kpi.a{--k:#b45309}.kpi.r{--k:#be123c}.kpi.v{--k:#6d28d9}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
+.card2{background:#fff;border:1px solid #e2e8f0;border-radius:.8rem;padding:.7rem .8rem;min-width:0}
+.card2 h5{font:700 .72rem var(--font-h);margin-bottom:.5rem;display:flex;justify-content:space-between;gap:.5rem}.card2 h5 span{font:600 .58rem var(--font-b);color:#64748b;background:#f1f5f9;border-radius:99px;padding:.15rem .5rem}
+.card2 li{display:flex;justify-content:space-between;gap:.5rem;padding:.32rem 0;border-top:1px solid #f1f5f9;font-size:.62rem}.card2 li b{font-weight:700}.card2 li span{color:#64748b;white-space:nowrap}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
+.tile{padding:.55rem .65rem;border-radius:.7rem;border:1px solid #e2e8f0;background:linear-gradient(135deg,color-mix(in srgb,var(--k) 14%,#fff),#fff)}
+.tile b{display:block;font-size:.66rem}.tile small{font-size:.54rem;color:#64748b}.tile .bar{height:.3rem;border-radius:9px;background:#e2e8f0;margin-top:.4rem;overflow:hidden}.tile .bar i{display:block;height:100%;background:var(--k)}
+.pulse{display:inline-block;width:.45rem;height:.45rem;border-radius:50%;background:#e11d48;margin-right:.3rem;animation:blink 1.4s infinite}
+
+.cms .side{background:#101a2e}.cms .side .tenant{padding:.5rem .6rem;border-radius:.6rem;background:rgba(255,255,255,.07)}.cms .tenant small{display:block;font-size:.55rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.1em}.cms .tenant strong{font-size:.74rem;color:#fff}
+.cms .side a.on{background:#0e7490}
+.editor{display:grid;grid-template-columns:1.25fr 1fr;gap:.7rem}
+.blocks{display:grid;gap:.45rem}
+.blk{display:flex;justify-content:space-between;align-items:center;padding:.6rem .75rem;border-radius:.7rem;background:#fff;border:1px solid #e2e8f0;font-size:.68rem;transition:all .5s}
+.blk u{text-decoration:none;font-weight:700}.blk span{color:#64748b;font-size:.6rem}
+.blk.on{border-color:#06b6d4;box-shadow:0 0 0 3px rgba(6,182,212,.18)}
+.cms[data-phase="0"] .blk.on{border-color:#e2e8f0;box-shadow:none}
+.panel2{background:#fff;border:1px solid #e2e8f0;border-radius:.8rem;padding:.75rem .85rem;display:grid;gap:.5rem;align-content:start}
+.panel2 h5{font:700 .72rem var(--font-h)}.panel2 label{display:block;font-size:.55rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#64748b}
+.panel2 label span{display:block;margin-top:.2rem;padding:.35rem .5rem;border:1px solid #cbd5e1;border-radius:.4rem;text-transform:none;letter-spacing:0;font-weight:500;font-size:.64rem;color:#0f172a}
+.pub{display:inline-block;padding:.5rem .9rem;border-radius:.6rem;background:#cbd5e1;color:#475569;font:700 .7rem var(--font-b);white-space:nowrap;transition:all .5s}
+.cms:not([data-phase="0"]):not([data-phase="1"]) .pub{background:#06b6d4;color:#022;box-shadow:0 0 0 4px rgba(6,182,212,.25)}
+.build{display:grid;gap:.35rem}.build li{display:flex;align-items:center;gap:.5rem;font-size:.64rem;color:#94a3b8;transition:color .4s}
+.build li::before{content:"";width:.7rem;height:.7rem;border-radius:50%;border:2px solid #cbd5e1;transition:all .4s}
+.build li.active{color:#0e7490;font-weight:700}.build li.active::before{border-color:#06b6d4;border-top-color:transparent;animation:spin .8s linear infinite}
+.build li.done{color:#047857}.build li.done::before{background:#10b981;border-color:#10b981}
+@keyframes spin{to{transform:rotate(360deg)}}
+.tall .win{font-size:.6rem}.tall .app{grid-template-columns:7.5rem 1fr}.tall .kpis{grid-template-columns:repeat(3,1fr)}.tall .kpi:nth-child(n+4){display:none}.tall .cols{grid-template-columns:1fr 1fr}.tall .cols .card2:nth-child(3){display:none}
+.tall .tiles{grid-template-columns:1fr 1fr}.tall .tiles .tile:nth-child(3){display:none}.tall .editor{grid-template-columns:1fr}.tall .panel2{display:none}.tall .side nav a:nth-child(n+7){display:none}
+
+/* ---------- HUD ---------- */
+#hud .brand{position:absolute;left:var(--pad);top:2.2vh;z-index:5;background:rgba(255,255,255,.95);border-radius:.7rem;padding:.35rem .7rem;display:flex}
+#hud .brand img{height:1.9rem;display:block}
+.tall #hud .brand img{height:1.3rem}
+#hud .modes{position:absolute;right:var(--pad);top:2.2vh;z-index:5;display:flex;gap:.3rem;padding:.3rem;border-radius:99px;background:rgba(8,12,24,.7);border:1px solid var(--line);backdrop-filter:blur(10px);transition:opacity .4s}
+#hud .modes button{padding:.5rem .9rem;border-radius:99px;font:600 .8rem/1 var(--font-b);color:var(--dim)}
+#hud .modes button.on{background:var(--accent);color:#04120d}
+.tall #hud .modes{top:auto;bottom:6.5vh;right:auto;left:50%;transform:translateX(-50%)}.tall #hud .modes button{font-size:.62rem;padding:.4rem .6rem}
+#dots{position:absolute;left:50%;bottom:2vh;transform:translateX(-50%);display:flex;gap:.45rem;z-index:5;transition:opacity .4s}
+#dots button{width:.65rem;height:.65rem;border-radius:50%;background:rgba(255,255,255,.25);transition:all .3s;padding:0}
+#dots button.on{background:var(--accent);width:1.9rem;border-radius:99px}
+.navbtn{position:absolute;bottom:1.4vh;z-index:5;width:2.8rem;height:2.8rem;border-radius:50%;background:rgba(8,12,24,.7);border:1px solid var(--line);font-size:1.5rem;line-height:1;transition:opacity .4s}
+.navbtn.prev{right:calc(var(--pad) + 3.4rem)}.navbtn.next{right:var(--pad)}
+#hint{position:absolute;left:var(--pad);bottom:2.2vh;z-index:5;font-size:.82rem;color:var(--muted);transition:opacity 1s}
+#paused{position:absolute;left:50%;top:2.6vh;transform:translateX(-50%);z-index:6;padding:.4rem .9rem;border-radius:99px;background:rgba(8,12,24,.8);border:1px solid var(--line);font-size:.8rem;display:none}
+.idle #hud .modes,.idle #dots,.idle .navbtn,.idle #hint{opacity:0}
+.idle{cursor:none}
+[data-mode="loop"] #hud .modes,[data-mode="loop"] .navbtn,[data-mode="loop"] #hint{opacity:0;pointer-events:none}
+.paused #paused{display:block}
+.tall #hint{display:none}.tall .navbtn{bottom:1.6vh}.tall .navbtn.prev{right:calc(var(--pad) + 3.4rem)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}}
+/* ?still renders every scene in its final state (used for screenshots and PDF) */
+.still *,.still *::before,.still *::after{transition:none!important;animation:none!important}
+.still .vis .po,.still .vis .fi,.still .prop,.still .bk,.still .pin{opacity:1!important;transform:none!important}
+.still .vis .dr{stroke-dashoffset:0!important}
+.still .vis .sx,.still .vis .sy,.still .chart i{transform:none!important}
+.still .hb i{width:var(--w)!important}
+.still .glint,.still .rip{display:none}
+</style>
+</head>
+<body>
+<div id="app" data-mode="present" data-edition="{{EDITION}}">
+  <div id="sky"><div id="moon"></div></div>
+  <svg id="world" aria-hidden="true" preserveAspectRatio="none"></svg>
+  <div id="labels" aria-hidden="true"></div>
+  <div id="screen" aria-hidden="true"></div>
+  <div id="vignette"></div><div id="grain"></div><div id="wipe"></div>
+
+  <main id="scenes">
+    <section class="scene" id="sc-open" aria-label="Welcome">
+      <div class="hero">
+<!--if dubai-->
+        <p class="eyebrow rv" data-at="0" style="--i:0">Dubai · 7–12 December 2026</p>
+        <h1 class="display rv" data-at="0" style="--i:1">We build what your<br><em class="grad">business runs on.</em></h1>
+        <p class="lead rv" data-at="0" style="--i:2">Websites, online stores and business software, built in Nagpur, India, since 2002.</p>
+        <p class="ar rv" data-at="0" style="--i:3" lang="ar" dir="rtl">نبني الأنظمة الرقمية التي تعتمد عليها أعمالكم</p>
+<!--endif-->
+<!--if bni-raipur-->
+        <p class="eyebrow rv" data-at="0" style="--i:0">BNI Conclave · Raipur · 21 November 2026</p>
+        <h1 class="display rv" data-at="0" style="--i:1">We build what your<br><em class="grad">business runs on.</em></h1>
+        <p class="lead rv" data-at="0" style="--i:2">Websites, online stores and business software, built in Nagpur since 2002 and delivered to businesses in Raipur and beyond.</p>
+        <p class="hi rv" data-at="0" style="--i:3" lang="hi">हम आपके व्यवसाय की डिजिटल नींव बनाते हैं</p>
+<!--endif-->
+      </div>
+    </section>
+
+    <section class="scene" id="sc-who" aria-label="Who we are">
+      <div class="top">
+        <p class="eyebrow rv" data-at="0">Who we are</p>
+        <h2 class="h1 rv" data-at="0" style="--i:1">A Nagpur studio with 24 years behind it.</h2>
+        <div class="stats rv" data-at="0" style="--i:2">
+          <div><strong data-count="2002" data-fmt="plain">0</strong><span>Founded</span></div>
+          <div><strong data-count="24" data-suffix="+">0</strong><span>Years in business</span></div>
+          <div><strong data-count="500" data-suffix="+">0</strong><span>Clients served</span></div>
+          <div><strong data-count="1500" data-suffix="+" data-fmt="comma">0</strong><span>Projects delivered</span></div>
+        </div>
+        <p class="note rv" data-at="0" style="--i:3"><!--if dubai-->Clients across the US, Canada, Australia, Japan and New Zealand. Much of our international work is under NDA, so we describe it rather than name it.<!--endif--><!--if bni-raipur-->Clients across India, and in the US, Canada, Australia, Japan and New Zealand. Much of our international work is under NDA, so we describe it rather than name it.<!--endif--></p>
+      </div>
+    </section>
+
+    <section class="scene" id="sc-path" aria-label="The journey">
+      <div class="top">
+        <p class="eyebrow">How we think about it</p>
+        <h2 class="h1">A business grows in five stages.</h2>
+        <p class="lead">We build the digital side of every one.</p>
+        <ol class="path" id="path-bar"></ol>
+        <p class="legend"><span><i class="sw svc"></i>Service</span><span><i class="sw prd"></i>Product</span></p>
+      </div>
+    </section>
+
+    <section class="scene" id="sc-stage" aria-label="Stage">
+      <div class="panel">
+        <p class="eyebrow" id="st-num"></p>
+        <h2 class="h2" id="st-name"></h2>
+        <p class="lead" id="st-line"></p>
+        <ul class="chips" id="st-items"></ul>
+        <div class="detail" id="st-detail" hidden></div>
+        <p class="legendbox" id="st-legend">Outlined towers are services. Solid towers are products. Press → to step through each one.</p>
+      </div>
+    </section>
+
+    <section class="scene" id="sc-cms" aria-label="How eLan Central CMS works">
+      <div class="panel">
+        <p class="eyebrow">Our own platform · eLan Central CMS</p>
+        <h2 class="h2">Fast for visitors. Easy for editors.</h2>
+        <ol class="flow">
+          <li class="rv" data-at="1"><b>1</b><div><strong>Edit</strong><span>Update pages, posts and images in one dashboard.</span></div></li>
+          <li class="rv" data-at="2"><b>2</b><div><strong>Publish</strong><span>One click starts a rebuild of that one website.</span></div></li>
+          <li class="rv" data-at="3"><b>3</b><div><strong>Build</strong><span>Astro turns the content into static files.</span></div></li>
+          <li class="rv" data-at="4"><b>4</b><div><strong>Go live</strong><span>The files go to the website's own hosting.</span></div></li>
+        </ol>
+        <p class="note rv" data-at="4">Visitors never touch the CMS. If it is offline, live websites keep working.</p>
+      </div>
+    </section>
+
+    <section class="scene" id="sc-tech" aria-label="Technology">
+      <div class="top">
+        <p class="eyebrow">Under the hood</p>
+        <h2 class="h1 fit">Every technology here is used in something we have published.</h2>
+        <div class="tgroups" id="tgroups"></div>
+        <p class="used" id="tech-used"></p>
+      </div>
+    </section>
+
+<!--if dubai-->
+    <section class="scene" id="sc-uae" aria-label="Working with a UAE business">
+      <div class="top">
+        <p class="eyebrow rv" data-at="0">Working with a UAE business</p>
+        <h2 class="h1 rv" data-at="0" style="--i:1">Based in Nagpur. Delivering remotely.<br>Here to build partnerships.</h2>
+        <div class="cards c4">
+          <div class="card rv" data-at="1"><h3><small>01</small>1.5 hours apart</h3><p>UAE time is 1.5 hours behind India, so most of the working day overlaps.</p></div>
+          <div class="card rv" data-at="2"><h3><small>02</small>Quoted per project</h3><p>Proposals are in AED or USD and name what is included and any recurring charges.</p></div>
+          <div class="card rv" data-at="3"><h3><small>03</small>English delivery, Arabic scoped</h3><p>Arabic content and right-to-left interfaces are scoped separately and reviewed by a qualified Arabic specialist.</p></div>
+          <div class="card rv" data-at="4"><h3><small>04</small>NDA before details</h3><p>We can review a mutual NDA before sensitive project details are shared.</p></div>
+        </div>
+        <p class="note rv" data-at="4">Our products were built for Indian businesses first. UAE needs such as Arabic, VAT and local payment providers are scoped for each project.</p>
+      </div>
+    </section>
+
+    <section class="scene" id="sc-ways" aria-label="Ways to work together">
+      <div class="top">
+        <p class="eyebrow rv" data-at="0">How we can work together</p>
+        <h2 class="h1 rv" data-at="0" style="--i:1">Three ways in.</h2>
+        <div class="cards c3">
+          <div class="card rv" data-at="1"><h3><small>01</small>Start from a product</h3><p>Seven working products. We adapt one to your business instead of starting from a blank page.</p></div>
+          <div class="card rv" data-at="2"><h3><small>02</small>Build something custom</h3><p>Websites, online stores and business systems designed around how your team works.</p></div>
+          <div class="card rv" data-at="3"><h3><small>03</small>Add delivery capacity</h3><p>Agencies and IT firms can use us as a delivery team, under their own brand and with an NDA in place.</p></div>
+        </div>
+        <p class="note rv" data-at="3">Every project is quoted per project.</p>
+      </div>
+    </section>
+
+    <section class="scene" id="sc-data" aria-label="Confidentiality and data">
+      <div class="top">
+        <p class="eyebrow rv" data-at="0">Confidentiality and data</p>
+        <h2 class="h1 rv" data-at="0" style="--i:1">Built to be handled with care.</h2>
+        <div class="cards c4">
+          <div class="card rv" data-at="1"><h3><small>01</small>NDA first</h3><p>A mutual NDA can be reviewed before sensitive details are shared. Work delivered under NDA is not named or shown.</p></div>
+          <div class="card rv" data-at="2"><h3><small>02</small>Access by role</h3><p>Each person signs in with their own account and sees only what their role needs.</p></div>
+          <div class="card rv" data-at="3"><h3><small>03</small>Agreed in writing</h3><p>Hosting location, source-code rights, data access and handover are confirmed in the proposal.</p></div>
+          <div class="card rv" data-at="4"><h3><small>04</small>Your advisers decide compliance</h3><p>We build to the requirements your legal and tax advisers give us. We do not certify compliance.</p></div>
+        </div>
+      </div>
+    </section>
+
+<!--endif-->
+<!--if bni-raipur-->
+    <section class="scene" id="sc-fit" aria-label="Who we help">
+      <div class="top">
+        <p class="eyebrow rv" data-at="0">Who we help</p>
+        <h2 class="h1 rv" data-at="0" style="--i:1">Which of these is your business?</h2>
+        <div class="cards c3">
+          <div class="card rv" data-at="1"><h3><small>Insurance agents and advisers</small>Insurance Agency Portal</h3><p>Policies, renewals, commissions, sub-agents and customer family records in one system.</p></div>
+          <div class="card rv" data-at="2"><h3><small>Real estate and builders</small>Real Estate Portal</h3><p>Listings, advanced search, agent dashboards, maps and lead capture.</p></div>
+          <div class="card rv" data-at="3"><h3><small>Hotels, resorts and homestays</small>Resort Management Portal</h3><p>Online room booking, occupancy dashboard, billing and housekeeping.</p></div>
+          <div class="card rv" data-at="4"><h3><small>Doctors, societies and event organisers</small>Member and conference portals</h3><p>Memberships, registrations, abstracts, certificates and online payments.</p></div>
+          <div class="card rv" data-at="5"><h3><small>Shops, brands and manufacturers</small>Websites and online stores</h3><p>Catalogues, enquiry flows and stores on Shopify, WooCommerce or Medusa.js.</p></div>
+          <div class="card rv" data-at="6"><h3><small>Agencies and service firms</small>Project Management System</h3><p>Clients, projects, tasks, billing and renewal reminders in one workspace.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene" id="sc-refer" aria-label="How to refer us">
+      <div class="top">
+        <p class="eyebrow rv" data-at="0">How to refer us</p>
+        <h2 class="h1 rv" data-at="0" style="--i:1">Know a business owner who needs a website, a store or software?</h2>
+        <div class="cards c3">
+          <div class="card rv" data-at="1"><h3><small>01</small>Introduce</h3><p>Share our WhatsApp number, or let them scan the QR code on the last slide.</p></div>
+          <div class="card rv" data-at="2"><h3><small>02</small>Talk</h3><p>A short video or phone call to understand what the business needs.</p></div>
+          <div class="card rv" data-at="3"><h3><small>03</small>Scope</h3><p>A written proposal, quoted per project, before any work starts.</p></div>
+        </div>
+        <p class="note rv" data-at="3">Nagpur is 285 km from Raipur. Raipur projects use video discovery, shared design reviews, written approvals and project tracking.</p>
+      </div>
+    </section>
+<!--endif-->
+
+    <section class="scene" id="sc-close" aria-label="Contact">
+      <div class="closing">
+        <div class="copy">
+<!--if dubai-->
+          <p class="eyebrow rv" data-at="0">Let's talk</p>
+          <h2 class="h1 rv" data-at="0" style="--i:1">Let us meet while we are in Dubai.</h2>
+          <p class="ar rv" data-at="0" style="--i:2" lang="ar" dir="rtl">يسعدنا لقاؤكم في دبي</p>
+<!--endif-->
+<!--if bni-raipur-->
+          <p class="eyebrow rv" data-at="0">Let's connect</p>
+          <h2 class="h1 rv" data-at="0" style="--i:1">Let us connect at the BNI Conclave.</h2>
+          <p class="hi rv" data-at="0" style="--i:2" lang="hi">आपसे मिलकर खुशी होगी</p>
+<!--endif-->
+          <ul class="contact rv" data-at="0" style="--i:3">
+            <li>WhatsApp <b id="c-wa"></b></li>
+            <li>Email <b id="c-mail"></b></li>
+            <li>Web <b id="c-site"></b></li>
+            <li>Digital Biz ID <b>elanvcard.elantech.cloud</b></li>
+          </ul>
+          <p class="note rv" data-at="0" style="--i:4"><!--if dubai-->Available from noon on 7 December to noon on 12 December (Dubai time). Every project is quoted per project.<!--endif--><!--if bni-raipur-->At the BNI Conclave in Raipur on 21 November 2026. Every project is quoted per project.<!--endif--></p>
+          <p class="sign rv" data-at="0" style="--i:5" id="c-sign"></p>
+        </div>
+        <div class="qr rv" data-at="0" style="--i:3"><div class="qrbox">{{QR}}</div><span>Scan to save our contact</span></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="hud">
+    <div class="brand"><img alt="eLan Technology" src="{{LOGO}}"></div>
+    <div class="modes" role="group" aria-label="Presentation mode">
+      <button data-mode="present">Present</button>
+      <button data-mode="loop">Auto-play</button>
+<!--if dubai-->      <button data-mode="compliance">Compliance cut</button>
+<!--endif-->    </div>
+    <div id="dots" role="group" aria-label="Scenes"></div>
+    <button class="navbtn prev" aria-label="Previous">‹</button>
+    <button class="navbtn next" aria-label="Next">›</button>
+    <div id="hint"><!--if dubai-->→ next · ← back · F fullscreen · A auto-play · C compliance cut · P present<!--endif--><!--if bni-raipur-->→ next · ← back · F fullscreen · A auto-play · P present<!--endif--></div>
+    <div id="paused">Paused. Click to resume.</div>
+  </div>
+  <div class="sr" id="live" aria-live="polite"></div>
+</div>
+
+<script>
+(function () {
+'use strict';
+
+/* ================= EDIT HERE ================= */
+// Live demos opened from the detail card. Set to null to show "Demo on request".
+const DEMOS = {
+  realestate: 'https://propertycab.elantech.cloud/',
+  conference: 'https://elanconf.elantech.cloud/',
+  insurance:  'https://insurems.elantech.cloud/',
+  resort: null,   // the current demo shows a client's name; keep null until a neutral demo exists
+  pms: null,
+  'central-cms': null,
+  society: null,
+  digibizid: 'https://elanvcard.elantech.cloud/'
+};
+const CONTACT = { whatsapp: '+91 87888 34630', email: 'info@elan-tech.net', site: 'elan-tech.net', sign: 'Nishant Barde · eLan Technology · Nagpur, India' };
+const TITLE_PREFIX = /*if dubai*/'eLan Technology in Dubai: '/*endif*//*if bni-raipur*/'eLan Technology at the BNI Conclave, Raipur: '/*endif*/;
+/* ============================================= */
+
+const $ = (s, r) => (r || document).querySelector(s);
+const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+const NS = 'http://www.w3.org/2000/svg';
+const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
+const STILL = new URLSearchParams(location.search).has('still');
+const RECORD = new URLSearchParams(location.search).has('record');
+if (RECORD) document.documentElement.classList.add('record');
+if (STILL) document.documentElement.classList.add('still');
+const RM = STILL || matchMedia('(prefers-reduced-motion: reduce)').matches;
+const rng = seed => () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+const mix = (a, b, p) => { const h = x => [1, 3, 5].map(i => parseInt(x.slice(i, i + 2), 16)); const A = h(a), B = h(b); return '#' + A.map((v, i) => Math.round(v + (B[i] - v) * p).toString(16).padStart(2, '0')).join(''); };
+
+/* ---------- content ---------- */
+const SVC = '#7dd3fc';
+const TOWERS = [
+  { id: 'branding', kind: 'service', short: 'Branding', name: 'Branding & Identity', desc: 'A clear identity people recognise and remember.', stack: [], shape: 'slab', w: 130, h: 430 },
+  { id: 'website-design', kind: 'service', short: 'Website Design', name: 'Website Design', desc: 'Clear, custom websites that help people choose you.', stack: [], shape: 'crown', w: 140, h: 520 },
+  { id: 'accessibility', kind: 'service', short: 'Accessibility', name: 'ADA & WCAG Compliance', desc: 'Websites that more people can use with confidence. Audits and code-level fixes.', stack: [], shape: 'dome', w: 130, h: 400 },
+  { id: 'web-dev', kind: 'service', short: 'Web Development', name: 'Web Development', desc: 'Reliable websites and business tools built for everyday use.', stack: ['Astro', 'Next.js', 'React', 'TypeScript'], shape: 'blade', w: 120, h: 560 },
+  { id: 'central-cms', kind: 'product', short: 'eLan Central CMS', name: 'eLan Central CMS', desc: 'Our customised Payload CMS. Edit in one dashboard and publish fast static pages to your own hosting.', stack: ['Payload CMS', 'Next.js', 'TypeScript', 'Astro', 'PostgreSQL', 'Cloudflare'], color: '#06B6D4', shape: 'spire', w: 170, h: 800 },
+  { id: 'maintenance', kind: 'service', short: 'Maintenance & Security', name: 'Maintenance & Security', desc: 'Keep your website healthy, secure, and up to date.', stack: [], shape: 'slab', w: 130, h: 420 },
+  { id: 'seo', kind: 'service', short: 'SEO', name: 'Search Engine Optimization', desc: 'Help the right customers find your business on Google.', stack: [], shape: 'stack', w: 130, h: 470 },
+  { id: 'marketing', kind: 'service', short: 'Digital Marketing', name: 'Digital Marketing', desc: 'Practical campaigns that bring in leads and sales.', stack: [], shape: 'sail', w: 140, h: 520 },
+  { id: 'mobile', kind: 'service', short: 'Mobile Apps', name: 'Mobile App Development', desc: 'Useful mobile apps that feel simple from the first tap.', stack: [], shape: 'blade', w: 110, h: 440 },
+  { id: 'ecommerce', kind: 'service', short: 'eCommerce', name: 'eCommerce Development', desc: 'Online stores built around your products, customers and team.', stack: ['Shopify', 'Medusa.js', 'WooCommerce'], shape: 'crown', w: 150, h: 560 },
+  { id: 'realestate', kind: 'product', short: 'Real Estate Portal', name: 'Real Estate Portal', desc: 'Listings, advanced search, agent dashboards, maps and lead capture.', stack: ['Next.js', 'React', 'Tailwind CSS', 'TypeScript', 'Node.js', 'Express', 'MongoDB', 'Google Maps', 'Razorpay', 'AWS S3', 'Cloudflare'], color: '#00E5A0', shape: 'twist', w: 170, h: 720 },
+  { id: 'resort', kind: 'product', short: 'Resort Portal', name: 'Resort Management Portal', desc: 'Online room booking, an occupancy dashboard, billing, and staff and housekeeping scheduling.', stack: ['React', 'Vite', 'Radix UI', 'Tailwind CSS', 'TypeScript', 'Node.js', 'Express', 'MongoDB', 'Razorpay', 'AWS S3', 'NodeMailer', 'Cloudflare'], color: '#F59E0B', shape: 'dome', w: 170, h: 640 },
+  { id: 'conference', kind: 'product', short: 'Conference Portal', name: 'Medical Conference Portal', desc: 'Delegate registration, abstract submission, speakers, schedules and certificates.', stack: ['React', 'Vite', 'Radix UI', 'Tailwind CSS', 'TypeScript', 'Node.js', 'Express', 'MongoDB', 'Razorpay', 'PhonePe', 'AWS S3', 'NodeMailer', 'Google Maps', 'Cloudflare'], color: '#6366F1', shape: 'sail', w: 170, h: 700 },
+  { id: 'crm-erp', kind: 'service', short: 'CRM & ERP', name: 'Custom CRM & ERP', desc: 'Business systems shaped around the way your team actually works. Custom development or ERPNext customisation, chosen by fit.', stack: [], shape: 'stack', w: 140, h: 540 },
+  { id: 'integrations', kind: 'service', short: 'Integrations', name: 'Third-Party Integrations', desc: 'Connect your website to payment gateways, shipping providers, CRMs and cloud services, securely.', stack: ['REST APIs'], shape: 'slab', w: 130, h: 480 },
+  { id: 'pms', kind: 'product', short: 'Project Management', name: 'Project Management System', desc: 'Clients, projects, tasks, billing, enquiries and domain renewals in one workspace.', stack: ['React', 'Vite'], color: '#60A5FA', shape: 'crown', w: 160, h: 640 },
+  { id: 'insurance', kind: 'product', short: 'Insurance Portal', name: 'Insurance Agency Management Portal', desc: 'LIC, health, motor and general insurance, RD and FD, renewals, quotations, commissions, sub-agents and customer family records.', stack: ['Next.js', 'NestJS', 'MySQL'], color: '#10B981', shape: 'spire', w: 150, h: 760 },
+  { id: 'digibizid', kind: 'product', short: 'Digital Biz ID', name: 'Digital Biz ID', desc: 'A digital business card for your business. Share by QR code, link, WhatsApp or NFC, and see views, scans and saved contacts.', stack: ['Razorpay'], color: '#F472B6', shape: 'sail', w: 150, h: 600 },
+  { id: 'society', kind: 'product', short: 'Society Portal', name: 'IMA Society Portal', desc: 'Memberships and renewals, events with online registration, documents and fee payments.', stack: ['React', 'Next.js', 'Tailwind CSS', 'TypeScript', 'Node.js', 'Express', 'MongoDB', 'Razorpay', 'AWS S3', 'NodeMailer'], color: '#EC4899', shape: 'twist', w: 160, h: 620 }
+];
+const T = {}; TOWERS.forEach(t => { t.color = t.color || SVC; T[t.id] = t; });
+const STAGES = [
+  { name: 'Establish', line: 'Your brand, and a website people trust.', items: ['branding', 'website-design', 'accessibility'] },
+  { name: 'Go online', line: 'Fast websites your team can edit.', items: ['web-dev', 'central-cms', 'maintenance'] },
+  { name: 'Get found', line: 'Be seen, and reachable, by the right customers.', items: ['seo', 'marketing', 'mobile', 'digibizid'] },
+  { name: 'Sell and take bookings', line: 'Stores, listings, bookings and registrations.', items: ['ecommerce', 'realestate', 'resort', 'conference'] },
+  { name: 'Run and grow', line: 'Systems that connect your team, customers and money.', items: ['crm-erp', 'integrations', 'pms', 'insurance', 'society'] }
+];
+const TECH_GROUPS = [
+  ['Frontend', ['Next.js', 'React', 'Astro', 'Vite', 'Tailwind CSS', 'TypeScript', 'Radix UI']],
+  ['Commerce', ['Medusa.js', 'Shopify', 'WooCommerce']],
+  ['Backend', ['Node.js', 'Express', 'NestJS']],
+  ['Database', ['MongoDB', 'PostgreSQL', 'MySQL']],
+  ['CMS', ['Payload CMS', 'WordPress']],
+  ['Payments and services', ['Razorpay', 'PhonePe', 'Google Maps', 'AWS S3', 'Cloudflare']]
+];
+const TECH_STEPS = ['Next.js', 'React', 'Astro', 'Medusa.js', 'Shopify', 'Payload CMS', 'Node.js', 'MongoDB', 'PostgreSQL', 'Razorpay'];
+const techMap = {};
+TOWERS.forEach(t => t.stack.forEach(s => { (techMap[s] = techMap[s] || []).push(t.id); }));
+
+/* ---------- world layout ---------- */
+const GAP = 270, STAGE_GAP = 330;
+let cursor = 0, order = 0;
+STAGES.forEach((st, k) => {
+  st.k = k; st.towers = st.items.map(id => T[id]);
+  st.items.forEach((id, j) => { const t = T[id]; t.x = cursor + j * GAP; t.stage = st; t.order = order++; });
+  cursor += (st.items.length - 1) * GAP + STAGE_GAP;
+});
+const ALL = TOWERS.map(t => t.id);
+
+const world = $('#world');
+const defs = el('defs', {}, world);
+
+// sky stars + drifting lights
+const sky = $('#sky'); const sr = rng(7);
+for (let i = 0; i < 120; i++) { const s = document.createElement('i'); const z = sr() * 2 + .8; s.style.cssText = `left:${sr() * 100}%;top:${sr() * 62}%;width:${z}px;height:${z}px;opacity:${(.25 + sr() * .6).toFixed(2)};animation-delay:${(sr() * 5).toFixed(1)}s;animation-duration:${(3 + sr() * 4).toFixed(1)}s`; sky.appendChild(s); }
+['a', 'b', 'c'].forEach(c => { const n = document.createElement('div'); n.className = 'neb ' + c; sky.appendChild(n); });
+[0, 1].forEach(i => { const m = document.createElement('div'); m.className = 'shoot'; m.style.cssText = `left:${[14, 52][i]}%;top:${[12, 22][i]}%;animation-delay:${[-2, -8][i]}s;animation-duration:${[13, 17][i]}s`; sky.appendChild(m); });
+{ const svg = "<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"; $('#grain').style.backgroundImage = `url("data:image/svg+xml;utf8,${svg}")`; }
+[[18, 52], [11, 71], [26, 90]].forEach(([top, dur], i) => { const p = document.createElement('i'); p.className = 'plane'; p.style.cssText = `top:${top}%;animation-duration:${dur}s;animation-delay:${-i * 17}s;background:#fff`; sky.appendChild(p); });
+
+// gradients, masks, window patterns
+const gsheen = el('linearGradient', { id: 'sheen', x1: 0, y1: 0, x2: 1, y2: 0 }, defs);
+el('stop', { offset: 0, 'stop-color': '#fff', 'stop-opacity': .28 }, gsheen); el('stop', { offset: 1, 'stop-color': '#fff', 'stop-opacity': 0 }, gsheen);
+const gground = el('linearGradient', { id: 'ground', x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
+el('stop', { offset: 0, 'stop-color': '#0b1430' }, gground); el('stop', { offset: 1, 'stop-color': '#04060d' }, gground);
+const gfade = el('linearGradient', { id: 'rfade', x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
+el('stop', { offset: 0, 'stop-color': '#fff', 'stop-opacity': .5 }, gfade); el('stop', { offset: 1, 'stop-color': '#fff', 'stop-opacity': 0 }, gfade);
+const mk = el('mask', { id: 'rmask', maskUnits: 'userSpaceOnUse', x: -6000, y: 0, width: 16000, height: 420 }, defs);
+el('rect', { x: -6000, y: 0, width: 16000, height: 420, fill: 'url(#rfade)' }, mk);
+const gfl = el('pattern', { id: 'floors', width: 40, height: 24, patternUnits: 'userSpaceOnUse' }, defs); el('rect', { width: 40, height: 1.2, fill: 'rgba(255,255,255,.09)' }, gfl);
+const ggl = el('linearGradient', { id: 'glintg', x1: 0, y1: 0, x2: 1, y2: 0 }, defs);
+el('stop', { offset: 0, 'stop-color': '#fff', 'stop-opacity': 0 }, ggl); el('stop', { offset: .5, 'stop-color': '#fff', 'stop-opacity': .42 }, ggl); el('stop', { offset: 1, 'stop-color': '#fff', 'stop-opacity': 0 }, ggl);
+const gmist = el('linearGradient', { id: 'mist', x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
+el('stop', { offset: 0, 'stop-color': '#8aa8ff', 'stop-opacity': 0 }, gmist); el('stop', { offset: 1, 'stop-color': '#8aa8ff', 'stop-opacity': .2 }, gmist);
+[11, 23, 37].forEach((seed, n) => {
+  const r = rng(seed), p = el('pattern', { id: 'win' + n, width: 30, height: 44, patternUnits: 'userSpaceOnUse' }, defs);
+  for (let cx = 0; cx < 3; cx++) for (let cy = 0; cy < 4; cy++) if (r() < .62) el('rect', { x: 3 + cx * 9.5, y: 4 + cy * 10.5, width: 5.5, height: 6.5, rx: 1, fill: r() < .8 ? '#ffe6a8' : '#bfe9ff', 'fill-opacity': (.45 + r() * .55).toFixed(2) }, p);
+});
+
+// parallax skyline silhouettes
+const far = el('g', {}, world), mid = el('g', {}, world);
+function silhouettes(g, seed, fill, hmin, hmax, wmin, wmax) {
+  const r = rng(seed); let x = -5200;
+  while (x < 9600) { const w = wmin + r() * (wmax - wmin), h = hmin + r() * (hmax - hmin); el('rect', { x: x.toFixed(0), y: -h, width: w.toFixed(0), height: h, fill }, g); if (r() < .22) el('rect', { x: (x + w * .4).toFixed(0), y: -h - 40 - r() * 60, width: 4, height: 60, fill }, g); x += w + r() * 18; }
+}
+silhouettes(far, 3, 'rgba(34,52,92,.55)', 90, 330, 40, 110);
+silhouettes(mid, 5, 'rgba(15,26,54,.78)', 120, 460, 60, 150);
+el('rect', { x: -6000, y: 0, width: 16000, height: 3000, fill: 'url(#ground)' }, world);
+el('line', { x1: -6000, y1: 0, x2: 10000, y2: 0, stroke: 'rgba(255,255,255,.28)', 'stroke-width': 2 }, world);
+const trailsG = el('g', { class: 'trails' }, world); { const tr = rng(41); for (let i = 0; i < 70; i++) { const r = el('rect', { x: (-3200 + tr() * 9600).toFixed(0), y: 9 + (i % 4) * 9, width: (36 + tr() * 110).toFixed(0), height: 2.6, rx: 1.3, fill: i % 3 === 0 ? '#ff6b6b' : '#ffe6a8', opacity: .85 }, trailsG); r.style.animation = `trail ${(8 + tr() * 10).toFixed(1)}s linear infinite`; r.style.animationDelay = `-${(tr() * 14).toFixed(1)}s`; r.style.setProperty('--dir', i % 2 ? 1 : -1); } }
+const reflectWrap = el('g', { mask: 'url(#rmask)' }, world);
+const reflect = el('use', { href: '#towers', transform: 'scale(1,-1)', opacity: .22 }, reflectWrap);
+const towersLayer = el('g', { id: 'towers' }, world);
+
+function bodyPath(shape, w, h) {
+  const L = -w / 2, R = w / 2, P = pts => 'M' + pts.map(p => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join('L') + 'Z';
+  switch (shape) {
+    case 'spire': return P([[L, 0], [L, -.60 * h], [.72 * L, -.60 * h], [.72 * L, -.80 * h], [.42 * L, -.80 * h], [.42 * L, -.92 * h], [.14 * L, -.92 * h], [0, -h], [.14 * R, -.92 * h], [.42 * R, -.92 * h], [.42 * R, -.80 * h], [.72 * R, -.80 * h], [.72 * R, -.60 * h], [R, -.60 * h], [R, 0]]);
+    case 'slab': return P([[L, 0], [L, -.93 * h], [R, -h], [R, 0]]);
+    case 'blade': { const a = .36 * w; return P([[-a, 0], [-a, -h], [a, -.9 * h], [a, 0]]); }
+    case 'crown': return P([[L, 0], [L, -.9 * h], [.6 * L, -.9 * h], [.6 * L, -h], [.6 * R, -h], [.6 * R, -.9 * h], [R, -.9 * h], [R, 0]]);
+    case 'dome': return `M${L} 0V${-.86 * h}A${w / 2} ${.14 * h} 0 0 1 ${R} ${-.86 * h}V0Z`;
+    case 'sail': return `M${L} 0V${-h}Q${R * 1.08} ${-.62 * h} ${R} ${-.26 * h}V0Z`;
+    case 'stack': return P([[L, 0], [L, -.45 * h], [.78 * L, -.45 * h], [.78 * L, -.75 * h], [.5 * L, -.75 * h], [.5 * L, -h], [.5 * R, -h], [.5 * R, -.75 * h], [.78 * R, -.75 * h], [.78 * R, -.45 * h], [R, -.45 * h], [R, 0]]);
+    case 'twist': {
+      const n = 5, sh = h / n, o = [0, .1, -.06, .12, -.04].map(v => v * w), pts = [];
+      for (let i = 0; i < n; i++) { pts.push([L + o[i], -i * sh], [L + o[i], -(i + 1) * sh]); }
+      for (let i = n - 1; i >= 0; i--) { pts.push([R + o[i], -(i + 1) * sh], [R + o[i], -i * sh]); }
+      return P(pts);
+    }
+  }
+}
+
+const labelsEl = $('#labels'); const towerEls = [];
+TOWERS.forEach(t => {
+  const g = el('g', { class: 'tower ' + t.kind, 'data-id': t.id, transform: `translate(${t.x},0)` }, towersLayer);
+  g.style.setProperty('--c', t.color); g.style.setProperty('--d', (t.order * .11).toFixed(2) + 's');
+  const rise = el('g', { class: 'rise' }, g);
+  const d = bodyPath(t.shape, t.w, t.h);
+  const cp = el('clipPath', { id: 'c-' + t.id }, defs); el('path', { d }, cp);
+  let fill = 'rgba(140,170,205,.10)', stroke = t.color, sw = 2;
+  if (t.kind === 'product') {
+    const gr = el('linearGradient', { id: 'g-' + t.id, x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
+    el('stop', { offset: 0, 'stop-color': mix(t.color, '#ffffff', .12) }, gr);
+    el('stop', { offset: .55, 'stop-color': mix(t.color, '#0b1226', .55) }, gr);
+    el('stop', { offset: 1, 'stop-color': '#0b1226' }, gr);
+    fill = `url(#g-${t.id})`; stroke = 'rgba(255,255,255,.38)'; sw = 1.2;
+  }
+  el('path', { d, class: 'body', fill, stroke, 'stroke-width': sw, 'stroke-linejoin': 'round' }, rise);
+  el('rect', { x: -t.w / 2 - 20, y: -t.h - 20, width: t.w + 40, height: t.h + 20, fill: `url(#win${t.order % 3})`, 'clip-path': `url(#c-${t.id})`, class: 'windows' }, rise);
+  el('rect', { x: -t.w / 2, y: -t.h, width: t.w * .22, height: t.h, fill: 'url(#sheen)', 'clip-path': `url(#c-${t.id})` }, rise);
+  el('rect', { x: -t.w / 2, y: -t.h, width: t.w, height: t.h, fill: 'url(#floors)', 'clip-path': `url(#c-${t.id})` }, rise);
+  const glg = el('g', { 'clip-path': `url(#c-${t.id})` }, rise);
+  const gl = el('rect', { x: -t.w * .5, y: -t.h - 20, width: t.w * .3, height: t.h + 40, fill: 'url(#glintg)', class: 'glint' }, glg);
+  gl.style.setProperty('--w', t.w + 'px'); gl.style.animationDelay = '-' + ((t.order * 1.37) % 9).toFixed(2) + 's'; gl.style.animationDuration = (8 + (t.order % 4)) + 's';
+  if (['spire', 'blade', 'crown'].includes(t.shape)) {
+    const top = t.shape === 'spire' ? -t.h : -t.h - 0, a = el('g', {}, rise);
+    el('line', { x1: 0, y1: top, x2: 0, y2: top - 70, stroke: 'rgba(255,255,255,.7)', 'stroke-width': 2 }, a);
+    el('circle', { cx: 0, cy: top - 74, r: 4.5, fill: '#ff4d6d', class: 'beacon' }, a);
+  }
+  el('rect', { x: -t.w / 2 - 15, y: -t.h - 80, width: t.w + 30, height: t.h + 80, fill: 'transparent' }, g);
+  towerEls.push(g); t.el = g;
+  const lb = document.createElement('div'); lb.className = 'lbl ' + t.kind; lb.style.setProperty('--c', t.color);
+  lb.innerHTML = '<i></i>' + t.short; labelsEl.appendChild(lb); t.lbl = lb;
+});
+
+el('rect', { x: -6000, y: -190, width: 16000, height: 190, fill: 'url(#mist)', 'pointer-events': 'none' }, world);
+
+/* ---------- camera ---------- */
+const cam = { x: 0, y: 0, w: 1920, h: 1080 };
+let camAnim = null;
+const tall = () => innerHeight / innerWidth > 1.05;
+const REGION = {
+  wide: { pano: { l: .03, r: .97, t: .50, b: .92 }, focus: { l: .43, r: .97, t: .12, b: .84 } },
+  tall: { pano: { l: .03, r: .97, t: .55, b: .92 }, focus: { l: .04, r: .96, t: .50, b: .90 } }
+};
+function bboxOf(ids) {
+  let x0 = 1e9, x1 = -1e9, hmax = 0;
+  ids.forEach(id => { const t = T[id]; x0 = Math.min(x0, t.x - t.w / 2); x1 = Math.max(x1, t.x + t.w / 2); hmax = Math.max(hmax, t.h); });
+  return { x0: x0 - 50, x1: x1 + 50, h: hmax + 120 };
+}
+function fit(ids, kind) {
+  const cw = innerWidth, ch = innerHeight, r = REGION[tall() ? 'tall' : 'wide'][kind], bb = bboxOf(ids);
+  const rw = (r.r - r.l) * cw, rh = (r.b - r.t) * ch;
+  const s = Math.min(rw / (bb.x1 - bb.x0), rh / bb.h), cx = (bb.x0 + bb.x1) / 2;
+  return { x: cx - ((r.l + r.r) / 2 * cw) / s, y: -(r.b * ch) / s, w: cw / s, h: ch / s };
+}
+const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+let dx = 0, dy = 0, lite = false, gN = 0, gSum = 0, gLast = 0;
+function flyTo(target, ms) {
+  if (RM || ms <= 0) { Object.assign(cam, target); camAnim = null; applyCam(); return; }
+  camAnim = { from: { ...cam }, to: target, t0: performance.now(), ms };
+}
+function frame(now) {
+  if (camAnim) {
+    const p = Math.min(1, (now - camAnim.t0) / camAnim.ms), e = ease(p);
+    for (const k of ['x', 'y', 'w', 'h']) cam[k] = camAnim.from[k] + (camAnim.to[k] - camAnim.from[k]) * e;
+    if (p >= 1) camAnim = null;
+  }
+  if (!RM && !lite) { dx = Math.sin(now / 5200) * 10 * (cam.w / 1920); dy = Math.cos(now / 6800) * 5 * (cam.w / 1920); } else { dx = dy = 0; }
+  applyCam();
+  // Slow machine (venue laptop)? Drop the costly effects instead of stuttering. Not used when recording.
+  if (!RECORD && !RM && !lite) {
+    if (gLast && now - gLast < 200) { gSum += now - gLast; gN++; }
+    gLast = now;
+    if (gN >= 150) { if (gSum / gN > 30) { lite = true; document.documentElement.classList.add('lite'); } gN = 0; gSum = 0; }
+  }
+  requestAnimationFrame(frame);
+}
+function applyCam() {
+  const vx = cam.x + dx, vy = cam.y + dy;
+  world.setAttribute('viewBox', `${vx.toFixed(2)} ${vy.toFixed(2)} ${cam.w.toFixed(2)} ${cam.h.toFixed(2)}`);
+  far.setAttribute('transform', `translate(${(vx * .65).toFixed(1)} 0)`);
+  mid.setAttribute('transform', `translate(${(vx * .35).toFixed(1)} 0)`);
+  const s = innerWidth / cam.w;
+  TOWERS.forEach(t => { const stag = s < .5 ? (t.order % 2) * 36 : 0; t.lbl.style.transform = `translate(${((t.x - vx) * s).toFixed(1)}px,${((-t.h - vy) * s - 12 - stag).toFixed(1)}px) translate(-50%,-100%)`; });
+}
+
+/* ---------- world state ---------- */
+function setWorld(o) {
+  const lit = o.lit === 'all' || !o.lit ? null : new Set(o.lit);
+  towerEls.forEach(g => {
+    const id = g.dataset.id;
+    g.classList.toggle('dim', !!lit && !lit.has(id));
+    g.classList.toggle('soft', !!o.soft);
+    g.classList.toggle('focus', o.focus === id);
+  });
+  const labels = new Set(o.labels || []);
+  TOWERS.forEach(t => { t.lbl.classList.toggle('on', labels.has(t.id)); t.lbl.classList.toggle('focus', o.focus === t.id); });
+}
+function riseAll(replay) {
+  if (replay) { towerEls.forEach(g => g.classList.remove('built')); void document.body.offsetWidth; }
+  setTimeout(() => towerEls.forEach(g => g.classList.add('built')), replay ? 80 : 0);
+}
+const ensureBuilt = () => towerEls.forEach(g => g.classList.add('built'));
+const pano = (stageIndex) => tall() ? STAGES[stageIndex % 5].items : ALL;
+
+/* ---------- mock screens ---------- */
+const NAVS = n => n.map((x, i) => `<a class="${i === 0 ? 'on' : ''}"><u></u>${x}</a>`).join('');
+const MOCK = {
+  pms: () => `<div class="win pms" style="--glow:rgba(96,165,250,.35)"><div class="chrome"><i></i><i></i><i></i><span>Project Management</span></div><div class="app">
+    <aside class="side"><div class="brand"><b></b><div><strong>eLan Technology</strong><small>Project Management</small></div></div><nav>${NAVS(['Dashboard', 'Schedule', 'Clients', 'Projects', 'Tasks', 'Team', 'Billing', 'Enquiries', 'Reminders', 'Messages', 'Settings'])}</nav></aside>
+    <section class="main"><header><div><h4>Welcome back, Alex</h4><p>Portfolio health across every engagement in your workspace.</p></div><span class="btn2">View all projects</span></header>
+      <div class="kpis"><div class="kpi g"><small>Active projects</small><strong>39</strong><em>72% avg completion</em></div><div class="kpi b"><small>Active enquiries</small><strong>4</strong><em>2 new</em></div><div class="kpi a"><small>Domains expiring</small><strong>3</strong><em>within 45 days</em></div><div class="kpi r"><small>Reminders</small><strong>6</strong><em><span class="pulse"></span>Action required</em></div><div class="kpi v"><small>Outstanding</small><strong>2</strong><em>Pending + overdue</em></div></div>
+      <div class="cols">
+        <div class="card2"><h5>Active enquiries <span>4</span></h5><ul><li><b>Palm &amp; Co</b><span>Website redesign</span></li><li><b>Northwind Exports</b><span>Online store</span></li><li><b>Blue Orchard</b><span>Mobile app</span></li></ul></div>
+        <div class="card2"><h5>Domain renewals <span>45 days</span></h5><ul><li><b>palmandco.com</b><span>12 days</span></li><li><b>northwind.example</b><span>29 days</span></li><li><b>blueorchard.example</b><span>41 days</span></li></ul></div>
+        <div class="card2"><h5>Outstanding payments <span>2</span></h5><ul><li><b>Sahara Freight</b><span>Overdue</span></li><li><b>Palm &amp; Co</b><span>Pending</span></li></ul></div>
+      </div>
+      <div class="card2"><h5>Project status tracker <span>39 active engagements</span></h5><div class="tiles"><div class="tile" style="--k:#f59e0b"><b>Palm &amp; Co</b><small>PC-26 · Design</small><div class="bar"><i style="width:45%"></i></div></div><div class="tile" style="--k:#10b981"><b>Northwind Exports</b><small>NW-19 · Build</small><div class="bar"><i style="width:78%"></i></div></div><div class="tile" style="--k:#6366f1"><b>Sahara Freight</b><small>SF-07 · Testing</small><div class="bar"><i style="width:92%"></i></div></div></div></div>
+    </section></div><span class="tag-sample">Sample data</span></div>`,
+  'central-cms': () => `<div class="win cms" data-phase="4" style="--glow:rgba(6,182,212,.4)"><div class="chrome"><i></i><i></i><i></i><span>eLan Central CMS</span></div><div class="app">
+    <aside class="side"><div class="tenant"><small>Website</small><strong>Acme Dental ▾</strong></div><nav>${NAVS(['Dashboard', 'Pages', 'Posts', 'Media', 'Redirects', 'Forms', 'Site settings']).replace('class="on"', 'class=""').replace(/(<a class=")("><u><\/u>Pages)/, '$1on$2')}</nav></aside>
+    <section class="main"><header><div><h4>Pages › Home</h4><p>Built from blocks. Alt text is required on every image.</p></div><span class="pub">Publish site</span></header>
+      <div class="editor"><div class="blocks"><div class="blk"><u>Hero</u><span>Headline, image, button</span></div><div class="blk on"><u>Services grid</u><span>6 items</span></div><div class="blk"><u>Testimonials</u><span>3 quotes</span></div><div class="blk"><u>FAQ</u><span>8 questions</span></div><div class="blk"><u>Contact</u><span>Form and map</span></div></div>
+      <div class="panel2"><h5>SEO</h5><label>Title<span>/*if dubai*/Family dentist in Dubai/*endif*//*if bni-raipur*/Family dentist in Raipur/*endif*/</span></label><label>Description<span>Gentle, modern dental care for the whole family.</span></label><h5>Publishing</h5><ol class="build"><li data-p="2">Queued</li><li data-p="3">Building with Astro</li><li data-p="4">Live on your hosting</li></ol></div></div>
+    </section></div><span class="tag-sample">Sample site</span></div>`
+};
+{{VISUALS_JS}}
+const screenEl = $('#screen');
+let screenId = null;
+function showScreen(id, phase) {
+  if (!id || !MOCK[id]) { screenEl.classList.remove('on'); document.body.classList.remove('has-screen'); screenId = null; return; }
+  if (screenId !== id) { screenEl.innerHTML = MOCK[id](); screenId = id; }
+  if (id === 'central-cms') setPhase(phase == null ? 4 : phase);
+  requestAnimationFrame(() => screenEl.classList.add('on'));
+  document.body.classList.add('has-screen');
+}
+function setPhase(n) {
+  const w = $('.win.cms', screenEl); if (!w) return;
+  w.dataset.phase = n;
+  $$('.build li', w).forEach(li => { const p = +li.dataset.p; li.className = n > p ? 'done' : (n === p ? 'active' : ''); });
+  if (n === 4) $$('.build li', w).forEach(li => { if (+li.dataset.p === 4) li.className = 'done'; });
+}
+
+/* ---------- stage scene ---------- */
+const stEls = { num: $('#st-num'), name: $('#st-name'), line: $('#st-line'), items: $('#st-items'), detail: $('#st-detail'), legend: $('#st-legend') };
+function fillStage(st) {
+  stEls.num.textContent = 'Stage ' + (st.k + 1) + ' of 5';
+  stEls.name.textContent = st.name; stEls.line.textContent = st.line;
+  stEls.items.innerHTML = '';
+  st.items.forEach((id, i) => {
+    const li = document.createElement('li'), b = document.createElement('button'), t = T[id];
+    b.style.setProperty('--c', t.color); b.innerHTML = '<i></i>' + t.short; b.dataset.i = i + 1;
+    b.addEventListener('click', () => setStep(i + 1)); li.appendChild(b); stEls.items.appendChild(li);
+  });
+}
+function showDetail(id) {
+  const t = T[id], d = stEls.detail; d.hidden = false; d.style.setProperty('--c', t.color);
+  const demo = DEMOS[id];
+  const label = id === 'insurance' ? 'Open the live platform ↗' : 'Open the live demo ↗';
+  const stack = t.stack.slice(0, 9).map(s => `<span>${s}</span>`).join('') + (t.stack.length > 9 ? `<span>+${t.stack.length - 9} more</span>` : '');
+  d.innerHTML = `<div class="kind">${t.kind === 'product' ? 'Product' : 'Service'}</div><h3>${t.name}</h3><p>${t.desc}</p>` + (stack ? `<div class="stack">${stack}</div>` : '') +
+    `<div class="acts">${t.kind === 'product' ? (demo ? `<a class="btn" href="${demo}" target="_blank" rel="noopener">${label}</a>` : '<span class="quoted">Demo on request</span>') : ''}<span class="quoted">Quoted per project</span></div>`;
+  d.style.animation = 'none'; void d.offsetWidth; d.style.animation = '';
+}
+
+/* ---------- scene registry ---------- */
+const SC = {};
+const reg = d => { d.el = d.el || $('#sc-' + d.id); SC[d.id] = d; return d; };
+const nameOfStage = k => 'stage' + (k + 1);
+
+reg({ id: 'open', name: 'Welcome', loop: 9, onEnter() { riseAll(true); }, onStep() { setWorld({ lit: 'all' }); showScreen(null); }, cam: () => fit(pano(0), 'pano') });
+reg({ id: 'who', name: 'Who we are', loop: 8, onEnter() { ensureBuilt(); }, onStep() { setWorld({ lit: 'all', soft: true }); showScreen(null); countUp(); }, cam: () => fit(pano(1), 'pano') });
+
+const pathBar = $('#path-bar');
+STAGES.forEach((st, i) => { const li = document.createElement('li'); li.innerHTML = `<b>${i + 1}</b>${st.name}`; pathBar.appendChild(li); });
+reg({ id: 'path', name: 'The journey', loop: 10, steps: () => 6,
+  onEnter() { ensureBuilt(); },
+  onStep(s) {
+    $$('li', pathBar).forEach((li, i) => { li.classList.toggle('done', i < s - 1); li.classList.toggle('on', i === s - 1); });
+    const lit = []; for (let i = 0; i < s; i++) lit.push(...STAGES[i].items);
+    setWorld(s === 0 ? { lit: 'all', soft: true } : { lit, labels: STAGES[s - 1].items });
+    showScreen(null);
+  },
+  cam: s => fit(tall() ? STAGES[Math.max(0, s - 1)].items : ALL, 'pano') });
+
+const STAGE_LOOP = [6, 6, 6, 7, 8];
+STAGES.forEach((st, k) => {
+  reg({ id: nameOfStage(k), el: $('#sc-stage'), name: st.name, loop: STAGE_LOOP[k], stage: st, steps: () => st.items.length + 1,
+    onEnter() { ensureBuilt(); fillStage(st); },
+    onStep(s) {
+      const id = s > 0 ? st.items[s - 1] : null;
+      $$('button', stEls.items).forEach(b => b.classList.toggle('on', +b.dataset.i === s));
+      if (id) { showDetail(id); stEls.detail.hidden = false; stEls.legend.hidden = true; } else { stEls.detail.hidden = true; stEls.legend.hidden = false; }
+      setWorld({ lit: st.items, focus: id, labels: st.items });
+      showScreen(id && MOCK[id] ? id : null);
+    },
+    cam: () => fit(st.items, 'focus') });
+});
+
+const CMS_STAGE = STAGES[1];
+reg({ id: 'cms', name: 'eLan Central CMS', loop: 0, steps: () => 5,
+  onEnter() { ensureBuilt(); },
+  onStep(s) { setWorld({ lit: CMS_STAGE.items, focus: 'central-cms', labels: CMS_STAGE.items }); showScreen(s > 0 ? 'central-cms' : null, s); },
+  cam: () => fit(CMS_STAGE.items, 'focus') });
+
+// technology
+const tg = $('#tgroups'), usedEl = $('#tech-used');
+TECH_GROUPS.forEach(([g, items]) => {
+  const div = document.createElement('div'); div.className = 'tg'; div.innerHTML = `<h4>${g}</h4><ul></ul>`;
+  items.forEach(name => { const li = document.createElement('li'), b = document.createElement('button'); b.textContent = name; b.dataset.tech = name; li.appendChild(b); $('ul', div).appendChild(li); });
+  tg.appendChild(div);
+});
+let techSticky = null;
+function highlightTech(name) {
+  $$('button', tg).forEach(b => { b.classList.toggle('on', b.dataset.tech === name); b.classList.toggle('off', !!name && b.dataset.tech !== name); });
+  if (!name) { usedEl.innerHTML = ''; setWorld({ lit: 'all', soft: true }); return; }
+  const ids = techMap[name] || [];
+  usedEl.innerHTML = ids.length ? `<b>${name}</b> is used in ${ids.map(i => T[i].short).join(', ')}.` : `<b>${name}</b> powers many of our client websites.`;
+  setWorld({ lit: ids.length ? ids : [], focus: null, labels: ids });
+}
+$$('button', tg).forEach(b => {
+  b.addEventListener('mouseenter', () => { if (state.mode === 'present') highlightTech(b.dataset.tech); });
+  b.addEventListener('mouseleave', () => { if (state.mode === 'present') highlightTech(techSticky); });
+  b.addEventListener('click', () => { techSticky = techSticky === b.dataset.tech ? null : b.dataset.tech; highlightTech(techSticky); });
+});
+reg({ id: 'tech', name: 'Technology', loop: 9, steps: () => TECH_STEPS.length + 1,
+  onEnter() { ensureBuilt(); techSticky = null; },
+  onStep(s) { techSticky = s > 0 ? TECH_STEPS[s - 1] : null; highlightTech(techSticky); showScreen(null); },
+  cam: () => fit(pano(4), 'pano') });
+
+/*if dubai*/[['uae', 'Working with the UAE', 10], ['ways', 'Ways to work together', 8], ['data', 'Confidentiality and data', 9], ['close', 'Contact', 10]]/*endif*//*if bni-raipur*/[['fit', 'Who we help', 11], ['refer', 'How to refer us', 9], ['close', 'Contact', 10]]/*endif*/.forEach(([id, name, loop], n) =>
+  reg({ id, name, loop, onEnter() { ensureBuilt(); }, onStep() { setWorld({ lit: 'all', soft: true }); showScreen(null); }, cam: () => fit(pano(n % 5), 'pano') }));
+
+// headline word reveal
+function splitWords(root) {
+  let k = 0;
+  (function walk(node) {
+    Array.from(node.childNodes).forEach(n => {
+      if (n.nodeType === 3) {
+        const frag = document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach(tok => {
+          if (!tok) return;
+          if (/^\s+$/.test(tok)) { frag.appendChild(document.createTextNode(' ')); return; }
+          const w = document.createElement('span'); w.className = 'w';
+          const i = document.createElement('span'); i.className = 'wi'; i.style.setProperty('--k', k++); i.textContent = tok;
+          w.appendChild(i); frag.appendChild(w);
+        });
+        n.replaceWith(frag);
+      } else if (n.nodeType === 1 && n.tagName !== 'BR') walk(n);
+    });
+  })(root);
+}
+$$('.display,.h1,.h2').forEach(e => { if (e.classList.contains('rv')) splitWords(e); });
+
+// contact
+$('#c-wa').textContent = CONTACT.whatsapp; $('#c-mail').textContent = CONTACT.email; $('#c-site').textContent = CONTACT.site; $('#c-sign').textContent = CONTACT.sign;
+
+// counters
+let countRaf = 0;
+function countUp() {
+  const els = $$('#sc-who [data-count]'), t0 = performance.now(), dur = RM ? 1 : 1700;
+  cancelAnimationFrame(countRaf);
+  const fmt = (n, e) => e.dataset.fmt === 'plain' ? String(n) : (e.dataset.fmt === 'comma' ? n.toLocaleString('en-US') : String(n)) + (e.dataset.suffix || '');
+  const tick = now => { const p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3); els.forEach(x => { x.textContent = fmt(Math.round(+x.dataset.count * e), x); }); if (p < 1) countRaf = requestAnimationFrame(tick); };
+  countRaf = requestAnimationFrame(tick);
+}
+
+/* ---------- navigation ---------- */
+const MODES = {
+/*if dubai*/
+  present: ['open', 'who', 'path', 'stage1', 'stage2', 'cms', 'stage3', 'stage4', 'stage5', 'tech', 'uae', 'ways', 'close'],
+  loop: ['open', 'who', 'path', 'stage1', 'stage2', 'stage3', 'stage4', 'stage5', 'tech', 'uae', 'ways', 'close'],
+  compliance: ['open', 'who', 'path', 'uae', 'data', 'ways', 'close']
+/*endif*/
+/*if bni-raipur*/
+  present: ['open', 'who', 'path', 'stage1', 'stage2', 'cms', 'stage3', 'stage4', 'stage5', 'fit', 'refer', 'close'],
+  loop: ['open', 'who', 'path', 'stage1', 'stage2', 'stage3', 'stage4', 'stage5', 'fit', 'refer', 'close']
+/*endif*/
+};
+const state = { mode: 'present', idx: 0, step: 0, paused: false };
+const list = () => MODES[state.mode];
+const curId = () => list()[state.idx];
+const cur = () => SC[curId()];
+function stepsOf(sc) {
+  if (typeof sc.steps === 'function') return sc.steps();
+  const ats = $$('.rv', sc.el).map(e => +e.dataset.at || 0);
+  return Math.max(0, ...ats) + 1;
+}
+let lastScene = null;
+function render() {
+  const sc = cur(), s = state.step, sameEl = lastScene && lastScene.el === sc.el;
+  $$('.scene').forEach(e => e.classList.toggle('active', e === sc.el));
+  if (lastScene !== sc) {
+    if (sc.onEnter) sc.onEnter();
+    if (sameEl) { sc.el.style.opacity = 0; requestAnimationFrame(() => { sc.el.style.opacity = ''; }); }
+  }
+  $$('.rv', sc.el).forEach(e => e.classList.toggle('on', (+e.dataset.at || 0) <= s));
+  if (sc.onStep) sc.onStep(s);
+  const target = sc.cam(s);
+  if (!lastScene && sc.id === 'open' && !RM) { Object.assign(cam, { x: target.x - 260, y: target.y - 760, w: target.w * 1.35, h: target.h * 1.35 }); flyTo(target, 3800); }
+  else flyTo(target, lastScene ? 1500 : 0);
+  if (lastScene && lastScene !== sc) { const w = $('#wipe'); w.classList.remove('go'); void w.offsetWidth; w.classList.add('go'); }
+  lastScene = sc;
+  updateHud(); syncHash();
+}
+function go(i, s) { state.idx = Math.max(0, Math.min(list().length - 1, i)); state.step = s || 0; render(); }
+function setStep(s) { state.step = Math.max(0, Math.min(stepsOf(cur()) - 1, s)); render(); }
+function next(wrap) {
+  const sc = cur();
+  if (state.step < stepsOf(sc) - 1) { state.step++; render(); }
+  else if (state.idx < list().length - 1) go(state.idx + 1, 0);
+  else if (wrap) go(0, 0);
+}
+function prev() {
+  if (state.step > 0) { state.step--; render(); }
+  else if (state.idx > 0) { const p = SC[list()[state.idx - 1]]; go(state.idx - 1, stepsOf(p) - 1); }
+}
+function setMode(m, startIdx) {
+  if (!MODES[m]) return;   // this edition has no such mode
+  clearTimeout(loopTimer);
+  state.mode = m; state.paused = false; document.body.classList.remove('paused');
+  $('#app').dataset.mode = m;
+  $$('#hud .modes button').forEach(b => b.classList.toggle('on', b.dataset.mode === m));
+  buildDots(); lastScene = null; go(startIdx || 0, 0);
+  if (m === 'loop') scheduleLoop();
+}
+const dotsEl = $('#dots');
+function buildDots() {
+  dotsEl.innerHTML = '';
+  list().forEach((id, i) => { const b = document.createElement('button'); b.setAttribute('aria-label', SC[id].name); b.addEventListener('click', () => go(i, 0)); dotsEl.appendChild(b); });
+}
+function updateHud() {
+  $$('button', dotsEl).forEach((b, i) => b.classList.toggle('on', i === state.idx));
+  $('#live').textContent = cur().name;
+  document.title = TITLE_PREFIX + cur().name;
+}
+function syncHash() { try { history.replaceState(null, '', '#' + curId() + (state.step ? '-' + state.step : '')); } catch (e) { /* file:// in some browsers */ } }
+
+/* ---------- auto-play ---------- */
+let loopTimer = 0;
+function scheduleLoop() {
+  clearTimeout(loopTimer);
+  if (state.mode !== 'loop' || state.paused) return;
+  const sc = cur(), n = stepsOf(sc), total = (sc.loop || 8) * 1000;
+  const weights = Array.from({ length: n }, (_, i) => i === 0 && n > 1 ? 1.7 : 1), sum = weights.reduce((a, b) => a + b, 0);
+  loopTimer = setTimeout(() => { next(true); scheduleLoop(); }, Math.max(700, total * weights[state.step] / sum));
+}
+$('#app').addEventListener('click', e => {
+  if (state.mode !== 'loop') return;
+  if (e.target.closest('#hud')) return;
+  state.paused = !state.paused; document.body.classList.toggle('paused', state.paused); $('#app').classList.toggle('paused', state.paused);
+  if (state.paused) clearTimeout(loopTimer); else scheduleLoop();
+});
+
+/* ---------- input ---------- */
+document.addEventListener('keydown', e => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const k = e.key;
+  if (['ArrowRight', 'ArrowDown', 'PageDown', ' ', 'Enter', '.'].includes(k)) { e.preventDefault(); next(state.mode === 'loop'); if (state.mode === 'loop') scheduleLoop(); }
+  else if (['ArrowLeft', 'ArrowUp', 'PageUp', 'Backspace', ','].includes(k)) { e.preventDefault(); prev(); if (state.mode === 'loop') scheduleLoop(); }
+  else if (k === 'Home') go(0, 0);
+  else if (k === 'End') go(list().length - 1, 0);
+  else if (k === 'a' || k === 'A') setMode('loop');
+  else if (k === 'p' || k === 'P') setMode('present');
+  else if ((k === 'c' || k === 'C') && MODES.compliance) setMode('compliance');
+  else if (k === 'f' || k === 'F') { if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); }
+});
+$('.navbtn.next').addEventListener('click', e => { e.stopPropagation(); next(); });
+$('.navbtn.prev').addEventListener('click', e => { e.stopPropagation(); prev(); });
+$$('#hud .modes button').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); setMode(b.dataset.mode); }));
+let sx = 0, sy = 0;
+addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy; if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5 && state.mode !== 'loop') (dx < 0 ? next : prev)(); }, { passive: true });
+TOWERS.forEach(t => t.el.addEventListener('click', e => {
+  e.stopPropagation(); if (state.mode !== 'present') return;
+  const k = t.stage.k, i = MODES.present.indexOf(nameOfStage(k));
+  if (curId() === nameOfStage(k)) setStep(t.stage.items.indexOf(t.id) + 1); else go(i, t.stage.items.indexOf(t.id) + 1);
+}));
+let idleT = 0;
+const wake = () => { document.documentElement.classList.remove('idle'); clearTimeout(idleT); idleT = setTimeout(() => document.documentElement.classList.add('idle'), 3500); };
+['mousemove', 'mousedown', 'keydown', 'touchstart'].forEach(ev => addEventListener(ev, wake, { passive: true }));
+setTimeout(() => { $('#hint').style.opacity = 0; }, 9000);
+
+function onResize() {
+  document.documentElement.classList.toggle('tall', tall());
+  camAnim = null; Object.assign(cam, cur().cam(state.step)); applyCam();
+}
+addEventListener('resize', onResize);
+
+/* ---------- start ---------- */
+document.documentElement.classList.toggle('tall', tall());
+const q = new URLSearchParams(location.search);
+const startMode = RECORD ? 'loop' : (Object.keys(MODES).includes(q.get('mode')) ? q.get('mode') : 'present');
+state.mode = startMode;
+let startIdx = 0, startStep = 0;
+const hm = location.hash.replace('#', '').match(/^([a-z0-9]+)(?:-(\d+))?$/);
+if (hm) { const i = MODES[startMode].indexOf(hm[1]); if (i >= 0) { startIdx = i; startStep = +(hm[2] || 0); } }
+applyCam();
+setMode(startMode, startIdx);
+if (startStep) setStep(startStep);
+if (startIdx === 0) riseAll(false); else ensureBuilt();
+wake();
+window.__loopSeconds = MODES.loop.reduce((a, id) => a + (SC[id].loop || 0), 0);
+requestAnimationFrame(frame);
+window.__deck = { go, next, prev, setMode, setStep, state, TOWERS, STAGES };
+})();
+</script>
+</body>
+</html>
