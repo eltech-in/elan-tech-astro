@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import type { NavLink } from '../data/navigation';
 
 // SVG icon map for each service - inline for zero-dependency approach
 const serviceIcons: Record<string, string> = {
@@ -106,31 +107,11 @@ const services: { label: string; slug: string; subpages: SubPage[] }[] = [
   },
 ];
 
-const products = [
-  {
-    title: 'Real Estate Portal',
-    slug: 'real-estate-portal',
-    features: ['Property listings', 'Agent dashboards', 'Lead capture & CRM', 'Map integration'],
-  },
-  {
-    title: 'Medical Conference Portal',
-    slug: 'medical-conference-portal',
-    features: ['Event registration', 'Abstract submission', 'Speaker management', 'Certificate generation'],
-  },
-  {
-    title: 'IMA Society Portal',
-    slug: 'ima-society-portal',
-    features: ['Member management', 'Election module', 'Job portal', 'CPD tracking'],
-  },
-  {
-    title: 'Resort Management Portal',
-    slug: 'resort-management-system',
-    features: ['Online room booking', 'Housekeeping mgmt', 'Dining POS', 'Guest CRM'],
-  },
-];
 
 interface MegaMenuProps {
   currentPath: string;
+  /** Products from src/data/navigation.ts (passed in by Header.astro). */
+  products?: NavLink[];
 }
 
 const primaryLinks = [
@@ -142,7 +123,7 @@ const primaryLinks = [
   { label: 'Contact', href: '/contact/' },
 ];
 
-export default function MegaMenu({ currentPath }: MegaMenuProps) {
+export default function MegaMenu({ currentPath, products = [] }: MegaMenuProps) {
   const [activeMenu, setActiveMenu] = useState<'services' | 'products' | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const hoverTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -338,33 +319,20 @@ export default function MegaMenu({ currentPath }: MegaMenuProps) {
         </div>
       ) : (
         <div className="mx-auto max-w-7xl px-6 py-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
+          <div className="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-3 lg:grid-cols-5">
             {products.map((prod) => (
-              <div key={prod.slug}>
-                <a
-                  href={`/products/${prod.slug}/`}
-                  onClick={closeImmediately}
-                  className="flex items-center gap-2 font-semibold text-[var(--text)] hover:text-[var(--accent)] mb-3 transition-colors text-sm"
-                >
-                  {prod.title}
-                </a>
-                <ul className="space-y-2">
-                  {prod.features.map((feature) => (
-                    <li key={feature}>
-                      <a
-                        href={`/products/${prod.slug}/`}
-                        onClick={closeImmediately}
-                        className="text-xs text-[var(--text-dim)] hover:text-[var(--accent)] transition-colors"
-                      >
-                        {feature}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <a
+                key={prod.href}
+                href={prod.href}
+                onClick={closeImmediately}
+                className="group block rounded-xl p-3 -m-3 transition-colors hover:bg-[var(--bg-card)]"
+              >
+                <span className="block text-sm font-semibold text-[var(--text)] group-hover:text-[var(--accent)] transition-colors">{prod.label}</span>
+                {prod.blurb && <span className="mt-1 block text-xs leading-relaxed text-[var(--text-dim)]">{prod.blurb}</span>}
+              </a>
             ))}
             {/* Products CTA */}
-            <div className="flex flex-col justify-between rounded-xl bg-gradient-to-br from-[var(--accent)]/10 to-[#6366F1]/10 border border-[var(--border)] p-5">
+            <div className="flex flex-col justify-between rounded-xl bg-gradient-to-br from-[var(--accent)]/10 to-[#6366F1]/10 border border-[var(--border)] p-5 lg:col-start-5 lg:row-start-1 lg:row-span-2">
               <div>
                 <h3 className="font-bold text-[var(--text)] mb-2 text-sm">Find the right product.</h3>
                 <p className="text-xs text-[var(--text-muted)] leading-relaxed">

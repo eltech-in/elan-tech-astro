@@ -8,7 +8,7 @@
 export const homepageSeoBaseline = {
   title: 'Web Design & Development Company in Nagpur | eLan Technology',
   description:
-    "Nagpur web design and development company with 24+ years' experience and 500+ clients. Custom websites, eCommerce and ADA/WCAG accessibility. Free audit.",
+    "Nagpur web design and development company with 24+ years' experience and 500+ clients. Custom websites, eCommerce and ADA/WCAG accessibility. Audits from ₹999.",
   h1Lead: 'Web Design & Development',
   h1Proof: 'Trusted by 500+ Businesses',
   measurementStarted: '2026-09-11',

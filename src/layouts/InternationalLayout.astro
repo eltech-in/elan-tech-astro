@@ -1,5 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import { currencyForCountry } from '../data/auditPricing';
+import AuditPrice from '../components/AuditPrice.astro';
 import NdaExperienceNote from '../components/international/NdaExperienceNote.astro';
 import { isIndexedLocationSlug } from '../data/indexPolicy';
 import Breadcrumb from '../components/Breadcrumb.astro';
@@ -32,10 +34,11 @@ const {
   extraSchema = [],
   heading = `Web Development Partner for ${country.name} Businesses`,
   introduction = 'Plan, design and improve business websites with an experienced India-based team. Scope, ownership, testing, delivery and ongoing costs are agreed in writing for every engagement.',
-  primaryAction = { href: '/free-website-audit/', label: 'Get Free Audit' },
+  primaryAction = { href: '/free-website-audit/', label: 'Book a Website Audit' },
 } = Astro.props;
 
 const pageUrl = `/web-design-company-${country.slug}/`;
+const localCurrency = currencyForCountry(country.slug);
 
 const breadcrumbs = [
   { name: 'Home', href: '/' },
@@ -119,6 +122,11 @@ const allSchemas = [svc, crumbSchema, ...(faq ? [faq] : []), ...extraSchema];
           {primaryAction.href === '/get-quote/' ? 'Review my existing website' : 'Get Quote'}
         </a>
       </div>
+      <p class="mt-6 text-sm text-[var(--text-muted)]">
+        Website audit <AuditPrice kind="website" currency={localCurrency} class="font-semibold text-[var(--text)]" />
+        <span aria-hidden="true"> · </span>
+        Accessibility (WCAG) audit <AuditPrice kind="accessibility" currency={localCurrency} class="font-semibold text-[var(--text)]" />
+      </p>
     </div>
   </section>
 

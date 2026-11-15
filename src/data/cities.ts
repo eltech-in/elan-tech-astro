@@ -903,7 +903,7 @@ export const cities: CityData[] = [
     tagline: 'Web design and development for Indore businesses, delivered from Nagpur',
     seoTitle: 'Web Design & Development Company in Indore',
     seoDescription:
-      'Web design and development for Indore businesses, startups and manufacturers. Custom websites from ₹21,000, eCommerce and web apps. Get a free audit.',
+      'Web design and development for Indore businesses, startups and manufacturers. Custom websites from ₹21,000, eCommerce and web apps. Website audits from ₹999.',
     primaryKeyword: 'web design company Indore',
     secondaryKeywords: [
       'website design Indore',

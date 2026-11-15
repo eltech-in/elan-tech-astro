@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import AuditPrice from '../../components/AuditPrice.astro';
 import { getCollection } from 'astro:content';
 import { breadcrumbSchema } from '../../utils/schema';
 import { Image } from 'astro:assets';
@@ -268,13 +269,13 @@ const categories = [...new Set(posts.map((p) => p.data.category))];
               Ready to Grow Online?
             </h3>
             <p class="text-sm text-[var(--text-dim)] mb-4 leading-relaxed">
-              Get a free website audit covering SEO & security. * Conditions apply.
+              A website audit covering SEO and security for <AuditPrice kind="website" class="font-semibold" />.
             </p>
             <a
               href="/free-website-audit/"
               class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-5 py-2.5 text-sm font-semibold text-[var(--bg)] hover:brightness-110 transition-all"
             >
-              Get Free Audit
+              Book an Audit
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>

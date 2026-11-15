@@ -2,7 +2,7 @@ import { useRef, useState, type SubmitEvent } from 'react';
 import { redirectToThankYou, submitLead } from '../lib/submitLead';
 
 // Rush assessment form for the Emergency ADA Remediation page.
-// Submits to the same FormSubmit endpoint as the Free Website Audit form,
+// Submits to the same FormSubmit endpoint as the Website Audit form,
 // tagged "Emergency ADA" so submissions are triaged first.
 
 const PLATFORMS = ['Shopify', 'WooCommerce', 'Custom', 'Not sure'];

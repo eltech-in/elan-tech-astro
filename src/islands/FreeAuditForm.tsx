@@ -95,7 +95,7 @@ export default function FreeAuditForm() {
     setStatus('submitting');
     try {
       await submitLead('free-audit', {
-        _subject: `Free Audit Request from ${step1.name}`,
+        _subject: `Website Audit Request (paid) from ${step1.name}`,
         _honey: honeypot,
         ...step1,
         ...step2,
@@ -319,7 +319,7 @@ export default function FreeAuditForm() {
               aria-describedby="fa-notes-help"
             />
             <p id="fa-notes-help" className="mt-1.5 text-xs leading-relaxed text-[var(--text-muted)]">
-              Do not include passwords, admin access, payment information or sensitive personal data. This free audit reviews only publicly accessible content.
+              Do not include passwords, admin access, payment information or sensitive personal data. This audit reviews only publicly accessible content.
             </p>
             </div>
 
@@ -400,14 +400,14 @@ export default function FreeAuditForm() {
                 Submitting...
               </>
             ) : (
-              'Request Free Audit'
+              'Request audit'
             )}
           </button>
         )}
       </div>
 
       <p className="text-xs text-[var(--text-muted)] text-center">
-        Public-site review only · No credit card · No marketing signup
+        Public-site review only · Paid after we confirm the request · No marketing signup
       </p>
     </form>
   );

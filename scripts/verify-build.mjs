@@ -277,9 +277,9 @@ check('ADA service: remediation + WCAG title and 48-hour response', fileContains
   '<title>ADA Website Remediation Services &amp; WCAG Audits | eLan Technology</title>',
   'Emergency response within 48 hours.',
 ));
-check('Free audit: concise benefit-led title', fileContains(
+check('Website audit: concise title with the fee', fileContains(
   'free-website-audit/index.html',
-  '<title>Free Website Audit: Scope, Findings &amp; Next Steps | eLan Technology</title>',
+  '<title>Website Audit from ₹999: Scope, Findings &amp; Next Steps | eLan Technology</title>',
 ));
 check('Trends article: title matches what the article delivers', fileContains(
   'blog/technology-trends/website-development-trends-april-2026/index.html',
@@ -712,7 +712,7 @@ check('Homepage title remains on the 90-day baseline', fileContains(
 ));
 check('Homepage description remains on the 90-day baseline', fileContains(
   HP,
-  "Nagpur web design and development company with 24+ years' experience and 500+ clients. Custom websites, eCommerce and ADA/WCAG accessibility. Free audit.",
+  "Nagpur web design and development company with 24+ years' experience and 500+ clients. Custom websites, eCommerce and ADA/WCAG accessibility. Audits from ₹999.",
 ));
 check('Homepage H1 remains on the 90-day baseline', fileContains(
   HP,
@@ -829,7 +829,22 @@ check('Generated image recovery rules do not redirect probes to sales pages',
 
 section('T  Focused UAE, audit preview and city buying information');
 check('UAE page qualifies language, location and integration scope', fileContains('web-design-company-dubai-uae/index.html', 'Scope my UAE project', 'qualified Arabic specialist', 'merchant onboarding', 'not UAE client claims', 'signed scope'));
-check('Free audit preserves positioning and labels sample findings', fileContains('free-website-audit/index.html', 'A free website audit with a clear scope', 'fictional examples', 'Not included:', 'Three short steps:', 'Request my free review'));
+check('Website audit preserves positioning and labels sample findings', fileContains('free-website-audit/index.html', 'A website audit with a clear scope', 'fictional examples', 'Not included:', 'Three short steps:', 'Request my audit'));
+
+// From 15 November 2026 nothing on the site is offered free: audits are paid (src/data/auditPricing.ts).
+{
+  const freeOffer = /\b(free (website |seo |local seo |brand |technical |security |rush |initial |accessibility |strategy )?(audit|review|assessment|consultation|quote|demo|call|session)|get free audit|claim free|completely free|100% free|no credit card)\b/i;
+  const offenders = generatedHtmlFiles(DIST).filter((path) => !path.includes('/bni-raipur/presentation/'))
+    .filter((path) => freeOffer.test(readFileSync(path, 'utf8').replace(/<script[\s\S]*?<\/script>/g, '').replace(/href="[^"]*"/g, '')));
+  check('No page offers a free audit, review, consultation or quote', offenders.length === 0, offenders.slice(0, 5).map((f) => f.replace(DIST + '/', '')).join(', '));
+}
+check('Audit page shows the ₹999 fee and paid schema offer', fileContains('free-website-audit/index.html', '₹999', '"price":"999"', 'Accessibility audits start'));
+check('Country pages show audit prices in their own currency', fileContains('web-design-company-dubai-uae/index.html', 'AED 69', 'AED 369')
+  && fileContains('web-design-company-canada/index.html', 'C$25', 'C$139')
+  && fileContains('web-design-company-usa/index.html', 'US$19', 'US$99')
+  && fileContains('web-design-company-australia/index.html', 'A$29')
+  && fileContains('web-design-company-japan/index.html', '¥2,900')
+  && fileContains('web-design-company-new-zealand/index.html', 'NZ$29'));
 for (const city of ['nagpur', 'bhopal', 'raipur']) {
   check(`${city} has actionable buying questions and linked evidence`, fileContains(`web-design-company-${city}/index.html`, 'See the work before choosing the scope', 'page/revision limits', 'No ranking or enquiry-volume guarantee'));
 }

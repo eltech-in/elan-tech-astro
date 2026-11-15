@@ -1,37 +1,21 @@
 import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import type { NavLink } from '../data/navigation';
 
-const navLinks = [
+const buildNavLinks = (services: NavLink[], products: NavLink[]) => [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about/' },
   {
     label: 'Services',
     href: '/services/',
     hasMegaMenu: true,
-    subLinks: [
-      { label: 'Website Design', href: '/services/website-design/' },
-      { label: 'Web Development', href: '/services/web-development/' },
-      { label: 'eCommerce', href: '/services/ecommerce/' },
-      { label: 'Custom Shopify Development', href: '/services/ecommerce/shopify-development/' },
-      { label: 'Medusa.js Development', href: '/services/ecommerce/medusa-js-development/' },
-      { label: 'SEO', href: '/services/seo/' },
-      { label: 'Digital Marketing', href: '/services/digital-marketing/' },
-      { label: 'Mobile App Development', href: '/services/mobile-app-development/' },
-      { label: 'Branding', href: '/services/branding/' },
-      { label: 'Maintenance & Security', href: '/services/maintenance-security/' },
-      { label: 'ADA & WCAG Compliance', href: '/services/ada-compliant-web-design/' },
-    ],
+    subLinks: services.map(({ label, href }) => ({ label, href })),
   },
   {
     label: 'Products',
     href: '/products/',
     hasMegaMenu: true,
-    subLinks: [
-      { label: 'Real Estate Portal', href: '/products/real-estate-portal/' },
-      { label: 'Medical Conference Portal', href: '/products/medical-conference-portal/' },
-      { label: 'IMA Society Portal', href: '/products/ima-society-portal/' },
-      { label: 'Resort Management Portal', href: '/products/resort-management-system/' },
-    ],
+    subLinks: products.map(({ label, href }) => ({ label, href })),
   },
   { label: 'Portfolio', href: '/portfolio/' },
   { label: 'Blog', href: '/blog/' },
@@ -40,7 +24,8 @@ const navLinks = [
   { label: '🔍 Search', href: '/search/' },
 ];
 
-export default function MobileNav() {
+export default function MobileNav({ services = [], products = [] }: { services?: NavLink[]; products?: NavLink[] }) {
+  const navLinks = buildNavLinks(services, products);
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
@@ -324,7 +309,7 @@ export default function MobileNav() {
                   textDecoration: 'none',
                 }}
               >
-                Get Free Audit
+                Website Audit
               </a>
               <a
                 href="/get-quote/"

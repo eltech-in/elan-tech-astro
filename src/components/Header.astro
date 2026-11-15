@@ -2,6 +2,7 @@
 import ThemeToggle from '../islands/ThemeToggle';
 import MobileNav from '../islands/MobileNav';
 import MegaMenu from '../islands/MegaMenu';
+import { navProducts, navServices } from '../data/navigation';
 import { Image } from 'astro:assets';
 import logoFull from '../assets/brand/elan-tech-logo.svg';
 import logoScrolled from '../assets/brand/elan-tech-logoh.svg';
@@ -45,7 +46,7 @@ const currentPath = Astro.url.pathname;
     </a>
 
     <!-- Desktop navigation and its menus share one island so every trigger is reliable. -->
-    <MegaMenu currentPath={currentPath} client:media="(min-width: 1024px)" />
+    <MegaMenu currentPath={currentPath} products={navProducts} client:media="(min-width: 1024px)" />
 
     <!-- Right-side actions -->
     <div class="flex items-center gap-2">
@@ -72,16 +73,16 @@ const currentPath = Astro.url.pathname;
         Get Quote
       </a>
 
-      <!-- Get Free Audit CTA - desktop -->
+      <!-- Website Audit CTA - desktop -->
       <a
         href="/free-website-audit/"
         class="hidden sm:inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-[var(--bg)] transition-opacity duration-150 hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
       >
-        Get Free Audit
+        Website Audit
       </a>
 
       <!-- Island: MobileNav -->
-      <MobileNav client:media="(max-width: 1023px)" />
+      <MobileNav services={navServices} products={navProducts} client:media="(max-width: 1023px)" />
     </div>
 
   </div>

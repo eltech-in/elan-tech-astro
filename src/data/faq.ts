@@ -117,7 +117,7 @@ export const faqs: FAQItem[] = [
   {
     question: 'Do you provide SSL certificates?',
     answer:
-      'Yes. SSL certificate setup is included in all packages. We install a free Let\'s Encrypt SSL certificate or configure your premium SSL, ensuring your website is served over HTTPS for security and SEO benefits.',
+      'Yes. SSL certificate setup is included in all packages. We install a Let\'s Encrypt SSL certificate or configure your premium SSL, ensuring your website is served over HTTPS for security and SEO benefits.',
     category: 'technical',
   },
   {
@@ -127,7 +127,7 @@ export const faqs: FAQItem[] = [
     category: 'technical',
   },
   {
-    question: 'Do you provide website maintenance after the free support period?',
+    question: 'Do you provide website maintenance after the included support period?',
     answer:
       'Yes. We offer Monthly Maintenance Plans starting at ₹3,500/month that cover WordPress/plugin updates, security monitoring, daily backups, uptime monitoring, and up to 2 hours of content changes per month. We also offer ad-hoc support at an hourly rate for clients outside a maintenance plan.',
     category: 'technical',

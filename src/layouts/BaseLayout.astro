@@ -7,6 +7,7 @@ import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 import StickyContactBar from '../components/StickyContactBar.astro';
 import VentureSlideIn from '../components/VentureSlideIn.astro';
 import ConsentManager from '../components/ConsentManager.astro';
+import { PRICE_SYMBOLS } from '../data/auditPricing';
 import '../styles/globals.css';
 
 interface Props {
@@ -204,5 +205,33 @@ const { title, description, canonical, ogImage, ogType, noindex, schema, geo, st
     {!standalone && <VentureSlideIn />}
     <ConsentManager standalone={standalone} />
     {!standalone && <div class="h-20 lg:hidden" aria-hidden="true"></div>}
+    <script is:inline define:vars={{ PRICE_SYMBOLS }}>
+      // Show paid-audit prices in the visitor's currency, chosen from the device time zone only
+      // (no location lookup). Prices with data-price-fixed (country pages) keep their currency.
+      (function () {
+        var els = document.querySelectorAll('[data-price]:not([data-price-fixed])');
+        if (!els.length) return;
+        var tz = '';
+        try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+        var cur = /^Asia\/(Kolkata|Calcutta)$/.test(tz) ? 'INR'
+          : tz === 'Asia/Dubai' ? 'AED'
+          : /^America\/(Toronto|Vancouver|Edmonton|Winnipeg|Halifax|St_Johns|Regina|Montreal|Moncton|Whitehorse|Yellowknife|Iqaluit|Glace_Bay|Goose_Bay|Swift_Current|Dawson_Creek|Fort_Nelson|Rankin_Inlet|Resolute|Cambridge_Bay|Inuvik|Atikokan|Thunder_Bay|Nipigon|Rainy_River)$/.test(tz) ? 'CAD'
+          : /^(America\/|Pacific\/Honolulu$)/.test(tz) ? 'USD'
+          : /^Australia\//.test(tz) ? 'AUD'
+          : /^Pacific\/(Auckland|Chatham)$/.test(tz) ? 'NZD'
+          : tz === 'Asia/Tokyo' ? 'JPY'
+          : /^Europe\/(London|Belfast|Guernsey|Jersey|Isle_of_Man)$/.test(tz) ? 'GBP'
+          : /^Europe\//.test(tz) ? 'EUR'
+          : tz ? 'USD' : 'INR';
+        if (cur === 'INR') return;
+        els.forEach(function (el) {
+          try {
+            var prices = JSON.parse(el.getAttribute('data-price'));
+            if (prices[cur] == null) return;
+            el.textContent = PRICE_SYMBOLS[cur] + Number(prices[cur]).toLocaleString('en-US');
+          } catch (e) {}
+        });
+      })();
+    </script>
   </body>
 </html>

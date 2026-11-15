@@ -1,5 +1,6 @@
 ---
 import ServiceLayout from '../../../layouts/ServiceLayout.astro';
+import AuditPrice from '../../../components/AuditPrice.astro';
 import ChapterLabel from '../../../components/ChapterLabel.astro';
 import LocationsCloud from '../../../components/LocationsCloud.astro';
 import RushAssessmentForm from '../../../islands/RushAssessmentForm';
@@ -456,7 +457,7 @@ const standardsBadges = [
         Transparent emergency pricing.
       </h2>
       <p class="text-lg text-[var(--text-dim)] text-center mb-12 max-w-2xl mx-auto">
-        Fixed-scope pricing so you know the cost and the deadline up front. Final quote follows the free rush assessment; ranges below are typical for ecommerce stores.
+        Fixed-scope pricing so you know the cost and the deadline up front. Final quote follows the paid rush assessment (from <AuditPrice kind="accessibility" from={false} />); ranges below are typical for ecommerce stores.
       </p>
 
       <ul class="grid gap-6 sm:grid-cols-3" role="list">
@@ -539,10 +540,10 @@ const standardsBadges = [
     <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
       <ChapterLabel number="06" label="Start now" class="mb-6" />
       <h2 id="rush-form-heading" class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] text-center mb-4">
-        Free rush accessibility assessment.
+        Rush accessibility assessment.
       </h2>
       <p class="text-lg text-[var(--text-dim)] text-center mb-10">
-        Share the public website URL and an optional target date. We will review the technical request and contact you with the next available steps.
+        Share the public website URL and an optional target date. We will review the technical request and contact you with the next available steps. The assessment fee starts <AuditPrice kind="accessibility" class="font-semibold text-[var(--text)]" /> and is confirmed before any work begins.
       </p>
       <RushAssessmentForm client:visible />
     </div>

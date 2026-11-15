@@ -1,0 +1,20 @@
+---
+// A paid-audit price. Renders INR (or the pinned currency) on the server; the PriceLocalizer script
+// in BaseLayout swaps it to the visitor's currency unless `currency` pins it (country pages).
+import { AUDIT_PRICES, auditPrice, type AuditKind, type Currency } from '../data/auditPricing';
+
+interface Props {
+  kind: AuditKind;
+  /** Pin a currency (e.g. 'AED' on the UAE page). Omit to show the visitor's local currency. */
+  currency?: Currency;
+  /** Prefix "from" (the accessibility audit is a starting price). */
+  from?: boolean;
+  class?: string;
+}
+const { kind, currency, from = kind === 'accessibility', class: cls } = Astro.props;
+---
+<span class={cls}>{from && 'from '}<span
+  data-price={JSON.stringify(AUDIT_PRICES[kind])}
+  data-price-fixed={currency ? '' : undefined}
+  translate="no"
+>{auditPrice(kind, currency ?? 'INR')}</span></span>

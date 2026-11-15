@@ -5,6 +5,7 @@
 // and integrations are validated before they are promised. Copy that verify-build.mjs
 // checks is marked "(checked)". Product screens are designed mock-ups with sample data.
 import BaseLayout from '../layouts/BaseLayout.astro';
+import AuditPrice from '../components/AuditPrice.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import ServicesCloud from '../components/ServicesCloud.astro';
 import InternationalFAQ from '../components/international/InternationalFAQ.astro';
@@ -354,6 +355,7 @@ const ICONS: Record<string, string> = {
           <a href={whatsapp} target="_blank" rel="noopener noreferrer" data-analytics-placement="uae-final" class="btn-ghost">Message us on WhatsApp<span class="sr-only"> (opens in a new tab)</span></a>
           <a href="/schedule-consultation/" class="btn-ghost">Book a call</a>
         </div>
+        <p class="tiny light" data-reveal>Website audit <AuditPrice kind="website" currency="AED" class="font-semibold text-white" /> · Accessibility (WCAG) audit <AuditPrice kind="accessibility" currency="AED" class="font-semibold text-white" /></p>
         <p class="tiny light" data-reveal><a href="/technologies/">Technologies we build with</a> · <a href="/products/">All products</a> · <a href="/portfolio/">Portfolio</a></p>
       </div>
     </section>

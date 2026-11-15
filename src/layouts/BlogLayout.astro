@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import AuditPrice from '../components/AuditPrice.astro';
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import logo from '../assets/brand/elan-tech-logo.svg';
@@ -341,21 +342,21 @@ const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${enc
             </a>
           </div>
 
-          <!-- Sticky CTA: Free Audit -->
+          <!-- Sticky CTA: Website Audit -->
           <div class="rounded-2xl border border-[var(--accent)]/20 bg-gradient-to-br from-[var(--accent)]/10 to-[#6366F1]/10 p-6">
             <h3 class="font-heading text-sm font-bold text-[var(--text)] mb-2">
-              {isAccessibility ? 'ADA & WCAG Audit' : 'Free Website Audit'}
+              {isAccessibility ? 'ADA & WCAG Audit' : 'Website Audit'}
             </h3>
             <p class="text-xs text-[var(--text-dim)] mb-4 leading-relaxed">
               {isAccessibility
                 ? 'Find barriers automated scanners miss. Get a manual and automated audit with a remediation roadmap.'
-                : 'Get a free SEO & security audit for your website. * Conditions apply.'}
+                : <>An SEO and security audit of your website for <AuditPrice kind="website" class="font-semibold" />.</>}
             </p>
             <a
               href={isAccessibility ? '/services/ada-compliant-web-design/' : '/free-website-audit/'}
               class="block w-full rounded-xl bg-[var(--accent)] px-4 py-2.5 text-center text-sm font-semibold text-[var(--bg)] hover:brightness-110 transition-all"
             >
-              {isAccessibility ? 'Explore Audit & Remediation' : 'Claim Free Audit'}
+              {isAccessibility ? 'Explore Audit & Remediation' : 'Request an Audit'}
             </a>
           </div>
 
