@@ -2,16 +2,17 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { breadcrumbSchema, faqSchema } from '../utils/schema';
 import RazorpayPaymentGate from '../components/RazorpayPaymentGate.astro';
-import WebsiteAuditForm from '../islands/WebsiteAuditForm';
+import { RAZORPAY_BUTTONS, websiteAuditCheckoutReady } from '../data/payments';
 import AuditPrice from '../components/AuditPrice.astro';
 import { AUDIT_PRICES, auditPrice } from '../data/auditPricing';
-const RAZORPAY_AUDIT_INR = 'pl_Sqm5fZAebJ6xx7';
-const RAZORPAY_AUDIT_USD = 'pl_FdcrA4b2oE0mIl';
+const RAZORPAY_AUDIT_INR = RAZORPAY_BUTTONS.accessibilityAudit.INR;
+const RAZORPAY_AUDIT_USD = RAZORPAY_BUTTONS.accessibilityAudit.USD;
+const bookingWhatsApp = 'https://wa.me/918788834630?text=' + encodeURIComponent('Hi, I would like to book a website audit. Please send the payment link.');
 const faqs = [
   { question: 'What does the website audit check?', answer: 'We review the public homepage and representative pages for search visibility foundations, mobile usability, loading behaviour, obvious broken journeys and publicly visible HTTPS/security-header signals. Findings are prioritised with suggested next steps. It is an initial review, not an exhaustive crawl, penetration test or formal accessibility certification.' },
   { question: 'How long does it take?', answer: 'We aim to send the initial findings within two business days after reviewing your request and confirming access and scope. If the website is complex or cannot be reached, we will discuss a different schedule. This is a target, not a guaranteed turnaround.' },
   { question: 'Do I need to share a password?', answer: 'No. The audit uses public pages. Do not send passwords, customer records or confidential documents through the form. Any later access to Analytics, Search Console or the CMS is separately authorised and limited to the agreed work.' },
-  { question: 'How much does it cost?', answer: `The website audit costs ${auditPrice('website')} per domain (US$${AUDIT_PRICES.website.USD} or the equivalent in your currency). We confirm your request and send a payment link; the review starts once payment is received. It does not oblige you to buy development or maintenance. Remediation, a larger crawl, formal accessibility testing or security testing requires a separate agreed scope and quotation.` },
+  { question: 'How much does it cost?', answer: `The website audit costs ${auditPrice('website')} per domain (US$${AUDIT_PRICES.website.USD} or the equivalent in your currency). The fee is paid in full when you book; the review starts once payment is confirmed. It does not oblige you to buy development or maintenance. Remediation, a larger crawl, formal accessibility testing or security testing requires a separate agreed scope and quotation.` },
   { question: 'What happens after I submit?', answer: 'We review your website URL and selected concerns, confirm any scope questions, then send prioritised findings to the email you provide. You may implement them yourself, use your existing developer or request a separate quotation from us.' },
   { question: 'Will the audit guarantee rankings or identify every vulnerability?', answer: 'No. Rankings depend on many factors beyond a technical review. Public-page checks cannot establish that a website is secure, detect every vulnerability or prove legal compliance. Intrusive testing requires explicit written authorisation and a separate scope.' },
   { question: 'Can you review accessibility?', answer: `The website audit may highlight obvious usability or accessibility issues. A formal WCAG review with representative journeys, keyboard and assistive-technology testing and remediation evidence is a separate accessibility audit, from ${auditPrice('accessibility')} depending on the pages and journeys covered.` },
@@ -38,7 +39,7 @@ const schemas = [breadcrumbSchema([{name:'Home',url:'/'},{name:'Website Audit',u
         <p class="mt-6 text-lg leading-relaxed text-[var(--text-dim)]">Tell us what is not working. We review your public homepage and representative pages, then explain the priority issues, why they matter and what to do next. No password required. No obligation to buy anything else.</p>
         <p class="mt-5 inline-flex flex-wrap items-baseline gap-x-2 rounded-xl border border-[var(--border)] bg-[var(--bg)] px-4 py-2"><span class="text-xs font-bold uppercase tracking-widest text-[var(--text-muted)]">Fee</span><AuditPrice kind="website" class="font-heading text-2xl font-extrabold text-[var(--accent)]" /><span class="text-sm text-[var(--text-dim)]">per domain</span></p>
         <div class="mt-7 flex flex-wrap gap-3">
-          <a href="#audit-form" class="rounded-xl bg-[var(--accent)] px-6 py-3 font-semibold text-[var(--bg)]">Request my audit</a>
+          <a href="#audit-form" class="rounded-xl bg-[var(--accent)] px-6 py-3 font-semibold text-[var(--bg)]">Book and pay</a>
           <a href="#what-you-get" class="rounded-xl border border-[var(--border)] px-6 py-3 font-semibold">See exactly what is checked</a>
         </div>
       </div>
@@ -78,7 +79,7 @@ const schemas = [breadcrumbSchema([{name:'Home',url:'/'},{name:'Website Audit',u
           { priority: 'Investigate · search', observation: 'Example: a public page declares a different canonical URL.', impact: 'The intended indexing signal may be inconsistent.', action: 'Check whether this is intentional; use authorised Search Console data before deciding.' },
         ].map(item => <article class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-5"><p class="text-xs font-bold text-[var(--accent)]">{item.priority}</p><h3 class="mt-3 font-semibold leading-6">{item.observation}</h3><p class="mt-3 text-sm leading-6 text-[var(--text-dim)]"><strong>Why it matters:</strong> {item.impact}</p><p class="mt-3 text-sm leading-6 text-[var(--text-dim)]"><strong>Next step:</strong> {item.action}</p></article>)}
       </div>
-      <a href="#audit-form" class="mt-6 inline-flex min-h-11 items-center font-semibold text-[var(--accent)]">Request findings for my website →</a>
+      <a href="#audit-form" class="mt-6 inline-flex min-h-11 items-center font-semibold text-[var(--accent)]">Book an audit for my website →</a>
     </div>
   </section>
   <section class="border-y border-[var(--border)] bg-[var(--bg-card)] py-14">
@@ -94,10 +95,26 @@ const schemas = [breadcrumbSchema([{name:'Home',url:'/'},{name:'Website Audit',u
   </section>
   <section id="audit-form" class="scroll-mt-28 py-16">
     <div class="mx-auto max-w-3xl px-4 sm:px-6">
-      <h2 class="font-heading text-3xl font-bold">Request your website audit</h2>
-      <p class="mb-8 mt-4 text-[var(--text-dim)]">The fee is <AuditPrice kind="website" class="font-semibold text-[var(--text)]" /> per domain. After you submit, we confirm the request and send a payment link; the review starts once payment is received. We use your details to respond to this request—not to enrol you in a newsletter. Read the form notice before submitting.</p>
-      <WebsiteAuditForm client:load />
-      <p class="mt-5 text-sm leading-6 text-[var(--text-dim)]">Three short steps: website and contact details → optional priorities → notes and permission. Phone, company and notes are optional. After submission, a confirmation page acknowledges receipt; the findings follow by email after review. If you cannot complete the form, <a href="/contact/" class="font-semibold underline">contact us</a> without sharing passwords or customer records.</p>
+      <h2 class="font-heading text-3xl font-bold">Book and pay for your website audit</h2>
+      <p class="mb-8 mt-4 text-[var(--text-dim)]">The fee is <AuditPrice kind="website" class="font-semibold text-[var(--text)]" /> per domain, paid in full when you book. Your booking is the request: the checkout asks for your website URL, contact details and main concerns, and the review starts once payment is confirmed. No request is accepted without payment.</p>
+      {websiteAuditCheckoutReady ? (
+        <RazorpayPaymentGate
+          instanceId="website-audit"
+          inrButtonId={RAZORPAY_BUTTONS.websiteAudit.INR}
+          usdButtonId={RAZORPAY_BUTTONS.websiteAudit.USD}
+          eyebrow="Website audit checkout"
+          noticeLead="Pay the audit fee to book. Use INR for Indian billing or USD for international billing. Contact us before paying if the website needs a login or covers several domains."
+          currencyHelp="Choose INR for Indian billing or USD for international billing."
+          noticeVersion="website-audit-payment-2026-11-16"
+        />
+      ) : (
+        <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+          <p class="font-semibold text-[var(--text)]">Online booking opens shortly.</p>
+          <p class="mt-2 text-sm leading-6 text-[var(--text-dim)]">Until then, message us and we will send a secure Razorpay payment link. The audit is booked once payment is received.</p>
+          <a href={bookingWhatsApp} target="_blank" rel="noopener noreferrer" data-analytics-placement="website-audit" class="mt-4 inline-flex min-h-11 items-center rounded-xl bg-[var(--accent)] px-5 py-2.5 font-semibold text-[var(--bg)]">Get a payment link on WhatsApp<span class="sr-only"> (opens in a new tab)</span></a>
+        </div>
+      )}
+      <p class="mt-5 text-sm leading-6 text-[var(--text-dim)]">Three short steps: pay to book → we confirm the scope → prioritised findings by email. Do not share passwords or customer records. If you have a question before paying, <a href="/contact/" class="font-semibold underline">contact us</a>.</p>
     </div>
   </section>
   <section id="paid-wcag-audit" class="py-16 md:py-20 bg-[var(--bg-card)] border-t border-[var(--border)] scroll-mt-20" aria-labelledby="ada-heading">

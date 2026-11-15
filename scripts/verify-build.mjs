@@ -829,7 +829,9 @@ check('Generated image recovery rules do not redirect probes to sales pages',
 
 section('T  Focused UAE, audit preview and city buying information');
 check('UAE page qualifies language, location and integration scope', fileContains('web-design-company-dubai-uae/index.html', 'Scope my UAE project', 'qualified Arabic specialist', 'merchant onboarding', 'not UAE client claims', 'signed scope'));
-check('Website audit preserves positioning and labels sample findings', fileContains('website-audit/index.html', 'A website audit with a clear scope', 'fictional examples', 'Not included:', 'Three short steps:', 'Request my audit'));
+check('Website audit preserves positioning and labels sample findings', fileContains('website-audit/index.html', 'A website audit with a clear scope', 'fictional examples', 'Not included:', 'Three short steps:', 'Book and pay'));
+check('Website audit is booked only by payment (no unpaid request form)', fileNotContains('website-audit/index.html', 'WebsiteAuditForm') && fileNotContains('website-audit/index.html', 'Request audit')
+  && (fileContains('website-audit/index.html', 'data-rzp-gate', 'Website audit checkout') || fileContains('website-audit/index.html', 'Get a payment link on WhatsApp')));
 
 // From 15 November 2026 nothing on the site is offered free: audits are paid (src/data/auditPricing.ts).
 {
