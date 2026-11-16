@@ -831,7 +831,17 @@ section('T  Focused UAE, audit preview and city buying information');
 check('UAE page qualifies language, location and integration scope', fileContains('web-design-company-dubai-uae/index.html', 'Scope my UAE project', 'qualified Arabic specialist', 'merchant onboarding', 'not UAE client claims', 'signed scope'));
 check('Website audit preserves positioning and labels sample findings', fileContains('website-audit/index.html', 'A website audit with a clear scope', 'fictional examples', 'Not included:', 'Three short steps:', 'Book and pay'));
 check('Website audit is booked only by payment (no unpaid request form)', fileNotContains('website-audit/index.html', 'WebsiteAuditForm') && fileNotContains('website-audit/index.html', 'Request audit')
-  && (fileContains('website-audit/index.html', 'data-rzp-gate', 'Website audit checkout') || fileContains('website-audit/index.html', 'Get a payment link on WhatsApp')));
+  && fileContains('website-audit/index.html', 'PaidCheckout', '&quot;product&quot;:[0,&quot;website-audit&quot;]'));
+// Razorpay Orders API: fixed server-side prices must match the prices shown on the site.
+{
+  const phpPay = readFileSync(join(resolve(DIST, '..'), 'public/api/payments-common.php'), 'utf8');
+  const sitePrices = readFileSync(join(resolve(DIST, '..'), 'src/data/auditPricing.ts'), 'utf8');
+  const site = sitePrices.match(/website: \{ INR: (\d+), USD: (\d+)/);
+  const php = phpPay.match(/'website-audit' => \[[^\]]*'amounts' => \['INR' => (\d+), 'USD' => (\d+)\]/);
+  check('Razorpay website-audit price matches the site price', Boolean(site && php && +php[1] === +site[1] * 100 && +php[2] === +site[2] * 100));
+  check('Security policy allows Razorpay Checkout', fileContains('.htaccess', 'https://checkout.razorpay.com', 'frame-src \'self\' https://api.razorpay.com'));
+  check('Lead endpoint requires a paid order for audit bookings', readFileSync(join(resolve(DIST, '..'), 'public/api/submit-lead.php'), 'utf8').includes("respond(402, ['ok' => false, 'error' => 'Payment is required before this request'])"));
+}
 
 // From 15 November 2026 nothing on the site is offered free: audits are paid (src/data/auditPricing.ts).
 {

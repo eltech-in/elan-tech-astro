@@ -53,7 +53,7 @@ export async function submitLead(formType: string, fields: LeadFields): Promise<
 
   try {
     const response = await postBackup(id, formType, fields, true);
-    backupRejected = [400, 403, 413, 422, 429].includes(response.status);
+    backupRejected = [400, 402, 403, 413, 422, 429].includes(response.status);
     const result = response.ok ? await response.json() as BackupResult : null;
     backupStored = Boolean(response.ok && result?.stored);
     reliableServerAlert = Boolean(response.ok && result?.notified && result?.notificationReliable);

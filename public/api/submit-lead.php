@@ -40,7 +40,7 @@ $formType = (string) ($request['formType'] ?? '');
 $notify = ($request['notify'] ?? false) === true;
 $fields = $request['fields'] ?? null;
 
-$allowedForms = ['contact', 'website-audit', 'get-quote', 'rush-assessment', 'request-demo'];
+$allowedForms = ['contact', 'website-audit', 'paid-booking', 'get-quote', 'rush-assessment', 'request-demo'];
 // Pages cached before 16 November 2026 still send the old form name.
 if ($formType === 'free-audit') {
     $formType = 'website-audit';
@@ -94,6 +94,7 @@ $privacyNoticeVersions = [
     'contact' => 'contact-2026-09-23',
     'get-quote' => 'get-quote-2026-09-23',
     'website-audit' => 'website-audit-2026-11-16',
+    'paid-booking' => 'paid-booking-2026-11-16',
     'request-demo' => 'request-demo-2026-09-24',
     'rush-assessment' => 'rush-assessment-2026-09-24',
 ];
@@ -163,6 +164,32 @@ if ($formType === 'rush-assessment') {
     }
 }
 
+// Audit requests and other paid bookings are accepted only for a verified, unused Razorpay
+// payment (razorpay-verify.php marks the order paid). The booking is then marked as used.
+if (in_array($formType, ['website-audit', 'paid-booking'], true)) {
+    $paidOrderId = (string) ($cleanFields['_razorpayOrderId'] ?? '');
+    $paymentsRoot = getenv('ELAN_PRIVATE_DIR');
+    $paymentsRoot = (is_string($paymentsRoot) && trim($paymentsRoot) !== '') ? rtrim($paymentsRoot, '/') : dirname(__DIR__, 2) . '/elan-tech-private';
+    $paidOrderPath = $paymentsRoot . '/payments/orders/' . $paidOrderId . '.json';
+    $paidOrder = (preg_match('/^order_[A-Za-z0-9]{6,40}$/', $paidOrderId) && is_file($paidOrderPath))
+        ? json_decode((string) file_get_contents($paidOrderPath), true)
+        : null;
+    $paidProductMatches = is_array($paidOrder)
+        && ($formType === 'paid-booking' || ($paidOrder['product'] ?? '') === 'website-audit');
+    if (!is_array($paidOrder) || ($paidOrder['status'] ?? '') !== 'paid' || !$paidProductMatches) {
+        respond(402, ['ok' => false, 'error' => 'Payment is required before this request']);
+    }
+    $paidOrder['status'] = 'booked';
+    $paidOrder['bookedAt'] = gmdate('c');
+    $paidOrder['leadSubmissionId'] = $submissionId;
+    file_put_contents($paidOrderPath, json_encode($paidOrder, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT), LOCK_EX);
+    @chmod($paidOrderPath, 0600);
+    // The alert shows what was actually paid, from the server record, not from the browser.
+    $cleanFields['_paidProduct'] = (string) ($paidOrder['label'] ?? '');
+    $cleanFields['_paymentId'] = (string) ($paidOrder['paymentId'] ?? '');
+    $cleanFields['_amountPaid'] = number_format(((int) ($paidOrder['amount'] ?? 0)) / 100, 2) . ' ' . (string) ($paidOrder['currency'] ?? '');
+}
+
 $email = trim((string) ($cleanFields['email'] ?? ''));
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     respond(422, ['ok' => false, 'error' => 'A valid email is required']);
@@ -184,7 +211,7 @@ $retentionMarker = $storageRoot . '/.lead-retention-last-run';
 $shouldPruneLeads = !is_file($retentionMarker) || filemtime($retentionMarker) < time() - 86400;
 if ($shouldPruneLeads) {
     $leadCutoff = time() - (365 * 86400);
-    $formsWithTwelveMonthRetention = ['contact', 'get-quote', 'website-audit', 'request-demo', 'rush-assessment'];
+    $formsWithTwelveMonthRetention = ['contact', 'get-quote', 'website-audit', 'paid-booking', 'request-demo', 'rush-assessment'];
     $currentLeadFile = 'leads-' . gmdate('Y-m') . '.jsonl';
     foreach (glob($storageRoot . '/leads-*.jsonl') ?: [] as $candidateFile) {
         if (basename($candidateFile) === $currentLeadFile || !is_file($candidateFile)) {

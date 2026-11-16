@@ -1,13 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { breadcrumbSchema, faqSchema } from '../utils/schema';
-import RazorpayPaymentGate from '../components/RazorpayPaymentGate.astro';
-import { RAZORPAY_BUTTONS, websiteAuditCheckoutReady } from '../data/payments';
+import PaidCheckout from '../islands/PaidCheckout';
 import AuditPrice from '../components/AuditPrice.astro';
 import { AUDIT_PRICES, auditPrice } from '../data/auditPricing';
-const RAZORPAY_AUDIT_INR = RAZORPAY_BUTTONS.accessibilityAudit.INR;
-const RAZORPAY_AUDIT_USD = RAZORPAY_BUTTONS.accessibilityAudit.USD;
-const bookingWhatsApp = 'https://wa.me/918788834630?text=' + encodeURIComponent('Hi, I would like to book a website audit. Please send the payment link.');
 const faqs = [
   { question: 'What does the website audit check?', answer: 'We review the public homepage and representative pages for search visibility foundations, mobile usability, loading behaviour, obvious broken journeys and publicly visible HTTPS/security-header signals. Findings are prioritised with suggested next steps. It is an initial review, not an exhaustive crawl, penetration test or formal accessibility certification.' },
   { question: 'How long does it take?', answer: 'We aim to send the initial findings within two business days after reviewing your request and confirming access and scope. If the website is complex or cannot be reached, we will discuss a different schedule. This is a target, not a guaranteed turnaround.' },
@@ -97,23 +93,15 @@ const schemas = [breadcrumbSchema([{name:'Home',url:'/'},{name:'Website Audit',u
     <div class="mx-auto max-w-3xl px-4 sm:px-6">
       <h2 class="font-heading text-3xl font-bold">Book and pay for your website audit</h2>
       <p class="mb-8 mt-4 text-[var(--text-dim)]">The fee is <AuditPrice kind="website" class="font-semibold text-[var(--text)]" /> per domain, paid in full when you book. Your booking is the request: the checkout asks for your website URL, contact details and main concerns, and the review starts once payment is confirmed. No request is accepted without payment.</p>
-      {websiteAuditCheckoutReady ? (
-        <RazorpayPaymentGate
-          instanceId="website-audit"
-          inrButtonId={RAZORPAY_BUTTONS.websiteAudit.INR}
-          usdButtonId={RAZORPAY_BUTTONS.websiteAudit.USD}
-          eyebrow="Website audit checkout"
-          noticeLead="Pay the audit fee to book. Use INR for Indian billing or USD for international billing. Contact us before paying if the website needs a login or covers several domains."
-          currencyHelp="Choose INR for Indian billing or USD for international billing."
-          noticeVersion="website-audit-payment-2026-11-16"
-        />
-      ) : (
-        <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
-          <p class="font-semibold text-[var(--text)]">Online booking opens shortly.</p>
-          <p class="mt-2 text-sm leading-6 text-[var(--text-dim)]">Until then, message us and we will send a secure Razorpay payment link. The audit is booked once payment is received.</p>
-          <a href={bookingWhatsApp} target="_blank" rel="noopener noreferrer" data-analytics-placement="website-audit" class="mt-4 inline-flex min-h-11 items-center rounded-xl bg-[var(--accent)] px-5 py-2.5 font-semibold text-[var(--bg)]">Get a payment link on WhatsApp<span class="sr-only"> (opens in a new tab)</span></a>
-        </div>
-      )}
+      <PaidCheckout
+        client:visible
+        product="website-audit"
+        formType="website-audit"
+        prices={{ INR: AUDIT_PRICES.website.INR, USD: AUDIT_PRICES.website.USD }}
+        needsUrl
+        payLabel="Pay and book"
+        privacyNoticeVersion="website-audit-2026-11-16"
+      />
       <p class="mt-5 text-sm leading-6 text-[var(--text-dim)]">Three short steps: pay to book → we confirm the scope → prioritised findings by email. Do not share passwords or customer records. If you have a question before paying, <a href="/contact/" class="font-semibold underline">contact us</a>.</p>
     </div>
   </section>
@@ -169,14 +157,14 @@ const schemas = [breadcrumbSchema([{name:'Home',url:'/'},{name:'Website Audit',u
               </div>
               <p class="mt-3 text-xs leading-relaxed text-[var(--text-muted)]">Detailed PDF report with WCAG 2.2 AA findings, severity ratings, code-level remediation guidance and a VPAT template.</p>
             </div>
-            <RazorpayPaymentGate
-              instanceId="paid-accessibility-audit"
-              inrButtonId={RAZORPAY_AUDIT_INR}
-              usdButtonId={RAZORPAY_AUDIT_USD}
-              eyebrow="Paid audit checkout"
-              noticeLead="Use this checkout only for the one-domain paid accessibility audit described here. Contact us before payment if the website requires a login, covers multiple domains or needs an urgent schedule."
-              currencyHelp="Choose INR for Indian billing or USD for international billing."
-              noticeVersion="paid-audit-payment-2026-09-24"
+<PaidCheckout
+              client:visible
+              product="accessibility-audit"
+              formType="paid-booking"
+              prices={{ INR: 9999, USD: 99 }}
+              needsUrl
+              payLabel="Pay for the audit"
+              privacyNoticeVersion="paid-booking-2026-11-16"
             />
           </div>
         </div>

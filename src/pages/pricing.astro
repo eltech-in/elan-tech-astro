@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { pricingTiers } from '../data/pricing';
 import { breadcrumbSchema, faqSchema } from '../utils/schema';
-import RazorpayPaymentGate from '../components/RazorpayPaymentGate.astro';
+import PaidCheckout from '../islands/PaidCheckout';
 
 const standardPricingFaqs = [
   {
@@ -53,12 +53,6 @@ const tierColors = ['--ac-emerald', '--ac-amber', '--ac-indigo'];
 const tierNums = ['01', '02', '03'];
 
 const inrFormatter = new Intl.NumberFormat('en-IN');
-
-// Razorpay hosted Payment Button IDs (created in Razorpay dashboard).
-// The payment-button.js file renders each hosted payment button at the
-// location of its matching Razorpay embed element.
-const RAZORPAY_BUTTON_INR_9999 = 'pl_Sqm5fZAebJ6xx7';
-const RAZORPAY_BUTTON_USD_99 = 'pl_FdcrA4b2oE0mIl';
 
 const currencies = [
   { symbol: '₹', label: 'INR' },
@@ -228,10 +222,14 @@ const guarantees = [
           <h3 class="mt-2 font-heading text-xl font-bold text-[var(--text)] sm:text-2xl">Pay only against confirmed instructions</h3>
           <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">The ₹9,999 or $99 control below is a booking advance, not the full price of a package. Use the currency and payment reference stated in your written communication from eLan Technology.</p>
         </div>
-        <RazorpayPaymentGate
-          instanceId="pricing"
-          inrButtonId={RAZORPAY_BUTTON_INR_9999}
-          usdButtonId={RAZORPAY_BUTTON_USD_99}
+<PaidCheckout
+          client:visible
+          product="booking-advance"
+          formType="paid-booking"
+          prices={{ INR: 9999, USD: 99 }}
+          needsReference
+          payLabel="Pay booking advance"
+          privacyNoticeVersion="paid-booking-2026-11-16"
         />
       </div>
     </div>
