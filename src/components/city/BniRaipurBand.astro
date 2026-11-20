@@ -1,0 +1,52 @@
+---
+// BNI Conclave, Raipur (21 November 2026): links to the share page, its video, the interactive
+// presentation and the contact card. Shown until 31 January 2027 (conclave follow-ups), then it
+// disappears on the next build, and a small script hides it in the browser in between.
+import '../../styles/night.css';
+import { Image } from 'astro:assets';
+import poster from '../../assets/raipur/bni-poster.jpg';
+
+const SHOW_UNTIL = '2027-01-31T18:29:59Z';
+const show = Date.now() < Date.parse(SHOW_UNTIL);
+---
+{show && (
+  <section class="ns bni" aria-labelledby="bni-raipur-heading" data-bni-band>
+    <div class="ns-stars" aria-hidden="true"></div>
+    <div class="ns-beam" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="copy">
+        <p class="ns-pill">BNI Conclave · Raipur · 21 November 2026</p>
+        <h2 id="bni-raipur-heading" class="h2">Met us at the BNI Conclave? <span class="ns-grad">Here is our presentation.</span></h2>
+        <p class="sub">Watch the 100-second video, open the interactive presentation, or save our contact card to your phone. Know a business owner who needs a website, a store or software? Share this with them.</p>
+        <div class="ctas">
+          <a href="/bni-raipur/" class="ns-btn">Watch the presentation <span aria-hidden="true">→</span></a>
+          <a href="/bni-raipur/presentation/" class="ns-ghost" target="_blank" rel="noopener">Interactive version<span class="sr-only"> (opens in a new tab)</span></a>
+          <a href="/bni-raipur/nishant-barde.vcf" class="ns-ghost" download="Nishant-Barde-eLan-Technology.vcf">Save our contact</a>
+        </div>
+      </div>
+      <a href="/bni-raipur/" class="poster" aria-label="Watch the eLan Technology BNI Conclave presentation">
+        <Image src={poster} alt="" widths={[480, 800, 1280]} sizes="(min-width: 1024px) 520px, 92vw" />
+        <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" /></svg></span>
+      </a>
+    </div>
+  </section>
+)}
+<script is:inline define:vars={{ SHOW_UNTIL }}>
+  if (Date.now() >= Date.parse(SHOW_UNTIL)) document.querySelectorAll('[data-bni-band]').forEach(function (el) { el.remove(); });
+</script>
+
+<style>
+  .bni { padding: 4.5rem 0; }
+  .wrap { max-width: 76rem; margin: 0 auto; padding: 0 1rem; display: grid; gap: 2.5rem; align-items: center; position: relative; }
+  @media (min-width: 640px) { .wrap { padding: 0 1.5rem; } }
+  @media (min-width: 1024px) { .wrap { padding: 0 2rem; grid-template-columns: 1.05fr .95fr; } }
+  .h2 { margin-top: 1.2rem; font-family: var(--font-heading, inherit); font-weight: 700; font-size: clamp(1.9rem, 3.8vw, 3rem); line-height: 1.08; letter-spacing: -.03em; }
+  .sub { margin-top: 1rem; max-width: 36rem; font-size: 1.05rem; line-height: 1.65; color: var(--ns-dim); }
+  .ctas { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.8rem; }
+  .poster { position: relative; display: block; border-radius: 1.2rem; overflow: hidden; box-shadow: 0 0 0 1px rgba(199,210,254,.28), 0 30px 80px -20px rgba(99,102,241,.7); transition: transform .3s; }
+  .poster:hover { transform: translateY(-3px); }
+  .poster :global(img) { display: block; width: 100%; height: auto; }
+  .play { position: absolute; left: 50%; top: 50%; display: grid; place-items: center; width: 4.5rem; height: 4.5rem; border-radius: 50%; transform: translate(-50%, -50%);
+    background: linear-gradient(180deg, #ff9f1c, #ff2e88); box-shadow: 0 0 0 8px rgba(255,46,136,.25), 0 20px 50px -10px rgba(255,46,136,.8); }
+  .play svg { width: 1.8rem; height: 1.8rem; margin-left: .2rem; fill: #fff; }
+</style>

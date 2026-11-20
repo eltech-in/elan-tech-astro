@@ -1006,6 +1006,7 @@ check('No Dubai trip page or trip banner on the website', !existsSync(join(DIST,
   check('BNI Raipur share page is noindex and its files are present',
     /<meta name="robots" content="noindex/i.test(pageHtml) && files.every(f => existsSync(f)) && pageHtml.includes('/bni-raipur/presentation/'));
   check('BNI Raipur share page is not in the sitemap', !sitemapXml.includes('/bni-raipur'));
+  check('Raipur page links to the BNI presentation, video and contact card until 31 Jan 2027', Date.now() >= Date.parse('2027-01-31T18:29:59Z') || fileContains('web-design-company-raipur/index.html', 'href="/bni-raipur/"', 'href="/bni-raipur/presentation/"', '/bni-raipur/nishant-barde.vcf'));
   check('BNI Raipur presentation is noindex and uses site fonts',
     /<meta name="robots" content="noindex">/i.test(deckHtml) && deckHtml.includes('url(/fonts/sora-latin.woff2)') && !deckHtml.includes('data:font/woff2'));
 }

@@ -25,18 +25,15 @@ interface Props {
 const { title, description, canonical, ogImage, ogType, noindex, schema, geo, standalone = false } = Astro.props;
 ---
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
   <head>
     <script is:inline>
       (function() {
-        var s = localStorage.getItem('theme');
-        if (s === 'dark' || s === 'light') {
-          document.documentElement.className = s;
-        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          document.documentElement.className = 'dark';
-        } else {
-          document.documentElement.className = 'light';
-        }
+        // Light is the default. Dark mode only when the visitor chose it with the theme toggle
+        // (the logo is designed for light backgrounds).
+        var s = null;
+        try { s = localStorage.getItem('theme'); } catch (e) {}
+        document.documentElement.className = s === 'dark' ? 'dark' : 'light';
         // Pre-hide dismissed announcement bar before paint to prevent CLS
         try { if (localStorage.getItem('lp-bar-ganesh-2026') === '1') document.documentElement.classList.add('lp-ann-hidden'); } catch(e) {}
       })();
