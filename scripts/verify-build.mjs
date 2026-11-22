@@ -1006,6 +1006,7 @@ check('No Dubai trip page or trip banner on the website', !existsSync(join(DIST,
 // links handed out at the event redirect to the Raipur page.
 check('No BNI Conclave pages, files or links on the website', !existsSync(join(DIST, 'bni-raipur'))
   && generatedHtmlFiles(DIST).every((path) => !/bni-raipur|BNI Conclave/i.test(readFileSync(path, 'utf8'))));
+check('AVIF images are served as images', fileContains('.htaccess', 'AddType image/avif .avif'));
 check('Old BNI share links redirect to the Raipur page', fileContains('.htaccess', 'RewriteRule ^bni-raipur(?:/.*)?$ /web-design-company-raipur/ [L,R=301]'));
 
 const total = passed + failed;

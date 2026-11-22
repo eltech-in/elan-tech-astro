@@ -195,10 +195,12 @@ RewriteRule ^(.+?)/?$ /$1/index.html [L]
 # (it's a special-cased file Astro keeps flat so Apache can resolve it).
 ErrorDocument 404 /404.html
 
-# ─── Media types for shared files (contact cards, videos) ─────────────────────
+# ─── Media types ──────────────────────────────────────────────────────────────
 # The contact card opens the phone's "add contact" screen; the video streams.
+# The server does not know AVIF and sent it as text/plain (with nosniff).
 AddType text/vcard .vcf
 AddType video/mp4 .mp4
+AddType image/avif .avif
 
 # ─── 10. Security headers ───────────────────────────────────────────────────
 <IfModule mod_headers.c>
