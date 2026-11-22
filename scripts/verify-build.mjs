@@ -672,6 +672,14 @@ check('Earlier portfolio archive is restored', fileContains(
   'ABC Wiindo',
   'Ribolator USA',
 ));
+check('Recently redesigned Astro websites are shown on the portfolio', fileContains(
+  'portfolio/index.html',
+  'id="redesigned-work"',
+  'https://www.trimitarch.com/',
+  'https://abhaytembhurne.in/',
+  'https://www.dizviz.com/',
+  'Land Surveying · Redesigned',
+) && fileNotContains('portfolio/index.html', 'Dizviz Production', 'Personal branding website'));
 check('Correct project-specific archive thumbnails are rendered', fileContains(
   'portfolio/index.html',
   '/_astro/elitefx.',

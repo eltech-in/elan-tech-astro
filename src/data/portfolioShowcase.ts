@@ -44,6 +44,37 @@ export const latestLaunch: PortfolioShowcaseItem = {
   location: 'Pune, India',
 };
 
+// Long-standing clients whose earlier WordPress websites were redesigned and rebuilt in Astro.
+export const recentRedesigns: PortfolioShowcaseItem[] = [
+  {
+    title: 'Trimit Architects',
+    label: 'Architecture · Redesigned',
+    description: 'A new website for a Nagpur architecture studio with 25 years of built work: a blueprint-inspired design, nine services, projects grouped by building type and a clear route to start a project.',
+    image: '/portfolio/trimitarch.avif',
+    liveUrl: 'https://www.trimitarch.com/',
+    stack: ['Astro', 'Project Galleries', 'Service Pages'],
+    note: 'Rebuilt from our earlier WordPress website',
+  },
+  {
+    title: 'Abhay Tembhurne',
+    label: 'Land Surveying · Redesigned',
+    description: 'A new website for a Nagpur land surveying and valuation practice that explains stockpile measurement, boundary surveys and soil investigation in plain terms, and shows the method and report before the enquiry.',
+    image: '/portfolio/abhay-tembhurne.avif',
+    liveUrl: 'https://abhaytembhurne.in/',
+    stack: ['Astro', 'Service Pages', 'Site-visit Enquiries'],
+    note: 'Rebuilt from our earlier WordPress website',
+  },
+  {
+    title: 'Dizviz',
+    label: 'Creative Education · Redesigned',
+    description: 'A new website for a Nagpur animation, VFX and design institute that brings degree programmes, short courses, fees, placements and admissions enquiries into one bright, easy-to-browse journey.',
+    image: '/portfolio/dizviz.avif',
+    liveUrl: 'https://www.dizviz.com/',
+    stack: ['Astro', 'Course Catalogue', 'Admissions Enquiries'],
+    note: 'Rebuilt from our earlier WordPress website',
+  },
+];
+
 export const recentLaunches: PortfolioShowcaseItem[] = [
   asbimLaunch,
   {
