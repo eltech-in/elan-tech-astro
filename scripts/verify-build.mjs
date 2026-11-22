@@ -846,7 +846,7 @@ check('Website audit is booked only by payment (no unpaid request form)', fileNo
 // From 15 November 2026 nothing on the site is offered free: audits are paid (src/data/auditPricing.ts).
 {
   const freeOffer = /\b(free (website |seo |local seo |brand |technical |security |rush |initial |accessibility |strategy )?(audit|review|assessment|consultation|quote|demo|call|session)|get free audit|claim free|completely free|100% free|no credit card)\b/i;
-  const offenders = generatedHtmlFiles(DIST).filter((path) => !path.includes('/bni-raipur/presentation/'))
+  const offenders = generatedHtmlFiles(DIST)
     .filter((path) => freeOffer.test(readFileSync(path, 'utf8').replace(/<script[\s\S]*?<\/script>/g, '').replace(/href="[^"]*"/g, '')));
   check('No page offers a free audit, review, consultation or quote', offenders.length === 0, offenders.slice(0, 5).map((f) => f.replace(DIST + '/', '')).join(', '));
 }
@@ -994,22 +994,11 @@ check('UAE page is indexable, linked site-wide and still makes no UAE client cla
 // Deploys mirror dist/ to the server with --delete, so server-only files must live in public/.
 check('Google Search Console verification file is deployed', fileContains('googlec89e8a0254460df4.html', 'google-site-verification: googlec89e8a0254460df4.html'));
 check('No Dubai trip page or trip banner on the website', !existsSync(join(DIST, 'dubai/index.html')) && fileNotContains('index.html', 'id="trip-banner"'));
-// The BNI Raipur share page is shared by link only: noindex, out of the sitemap, and its
-// presentation copy loads the site's own fonts (the security policy blocks embedded fonts).
-{
-  const page = join(DIST, 'bni-raipur/index.html');
-  const deck = join(DIST, 'bni-raipur/presentation/index.html');
-  const files = ['elan-bni-raipur-presentation.mp4', 'poster.jpg', 'nishant-barde.vcf'].map(f => join(DIST, 'bni-raipur', f));
-  const pageHtml = existsSync(page) ? readFileSync(page, 'utf8') : '';
-  const deckHtml = existsSync(deck) ? readFileSync(deck, 'utf8') : '';
-  const sitemapXml = ['sitemap-0.xml', 'sitemap-index.xml'].map(f => join(DIST, f)).filter(existsSync).map(f => readFileSync(f, 'utf8')).join('');
-  check('BNI Raipur share page is noindex and its files are present',
-    /<meta name="robots" content="noindex/i.test(pageHtml) && files.every(f => existsSync(f)) && pageHtml.includes('/bni-raipur/presentation/'));
-  check('BNI Raipur share page is not in the sitemap', !sitemapXml.includes('/bni-raipur'));
-  check('Raipur page links to the BNI presentation, video and contact card until 31 Jan 2027', Date.now() >= Date.parse('2027-01-31T18:29:59Z') || fileContains('web-design-company-raipur/index.html', 'href="/bni-raipur/"', 'href="/bni-raipur/presentation/"', '/bni-raipur/nishant-barde.vcf'));
-  check('BNI Raipur presentation is noindex and uses site fonts',
-    /<meta name="robots" content="noindex">/i.test(deckHtml) && deckHtml.includes('url(/fonts/sora-latin.woff2)') && !deckHtml.includes('data:font/woff2'));
-}
+// The BNI Conclave (Raipur, 21 November 2026) material was removed from the website on 22 November;
+// links handed out at the event redirect to the Raipur page.
+check('No BNI Conclave pages, files or links on the website', !existsSync(join(DIST, 'bni-raipur'))
+  && generatedHtmlFiles(DIST).every((path) => !/bni-raipur|BNI Conclave/i.test(readFileSync(path, 'utf8'))));
+check('Old BNI share links redirect to the Raipur page', fileContains('.htaccess', 'RewriteRule ^bni-raipur(?:/.*)?$ /web-design-company-raipur/ [L,R=301]'));
 
 const total = passed + failed;
 console.log(`\n${'─'.repeat(60)}`);

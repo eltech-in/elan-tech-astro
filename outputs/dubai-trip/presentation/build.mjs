@@ -8,9 +8,9 @@ import QRCode from 'qrcode';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '../../..');
 const edition = process.argv[2] || 'dubai';
-// --site writes a copy for the website (elan-tech.net/<edition>/presentation/) that loads the
+// (The --site website copy was removed with the BNI share page on 22 November 2026.)
 // site's own font files, because the site's security policy does not allow embedded fonts.
-const SITE = process.argv.includes('--site');
+const SITE = false;
 
 // Both QR codes save a contact card. They need no website and no internet: the phone
 // reads the contact straight from the code. The note records where you met.

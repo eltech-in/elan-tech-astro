@@ -3,7 +3,6 @@ import CityLayout from '../layouts/CityLayout.astro';
 import AuditPrice from '../components/AuditPrice.astro';
 import { pricingTiers } from '../data/pricing';
 import CityBuyerGuide from '../components/city/CityBuyerGuide.astro';
-import BniRaipurBand from '../components/city/BniRaipurBand.astro';
 import ChapterLabel from '../components/ChapterLabel.astro';
 import CityFAQ from '../components/city/CityFAQ.astro';
 import CityAlsoServing from '../components/city/CityAlsoServing.astro';
@@ -143,7 +142,6 @@ const packages = pricingTiers.map((tier, index) => ({
 ---
 
 <CityLayout city={city} heroHeading="Web Design Company Serving Raipur">
-  <BniRaipurBand />
   <CityBuyerGuide city="raipur" />
 
   <!-- ═══════════════════════════════════════════════════════════════════════

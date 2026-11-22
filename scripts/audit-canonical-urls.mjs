@@ -49,9 +49,8 @@ function report(type, url, source) {
   issues.push({ type, url, source });
 }
 
-// Standalone event presentations (noindex, built outside Astro) are not site pages: their
-// links live inside script templates. verify-build.mjs checks them separately.
-const STANDALONE = ['bni-raipur/presentation/'];
+// Standalone pages built outside Astro (none at present) can be listed here to skip the audit.
+const STANDALONE = [];
 // Search Console verification files (google<id>.html) are plain text, not pages.
 const htmlFiles = walk(DIST).filter((path) => path.endsWith('.html') && !STANDALONE.some((dir) => path.includes(`/${dir}`)) && !/\/google[0-9a-f]+\.html$/.test(path));
 

@@ -15,15 +15,7 @@ The videos are about 95 seconds, 1920x1080, silent. The HTML file has its fonts,
 
 ## Share link (Raipur)
 
-`https://elan-tech.net/bni-raipur/` is a noindex page on the website (not in the sitemap) with the video, a button to the interactive presentation (`/bni-raipur/presentation/`), a "Save our contact" card, WhatsApp and a Share button. It goes live with the next site deploy. Its files are in `public/bni-raipur/` and the page is `src/pages/bni-raipur.astro`.
-
-After changing the Raipur deck, refresh the website copy and video:
-
-```bash
-node outputs/dubai-trip/presentation/build.mjs bni-raipur --site
-node outputs/dubai-trip/presentation/record.mjs bni-raipur
-ffmpeg -y -i outputs/dubai-trip/elan-bni-raipur-presentation.mp4 -c:v libx264 -preset slow -crf 26 -pix_fmt yuv420p -movflags +faststart -an public/bni-raipur/elan-bni-raipur-presentation.mp4
-```
+Retired on 22 November 2026: the `/bni-raipur/` page, its video and presentation were removed from the website, and old links redirect to `/web-design-company-raipur/`. The Raipur deck and video files stay in `outputs/dubai-trip/` for offline use.
 
 ## How to present (HTML file)
 

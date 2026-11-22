@@ -159,6 +159,8 @@ RewriteRule ^(?:pricing/digital-launchpad|launchpad|4year|offer)/?$ /pricing/ [L
 # Old CTAs
 RewriteRule ^appointments/?$    /schedule-consultation/   [L,R=301]
 RewriteRule ^free-audit/?$         /website-audit/   [L,R=301]
+# BNI Conclave share page (21 Nov 2026) retired; links handed out at the event go to the Raipur page.
+RewriteRule ^bni-raipur(?:/.*)?$ /web-design-company-raipur/ [L,R=301]
 RewriteRule ^free-website-audit/?$ /website-audit/   [L,R=301]
 RewriteRule ^get-a-quote$       /get-quote                [L,R=301]
 RewriteRule ^request-quote$     /get-quote                [L,R=301]
@@ -193,7 +195,7 @@ RewriteRule ^(.+?)/?$ /$1/index.html [L]
 # (it's a special-cased file Astro keeps flat so Apache can resolve it).
 ErrorDocument 404 /404.html
 
-# ─── Media types for shared files (BNI Raipur share page) ───────────────────
+# ─── Media types for shared files (contact cards, videos) ─────────────────────
 # The contact card opens the phone's "add contact" screen; the video streams.
 AddType text/vcard .vcf
 AddType video/mp4 .mp4
