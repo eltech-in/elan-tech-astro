@@ -221,6 +221,11 @@ check('Security headers intact',                fileContains(HT, 'Strict-Transpo
 check('Brevo iframe allowed by CSP',             fileContains(HT, 'https://*.sibforms.com'));
 check('Cloudflare Turnstile allowed by CSP',     fileContains(HT, 'https://challenges.cloudflare.com'));
 check('No FormSubmit route: forms post only to our server', fileNotContains(HT, 'formsubmit.co'));
+// A lead form clicked before it hydrates would submit natively (a page reload with the visitor's details in the URL).
+check('Lead and checkout forms load with the page, not on scroll', ['contact/index.html', 'request-demo/index.html', 'get-quote/index.html', 'website-audit/index.html', 'pricing/index.html', 'services/ada-compliant-web-design/emergency-remediation/index.html']
+  .every((page) => { const html = readFileSync(join(DIST, page), 'utf8');
+    return [...html.matchAll(/<astro-island[^>]*component-url="[^"]*(?:ContactForm|GetQuoteForm|RequestDemoForm|RushAssessmentForm|PaidCheckout)[^"]*"[^>]*>/g)].length > 0
+      && [...html.matchAll(/<astro-island[^>]*component-url="[^"]*(?:ContactForm|GetQuoteForm|RequestDemoForm|RushAssessmentForm|PaidCheckout)[^"]*"[^>]*>/g)].every((m) => /client="load"/.test(m[0])); }));
 check('Lead endpoint requires a form token and runs spam checks', existsSync(join(DIST, 'api/form-guard.php')) && existsSync(join(DIST, 'api/form-token.php'))
   && fileContains('api/submit-lead.php', "guardCheckToken((string) ($request['formToken']", 'guardCheckTurnstile(', 'guardSpamReason($cleanFields)')
   && fileContains('api/form-guard.php', "if (!defined('ELAN_FORM_GUARD'))"));
