@@ -1,5 +1,5 @@
 # ════════════════════════════════════════════════════════════════════════════
-# eLan Technology — .htaccess for Hostinger (Apache + LiteSpeed)
+# eLan Technology: .htaccess for Hostinger (Apache + LiteSpeed)
 # ────────────────────────────────────────────────────────────────────────────
 # Policy
 #   • HTTPS only
@@ -57,12 +57,12 @@ RewriteRule ^blog/wordpress-vs-custom-website/?$            /blog/web-design/wor
 RewriteRule ^blog/website-development-trends-april-2026/?$  /blog/technology-trends/website-development-trends-april-2026/ [L,R=301]
 RewriteRule ^blog/ai-web-development-2026/?$                /blog/technology-trends/ai-web-development-2026/             [L,R=301]
 
-# ─── 5. Dead pages — redirects & 410 Gone ───────────────────────────────────
+# ─── 5. Dead pages: redirects & 410 Gone ───────────────────────────────────
 # Removed service page (was at /wcag-accessibility-audit, now part of ADA service)
 RewriteRule ^wcag-accessibility-audit/?$  /services/ada-compliant-web-design/ [L,R=301]
 RewriteRule ^ada-compliant-web-design/?$  /services/ada-compliant-web-design/ [L,R=301]
 
-# India page never existed — send to Nagpur HQ
+# India page never existed: send to Nagpur HQ
 RewriteRule ^web-design-company-india/?$  /web-design-company-nagpur/ [L,R=301]
 
 # Individual portfolio case studies are being rebuilt with verified content.
@@ -72,7 +72,7 @@ RewriteRule ^portfolio/case-study(?:/.*)?$ /portfolio/ [L,R=301]
 # Cloudflare email-protection artifact (CF is DNS-only; this path never exists on Hostinger)
 RewriteRule ^cdn-cgi(/.*)?$  /contact/ [L,R=301]
 
-# WordPress legacy content — 410 Gone (tells Google to drop these permanently)
+# WordPress legacy content: 410 Gone (tells Google to drop these permanently)
 # These were WP social/festival posts & tag archives; no equivalents exist.
 RewriteRule ^social-media(/.*)?$   -  [G,L]
 RewriteRule ^festivals(/.*)?$      -  [G,L]
@@ -98,7 +98,7 @@ RewriteRule ^about-us$              /about  [L,R=301]
 RewriteRule ^who-we-are$            /about  [L,R=301]
 RewriteRule ^our-team$              /about  [L,R=301]
 
-# Services — old slugs → new
+# Services: old slugs → new
 RewriteRule ^services/web-design$                 /services/website-design          [L,R=301]
 RewriteRule ^services/website-design-services$    /services/website-design          [L,R=301]
 RewriteRule ^services/web-designing$              /services/website-design          [L,R=301]
@@ -181,7 +181,7 @@ RewriteRule ^success$           /thank-you                [L,R=301]
 RewriteRule ^blog/web-design/wordpress-vs-custom-website$    /blog/web-design/wordpress-vs-custom-website/   [L,R=301]
 RewriteRule ^web-design-company-hyderabad$                   /web-design-company-hyderabad/                   [L,R=301]
 
-# ─── 8. Fallback rewrite — serve /foo/index.html for non-directory paths ────
+# ─── 8. Fallback rewrite: serve /foo/index.html for non-directory paths ────
 # Primary mechanism: Apache mod_dir (DirectorySlash on by default) 301s /foo
 # to /foo/ for real directories, then DirectoryIndex serves index.html.
 # This rule handles edge cases where the request is neither a file nor a dir.
@@ -224,7 +224,7 @@ AddType image/avif .avif
 
 # ─── 11. Cache control ──────────────────────────────────────────────────────
 <IfModule mod_headers.c>
-  # Hashed Astro code assets (content-addressable) — 1 year, immutable
+  # Hashed Astro code assets (content-addressable): 1 year, immutable
   <FilesMatch "\.(js|mjs|css)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
@@ -235,17 +235,17 @@ AddType image/avif .avif
     Header set Cache-Control "public, max-age=2592000, stale-while-revalidate=86400"
   </FilesMatch>
 
-  # Images — 30 days + SWR
+  # Images: 30 days + SWR
   <FilesMatch "\.(jpg|jpeg|png|webp|avif|gif|svg|ico|mp4)$">
     Header set Cache-Control "public, max-age=2592000, stale-while-revalidate=86400"
   </FilesMatch>
 
-  # HTML — always revalidate (so updates ship instantly)
+  # HTML: always revalidate (so updates ship instantly)
   <FilesMatch "\.html$">
     Header set Cache-Control "public, max-age=0, must-revalidate"
   </FilesMatch>
 
-  # Sitemap & robots — 1 hour
+  # Sitemap & robots: 1 hour
   <FilesMatch "(sitemap.*\.xml|sitemap\.xsl|robots\.txt)$">
     Header set Cache-Control "public, max-age=3600"
   </FilesMatch>
@@ -253,7 +253,7 @@ AddType image/avif .avif
 
 # ─── 12. Compression ────────────────────────────────────────────────────────
 # LiteSpeed compresses text resources on the fly. We do NOT pre-serve
-# astro-compressor's .html.br/.html.gz files — LiteSpeed shipped them without
+# astro-compressor's .html.br/.html.gz files: LiteSpeed shipped them without
 # Content-Encoding, producing raw garbage in browsers. mod_deflate / mod_brotli
 # below are kept as a fallback for non-LiteSpeed Apache setups.
 <IfModule mod_deflate.c>
@@ -264,7 +264,7 @@ AddType image/avif .avif
   AddOutputFilterByType BROTLI_COMPRESS text/html text/css text/javascript application/javascript application/json text/xml application/xml application/xml+rss image/svg+xml
 </IfModule>
 
-# ─── 13. Block sensitive files (URL access only — Apache still reads .htaccess) ─
+# ─── 13. Block sensitive files (URL access only: Apache still reads .htaccess) ─
 <FilesMatch "(^\.|\.(env|git|gitignore|htaccess|yml|yaml|lock|log|sql|bak)$)">
   Require all denied
 </FilesMatch>

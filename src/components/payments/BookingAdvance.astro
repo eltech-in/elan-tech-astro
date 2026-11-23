@@ -1,0 +1,42 @@
+---
+// "Book with an advance" band for service and country pages: a secure Razorpay payment of the
+// booking advance (PAY_PRICES['booking-advance']) in INR, USD or the visitor's local currency.
+import PaidCheckout from '../../islands/PaidCheckout';
+import LocalPrice from '../LocalPrice.astro';
+import { PAY_PRICES, type Currency } from '../../data/auditPricing';
+
+interface Props {
+  /** Pin the currency (country pages). */
+  currency?: Currency;
+  /** What is being booked, for the heading, e.g. "your eCommerce project". */
+  subject?: string;
+  id?: string;
+}
+const { currency, subject = 'your project', id = 'book-online' } = Astro.props;
+const prices = PAY_PRICES['booking-advance'];
+---
+<section id={id} class="booking-advance scroll-mt-28 py-14 md:py-20" aria-labelledby={`${id}-title`}>
+  <div class="mx-auto grid max-w-6xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:px-8">
+    <div>
+      <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Book online</p>
+      <h2 id={`${id}-title`} class="mt-3 font-heading text-2xl font-bold leading-tight text-[var(--text)] sm:text-3xl">Ready to start? Reserve {subject} with a booking advance.</h2>
+      <p class="mt-4 leading-7 text-[var(--text-dim)]">
+        Pay a booking advance of <LocalPrice prices={prices} currency={currency} class="font-semibold text-[var(--text)]" /> securely through Razorpay to reserve a discovery session and a place in our schedule.
+        We then confirm the scope, timeline and full quotation in writing. How the advance is applied is set out in your proposal and our <a href="/cancellation-refund-policy/" class="font-semibold underline underline-offset-2">Refund Policy</a>.
+      </p>
+      <ul class="mt-5 grid gap-2 text-sm text-[var(--text-dim)]" role="list">
+        <li class="flex gap-2"><span aria-hidden="true" class="text-[var(--accent)]">✓</span>Pay in INR, US dollars or your local currency</li>
+        <li class="flex gap-2"><span aria-hidden="true" class="text-[var(--accent)]">✓</span>UPI, cards and netbanking in India; international cards abroad</li>
+        <li class="flex gap-2"><span aria-hidden="true" class="text-[var(--accent)]">✓</span>Prefer to talk first? <a href="/get-quote/" class="font-semibold underline underline-offset-2">Request a quote</a> instead</li>
+      </ul>
+    </div>
+    <PaidCheckout
+      client:visible
+      product="booking-advance"
+      formType="paid-booking"
+      currency={currency}
+      payLabel="Pay booking advance"
+      privacyNoticeVersion="paid-booking-2026-11-16"
+    />
+  </div>
+</section>

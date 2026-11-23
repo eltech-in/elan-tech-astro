@@ -4,6 +4,7 @@ import { services, accessibilityService, coreServices, newBusinessServices } fro
 import { breadcrumbSchema, serviceSchema } from '../../utils/schema';
 import TechStackCarousel from '../../components/TechStackCarousel.astro';
 import AnswerSummary from '../../components/AnswerSummary.astro';
+import BookingAdvance from '../../components/payments/BookingAdvance.astro';
 
 const breadcrumbs = [
   { name: 'Home', url: '/' },
@@ -271,7 +272,7 @@ const schemas = [
         <div class="mb-7 max-w-3xl">
           <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Expanded capabilities</p>
           <h2 id="new-business-services-title" class="mt-2 font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">Business systems, DPDP implementation and composable content</h2>
-          <p class="mt-3 text-sm leading-relaxed text-[var(--text-muted)]">Each service begins with discovery and ends with documented responsibilities, testing and handover—not an unsupported platform or compliance promise.</p>
+          <p class="mt-3 text-sm leading-relaxed text-[var(--text-muted)]">Each service begins with discovery and ends with documented responsibilities, testing and handover, not an unsupported platform or compliance promise.</p>
         </div>
         <ul class="grid gap-5 lg:grid-cols-3" role="list">
           {newBusinessServices.map((service, index) => (
@@ -470,4 +471,5 @@ const schemas = [
       </div>
     </div>
   </section>
+  <div class="border-t border-[var(--border)] bg-[var(--bg-card)]"><BookingAdvance /></div>
 </BaseLayout>

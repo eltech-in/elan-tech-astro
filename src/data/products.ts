@@ -26,7 +26,7 @@ export interface Product {
    * publish one. Setting it does two things at once: the figure is rendered on
    * the product page AND emitted as schema.org `offers`. Google requires the
    * markup to match what a visitor can see, so never set this without the
-   * page showing it — the template handles that automatically.
+   * page showing it; the template handles that automatically.
    * Leave undefined for products that stay quote-only.
    */
   startingPriceINR?: number;

@@ -15,7 +15,7 @@ const POSTAL_CODE = COMPANY.address.postalCode;
 const ADDRESS_COUNTRY = COMPANY.address.countryCode;
 
 // Google rejects SVG for Organization/publisher logos and for the image of a
-// LocalBusiness — consumers need a raster they can resize deterministically.
+// LocalBusiness: consumers need a raster they can resize deterministically.
 // Keep the dimensions in sync with public/images/elan-tech-logo.png.
 const LOGO_URL = `${SITE_URL}/images/elan-tech-logo.png`;
 const LOGO_WIDTH = 1280;
@@ -271,7 +271,7 @@ export interface SoftwareAppData {
   /**
    * Lowest implementation price actually published on the page, in INR.
    * Google needs `offers` before SoftwareApplication can produce a rich
-   * result, and its guidelines require the markup to match visible content —
+   * result, and its guidelines require the markup to match visible content,
    * so this is only ever set for products whose page states the figure.
    * Leave undefined and no `offers` node is emitted.
    */

@@ -1,0 +1,14 @@
+---
+// A price from a table of currencies. Renders INR (or the pinned currency) on the server; the
+// price script in BaseLayout swaps it to the visitor's currency unless `currency` pins it.
+import { formatPrice, type Currency } from '../data/auditPricing';
+
+interface Props {
+  prices: Readonly<Record<Currency, number>>;
+  /** Pin a currency (country pages). Omit to show the visitor's local currency. */
+  currency?: Currency;
+  class?: string;
+}
+const { prices, currency, class: cls } = Astro.props;
+---
+<span class={cls} data-price={JSON.stringify(prices)} data-price-fixed={currency ? '' : undefined} translate="no">{formatPrice(prices[currency ?? 'INR'], currency ?? 'INR')}</span>

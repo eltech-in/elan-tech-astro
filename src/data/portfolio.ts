@@ -614,7 +614,7 @@ export const projects: Project[] = [
   {
     id: 71,
     slug: 'deetya',
-    title: 'Deetya – All About Interiors',
+    title: 'Deetya: All About Interiors',
     client: 'Deetya',
     industry: 'Interiors & Lifestyle',
     category: 'Product Catalog',

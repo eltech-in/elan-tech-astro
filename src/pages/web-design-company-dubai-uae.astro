@@ -9,6 +9,7 @@ import AuditPrice from '../components/AuditPrice.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import ServicesCloud from '../components/ServicesCloud.astro';
 import InternationalFAQ from '../components/international/InternationalFAQ.astro';
+import CountryPricing from '../components/international/CountryPricing.astro';
 import InternationalPrivacyNotice from '../components/international/InternationalPrivacyNotice.astro';
 import JurisdictionCompliance from '../components/international/JurisdictionCompliance.astro';
 import { Image } from 'astro:assets';
@@ -302,7 +303,7 @@ const ICONS: Record<string, string> = {
     <section class="band alt" aria-labelledby="uae-work">
       <div class="wrap">
         <p class="eyebrow" data-reveal>Platform experience</p>
-        <h2 id="uae-work" class="h2" data-reveal>Relevant work—not UAE client claims</h2>
+        <h2 id="uae-work" class="h2" data-reveal>Relevant work, not UAE client claims</h2>
         <p class="sub" data-reveal>Rangresha’s Shopify storefront and Healthy Genie’s Medusa.js commerce implementation show our platform experience. These projects are not presented as UAE deployments or guarantees of results.</p>
         <div class="work">
           <a href="https://healthygenie.in/" target="_blank" rel="noopener noreferrer" class="wcard" data-reveal>
@@ -321,6 +322,7 @@ const ICONS: Record<string, string> = {
       </div>
     </section>
 
+    <CountryPricing country={country} />
     <InternationalFAQ country={country} />
 
     <!-- ───────────── For legal, privacy and procurement teams ───────────── -->

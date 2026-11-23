@@ -17,18 +17,18 @@ const PROJECT_TYPES = [
 
 const BUDGETS = [
   'Under $1,000',
-  '$1,000 – $5,000',
-  '$5,000 – $15,000',
-  '$15,000 – $50,000',
+  '$1,000 to $5,000',
+  '$5,000 to $15,000',
+  '$15,000 to $50,000',
   '$50,000+',
   'Not sure yet',
 ];
 
 const TIMELINES = [
   'ASAP',
-  '1 – 2 months',
-  '3 – 6 months',
-  '6 – 12 months',
+  '1 to 2 months',
+  '3 to 6 months',
+  '6 to 12 months',
   'Flexible',
 ];
 

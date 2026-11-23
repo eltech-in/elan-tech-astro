@@ -3,6 +3,7 @@ import type { CountryData } from '../../data/countries';
 import { currencyForCountry } from '../../data/auditPricing';
 import AuditPrice from '../AuditPrice.astro';
 import { COMPANY } from '../../data/company';
+import CountryPricing from './CountryPricing.astro';
 
 interface Props {
   country: CountryData;
@@ -14,6 +15,8 @@ const whatsappMsg = encodeURIComponent(`Hi eLan Technology, I'm a business from 
 const whatsappHref = `${COMPANY.whatsapp.href}?text=${whatsappMsg}`;
 const localCurrency = currencyForCountry(country.slug);
 ---
+
+<CountryPricing country={country} />
 
 <section class="py-16 md:py-20 bg-[var(--bg-card)]">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -53,7 +56,7 @@ const localCurrency = currencyForCountry(country.slug);
         </a>
       </div>
       <p class="mx-auto mb-8 max-w-3xl text-xs leading-relaxed text-[var(--text-muted)]">
-        These links open external communication channels only when selected. Please share a business contact and project summary—not passwords, payment credentials or personal records. Review the dedicated audit or quote notice before submitting its form.
+        These links open external communication channels only when selected. Please share a business contact and project summary, not passwords, payment credentials or personal records. Review the dedicated audit or quote notice before submitting its form.
       </p>
       <p class="mb-5 text-sm text-[var(--text-dim)]">
         Website audit <AuditPrice kind="website" currency={localCurrency} class="font-semibold text-[var(--text)]" /> per domain · Accessibility (WCAG) audit <AuditPrice kind="accessibility" currency={localCurrency} class="font-semibold text-[var(--text)]" />

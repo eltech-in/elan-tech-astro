@@ -1,0 +1,59 @@
+---
+// Website packages in the country's own currency, the audit prices, and the booking advance
+// (pinned to the same currency). Prices: PACKAGE_PRICES / AUDIT_PRICES in src/data/auditPricing.ts.
+import type { CountryData } from '../../data/countries';
+import { pricingTiers } from '../../data/pricing';
+import { currencyForCountry } from '../../data/auditPricing';
+import LocalPrice from '../LocalPrice.astro';
+import AuditPrice from '../AuditPrice.astro';
+import BookingAdvance from '../payments/BookingAdvance.astro';
+
+interface Props {
+  country: CountryData;
+}
+const { country } = Astro.props;
+const currency = currencyForCountry(country.slug);
+const place = country.name === 'United States' ? 'the United States' : country.name === 'United Kingdom' ? 'the United Kingdom' : country.name;
+---
+<section id="pricing" class="scroll-mt-28 border-t border-[var(--border)] py-16 md:py-20" aria-labelledby="country-pricing-title">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl text-center">
+      <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Pricing in {currency}</p>
+      <h2 id="country-pricing-title" class="mt-3 font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">Website packages for businesses in {place}</h2>
+      <p class="mt-4 text-[var(--text-dim)]">Starting prices in {currency}. Every project receives a written scope and quotation before work begins; taxes and gateway charges, where they apply, are stated on the invoice.</p>
+    </div>
+
+    <ul class="mt-10 grid gap-5 md:grid-cols-3" role="list">
+      {pricingTiers.map((tier) => (
+        <li class:list={['flex flex-col rounded-2xl border bg-[var(--bg-card)] p-6', tier.highlighted ? 'border-[var(--accent)] shadow-lg shadow-[var(--accent)]/10' : 'border-[var(--border)]']}>
+          <div class="flex items-center justify-between gap-3">
+            <h3 class="font-heading text-xl font-bold text-[var(--text)]">{tier.name}</h3>
+            {tier.highlighted && <span class="rounded-full bg-[var(--accent)]/10 px-3 py-1 text-xs font-bold text-[var(--accent)]">Most popular</span>}
+          </div>
+          <p class="mt-1 text-sm text-[var(--text-dim)]">{tier.tagline}</p>
+          <p class="mt-5 text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--text-muted)]">{tier.customPricing ? 'Tailored to your scope' : 'Starting from'}</p>
+          <p class="font-heading text-3xl font-bold text-[var(--text)]">
+            {tier.customPricing ? 'Quoted per project' : <LocalPrice prices={tier.prices} currency={currency} />}
+          </p>
+          <p class="mt-2 text-xs text-[var(--text-muted)]">{tier.deliveryDays}-day typical delivery · {typeof tier.revisions === 'number' ? `${tier.revisions} revisions` : 'Revisions as agreed'} · {tier.support} support</p>
+          <ul class="mt-5 grid gap-2 text-sm text-[var(--text-dim)]" role="list">
+            {tier.features.slice(0, 5).map((feature) => (
+              <li class="flex gap-2"><span aria-hidden="true" class="text-[var(--accent)]">✓</span>{feature}</li>
+            ))}
+          </ul>
+          <a href={tier.customPricing ? '/contact/' : '/get-quote/'} class:list={['mt-auto inline-flex min-h-11 items-center justify-center rounded-xl px-5 py-2.5 text-sm font-bold transition', tier.highlighted ? 'bg-[var(--accent)] text-[var(--bg)] hover:brightness-110' : 'border border-[var(--border)] text-[var(--text)] hover:border-[var(--accent)]']} style="margin-top: 1.5rem">
+            {tier.customPricing ? 'Contact us for a quote' : `Get a ${tier.name} quote`}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <p class="mt-6 text-center text-sm text-[var(--text-dim)]">
+      Paid audits: website audit <AuditPrice kind="website" currency={currency} class="font-semibold text-[var(--text)]" />,
+      accessibility audit <AuditPrice kind="accessibility" currency={currency} class="font-semibold text-[var(--text)]" />.{' '}
+      <a href="/website-audit/" class="font-semibold text-[var(--accent)] underline underline-offset-2">Book an audit</a>
+    </p>
+  </div>
+</section>
+
+<BookingAdvance currency={currency} id="book-online" />

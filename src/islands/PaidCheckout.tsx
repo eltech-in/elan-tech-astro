@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { submitLead, redirectToThankYou } from '../lib/submitLead';
+import { PAY_PRICES, currencyFromTimeZone, formatPrice, type Currency, type PayProduct } from '../data/auditPricing';
 
 /**
  * Pay-and-book checkout using the Razorpay Orders API (no payment buttons).
@@ -8,11 +9,10 @@ import { submitLead, redirectToThankYou } from '../lib/submitLead';
  * 3. /api/razorpay-verify.php checks the signature with the server-side secret.
  * 4. The booking is sent through the normal lead pipeline, which accepts it only for that paid order.
  */
-type Currency = 'INR' | 'USD';
 interface Props {
-  product: 'website-audit' | 'accessibility-audit' | 'booking-advance';
-  /** Display prices; the charged amount always comes from the server. */
-  prices: Record<Currency, number>;
+  product: PayProduct;
+  /** Charge in this currency (country pages). Otherwise the visitor's currency from their time zone. */
+  currency?: Currency;
   /** Ask for the website address (audits). */
   needsUrl?: boolean;
   /** Ask for the payment reference from eLan's written instructions (booking advance). */
@@ -27,8 +27,6 @@ declare global {
   interface Window { Razorpay?: new (options: Record<string, unknown>) => { open: () => void; on: (event: string, cb: (r: unknown) => void) => void } }
 }
 
-const SYMBOL: Record<Currency, string> = { INR: '₹', USD: 'US$' };
-const fmt = (c: Currency, n: number) => SYMBOL[c] + n.toLocaleString(c === 'INR' ? 'en-IN' : 'en-US');
 const whatsapp = 'https://wa.me/918788834630?text=' + encodeURIComponent('Hi, I would like to pay online for an eLan Technology service. Please send a payment link.');
 
 function loadCheckout(): Promise<void> {
@@ -49,8 +47,13 @@ async function postJson(url: string, body: unknown) {
   return { status: res.status, data: data as Record<string, any> };
 }
 
-export default function PaidCheckout({ product, prices, needsUrl = false, needsReference = false, payLabel = 'Pay and book', formType, privacyNoticeVersion }: Props) {
-  const [currency, setCurrency] = useState<Currency>('INR');
+export default function PaidCheckout({ product, currency: pinned, needsUrl = false, needsReference = false, payLabel = 'Pay and book', formType, privacyNoticeVersion }: Props) {
+  const prices = PAY_PRICES[product];
+  const [currency, setCurrency] = useState<Currency>(pinned ?? 'INR');
+  const [local, setLocal] = useState<Currency>(pinned ?? 'INR');
+  // The server-rendered button stays disabled until this island has loaded, so an early click
+  // cannot submit the form natively (a plain page reload).
+  const [ready, setReady] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', phone: '', url: '', reference: '', notes: '', _honey: '' });
   const [consent, setConsent] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -58,13 +61,17 @@ export default function PaidCheckout({ product, prices, needsUrl = false, needsR
   const [unavailable, setUnavailable] = useState(false);
 
   useEffect(() => {
+    setReady(true);
+    if (pinned) return;
     try {
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-      if (tz && !/^Asia\/(Kolkata|Calcutta)$/.test(tz)) setCurrency('USD');
+      const detected = currencyFromTimeZone(Intl.DateTimeFormat().resolvedOptions().timeZone || '');
+      setCurrency(detected);
+      setLocal(detected);
     } catch { /* keep INR */ }
-  }, []);
+  }, [pinned]);
 
-  const price = useMemo(() => fmt(currency, prices[currency]), [currency, prices]);
+  const price = useMemo(() => formatPrice(prices[currency], currency), [currency, prices]);
+  const options = [...new Set<Currency>([local, 'INR', 'USD'])];
   const set = (k: keyof typeof form) => (e: { target: { value: string } }) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
   async function pay(e: { preventDefault: () => void }) {
@@ -148,10 +155,10 @@ export default function PaidCheckout({ product, prices, needsUrl = false, needsR
       <fieldset className="mt-5">
         <legend className="text-sm font-semibold text-[var(--text)]">Pay in</legend>
         <div className="mt-2 flex flex-wrap gap-2">
-          {(['INR', 'USD'] as Currency[]).map((c) => (
+          {options.map((c) => (
             <label key={c} className={`cursor-pointer rounded-full border px-4 py-2 text-sm font-semibold ${currency === c ? 'border-[var(--accent)] bg-[var(--accent)]/10 text-[var(--text)]' : 'border-[var(--border)] text-[var(--text-dim)]'}`}>
               <input type="radio" name={`cur-${product}`} value={c} checked={currency === c} onChange={() => setCurrency(c)} className="sr-only" />
-              {fmt(c, prices[c])} {c === 'INR' ? '· India' : '· International'}
+              {formatPrice(prices[c], c)} {c === 'INR' ? '· India' : c === 'USD' ? '· US dollars' : `· ${c}`}
             </label>
           ))}
         </div>
@@ -164,10 +171,10 @@ export default function PaidCheckout({ product, prices, needsUrl = false, needsR
 
       {error && <p role="alert" className="mt-4 rounded-xl border border-red-500/40 bg-red-500/10 p-3 text-sm text-[var(--text)]">{error}</p>}
 
-      <button type="submit" disabled={busy} className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[var(--accent)] px-6 py-3 text-base font-bold text-[var(--bg)] transition hover:brightness-110 disabled:opacity-60 sm:w-auto">
+      <button type="submit" disabled={busy || !ready} className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[var(--accent)] px-6 py-3 text-base font-bold text-[var(--bg)] transition hover:brightness-110 disabled:opacity-60 sm:w-auto">
         {busy ? 'Opening secure payment…' : `${payLabel} · ${price}`}
       </button>
-      <p className="mt-3 text-xs text-[var(--text-muted)]">Secure payment by Razorpay: UPI, cards, netbanking and wallets. Do not enter passwords or customer records here.</p>
+      <p className="mt-3 text-xs text-[var(--text-muted)]">Secure payment by Razorpay: {currency === 'INR' ? 'UPI, cards, netbanking and wallets' : 'international cards'}. Do not enter passwords or customer records here.</p>
     </form>
   );
 }

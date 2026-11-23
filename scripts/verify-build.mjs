@@ -222,10 +222,24 @@ check('Brevo iframe allowed by CSP',             fileContains(HT, 'https://*.sib
 check('Cloudflare Turnstile allowed by CSP',     fileContains(HT, 'https://challenges.cloudflare.com'));
 check('No FormSubmit route: forms post only to our server', fileNotContains(HT, 'formsubmit.co'));
 // A lead form clicked before it hydrates would submit natively (a page reload with the visitor's details in the URL).
+// Owner's style rule (23 Nov 2026): no em dashes anywhere on the website, and no spaced en dashes used as dashes.
+check('No em dashes on the website', generatedHtmlFiles(DIST).every((path) => !/—|&mdash;|&#8212;|&#x2014;|\s–\s/i.test(readFileSync(path, 'utf8'))));
 check('Lead and checkout forms load with the page, not on scroll', ['contact/index.html', 'request-demo/index.html', 'get-quote/index.html', 'website-audit/index.html', 'pricing/index.html', 'services/ada-compliant-web-design/emergency-remediation/index.html']
   .every((page) => { const html = readFileSync(join(DIST, page), 'utf8');
     return [...html.matchAll(/<astro-island[^>]*component-url="[^"]*(?:ContactForm|GetQuoteForm|RequestDemoForm|RushAssessmentForm|PaidCheckout)[^"]*"[^>]*>/g)].length > 0
-      && [...html.matchAll(/<astro-island[^>]*component-url="[^"]*(?:ContactForm|GetQuoteForm|RequestDemoForm|RushAssessmentForm|PaidCheckout)[^"]*"[^>]*>/g)].every((m) => /client="load"/.test(m[0])); }));
+      && [...html.matchAll(/<astro-island[^>]*component-url="[^"]*(?:ContactForm|GetQuoteForm|RequestDemoForm|RushAssessmentForm)[^"]*"[^>]*>/g)].every((m) => /client="load"/.test(m[0])); }));
+// Payment forms may load on scroll: their server-rendered pay button is disabled until the form is ready.
+check('Country pages show packages and the booking advance in their own currency', [
+  ['web-design-company-usa/index.html', 'US$590', 'US$1,190', 'US$99'],
+  ['web-design-company-canada/index.html', 'C$790', 'C$1,590', 'C$139'],
+  ['web-design-company-australia/index.html', 'A$890', 'A$1,790', 'A$149'],
+  ['web-design-company-new-zealand/index.html', 'NZ$990', 'NZ$1,990', 'NZ$169'],
+  ['web-design-company-japan/index.html', '¥89,000', '¥179,000', '¥14,900'],
+  ['web-design-company-dubai-uae/index.html', 'AED 2,190', 'AED 4,390', 'AED 369'],
+  ['web-design-company-european-union/index.html', '€549', '€1,099', '€89'],
+].every(([page, ...needles]) => fileContains(page, ...needles, 'id="book-online"', 'Pay booking advance')));
+check('Every service page offers the booking advance', ['services/index.html', 'services/website-design/index.html', 'services/ecommerce/medusa-js-development/index.html', 'services/seo/index.html', 'services/ada-compliant-web-design/emergency-remediation/index.html'].every((page) => fileContains(page, 'id="book-online"', '&quot;product&quot;:[0,&quot;booking-advance&quot;]')));
+check('Pay buttons cannot submit before the payment form loads', ['pricing/index.html', 'services/website-design/index.html', 'web-design-company-canada/index.html'].every((page) => /<form[^>]*data-paid-checkout[\s\S]*?<button type="submit" disabled=""/.test(readFileSync(join(DIST, page), 'utf8'))));
 check('Lead endpoint requires a form token and runs spam checks', existsSync(join(DIST, 'api/form-guard.php')) && existsSync(join(DIST, 'api/form-token.php'))
   && fileContains('api/submit-lead.php', "guardCheckToken((string) ($request['formToken']", 'guardCheckTurnstile(', 'guardSpamReason($cleanFields)')
   && fileContains('api/form-guard.php', "if (!defined('ELAN_FORM_GUARD'))"));
@@ -314,7 +328,7 @@ check('25 August Shopify SEO checklist is published and indexed', fileContains(
 ));
 check('1 September Astro 7 business guide is published and indexed', fileContains(
   'blog/technology-trends/what-is-astro-7-business-guide/index.html',
-  '<title>What Is Astro 7? Benefits, Costs &amp; Limits for Business Websites | eLan Technology</title>',
+  '<title>Astro 7 Explained: What It Is, Release, Benefits &amp; Limits (2026) | eLan Technology</title>',
   '<link rel="canonical" href="https://elan-tech.net/blog/technology-trends/what-is-astro-7-business-guide/">',
   '2026-09-01T00:00:00.000Z',
   'FAQPage',
@@ -859,10 +873,17 @@ check('Website audit is booked only by payment (no unpaid request form)', fileNo
 // Razorpay Orders API: fixed server-side prices must match the prices shown on the site.
 {
   const phpPay = readFileSync(join(resolve(DIST, '..'), 'public/api/payments-common.php'), 'utf8');
-  const sitePrices = readFileSync(join(resolve(DIST, '..'), 'src/data/auditPricing.ts'), 'utf8');
-  const site = sitePrices.match(/website: \{ INR: (\d+), USD: (\d+)/);
-  const php = phpPay.match(/'website-audit' => \[[^\]]*'amounts' => \['INR' => (\d+), 'USD' => (\d+)\]/);
-  check('Razorpay website-audit price matches the site price', Boolean(site && php && +php[1] === +site[1] * 100 && +php[2] === +site[2] * 100));
+  const { PAY_PRICES } = await import(new URL('../src/data/auditPricing.ts', import.meta.url).href);
+  const mismatches = [];
+  for (const [product, table] of Object.entries(PAY_PRICES)) {
+    const row = phpPay.match(new RegExp(`'${product}' => \\[[^\\n]*'amounts' => \\[([^\\]]*)\\]`));
+    const amounts = Object.fromEntries([...(row?.[1] ?? '').matchAll(/'([A-Z]{3})' => (\d+)/g)].map((m) => [m[1], +m[2]]));
+    for (const [currency, major] of Object.entries(table)) {
+      const minor = currency === 'JPY' ? major : major * 100; // Razorpay: JPY in whole yen, others in cents
+      if (amounts[currency] !== minor) mismatches.push(`${product} ${currency}`);
+    }
+  }
+  check('Razorpay prices match the site in every currency', mismatches.length === 0, mismatches.join(', '));
   check('Security policy allows Razorpay Checkout', fileContains('.htaccess', 'https://checkout.razorpay.com', 'frame-src \'self\' https://api.razorpay.com'));
   check('Lead endpoint requires a paid order for audit bookings', readFileSync(join(resolve(DIST, '..'), 'public/api/submit-lead.php'), 'utf8').includes("respond(402, ['ok' => false, 'error' => 'Payment is required before this request'])"));
 }

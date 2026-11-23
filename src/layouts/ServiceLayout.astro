@@ -3,6 +3,7 @@ import BaseLayout from './BaseLayout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import LocationsCloud from '../components/LocationsCloud.astro';
 import AnswerSummary from '../components/AnswerSummary.astro';
+import BookingAdvance from '../components/payments/BookingAdvance.astro';
 import { services as serviceCatalog, accessibilityService, coreServices, newBusinessServices } from '../data/services';
 
 interface Props {
@@ -399,6 +400,8 @@ const privacyProfile = privacyProfiles[currentPath];
       </main>
     </div>
   </div>
+
+  <div class="border-t border-[var(--border)] bg-[var(--bg-card)]"><BookingAdvance /></div>
 
   <LocationsCloud
     intro="We deliver this service for businesses across India and internationally - from our Nagpur HQ to clients in the USA, UAE, Canada, Australia and beyond."

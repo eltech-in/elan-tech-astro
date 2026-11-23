@@ -1,10 +1,10 @@
-type Currency = 'INR' | 'USD' | 'AUD' | 'AED' | 'GBP' | 'JPY';
+import { PACKAGE_PRICES, type Currency } from './auditPricing';
 
 export interface PricingTier {
   id: string;
   name: string;
   tagline: string;
-  prices: Record<Currency, number>;
+  prices: Readonly<Record<Currency, number>>;
   customPricing?: boolean;
   features: string[];
   highlighted: boolean; // most popular
@@ -20,14 +20,7 @@ export const pricingTiers: PricingTier[] = [
     id: 'starter',
     name: 'Starter',
     tagline: 'Perfect for small businesses and startups',
-    prices: {
-      INR: 20999,
-      USD: 300,
-      AUD: 450,
-      AED: 1100,
-      GBP: 240,
-      JPY: 45000,
-    },
+    prices: PACKAGE_PRICES.starter,
     features: [
       'Up to 10 Pages',
       'Responsive (Mobile-Friendly) Design',
@@ -49,14 +42,7 @@ export const pricingTiers: PricingTier[] = [
     id: 'professional',
     name: 'Professional',
     tagline: 'The complete package for growing businesses',
-    prices: {
-      INR: 30999,
-      USD: 720,
-      AUD: 1080,
-      AED: 2640,
-      GBP: 576,
-      JPY: 108000,
-    },
+    prices: PACKAGE_PRICES.professional,
     features: [
       'Up to 20 Pages',
       'Custom UI/UX Design',
@@ -82,14 +68,7 @@ export const pricingTiers: PricingTier[] = [
     name: 'Enterprise',
     tagline: 'Full-scale solutions for large organizations',
     customPricing: true,
-    prices: {
-      INR: 0,
-      USD: 0,
-      AUD: 0,
-      AED: 0,
-      GBP: 0,
-      JPY: 0,
-    },
+    prices: { INR: 0, USD: 0, CAD: 0, AUD: 0, NZD: 0, JPY: 0, AED: 0, GBP: 0, EUR: 0 },
     features: [
       'Pages and modules based on final requirements',
       'Custom Design System',

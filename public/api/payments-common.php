@@ -8,8 +8,8 @@
  * (see deployment/razorpay-config.example.php). They are never sent to the browser,
  * except the public key id that Razorpay Checkout needs.
  *
- * Prices are fixed here, in the smallest currency unit, and must match src/data/auditPricing.ts
- * (verify-build.mjs checks the website-audit figures). The browser cannot change an amount.
+ * Prices are fixed here, in the smallest currency unit, and must match PAY_PRICES in
+ * src/data/auditPricing.ts (verify-build.mjs checks every product and currency). The browser cannot change an amount.
  */
 declare(strict_types=1);
 
@@ -18,10 +18,11 @@ if (!defined('ELAN_PAYMENTS')) {
     exit;
 }
 
+// Smallest currency unit: cents/paise/fils for all currencies except JPY, which Razorpay takes in whole yen.
 const PAY_PRODUCTS = [
-    'website-audit' => ['label' => 'Website audit (one domain)', 'amounts' => ['INR' => 99900, 'USD' => 1900], 'needsUrl' => true],
-    'accessibility-audit' => ['label' => 'Accessibility audit, full package (one domain)', 'amounts' => ['INR' => 999900, 'USD' => 9900], 'needsUrl' => true],
-    'booking-advance' => ['label' => 'Project booking advance', 'amounts' => ['INR' => 999900, 'USD' => 9900], 'needsUrl' => false],
+    'website-audit' => ['label' => 'Website audit (one domain)', 'amounts' => ['INR' => 99900, 'USD' => 1900, 'CAD' => 2500, 'AUD' => 2900, 'NZD' => 2900, 'JPY' => 2900, 'AED' => 6900, 'GBP' => 1500, 'EUR' => 1900], 'needsUrl' => true],
+    'accessibility-audit' => ['label' => 'Accessibility audit, full package (one domain)', 'amounts' => ['INR' => 999900, 'USD' => 9900, 'CAD' => 13900, 'AUD' => 14900, 'NZD' => 16900, 'JPY' => 14900, 'AED' => 36900, 'GBP' => 7900, 'EUR' => 8900], 'needsUrl' => true],
+    'booking-advance' => ['label' => 'Project booking advance', 'amounts' => ['INR' => 999900, 'USD' => 9900, 'CAD' => 13900, 'AUD' => 14900, 'NZD' => 16900, 'JPY' => 14900, 'AED' => 36900, 'GBP' => 7900, 'EUR' => 8900], 'needsUrl' => false],
 ];
 
 function payJson(int $status, array $payload): never

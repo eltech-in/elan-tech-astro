@@ -19,6 +19,42 @@ export const AUDIT_PRICES = {
 
 export type AuditKind = keyof typeof AUDIT_PRICES;
 
+/**
+ * Website packages (pricing page and country pages), international premium prices chosen by
+ * eLan Technology on 23 November 2026. Enterprise is always quoted.
+ */
+export const PACKAGE_PRICES = {
+  starter: { INR: 20999, USD: 590, CAD: 790, AUD: 890, NZD: 990, JPY: 89000, AED: 2190, GBP: 469, EUR: 549 },
+  professional: { INR: 30999, USD: 1190, CAD: 1590, AUD: 1790, NZD: 1990, JPY: 179000, AED: 4390, GBP: 949, EUR: 1099 },
+} as const satisfies Record<string, Record<Currency, number>>;
+
+/**
+ * What can be paid online, in every currency (Razorpay international payments are enabled).
+ * public/api/payments-common.php must charge exactly these amounts (verify-build.mjs checks it).
+ * The booking advance uses the same table as the accessibility audit (US$99 base).
+ */
+export const PAY_PRICES = {
+  'website-audit': AUDIT_PRICES.website,
+  'accessibility-audit': { ...AUDIT_PRICES.accessibility, INR: 9999 },
+  'booking-advance': { ...AUDIT_PRICES.accessibility, INR: 9999 },
+} as const satisfies Record<string, Record<Currency, number>>;
+export type PayProduct = keyof typeof PAY_PRICES;
+export const CURRENCIES: Currency[] = ['INR', 'USD', 'CAD', 'AUD', 'NZD', 'JPY', 'AED', 'GBP', 'EUR'];
+
+/** The visitor's currency from the device time zone (no location lookup). Mirrors BaseLayout's script. */
+export function currencyFromTimeZone(tz: string): Currency {
+  if (/^Asia\/(Kolkata|Calcutta)$/.test(tz)) return 'INR';
+  if (tz === 'Asia/Dubai') return 'AED';
+  if (/^America\/(Toronto|Vancouver|Edmonton|Winnipeg|Halifax|St_Johns|Regina|Montreal|Moncton|Whitehorse|Yellowknife|Iqaluit|Glace_Bay|Goose_Bay|Swift_Current|Dawson_Creek|Fort_Nelson|Rankin_Inlet|Resolute|Cambridge_Bay|Inuvik|Atikokan|Thunder_Bay|Nipigon|Rainy_River)$/.test(tz)) return 'CAD';
+  if (/^(America\/|Pacific\/Honolulu$)/.test(tz)) return 'USD';
+  if (/^Australia\//.test(tz)) return 'AUD';
+  if (/^Pacific\/(Auckland|Chatham)$/.test(tz)) return 'NZD';
+  if (tz === 'Asia/Tokyo') return 'JPY';
+  if (/^Europe\/(London|Belfast|Guernsey|Jersey|Isle_of_Man)$/.test(tz)) return 'GBP';
+  if (/^Europe\//.test(tz)) return 'EUR';
+  return tz ? 'USD' : 'INR';
+}
+
 const SYMBOL: Record<Currency, string> = {
   INR: '₹', USD: 'US$', CAD: 'C$', AUD: 'A$', NZD: 'NZ$', JPY: '¥', AED: 'AED ', GBP: '£', EUR: '€',
 };

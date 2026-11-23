@@ -3,6 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { pricingTiers } from '../data/pricing';
 import { breadcrumbSchema, faqSchema } from '../utils/schema';
 import PaidCheckout from '../islands/PaidCheckout';
+import LocalPrice from '../components/LocalPrice.astro';
+import { PAY_PRICES } from '../data/auditPricing';
 
 const standardPricingFaqs = [
   {
@@ -52,13 +54,15 @@ const comparisonFeatures = [
 const tierColors = ['--ac-emerald', '--ac-amber', '--ac-indigo'];
 const tierNums = ['01', '02', '03'];
 
-const inrFormatter = new Intl.NumberFormat('en-IN');
 
 const currencies = [
   { symbol: '₹', label: 'INR' },
-  { symbol: '$', label: 'USD' },
+  { symbol: 'US$', label: 'USD' },
+  { symbol: 'C$', label: 'CAD' },
   { symbol: 'A$', label: 'AUD' },
+  { symbol: 'NZ$', label: 'NZD' },
   { symbol: '£', label: 'GBP' },
+  { symbol: '€', label: 'EUR' },
   { symbol: 'AED', label: 'AED' },
   { symbol: '¥', label: 'JPY' },
 ];
@@ -66,7 +70,7 @@ const currencies = [
 const guarantees = [
   { title: 'Fixed-Price Projects', desc: 'No surprise invoices. Every cost itemised upfront.', cssVar: '--ac-emerald', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>' },
   { title: 'Milestone Billing', desc: '3-instalment payment structure - pay as we deliver.', cssVar: '--ac-amber', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>' },
-  { title: 'Local Currency Quotes', desc: 'We quote in INR, USD, AUD, GBP, AED, JPY - no conversion surprises.', cssVar: '--ac-cyan', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>' },
+  { title: 'Local Currency Prices', desc: 'Prices and payments in INR, USD, CAD, AUD, NZD, GBP, EUR, AED and JPY, with no conversion surprises.', cssVar: '--ac-cyan', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>' },
   { title: 'Startup & NGO Discounts', desc: 'Special pricing available for registered startups and non-profits.', cssVar: '--ac-violet', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>' },
 ];
 ---
@@ -100,7 +104,7 @@ const guarantees = [
           </span>
         ))}
       </div>
-      <p class="mt-3 text-xs text-[var(--text-muted)]">We quote in your local currency - no conversion surprises.</p>
+      <p class="mt-3 text-xs text-[var(--text-muted)]">Prices below are shown in your local currency (from your device time zone), and you can pay online in that currency.</p>
     </div>
   </section>
 
@@ -164,7 +168,7 @@ const guarantees = [
                   <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--text-muted)] mb-1">{tier.customPricing ? 'Tailored to your scope' : 'Starting from'}</p>
                   <p class="font-heading font-bold text-[var(--text)] leading-tight">
                     <span class="text-3xl sm:text-4xl" style={`color: var(${cssVar});`}>
-                      {tier.customPricing ? 'Contact for pricing' : `₹${inrFormatter.format(tier.prices.INR)}`}
+                      {tier.customPricing ? 'Contact for pricing' : <LocalPrice prices={tier.prices} />}
                     </span>
                   </p>
                 </div>
@@ -206,8 +210,8 @@ const guarantees = [
                     {tier.cta}
                   </a>
                   <p class="text-center text-xs leading-relaxed text-[var(--text-muted)]">
-                    Already received the written scope and payment reference?
-                    <a href="#booking-advance" class="ml-1 font-semibold text-[var(--text)] underline underline-offset-2">Use the secure booking-advance section below.</a>
+                    Ready to book?
+                    <a href="#booking-advance" class="ml-1 font-semibold text-[var(--text)] underline underline-offset-2">Pay the booking advance online.</a>
                   </p>
                 </div>
               </article>
@@ -218,15 +222,14 @@ const guarantees = [
 
       <div id="booking-advance" class="mx-auto mt-10 max-w-2xl scroll-mt-28 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-5 sm:p-7">
         <div class="mb-5 text-center">
-          <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">Secure payment handoff</p>
-          <h3 class="mt-2 font-heading text-xl font-bold text-[var(--text)] sm:text-2xl">Pay only against confirmed instructions</h3>
-          <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">The ₹9,999 or $99 control below is a booking advance, not the full price of a package. Use the currency and payment reference stated in your written communication from eLan Technology.</p>
+          <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">Book online</p>
+          <h3 class="mt-2 font-heading text-xl font-bold text-[var(--text)] sm:text-2xl">Book your project with an advance</h3>
+          <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">This is a booking advance (<LocalPrice prices={PAY_PRICES['booking-advance']} class="font-semibold text-[var(--text)]" /> or the equivalent in your currency), not the full price of a package. If we have sent you a payment reference, enter it below.</p>
         </div>
 <PaidCheckout
           client:load
           product="booking-advance"
           formType="paid-booking"
-          prices={{ INR: 9999, USD: 99 }}
           needsReference
           payLabel="Pay booking advance"
           privacyNoticeVersion="paid-booking-2026-11-16"
