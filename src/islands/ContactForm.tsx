@@ -98,7 +98,7 @@ export default function ContactForm() {
       await submitLead('contact', {
         _subject: `New Contact Request from ${data.name}`,
         _honey: honeypot,
-        _privacyNoticeVersion: 'contact-2026-09-23',
+        _privacyNoticeVersion: 'contact-2026-11-23',
         ...data,
       });
       reset();
@@ -301,8 +301,8 @@ export default function ContactForm() {
         <p className="text-sm font-semibold text-[var(--text)]">How we use this enquiry</p>
         <p className="mt-1 text-xs leading-relaxed text-[var(--text-dim)]">
           We use the details you provide only to review and respond to this enquiry. They are stored in our private
-          hosting area and may be sent through Brevo for the reply notification. If that delivery route is unavailable,
-          FormSubmit may be used as a temporary fallback. An unconverted enquiry is retained for up to 12 months,
+          hosting area and may be sent through Brevo for the reply notification. Submissions pass automated spam checks,
+          which may include Cloudflare Turnstile. An unconverted enquiry is retained for up to 12 months,
           unless a longer period is required for an active project or by law. We do not add you to marketing lists from this form.
         </p>
         <p className="mt-2 text-xs text-[var(--text-muted)]">

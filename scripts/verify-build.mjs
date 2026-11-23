@@ -219,7 +219,14 @@ check('Retired campaign URLs avoid 404 errors', fileContains(HT, '/pricing/ [L,R
 check('HTTPS force rule intact',                fileContains(HT, 'Force HTTPS'));
 check('Security headers intact',                fileContains(HT, 'Strict-Transport-Security'));
 check('Brevo iframe allowed by CSP',             fileContains(HT, 'https://*.sibforms.com'));
-check('FormSubmit requests allowed by CSP',      fileContains(HT, 'https://formsubmit.co'));
+check('Cloudflare Turnstile allowed by CSP',     fileContains(HT, 'https://challenges.cloudflare.com'));
+check('No FormSubmit route: forms post only to our server', fileNotContains(HT, 'formsubmit.co'));
+check('Lead endpoint requires a form token and runs spam checks', existsSync(join(DIST, 'api/form-guard.php')) && existsSync(join(DIST, 'api/form-token.php'))
+  && fileContains('api/submit-lead.php', "guardCheckToken((string) ($request['formToken']", 'guardCheckTurnstile(', 'guardSpamReason($cleanFields)')
+  && fileContains('api/form-guard.php', "if (!defined('ELAN_FORM_GUARD'))"));
+check('Turnstile site key is built into the form script', readdirSync(join(DIST, '_astro')).some((name) => name.endsWith('.js') && readFileSync(join(DIST, '_astro', name), 'utf8').includes('0x4AAAAAAGOVIIpasQ5O6BiM')));
+check('No secret Turnstile key in the website files', !readFileSync(join(DIST, 'api/form-guard.php'), 'utf8').match(/0x4AAAAA[A-Za-z0-9_-]{20,}/)
+  && generatedHtmlFiles(DIST).every((path) => !/formsubmit\.co/.test(readFileSync(path, 'utf8'))));
 check('Calendly widget script allowed by CSP',   fileContains(HT, 'https://assets.calendly.com'));
 check('Calendly frames allowed by CSP',          fileContains(HT, 'https://*.calendly.com'));
 check('Old ADA service URL redirects to current service', fileContains(
@@ -727,6 +734,10 @@ check('Homepage H1 remains on the 90-day baseline', fileContains(
   'Web Design &amp; Development',
   'Trusted by 500+ Businesses',
 ));
+check('Homepage recent work leads with Healthy Genie, the latest launch', (() => {
+  const names = [...readFileSync(join(DIST, 'index.html'), 'utf8').matchAll(/<figcaption[^>]*><b[^>]*>([^<]+)<\/b>/g)].map((m) => m[1]);
+  return names[0] === 'Healthy Genie' && names.includes('Trimit Architects');
+})());
 check('Homepage uses qualified accessibility claims', fileContains(
   HP,
   'Accessibility-first',

@@ -7,6 +7,7 @@ import { homepageSeoBaseline } from '../../data/seoStability';
 import { navProducts } from '../../data/navigation';
 import { indexedCountries } from '../../data/countries';
 import AuditPrice from '../AuditPrice.astro';
+import shotHealthyGenie from '../../assets/portfolio/healthy-genie.avif';
 import shotTrimit from '../../assets/portfolio/trimitarch.avif';
 import shotDizviz from '../../assets/portfolio/dizviz.avif';
 import shotAbhay from '../../assets/portfolio/abhay-tembhurne.avif';
@@ -14,6 +15,7 @@ import shotAsbim from '../../assets/portfolio/asbim.avif';
 
 const yearsExp = new Date().getFullYear() - 2002;
 const work = [
+  { img: shotHealthyGenie, name: 'Healthy Genie', kind: 'Latest launch · Medusa.js meal commerce, Pune' },
   { img: shotTrimit, name: 'Trimit Architects', kind: 'Architecture · Astro' },
   { img: shotDizviz, name: 'Dizviz', kind: 'Creative education · Astro' },
   { img: shotAbhay, name: 'Abhay Tembhurne', kind: 'Land surveying · Astro' },
@@ -166,14 +168,14 @@ const countries = indexedCountries.filter((c) => c.code !== 'IN');
   /* Recent work: cross-fading screenshots */
   .t-work { --n: 3; grid-column: span 5; padding: 0; min-height: 15rem; background: #0f172a; }
   .shots, .shot { position: absolute; inset: 0; margin: 0; }
-  .shot { opacity: 0; animation: swap 16s infinite; animation-delay: calc(var(--d) * 4s); }
+  .shot { opacity: 0; animation: swap 20s infinite; animation-delay: calc(var(--d) * 4s); }
   .shot :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: top; transform: scale(1.02); transition: transform .6s ease; }
   .t-work:hover .shot :global(img) { transform: scale(1.06); }
   .shot figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 2.4rem 1.2rem .9rem; display: flex; flex-direction: column;
     background: linear-gradient(0deg, rgba(2,6,23,.85), transparent); color: #fff; font-size: .8rem; }
   .shot figcaption b { font-family: var(--font-heading); font-size: 1.05rem; }
   .shot figcaption span { color: rgba(255,255,255,.75); }
-  @keyframes swap { 0% { opacity: 0; } 4%, 25% { opacity: 1; } 29%, 100% { opacity: 0; } }
+  @keyframes swap { 0% { opacity: 0; } 3%, 20% { opacity: 1; } 23%, 100% { opacity: 0; } }
   .badge { position: absolute; top: .9rem; left: .9rem; padding: .3rem .7rem; border-radius: 999px; font-size: .72rem; font-weight: 700;
     color: #0f172a; background: rgba(255,255,255,.92); box-shadow: 0 4px 14px rgba(0,0,0,.2); }
 

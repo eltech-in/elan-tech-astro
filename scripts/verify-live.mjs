@@ -189,7 +189,7 @@ if (home) {
     ['X-Content-Type-Options', 'x-content-type-options', ['nosniff']],
     ['Referrer-Policy', 'referrer-policy', ['strict-origin-when-cross-origin']],
     ['Permissions-Policy', 'permissions-policy', ['camera=()']],
-    ['Content-Security-Policy', 'content-security-policy', ["default-src 'self'", 'https://formsubmit.co', 'https://*.sibforms.com']],
+    ['Content-Security-Policy', 'content-security-policy', ["default-src 'self'", 'https://challenges.cloudflare.com', 'https://*.sibforms.com']],
   ];
 
   for (const [label, header, expectedParts] of requiredHeaders) {

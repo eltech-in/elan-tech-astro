@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+define('ELAN_FORM_GUARD', true);
+require __DIR__ . '/form-guard.php';
+
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store, max-age=0');
 header('X-Content-Type-Options: nosniff');
@@ -18,9 +21,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     respond(405, ['ok' => false, 'error' => 'Method not allowed']);
 }
 
+// Browsers always send Origin with a fetch() POST; scripts posting directly often do not.
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 $allowedOrigins = ['https://elan-tech.net', 'https://www.elan-tech.net'];
-if ($origin !== '' && !in_array($origin, $allowedOrigins, true)) {
+$localTest = getenv('ELAN_LEAD_STORAGE_DIR') !== false && preg_match('#^http://(localhost|127\.0\.0\.1)(:\d+)?$#', $origin);
+if (!in_array($origin, $allowedOrigins, true) && !$localTest) {
     respond(403, ['ok' => false, 'error' => 'Origin not allowed']);
 }
 
@@ -57,6 +62,13 @@ if (trim((string) ($fields['_honey'] ?? '')) !== '') {
     respond(200, ['ok' => true, 'stored' => false]);
 }
 
+// Spam protection (form-guard.php): a fresh signed form token, then Cloudflare Turnstile when it is configured.
+$guardFailure = guardCheckToken((string) ($request['formToken'] ?? ''))
+    ?? guardCheckTurnstile((string) ($request['turnstileToken'] ?? ''), (string) ($_SERVER['REMOTE_ADDR'] ?? ''));
+if ($guardFailure !== null) {
+    respond(403, ['ok' => false, 'error' => 'Security check failed', 'reason' => $guardFailure]);
+}
+
 function cleanValue(mixed $value, int $depth = 0): mixed
 {
     if ($depth > 2) {
@@ -91,8 +103,8 @@ unset($cleanFields['_honey'], $cleanFields['_captcha'], $cleanFields['_template'
 // These forms require affirmative acknowledgement of their versioned,
 // just-in-time privacy notices.
 $privacyNoticeVersions = [
-    'contact' => 'contact-2026-09-23',
-    'get-quote' => 'get-quote-2026-09-23',
+    'contact' => 'contact-2026-11-23',
+    'get-quote' => 'get-quote-2026-11-23',
     'website-audit' => 'website-audit-2026-11-16',
     'paid-booking' => 'paid-booking-2026-11-16',
     'request-demo' => 'request-demo-2026-09-24',
@@ -102,7 +114,9 @@ if (isset($privacyNoticeVersions[$formType])) {
     $privacyAccepted = ($cleanFields['privacyAccepted'] ?? false) === true;
     $privacyNoticeVersion = (string) ($cleanFields['_privacyNoticeVersion'] ?? '');
     // The website-audit form was named free-audit before 16 November 2026; accept its notice version from cached pages.
-    $legacyAuditNotice = $formType === 'website-audit' && $privacyNoticeVersion === 'free-audit-2026-09-23';
+    $legacyAuditNotice = ($formType === 'website-audit' && $privacyNoticeVersion === 'free-audit-2026-09-23')
+        // Notices before the FormSubmit route was removed (23 November 2026), from cached pages.
+        || in_array($privacyNoticeVersion, ['contact-2026-09-23', 'get-quote-2026-09-23'], true) && str_starts_with($privacyNoticeVersion, $formType . '-');
     if (!$privacyAccepted || ($privacyNoticeVersion !== $privacyNoticeVersions[$formType] && !$legacyAuditNotice)) {
         respond(422, ['ok' => false, 'error' => 'Privacy acknowledgement is required']);
     }
@@ -244,6 +258,16 @@ if ($shouldPruneLeads) {
         }
         file_put_contents($statusFile, $keptStatus === [] ? '' : implode(PHP_EOL, $keptStatus) . PHP_EOL, LOCK_EX);
         @chmod($statusFile, 0600);
+    }
+}
+
+// Link-stuffed or typical spam messages are kept for review in spam-YYYY-MM.jsonl and send no alert.
+// Paid requests are never filtered.
+if (!in_array($formType, ['website-audit', 'paid-booking'], true)) {
+    $spamReason = guardSpamReason($cleanFields);
+    if ($spamReason !== null) {
+        guardQuarantine($storageRoot, $submissionId, $formType, $spamReason, $cleanFields);
+        respond(200, ['ok' => true, 'stored' => true, 'notified' => false]);
     }
 }
 

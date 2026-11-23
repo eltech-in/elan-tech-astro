@@ -1,5 +1,15 @@
-const FORM_SUBMIT_URL = 'https://formsubmit.co/ajax/info@elan-tech.net';
-const BACKUP_URL = '/api/submit-lead.php';
+/**
+ * Cloudflare Turnstile site key (public; safe in the code). Empty = Turnstile off.
+ * Turning it on needs both halves:
+ *   1. this site key, from Cloudflare dashboard → Turnstile → Add widget (hostname elan-tech.net);
+ *   2. the secret key, only on the server in elan-tech-private/turnstile-config.php
+ *      (see deployment/turnstile-config.example.php). Never put the secret key here.
+ */
+export const TURNSTILE_SITE_KEY = '0x4AAAAAAGOVIIpasQ5O6BiM';
+
+const LEAD_URL = '/api/submit-lead.php';
+const TOKEN_URL = '/api/form-token.php';
+const TURNSTILE_SCRIPT = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
 
 type LeadFields = Record<string, unknown>;
 
@@ -11,83 +21,127 @@ function submissionId(): string {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 12)}`;
 }
 
-async function postBackup(
-  id: string,
-  formType: string,
-  fields: LeadFields,
-  notify: boolean,
-): Promise<Response> {
-  return fetch(BACKUP_URL, {
-    signal: AbortSignal.timeout(20000),
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      submissionId: id,
-      formType,
-      notify,
-      fields,
-    }),
-  });
+/** Signed, time-stamped token from our server (spam protection). */
+async function fetchFormToken(): Promise<string> {
+  try {
+    const response = await fetch(TOKEN_URL, { signal: AbortSignal.timeout(10000), headers: { Accept: 'application/json' }, cache: 'no-store' });
+    const result = response.ok ? await response.json() as { token?: string } : null;
+    return typeof result?.token === 'string' ? result.token : '';
+  } catch {
+    return '';
+  }
 }
 
-type BackupResult = {
-  ok?: boolean;
-  stored?: boolean;
-  notified?: boolean;
-  notificationReliable?: boolean;
+// The server refuses a token used within 3 seconds of issue or after 6 hours, so the token is
+// fetched as soon as a form loads and renewed if the page has been open for hours.
+const TOKEN_MIN_MS = 3200;
+const TOKEN_MAX_MS = 5 * 3600 * 1000;
+let pendingToken: { at: number; token: Promise<string> } | null = null;
+
+function requestToken() {
+  pendingToken = { at: Date.now(), token: fetchFormToken() };
+  return pendingToken;
+}
+if (typeof window !== 'undefined') requestToken();
+
+async function formToken(): Promise<string> {
+  let current = pendingToken;
+  if (!current || Date.now() - current.at > TOKEN_MAX_MS) current = requestToken();
+  const token = await current.token;
+  if (!token) {
+    pendingToken = null;
+    return '';
+  }
+  const wait = TOKEN_MIN_MS - (Date.now() - current.at);
+  if (wait > 0 && typeof window !== 'undefined') await new Promise((resolve) => setTimeout(resolve, wait));
+  pendingToken = null; // One token per submission.
+  return token;
+}
+
+type TurnstileApi = {
+  render: (el: HTMLElement, options: Record<string, unknown>) => string;
+  remove: (id: string) => void;
 };
 
 /**
- * Delivers a lead by email and stores an independent server-side backup.
- * A successful result means at least one channel captured the enquiry.
+ * Cloudflare Turnstile, only when a site key is set. Loads on submit (not on page view) and shows a
+ * challenge only if Cloudflare needs one.
+ */
+async function turnstileToken(): Promise<string> {
+  if (!TURNSTILE_SITE_KEY || typeof document === 'undefined') return '';
+  const w = window as unknown as { turnstile?: TurnstileApi };
+  if (!w.turnstile) {
+    await new Promise<void>((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = TURNSTILE_SCRIPT;
+      script.async = true;
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error('Turnstile unavailable'));
+      document.head.appendChild(script);
+    });
+  }
+  const api = w.turnstile;
+  if (!api) return '';
+  const box = document.createElement('div');
+  box.setAttribute('role', 'region');
+  box.setAttribute('aria-label', 'Security check');
+  box.style.cssText = 'position:fixed;left:50%;bottom:6rem;transform:translateX(-50%);z-index:2147483000;';
+  document.body.appendChild(box);
+  try {
+    return await new Promise<string>((resolve, reject) => {
+      const id = api.render(box, {
+        sitekey: TURNSTILE_SITE_KEY,
+        appearance: 'interaction-only',
+        callback: (token: string) => { resolve(token); setTimeout(() => api.remove(id), 0); },
+        'error-callback': () => reject(new Error('Security check failed')),
+        'timeout-callback': () => reject(new Error('Security check timed out')),
+      });
+    });
+  } finally {
+    setTimeout(() => box.remove(), 0);
+  }
+}
+
+type LeadResult = {
+  ok?: boolean;
+  stored?: boolean;
+};
+
+/**
+ * Sends a lead to our server, which stores it privately and sends the alert (Brevo, then Gmail).
+ * There is no third-party fallback: every enquiry passes the server's validation and spam checks.
  */
 export async function submitLead(formType: string, fields: LeadFields): Promise<void> {
-  const id = submissionId();
+  const [token, challenge] = await Promise.all([formToken(), turnstileToken().catch(() => '')]);
 
-  let backupStored = false;
-  let reliableServerAlert = false;
-  let backupRejected = false;
-
+  let response: Response;
   try {
-    const response = await postBackup(id, formType, fields, true);
-    backupRejected = [400, 402, 403, 413, 422, 429].includes(response.status);
-    const result = response.ok ? await response.json() as BackupResult : null;
-    backupStored = Boolean(response.ok && result?.stored);
-    reliableServerAlert = Boolean(response.ok && result?.notified && result?.notificationReliable);
+    response = await fetch(LEAD_URL, {
+      signal: AbortSignal.timeout(20000),
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        submissionId: submissionId(),
+        formType,
+        notify: true,
+        formToken: token,
+        turnstileToken: challenge,
+        fields,
+      }),
+    });
   } catch {
-    // The independent email fallback below can still capture the lead.
+    throw new Error('No lead-delivery channel was available');
   }
 
-  // Do not bypass server-side validation or privacy acknowledgement by using
-  // the external delivery fallback.
-  if (backupRejected) {
+  if (!response.ok) {
     throw new Error('The enquiry did not pass server validation');
   }
-
-  let fallbackEmailDelivered = false;
-  if (!reliableServerAlert) {
-    try {
-      const response = await fetch(FORM_SUBMIT_URL, {
-        signal: AbortSignal.timeout(15000),
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(fields),
-      });
-      const result = response.ok ? await response.json() as { success?: boolean | string } : null;
-      fallbackEmailDelivered = Boolean(response.ok && (result?.success === true || result?.success === 'true'));
-    } catch {
-      // The private backup may still have captured the enquiry.
-    }
-  }
-
-  if (!backupStored && !reliableServerAlert && !fallbackEmailDelivered) {
-    throw new Error('No lead-delivery channel was available');
+  const result = await response.json().catch(() => null) as LeadResult | null;
+  if (!result?.ok || !result.stored) {
+    throw new Error('The enquiry was not stored');
   }
 }
 

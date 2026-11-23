@@ -115,7 +115,7 @@ export default function GetQuoteForm() {
       await submitLead('get-quote', {
         _subject: urgent ? `EMERGENCY ADA - Quote request from ${contact.name || 'website'}` : `New Quote Request for ${projectType}`,
         _honey: honeypot,
-        _privacyNoticeVersion: 'get-quote-2026-09-23',
+        _privacyNoticeVersion: 'get-quote-2026-11-23',
         privacyAccepted,
         priority: urgent ? 'Emergency ADA' : 'Standard',
         projectType,
@@ -340,7 +340,7 @@ export default function GetQuoteForm() {
           <div id="quote-form-privacy-summary" className="rounded-xl border border-[var(--border)] bg-[var(--bg)]/70 p-4">
             <p className="text-sm font-semibold text-[var(--text)]">How we use your quote request</p>
             <p className="mt-1 text-xs leading-relaxed text-[var(--text-dim)]">
-              We use these details only to assess your requirements, prepare or discuss a quote, and follow up about this request. The submission is stored in our private hosting area and may be sent through Brevo for the notification. FormSubmit may be used only if that delivery route is unavailable. An unconverted quote request is retained for up to 12 months. We do not add you to marketing lists from this form.
+              We use these details only to assess your requirements, prepare or discuss a quote, and follow up about this request. The submission is stored in our private hosting area and may be sent through Brevo for the notification. Submissions pass automated spam checks, which may include Cloudflare Turnstile. An unconverted quote request is retained for up to 12 months. We do not add you to marketing lists from this form.
             </p>
             <p className="mt-2 text-xs text-[var(--text-muted)]">
               Read our <a href="/privacy-policy/" className="font-semibold text-[var(--accent)] underline underline-offset-2">Privacy Policy</a>
