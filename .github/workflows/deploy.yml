@@ -49,13 +49,13 @@ jobs:
             echo "frozen=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         if: steps.freeze.outputs.frozen != 'true'
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         if: steps.freeze.outputs.frozen != 'true'
         with:
-          node-version: 24
+          node-version: 26
           cache: npm
 
       - name: Install
@@ -66,7 +66,7 @@ jobs:
         if: steps.freeze.outputs.frozen != 'true'
         run: npm run build
 
-      - name: Check the build (205 checks and audits)
+      - name: Check the build (all checks and audits)
         if: steps.freeze.outputs.frozen != 'true'
         run: npm run verify
 
