@@ -63,7 +63,7 @@ const countries = indexedCountries.filter((c) => c.code !== 'IN');
       <div class="shots" aria-hidden="true">
         {work.map((w, i) => (
           <figure class="shot" style={`--d:${i}`}>
-            <Image src={w.img} alt="" widths={[480, 720, 960]} sizes="(min-width: 1024px) 34vw, 92vw" loading={i === 0 ? 'eager' : 'lazy'} />
+            <Image src={w.img} alt={`${w.name} website homepage`} widths={[480, 720, 960]} sizes="(min-width: 1024px) 34vw, 92vw" loading={i === 0 ? 'eager' : 'lazy'} />
             <figcaption><b>{w.name}</b><span>{w.kind}</span></figcaption>
           </figure>
         ))}

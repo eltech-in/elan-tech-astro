@@ -21,12 +21,35 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+/* Metric-matched fallbacks: until the web fonts arrive, text is set in Arial resized to the same
+   width and line height, so swapping to DM Sans / Sora does not re-wrap lines or shift the layout.
+   Values measured from the WOFF2 files against Arial and Arial Bold (Capsize method, 25 Nov 2026).
+   Liberation Sans is metric-compatible with Arial (Linux). */
+@font-face {
+  font-family: 'DM Sans Fallback';
+  src: local('Arial'), local('ArialMT'), local('Liberation Sans');
+  size-adjust: 104.53%;
+  ascent-override: 94.9%;
+  descent-override: 29.66%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Sora Fallback';
+  src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold');
+  font-weight: 600 700;
+  size-adjust: 105.63%;
+  ascent-override: 91.83%;
+  descent-override: 27.45%;
+  line-gap-override: 0%;
+}
+
 /* =============================================
    Custom Tailwind v4 Theme Configuration
    ============================================= */
 @theme {
-  --font-sans: 'DM Sans', system-ui, sans-serif;
-  --font-heading: 'Sora', system-ui, sans-serif;
+  --font-sans: 'DM Sans', 'DM Sans Fallback', system-ui, sans-serif;
+  --font-heading: 'Sora', 'Sora Fallback', system-ui, sans-serif;
 
   --color-bg: var(--bg);
   --color-bg-card: var(--bg-card);

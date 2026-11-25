@@ -223,6 +223,9 @@ check('Cloudflare Turnstile allowed by CSP',     fileContains(HT, 'https://chall
 check('No FormSubmit route: forms post only to our server', fileNotContains(HT, 'formsubmit.co'));
 // A lead form clicked before it hydrates would submit natively (a page reload with the visitor's details in the URL).
 // Owner's style rule (23 Nov 2026): no em dashes anywhere on the website, and no spaced en dashes used as dashes.
+// Every image needs an alt attribute; a bare \`alt\` (Astro's output for alt="") marks a decorative image.
+check('Every image on every page has an alt attribute', generatedHtmlFiles(DIST).every((path) => [...readFileSync(path, 'utf8').matchAll(/<img\b[^>]*>/g)].every((m) => /\salt(=|[\s>\/])/.test(m[0]))));
+check('Web fonts have metric-matched fallbacks (no layout shift on font swap)', fileContains('index.html', 'DM Sans Fallback', 'Sora Fallback', 'size-adjust:104.53%', 'size-adjust:105.63%'));
 check('No em dashes on the website', generatedHtmlFiles(DIST).every((path) => !/—|&mdash;|&#8212;|&#x2014;|\s–\s/i.test(readFileSync(path, 'utf8'))));
 check('Lead and checkout forms load with the page, not on scroll', ['contact/index.html', 'request-demo/index.html', 'get-quote/index.html', 'website-audit/index.html', 'pricing/index.html', 'services/ada-compliant-web-design/emergency-remediation/index.html']
   .every((page) => { const html = readFileSync(join(DIST, page), 'utf8');
