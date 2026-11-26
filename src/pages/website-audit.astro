@@ -3,7 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { breadcrumbSchema, faqSchema } from '../utils/schema';
 import PaidCheckout from '../islands/PaidCheckout';
 import AuditPrice from '../components/AuditPrice.astro';
-import { AUDIT_PRICES, auditPrice } from '../data/auditPricing';
+import LocalPrice from '../components/LocalPrice.astro';
+import { AUDIT_PRICES, PAY_PRICES, auditPrice } from '../data/auditPricing';
+import { services } from '../data/services';
 const faqs = [
   { question: 'What does the website audit check?', answer: 'We review the public homepage and representative pages for search visibility foundations, mobile usability, loading behaviour, obvious broken journeys and publicly visible HTTPS/security-header signals. Findings are prioritised with suggested next steps. It is an initial review, not an exhaustive crawl, penetration test or formal accessibility certification.' },
   { question: 'How long does it take?', answer: 'We aim to send the initial findings within two business days after reviewing your request and confirming access and scope. If the website is complex or cannot be reached, we will discuss a different schedule. This is a target, not a guaranteed turnaround.' },
@@ -13,12 +15,19 @@ const faqs = [
   { question: 'Will the audit guarantee rankings or identify every vulnerability?', answer: 'No. Rankings depend on many factors beyond a technical review. Public-page checks cannot establish that a website is secure, detect every vulnerability or prove legal compliance. Intrusive testing requires explicit written authorisation and a separate scope.' },
   { question: 'Can you review accessibility?', answer: `The website audit may highlight obvious usability or accessibility issues. A formal WCAG review with representative journeys, keyboard and assistive-technology testing and remediation evidence is a separate accessibility audit, from ${auditPrice('accessibility')} depending on the pages and journeys covered.` },
 ];
+const icon = (slug: string) => services.find((s) => s.slug === slug)?.iconSvg ?? '';
 const checks = [
-  { title: 'Search foundations', text: 'Public titles, descriptions, headings, canonical and indexability signals, sitemap/robots availability and representative internal links.', note: 'Search Console history and ranking causes need authorised account data.' },
-  { title: 'Speed and mobile journeys', text: 'Representative page loading, image weight, layout shifts, readable content and navigation or enquiry journeys on mobile.', note: 'Lab tests are snapshots. Field data is used when available; it is not available for every site.' },
-  { title: 'Public security signals', text: 'HTTPS behaviour and publicly returned security headers, with issues described in context.', note: 'No password testing, exploitation, private-data access or vulnerability-scanning promise.' },
-  { title: 'Enquiry friction', text: 'Visible calls to action, form labels, error guidance, contact links and consent choices.', note: 'Inbox delivery requires a separately agreed test, not just a successful-looking form.' },
+  { color: '--ac-teal', icon: icon('seo'), title: 'Search foundations', text: 'Public titles, descriptions, headings, canonical and indexability signals, sitemap/robots availability and representative internal links.', note: 'Search Console history and ranking causes need authorised account data.' },
+  { color: '--ac-blue', icon: icon('mobile-app-development'), title: 'Speed and mobile journeys', text: 'Representative page loading, image weight, layout shifts, readable content and navigation or enquiry journeys on mobile.', note: 'Lab tests are snapshots. Field data is used when available; it is not available for every site.' },
+  { color: '--ac-red', icon: icon('maintenance-security'), title: 'Public security signals', text: 'HTTPS behaviour and publicly returned security headers, with issues described in context.', note: 'No password testing, exploitation, private-data access or vulnerability-scanning promise.' },
+  { color: '--ac-violet', icon: icon('website-design'), title: 'Enquiry friction', text: 'Visible calls to action, form labels, error guidance, contact links and consent choices.', note: 'Inbox delivery requires a separately agreed test, not just a successful-looking form.' },
 ];
+const samples = [
+  { level: 'High', area: 'enquiry journey', tone: 'high', observation: 'Example: the enquiry button leads to a missing page.', impact: 'A visitor cannot reach the intended form.', action: 'Correct the destination and retest the complete journey on mobile.' },
+  { level: 'Medium', area: 'loading', tone: 'medium', observation: 'Example: an oversized image delays the main content.', impact: 'The first useful screen may take longer to appear.', action: 'Resize and optimise the image, then compare repeatable measurements.' },
+  { level: 'Investigate', area: 'search', tone: 'investigate', observation: 'Example: a public page declares a different canonical URL.', impact: 'The intended indexing signal may be inconsistent.', action: 'Check whether this is intentional; use authorised Search Console data before deciding.' },
+];
+const tick = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
 const schemas = [breadcrumbSchema([{name:'Home',url:'/'},{name:'Website Audit',url:'/website-audit/'}]), faqSchema(faqs), {
   '@context':'https://schema.org', '@type':'Service', name:'Website audit',
   provider:{'@type':'Organization',name:'eLan Technology',url:'https://elan-tech.net/'},
@@ -27,72 +36,94 @@ const schemas = [breadcrumbSchema([{name:'Home',url:'/'},{name:'Website Audit',u
 }];
 ---
 <BaseLayout ogImage="/images/og/website-audit.png" title="Website Audit from ₹999: Scope, Findings & Next Steps | eLan Technology" description="A ₹999 review of your website’s SEO foundations, mobile experience, speed and public security signals, with prioritised findings. See the scope, turnaround and next steps." canonical="/website-audit/" schema={schemas}>
-  <section class="relative overflow-hidden border-b border-[var(--border)] bg-[var(--bg-card)] py-16 md:py-24">
-    <div class="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1.2fr_1fr] lg:px-8">
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-[var(--border)] bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-14 md:py-20">
+    <div class="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:px-8">
       <div>
         <p class="text-xs font-bold uppercase tracking-[.2em] text-[var(--accent)]">Clarity before a rebuild</p>
-        <h1 class="mt-4 font-heading text-4xl font-bold leading-tight sm:text-5xl">A website audit with a clear scope, and a useful next step.</h1>
-        <p class="mt-6 text-lg leading-relaxed text-[var(--text-dim)]">Tell us what is not working. We review your public homepage and representative pages, then explain the priority issues, why they matter and what to do next. No password required. No obligation to buy anything else.</p>
-        <p class="mt-5 inline-flex flex-wrap items-baseline gap-x-2 rounded-xl border border-[var(--border)] bg-[var(--bg)] px-4 py-2"><span class="text-xs font-bold uppercase tracking-widest text-[var(--text-muted)]">Fee</span><AuditPrice kind="website" class="font-heading text-2xl font-extrabold text-[var(--accent)]" /><span class="text-sm text-[var(--text-dim)]">per domain</span></p>
-        <div class="mt-7 flex flex-wrap gap-3">
-          <a href="#audit-form" class="rounded-xl bg-[var(--accent)] px-6 py-3 font-semibold text-[var(--bg)]">Book and pay</a>
-          <a href="#what-you-get" class="rounded-xl border border-[var(--border)] px-6 py-3 font-semibold">See exactly what is checked</a>
+        <h1 class="mt-4 font-heading text-4xl font-bold leading-tight text-[var(--text)] sm:text-5xl">A website audit with a clear scope, and a useful next step.</h1>
+        <p class="mt-5 text-lg leading-relaxed text-[var(--text-dim)]">Tell us what is not working. We review your public homepage and representative pages, then explain the priority issues, why they matter and what to do next. No password required. No obligation to buy anything else.</p>
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          <a href="#audit-form" class="inline-flex min-h-12 items-center gap-2 rounded-lg bg-[var(--accent)] px-6 py-3 font-semibold text-white transition hover:brightness-110">Book and pay · <AuditPrice kind="website" /></a>
+          <a href="#what-you-get" class="inline-flex min-h-12 items-center rounded-lg border border-[var(--border)] bg-[var(--bg)] px-6 py-3 font-semibold text-[var(--text)] transition hover:border-[var(--accent)]">See exactly what is checked</a>
         </div>
-      </div>
-      <aside class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-7">
-        <h2 class="font-heading text-xl font-bold">What you receive</h2>
-        <ul class="mt-5 space-y-4 text-[var(--text-dim)]">
-          <li>✓ A short, prioritised findings report sent by email</li>
-          <li>✓ Observations, affected pages and practical next steps</li>
-          <li>✓ Clear separation between quick fixes and deeper investigations</li>
-          <li>✓ An optional, separately scoped implementation quotation</li>
+        <ul class="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-[var(--text-dim)]" role="list">
+          <li class="flex items-center gap-1.5"><span class="text-[var(--accent)]" set:html={tick} />Reviewed by a person</li>
+          <li class="flex items-center gap-1.5"><span class="text-[var(--accent)]" set:html={tick} />No password needed</li>
+          <li class="flex items-center gap-1.5"><span class="text-[var(--accent)]" set:html={tick} />24+ years, 500+ clients</li>
         </ul>
-        <p class="mt-6 border-t border-[var(--border)] pt-5 text-sm"><strong>Fee:</strong> <AuditPrice kind="website" /> per domain, paid before the review starts.</p>
-        <p class="mt-3 text-sm"><strong>Timing:</strong> we aim for two business days after scope/access confirmation. Complex or unreachable sites may need a revised schedule.</p>
+      </div>
+      <aside class="service-card relative overflow-hidden rounded-lg border border-[var(--border)] p-7" style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-teal) 10%, var(--bg-card)) 0%, var(--bg-card) 65%);">
+        <span aria-hidden="true" class="service-card__stripe pointer-events-none absolute -bottom-10 -left-10 h-44 w-44 rotate-[-20deg] opacity-[0.08]" style="background: var(--ac-teal);"></span>
+        <p class="relative text-[10px] font-bold uppercase tracking-[0.2em]" style="color: var(--ac-teal);">What you receive</p>
+        <ul class="relative mt-4 space-y-3 text-[var(--text)]" role="list">
+          <li class="flex gap-2.5"><span class="mt-1 text-[var(--accent)]" set:html={tick} />A short, prioritised findings report sent by email</li>
+          <li class="flex gap-2.5"><span class="mt-1 text-[var(--accent)]" set:html={tick} />Observations, affected pages and practical next steps</li>
+          <li class="flex gap-2.5"><span class="mt-1 text-[var(--accent)]" set:html={tick} />Clear separation between quick fixes and deeper investigations</li>
+          <li class="flex gap-2.5"><span class="mt-1 text-[var(--accent)]" set:html={tick} />An optional, separately scoped implementation quotation</li>
+        </ul>
+        <div class="relative mt-6 grid grid-cols-2 gap-3 border-t border-[var(--border)] pt-5 text-sm">
+          <p><span class="block text-xs font-bold uppercase tracking-widest text-[var(--text-muted)]">Fee</span><span class="mt-1 block font-heading text-2xl font-bold text-[var(--text)]"><AuditPrice kind="website" /></span><span class="text-[var(--text-dim)]">per domain, paid before the review starts</span></p>
+          <p><span class="block text-xs font-bold uppercase tracking-widest text-[var(--text-muted)]">Timing</span><span class="mt-1 block font-heading text-2xl font-bold text-[var(--text)]">2 days</span><span class="text-[var(--text-dim)]">target, in business days after scope/access confirmation. Complex or unreachable sites may need a revised schedule.</span></p>
+        </div>
       </aside>
     </div>
   </section>
-  <section id="what-you-get" class="py-16">
+
+  <!-- Four areas, in the services card style -->
+  <section id="what-you-get" class="scroll-mt-28 py-14 md:py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">A focused review, not an unlimited audit</p>
-      <h2 class="mt-3 font-heading text-3xl font-bold">Four areas that affect a business website</h2>
-      <div class="mt-8 grid gap-5 md:grid-cols-2">{checks.map((check,index) => <article class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
-        <p class="text-sm font-bold text-[var(--accent)]">0{index+1}</p><h3 class="mt-2 font-heading text-xl font-bold">{check.title}</h3>
-        <p class="mt-3 leading-relaxed text-[var(--text-dim)]">{check.text}</p><p class="mt-4 text-sm text-[var(--text-muted)]">{check.note}</p>
-      </article>)}</div>
-      <p class="mt-6 rounded-xl border border-[var(--border)] p-5 text-sm leading-relaxed"><strong>Not included:</strong> an exhaustive site crawl, private account access, penetration testing, malware removal, remediation, formal WCAG certification or a promise of higher rankings. Do not submit passwords or personal customer data. These require separate written scope and authorisation.</p>
+      <h2 class="mt-3 font-heading text-3xl font-bold text-[var(--text)]">Four areas that affect a business website</h2>
+      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{checks.map((check, index) => (
+        <article class="service-card group relative flex flex-col overflow-hidden rounded-lg border border-[var(--border)] p-6 transition hover:-translate-y-1 hover:shadow-xl" style={`background: linear-gradient(135deg, color-mix(in srgb, var(${check.color}) 10%, var(--bg-card)) 0%, var(--bg-card) 65%); --card-color: var(${check.color});`}>
+          <span aria-hidden="true" class="service-card__num pointer-events-none absolute right-4 top-3 select-none font-heading font-black leading-none" style={`color: var(${check.color}); font-size: 3.6rem;`}>0{index + 1}</span>
+          <span aria-hidden="true" class="service-card__stripe pointer-events-none absolute -bottom-8 -left-8 h-36 w-36 rotate-[-20deg] opacity-[0.08]" style={`background: var(${check.color});`}></span>
+          <span class="relative flex h-11 w-11 items-center justify-center rounded-md" style={`background: color-mix(in srgb, var(${check.color}) 16%, transparent); color: var(${check.color});`} aria-hidden="true" set:html={check.icon} />
+          <h3 class="relative mt-4 font-heading text-lg font-bold text-[var(--text)]">{check.title}</h3>
+          <p class="relative mt-2 text-sm leading-relaxed text-[var(--text-dim)]">{check.text}</p>
+          <p class="relative mt-auto pt-4 text-xs leading-relaxed text-[var(--text-muted)]">{check.note}</p>
+        </article>
+      ))}</div>
+      <p class="mt-5 flex gap-3 rounded-lg border border-amber-500/30 bg-amber-500/5 p-4 text-sm leading-relaxed text-[var(--text-dim)]"><span aria-hidden="true" class="text-amber-600">⚠</span><span><strong class="text-[var(--text)]">Not included:</strong> an exhaustive site crawl, private account access, penetration testing, malware removal, remediation, formal WCAG certification or a promise of higher rankings. Do not submit passwords or personal customer data. These require separate written scope and authorisation.</span></p>
     </div>
   </section>
-  <section class="px-4 pb-16 sm:px-6 lg:px-8" aria-labelledby="sample-findings">
-    <div class="mx-auto max-w-7xl rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8">
-      <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">Illustrative preview · fictional examples, not findings about your site</p>
-      <h2 id="sample-findings" class="mt-3 font-heading text-3xl font-bold">An observation. Its impact. A practical next step.</h2>
-      <p class="mt-4 max-w-3xl leading-7 text-[var(--text-dim)]">Your report will reflect the pages actually reviewed. These examples show the format, not a promised number of findings or a prediction of results.</p>
-      <div class="mt-7 grid gap-4 md:grid-cols-3">
-        {[
-          { priority: 'High · enquiry journey', observation: 'Example: the enquiry button leads to a missing page.', impact: 'A visitor cannot reach the intended form.', action: 'Correct the destination and retest the complete journey on mobile.' },
-          { priority: 'Medium · loading', observation: 'Example: an oversized image delays the main content.', impact: 'The first useful screen may take longer to appear.', action: 'Resize and optimise the image, then compare repeatable measurements.' },
-          { priority: 'Investigate · search', observation: 'Example: a public page declares a different canonical URL.', impact: 'The intended indexing signal may be inconsistent.', action: 'Check whether this is intentional; use authorised Search Console data before deciding.' },
-        ].map(item => <article class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-5"><p class="text-xs font-bold text-[var(--accent)]">{item.priority}</p><h3 class="mt-3 font-semibold leading-6">{item.observation}</h3><p class="mt-3 text-sm leading-6 text-[var(--text-dim)]"><strong>Why it matters:</strong> {item.impact}</p><p class="mt-3 text-sm leading-6 text-[var(--text-dim)]"><strong>Next step:</strong> {item.action}</p></article>)}
-      </div>
-      <a href="#audit-form" class="mt-6 inline-flex min-h-11 items-center font-semibold text-[var(--accent)]">Book an audit for my website →</a>
-    </div>
-  </section>
-  <section class="border-y border-[var(--border)] bg-[var(--bg-card)] py-14">
+
+  <!-- Sample findings -->
+  <section class="border-y border-[var(--border)] bg-[var(--bg-card)] py-14 md:py-20" aria-labelledby="sample-findings">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h2 class="font-heading text-3xl font-bold">From request to a decision</h2>
-      <div class="mt-8 grid gap-6 md:grid-cols-3">
-        <article><h3 class="font-semibold">1. Share the URL and concern</h3><p class="mt-3 text-[var(--text-dim)]">Select your priorities and provide an email for the findings. Tell us whether you manage the website or are authorised to request the review.</p></article>
-        <article><h3 class="font-semibold">2. We review and prioritise</h3><p class="mt-3 text-[var(--text-dim)]">We check representative public pages and flag the scope or access questions that need your input. Findings distinguish evidence from assumptions.</p></article>
-        <article><h3 class="font-semibold">3. Choose your next step</h3><p class="mt-3 text-[var(--text-dim)]">Use the findings with your own developer, ask for clarification or request our scoped quotation. Fixes are never billed without agreement.</p></article>
+      <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">Illustrative preview · fictional examples, not findings about your site</p>
+      <h2 id="sample-findings" class="mt-3 font-heading text-3xl font-bold text-[var(--text)]">An observation. Its impact. A practical next step.</h2>
+      <p class="mt-3 max-w-3xl leading-7 text-[var(--text-dim)]">Your report will reflect the pages actually reviewed. These examples show the format, not a promised number of findings or a prediction of results.</p>
+      <div class="mt-7 grid gap-4 md:grid-cols-3">
+        {samples.map((item) => (
+          <article class:list={['finding rounded-lg border border-[var(--border)] bg-[var(--bg)] p-5', `finding-${item.tone}`]}>
+            <p class="flex items-center gap-2 text-xs"><span class="sev">{item.level}</span><span class="font-semibold uppercase tracking-wider text-[var(--text-muted)]">{item.area}</span></p>
+            <h3 class="mt-3 font-semibold leading-6 text-[var(--text)]">{item.observation}</h3>
+            <p class="mt-3 text-sm leading-6 text-[var(--text-dim)]"><strong class="text-[var(--text)]">Why it matters:</strong> {item.impact}</p>
+            <p class="mt-2 text-sm leading-6 text-[var(--text-dim)]"><strong class="text-[var(--text)]">Next step:</strong> {item.action}</p>
+          </article>
+        ))}
       </div>
-      <a class="mt-6 inline-block font-semibold text-[var(--accent)] underline" href="/blog/web-design/website-audit-findings-explained/">How to read and prioritise website audit findings</a>
+      <a class="mt-6 inline-block text-sm font-semibold text-[var(--accent)] underline underline-offset-4" href="/blog/web-design/website-audit-findings-explained/">How to read and prioritise website audit findings</a>
     </div>
   </section>
-  <section id="audit-form" class="scroll-mt-28 py-16">
-    <div class="mx-auto max-w-3xl px-4 sm:px-6">
-      <h2 class="font-heading text-3xl font-bold">Book and pay for your website audit</h2>
-      <p class="mb-8 mt-4 text-[var(--text-dim)]">The fee is <AuditPrice kind="website" class="font-semibold text-[var(--text)]" /> per domain, paid in full when you book. Your booking is the request: the checkout asks for your website URL, contact details and main concerns, and the review starts once payment is confirmed. No request is accepted without payment.</p>
+
+  <!-- Book and pay: how it works beside the checkout -->
+  <section id="audit-form" class="scroll-mt-28 py-14 md:py-20">
+    <div class="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">Book online</p>
+        <h2 class="mt-3 font-heading text-3xl font-bold text-[var(--text)]">Book and pay for your website audit</h2>
+        <p class="mt-4 text-[var(--text-dim)]">The fee is <AuditPrice kind="website" class="font-semibold text-[var(--text)]" /> per domain, paid in full when you book. Your booking is the request: the checkout asks for your website URL, contact details and main concerns, and the review starts once payment is confirmed. No request is accepted without payment.</p>
+        <p class="mt-6 text-xs font-bold uppercase tracking-widest text-[var(--text-muted)]">Three short steps:</p>
+        <ol class="mt-3 space-y-4" role="list">
+          <li class="step"><span>1</span><div><h3 class="font-semibold text-[var(--text)]">Pay to book</h3><p class="mt-1 text-sm text-[var(--text-dim)]">Share the URL and your main concerns, and tell us whether you manage the website or are authorised to request the review.</p></div></li>
+          <li class="step"><span>2</span><div><h3 class="font-semibold text-[var(--text)]">We confirm the scope and review</h3><p class="mt-1 text-sm text-[var(--text-dim)]">We check representative public pages and flag any scope or access questions. Findings distinguish evidence from assumptions.</p></div></li>
+          <li class="step"><span>3</span><div><h3 class="font-semibold text-[var(--text)]">Prioritised findings by email</h3><p class="mt-1 text-sm text-[var(--text-dim)]">Use them with your own developer, ask for clarification or request our scoped quotation. Fixes are never billed without agreement.</p></div></li>
+        </ol>
+        <p class="mt-6 text-sm text-[var(--text-dim)]">Do not share passwords or customer records. Question before paying? <a href="/contact/" class="font-semibold underline">Contact us</a>.</p>
+      </div>
       <PaidCheckout
         client:load
         product="website-audit"
@@ -101,62 +132,36 @@ const schemas = [breadcrumbSchema([{name:'Home',url:'/'},{name:'Website Audit',u
         payLabel="Pay and book"
         privacyNoticeVersion="website-audit-2026-11-16"
       />
-      <p class="mt-5 text-sm leading-6 text-[var(--text-dim)]">Three short steps: pay to book → we confirm the scope → prioritised findings by email. Do not share passwords or customer records. If you have a question before paying, <a href="/contact/" class="font-semibold underline">contact us</a>.</p>
     </div>
   </section>
-  <section id="paid-wcag-audit" class="py-16 md:py-20 bg-[var(--bg-card)] border-t border-[var(--border)] scroll-mt-20" aria-labelledby="ada-heading">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-      <article
-        class="service-card relative overflow-hidden rounded-2xl border border-[var(--border)] p-8 md:p-12"
-        style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-blue) 12%, var(--bg-card)) 0%, var(--bg-card) 65%);"
-      >
-        <span aria-hidden="true" class="service-card__num pointer-events-none absolute top-4 right-6 font-heading font-black leading-none select-none" style="color: var(--ac-blue); font-size: 7rem;">+</span>
-        <span aria-hidden="true" class="service-card__stripe pointer-events-none absolute -left-12 -bottom-12 h-60 w-60 rotate-[-20deg] opacity-[0.08]" style="background: var(--ac-blue);"></span>
 
-        <div class="relative grid md:grid-cols-2 gap-8 items-start">
+  <!-- Accessibility audit: summary first, checkout on request -->
+  <section id="paid-wcag-audit" class="scroll-mt-20 border-t border-[var(--border)] bg-[var(--bg-card)] py-14 md:py-20" aria-labelledby="ada-heading">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <article class="service-card relative overflow-hidden rounded-lg border border-[var(--border)] p-7 md:p-10" style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-blue) 12%, var(--bg-card)) 0%, var(--bg-card) 65%);">
+        <span aria-hidden="true" class="service-card__stripe pointer-events-none absolute -bottom-12 -left-12 h-60 w-60 rotate-[-20deg] opacity-[0.08]" style="background: var(--ac-blue);"></span>
+        <div class="relative grid gap-8 md:grid-cols-[1.2fr_0.8fr] md:items-start">
           <div>
             <span class="text-[10px] font-bold uppercase tracking-[0.2em]" style="color: var(--ac-blue);">Premium add-on</span>
-            <h2 id="ada-heading" class="font-heading text-2xl md:text-3xl font-bold text-[var(--text)] mt-1 mb-3">
-              ADA &amp; WCAG 2.2 AA Accessibility Audit
-            </h2>
-            <p class="text-[var(--text-dim)] mb-5">
-              Accessibility audits start <AuditPrice kind="accessibility" class="font-semibold text-[var(--text)]" />, depending on the pages and journeys covered. The fixed one-domain package below includes full manual testing and VPAT documentation. Confirm coverage, manual testing, documentation and exclusions before payment. This is technical guidance, not legal advice or a guarantee of compliance.
-            </p>
-            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-2" role="list">
-              {[
-                'Colour contrast & typography audit',
-                'ARIA, roles & landmark review',
-                'Keyboard navigation flow',
-                'Screen reader testing (NVDA/JAWS)',
-                'Form accessibility',
-                'Image alt-text coverage',
-                'Video captions & transcripts',
-                'VPAT 2.5 documentation',
-              ].map((i) => (
-                <li class="flex items-start gap-2 text-sm text-[var(--text)]">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ac-blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 mt-0.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  {i}
-                </li>
+            <h2 id="ada-heading" class="mb-3 mt-1 font-heading text-2xl font-bold text-[var(--text)] md:text-3xl">ADA &amp; WCAG 2.2 AA Accessibility Audit</h2>
+            <p class="mb-5 text-[var(--text-dim)]">Accessibility audits start <AuditPrice kind="accessibility" class="font-semibold text-[var(--text)]" />, depending on the pages and journeys covered. The fixed one-domain package includes full manual testing and VPAT documentation. Confirm coverage, manual testing, documentation and exclusions before payment. This is technical guidance, not legal advice or a guarantee of compliance.</p>
+            <ul class="grid grid-cols-1 gap-x-5 gap-y-2 sm:grid-cols-2" role="list">
+              {['Colour contrast & typography audit', 'ARIA, roles & landmark review', 'Keyboard navigation flow', 'Screen reader testing (NVDA/JAWS)', 'Form accessibility', 'Image alt-text coverage', 'Video captions & transcripts', 'VPAT 2.5 documentation'].map((i) => (
+                <li class="flex items-start gap-2 text-sm text-[var(--text)]"><span class="mt-0.5 shrink-0" style="color: var(--ac-blue);" set:html={tick} />{i}</li>
               ))}
             </ul>
           </div>
-
-          <div class="md:pl-6 md:border-l md:border-[var(--border)]">
-            <div class="mb-5 text-center">
-              <p class="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--text-muted)]">Full package · one public domain</p>
-              <div class="mt-3 grid grid-cols-2 gap-3">
-                <div class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-3">
-                  <p class="font-heading text-2xl font-extrabold" style="color:var(--ac-blue);">₹9,999</p>
-                  <p class="mt-1 text-[11px] text-[var(--text-muted)]">Indian billing</p>
-                </div>
-                <div class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-3">
-                  <p class="font-heading text-2xl font-extrabold" style="color:var(--ac-blue);">$99</p>
-                  <p class="mt-1 text-[11px] text-[var(--text-muted)]">International billing</p>
-                </div>
-              </div>
-              <p class="mt-3 text-xs leading-relaxed text-[var(--text-muted)]">Detailed PDF report with WCAG 2.2 AA findings, severity ratings, code-level remediation guidance and a VPAT template.</p>
-            </div>
-<PaidCheckout
+          <div class="rounded-lg border border-[var(--border)] bg-[var(--bg)] p-5 text-center">
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--text-muted)]">Full package · one public domain</p>
+            <p class="mt-3 font-heading text-4xl font-extrabold" style="color: var(--ac-blue);"><LocalPrice prices={PAY_PRICES['accessibility-audit']} /></p>
+            <p class="mt-1 text-xs text-[var(--text-muted)]">shown in your currency; ₹9,999 in India</p>
+            <p class="mt-3 text-xs leading-relaxed text-[var(--text-muted)]">Detailed PDF report with WCAG 2.2 AA findings, severity ratings, code-level remediation guidance and a VPAT template.</p>
+          </div>
+        </div>
+        <details class="ada-book relative mt-8">
+          <summary class="inline-flex min-h-12 cursor-pointer list-none items-center gap-2 rounded-lg px-6 py-3 font-semibold text-white" style="background: var(--ac-blue);">Book the accessibility audit <span aria-hidden="true" class="chev">↓</span></summary>
+          <div class="mt-6 max-w-2xl">
+            <PaidCheckout
               client:load
               product="accessibility-audit"
               formType="paid-booking"
@@ -165,19 +170,38 @@ const schemas = [breadcrumbSchema([{name:'Home',url:'/'},{name:'Website Audit',u
               privacyNoticeVersion="paid-booking-2026-11-16"
             />
           </div>
-        </div>
+        </details>
       </article>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════════════════════
-       FAQ - schema-backed long-tail question targeting
-       ══════════════════════════════════════════════════════════════════════ -->
-
-  <section class="py-16">
-    <div class="mx-auto max-w-4xl px-4 sm:px-6">
-      <h2 class="mb-8 font-heading text-3xl font-bold">Before you request an audit</h2>
-      {faqs.map(faq => <details class="border-b border-[var(--border)] py-5"><summary class="cursor-pointer font-semibold">{faq.question}</summary><p class="mt-4 leading-relaxed text-[var(--text-dim)]">{faq.answer}</p></details>)}
+  <!-- FAQ (schema-backed) -->
+  <section class="py-14 md:py-20">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6">
+      <h2 class="mb-8 text-center font-heading text-3xl font-bold text-[var(--text)]">Before you request an audit</h2>
+      <div class="space-y-3">
+        {faqs.map((faq) => (
+          <details class="faq group rounded-lg border border-[var(--border)] bg-[var(--bg-card)] transition-colors hover:border-[var(--accent)]/40">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-semibold text-[var(--text)]">
+              {faq.question}
+              <svg class="shrink-0 text-[var(--text-muted)] transition-transform duration-200 group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <p class="border-t border-[var(--border)] px-5 py-4 text-sm leading-relaxed text-[var(--text-dim)]">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .sev { border-radius: .375rem; padding: .15rem .55rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; font-size: .68rem; }
+  .finding-high { border-top: 3px solid #dc2626; } .finding-high .sev { background: rgba(220,38,38,.12); color: #b91c1c; }
+  .finding-medium { border-top: 3px solid #d97706; } .finding-medium .sev { background: rgba(217,119,6,.14); color: #92400e; }
+  .finding-investigate { border-top: 3px solid #2563eb; } .finding-investigate .sev { background: rgba(37,99,235,.12); color: #1d4ed8; }
+  :global(.dark) .finding-high .sev { color: #fca5a5; } :global(.dark) .finding-medium .sev { color: #fcd34d; } :global(.dark) .finding-investigate .sev { color: #93c5fd; }
+  .step { display: grid; grid-template-columns: 2rem 1fr; gap: .9rem; }
+  .step > span { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: .5rem; background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); font-weight: 800; }
+  .ada-book[open] .chev { display: inline-block; transform: rotate(180deg); }
+  .ada-book summary::-webkit-details-marker, .faq summary::-webkit-details-marker { display: none; }
+</style>

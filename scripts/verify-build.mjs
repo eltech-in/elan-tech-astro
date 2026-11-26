@@ -838,6 +838,15 @@ check('eCommerce page includes the dedicated Zoho section and scoped FAQ', fileC
 // 26 Nov 2026 compact homepage: Zoho stays linked from the homepage; the full Zoho card lives on the eCommerce page.
 check('Homepage links the Zoho Commerce practice', fileContains('index.html', 'Zoho Commerce', '/services/ecommerce/#zoho-commerce'));
 // 26 Nov 2026: no prices anywhere on the homepage (visible text, meta descriptions or price widgets).
+// 26 Nov 2026 testimonials page: each review once, correct source labels, filterable.
+check('Testimonials page lists every review exactly once with its true source', (() => {
+  const html = readFileSync(join(DIST, 'testimonials/index.html'), 'utf8');
+  const quotes = [...html.matchAll(/<blockquote[^>]*>([\s\S]*?)<\/blockquote>/g)].map((m) => m[1].trim());
+  const unique = new Set(quotes).size === quotes.length && quotes.length >= 16;
+  const kedar = html.indexOf('Kedar A.');
+  const kedarSource = html.slice(kedar, kedar + 1500).includes('Google review');
+  return unique && kedar > -1 && kedarSource && html.includes('id="f-google"');
+})());
 check('Homepage shows no prices', (() => {
   const html = readFileSync(join(DIST, 'index.html'), 'utf8');
   const visible = html.replace(/<script[\s\S]*?<\/script>/g, '').replace(/<style[\s\S]*?<\/style>/g, '');
