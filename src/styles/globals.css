@@ -48,6 +48,13 @@
    Custom Tailwind v4 Theme Configuration
    ============================================= */
 @theme {
+  /* Flatter corners (owner, 26 Nov 2026): cards, boxes and buttons 8 px, small elements 6 px.
+     Overrides Tailwind's larger radius steps so rounded-xl/2xl/3xl/4xl all render at 8 px. */
+  --radius-xl: 0.5rem;
+  --radius-2xl: 0.5rem;
+  --radius-3xl: 0.5rem;
+  --radius-4xl: 0.5rem;
+
   --font-sans: 'DM Sans', 'DM Sans Fallback', system-ui, sans-serif;
   --font-heading: 'Sora', 'Sora Fallback', system-ui, sans-serif;
 
@@ -312,3 +319,9 @@ input, textarea, select, button, a { scroll-margin-bottom: 1rem; }
     font-size: 10pt;
   }
 }
+
+
+/* Flatter corners: pill-shaped buttons and tags (rounded-full with horizontal padding) become
+   8 px buttons and 6 px tags. Circles (avatars, dots, icon buttons) have no px-* class and stay round. */
+a.rounded-full[class*="px-"], button.rounded-full[class*="px-"], summary.rounded-full[class*="px-"] { border-radius: 0.5rem; }
+span.rounded-full[class*="px-"], li.rounded-full[class*="px-"], p.rounded-full[class*="px-"], div.rounded-full[class*="px-"], label.rounded-full[class*="px-"] { border-radius: 0.375rem; }

@@ -56,7 +56,7 @@ const { eyebrow, heading, intro, features, outcomes, deliverables, process, suit
   </div>
 </section>
 
-<section class="rounded-[1.75rem] border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8 lg:p-10" aria-labelledby="deliverables-title">
+<section class="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8 lg:p-10" aria-labelledby="deliverables-title">
   <div class="grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
     <div>
       <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--detail-accent)]">Scope and deliverables</p>
@@ -90,13 +90,13 @@ const { eyebrow, heading, intro, features, outcomes, deliverables, process, suit
 </section>
 
 <section class="grid gap-6 lg:grid-cols-2" aria-label="Fit and client responsibilities">
-  <article class="rounded-[1.75rem] border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8">
+  <article class="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8">
     <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--detail-accent)]">A good fit when</p>
     <ul class="mt-5 space-y-3" role="list">
       {suitableFor.map((item) => <li class="flex gap-3 text-sm leading-relaxed text-[var(--text-muted)]"><span class="font-black text-[var(--detail-accent)]" aria-hidden="true">→</span>{item}</li>)}
     </ul>
   </article>
-  <article class="rounded-[1.75rem] border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8">
+  <article class="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8">
     <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--detail-accent)]">What we need from the client</p>
     <ul class="mt-5 space-y-3" role="list">
       {responsibilities.map((item) => <li class="flex gap-3 text-sm leading-relaxed text-[var(--text-muted)]"><span class="font-black text-[var(--detail-accent)]" aria-hidden="true">✓</span>{item}</li>)}

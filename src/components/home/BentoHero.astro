@@ -6,7 +6,6 @@ import { Image } from 'astro:assets';
 import { homepageSeoBaseline } from '../../data/seoStability';
 import { navProducts } from '../../data/navigation';
 import { indexedCountries } from '../../data/countries';
-import AuditPrice from '../AuditPrice.astro';
 import shotPhoenix from '../../assets/portfolio/phoenix-luminaries.avif';
 import shotHealthyGenie from '../../assets/portfolio/healthy-genie.avif';
 import shotTrimit from '../../assets/portfolio/trimitarch.avif';
@@ -84,7 +83,7 @@ const countries = indexedCountries.filter((c) => c.code !== 'IN');
 
     <a class="tile t-audit" href="/website-audit/">
       <p class="label">Website audit</p>
-      <p class="num"><AuditPrice kind="website" /></p>
+      <p class="num" style="font-size:1.55rem">Find what is holding your site back</p>
       <p class="cap">SEO, speed, mobile and security signals, reviewed by a person.</p>
       <span class="more">Book an audit <span aria-hidden="true">→</span></span>
     </a>
@@ -121,7 +120,7 @@ const countries = indexedCountries.filter((c) => c.code !== 'IN');
   .grid { position: relative; max-width: 78rem; margin: 0 auto; display: grid; gap: 1rem;
     grid-template-columns: repeat(12, minmax(0, 1fr)); grid-auto-rows: minmax(10.5rem, auto); }
 
-  .tile { position: relative; overflow: hidden; border-radius: 1.5rem; padding: 1.4rem 1.5rem;
+  .tile { position: relative; overflow: hidden; border-radius: .5rem; padding: 1.4rem 1.5rem;
     background: var(--bg-card); border: 1px solid var(--border); color: var(--text); text-decoration: none;
     box-shadow: 0 1px 2px rgba(15,23,42,.04), 0 12px 32px -18px rgba(15,23,42,.18);
     animation: rise .7s cubic-bezier(.2,.7,.2,1) both; animation-delay: calc(var(--n, 0) * 70ms); }
@@ -138,7 +137,7 @@ const countries = indexedCountries.filter((c) => c.code !== 'IN');
 
   /* Headline */
   .t-hero { --n: 0; grid-column: span 7; grid-row: span 2; padding: 2.4rem 2.4rem 2.2rem; display: flex; flex-direction: column; justify-content: center; }
-  .pill { align-self: flex-start; display: inline-flex; align-items: center; gap: .5rem; padding: .4rem .85rem; border-radius: 999px;
+  .pill { align-self: flex-start; display: inline-flex; align-items: center; gap: .5rem; padding: .4rem .85rem; border-radius: .375rem;
     font-size: .8rem; font-weight: 600; color: var(--text-dim); background: var(--bg); border: 1px solid var(--border); }
   .dot { width: .5rem; height: .5rem; border-radius: 50%; background: #F26722; box-shadow: 0 0 0 4px rgba(242,103,34,.18); }
   .h1 { margin-top: 1.4rem; font-family: var(--font-heading); font-weight: 800; font-size: clamp(2.3rem, 4.5vw, 4.1rem); line-height: 1.02; letter-spacing: -.045em; }
@@ -148,7 +147,7 @@ const countries = indexedCountries.filter((c) => c.code !== 'IN');
   .sub a { color: var(--text); font-weight: 600; text-decoration: underline; text-decoration-color: rgba(99,102,241,.45); text-underline-offset: 3px; }
   .sub a:hover { text-decoration-color: currentColor; }
   .ctas { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.8rem; }
-  .btn, .ghost { display: inline-flex; align-items: center; gap: .5rem; padding: .85rem 1.4rem; border-radius: 999px; font-weight: 700; font-size: .95rem; text-decoration: none; transition: transform .2s, box-shadow .2s, background .2s; }
+  .btn, .ghost { display: inline-flex; align-items: center; gap: .5rem; padding: .85rem 1.4rem; border-radius: .5rem; font-weight: 700; font-size: .95rem; text-decoration: none; transition: transform .2s, box-shadow .2s, background .2s; }
   .btn { color: #fff; background: linear-gradient(135deg, #4f46e5, #7c3aed); box-shadow: 0 10px 24px -10px rgba(79,70,229,.7); }
   .btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -10px rgba(79,70,229,.8); }
   .ghost { color: var(--text); background: var(--bg); border: 1px solid var(--border); }
@@ -178,13 +177,13 @@ const countries = indexedCountries.filter((c) => c.code !== 'IN');
   .shot figcaption b { font-family: var(--font-heading); font-size: 1.05rem; }
   .shot figcaption span { color: rgba(255,255,255,.75); }
   @keyframes swap { 0% { opacity: 0; } 2.5%, 16.7% { opacity: 1; } 19.2%, 100% { opacity: 0; } }
-  .badge { position: absolute; top: .9rem; left: .9rem; padding: .3rem .7rem; border-radius: 999px; font-size: .72rem; font-weight: 700;
+  .badge { position: absolute; top: .9rem; left: .9rem; padding: .3rem .7rem; border-radius: .375rem; font-size: .72rem; font-weight: 700;
     color: #0f172a; background: rgba(255,255,255,.92); box-shadow: 0 4px 14px rgba(0,0,0,.2); }
 
   /* Bottom row */
   .t-products { --n: 4; grid-column: span 3; }
   .chips { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .8rem; }
-  .chips li { padding: .22rem .6rem; border-radius: 999px; font-size: .74rem; font-weight: 600; color: var(--text-dim); background: var(--bg); border: 1px solid var(--border); }
+  .chips li { padding: .22rem .6rem; border-radius: .375rem; font-size: .74rem; font-weight: 600; color: var(--text-dim); background: var(--bg); border: 1px solid var(--border); }
   .t-audit { --n: 5; grid-column: span 3; padding-bottom: 3rem; background: linear-gradient(160deg, rgba(242,103,34,.12), transparent 60%), var(--bg-card); }
   .t-world { --n: 6; grid-column: span 3; }
   .flags { display: grid; grid-template-columns: 1fr 1fr; gap: .35rem .6rem; margin-top: .8rem; }
@@ -213,8 +212,32 @@ const countries = indexedCountries.filter((c) => c.code !== 'IN');
     .t-stat .big { font-size: 2.2rem; }
     .t-hero { padding: 1.6rem 1.25rem; }
     .pill { font-size: .72rem; }
-    .tile { border-radius: 1.2rem; }
+    .tile { border-radius: .5rem; }
   }
+  /* Fit to the screen height (owner request, 26 Nov 2026): the headline tile, including both buttons,
+     must be fully visible without scrolling on any screen, e.g. a 15-inch laptop at 1366x768.
+     Spacing and type scale with the viewport height (svh, with vh fallback) as well as the width. */
+  @media (min-width: 1024px) {
+    .bento-hero { padding-top: clamp(.9rem, 2.6vh, 2.2rem); padding-top: clamp(.9rem, 2.6svh, 2.2rem); }
+    .t-hero { padding: clamp(1.2rem, 3.8vh, 2.4rem) 2.4rem; padding: clamp(1.2rem, 3.8svh, 2.4rem) 2.4rem; }
+    .h1 { margin-top: clamp(.7rem, 2vh, 1.4rem); font-size: clamp(2rem, min(4.5vw, 9vh), 4.1rem); font-size: clamp(2rem, min(4.5vw, 9svh), 4.1rem); }
+    .sub { margin-top: clamp(.55rem, 1.6vh, 1.2rem); font-size: clamp(.92rem, 1.75vh, 1.05rem); font-size: clamp(.92rem, 1.75svh, 1.05rem); line-height: 1.55; }
+    .ctas { margin-top: clamp(.8rem, 2.4vh, 1.8rem); margin-top: clamp(.8rem, 2.4svh, 1.8rem); }
+    .btn, .ghost { padding-block: clamp(.6rem, 1.3vh, .85rem); padding-block: clamp(.6rem, 1.3svh, .85rem); }
+  }
+  @media (max-width: 1023px) {
+    .bento-hero { padding-top: clamp(.6rem, 2vh, 2.2rem); }
+    .t-hero { padding-block: clamp(1.1rem, 3vh, 2rem); padding-block: clamp(1.1rem, 3svh, 2rem); }
+    .h1 { margin-top: clamp(.6rem, 1.8vh, 1.4rem); font-size: clamp(1.75rem, min(8.6vw, 6vh), 4.1rem); font-size: clamp(1.75rem, min(8.6vw, 6svh), 4.1rem); }
+    .sub { margin-top: clamp(.5rem, 1.5vh, 1.2rem); font-size: clamp(.9rem, 2.2vh, 1.05rem); font-size: clamp(.9rem, 2.2svh, 1.05rem); line-height: 1.55; }
+    .ctas { margin-top: clamp(.8rem, 2.2vh, 1.8rem); margin-top: clamp(.8rem, 2.2svh, 1.8rem); }
+  }
+  @media (max-width: 639px) {
+    .pill { font-size: .66rem; padding: .32rem .7rem; gap: .4rem; }
+    .ctas { gap: .5rem; flex-wrap: nowrap; }
+    .btn, .ghost { flex: 1 1 auto; justify-content: center; padding: .7rem .8rem; font-size: .86rem; white-space: nowrap; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .tile { animation: none; }
     .shot { animation: none; }

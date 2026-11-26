@@ -120,7 +120,7 @@ const { standalone = false } = Astro.props;
     margin: 0;
     padding: 1rem;
     border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
-    border-radius: 1.25rem;
+    border-radius: .5rem;
     background: color-mix(in srgb, var(--bg-card) 96%, transparent);
     box-shadow: 0 24px 70px rgb(2 6 23 / 28%);
     color: var(--text);
@@ -136,16 +136,16 @@ const { standalone = false } = Astro.props;
   .privacy-banner__actions { display: grid; grid-template-columns: 1fr 1fr; gap: .55rem; }
   .privacy-banner__actions .privacy-button--primary { grid-column: 1 / -1; }
   .privacy-dialog__actions { display: grid; gap: .65rem; }
-  .privacy-button { min-height: 44px; border: 1px solid var(--border); border-radius: .8rem; padding: .7rem 1rem; font-size: .82rem; font-weight: 800; cursor: pointer; transition: transform .15s ease, opacity .15s ease, border-color .15s ease; }
+  .privacy-button { min-height: 44px; border: 1px solid var(--border); border-radius: .5rem; padding: .7rem 1rem; font-size: .82rem; font-weight: 800; cursor: pointer; transition: transform .15s ease, opacity .15s ease, border-color .15s ease; }
   .privacy-button:hover { transform: translateY(-1px); }
   .privacy-button:focus-visible, .privacy-dialog__close:focus-visible, .privacy-choices-float:focus-visible, .privacy-switch input:focus-visible + span { outline: 3px solid color-mix(in srgb, var(--accent) 55%, transparent); outline-offset: 3px; }
   .privacy-button--primary { border-color: var(--accent); background: var(--accent); color: var(--bg); }
   .privacy-button--primary:disabled { cursor: not-allowed; opacity: .45; transform: none; }
   .privacy-button--secondary { background: var(--bg); color: var(--text); }
-  .privacy-choices-float { position: fixed; z-index: 9990; left: max(1rem, env(safe-area-inset-left)); bottom: calc(var(--contact-controls-height, 0px) + 1rem); display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; border: 1px solid var(--border); border-radius: 999px; padding: .55rem .8rem; background: var(--bg-card); box-shadow: 0 12px 34px rgb(2 6 23 / 18%); color: var(--text); font-size: .72rem; font-weight: 800; cursor: pointer; }
+  .privacy-choices-float { position: fixed; z-index: 9990; left: max(1rem, env(safe-area-inset-left)); bottom: calc(var(--contact-controls-height, 0px) + 1rem); display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; border: 1px solid var(--border); border-radius: .5rem; padding: .55rem .8rem; background: var(--bg-card); box-shadow: 0 12px 34px rgb(2 6 23 / 18%); color: var(--text); font-size: .72rem; font-weight: 800; cursor: pointer; }
   .privacy-choices-float--standalone { left: auto; right: max(1rem, env(safe-area-inset-right)); }
   .privacy-choices-float svg { width: 1rem; height: 1rem; fill: none; stroke: var(--accent); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-  .privacy-dialog { width: min(36rem, calc(100% - 2rem)); max-height: calc(100vh - 2rem); margin: auto; padding: 0; overflow: auto; border: 1px solid var(--border); border-radius: 1.25rem; background: var(--bg-card); color: var(--text); box-shadow: 0 30px 90px rgb(2 6 23 / 38%); }
+  .privacy-dialog { width: min(36rem, calc(100% - 2rem)); max-height: calc(100vh - 2rem); margin: auto; padding: 0; overflow: auto; border: 1px solid var(--border); border-radius: .5rem; background: var(--bg-card); color: var(--text); box-shadow: 0 30px 90px rgb(2 6 23 / 38%); }
   .privacy-dialog::backdrop { background: rgb(2 6 23 / 68%); backdrop-filter: blur(5px); }
   .privacy-dialog__panel { padding: 1.25rem; }
   .privacy-dialog__header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
@@ -155,7 +155,7 @@ const { standalone = false } = Astro.props;
   .privacy-choice h3 { margin: 0; font-size: .92rem; font-weight: 800; }
   .privacy-choice p { margin: .25rem 0 0; color: var(--text-muted); font-size: .76rem; line-height: 1.45; }
   .privacy-choice small { display: block; margin-top: .35rem; color: var(--accent); font-weight: 700; }
-  .privacy-choice__status { flex: 0 0 auto; border-radius: 999px; padding: .35rem .55rem; background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); font-size: .65rem; font-weight: 800; }
+  .privacy-choice__status { flex: 0 0 auto; border-radius: .375rem; padding: .35rem .55rem; background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); font-size: .65rem; font-weight: 800; }
   .privacy-switch { position: relative; flex: 0 0 auto; }
   .privacy-switch input { position: absolute; width: 1px; height: 1px; opacity: 0; }
   .privacy-switch span { position: relative; display: block; width: 3rem; height: 1.65rem; border: 1px solid var(--border); border-radius: 999px; background: var(--bg); transition: background .15s ease; }

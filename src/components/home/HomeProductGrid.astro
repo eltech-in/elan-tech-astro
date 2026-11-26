@@ -1,0 +1,34 @@
+---
+// Homepage products: one small card per product (src/data/navigation.ts). Screens, features and
+// demos live on each product page.
+import { navProducts } from '../../data/navigation';
+---
+<section aria-labelledby="products-heading" class="border-y border-[var(--border)] bg-[var(--bg-card)] py-12 md:py-16">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-6 grid gap-3 md:grid-cols-[1fr_auto] md:items-end">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Proprietary software</p>
+        <h2 id="products-heading" class="mt-2 font-heading text-3xl font-bold text-[var(--text)] sm:text-4xl">Products built around real business needs.</h2>
+        <p class="mt-2 max-w-2xl text-[var(--text-dim)]">Start from working software, adapted to your business, instead of building everything from scratch.</p>
+      </div>
+      <a href="/products/" class="text-sm font-bold text-[var(--accent)] underline-offset-4 hover:underline">All products <span aria-hidden="true">→</span></a>
+    </div>
+
+    <ul class="grid grid-cols-2 gap-2.5 lg:grid-cols-4" role="list">
+      {navProducts.map((p) => {
+        const digibiz = p.href === '/ventures/digibizid/';
+        return (
+          <li>
+            <a href={p.href} class="prod group flex h-full items-center gap-3 rounded-xl border border-[var(--border)] bg-[var(--bg)] px-3.5 py-3 transition hover:border-[var(--accent)]" aria-label={digibiz ? 'Discover DigiBizID: Digital Biz ID' : `${p.label}: view product`}>
+              <span class="min-w-0 flex-1">
+                <span class="block truncate font-heading text-sm font-bold text-[var(--text)] sm:text-[15px]">{p.label}</span>
+                <span class="mt-0.5 hidden truncate text-xs text-[var(--text-dim)] sm:block">{p.blurb}</span>
+              </span>
+              <span class="shrink-0 text-[var(--accent)] transition group-hover:translate-x-0.5" aria-hidden="true">→</span>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</section>

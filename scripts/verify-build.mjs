@@ -749,7 +749,7 @@ check('Homepage title remains on the 90-day baseline', fileContains(
 ));
 check('Homepage description remains on the 90-day baseline', fileContains(
   HP,
-  "Nagpur web design and development company with 24+ years' experience and 500+ clients. Custom websites, eCommerce and ADA/WCAG accessibility. Audits from ₹999.",
+  "Nagpur web design and development company with 24+ years' experience and 500+ clients. Custom websites, eCommerce, ADA/WCAG accessibility and website audits.",
 ));
 check('Homepage H1 remains on the 90-day baseline', fileContains(
   HP,
@@ -835,10 +835,16 @@ check('eCommerce page includes the dedicated Zoho section and scoped FAQ', fileC
   'Features and integrations depend on the selected Zoho plan',
   'no partner or certification status is implied',
 ));
-check('Homepage includes the Zoho practice card', fileContains(
-  'index.html', 'Your storefront, connected to the way you work',
-  '/services/ecommerce/#zoho-commerce',
-));
+// 26 Nov 2026 compact homepage: Zoho stays linked from the homepage; the full Zoho card lives on the eCommerce page.
+check('Homepage links the Zoho Commerce practice', fileContains('index.html', 'Zoho Commerce', '/services/ecommerce/#zoho-commerce'));
+// 26 Nov 2026: no prices anywhere on the homepage (visible text, meta descriptions or price widgets).
+check('Homepage shows no prices', (() => {
+  const html = readFileSync(join(DIST, 'index.html'), 'utf8');
+  const visible = html.replace(/<script[\s\S]*?<\/script>/g, '').replace(/<style[\s\S]*?<\/style>/g, '');
+  return !/data-price=/.test(html) && !/(₹|US\$|C\$|A\$|NZ\$|AED\s?|£|€|¥)\s?\d/.test(visible);
+})());
+check('Compact homepage: nine sections, services and products in tiles, start-here band', fileContains('index.html', 'id="services-heading"', 'id="products-heading"', 'id="start-heading"', 'id="final-cta-heading"', 'Discover DigiBizID', '/pricing/#booking-advance')
+  && fileNotContains('index.html', 'Company statistics', 'One CMS behind every new website we build'));
 check('Service catalogue and integration page include Zoho',
   fileContains('services/index.html', 'Zoho Commerce') &&
   fileContains('services/integrations/index.html', 'Zoho Commerce', 'Store implementation and supported API workflows'));

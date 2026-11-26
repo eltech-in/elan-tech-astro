@@ -98,7 +98,7 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
           </dl>
         </div>
 
-        <article class="hero-project group relative min-h-[420px] overflow-hidden rounded-[2rem] border border-[var(--border)] bg-[var(--bg-card)] shadow-2xl shadow-black/10 sm:min-h-[500px]">
+        <article class="hero-project group relative min-h-[420px] overflow-hidden rounded-lg border border-[var(--border)] bg-[var(--bg-card)] shadow-2xl shadow-black/10 sm:min-h-[500px]">
           <Image
             src={getProjectImage(latestLaunch.image)}
             alt={isLogo(latestLaunch) ? `${latestLaunch.title} brand mark` : `Homepage preview of ${latestLaunch.title}`}
@@ -514,7 +514,7 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
 
     <section id="long-running-work" class="scroll-mt-28 bg-[var(--bg)] py-16 sm:py-20" aria-labelledby="legacy-title">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <article class="legacy-card relative overflow-hidden rounded-[2rem] border border-[var(--border)] bg-slate-950 text-white">
+        <article class="legacy-card relative overflow-hidden rounded-lg border border-[var(--border)] bg-slate-950 text-white">
           <div class="absolute inset-0 opacity-15 [background-image:linear-gradient(rgba(103,232,249,0.5)_1px,transparent_1px),linear-gradient(90deg,rgba(103,232,249,0.5)_1px,transparent_1px)] [background-size:44px_44px]" aria-hidden="true"></div>
           <div class="absolute -right-32 -top-40 h-96 w-96 rounded-full bg-cyan-400/20 blur-[100px]" aria-hidden="true"></div>
           <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-950/70"></div>
@@ -583,7 +583,7 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
   .portfolio-nav a {
     flex: 0 0 auto;
     border: 1px solid var(--border);
-    border-radius: 999px;
+    border-radius: .375rem;
     padding: 0.5rem 0.9rem;
     background: var(--bg-card);
     color: var(--text-dim);
@@ -641,7 +641,7 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
   .archive-card {
     overflow: hidden;
     border: 1px solid var(--border);
-    border-radius: 1.25rem;
+    border-radius: .5rem;
     background: var(--bg-card);
     box-shadow: 0 12px 36px color-mix(in srgb, var(--text) 7%, transparent);
     transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
@@ -660,7 +660,7 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
 
   .commerce-feature { background: var(--bg); }
   .soon-card { min-height: 100%; }
-  .selected-card { display: block; height: 100%; border-radius: 1rem; }
+  .selected-card { display: block; height: 100%; border-radius: .5rem; }
 
   .platform-card {
     position: relative;
@@ -668,7 +668,7 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
     min-height: 11rem;
     overflow: hidden;
     border: 1px solid var(--border);
-    border-radius: 1.25rem;
+    border-radius: .5rem;
     padding: 1.25rem;
     color: white;
     isolation: isolate;
@@ -683,7 +683,7 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
     right: -1.4rem;
     bottom: -1.35rem;
     border: 1px solid rgba(255, 255, 255, 0.28);
-    border-radius: 0.8rem;
+    border-radius: .5rem;
     background: rgba(255, 255, 255, 0.1);
     transform: rotate(-4deg);
     z-index: -1;
@@ -752,7 +752,7 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
     width: 2.5rem;
     height: 2.5rem;
     place-items: center;
-    border-radius: 0.75rem;
+    border-radius: .5rem;
     background: var(--text);
     color: var(--bg);
     font-family: var(--font-heading);
@@ -792,7 +792,7 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
   .project-pill {
     display: inline-flex;
     border: 1px solid var(--border);
-    border-radius: 999px;
+    border-radius: .375rem;
     background: color-mix(in srgb, var(--bg-card) 78%, transparent);
     padding: 0.25rem 0.55rem;
     color: var(--text-muted);

@@ -97,10 +97,17 @@ const techs = [
 
 // Double for seamless infinite scroll
 const items = [...techs, ...techs];
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
 ---
 
-<section aria-labelledby="tech-stack-heading" class="relative overflow-hidden bg-[var(--bg)] py-12 md:py-20 border-b border-[var(--border)]">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-10 text-center">
+{compact ? (
+  <div class="mx-auto mb-5 mt-10 max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+    <p id="tech-stack-heading" class="text-xs font-bold uppercase tracking-[0.3em] text-[var(--text-muted)]">Built with modern tools and frameworks</p>
+  </div>
+) : null}
+<section aria-labelledby="tech-stack-heading" class:list={['relative overflow-hidden bg-[var(--bg)]', compact ? 'pb-2' : 'py-12 md:py-20 border-b border-[var(--border)]']}>
+  {!compact && <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-10 text-center">
     <p class="text-xs font-bold uppercase tracking-[0.4em] text-[var(--text-muted)] mb-4">
       Our Global Tech Stack
     </p>
@@ -113,7 +120,7 @@ const items = [...techs, ...techs];
         modern tools &amp; frameworks.
       </span>
     </h2>
-  </div>
+  </div>}
 
   <div class="relative w-full" aria-hidden="true">
     <!-- Edge fades -->

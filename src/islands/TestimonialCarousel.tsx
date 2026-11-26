@@ -104,7 +104,7 @@ export default function TestimonialCarousel({ testimonials }: Props) {
       onMouseLeave={() => setInteractionPaused(false)}
       onFocusCapture={() => setInteractionPaused(true)}
       onBlurCapture={handleBlur}
-      className="relative overflow-hidden rounded-[2rem] border border-[var(--border)] bg-[var(--bg-card)] p-4 shadow-[0_24px_80px_-36px_rgba(15,23,42,0.35)] sm:p-6 lg:p-8"
+      className="relative overflow-hidden rounded-lg border border-[var(--border)] bg-[var(--bg-card)] p-4 shadow-[0_24px_80px_-36px_rgba(15,23,42,0.35)] sm:p-6 lg:p-8"
     >
       <style>{`
         @keyframes testimonial-card-in {

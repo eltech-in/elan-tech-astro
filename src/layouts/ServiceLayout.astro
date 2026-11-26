@@ -351,7 +351,7 @@ const privacyProfile = privacyProfiles[currentPath];
       <main class="service-bento-flow" data-service={activeTheme.label}>
         <slot />
         {privacyProfile && (
-          <section class="service-privacy-panel rounded-[1.75rem] border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8 lg:p-10" aria-labelledby="service-data-responsibility-title">
+          <section class="service-privacy-panel rounded-lg border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8 lg:p-10" aria-labelledby="service-data-responsibility-title">
             <div class="grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
               <div>
                 <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--service-accent)]">{privacyProfile.eyebrow}</p>
@@ -423,7 +423,7 @@ const privacyProfile = privacyProfiles[currentPath];
     gap: 0.45rem;
     overflow: hidden;
     border: 1px solid var(--border);
-    border-radius: 0.7rem;
+    border-radius: .5rem;
     padding: 0.35rem 0.45rem;
     background: linear-gradient(135deg, color-mix(in srgb, var(--item-accent) 5%, var(--bg-card)), var(--bg-card) 70%);
     box-shadow: 0 8px 22px -22px var(--item-accent);
@@ -454,7 +454,7 @@ const privacyProfile = privacyProfiles[currentPath];
     flex: 0 0 auto;
     align-items: center;
     justify-content: center;
-    border-radius: 0.55rem;
+    border-radius: .5rem;
     color: var(--item-accent);
     background: color-mix(in srgb, var(--item-accent) 12%, transparent);
   }
@@ -480,7 +480,7 @@ const privacyProfile = privacyProfiles[currentPath];
     overflow: hidden;
     min-height: auto;
     border: 1px solid color-mix(in srgb, var(--service-accent) 30%, var(--border)) !important;
-    border-radius: clamp(1.4rem, 2.6vw, 2rem) !important;
+    border-radius: .5rem !important;
     padding: clamp(1.5rem, 4vw, 3.5rem) !important;
     border-color: color-mix(in srgb, var(--service-accent) 28%, var(--border)) !important;
     background-image:
@@ -522,7 +522,7 @@ const privacyProfile = privacyProfiles[currentPath];
 
   :global(.service-bento-flow > section:first-child .service-hero-aside) {
     border: 1px solid color-mix(in srgb, var(--service-accent) 22%, var(--border));
-    border-radius: 1.5rem;
+    border-radius: .5rem;
     padding: clamp(1rem, 2vw, 1.5rem);
     background: color-mix(in srgb, var(--service-accent) 6%, var(--bg));
     backdrop-filter: blur(12px);

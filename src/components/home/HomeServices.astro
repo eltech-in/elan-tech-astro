@@ -1,0 +1,106 @@
+---
+// Homepage services as a bento grid in the services-page card style (owner's choice, 26 Nov 2026):
+// colour gradient, large faded number, tinted icon, tilted colour rectangle, ticked features.
+// eCommerce is the large flagship tile; Web Development is wide; six compact tiles follow.
+import { services } from '../../data/services';
+
+const layout: { slug: string; size: 'large' | 'wide' | 'small' }[] = [
+  { slug: 'ecommerce', size: 'large' },
+  { slug: 'website-design', size: 'small' },
+  { slug: 'ada-compliant-web-design', size: 'small' },
+  { slug: 'web-development', size: 'wide' },
+  { slug: 'seo', size: 'small' },
+  { slug: 'mobile-app-development', size: 'small' },
+  { slug: 'branding', size: 'small' },
+  { slug: 'maintenance-security', size: 'small' },
+];
+const tiles = layout.map((l, i) => ({ ...l, num: String(i + 1).padStart(2, '0'), service: services.find((s) => s.slug === l.slug)! }));
+const more = [
+  { label: 'Digital marketing', href: '/services/digital-marketing/' },
+  { label: 'CRM & ERP', href: '/services/custom-crm-erp-solutions/' },
+  { label: 'Headless CMS', href: '/services/headless-cms-development/' },
+  { label: 'Integrations', href: '/services/integrations/' },
+  { label: 'DPDP compliance', href: '/services/dpdp-compliance-implementation/' },
+  { label: 'Emergency ADA remediation', href: '/services/ada-compliant-web-design/emergency-remediation/' },
+  { label: 'Zoho Commerce', href: '/services/ecommerce/#zoho-commerce' },
+];
+const tick = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
+---
+<section aria-labelledby="services-heading" class="bg-[var(--bg)] py-14 md:py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-8 grid gap-3 md:grid-cols-[1fr_auto] md:items-end">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">What we do</p>
+        <h2 id="services-heading" class="mt-2 font-heading text-3xl font-bold text-[var(--text)] sm:text-4xl">A full studio, wired for outcomes.</h2>
+      </div>
+      <a href="/services/" class="text-sm font-bold text-[var(--accent)] underline-offset-4 hover:underline">All services <span aria-hidden="true">→</span></a>
+    </div>
+
+    <ul class="bento" role="list">
+      {tiles.map(({ service: s, size, num }) => (
+        <li class:list={['bento-cell', `is-${size}`]}>
+          <a
+            href={`/services/${s.slug}/`}
+            class:list={['service-card group relative flex h-full flex-col overflow-hidden rounded-lg border border-[var(--border)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl', size === 'large' ? 'p-6 md:p-8' : 'p-5']}
+            style={`background: linear-gradient(135deg, color-mix(in srgb, var(${s.cssVar}) 10%, var(--bg-card)) 0%, var(--bg-card) 65%); --card-color: var(${s.cssVar});`}
+          >
+            <span aria-hidden="true" class="service-card__num pointer-events-none absolute right-4 top-3 select-none font-heading font-black leading-none" style={`color: var(${s.cssVar}); font-size: ${size === 'large' ? '6rem' : size === 'wide' ? '4.5rem' : '3.6rem'};`}>{num}</span>
+            <span aria-hidden="true" class:list={['service-card__stripe pointer-events-none absolute rotate-[-20deg] opacity-[0.08]', size === 'large' ? '-bottom-12 -left-12 h-64 w-64' : '-bottom-8 -left-8 h-36 w-36']} style={`background: var(${s.cssVar});`}></span>
+
+            <span class="relative mb-4 flex items-center gap-3">
+              <span class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-md" style={`background: color-mix(in srgb, var(${s.cssVar}) 16%, transparent); color: var(${s.cssVar});`} aria-hidden="true" set:html={s.iconSvg} />
+              <span class="tile-label text-[10px] font-bold uppercase tracking-[0.2em]" style={`color: var(${s.cssVar});`}>{size === 'large' ? 'Flagship' : 'Service'} · {num}</span>
+            </span>
+
+            <h3 class:list={['relative mb-1.5 font-heading font-bold text-[var(--text)]', size === 'large' ? 'text-2xl md:text-3xl' : 'text-lg']}>{s.title}</h3>
+            <p class:list={['relative text-[var(--text-dim)]', size === 'large' ? 'text-base' : 'text-sm']}>{s.tagline}</p>
+            {size === 'large' && (
+              <p class="relative mt-3 text-sm text-[var(--text-muted)]">{s.description}</p>
+            )}
+            {size === 'large' && (
+              <p class="relative mt-4 flex flex-wrap gap-1.5">
+                {['Shopify', 'Medusa.js', 'WooCommerce', 'Zoho Commerce'].map((p) => (
+                  <span class="rounded-md border border-[var(--border)] bg-[var(--bg-card)] px-2.5 py-1 text-xs font-semibold text-[var(--text-dim)]">{p}</span>
+                ))}
+              </p>
+            )}
+
+            <ul class:list={['relative mb-5 mt-4 grid gap-x-4 gap-y-1.5', size === 'small' ? 'grid-cols-1' : 'sm:grid-cols-2']} aria-label={`${s.title} features`}>
+              {s.features.slice(0, size === 'small' ? 2 : size === 'large' ? 8 : 4).map((f) => (
+                <li class="flex items-center gap-2 text-xs text-[var(--text-muted)]"><span style={`color: var(${s.cssVar});`} set:html={tick} />{f}</li>
+              ))}
+            </ul>
+
+            <span class="relative mt-auto inline-flex items-center gap-1 text-sm font-semibold transition-transform duration-200 group-hover:translate-x-0.5" style={`color: var(${s.cssVar});`}>
+              Learn More <span aria-hidden="true">→</span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <p class="mt-6 flex flex-wrap items-center gap-2 text-sm text-[var(--text-dim)]">
+      <span class="font-semibold text-[var(--text)]">Also:</span>
+      {more.map((m) => (
+        <a href={m.href} class="rounded-md border border-[var(--border)] px-3 py-1 transition hover:border-[var(--accent)] hover:text-[var(--text)]">{m.label}</a>
+      ))}
+    </p>
+  </div>
+</section>
+
+<style>
+  .bento { display: grid; gap: 1rem; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .is-large { grid-column: span 2; grid-row: span 2; }
+  .is-wide { grid-column: span 2; }
+  @media (max-width: 1023px) {
+    .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+    .is-large, .is-wide { grid-column: span 2; grid-row: auto; }
+  }
+  @media (max-width: 639px) {
+    .is-small :global(.service-card) { padding: 1rem; }
+    .is-small :global(.service-card ul) { display: none; }
+    .is-small :global(.service-card h3) { font-size: 1rem; }
+    .is-small :global(.tile-label) { display: none; }
+    .is-small :global(.service-card__num) { font-size: 2.6rem !important; }
+  }
+</style>

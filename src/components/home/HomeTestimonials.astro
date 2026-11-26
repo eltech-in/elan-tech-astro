@@ -1,0 +1,55 @@
+---
+// Homepage testimonials: an open row of quote cards (no boxed carousel). Swipe or scroll sideways
+// on small screens; three show side by side on desktop. Full list on /testimonials/.
+import { testimonials } from '../../data/testimonials';
+
+// Kedar A. (Healthy Genie, Google) leads; Dr. Pawan A.'s review stays on /testimonials/ only (owner, 26 Nov 2026).
+const lead = testimonials.filter((t) => t.author === 'Kedar A.');
+const picks = [...lead, ...testimonials
+  .filter((t) => t.author !== 'Kedar A.' && t.author !== 'Dr. Pawan A.')
+  .sort((a, b) => Number(b.isFeatured) - Number(a.isFeatured))]
+  .slice(0, 6);
+const initials = (name: string) => name.replace(/\./g, '').split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
+---
+<section aria-labelledby="testimonials-heading" class="py-14 md:py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-8 grid gap-3 md:grid-cols-[1fr_auto] md:items-end">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Client voices</p>
+        <h2 id="testimonials-heading" class="mt-2 font-heading text-3xl font-bold text-[var(--text)] sm:text-4xl">Teams that trust us.</h2>
+      </div>
+      <a href="/testimonials/" class="text-sm font-bold text-[var(--accent)] underline-offset-4 hover:underline">Read all testimonials <span aria-hidden="true">→</span></a>
+    </div>
+
+    <ul class="quotes" role="list" aria-label="Client testimonials">
+      {picks.map((t) => (
+        <li class="quote">
+          <figure class="flex h-full flex-col">
+            <svg class="mark" viewBox="0 0 32 24" aria-hidden="true"><path d="M0 24V14C0 6 4.5 1.2 12 0l1.3 3.4C8.8 4.9 6.7 8 6.6 12H12v12H0Zm19 0V14c0-8 4.5-12.8 12-14l1 3.4C27.8 4.9 25.7 8 25.6 12H31v12H19Z" fill="currentColor"/></svg>
+            <blockquote class="mt-4 flex-1 text-[15px] leading-relaxed text-[var(--text)]">{t.quote}</blockquote>
+            <figcaption class="mt-5 flex items-center gap-3 border-t border-[var(--border)] pt-4">
+              <span class="avatar" aria-hidden="true">{initials(t.author)}</span>
+              <span class="min-w-0">
+                <span class="block text-sm font-bold text-[var(--text)]">{t.author}</span>
+                <span class="block truncate text-xs text-[var(--text-muted)]">{t.role}, {t.company}</span>
+              </span>
+              <span class="ml-auto shrink-0 rounded-full bg-[var(--bg)] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)]">{t.source === 'Direct client feedback' ? 'Client' : t.source === 'Google review' ? 'Google' : 'LinkedIn'}</span>
+            </figcaption>
+          </figure>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .quotes { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 2rem) / 3); gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: .75rem; scrollbar-width: thin; }
+  .quote { scroll-snap-align: start; border-radius: .5rem; padding: 1.5rem; background: var(--bg-card); border: 1px solid var(--border);
+    box-shadow: 0 1px 2px rgba(15,23,42,.04), 0 14px 34px -24px rgba(15,23,42,.25); }
+  .mark { width: 1.75rem; height: 1.3rem; color: #6366f1; opacity: .55; }
+  .quote blockquote { display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; }
+  .avatar { display: grid; place-items: center; width: 2.4rem; height: 2.4rem; flex-shrink: 0; border-radius: 999px; font-size: .78rem; font-weight: 800; color: #fff;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed); }
+  @media (max-width: 1023px) { .quotes { grid-auto-columns: calc((100% - 1rem) / 2); } }
+  @media (max-width: 639px) { .quotes { grid-auto-columns: 86%; } .quote { padding: 1.25rem; } }
+</style>

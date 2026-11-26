@@ -20,6 +20,19 @@ export interface Testimonial {
  */
 export const testimonials: Testimonial[] = [
   {
+    // Google review on the eLan Technology Business Profile, added 26 Nov 2026 (wording verbatim).
+    id: 16,
+    quote:
+      'Thanks to team elantech for developing such a beautiful site for Healthy Genie. Keep it up. Wish you all the very best.',
+    author: 'Kedar A.',
+    role: 'Healthy Genie client',
+    company: 'HealthyGenie.in',
+    industry: 'Meal Commerce',
+    source: 'Google review',
+    datePublished: '2026-11-26',
+    isFeatured: true,
+  },
+  {
     id: 1,
     quote:
       'Our patient inquiry form submissions went up 200% after eLan redesigned our hospital website. The new site is clean, professional, and ranks on page one for local searches. The team was thorough, responsive, and genuinely understood what a healthcare audience needs.',

@@ -23,7 +23,7 @@ const countryProjects = internationalProjects.filter((item) => item.countrySlug 
       </div>
       <div class:list={['grid gap-6', countryProjects.length > 1 && 'lg:grid-cols-2']}>
       {countryProjects.map((project) => (
-      <article class="overflow-hidden rounded-[2rem] border border-[var(--border)] bg-[var(--bg)] shadow-[0_24px_70px_rgba(15,23,42,0.08)]">
+      <article class="overflow-hidden rounded-lg border border-[var(--border)] bg-[var(--bg)] shadow-[0_24px_70px_rgba(15,23,42,0.08)]">
         <div class="relative min-h-[260px] overflow-hidden bg-slate-950 sm:min-h-[360px] lg:min-h-[430px]">
           <Image
             src={getProjectImage(project.image)}
