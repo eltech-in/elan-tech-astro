@@ -325,3 +325,8 @@ input, textarea, select, button, a { scroll-margin-bottom: 1rem; }
    8 px buttons and 6 px tags. Circles (avatars, dots, icon buttons) have no px-* class and stay round. */
 a.rounded-full[class*="px-"], button.rounded-full[class*="px-"], summary.rounded-full[class*="px-"] { border-radius: 0.5rem; }
 span.rounded-full[class*="px-"], li.rounded-full[class*="px-"], p.rounded-full[class*="px-"], div.rounded-full[class*="px-"], label.rounded-full[class*="px-"] { border-radius: 0.375rem; }
+
+/* The navigation keeps its original shape (owner, 26 Nov 2026): the pill header, its pill buttons and
+   the original Tailwind radius scale for its menus and mobile drawer. */
+.header-island { --radius-xl: 0.75rem; --radius-2xl: 1rem; --radius-3xl: 1.5rem; --radius-4xl: 2rem; }
+.header-island a.rounded-full, .header-island button.rounded-full, .header-island div.rounded-full, .header-island span.rounded-full { border-radius: 9999px; }

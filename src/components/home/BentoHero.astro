@@ -106,8 +106,9 @@ const countries = indexedCountries.filter((c) => c.code !== 'IN');
 </section>
 
 <style>
-  .bento-hero { position: relative; overflow: hidden; background: var(--bg); padding: 2.2rem 1rem 3.5rem; }
-  .bg { position: absolute; inset: 0; pointer-events: none;
+  /* The background reaches up behind the floating header to the top edge of the page (owner, 26 Nov 2026). */
+  .bento-hero { position: relative; overflow-x: clip; overflow-y: visible; background: var(--bg); padding: 2.2rem 1rem 3.5rem; }
+  .bg { position: absolute; inset: -8rem 0 0; pointer-events: none;
     background:
       radial-gradient(40rem 26rem at 8% 0%, rgba(99,102,241,.12), transparent 70%),
       radial-gradient(36rem 24rem at 100% 30%, rgba(242,103,34,.10), transparent 70%),
