@@ -593,6 +593,22 @@ export const projects: Project[] = [
     accent: '#6366F1',
     group: 'Industry & Manufacturing',
   },
+  {
+    id: 66,
+    slug: 'phoenix-luminaries',
+    title: 'Phoenix Luminaries',
+    client: 'Phoenix Luminaries',
+    industry: 'Industrial Lighting & Poles',
+    category: 'Website Design',
+    technologies: ['Astro', 'Product Catalogue', 'Responsive UI'],
+    description: 'Astro website for an ISO-certified manufacturer of high mast lighting, street light and decorative poles, LED luminaires and mobile lighting towers, with a product catalogue and quote requests.',
+    challenge: '', solution: '', result: '',
+    image: '/portfolio/phoenix-luminaries.avif',
+    liveUrl: 'https://phoenixlightings.com/',
+    isFeatured: false, isHighlight: false,
+    accent: '#0EA5E9',
+    group: 'Industry & Manufacturing',
+  },
 
   // ── Food, Lifestyle & eCommerce ───────────────────────────────────────────
   {

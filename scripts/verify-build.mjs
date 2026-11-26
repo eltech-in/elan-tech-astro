@@ -756,9 +756,9 @@ check('Homepage H1 remains on the 90-day baseline', fileContains(
   'Web Design &amp; Development',
   'Trusted by 500+ Businesses',
 ));
-check('Homepage recent work leads with Healthy Genie, the latest launch', (() => {
+check('Homepage recent work leads with Phoenix Luminaries (latest launch), then Healthy Genie', (() => {
   const names = [...readFileSync(join(DIST, 'index.html'), 'utf8').matchAll(/<figcaption[^>]*><b[^>]*>([^<]+)<\/b>/g)].map((m) => m[1]);
-  return names[0] === 'Healthy Genie' && names.includes('Trimit Architects');
+  return names[0] === 'Phoenix Luminaries' && names[1] === 'Healthy Genie' && names.includes('Trimit Architects');
 })());
 check('Homepage uses qualified accessibility claims', fileContains(
   HP,
@@ -924,7 +924,10 @@ const octoberUpcoming = octoberPortfolio.match(/<section id="launching-soon"[\s\
 check('ASBIM and Parekh are no longer upcoming', octoberUpcoming.length > 0 && !/ASBIM Consulting|Parekh Opticals|Divine Advisory/.test(octoberUpcoming));
 check('All five supplied new preview URLs are present', ['https://jog-hospitality.netlify.app/', 'https://starlit-semolina-bd9639.netlify.app/', 'https://mmsintered.netlify.app/', 'https://aviforge.netlify.app/', 'https://wandering-frost-5791.elantech-pms.workers.dev/'].every(url => octoberUpcoming.includes(url)));
 check('Projects awaiting preview have no empty destination links', octoberUpcoming.includes('MASS Architects') && octoberUpcoming.includes('New Edge Ventures') && octoberUpcoming.includes('Preview link coming soon') && !/href=""/.test(octoberUpcoming));
-check('Healthy Genie is the latest production launch, not upcoming', fileContains('portfolio/index.html', 'Medusa.js Meal Commerce', 'https://healthygenie.in/', 'Latest launch') && !octoberUpcoming.includes('Healthy Genie') && fileNotContains('portfolio/index.html', 'healthygenie.elantech.cloud'));
+// 26 November 2026: Phoenix Luminaries is the latest launch; Healthy Genie stays a launched production project.
+check('Phoenix Luminaries is the latest launch on the portfolio', fileContains('portfolio/index.html', 'Phoenix Luminaries', 'https://phoenixlightings.com/', 'Latest launch', 'Industrial Lighting Manufacturer'));
+check('Healthy Genie remains a launched production project, not upcoming', fileContains('portfolio/index.html', 'Medusa.js Meal Commerce', 'https://healthygenie.in/', 'Production launch') && !octoberUpcoming.includes('Healthy Genie') && fileNotContains('portfolio/index.html', 'healthygenie.elantech.cloud'));
+check('Phoenix Luminaries logo is in the homepage client carousel', fileContains('index.html', 'Phoenix Luminaries - eLan Technology client'));
 check('Healthy Genie service proof reflects production status', fileContains('services/ecommerce/medusa-js-development/index.html', 'Medusa.js meal commerce', 'Launched', 'https://healthygenie.in/', 'Visit launched website') && fileNotContains('services/ecommerce/medusa-js-development/index.html', 'healthygenie.elantech.cloud'));
 section('W  Location-page index policy (src/data/indexPolicy.ts)');
 const indexedLocations = ['nagpur', 'pune', 'raipur', 'usa', 'canada', 'australia', 'japan', 'new-zealand', 'dubai-uae'];

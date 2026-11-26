@@ -33,15 +33,26 @@ const asbimLaunch: PortfolioShowcaseItem = {
   note: 'Recently launched',
 };
 
-export const latestLaunch: PortfolioShowcaseItem = {
+const healthyGenieLaunch: PortfolioShowcaseItem = {
   title: 'Healthy Genie',
   label: 'Medusa.js Meal Commerce',
   description: 'A launched Medusa.js meal-commerce website for Healthy Genie in Pune, bringing meal discovery, subscription plans and corporate meal enquiries into a clear customer journey.',
   image: '/portfolio/healthy-genie.avif',
   liveUrl: 'https://healthygenie.in/',
   stack: ['Medusa.js', 'Next.js', 'Subscription Plans'],
-  note: 'Latest launch',
+  note: 'Production launch',
   location: 'Pune, India',
+};
+
+export const latestLaunch: PortfolioShowcaseItem = {
+  title: 'Phoenix Luminaries',
+  label: 'Industrial Lighting Manufacturer',
+  description: 'A new Astro website for an ISO-certified Indian manufacturer of high mast lighting, street light and decorative poles, LED luminaires and mobile lighting towers, with a full product catalogue, project proof and quote requests.',
+  image: '/portfolio/phoenix-luminaries.avif',
+  liveUrl: 'https://phoenixlightings.com/',
+  stack: ['Astro', 'Product Catalogue', 'Quote Requests'],
+  note: 'Latest launch',
+  location: 'India',
 };
 
 // Long-standing clients whose earlier WordPress websites were redesigned and rebuilt in Astro.
@@ -76,6 +87,7 @@ export const recentRedesigns: PortfolioShowcaseItem[] = [
 ];
 
 export const recentLaunches: PortfolioShowcaseItem[] = [
+  healthyGenieLaunch,
   asbimLaunch,
   {
     title: 'Parekh Opticals',
