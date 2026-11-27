@@ -1,6 +1,7 @@
 ---
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
 import ServicePage from '../../components/service/ServicePage.astro';
+import ServiceExplainer from '../../components/service/ServiceExplainer.astro';
 import { services } from '../../data/services';
 import { serviceSchema, faqSchema, breadcrumbSchema } from '../../utils/schema';
 
@@ -58,5 +59,22 @@ const schemas = [
     cta={{"title": "Have an app idea?", "text": "Share the idea or the problem. We will recommend React Native, native or a PWA and scope an MVP in writing."}}
     note={"App-store approval, review timing and third-party SDK behaviour depend on Apple, Google and provider policies and cannot be guaranteed."}
     faqs={serviceFaqs}
-  ></ServicePage>
+  >
+    <ServiceExplainer
+      id="app-or-web"
+      color="--ac-violet"
+      eyebrow="Before you build"
+      title="Do you need a mobile app or a responsive web app?"
+      columns={[{"title": "A mobile app makes sense when", "items": ["People use it often, such as staff, field teams or loyal customers", "It needs the camera, Bluetooth, NFC, location in the background or offline work", "Push notifications are central to the service", "Customers expect to find it in the App Store or Google Play"]}, {"title": "A responsive web app is often enough when", "items": ["People use it occasionally, or arrive from search and ads", "It mainly shows information, forms, bookings or accounts", "You want one product to update without store reviews", "Budget is better spent on one channel first"]}]}
+      note="A progressive web app sits in between: installable, works offline for agreed screens, and needs no store listing."
+    />
+    <ServiceExplainer
+      id="release"
+      color="--ac-violet"
+      eyebrow="Release, handover and support"
+      title="What happens at release and after"
+      columns={[{"title": "Release", "text": "Submission support for the App Store and Google Play: metadata, screenshots, signing and review responses. Developer accounts stay in your name, and Apple and Google make the final approval decision."}, {"title": "Handover", "text": "Source code, build and release notes, environment details and the accounts and credentials listed in the proposal, so another team could take over."}, {"title": "Support", "text": "An optional maintenance plan: dependency and OS updates, compatibility testing, bug fixes, crash reporting and performance monitoring."}]}
+      numbered
+    />
+  </ServicePage>
 </ServiceLayout>

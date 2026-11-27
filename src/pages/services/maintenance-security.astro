@@ -1,6 +1,7 @@
 ---
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
 import ServicePage from '../../components/service/ServicePage.astro';
+import ServiceExplainer from '../../components/service/ServiceExplainer.astro';
 import { services } from '../../data/services';
 import { serviceSchema, faqSchema, breadcrumbSchema } from '../../utils/schema';
 
@@ -76,5 +77,15 @@ const plans = [
         ))}
       </ul>
     </section>
+
+    <ServiceExplainer
+      id="scope"
+      color="--ac-red"
+      eyebrow="What a plan covers"
+      title="Recurring care, one-off fixes and incidents"
+      intro="A plan covers recurring care. One-off work and incident recovery are scoped separately, so you always know what is included."
+      columns={[{"title": "Included in your plan", "items": ["Tested core, plugin and theme updates", "Backups, malware scans and uptime monitoring", "The content-update hours in your plan", "A monthly report"]}, {"title": "Quoted separately", "items": ["New features, new pages and redesign work", "Plugin replacements and platform migrations", "Content work beyond your plan hours", "Fixes for problems that existed before the plan started"]}, {"title": "Incidents and response targets", "items": ["Basic: email support, 48-hour response target", "Standard: priority support, 8-hour target, emergency help in business hours", "Premium: 24/7 emergency support, 4-hour target", "Hack clean-up beyond the plan and investigation are quoted at the time"]}]}
+      note="Response targets start when an alert reaches the agreed channel. They are targets, not guarantees of a fix within that time."
+    />
   </ServicePage>
 </ServiceLayout>

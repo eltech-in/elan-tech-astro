@@ -48,7 +48,7 @@ const faqs = [
   },
   {
     question: 'Can you build subscriptions and Indian payment gateways on Medusa.js?',
-    answer: 'Yes. On a production Medusa.js store we built a custom subscription module alongside Razorpay, PhonePe and shipping modules: plans, billing state, recurring orders, webhooks, retries, refunds and customer controls.',
+    answer: 'Yes. For Puritas we built a custom Medusa.js subscription module alongside Razorpay, PhonePe and shipping modules: plans, billing state, recurring orders, webhooks, retries, refunds and customer controls.',
   },
   {
     question: 'Who operates and maintains a Medusa.js platform after launch?',
@@ -58,6 +58,35 @@ const faqs = [
     question: 'What is Medusa.js?',
     answer: 'Medusa.js is an open-source, modular commerce platform. It provides products, carts, orders, inventory, pricing, payments and fulfilment, and lets developers extend data models, workflows, APIs, the admin and integrations.',
   },
+];
+
+// Delivered Medusa.js work (owner, 27 Nov 2026: Puritas shown again on this page only).
+// Facts only: what the business needed and what we built; no sales or performance claims.
+const work = [
+  {
+    label: 'Medusa.js meal commerce · Launched',
+    name: 'Healthy Genie',
+    color: '--svc-medusa',
+    needed: 'A meal-commerce website in Pune for meals, snacks and subscription plans, with food preferences and corporate meal enquiries.',
+    built: ['Custom storefront design', 'Medusa.js commerce backend with a Next.js storefront', 'Meal plans and subscriptions', 'Customer accounts and cart', 'Corporate and party order enquiries'],
+    href: 'https://healthygenie.in/',
+    link: 'Visit launched website',
+  },
+  {
+    label: 'Medusa.js subscriptions · Indian payments',
+    name: 'Puritas',
+    color: '--ac-emerald',
+    needed: 'Recurring orders paid through Indian payment gateways, with its own shipping workflow.',
+    built: ['Custom Medusa.js subscription module', 'Razorpay and PhonePe payment integrations', 'Shipping modules for fulfilment'],
+    href: 'https://puritas.in/',
+    link: 'Visit puritas.in',
+    guide: { href: '/blog/ecommerce/building-subscription-ecommerce-medusa-js-india/', label: 'How we approach Medusa.js subscriptions' },
+  },
+];
+const erpSteps = [
+  ['Which system updates stock', 'If your ERP owns inventory, Medusa reads stock from it and does not overwrite it. We agree this for every field that both systems hold.'],
+  ['How often changes sync', 'Instantly through webhooks, every few minutes, or overnight, depending on how fast stock moves and what the ERP allows.'],
+  ['What happens when an update fails', 'Retries, an alert to a named person, and a rule for whether the product stays on sale until the stock figure is confirmed.'],
 ];
 
 const schemas = [
@@ -80,7 +109,7 @@ const schemas = [
     eyebrow="Medusa.js development agency · remote implementation partner"
     heading="Medusa.js Development Agency and Implementation Partner"
     intro="We design, build and run custom Medusa.js commerce: modules, subscriptions, payments, ERP and PIM integrations, and migrations from Shopify or WooCommerce. Available directly to merchants or white-label for agencies in the UK, Europe, the US and India."
-    highlights={['A launched production Medusa.js store', 'Custom modules, workflows and subscriptions', 'Razorpay, PhonePe and shipping modules', 'Shopify and WooCommerce to Medusa migration', 'ERP, PIM and warehouse integrations', 'White-label for agencies, NDA available']}
+    highlights={['Healthy Genie and Puritas built on Medusa.js', 'Custom modules, workflows and subscriptions', 'Razorpay, PhonePe and shipping modules', 'Shopify and WooCommerce to Medusa migration', 'ERP, PIM and warehouse integrations', 'White-label for agencies, NDA available']}
     primaryCta={{ label: 'Discuss your Medusa build', href: '/schedule-consultation/' }}
     secondaryCta={{ label: 'Visit the Healthy Genie website', href: 'https://healthygenie.in/', external: true }}
     offersTitle="Medusa.js development services"
@@ -96,15 +125,6 @@ const schemas = [
       { title: 'Migration', text: 'Products, customers, orders and URL redirects moved from Shopify or WooCommerce in stages.' },
       { title: 'Hosting and ongoing engineering', text: 'Medusa Cloud or your own cloud, monitoring, backups, releases and a support model.' },
     ]}
-    proof={{
-      label: 'Medusa.js meal commerce · Launched',
-      title: 'Healthy Genie',
-      text: "We redesigned and redeveloped Healthy Genie's meal-commerce website on Medusa.js. The launched Pune website presents meals, snacks, subscription plans, food preferences and corporate meal enquiries. No sales uplift or performance score is claimed here.",
-      points: ['Custom storefront design', 'Medusa.js commerce backend', 'Next.js storefront', 'Meal plans and subscriptions', 'Customer accounts and cart', 'Corporate and party order enquiries'],
-      href: 'https://healthygenie.in/',
-      linkLabel: 'Visit launched website',
-      secondary: { href: '/blog/ecommerce/medusa-js-implementation-running-costs/', label: 'Medusa.js implementation and running-cost guide' },
-    }}
     processTitle="How we deliver a Medusa.js project"
     process={[
       { title: 'Model the business', text: 'Products, customers, orders, subscriptions, payments, fulfilment and exceptions.' },
@@ -122,6 +142,29 @@ const schemas = [
     faqs={faqs}
     cta={{ title: 'Plan your Medusa.js project', text: 'Tell us about your products, workflows and systems. We will say honestly whether Medusa, Shopify or another platform fits, and quote the scope in writing.', label: 'Book a consultation' }}
   >
+    <section slot="lead" id="work" class="scroll-mt-28" aria-labelledby="work-title">
+      <h2 id="work-title" class="font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">Medusa.js work we have delivered</h2>
+      <p class="mt-2 max-w-3xl text-[var(--text-dim)]">What each business needed and what we built. No sales uplift or performance score is claimed here. <a href="/portfolio/#featured-work" class="font-semibold text-[var(--text)] underline underline-offset-4">See our featured portfolio work</a>.</p>
+      <div class="mt-6 grid gap-6 lg:grid-cols-2">
+        {work.map((w) => (
+          <article class="tilt-card tilt-card--lg flex flex-col p-6 sm:p-8" style={`--card-color: var(${w.color});`}>
+            <p class="text-xs font-bold uppercase tracking-[0.16em]" style={`color: var(${w.color});`}>{w.label}</p>
+            <h3 class="mt-2 font-heading text-2xl font-bold text-[var(--text)]">{w.name}</h3>
+            <p class="mt-5 text-xs font-bold uppercase tracking-[0.14em] text-[var(--text-muted)]">What the business needed</p>
+            <p class="mt-1.5 leading-relaxed text-[var(--text-dim)]">{w.needed}</p>
+            <p class="mt-5 text-xs font-bold uppercase tracking-[0.14em] text-[var(--text-muted)]">What we built</p>
+            <ul class="mt-2 space-y-2" role="list">
+              {w.built.map((b) => <li class="flex gap-2.5 text-sm font-semibold text-[var(--text)]"><span style={`color: var(${w.color});`} aria-hidden="true">✓</span>{b}</li>)}
+            </ul>
+            <div class="mt-auto flex flex-wrap gap-x-5 gap-y-2 pt-6">
+              <a href={w.href} target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-[var(--text)] underline underline-offset-4">{w.link} ↗<span class="sr-only"> (opens in a new tab)</span></a>
+              {w.guide && <a href={w.guide.href} class="text-sm font-semibold underline underline-offset-4" style={`color: var(${w.color});`}>{w.guide.label} →</a>}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
     <section aria-labelledby="vs-title">
       <h2 id="vs-title" class="font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">Medusa.js vs Shopify: which fits your store?</h2>
       <div class="mt-5 grid gap-4 md:grid-cols-2">
@@ -144,6 +187,21 @@ const schemas = [
           </ul>
         </div>
       </div>
+    </section>
+
+    <section class="tilt-card tilt-card--lg p-6 sm:p-8" style="--card-color: var(--ac-blue);" aria-labelledby="erp-title">
+      <p class="text-xs font-bold uppercase tracking-[0.16em] text-[var(--ac-blue)]">Example: scoping an integration</p>
+      <h2 id="erp-title" class="mt-2 font-heading text-2xl font-bold text-[var(--text)]">Your ERP owns inventory. What do we confirm first?</h2>
+      <ol class="mt-6 grid gap-5 md:grid-cols-3" role="list">
+        {erpSteps.map(([t, d], i) => (
+          <li>
+            <span class="inline-grid h-8 w-8 place-items-center rounded-lg text-xs font-black text-[var(--ac-blue)]" style="background: color-mix(in srgb, var(--ac-blue) 15%, transparent);">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="mt-3 font-semibold text-[var(--text)]">{t}</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-[var(--text-dim)]">{d}</p>
+          </li>
+        ))}
+      </ol>
+      <p class="mt-6 text-sm text-[var(--text-muted)]">The same questions apply to PIM, warehouse and accounting systems. Each integration is scoped and quoted on its own; none is included by default.</p>
     </section>
 
     <section class="grid gap-4 lg:grid-cols-2" aria-label="Cost, hosting and partnership">

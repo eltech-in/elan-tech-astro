@@ -1,113 +1,95 @@
 ---
+// Product walkthrough request (27 Nov 2026): the form sits beside a short explanation so it is visible
+// without scrolling. Products come from the catalogue; a product page link preselects its product.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import RequestDemoForm from '../islands/RequestDemoForm';
 import { breadcrumbSchema } from '../utils/schema';
+import { products, hasPublicDemo } from '../data/products';
+import { COMPANY } from '../data/company';
+
+const demoProducts = products.map((p) => ({ value: p.slug, label: p.title, publicDemo: hasPublicDemo(p) }));
+const publicDemo = products.find((p) => hasPublicDemo(p));
 
 const schema = breadcrumbSchema([
   { name: 'Home', url: '/' },
   { name: 'Products', url: '/products/' },
-  { name: 'Request Demo', url: '/request-demo/' },
+  { name: 'Request a Walkthrough', url: '/request-demo/' },
 ]);
 
 const steps = [
-  { step: '1', title: 'Choose Product', desc: 'Select which product you want to see demonstrated.' },
-  { step: '2', title: 'Pick a Time', desc: "We'll confirm a 30-minute slot that works for you." },
-  { step: '3', title: 'Live Demo + Q&A', desc: 'Our team walks you through the platform live. Ask anything.' },
+  { title: 'Send the request', desc: 'Choose a product and tell us what you want to see.' },
+  { title: 'We agree a time', desc: 'We reply to confirm a time that suits you, usually by WhatsApp or phone.' },
+  { title: 'Guided walkthrough', desc: 'About 30 minutes with sample data, shaped around your workflow, with time for questions.' },
+];
+const youSee = [
+  'The modules that match your workflow',
+  'What is configurable, and what is set in the proposal',
+  'How your team and your customers would use it',
+  'Hosting, support and source-code options',
 ];
 ---
 
 <BaseLayout
   ogImage="/images/og/contact.png"
-  title="Request a Product Demo - eLan Technology"
-  description="Schedule a 30-minute live demo of our real estate portal, medical conference portal, IMA society portal, or resort management system."
+  title="Request a Product Walkthrough - eLan Technology"
+  description="Request a guided walkthrough of an eLan Technology product: Central CMS, real estate portal, medical conference portal, IMA society portal, resort management, project management or insurance agency management."
   schema={schema}
   noindex={true}
 >
-
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       HERO
-  ════════════════════════════════════════════════════════════════════════ -->
-  <section aria-labelledby="demo-hero-heading" class="relative overflow-hidden bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-24 md:py-32">
-    <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
-      <div class="absolute -top-40 left-1/2 -translate-x-1/2 h-[500px] w-[500px] rounded-full bg-[var(--accent)]/6 blur-[120px]"></div>
-    </div>
-
-    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-      <div class="mb-6 inline-flex items-center gap-2 rounded-md border border-[var(--border)] bg-[var(--bg-card)]/60 px-4 py-2 text-sm text-[var(--text-muted)] backdrop-blur-sm">
-        <span class="h-2 w-2 rounded-full bg-[var(--accent)] animate-pulse" aria-hidden="true"></span>
-        30-Min Session
+  <section class="relative overflow-hidden bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-10 md:py-14" aria-labelledby="demo-hero-heading">
+    <div class="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:grid-rows-[auto_1fr] lg:items-start lg:gap-x-12 lg:px-8">
+      <div class="lg:col-start-1 lg:row-start-1">
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Guided product walkthrough</p>
+        <h1 id="demo-hero-heading" class="mt-3 font-heading text-4xl font-bold leading-tight text-[var(--text)] sm:text-5xl">Request a Product Walkthrough</h1>
+        <p class="mt-4 text-lg leading-relaxed text-[var(--text-dim)]">See the product with sample data and your own workflow in mind. No commitment and no sales pressure.</p>
       </div>
 
-      <h1
-        id="demo-hero-heading"
-        class="font-heading text-4xl sm:text-5xl font-bold text-[var(--text)] mb-6"
-      >
-        See Our Products in Action
-      </h1>
-      <p class="mx-auto max-w-2xl text-lg text-[var(--text-dim)] leading-relaxed">
-        30-minute live walkthrough, no commitment, no sales pressure. Just a clear look at what the product can do for your business.
-      </p>
-    </div>
-  </section>
+      <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5 shadow-xl shadow-black/5 sm:p-7 lg:col-start-2 lg:row-span-2 lg:row-start-1" aria-labelledby="demo-form-heading">
+        <h2 id="demo-form-heading" class="font-heading text-2xl font-bold text-[var(--text)]">Book your walkthrough</h2>
+        <p class="mt-1 mb-6 text-sm text-[var(--text-dim)]">Fields marked * are required. We reply to agree a suitable time.</p>
+        <RequestDemoForm client:load products={demoProducts} />
+      </div>
 
-
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       WHAT TO EXPECT - 3 STEPS
-  ════════════════════════════════════════════════════════════════════════ -->
-  <section aria-labelledby="demo-steps-heading" class="bg-[var(--bg-card)] border-y border-[var(--border)] py-12">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h2 id="demo-steps-heading" class="sr-only">How the demo works</h2>
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-center gap-4 sm:gap-0">
-        {steps.map((s, i) => (
-          <>
-            <div class="flex items-start sm:items-center gap-4 sm:flex-col sm:text-center sm:max-w-[180px]">
-              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--accent)] font-bold text-[var(--bg)] text-sm">
-                {s.step}
-              </div>
+      <div class="lg:col-start-1 lg:row-start-2">
+        <ol class="space-y-4" role="list">
+          {steps.map((s, i) => (
+            <li class="flex gap-3">
+              <span class="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] text-xs font-black text-[var(--accent)]" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
               <div>
-                <p class="font-semibold text-[var(--text)] text-sm">{s.title}</p>
-                <p class="text-xs text-[var(--text-muted)] mt-0.5 leading-relaxed">{s.desc}</p>
+                <p class="font-semibold text-[var(--text)]">{s.title}</p>
+                <p class="mt-0.5 text-sm leading-relaxed text-[var(--text-dim)]">{s.desc}</p>
               </div>
-            </div>
-            {i < steps.length - 1 && (
-              <div class="hidden sm:block h-px w-16 bg-[var(--border)] mx-4 shrink-0" aria-hidden="true"></div>
-            )}
-          </>
-        ))}
-      </div>
-    </div>
-  </section>
+            </li>
+          ))}
+        </ol>
 
+        <div class="tilt-card mt-8 p-5" style="--card-color: var(--accent);">
+          <h2 class="font-heading text-lg font-bold text-[var(--text)]">In the walkthrough you will see</h2>
+          <ul class="mt-3 space-y-2" role="list">
+            {youSee.map((item) => <li class="flex gap-2.5 text-sm text-[var(--text-dim)]"><span class="text-[var(--accent)]" aria-hidden="true">✓</span>{item}</li>)}
+          </ul>
+          {publicDemo && (
+            <p class="mt-4 text-sm text-[var(--text-dim)]">Want a look first? The <a href={`/products/${publicDemo.slug}/`} class="font-semibold text-[var(--text)] underline underline-offset-4">{publicDemo.title}</a> also has a public demo.</p>
+          )}
+        </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       DEMO REQUEST FORM
-  ════════════════════════════════════════════════════════════════════════ -->
-  <section aria-labelledby="demo-form-heading" class="bg-[var(--bg)] py-16 md:py-20">
-    <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
-      <h2 id="demo-form-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-2 text-center">
-        Book Your Demo
-      </h2>
-      <p class="text-center text-[var(--text-dim)] mb-8">
-        Tell us which product you want to explore. We’ll review your request and contact you to arrange a suitable session.
-      </p>
-
-      <RequestDemoForm client:load />
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       RESPONSE EXPECTATION
-  ════════════════════════════════════════════════════════════════════════ -->
-  <section class="bg-[var(--bg-card)] border-t border-[var(--border)] py-10">
-    <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
-      <div class="flex items-center justify-center gap-3">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--accent)]" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        <p class="text-[var(--text-dim)] text-sm">
-          <strong class="text-[var(--text)]">What happens next:</strong> We review the request and contact you to agree on a suitable demo time.
+        <p class="mt-6 text-sm text-[var(--text-dim)]">
+          Prefer to talk now? WhatsApp <a href={`${COMPANY.whatsapp.href}?text=${encodeURIComponent('Hi eLan Technology, I would like a product walkthrough.')}`} target="_blank" rel="noopener noreferrer" class="font-semibold text-[var(--text)] underline underline-offset-4">{COMPANY.whatsapp.display}</a>{' '}
+          or call <a href={COMPANY.officePhone.href} class="font-semibold text-[var(--text)] underline underline-offset-4">{COMPANY.officePhone.display}</a>.
         </p>
       </div>
     </div>
   </section>
 
+  <section class="border-t border-[var(--border)] bg-[var(--bg-card)] py-10" aria-labelledby="demo-products-heading">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 id="demo-products-heading" class="font-heading text-xl font-bold text-[var(--text)]">Not sure which product fits?</h2>
+      <ul class="mt-4 flex flex-wrap gap-2" role="list">
+        {products.map((p) => (
+          <li><a href={`/products/${p.slug}/`} class="inline-flex min-h-10 items-center rounded-lg border border-[var(--border)] bg-[var(--bg)] px-4 py-2 text-sm font-semibold text-[var(--text)] transition hover:border-[var(--accent)]">{p.title}</a></li>
+        ))}
+        <li><a href="/products/" class="inline-flex min-h-10 items-center rounded-lg px-4 py-2 text-sm font-semibold text-[var(--accent)] underline underline-offset-4">Compare all products</a></li>
+      </ul>
+    </div>
+  </section>
 </BaseLayout>

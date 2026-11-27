@@ -33,7 +33,7 @@ const faqs = [
   },
   {
     question: 'How much does an ADA website audit and remediation cost?',
-    answer: `An accessibility quick check costs ${usd(AP.quickCheck.USD)}. A full WCAG 2.2 AA audit and remediation plan starts at ${usd(AP.audit.USD)} for up to about 10 page templates and 2 to 3 journeys. Code-level remediation is quoted after the audit and is typically ${usd(AP.remediationFrom.USD)} to ${usd(AP.remediationTo.USD)} for a small website or Shopify store. Prices are also shown in your local currency. These services are offered to US and other international organisations.`,
+    answer: `An accessibility quick check costs ${usd(AP.quickCheck.USD)}. A full WCAG 2.2 AA audit and remediation plan starts at ${usd(AP.audit.USD)} for up to about 10 page templates and 2 to 3 journeys; it identifies and prioritises the fixes, and implementing them is quoted separately. Larger sites are quoted to scope. Code-level remediation is quoted after the audit and is typically ${usd(AP.remediationFrom.USD)} to ${usd(AP.remediationTo.USD)} for a small website or Shopify store. Prices are also shown in your local currency. These services are offered to US and other international organisations.`,
   },
   {
     question: 'Is an automated accessibility scan or overlay enough?',
@@ -83,7 +83,7 @@ const serviceSchemaObj = {
   serviceType: ['Website Accessibility Remediation', 'ADA Website Remediation', 'WCAG Remediation', 'WCAG Accessibility Audit', 'Accessible Web Development'],
   offers: [
     { '@type': 'Offer', price: String(AP.quickCheck.USD), priceCurrency: 'USD', description: 'Accessibility quick check (one domain)' },
-    { '@type': 'Offer', price: String(AP.audit.USD), priceCurrency: 'USD', description: 'WCAG 2.2 AA audit and remediation plan starting price' },
+    { '@type': 'Offer', price: String(AP.audit.USD), priceCurrency: 'USD', description: 'WCAG 2.2 AA audit and remediation plan for up to about 10 templates and 2 to 3 journeys; implementation quoted separately' },
   ],
 };
 
@@ -99,9 +99,16 @@ const standards = [
   ['Accessibility Standards Canada web requirements', 'https://accessible.canada.ca/creating-accessibility-standards/canasc-en-301-5492024-accessibility-requirements-ict-products-and-services/9-web'],
 ];
 // Price ladder (owner, 27 Nov 2026): international only, shown in the visitor's currency, never INR.
+// Illustrative finding (owner, 27 Nov 2026): shows the format of a finding; clearly labelled, not a client report.
+const example = [
+  ['The barrier', 'Using only a keyboard, a customer opens the cart drawer but cannot close it, and focus stays on the page behind it.', 'WCAG 2.1.1, 2.4.3, 4.1.2'],
+  ['How we reproduced it', 'Tested with the keyboard alone, then with NVDA and Chrome and VoiceOver and Safari. The close control has no name and Escape does nothing.', ''],
+  ['The fix', 'The close control becomes a real button named “Close cart”. Escape closes the drawer, focus moves into it on open and returns to the cart button on close.', ''],
+  ['The retest', 'Opening, closing and returning focus pass with the keyboard and both screen readers. The finding is marked resolved with the date and build tested.', ''],
+];
 const options = [
-  { service: 'Accessibility quick check', best: 'Automated scan plus manual checks of the homepage and one journey', from: AP.quickCheck },
-  { service: 'WCAG 2.2 AA audit and remediation plan', best: 'Up to about 10 templates and 2 to 3 journeys; larger sites quoted', from: AP.audit, prefix: 'from' },
+  { service: 'Accessibility quick check', best: 'A limited review: automated scan plus manual checks of the homepage and one journey', from: AP.quickCheck },
+  { service: 'WCAG 2.2 AA audit and remediation plan', best: 'Finds and prioritises the fixes for up to about 10 templates and 2 to 3 journeys; fixes quoted separately', from: AP.audit, prefix: 'from' },
   { service: 'Code-level remediation', best: 'Fixing an existing website or store, quoted after the audit', from: AP.remediationFrom, to: AP.remediationTo, prefix: 'typically' },
   { service: 'Accessible redesign or rebuild', best: 'Replacing an outdated experience', from: AP.redesignFrom, to: AP.redesignTo },
   { service: 'ACR / VPAT', best: 'Procurement and client reviews, after an audit', from: AP.acr, prefix: 'from' },
@@ -112,7 +119,7 @@ const options = [
 
 <ServiceLayout
   title="ADA Website Remediation Services & WCAG Audits"
-  description="Website accessibility remediation for ADA and WCAG: audits, source-code fixes, ecommerce checkout testing and retesting for businesses in the US and Canada. Emergency response within 48 hours."
+  description="Website accessibility remediation for ADA and WCAG: audits, source-code fixes, ecommerce checkout testing and retesting for businesses in the US and Canada. Target response within 48 hours for urgent requests."
   canonical="/services/ada-compliant-web-design/"
   schema={schemas}
   breadcrumbs={breadcrumbs}
@@ -121,10 +128,10 @@ const options = [
     accentVar="--ac-blue"
     eyebrow="ADA and WCAG remediation services"
     heading="Website Accessibility Remediation for ADA & WCAG"
-    intro="We find the barriers that stop people using your website, fix them in the code and content, and retest the journeys that matter. You get clear findings, priorities and a record of the work. Emergency response within 48 hours."
+    intro="We find the barriers that stop people using your website, fix them in the code and content, and retest the journeys that matter. You get clear findings, priorities and a record of the work. Urgent requests get a target response within 48 hours."
     highlights={['Manual and automated WCAG testing', 'Source-code fixes, not overlays', 'Shopify and ecommerce checkout testing', 'Retesting and a written record', 'US and Canada (ADA, AODA, ACA)', 'Designing and building websites since 2002']}
-    primaryCta={{ label: 'Request an ADA / WCAG audit', href: '/get-quote/' }}
-    secondaryCta={{ label: 'Emergency help within 48 hours', href: '/services/ada-compliant-web-design/emergency-remediation/#rush-assessment' }}
+    primaryCta={{ label: 'Discuss remediation', href: '/schedule-consultation/' }}
+    secondaryCta={{ label: 'Urgent? Target response in 48 hours', href: '/services/ada-compliant-web-design/emergency-remediation/#rush-assessment' }}
     offersTitle="What our remediation service includes"
     offersIntro="The scope is agreed before testing starts, around the pages, features and customer tasks that matter to you."
     offers={[
@@ -154,8 +161,48 @@ const options = [
     ]}
     faqTitle="Accessibility remediation FAQs"
     faqs={faqs}
-    cta={{ title: 'Get your ADA / WCAG remediation plan', text: 'Tell us the website, the deadline and the journeys that matter. We confirm the scope and price in writing before testing starts.', label: 'Request an audit', href: '/get-quote/' }}
+    cta={{ title: 'Talk to us about remediation', text: 'Tell us the website, the deadline and the journeys that matter. We confirm the scope and price in writing before testing or fixes start.', label: 'Discuss remediation', href: '/schedule-consultation/' }}
   >
+    <section class="tilt-card tilt-card--lg p-6 sm:p-8" style="--card-color: var(--ac-blue);" aria-labelledby="example-title">
+      <p class="text-xs font-bold uppercase tracking-[0.16em] text-[var(--ac-blue)]">Illustrative example · how a finding is fixed and verified</p>
+      <h2 id="example-title" class="mt-2 font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">A keyboard user cannot close the cart drawer</h2>
+      <p class="mt-2 max-w-3xl text-sm text-[var(--text-muted)]">This shows the format of our findings. It is an illustrative example, not taken from a client report.</p>
+      <ol class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" role="list">
+        {example.map(([t, d, ref], i) => (
+          <li>
+            <span class="inline-grid h-8 w-8 place-items-center rounded-lg text-xs font-black text-[var(--ac-blue)]" style="background: color-mix(in srgb, var(--ac-blue) 15%, transparent);">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="mt-3 font-semibold text-[var(--text)]">{t}</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-[var(--text-dim)]">{d}</p>
+            {ref && <p class="mt-2 text-xs font-semibold text-[var(--text-muted)]">{ref}</p>}
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section aria-labelledby="paths-title">
+      <h2 id="paths-title" class="font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">Three ways to start</h2>
+      <div class="mt-6 grid gap-5 lg:grid-cols-3">
+        <div class="tilt-card flex flex-col p-6" style="--card-color: var(--ac-blue);">
+          <p class="text-xs font-bold uppercase tracking-[0.14em] text-[var(--ac-blue)]">Most clients start here</p>
+          <h3 class="mt-2 font-heading text-lg font-bold text-[var(--text)]">Discuss remediation</h3>
+          <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">You know the site has barriers, or you have a letter or a deadline. We look at the site and agree the scope, priorities and price of the fixes in writing.</p>
+          <a href="/schedule-consultation/" class="mt-auto inline-flex min-h-11 w-fit items-center rounded-lg bg-[var(--accent)] px-5 py-2.5 text-sm font-bold text-white transition hover:brightness-110">Discuss remediation</a>
+        </div>
+        <div class="tilt-card flex flex-col p-6" style="--card-color: var(--ac-teal);">
+          <p class="text-xs font-bold uppercase tracking-[0.14em] text-[var(--ac-teal)]">Quick check · <LocalPrice prices={AP.quickCheck} /></p>
+          <h3 class="mt-2 font-heading text-lg font-bold text-[var(--text)]">A limited first look</h3>
+          <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">An automated scan plus manual checks of the homepage and one journey. It is not a full audit. The fee is credited toward the audit.</p>
+          <a href="/website-audit/#paid-wcag-audit" class="mt-auto pt-4 text-sm font-semibold text-[var(--text)] underline underline-offset-4">Book the quick check →</a>
+        </div>
+        <div class="tilt-card flex flex-col p-6" style="--card-color: var(--ac-indigo);">
+          <p class="text-xs font-bold uppercase tracking-[0.14em] text-[var(--ac-indigo)]">Audit and remediation plan · from <LocalPrice prices={AP.audit} /></p>
+          <h3 class="mt-2 font-heading text-lg font-bold text-[var(--text)]">A scoped WCAG 2.2 AA audit</h3>
+          <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">Tests up to about 10 templates and 2 to 3 journeys, then identifies and prioritises the fixes. Implementing them is quoted separately; larger sites are quoted to scope.</p>
+          <a href="#options-title" class="mt-auto pt-4 text-sm font-semibold text-[var(--text)] underline underline-offset-4">See all prices →</a>
+        </div>
+      </div>
+    </section>
+
     <section class="tilt-card tilt-card--lg p-6 sm:p-8" style="--card-color: var(--ac-red);" aria-labelledby="urgent-title">
       <div class="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
         <div>
@@ -165,7 +212,7 @@ const options = [
         </div>
         <div class="flex flex-col gap-2">
           <p class="font-heading text-4xl font-black text-[var(--ac-red)]">48 hrs</p>
-          <p class="text-xs text-[var(--text-muted)]">Target response for emergency assessment requests</p>
+          <p class="max-w-[14rem] text-xs text-[var(--text-muted)]">Target response for emergency assessment requests; delivery is confirmed after scope review</p>
           <a href="/services/ada-compliant-web-design/emergency-remediation/" class="mt-1 text-sm font-semibold text-[var(--text)] underline underline-offset-4">View the emergency remediation service →</a>
         </div>
       </div>

@@ -29,14 +29,14 @@ const breadcrumbs = [
 // ── FAQ - questions taken from real GSC queries; wording kept close ──────
 const faqs = [
   {
-    question: 'My scan found 10,000+ accessibility issues - is that even fixable in 30 days?',
+    question: 'My scan found 10,000+ accessibility issues - can that be fixed before my deadline?',
     answer:
-      "Almost always, yes. Scanners count every instance on every page, so a handful of repeating template, theme, and component problems inflate into thousands of flags. We fix the underlying source - one corrected component can clear thousands of counted errors. After the rush assessment we'll tell you honestly whether your specific deadline is realistic.",
+      "Often, yes. Scanners count every instance on every page, so a handful of repeating template, theme, and component problems inflate into thousands of flags. We fix the underlying source - one corrected component can clear thousands of counted errors. After the rush assessment we'll tell you honestly whether your specific deadline is realistic.",
   },
   {
     question: "What's a realistic budget to remediate a Shopify site before a deadline?",
     answer:
-      `A rush quick check costs US$${AP.quickCheck.USD} and a scoped rapid audit starts at US$${AP.audit.USD.toLocaleString('en-US')} (both credited toward the work if you proceed). Full 30-day code-level remediation is a fixed price quoted after the audit, typically US$${AP.remediationFrom.USD.toLocaleString('en-US')} to US$${AP.remediationTo.USD.toLocaleString('en-US')} for a small Shopify store, based on page count, theme complexity, custom apps and the number of unique issue types, not the raw scanner number. You approve the price before any work starts.`,
+      `A rush quick check costs US$${AP.quickCheck.USD} and a scoped rapid audit starts at US$${AP.audit.USD.toLocaleString('en-US')} (both credited toward the work if you proceed). Full code-level remediation is a fixed price quoted after the audit, with the delivery date agreed at the same time, typically US$${AP.remediationFrom.USD.toLocaleString('en-US')} to US$${AP.remediationTo.USD.toLocaleString('en-US')} for a small Shopify store, based on page count, theme complexity, custom apps and the number of unique issue types, not the raw scanner number. You approve the price before any work starts.`,
   },
   {
     question: 'Will an accessibility overlay or widget make me compliant faster?',
@@ -56,7 +56,7 @@ const faqs = [
   {
     question: "I'm in the US - can your team really support my timeline?",
     answer:
-      "Yes. We've delivered for US, Canadian, UK, and Australian clients since 2002, with overlapping US business-hours coverage, USD invoicing, and daily standups during emergency engagements. You get a named team, not a ticket queue.",
+      "Yes. We have built websites for clients in the US, Canada and Australia, and have worked with clients remotely since 2002. Our India working day overlaps the US evening, invoices can be in US dollars, and the people on your project, the update schedule and the contact route are agreed in writing before work starts.",
   },
 ];
 
@@ -141,7 +141,7 @@ const remediationSide = [
   'Fixed price, defined deadline, done once',
 ];
 
-// ── Section 04 - the 30-day emergency process ─────────────────────────────
+// ── Section 04 - the emergency process (timeline confirmed after assessment, owner 27 Nov 2026) ─────────────────────────────
 const steps = [
   {
     num: '01',
@@ -188,7 +188,7 @@ const packages = [
     href: '#rush-assessment',
   },
   {
-    name: '30-Day Shopify Remediation',
+    name: 'Shopify Emergency Remediation',
     price: 'custom fixed quote',
     priceNote: 'deadline agreed after assessment',
     desc: 'The full emergency track, end to end',
@@ -211,7 +211,7 @@ const packages = [
     desc: 'For stores that keep shipping new pages',
     cssVar: '--ac-violet',
     features: [
-      'Everything in the 30-day track',
+      'Everything in the emergency track',
       'Ongoing automated + periodic manual monitoring',
       'Accessibility statement maintained',
       'New-page / new-feature checks',
@@ -232,7 +232,7 @@ const standardsBadges = [
 ];
 ---
 <ServiceLayout
-  title="Emergency ADA & Shopify Remediation in 30 Days | eLan Technology"
+  title="Emergency ADA Remediation for Shopify & Ecommerce Deadlines | eLan Technology"
   description="ADA demand letter or complaint? Get an urgent accessibility assessment, code-level WCAG remediation, retesting, and criterion-level documentation."
   canonical={`${SITE_URL}${PAGE_URL}`}
   schema={schemas}
@@ -242,14 +242,14 @@ const standardsBadges = [
     accentVar="--svc-emergency"
     eyebrow="Emergency ADA remediation · Shopify and ecommerce"
     heading="Urgent Accessibility Help for a Legal Deadline"
-    intro="Received a demand letter or lawsuit deadline? We prioritise emergency assessment requests and confirm a realistic start after reviewing availability and technical scope. Then we fix the source code, retest with real assistive technology and document the result for you and your counsel."
+    intro="Received a demand letter or lawsuit deadline? We prioritise emergency assessment requests, with a target response within 48 hours, and confirm a realistic start after reviewing availability and technical scope. Then we fix the source code, retest with real assistive technology and document the result for you and your counsel."
     highlights={heroChips}
     primaryCta={{ label: 'Request a rush assessment', href: '#rush-assessment' }}
     secondaryCta={{ label: 'ADA remediation services', href: '/services/ada-compliant-web-design/' }}
     offersTitle="If you've received a letter, the clock is already running"
     offersIntro="Share the document with qualified legal counsel and preserve the current technical evidence. We provide the parallel engineering response: scoped testing, code-level remediation, retesting, and accurate documentation."
     offers={speedCards.map(({ title, desc }) => ({ title, text: desc }))}
-    processTitle="The 30-day emergency track"
+    processTitle="The emergency track, with dates confirmed after assessment"
     process={steps.map(({ title, desc }) => ({ title, text: desc }))}
     fit={['You received an ADA demand letter, complaint or lawsuit.', 'A scan found thousands of issues and you need a plan fast.', 'Your Shopify or ecommerce checkout must be fixed before a deadline.', 'You need criterion-level evidence to share with counsel.']}
     note="Our role is technical; your attorney should direct the legal response. This page is general information, not legal advice."
@@ -257,6 +257,14 @@ const standardsBadges = [
     faqs={faqs}
     cta={{ title: "Don't wait for the deadline to pass", text: 'Send us your store URL and deadline. We will confirm the assessment scope, testing methods, timeline, deliverables, and fixed price before remediation begins.', label: 'Start the rush assessment', href: '#rush-assessment' }}
   >
+    <aside slot="lead" class="tilt-card tilt-card--lg flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-7" style="--card-color: var(--ac-red);" aria-label="Rush assessment">
+      <div>
+        <p class="font-heading text-xl font-bold text-[var(--text)]">Have a demand letter or a deadline?</p>
+        <p class="mt-1 text-sm leading-relaxed text-[var(--text-dim)]">Send the website and the deadline. Target response within 48 hours; scope, price and delivery dates are confirmed after review.</p>
+      </div>
+      <a href="#rush-assessment" class="inline-flex min-h-11 shrink-0 items-center justify-center rounded-lg bg-[var(--accent)] px-5 py-2.5 text-sm font-bold text-white transition hover:brightness-110">Request a rush assessment</a>
+    </aside>
+
     <section class="grid gap-4 md:grid-cols-2" aria-labelledby="overlay-title">
       <h2 id="overlay-title" class="sr-only">Overlay widget vs. real remediation</h2>
       <div class="tilt-card p-5 sm:p-6" style="--card-color: var(--ac-red);">

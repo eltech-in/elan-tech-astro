@@ -1,6 +1,7 @@
 ---
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
 import ServicePage from '../../components/service/ServicePage.astro';
+import ServiceExplainer from '../../components/service/ServiceExplainer.astro';
 import { services } from '../../data/services';
 import { serviceSchema, faqSchema, breadcrumbSchema } from '../../utils/schema';
 
@@ -59,5 +60,22 @@ const schemas = [
     note={"Search rankings, traffic, impressions, clicks and enquiries depend on search engines, competitors and demand and cannot be guaranteed."}
     guides={[{"label": "Local SEO", "title": "SEO guide for small businesses in Nagpur", "href": "/blog/seo/seo-guide-small-business-nagpur/"}, {"label": "AI search", "title": "Generative engine optimisation for AI search", "href": "/blog/technology-trends/generative-engine-optimization-ai-search-2026/"}, {"label": "Audit", "title": "Website audit findings explained", "href": "/blog/web-design/website-audit-findings-explained/"}]}
     faqs={serviceFaqs}
-  ></ServicePage>
+  >
+    <ServiceExplainer
+      id="receive"
+      color="--ac-emerald"
+      eyebrow="What you receive"
+      title="What you receive from our SEO service"
+      columns={[{"title": "A baseline", "text": "Search Console, analytics, technical health and the searches you appear for, recorded at the start so progress can be measured."}, {"title": "Prioritised fixes", "text": "A 90-day roadmap of technical fixes, page improvements and new pages, ranked by likely impact and approved by you."}, {"title": "Reporting", "text": "Search Console and analytics evidence, the work completed and what changed, at the frequency stated in the proposal."}, {"title": "Follow-up", "text": "A review of what worked, what did not and the next priorities, so the roadmap keeps up with your results."}]}
+      numbered
+    />
+    <ServiceExplainer
+      id="audit-or-seo"
+      color="--ac-teal"
+      eyebrow="One-off audit or ongoing SEO?"
+      title="Start with an audit, or with ongoing SEO"
+      columns={[{"title": "Paid website audit", "items": ["A one-off review of one domain: SEO, speed, security and accessibility", "Prioritised findings you can act on yourself or with any team", "Paid online before booking"]}, {"title": "Ongoing SEO", "items": ["Monthly work on the roadmap: fixes, content and local SEO", "Search Console reporting and review calls", "Scope and reporting frequency agreed in the proposal"]}]}
+      links={[{"href": "/website-audit/", "label": "Book a website audit"}, {"href": "/services/digital-marketing/", "label": "Need paid ads as well? Digital marketing"}]}
+    />
+  </ServicePage>
 </ServiceLayout>

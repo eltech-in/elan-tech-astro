@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type SubmitEvent } from 'react';
+import { PHONE_LABEL, phoneError } from '../lib/phone';
 import { redirectToThankYou, submitLead } from '../lib/submitLead';
 
 const PROJECT_TYPES = [
@@ -75,7 +76,8 @@ export default function GetQuoteForm() {
     if (n === 2) {
       if (!contact.name.trim() || contact.name.trim().length < 2) errs.name = 'Name must be at least 2 characters';
       if (!contact.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email)) errs.email = 'Please enter a valid email';
-      if (contact.phone.trim() && !/^[\d\s+\-()]{7,20}$/.test(contact.phone.trim())) errs.phone = 'Please enter a valid phone number';
+      const phoneMessage = phoneError(contact.phone);
+      if (phoneMessage) errs.phone = phoneMessage;
     }
     if (n === 3 && !project.description.trim()) errs.description = 'Project description is required';
     if (n === 4 && !privacyAccepted) errs.privacyAccepted = 'Please confirm that you have read the quote-request privacy notice';
@@ -262,12 +264,15 @@ export default function GetQuoteForm() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="gq-phone" className="block text-sm font-medium text-[var(--text)] mb-1.5">
-                  Phone <span className="text-xs font-normal text-[var(--text-muted)]">(optional)</span>
+                  {PHONE_LABEL} <span aria-hidden="true" className="text-red-400">*</span>
                 </label>
                 <input
                   id="gq-phone"
                   type="tel"
+                  inputMode="tel"
                   autoComplete="tel"
+                  aria-required="true"
+                  aria-invalid={Boolean(fieldErrors.phone)}
                   value={contact.phone}
                   onChange={(e) => setContact((p) => ({ ...p, phone: e.target.value }))}
                   aria-describedby={fieldErrors.phone ? 'gq-phone-error' : undefined}

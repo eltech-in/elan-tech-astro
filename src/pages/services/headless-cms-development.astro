@@ -1,34 +1,100 @@
 ---
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
 import ServiceDetailContent from '../../components/ServiceDetailContent.astro';
+import ServiceExplainer from '../../components/service/ServiceExplainer.astro';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../../utils/schema';
 import CentralCmsFeature from '../../components/CentralCmsFeature.astro';
 
 const faqs = [
   { question: 'What is a headless CMS?', answer: 'A headless CMS stores and manages structured content separately from the website or app that displays it. Approved channels retrieve content through APIs, allowing one content system to support multiple front ends.' },
-  { question: 'Which headless CMS platforms do you implement?', answer: 'Our highlighted implementation capabilities include Payload CMS and Directus. We can also assess other API-first systems when their current features, licences, hosting model and ecosystem fit the requirement.' },
-  { question: 'Can a headless CMS work with Astro, Next.js or an existing application?', answer: 'Yes. The front-end and CMS are selected and connected according to preview, publishing, caching, authentication, search, localisation and deployment requirements.' },
+  { question: 'Which headless CMS platforms do you implement?', answer: 'We implement Contentful, Strapi, Payload CMS and Directus, and recommend one after looking at how your team publishes, where content should be hosted and who will maintain it. Other API-first systems can be assessed when their features, licences and hosting model fit.' },
+  { question: 'Which frontend do you pair with the CMS?', answer: 'Astro for content-led websites where pages can largely be prebuilt; Next.js when editorial content sits alongside application features; Gatsby for existing Gatsby builds, migrations or maintenance. The choice follows preview, publishing, caching, authentication, search and deployment needs.' },
+  { question: 'Do you build Astro websites with Contentful?', answer: 'Yes. Editors manage pages and reusable content in Contentful, and Astro powers the public website. We scope content modelling, editorial previews, publishing workflows and migration from an existing CMS around how your team works.' },
   { question: 'Can it support ecommerce content?', answer: 'Yes. A headless CMS can manage product storytelling, campaigns, guides and landing content alongside a separate commerce engine. The system of record for products, prices, orders and customers is agreed during architecture.' },
   { question: 'Can you migrate content from WordPress or another CMS?', answer: 'Migration can be scoped after reviewing content types, URLs, media, metadata, relationships and quality. Redirects, transformation and validation are documented before migration.' },
 ];
 const path = '/services/headless-cms-development/';
-const schema = [serviceSchema('Headless CMS Development', 'Headless CMS architecture and implementation using Payload CMS, Directus and suitable API-first platforms for websites and applications.', path), faqSchema(faqs), breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Services', url: '/services/' }, { name: 'Headless CMS Development', url: path }])];
+const schema = [serviceSchema('Headless CMS Development', 'Headless CMS development and migration with Contentful, Strapi, Payload CMS and Directus, paired with Astro, Next.js or Gatsby frontends.', path), faqSchema(faqs), breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Services', url: '/services/' }, { name: 'Headless CMS Development', url: path }])];
 ---
-<ServiceLayout title="Headless CMS Development | Payload CMS & Directus" description="Headless CMS architecture and development with Payload CMS, Directus, Astro and Next.js for structured content, websites, apps and composable experiences." breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Services', href: '/services/' }, { name: 'Headless CMS Development', href: path }]} schema={schema} accentVar="--svc-headless" serviceNumber="13" serviceLabel="Headless CMS Development">
+<ServiceLayout title="Headless CMS Development | Contentful, Strapi, Payload & Directus" description="Headless CMS development and migration with Contentful, Strapi, Payload CMS and Directus, paired with Astro, Next.js or Gatsby based on how your team publishes and who maintains the site." breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Services', href: '/services/' }, { name: 'Headless CMS Development', href: path }]} schema={schema} accentVar="--svc-headless" serviceNumber="13" serviceLabel="Headless CMS Development">
   <ServiceDetailContent
     eyebrow="API-first content architecture"
-    heading="Headless CMS Development with Payload CMS and Directus"
-    intro="Separate content operations from the presentation layer without losing editorial control. We design the content model, permissions, preview workflow, APIs and deployment around the channels your team needs to operate."
-    features={['Headless CMS architecture', 'Payload CMS development', 'Directus development', 'Astro and Next.js front ends', 'Editorial roles and approvals', 'Content migration', 'Search and API integrations']}
+    heading="Headless CMS Development"
+    intro="We build and migrate headless websites using Contentful, Strapi, Payload CMS and Directus. We pair the CMS with Astro, Next.js or Gatsby based on how your team publishes content, how the site needs to behave, and who will maintain it."
+    features={['Contentful and Strapi', 'Payload CMS and Directus', 'Astro, Next.js and Gatsby frontends', 'Astro + Contentful websites', 'Editorial previews and approvals', 'Migration from WordPress or another CMS']}
     outcomes={[{ title: 'Content used across channels', text: 'Model structured content once and deliver approved versions to websites, apps, portals and other interfaces.' }, { title: 'Independent evolution', text: 'Allow the content platform and presentation layer to change on planned timelines with documented API boundaries.' }, { title: 'Controlled publishing', text: 'Give editors suitable drafts, previews, approvals and publishing permissions without infrastructure access.' }]}
     deliverables={[{ title: 'Architecture recommendation', text: 'Platform comparison, content ownership, channels, hosting, integrations and operational boundaries.' }, { title: 'Content model and workflow', text: 'Collections, fields, relationships, validation, roles, approvals, previews and localisation.' }, { title: 'Front-end and integrations', text: 'Approved website or application delivery, APIs, search, webhooks, caching and external-system connections.' }, { title: 'Migration and handover', text: 'Validated content import, redirects where scoped, testing, deployment notes and administrator guidance.' }]}
     process={[{ number: '01', title: 'Discover', text: 'Map content types, editors, channels, integrations, migration sources and governance.' }, { number: '02', title: 'Model', text: 'Prototype schemas, permissions, editorial journeys, preview and publishing.' }, { number: '03', title: 'Build', text: 'Implement the selected CMS, front end and approved API connections.' }, { number: '04', title: 'Migrate and launch', text: 'Validate content, access, performance and production handover.' }]}
-    suitableFor={['Organisations publishing structured content across more than one channel.', 'Websites or applications needing a modern Astro or Next.js front end.', 'Teams seeking Payload CMS or Directus implementation expertise.', 'Businesses prepared to define editorial ownership, roles and approvals.']}
+    suitableFor={['Organisations publishing structured content across more than one channel.', 'Websites or applications needing a modern Astro, Next.js or Gatsby frontend.', 'Teams choosing between Contentful, Strapi, Payload CMS and Directus.', 'Businesses prepared to define editorial ownership, roles and approvals.']}
     responsibilities={['Nominate content owners and approve the information architecture.', 'Confirm public, restricted and personal-data classifications.', 'Provide authorised migration sources and third-party access.', 'Approve hosting, licences, support and security responsibilities.']}
     faqs={faqs}
     accentVar="--svc-headless"
     disclaimer="Platform features, licences and provider support can change. Architecture, ownership, hosting, security, privacy and ongoing maintenance responsibilities are confirmed in the accepted proposal."
-  />
+  >
+    <section slot="lead" class="tilt-card tilt-card--lg p-6 sm:p-8" style="--card-color: var(--svc-headless);" aria-labelledby="needs-title">
+      <p class="text-xs font-bold uppercase tracking-[0.16em] text-[var(--svc-headless)]">The right CMS and frontend for the project</p>
+      <h2 id="needs-title" class="mt-2 font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">What you need, and what we can implement</h2>
+      <div class="mt-6 overflow-x-auto">
+        <table class="w-full min-w-[36rem] text-left text-sm">
+          <thead><tr class="border-b border-[var(--border)] text-xs uppercase tracking-wider text-[var(--text-muted)]"><th scope="col" class="py-3 pr-6 font-semibold">What the client needs</th><th scope="col" class="py-3 font-semibold">What eLan can implement</th></tr></thead>
+          <tbody>
+            <tr class="border-b border-[var(--border)] align-top"><th scope="row" class="py-4 pr-6 font-semibold text-[var(--text)]">A CMS for the editorial team</th><td class="py-4 leading-relaxed text-[var(--text-dim)]"><strong class="text-[var(--text)]">Contentful</strong> for teams that prefer a managed CMS; <strong class="text-[var(--text)]">Strapi</strong> or <strong class="text-[var(--text)]">Payload CMS</strong> for projects that need more control over the CMS and hosting; <strong class="text-[var(--text)]">Directus</strong> for projects that start with an existing database or structured data.</td></tr>
+            <tr class="align-top"><th scope="row" class="py-4 pr-6 font-semibold text-[var(--text)]">A frontend for the website</th><td class="py-4 leading-relaxed text-[var(--text-dim)]"><strong class="text-[var(--text)]">Astro</strong> for content-led sites where pages can largely be prebuilt; <strong class="text-[var(--text)]">Next.js</strong> for sites that combine editorial content with application features; <strong class="text-[var(--text)]">Gatsby</strong> for Gatsby-based builds, migrations or maintenance where it fits the project.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <ServiceExplainer
+      id="cms-platforms"
+      color="--svc-headless"
+      eyebrow="CMS platforms"
+      title="Contentful, Strapi, Payload CMS & Directus Implementation"
+      intro="We recommend the CMS after looking at your editors, your hosting and who will maintain it, then implement the content model, roles, previews and migration."
+      columns={[{"title": "Contentful", "text": "A managed, hosted CMS. Suits teams that want no CMS servers to run, with structured content, roles and localisation."}, {"title": "Strapi", "text": "An open-source CMS you host yourself, with an admin your editors can use and APIs your developers can extend."}, {"title": "Payload CMS", "text": "A code-first, open-source CMS in TypeScript. Suits projects where developers own the content model and the hosting."}, {"title": "Directus", "text": "Works on top of a new or existing SQL database, with a data studio for editors and operations teams."}]}
+      links={[{"href": "/services/payload-directus-development/", "label": "Payload CMS and Directus in detail"}, {"href": "/products/elan-central-cms/", "label": "Our ready-made Payload CMS for Astro: eLan Central CMS"}]}
+    />
+
+    <ServiceExplainer
+      id="frontends"
+      color="--svc-headless"
+      eyebrow="Frontends"
+      title="Headless Frontends With Astro, Next.js & Gatsby"
+      columns={[{"title": "Astro", "text": "For content-led websites where most pages can be built ahead of time: fast to load, simple to host and easy to keep secure."}, {"title": "Next.js", "text": "For sites that mix editorial content with application features such as accounts, search, personalisation or dashboards."}, {"title": "Gatsby", "text": "For existing Gatsby builds: maintenance, upgrades, migration to a new CMS, or a planned move to another frontend."}]}
+    />
+
+    <section class="tilt-card tilt-card--lg p-6 sm:p-8" style="--card-color: var(--svc-headless);" aria-labelledby="astro-contentful-title">
+      <div class="grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-start">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[0.16em] text-[var(--svc-headless)]">Capability</p>
+          <h2 id="astro-contentful-title" class="mt-2 font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">Astro + Contentful development</h2>
+          <p class="mt-3 leading-relaxed text-[var(--text-dim)]">We build content-led websites with Astro and Contentful. Editorial teams manage pages and reusable content in Contentful, while Astro powers the public website. We can scope content modelling, editorial previews, publishing workflows, and migration from an existing CMS around how your team works.</p>
+        </div>
+        <ul class="grid gap-2.5 sm:grid-cols-2" role="list">
+          {['Content modelling in Contentful', 'Editorial previews of draft content', 'Publishing workflows and webhooks', 'Migration from an existing CMS'].map((item) => <li class="flex gap-2.5 rounded-lg border border-[var(--border)] bg-[var(--bg)] px-4 py-3 text-sm font-semibold text-[var(--text)]"><span class="text-[var(--svc-headless)]" aria-hidden="true">✓</span>{item}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <ServiceExplainer
+      id="worth-it"
+      color="--svc-headless"
+      eyebrow="The architecture decision"
+      title="When is a headless CMS worth it?"
+      columns={[{"title": "Headless is worth it when", "items": ["The same content feeds a website, an app, a store or several sites", "Your team publishes often and needs roles, approvals and previews", "Speed, security or a modern front end such as Astro or Next.js matter", "Content has a clear structure: products, locations, courses, people"]}, {"title": "A traditional CMS is often better when", "items": ["One small website is the only channel", "Editors want to build pages freely with a visual page builder", "There is no developer to maintain a separate front end", "The budget is better spent on content than architecture"]}]}
+      links={[{"href": "/services/payload-directus-development/", "label": "Choosing between Payload CMS and Directus"}, {"href": "/products/elan-central-cms/", "label": "Want a ready-made CMS for an Astro website? eLan Central CMS"}]}
+    />
+
+    <ServiceExplainer
+      id="publishing"
+      color="--svc-headless"
+      eyebrow="Example: Astro + Contentful"
+      title="How an editor goes from draft to preview to publish"
+      columns={[{"title": "Draft", "text": "The editor creates or changes an entry in Contentful, filling in structured fields and linking reusable content such as authors, FAQs or calls to action."}, {"title": "Preview", "text": "A preview link shows the draft on the real Astro page design, using Contentful’s preview content, before anything is public."}, {"title": "Approve", "text": "Where the team needs it, a second person reviews the change; roles decide who is allowed to publish."}, {"title": "Publish", "text": "Publishing in Contentful sends a webhook that rebuilds the Astro site and deploys it, so the live pages update without a developer."}]}
+      numbered
+      note="The same draft, preview and publish journey is set up for Strapi, Payload CMS and Directus, using each platform’s own drafts and webhooks."
+    />
+  </ServiceDetailContent>
   <div class="mt-10"><CentralCmsFeature variant="compact" /></div>
   <section class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8 lg:p-10" aria-labelledby="platform-capability-title">
     <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--svc-headless)]">Platform capability</p>

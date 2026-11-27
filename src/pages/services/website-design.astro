@@ -1,6 +1,7 @@
 ---
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
 import ServicePage from '../../components/service/ServicePage.astro';
+import ServiceExplainer from '../../components/service/ServiceExplainer.astro';
 import { services } from '../../data/services';
 import { serviceSchema, faqSchema, breadcrumbSchema } from '../../utils/schema';
 
@@ -44,8 +45,8 @@ const schemas = [
 ];
 const work = [
   { client: 'Trimit Architects', href: 'https://www.trimitarch.com/', text: 'Portfolio website for a Nagpur architecture firm, redesigned and rebuilt in Astro with project galleries.' },
-  { client: 'Aasthaa Hospital', href: '/portfolio/', text: 'Healthcare website designed for clarity and patient trust: departments, doctors and appointment enquiries.' },
-  { client: 'CIPL', href: '/portfolio/', text: 'B2B corporate website for an industrial products company with a filterable product catalogue.' },
+  { client: 'Aasthaa Hospital', href: '/portfolio/#selected-work', text: 'Healthcare website designed for clarity and patient trust: departments, doctors and appointment enquiries.' },
+  { client: 'CIPL', href: '/portfolio/#selected-work', text: 'B2B corporate website for an industrial products company with a filterable product catalogue.' },
 ];
 ---
 <ServiceLayout title={title} description={description} breadcrumbs={breadcrumbs} schema={schemas}>
@@ -84,6 +85,16 @@ const work = [
     faqs={serviceFaqs}
     cta={{ title: 'Ready for a website that works harder?', text: 'Share your current website or reference examples. We will recommend an approach and quote it in writing.' }}
   >
+    <ServiceExplainer
+      id="included"
+      color="--ac-pink"
+      eyebrow="Design, content and revisions"
+      title="What a website design project includes"
+      intro="Custom design for a new website or a redesign of the one you have. The proposal lists the pages, templates and review rounds before work starts."
+      columns={[{"title": "Design", "items": ["Sitemap and wireframes for the key pages", "Clickable previews of the main journeys", "Visual design of each page template, on mobile and desktop", "Accessibility checks for contrast, keyboard use and labels"]}, {"title": "Content", "items": ["Page structure and headings planned around what customers search for", "Your text and images placed, formatted and optimised", "Copywriting, translation and photography added when you need them, and listed in the proposal"]}, {"title": "Revisions", "items": ["Review rounds at the wireframe and design stages, agreed in the proposal", "Feedback collected in one place, with each change confirmed", "Changes after approval handled through written change control"]}]}
+      links={[{"href": "/services/web-development/", "label": "Need logins, portals or custom features? Web development"}, {"href": "/services/branding/", "label": "Need a logo and identity first? Branding"}]}
+    />
+
     <section aria-labelledby="work-title">
       <h2 id="work-title" class="font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">Recent website design work</h2>
       <ul class="mt-5 grid gap-4 md:grid-cols-3" role="list">

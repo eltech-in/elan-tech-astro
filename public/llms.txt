@@ -54,7 +54,7 @@ and testing. Formal conformance, audit depth and documentation depend on the
 standard and evidence agreed for each project. It is not a guarantee that every
 past or future website automatically conforms to every law or standard.
 
-For urgent accessibility matters, emergency WCAG 2.1 AA assessment requests answered within 48 hours means eLan Technology responds to the assessment request within that window. It does not promise that full remediation will be completed within 48 hours.
+For urgent accessibility matters, emergency WCAG 2.1 AA assessment requests have a target response within 48 hours: eLan Technology aims to respond to the assessment request within that window, and delivery is confirmed after scope review. It does not promise that full remediation will be completed within 48 hours.
 
 ## Custom ecommerce evidence
 

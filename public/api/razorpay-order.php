@@ -38,8 +38,10 @@ if (mb_strlen($name) < 2) {
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     payJson(422, ['ok' => false, 'error' => 'Please enter a valid email address']);
 }
-if ($phone !== '' && !preg_match('/^\+?[0-9 ()-]{6,20}$/', $phone)) {
-    payJson(422, ['ok' => false, 'error' => 'Please enter a valid phone number']);
+// Phone / WhatsApp is required before payment (owner, 27 Nov 2026).
+$phoneDigits = strlen((string) preg_replace('/\D/', '', $phone));
+if (!preg_match('/^\+?[0-9 ()-]{7,22}$/', $phone) || $phoneDigits < 7 || $phoneDigits > 15) {
+    payJson(422, ['ok' => false, 'error' => 'Please enter a phone or WhatsApp number']);
 }
 if ($spec['needsUrl']) {
     $scheme = strtolower((string) parse_url($url, PHP_URL_SCHEME));

@@ -1,6 +1,7 @@
 ---
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
 import ServiceDetailContent from '../../components/ServiceDetailContent.astro';
+import ServiceExplainer from '../../components/service/ServiceExplainer.astro';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../../utils/schema';
 
 const faqs = [
@@ -27,5 +28,13 @@ const schema = [serviceSchema('DPDP Compliance & Implementation', 'Website and d
     faqs={faqs}
     accentVar="--svc-dpdp"
     disclaimer="eLan Technology provides technical and implementation consulting, not legal advice or certification. Final legal interpretation and organisational compliance remain the client’s responsibility."
-  />
+  >
+    <ServiceExplainer
+      id="deliverables"
+      color="--svc-dpdp"
+      eyebrow="Technical deliverables"
+      title="What we deliver, and what we do not"
+      columns={[{"title": "We deliver", "items": ["An inventory of pages, forms, fields, cookies, tags, embeds and vendors", "Notices placed where data is collected, using wording you approve", "A consent banner and GA4 / GTM consent behaviour, configured and tested", "Request routes for access, correction and erasure", "A handover record with test evidence, limitations and review triggers"]}, {"title": "We do not provide", "items": ["Legal advice, a compliance certificate or a DPDP certification", "A guarantee that your organisation complies with the DPDP Act", "Final legal wording; your team and counsel approve the notices", "Ongoing monitoring after handover, unless a periodic review is scoped"]}]}
+    />
+  </ServiceDetailContent>
 </ServiceLayout>

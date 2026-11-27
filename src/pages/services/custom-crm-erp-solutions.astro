@@ -1,6 +1,7 @@
 ---
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
 import ServiceDetailContent from '../../components/ServiceDetailContent.astro';
+import ServiceExplainer from '../../components/service/ServiceExplainer.astro';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../../utils/schema';
 
 const faqs = [
@@ -27,5 +28,31 @@ const schema = [serviceSchema('Custom CRM & ERP Solutions', 'Custom CRM and ERP 
     faqs={faqs}
     accentVar="--svc-crm"
     disclaimer="Implementation does not by itself guarantee accounting, tax, labour, sectoral or privacy compliance. The client remains responsible for its policies, lawful processing, records and professional approvals."
-  />
+  >
+    <ServiceExplainer
+      id="erpnext-or-custom"
+      color="--svc-crm"
+      eyebrow="Choosing the foundation"
+      title="ERPNext customisation or custom development?"
+      columns={[{"title": "ERPNext customisation fits when", "items": ["Your processes are close to standard sales, purchasing, inventory, accounting or HR", "You want built-in accounting, stock and reports from day one", "The changes are mainly forms, roles, workflows, print formats, dashboards and integrations", "Your team can stay on ERPNext’s upgrade path"]}, {"title": "Custom development makes more sense when", "items": ["Your core workflow is specific to your industry and would fight ERPNext’s data model", "Customers, dealers or partners need a portal with its own experience", "You need one focused system, not a full ERP", "Owning the code and data model is central to the business"]}]}
+      note="We recommend the foundation after discovery, and say so when a simpler tool would do."
+    />
+
+    <ServiceExplainer
+      id="workflow"
+      color="--svc-crm"
+      eyebrow="Example workflow"
+      title="A discounted quotation that needs approval"
+      columns={[{"title": "Quote", "text": "A salesperson prepares a quotation for an existing customer record, with products and prices from the price list."}, {"title": "Approve", "text": "A discount above the agreed limit sends it to the sales manager. Below the limit, it goes straight out."}, {"title": "Convert", "text": "An approved quotation becomes a sales order; a rejected one returns to the salesperson with the manager’s comments."}, {"title": "Report", "text": "A dashboard shows pending approvals, quotation value by stage and conversion by salesperson."}]}
+      numbered
+    />
+
+    <ServiceExplainer
+      id="discovery-handover"
+      color="--svc-crm"
+      eyebrow="Start and finish"
+      title="What is included in discovery and handover"
+      columns={[{"title": "Discovery", "items": ["Interviews with the people who own each process", "A look at your current tools, spreadsheets and data", "A blueprint of users, workflows, fields, approvals, reports, integrations and risks", "A recommended platform and phased delivery plan"]}, {"title": "Handover", "items": ["Training for the agreed roles and an administrator guide", "Configuration, deployment and integration notes", "A migration reconciliation record where data was moved", "Source code and customisations as agreed in the proposal"]}]}
+    />
+  </ServiceDetailContent>
 </ServiceLayout>

@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { softwareAppSchema, breadcrumbSchema, faqSchema } from '../../utils/schema';
-import { getProductBySlug, products } from '../../data/products';
+import { demoRequestHref, getProductBySlug, hasPublicDemo, products } from '../../data/products';
+import ServiceExplainer from '../../components/service/ServiceExplainer.astro';
 import AnswerSummary from '../../components/AnswerSummary.astro';
 import ProductStartingPrice from '../../components/ProductStartingPrice.astro';
 import ProductPrivacyPanel from '../../components/ProductPrivacyPanel.astro';
@@ -18,7 +19,7 @@ const faqs = [
   { question: 'Does it verify RERA registrations?', answer: 'No. The portal has RERA information fields and optional status badges, but the details are entered and maintained by the portal operator. Verifying registrations remains the operator’s responsibility.' },
   { question: 'How does lead capture work?', answer: 'Enquiry forms and WhatsApp integration feed a lead-tracking view, with follow-up reminders for agents. Who receives which leads, and how they are assigned, is configured for your team.' },
   { question: 'Does it support joint ventures and land categories?', answer: 'Yes. There is a Joint Ventures module that connects land owners with investors, including an NDA step, plus category-specific listings for agricultural, commercial and residential land and plots.' },
-  { question: 'Can I see a demo?', answer: 'Yes. The live demo is linked on this page. It shows listings, search and the map view, and the final design is adapted to your brand and workflow.' },
+  { question: 'Can I see a demo?', answer: 'Yes. A public demo is linked on this page. It runs on PropertyCab, a client implementation, and shows listings, search and the map view. Your portal carries your own name, and its design is adapted to your brand and workflow. You can also request a guided walkthrough.' },
   { question: 'How much does it cost?', answer: `Implementation starts from ${startingPrice}. The final figure depends on the modules, branding, integrations and support you need, and is confirmed in a written proposal. Hosting, maintenance, payment-gateway charges and later upgrades are separate unless the proposal includes them.` },
 ];
 
@@ -39,7 +40,7 @@ const schema = [
 ];
 
 const features = [
-  { title: 'Comprehensive Listings', desc: 'Buying, renting & selling with rich galleries, floor plans, and RERA-ready listing templates.' },
+  { title: 'Comprehensive Listings', desc: 'Buying, renting & selling with rich galleries, floor plans and listing templates with RERA information fields.' },
   { title: 'Advanced Search & Filters', desc: 'Filter by location, budget, BHK, property type, RERA status, and proximity to schools/metros.' },
   { title: 'RERA Information Fields', desc: 'Display registration information and optional status badges using details entered and managed by the portal operator.' },
   { title: 'Joint Ventures Platform', desc: 'Connect land owners with investors via a dedicated JV-matching module with NDA flow.' },
@@ -62,8 +63,8 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
 
 <BaseLayout
   ogImage="/images/og/products.png"
-  title="Real Estate Portal Development India | RERA-Ready Property Listing Software"
-  description="Customisable real estate portal with property listings, search, RERA information fields, agent dashboards, lead management and maps for agencies, developers and builders."
+  title="White-Label Real Estate Portal Software for Agencies & Developers | eLan Technology"
+  description="Configurable, white-label real estate portal software: property listings, search, maps, buyer enquiries, agent follow-up and admin dashboards for agencies, developers and builders in India."
   schema={schema}
 >
 
@@ -92,11 +93,11 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
           <span class="h-1.5 w-1.5 rounded-full animate-pulse" style={`background: var(${product.cssVar})`} aria-hidden="true"></span>
           Real Estate Software
           <span class="text-white/50">·</span>
-          <span class="text-white/85 normal-case tracking-normal">RERA-ready</span>
+          <span class="text-white/85 normal-case tracking-normal">White-label property portal</span>
         </span>
 
         <h1 id="rep-h1" class="font-heading text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.05] mb-5 drop-shadow-lg">
-          {product.title}
+          White-Label Real Estate Portal Software
         </h1>
 
         <p class="max-w-2xl text-lg sm:text-xl text-white/85 leading-relaxed mb-8">
@@ -106,19 +107,20 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
         <ProductStartingPrice startingPriceINR={product.startingPriceINR} cssVar={product.cssVar} onDark />
 
         <div class="flex flex-wrap gap-3 mb-6">
-          {product.demoUrl && (
+          {hasPublicDemo(product) && (
             <a href={product.demoUrl} target="_blank" rel="noopener noreferrer"
                class="inline-flex items-center gap-2 rounded-lg px-7 py-3.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all shadow-xl"
                style={`background: var(${product.cssVar}); box-shadow: 0 12px 30px color-mix(in srgb, var(${product.cssVar}) 40%, transparent);`}
                aria-label={`Open ${product.title} live demo - opens in new tab`}>
-              Try Live Demo
+              Try the PropertyCab demo
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             </a>
           )}
-          <a href="/request-demo/" class="inline-flex items-center gap-2 rounded-lg border border-white/40 bg-white/5 backdrop-blur-sm px-7 py-3.5 text-sm font-bold text-white hover:bg-white/15 transition-all">
-            Book Walkthrough
+          <a href={demoRequestHref(product.slug)} class="inline-flex items-center gap-2 rounded-lg border border-white/40 bg-white/5 backdrop-blur-sm px-7 py-3.5 text-sm font-bold text-white hover:bg-white/15 transition-all">
+            Request a walkthrough
           </a>
         </div>
+        <p class="-mt-2 mb-6 text-xs text-white/70">The public demo runs on PropertyCab, a client implementation; your portal carries your own name and branding.</p>
 
         <div class="flex flex-wrap gap-2">
           {techStack.map((tech) => (
@@ -140,6 +142,22 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
         { question: 'Who owns the code and deployment?', answer: 'Source-code rights, deployed-application ownership and reuse rights depend on the signed proposal and completed payment terms.' },
         { question: 'What is charged separately?', answer: 'Hosting, maintenance, paid APIs, payment services and future upgrades are separate unless the proposal includes them.' },
       ]}
+    />
+  </div>
+
+  <div class="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
+    <ServiceExplainer
+      id="lead-workflow"
+      color={product.cssVar}
+      eyebrow="The core workflow"
+      title="From listing to enquiry to follow-up"
+      columns={[
+        { title: 'A listing goes live', text: 'An agent or administrator adds the property with photos, price, location, RERA information fields and status. Search, filters and the map pick it up straight away.' },
+        { title: 'A buyer enquires', text: 'The buyer sends an enquiry form or a WhatsApp message from the listing. The lead is stored with the property it came from.' },
+        { title: 'An agent follows up', text: 'The lead is assigned to an agent by the rules you set, with reminders, status updates and a history the administrator can review.' },
+      ]}
+      numbered
+      note="Your team owns and manages the listing data: who can add, approve, edit and remove listings is set by user roles. The portal shows what operators enter; it does not verify listings, ownership or RERA registrations."
     />
   </div>
 
@@ -239,15 +257,15 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
             <h3 class="font-heading text-xl sm:text-2xl font-bold text-[var(--text)] mb-3">See it in action</h3>
             <p class="text-[var(--text-dim)] mb-6">Try the live demo now, or schedule a 30-minute guided walkthrough.</p>
             <div class="flex flex-col sm:flex-row gap-3 justify-center">
-              {product.demoUrl && (
+              {hasPublicDemo(product) && (
                 <a href={product.demoUrl} target="_blank" rel="noopener noreferrer"
                    class="inline-flex items-center justify-center gap-2 rounded-lg px-7 py-3 text-sm font-bold text-white hover:-translate-y-0.5 transition-all"
                    style={`background: var(${product.cssVar});`}>
                   Try Live Demo ↗
                 </a>
               )}
-              <a href="/request-demo/" class="inline-flex items-center justify-center gap-2 rounded-lg border border-[var(--border)] px-7 py-3 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
-                Book Walkthrough
+              <a href={demoRequestHref(product.slug)} class="inline-flex items-center justify-center gap-2 rounded-lg border border-[var(--border)] px-7 py-3 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
+                Request a walkthrough
               </a>
             </div>
           </div>
@@ -283,7 +301,7 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
                 </div>
               </dl>
 
-              {product.demoUrl && (
+              {hasPublicDemo(product) && (
                 <a href={product.demoUrl} target="_blank" rel="noopener noreferrer"
                    class="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all"
                    style={`background: var(${product.cssVar});`}
@@ -291,8 +309,8 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
                   Try Live Demo ↗
                 </a>
               )}
-              <a href="/request-demo/" class="mt-2 w-full inline-flex items-center justify-center gap-2 rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
-                Book Walkthrough
+              <a href={demoRequestHref(product.slug)} class="mt-2 w-full inline-flex items-center justify-center gap-2 rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
+                Request a walkthrough
               </a>
             </div>
 
@@ -311,7 +329,7 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
                       </span>
                       <div class="min-w-0 flex-1">
                         <p class="text-sm font-semibold text-[var(--text)] line-clamp-1 group-hover:text-[var(--accent)] transition-colors">{p.title}</p>
-                        <p class="text-[11px] text-[var(--text-muted)] line-clamp-1">{p.demoUrl ? 'Live demo ready' : p.contactForDemo ? 'Demo on request' : 'Demo coming soon'}</p>
+                        <p class="text-[11px] text-[var(--text-muted)] line-clamp-1">{hasPublicDemo(p) ? 'Live demo ready' : 'Walkthrough on request'}</p>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-[var(--text-muted)] group-hover:text-[var(--accent)] transition-colors" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </a>
@@ -360,13 +378,13 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
               <span aria-hidden="true" class="absolute inset-x-0 top-0 h-[3px]" style={`background: var(${p.cssVar});`}></span>
               <div class="flex items-center gap-3 mb-3">
                 <span class="h-10 w-10 rounded-xl flex items-center justify-center text-sm font-black text-white" style={`background: var(${p.cssVar});`} aria-hidden="true">{p.title.slice(0,1)}</span>
-                {p.demoUrl ? (
+                {hasPublicDemo(p) ? (
                   <span class="inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider" style={`color: var(${p.cssVar}); border-color: color-mix(in srgb, var(${p.cssVar}) 50%, transparent);`}>
                     <span class="h-1 w-1 rounded-full animate-pulse" style={`background: var(${p.cssVar})`} aria-hidden="true"></span>
                     Live Demo
                   </span>
                 ) : (
-                  <span class="inline-flex items-center gap-1.5 rounded-md border border-[var(--border)] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)]">{p.contactForDemo ? 'Demo on request' : 'Coming Soon'}</span>
+                  <span class="inline-flex items-center gap-1.5 rounded-md border border-[var(--border)] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)]">Walkthrough on request</span>
                 )}
               </div>
               <h3 class="font-heading font-bold text-[var(--text)] leading-snug mb-1 group-hover:text-[var(--accent)] transition-colors">{p.title}</h3>

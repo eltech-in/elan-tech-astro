@@ -1,6 +1,7 @@
 ---
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
 import ServiceDetailContent from '../../components/ServiceDetailContent.astro';
+import ServiceExplainer from '../../components/service/ServiceExplainer.astro';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../../utils/schema';
 import CentralCmsFeature from '../../components/CentralCmsFeature.astro';
 
@@ -28,6 +29,17 @@ const schema = [serviceSchema('Payload CMS & Directus Development', 'Payload CMS
     faqs={faqs}
     accentVar="--svc-payload"
     disclaimer="Platform capability, licence terms and integration availability must be confirmed against current versions and providers. No architecture removes the client’s responsibility for lawful content, privacy, security and operational governance."
-  />
+  >
+    <ServiceExplainer
+      id="compare"
+      color="--svc-payload"
+      eyebrow="A practical comparison"
+      title="Payload CMS or Directus?"
+      intro="Both are open-source, API-first platforms we implement. They suit different teams and starting points."
+      columns={[{"title": "Payload CMS", "items": ["Code-first: the content model is defined in TypeScript in your repository", "Runs inside a Next.js application or as its own Node.js server", "PostgreSQL, MongoDB or SQLite", "Access rules and business logic written as code, reviewed like any other change", "Best when developers own the model and the site is built in Next.js or TypeScript"]}, {"title": "Directus", "items": ["Database-first: works on a new or existing SQL database and generates REST and GraphQL APIs", "A no-code data studio for editors and operations teams", "PostgreSQL, MySQL, SQLite, Microsoft SQL Server and others", "Roles, permissions and automations configured in the admin", "Best when you already have a SQL database or need an admin app for operational data"]}]}
+      note="Licence terms differ: Payload is MIT-licensed, while Directus uses a licence that depends on the organisation’s size. We confirm the current terms, hosting and versions during discovery."
+      links={[{"href": "/services/headless-cms-development/", "label": "Deciding whether to go headless at all"}]}
+    />
+  </ServiceDetailContent>
   <div class="mt-10"><CentralCmsFeature variant="compact" /></div>
 </ServiceLayout>

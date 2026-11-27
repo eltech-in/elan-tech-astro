@@ -1,6 +1,7 @@
 ---
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
 import ServicePage from '../../components/service/ServicePage.astro';
+import ServiceExplainer from '../../components/service/ServiceExplainer.astro';
 import { services } from '../../data/services';
 import { serviceSchema, faqSchema, breadcrumbSchema } from '../../utils/schema';
 
@@ -79,6 +80,16 @@ const stack = ['React', 'Next.js', 'Astro', 'Node.js', 'Express.js', 'TypeScript
     faqs={serviceFaqs}
     cta={{ title: 'Not sure which stack is right?', text: 'Book a 30-minute call to discuss your requirements and get honest advice before any quote.' }}
   >
+    <ServiceExplainer
+      id="fit"
+      color="--ac-indigo"
+      eyebrow="Which service fits your project"
+      title="Web development, or a more specialist service?"
+      intro="This page covers technical builds: websites and web applications with logins, data, integrations and custom features. Some projects are better served by a specialist page."
+      columns={[{"title": "Web development (this page)", "text": "Customer portals, dashboards, booking and enquiry systems, member areas, APIs and custom website functionality."}, {"title": "Custom CRM and ERP", "text": "Internal operations: leads, approvals, inventory, HR and reporting, including ERPNext customisation."}, {"title": "Headless CMS", "text": "Content-heavy websites and apps where editors publish to several channels through Payload CMS or Directus."}, {"title": "Website design", "text": "When the main need is how the site looks and reads: custom design, redesigns and landing pages."}]}
+      links={[{"href": "/services/custom-crm-erp-solutions/", "label": "Custom CRM and ERP development"}, {"href": "/services/headless-cms-development/", "label": "Headless CMS development"}, {"href": "/services/website-design/", "label": "Website design services"}]}
+    />
+
     <section class="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]" aria-label="Choosing the stack and technologies">
       <div class="grid gap-4 sm:grid-cols-2">
         <div class="tilt-card p-5" style="--card-color: var(--ac-indigo);">

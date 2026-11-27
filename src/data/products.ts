@@ -35,6 +35,10 @@ export interface Product {
    * List only what is confirmed. Leave undefined and the page shows no stack.
    */
   stack?: { group: string; items: string[] }[];
+  /** Who buys it, in a few words (Products hub buying guide). */
+  buyer: string;
+  /** The primary workflow, as 3-4 short steps (Products hub buying guide). */
+  workflow: string[];
   /** Live demo URL - undefined means "coming soon" */
   demoUrl?: string;
   /** If true, replace "Try Demo" with call/contact CTA instead of linking to demoUrl */
@@ -46,6 +50,8 @@ export const products: Product[] = [
     id: 'elan-central-cms',
     title: 'eLan Central CMS',
     slug: 'elan-central-cms',
+    buyer: "Businesses and teams running Astro websites",
+    workflow: ["Edit", "Review", "Publish", "Static site goes live"],
     desc: 'Our customised Payload CMS for Astro websites: one place to edit content, with fast static pages published to the website’s own hosting.',
     longDesc:
       'eLan Central CMS is the content system behind the Astro websites we build. Editors update pages, posts, media and settings in one dashboard, then publish. The website is rebuilt as static files and uploaded to its own hosting, so visitors always get fast pages and never touch the CMS.',
@@ -77,6 +83,8 @@ export const products: Product[] = [
     id: 'real-estate-portal',
     title: 'Real Estate Portal',
     slug: 'real-estate-portal',
+    buyer: "Property developers, brokers and portal operators",
+    workflow: ["Listing", "Buyer enquiry", "Agent follow-up"],
     desc: 'A configurable property portal foundation with listings, agent dashboards, maps and lead capture, adapted to each client’s operating model.',
     longDesc:
       'Our Real Estate Portal is a configurable product foundation for agencies, developers and property businesses. Features, branding, deployment, integrations, commercial terms and source-code rights are agreed for each implementation rather than assumed from a fixed package.',
@@ -110,6 +118,8 @@ export const products: Product[] = [
     id: 'medical-conference-portal',
     title: 'Medical Conference Portal',
     slug: 'medical-conference-portal',
+    buyer: "Organising committees of medical conferences",
+    workflow: ["Abstracts", "Programme", "Registration", "Certificates"],
     desc: 'A configurable portal for medical conference registration, abstracts, speakers, schedules and certificates.',
     longDesc:
       'eLanCON is a configurable medical-conference portal foundation for registration, abstract submissions, scientific programmes and organiser-approved communications. Modules, access, integrations, data fields and support are agreed for each event.',
@@ -150,6 +160,8 @@ export const products: Product[] = [
     id: 'ima-society-portal',
     title: 'IMA Society Portal',
     slug: 'ima-society-portal',
+    buyer: "Medical associations and their office bearers",
+    workflow: ["Membership", "Dues and renewals", "Events and CME", "Documents"],
     desc: 'A configurable member portal for medical associations, with memberships, events, documents and payments.',
     longDesc:
       'The IMA Society Portal is a configurable membership platform for medical associations. Membership, events, documents, payments, communication and optional governance modules are selected and adapted to the society’s approved requirements.',
@@ -187,6 +199,8 @@ export const products: Product[] = [
     id: 'resort-management-system',
     title: 'Resort Management Portal',
     slug: 'resort-management-system',
+    buyer: "Resort owners and boutique stay operators",
+    workflow: ["Online booking", "Check-in and housekeeping", "Billing"],
     desc: 'A configurable operations portal for resorts and boutique stays, covering bookings and selected day-to-day workflows.',
     longDesc:
       'Our Resort Management Portal is a configurable, white-label-capable foundation for selected hospitality workflows. Booking, billing, housekeeping, staff, reporting, integrations, data handling and support are defined for each property rather than assumed as one fixed package.',
@@ -227,6 +241,8 @@ export const products: Product[] = [
     id: 'project-management-system',
     title: 'Project Management System',
     slug: 'project-management-system',
+    buyer: "Agencies and IT service teams",
+    workflow: ["Enquiry", "Project and tasks", "Billing", "Renewal reminder"],
     desc: 'A configurable project management system for agencies and service businesses, covering clients, projects, tasks, billing, enquiries and renewal reminders.',
     longDesc:
       'Our Project Management System brings client records, projects, tasks, team schedules, billing, enquiries and reminders into one workspace. We run our own client engagements on it. Modules, roles, branding, deployment and integrations are agreed for each implementation.',
@@ -255,6 +271,8 @@ export const products: Product[] = [
     id: 'insurance-agency-management-portal',
     title: 'Insurance Agency Management Portal',
     slug: 'insurance-agency-management-portal',
+    buyer: "Insurance agencies with sub-agent networks",
+    workflow: ["Policy", "Renewal", "Commission", "Sub-agent records"],
     desc: 'A configurable management portal for insurance agencies, covering LIC, health, motor and general policies, deposits, renewals, commissions, sub-agents and customer records.',
     longDesc:
       'Our Insurance Agency Management Portal helps an agency manage policies, customers and commissions in one system: LIC, health, motor and general insurance, recurring and fixed deposits, renewals, quotations and sub-agents. Modules, branding, deployment and integrations are agreed for each implementation.',
@@ -285,6 +303,11 @@ export const products: Product[] = [
 ];
 
 /** Helper: find a product by slug (throws if not found) */
+/** A public demo exists only when a URL is set and the product is not walkthrough-only. */
+export const hasPublicDemo = (product: Product): boolean => Boolean(product.demoUrl && !product.contactForDemo);
+/** The shared request form, with this product preselected. */
+export const demoRequestHref = (slug: string): string => `/request-demo/?product=${slug}`;
+
 export function getProductBySlug(slug: string): Product {
   const product = products.find((p) => p.slug === slug);
   if (!product) throw new Error(`Product not found: ${slug}`);

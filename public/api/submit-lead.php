@@ -107,8 +107,8 @@ $privacyNoticeVersions = [
     'get-quote' => 'get-quote-2026-11-23',
     'website-audit' => 'website-audit-2026-11-16',
     'paid-booking' => 'paid-booking-2026-11-16',
-    'request-demo' => 'request-demo-2026-09-24',
-    'rush-assessment' => 'rush-assessment-2026-09-24',
+    'request-demo' => 'request-demo-2026-11-27',
+    'rush-assessment' => 'rush-assessment-2026-11-27',
 ];
 if (isset($privacyNoticeVersions[$formType])) {
     $privacyAccepted = ($cleanFields['privacyAccepted'] ?? false) === true;
@@ -116,7 +116,7 @@ if (isset($privacyNoticeVersions[$formType])) {
     // The website-audit form was named free-audit before 16 November 2026; accept its notice version from cached pages.
     $legacyAuditNotice = ($formType === 'website-audit' && $privacyNoticeVersion === 'free-audit-2026-09-23')
         // Notices before the FormSubmit route was removed (23 November 2026), from cached pages.
-        || in_array($privacyNoticeVersion, ['contact-2026-09-23', 'get-quote-2026-09-23'], true) && str_starts_with($privacyNoticeVersion, $formType . '-');
+        || in_array($privacyNoticeVersion, ['contact-2026-09-23', 'get-quote-2026-09-23', 'request-demo-2026-09-24', 'rush-assessment-2026-09-24'], true) && str_starts_with($privacyNoticeVersion, $formType . '-');
     if (!$privacyAccepted || ($privacyNoticeVersion !== $privacyNoticeVersions[$formType] && !$legacyAuditNotice)) {
         respond(422, ['ok' => false, 'error' => 'Privacy acknowledgement is required']);
     }
@@ -128,6 +128,16 @@ if ($formType === 'get-quote') {
     $description = trim((string) ($cleanFields['description'] ?? ''));
     if (strlen($quoteName) < 2 || $projectType === '' || strlen($description) < 1) {
         respond(422, ['ok' => false, 'error' => 'Required quote details are missing']);
+    }
+}
+
+// Phone / WhatsApp is required on every enquiry form (owner, 27 Nov 2026). Paid forms are checked before payment
+// in razorpay-order.php, so a paid order is never refused here afterwards.
+if (in_array($formType, ['contact', 'get-quote', 'request-demo', 'rush-assessment'], true)) {
+    $leadPhone = trim((string) ($cleanFields['phone'] ?? ''));
+    $leadPhoneDigits = strlen((string) preg_replace('/\D/', '', $leadPhone));
+    if (!preg_match('/^\+?[0-9 ()-]{7,22}$/', $leadPhone) || $leadPhoneDigits < 7 || $leadPhoneDigits > 15) {
+        respond(422, ['ok' => false, 'error' => 'A phone or WhatsApp number is required']);
     }
 }
 
@@ -144,11 +154,16 @@ if ($formType === 'website-audit') {
 if ($formType === 'request-demo') {
     $demoName = trim((string) ($cleanFields['name'] ?? ''));
     $demoProduct = trim((string) ($cleanFields['product'] ?? ''));
+    // Must match the product titles in src/data/products.ts (checked by scripts/verify-build.mjs).
     $allowedDemoProducts = [
+        'eLan Central CMS',
         'Real Estate Portal',
         'Medical Conference Portal',
         'IMA Society Portal',
-        'Resort Management System',
+        'Resort Management Portal',
+        'Project Management System',
+        'Insurance Agency Management Portal',
+        'Resort Management System', // earlier label, kept for forms opened before the update
     ];
     if (strlen($demoName) < 2 || !in_array($demoProduct, $allowedDemoProducts, true)) {
         respond(422, ['ok' => false, 'error' => 'Required demo-request details are missing or invalid']);

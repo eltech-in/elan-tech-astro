@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { softwareAppSchema, breadcrumbSchema, faqSchema } from '../../utils/schema';
-import { getProductBySlug, products } from '../../data/products';
+import { demoRequestHref, getProductBySlug, hasPublicDemo, products } from '../../data/products';
+import ServiceExplainer from '../../components/service/ServiceExplainer.astro';
 import AnswerSummary from '../../components/AnswerSummary.astro';
 import ProductStartingPrice from '../../components/ProductStartingPrice.astro';
 import ProductPrivacyPanel from '../../components/ProductPrivacyPanel.astro';
@@ -62,7 +63,7 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
 
 <BaseLayout
   ogImage="/images/og/products.png"
-  title="Medical Society Portal | Association Management Software India - eLan"
+  title="Medical Society Portal | Association Management Software India"
   description="Association management software for IMA chapters and specialty medical societies. Online membership, CME events, e-voting elections, fee payments, circulars, and photo gallery in one portal."
   schema={schema}
 >
@@ -106,14 +107,10 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
         <ProductStartingPrice startingPriceINR={product.startingPriceINR} cssVar={product.cssVar} onDark />
 
         <div class="flex flex-wrap gap-3 mb-6">
-          <span class="inline-flex items-center gap-2 rounded-md px-7 py-3.5 text-sm font-bold text-white shadow-xl"
-                style={`background: color-mix(in srgb, var(${product.cssVar}) 85%, #000 0%); box-shadow: 0 12px 30px color-mix(in srgb, var(${product.cssVar}) 40%, transparent);`}
-                aria-label="Live demo coming soon">
-            <span class="h-2 w-2 rounded-full bg-white animate-pulse" aria-hidden="true"></span>
-            Live Demo Coming Soon
-          </span>
-          <a href="/request-demo/" class="inline-flex items-center gap-2 rounded-lg border border-white/40 bg-white/5 backdrop-blur-sm px-7 py-3.5 text-sm font-bold text-white hover:bg-white/15 transition-all">
-            Book Walkthrough
+          <a href={demoRequestHref(product.slug)}
+             class="inline-flex items-center gap-2 rounded-lg px-7 py-3.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all shadow-xl"
+             style={`background: var(${product.cssVar}); box-shadow: 0 12px 30px color-mix(in srgb, var(${product.cssVar}) 40%, transparent);`}>
+            Request a walkthrough
           </a>
         </div>
 
@@ -138,6 +135,19 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
         { question: 'Who owns the deployment?', answer: 'Deployment and source-code rights are recorded in the signed proposal and depend on the agreed commercial terms.' },
         { question: 'What remains separate?', answer: 'Hosting, maintenance, payment charges, messaging services and later upgrades are separate unless included in the proposal.' },
       ]}
+    />
+  </div>
+
+  <div class="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
+    <ServiceExplainer
+      id="workflow"
+      color={product.cssVar}
+      eyebrow="Membership, not a one-off event"
+      title="A member’s year in one portal"
+      columns={[{"title": "Membership", "text": "Doctors apply or join online, with member records, optional e-cards and approval by the society office."}, {"title": "Dues and renewals", "text": "Annual dues and renewals are paid online through Razorpay, with reminders and payment records."}, {"title": "Events and CME", "text": "Members register for meetings and CME programmes and receive certificates."}, {"title": "Documents", "text": "Circulars, policies, committee information and news are published to members."}]}
+      numbered
+      note="Modules are selected for each association. For a single conference with abstracts and a scientific programme, see the Medical Conference Portal."
+      links={[{"href": "/products/medical-conference-portal/", "label": "Medical Conference Portal for one-off events"}]}
     />
   </div>
 
@@ -204,10 +214,10 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
           <!-- Inline CTA -->
           <div class="relative overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-8 text-center">
             <h3 class="font-heading text-xl sm:text-2xl font-bold text-[var(--text)] mb-3">See it in action</h3>
-            <p class="text-[var(--text-dim)] mb-6">Live demo coming soon. Schedule a guided walkthrough to preview the platform.</p>
+            <p class="text-[var(--text-dim)] mb-6">There is no public demo yet. Request a guided walkthrough to see the modules relevant to your society.</p>
             <div class="flex flex-col sm:flex-row gap-3 justify-center">
-              <a href="/request-demo/" class="inline-flex items-center justify-center gap-2 rounded-lg px-7 py-3 text-sm font-bold text-white hover:-translate-y-0.5 transition-all" style={`background: var(${product.cssVar});`}>
-                Book Walkthrough
+              <a href={demoRequestHref(product.slug)} class="inline-flex items-center justify-center gap-2 rounded-lg px-7 py-3 text-sm font-bold text-white hover:-translate-y-0.5 transition-all" style={`background: var(${product.cssVar});`}>
+                Request a walkthrough
               </a>
             </div>
           </div>
@@ -243,14 +253,9 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
                 </div>
               </dl>
 
-              <span class="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-md px-5 py-2.5 text-sm font-bold text-white"
-                    style={`background: color-mix(in srgb, var(${product.cssVar}) 85%, #000 0%);`}
-                    aria-label="Live demo coming soon">
-                <span class="h-1.5 w-1.5 rounded-full bg-white animate-pulse" aria-hidden="true"></span>
-                Live Demo Coming Soon
-              </span>
-              <a href="/request-demo/" class="mt-2 w-full inline-flex items-center justify-center gap-2 rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
-                Book Walkthrough
+              <p class="mt-5 text-xs text-[var(--text-muted)]">No public demo yet; walkthroughs use sample data.</p>
+              <a href={demoRequestHref(product.slug)} class="mt-2 w-full inline-flex items-center justify-center gap-2 rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
+                Request a walkthrough
               </a>
             </div>
 
@@ -269,7 +274,7 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
                       </span>
                       <div class="min-w-0 flex-1">
                         <p class="text-sm font-semibold text-[var(--text)] line-clamp-1 group-hover:text-[var(--accent)] transition-colors">{p.title}</p>
-                        <p class="text-[11px] text-[var(--text-muted)] line-clamp-1">{p.demoUrl ? 'Live demo ready' : p.contactForDemo ? 'Demo on request' : 'Demo coming soon'}</p>
+                        <p class="text-[11px] text-[var(--text-muted)] line-clamp-1">{hasPublicDemo(p) ? 'Live demo ready' : 'Walkthrough on request'}</p>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-[var(--text-muted)] group-hover:text-[var(--accent)] transition-colors" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </a>
@@ -318,13 +323,13 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
               <span aria-hidden="true" class="absolute inset-x-0 top-0 h-[3px]" style={`background: var(${p.cssVar});`}></span>
               <div class="flex items-center gap-3 mb-3">
                 <span class="h-10 w-10 rounded-xl flex items-center justify-center text-sm font-black text-white" style={`background: var(${p.cssVar});`} aria-hidden="true">{p.title.slice(0,1)}</span>
-                {p.demoUrl ? (
+                {hasPublicDemo(p) ? (
                   <span class="inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider" style={`color: var(${p.cssVar}); border-color: color-mix(in srgb, var(${p.cssVar}) 50%, transparent);`}>
                     <span class="h-1 w-1 rounded-full animate-pulse" style={`background: var(${p.cssVar})`} aria-hidden="true"></span>
                     Live Demo
                   </span>
                 ) : (
-                  <span class="inline-flex items-center gap-1.5 rounded-md border border-[var(--border)] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)]">{p.contactForDemo ? 'Demo on request' : 'Coming Soon'}</span>
+                  <span class="inline-flex items-center gap-1.5 rounded-md border border-[var(--border)] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)]">Walkthrough on request</span>
                 )}
               </div>
               <h3 class="font-heading font-bold text-[var(--text)] leading-snug mb-1 group-hover:text-[var(--accent)] transition-colors">{p.title}</h3>

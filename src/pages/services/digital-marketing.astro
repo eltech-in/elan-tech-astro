@@ -1,6 +1,7 @@
 ---
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
 import ServicePage from '../../components/service/ServicePage.astro';
+import ServiceExplainer from '../../components/service/ServiceExplainer.astro';
 import { services } from '../../data/services';
 import { serviceSchema, faqSchema, breadcrumbSchema } from '../../utils/schema';
 
@@ -11,8 +12,8 @@ const description = "Digital marketing from Nagpur for businesses across India: 
 
 const serviceFaqs = [
   {
-    question: 'How long before I see SEO results?',
-    answer: 'SEO is normally a medium-to-long-term activity. Timing depends on the website, competition, demand, content, technical constraints and search-engine changes. We agree baseline measures and reporting, but do not guarantee a ranking, traffic level or fixed results date.',
+    question: 'How quickly can Google Ads bring enquiries?',
+    answer: 'Ads can start showing once campaigns and tracking are approved, but enquiry volume depends on budget, competition, the offer and the landing page. The first weeks are used to gather data and adjust keywords, bids and ads. No number of leads or cost per lead is guaranteed. For organic search, see our SEO services page.',
   },
   {
     question: 'Do you manage Google Ads campaigns?',
@@ -49,9 +50,9 @@ const schemas = [
     highlights={service.features.slice(0, 6)}
     eyebrow={"Digital marketing agency · Nagpur, serving India"}
     heading={"Digital Marketing Agency in Nagpur Focused on Real Enquiries"}
-    intro={"We plan and run Google Ads, SEO, social media, content and email marketing around one goal: more qualified enquiries and sales. Tracking is set up first, so every rupee and every result is visible."}
+    intro={"We plan and run Google Ads, social media campaigns and lead generation around one goal: more qualified enquiries and sales. Tracking is set up first, so every rupee and every result is visible."}
     offersTitle={"What our digital marketing service includes"}
-    offers={[{"title": "Google Ads (PPC)", "text": "Search, Display, Shopping and Performance Max with keyword research, ad copy and conversion tracking."}, {"title": "SEO", "text": "Technical, on-page and content SEO aimed at high-intent searches."}, {"title": "Social media marketing", "text": "Organic and paid campaigns on Facebook, Instagram, LinkedIn and YouTube."}, {"title": "Content marketing", "text": "Landing pages, blog posts and case studies that educate and rank."}, {"title": "Email marketing", "text": "Drip sequences, campaigns and abandoned-cart flows on Mailchimp, Klaviyo or your platform."}, {"title": "Local SEO", "text": "Google Business Profile, citations, reviews and city targeting."}, {"title": "Analytics and tracking", "text": "GA4, Google Tag Manager, conversion goals and dashboards."}, {"title": "Conversion optimisation", "text": "Landing-page tests, form improvements and clearer calls to action."}]}
+    offers={[{"title": "Google Ads (PPC)", "text": "Search, Display, Shopping and Performance Max with keyword research, ad copy and conversion tracking."}, {"title": "Lead generation", "text": "Landing pages, lead forms and call tracking that turn ad clicks into enquiries you can follow up."}, {"title": "Social media marketing", "text": "Organic and paid campaigns on Facebook, Instagram, LinkedIn and YouTube."}, {"title": "Content marketing", "text": "Landing pages, blog posts and case studies that educate and rank."}, {"title": "Email marketing", "text": "Drip sequences, campaigns and abandoned-cart flows on Mailchimp, Klaviyo or your platform."}, {"title": "Remarketing", "text": "Campaigns that reach people who visited your website, across Google and social platforms."}, {"title": "Analytics and tracking", "text": "GA4, Google Tag Manager, conversion goals and dashboards."}, {"title": "Conversion optimisation", "text": "Landing-page tests, form improvements and clearer calls to action."}]}
     process={[{"title": "Discovery and audit", "text": "Website, rankings, ad accounts, social channels and analytics reviewed."}, {"title": "90-day plan", "text": "Targets, content, campaigns and budgets approved before any spend."}, {"title": "Execution", "text": "SEO, ads, content and social run together, with weekly updates."}, {"title": "Report and optimise", "text": "Monthly reports and calls; scale what works, pause what does not."}]}
     fit={["You want enquiries, not just likes or impressions.", "Ads run without proper conversion tracking.", "You need one team across search, ads and social.", "You serve Nagpur, central India or customers nationwide."]}
     faqTitle={"Digital marketing FAQs"}
@@ -59,5 +60,15 @@ const schemas = [
     note={"Media spend, platform charges and third-party tools are separate unless expressly included. Reach, leads, sales and ROAS are not guaranteed."}
     guides={[{"label": "Local SEO", "title": "SEO guide for small businesses in Nagpur", "href": "/blog/seo/seo-guide-small-business-nagpur/"}, {"label": "Nagpur", "title": "Why every Nagpur business needs a website", "href": "/blog/nagpur-business/why-nagpur-business-needs-website/"}, {"label": "AI search", "title": "Generative engine optimisation for AI search", "href": "/blog/technology-trends/generative-engine-optimization-ai-search-2026/"}]}
     faqs={serviceFaqs}
-  ></ServicePage>
+  >
+    <ServiceExplainer
+      id="focus"
+      color="--ac-cyan"
+      eyebrow="Paid campaigns and lead generation"
+      title="Google Ads, social campaigns and lead generation"
+      intro="This service is about paid and social campaigns that bring enquiries. Organic search has its own page."
+      columns={[{"title": "Google Ads", "items": ["Search, Shopping, Display and Performance Max", "Keyword research, ad copy and negative keywords", "Conversion tracking set up before spend"]}, {"title": "Social campaigns", "items": ["Facebook, Instagram, LinkedIn and YouTube", "Audience, creative and offer testing", "Organic posting alongside paid campaigns when scoped"]}, {"title": "Lead generation", "items": ["Landing pages and lead forms built for the campaign", "Call and WhatsApp tracking where available", "Lead quality reviewed with you, not just lead count"]}]}
+      links={[{"href": "/services/seo/", "label": "Want to rank in organic search? SEO services"}]}
+    />
+  </ServicePage>
 </ServiceLayout>

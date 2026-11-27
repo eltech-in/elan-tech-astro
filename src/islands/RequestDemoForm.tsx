@@ -1,12 +1,10 @@
-import { useRef, useState, type SubmitEvent } from 'react';
+import { useEffect, useRef, useState, type SubmitEvent } from 'react';
+import { PHONE_LABEL, phoneError } from '../lib/phone';
 import { redirectToThankYou, submitLead } from '../lib/submitLead';
 
-const PRODUCTS = [
-  { value: 'real-estate-portal', label: 'Real Estate Portal' },
-  { value: 'medical-conference-portal', label: 'Medical Conference Portal' },
-  { value: 'ima-society-portal', label: 'IMA Society Portal' },
-  { value: 'resort-management-system', label: 'Resort Management System' },
-];
+// The product list comes from src/data/products.ts (passed in by request-demo.astro), so a new product
+// is selectable as soon as it is in the catalogue. public/api/submit-lead.php accepts the same titles.
+export type DemoProduct = { value: string; label: string; publicDemo: boolean };
 
 const inputClass =
   'w-full rounded-lg border border-[var(--border)] bg-[var(--bg)] px-4 py-2.5 text-sm text-[var(--text)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] transition-all';
@@ -29,8 +27,16 @@ const EMPTY_FIELDS: Fields = {
   notes: '',
 };
 
-export default function RequestDemoForm() {
+export default function RequestDemoForm({ products: PRODUCTS }: { products: DemoProduct[] }) {
   const [fields, setFields] = useState<Fields>(EMPTY_FIELDS);
+
+  // Preselect the product when the visitor arrives from its page (/request-demo/?product=slug).
+  useEffect(() => {
+    const slug = new URLSearchParams(window.location.search).get('product');
+    if (slug && PRODUCTS.some((product) => product.value === slug)) {
+      setFields((current) => (current.product ? current : { ...current, product: slug }));
+    }
+  }, [PRODUCTS]);
   const [honeypot, setHoneypot] = useState('');
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
@@ -57,9 +63,8 @@ export default function RequestDemoForm() {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email)) {
       errors.email = 'Please enter a valid email address.';
     }
-    if (fields.phone && !/^[\d\s+\-()]{7,20}$/.test(fields.phone.trim())) {
-      errors.phone = 'Please enter a valid phone number.';
-    }
+    const phoneMessage = phoneError(fields.phone);
+    if (phoneMessage) errors.phone = phoneMessage;
     if (fields.notes.length > 2000) errors.notes = 'Please keep your message under 2,000 characters.';
     if (!privacyAccepted) errors.privacyAccepted = 'Please confirm the privacy notice before requesting a demo.';
 
@@ -89,7 +94,7 @@ export default function RequestDemoForm() {
 
     try {
       await submitLead('request-demo', {
-        _subject: `Product demo request from ${fields.name.trim()}`,
+        _subject: `Product walkthrough request: ${PRODUCTS.find((product) => product.value === fields.product)?.label ?? fields.product} - ${fields.name.trim()}`,
         _template: 'table',
         _honey: honeypot,
         product: PRODUCTS.find((product) => product.value === fields.product)?.label ?? fields.product,
@@ -99,7 +104,7 @@ export default function RequestDemoForm() {
         company: fields.company.trim(),
         notes: fields.notes.trim(),
         privacyAccepted,
-        _privacyNoticeVersion: 'request-demo-2026-09-24',
+        _privacyNoticeVersion: 'request-demo-2026-11-27',
       });
 
       setFields(EMPTY_FIELDS);
@@ -160,7 +165,7 @@ export default function RequestDemoForm() {
                 aria-describedby={fieldErrors.product ? 'demo-product-error' : undefined}
                 className="accent-[var(--accent)]"
               />
-              <span className="text-sm font-medium text-[var(--text)]">{product.label}</span>
+              <span className="text-sm font-medium text-[var(--text)]">{product.label}{product.publicDemo && <span className="ml-1.5 text-xs font-normal text-[var(--text-muted)]">(live demo also available)</span>}</span>
             </label>
           ))}
         </div>
@@ -209,11 +214,13 @@ export default function RequestDemoForm() {
         </div>
 
         <div>
-          <label htmlFor="demo-phone" className="mb-1.5 block text-sm font-medium text-[var(--text)]">Phone (optional)</label>
+          <label htmlFor="demo-phone" className="mb-1.5 block text-sm font-medium text-[var(--text)]">{PHONE_LABEL} <span aria-hidden="true" className="text-red-400">*</span></label>
           <input
             id="demo-phone"
             type="tel"
+            inputMode="tel"
             autoComplete="tel"
+            aria-required="true"
             value={fields.phone}
             onChange={(event) => setField('phone', event.target.value)}
             aria-invalid={Boolean(fieldErrors.phone)}
@@ -260,7 +267,7 @@ export default function RequestDemoForm() {
       <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-4">
         <h3 className="text-sm font-semibold text-[var(--text)]">How we use your demo request</h3>
         <p id="demo-privacy-notice" className="mt-2 text-xs leading-relaxed text-[var(--text-dim)]">
-          We use your product choice, name and email, together with any optional details you provide,
+          We use your product choice, name, email and phone or WhatsApp number, together with any optional details you provide,
           to review the request, tailor and arrange the demo, and communicate about it. The request is
           stored privately and may be retained for up to 12 months if no engagement follows. We do not
           add you to a marketing list. See our{' '}

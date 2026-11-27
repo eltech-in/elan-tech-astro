@@ -1,4 +1,5 @@
 import { useRef, useState, type SubmitEvent } from 'react';
+import { PHONE_LABEL, phoneError } from '../lib/phone';
 import { redirectToThankYou, submitLead } from '../lib/submitLead';
 
 type Step1 = { url: string; name: string; email: string };
@@ -41,7 +42,8 @@ export default function WebsiteAuditForm() {
 
   function validateStep2(): boolean {
     const errs: Record<string, string> = {};
-    if (step2.phone && !/^[\d\s+\-()]{7,20}$/.test(step2.phone.trim())) errs.phone = 'Please enter a valid phone number';
+    const phoneMessage = phoneError(step2.phone);
+    if (phoneMessage) errs.phone = phoneMessage;
     setFieldErrors(errs);
     return Object.keys(errs).length === 0;
   }
@@ -245,7 +247,7 @@ export default function WebsiteAuditForm() {
           <div className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="fa-phone" className="block text-sm font-medium text-[var(--text)] mb-1.5">Phone (optional)</label>
+                <label htmlFor="fa-phone" className="block text-sm font-medium text-[var(--text)] mb-1.5">{PHONE_LABEL} <span aria-hidden="true" className="text-red-400">*</span></label>
                 <input
                   id="fa-phone"
                   type="tel"

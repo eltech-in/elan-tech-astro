@@ -48,9 +48,10 @@ export const productPages: Record<string, ProductPageContent> = {
     ],
     flow: {
       eyebrow: 'How publishing works',
-      title: 'From edit to live in four steps',
+      title: 'The editor’s journey: from edit to live',
       steps: [
-        { title: 'Edit', text: 'An editor updates content in the CMS.' },
+        { title: 'Edit', text: 'An editor updates pages, posts or images in their own website’s space, using the shared blocks and required SEO fields.' },
+        { title: 'Review', text: 'The change is checked before it goes out, by the editor or a colleague. A sign-off step for a reviewer role can be configured where a team needs one.' },
         { title: 'Publish', text: 'One click on Publish starts a rebuild of that one website.' },
         { title: 'Build', text: 'Astro builds the website as static files, using only that website’s content.' },
         { title: 'Go live', text: 'The files are uploaded to the website’s own hosting.' },
@@ -71,6 +72,7 @@ export const productPages: Record<string, ProductPageContent> = {
         { question: 'Is it something I install?', answer: 'No. It is the content system behind websites we build with Astro. We host and maintain the CMS; your website is hosted where you choose.' },
         { question: 'What if we need strict data isolation?', answer: 'A website with a heavily bespoke content model or strict isolation needs can run on its own separate instance of the same system.' },
         { question: 'How fast do changes go live?', answer: 'Publishing rebuilds only your website. Changes are usually live within a few minutes.' },
+        { question: 'Is this the same as your Headless CMS Development service?', answer: 'No. Central CMS is a ready starting point: our customised Payload CMS that comes with the Astro websites we build. Headless CMS Development is a custom engagement, where we design the content model, platform and front end around your own architecture.' },
       ],
     },
     privacy: {
@@ -86,6 +88,7 @@ export const productPages: Record<string, ProductPageContent> = {
       note: 'The platform supports agreed access and publishing workflows. It does not by itself guarantee privacy or accessibility compliance; each organisation remains responsible for the content it publishes.',
     },
     faqs: [
+      { question: 'How is eLan Central CMS different from headless CMS development?', answer: 'Central CMS is a product: our customised Payload CMS for the Astro websites we build, with a shared block library, per-website spaces and hosting of the CMS by us. Headless CMS development is a custom service for organisations that need their own content model, platform choice (Payload CMS or Directus) and architecture.' },
       { question: 'What is eLan Central CMS?', answer: 'It is the content system behind the Astro websites we build. Editors update pages, posts, media and settings in one dashboard and publish. The website is then rebuilt as static files and uploaded to its own hosting.' },
       { question: 'Is it built on Payload CMS?', answer: 'Yes. It is Payload CMS, which is open source, customised by us with a shared block library, per-website spaces and editor roles. The database is PostgreSQL.' },
       { question: 'Does my live website depend on the CMS being online?', answer: 'No. Visitors load static pages from your website’s own hosting. If the CMS is offline, the live website keeps working and only editing pauses.' },
@@ -115,6 +118,17 @@ export const productPages: Record<string, ProductPageContent> = {
       { title: 'Reminders and messages', desc: 'Reminders that need action, upcoming reminders and a messages area.' },
       { title: 'Search', desc: 'One search across projects, clients and project codes.' },
     ],
+    flow: {
+      eyebrow: 'How work moves through it',
+      title: 'From enquiry to project, billing and renewal',
+      steps: [
+        { title: 'Enquiry', text: 'A new enquiry is recorded against a client, with its source and status.' },
+        { title: 'Project', text: 'A won enquiry becomes a project with a code, tasks, schedule and the team assigned.' },
+        { title: 'Billing', text: 'Bills are raised against the project, and pending and overdue payments are tracked.' },
+        { title: 'Renewal reminder', text: 'Domain and service renewals are tracked, with reminders before they fall due.' },
+      ],
+      note: 'Fields, roles, reports and reminders are configured for each agency during setup. The walkthrough uses sample data, never a client’s live records.',
+    },
     audienceHeading: 'Built for teams that deliver client work',
     audience: [
       { title: 'Digital agencies', desc: 'Web, design and marketing teams running many client projects at once.' },
@@ -174,6 +188,17 @@ export const productPages: Record<string, ProductPageContent> = {
       { title: 'CRM', desc: 'Customer records and follow-ups in one place.' },
       { title: 'Customer family management', desc: 'Family members grouped under a customer, so a household’s policies are seen together.' },
     ],
+    flow: {
+      eyebrow: 'How an agency uses it',
+      title: 'Policies, renewals, commissions and sub-agents',
+      steps: [
+        { title: 'Policy', text: 'LIC, health, motor and general policies are recorded against the customer and their family members.' },
+        { title: 'Renewal', text: 'Upcoming renewals are tracked, and quotations are prepared for the customer.' },
+        { title: 'Commission', text: 'Commission is recorded per policy and per agent, using the agency’s rules.' },
+        { title: 'Sub-agent records', text: 'Sub-agents have their own records, so the agency can see each one’s policies and commission.' },
+      ],
+      note: 'Policy types, fields, commission rules and roles are configurable for each agency. The walkthrough uses sample data and shows these workflows; the demo system itself needs a login, so we show it to you rather than sending you to a sign-in screen.',
+    },
     audienceHeading: 'Built for insurance agencies and their networks',
     audience: [
       { title: 'Insurance agencies', desc: 'Agencies handling several policy types for the same customers.' },

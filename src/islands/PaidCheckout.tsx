@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { PHONE_LABEL, phoneError } from '../lib/phone';
 import { submitLead, redirectToThankYou } from '../lib/submitLead';
 import { PAY_PRICES, currencyFromTimeZone, formatPrice, type Currency, type PayProduct } from '../data/auditPricing';
 
@@ -79,6 +80,8 @@ export default function PaidCheckout({ product, currency: pinned, needsUrl = fal
   async function pay(e: { preventDefault: () => void }) {
     e.preventDefault();
     setError('');
+    const phoneMessage = phoneError(form.phone);
+    if (phoneMessage) { setError(phoneMessage); return; }
     if (!consent) { setError('Please accept the privacy notice to continue.'); return; }
     setBusy(true);
     try {
@@ -145,7 +148,7 @@ export default function PaidCheckout({ product, currency: pinned, needsUrl = fal
       <div className="grid gap-4 sm:grid-cols-2">
         <label className={label}>Your name<input required autoComplete="name" className={input} value={form.name} onChange={set('name')} /></label>
         <label className={label}>Email<input required type="email" autoComplete="email" className={input} value={form.email} onChange={set('email')} /></label>
-        <label className={label}>Phone or WhatsApp <span className="font-normal text-[var(--text-muted)]">(optional)</span><input type="tel" autoComplete="tel" className={input} value={form.phone} onChange={set('phone')} /></label>
+        <label className={label}>{PHONE_LABEL} <span aria-hidden="true" className="text-red-400">*</span><input required aria-required="true" type="tel" inputMode="tel" autoComplete="tel" className={input} value={form.phone} onChange={set('phone')} /></label>
         {needsUrl && <label className={label}>Website address<input required type="url" inputMode="url" placeholder="https://" className={input} value={form.url} onChange={set('url')} /></label>}
         {needsReference && <label className={label}>Payment reference <span className="font-normal text-[var(--text-muted)]">(from our written instructions)</span><input className={input} value={form.reference} onChange={set('reference')} /></label>}
       </div>

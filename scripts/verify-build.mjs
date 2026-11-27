@@ -306,10 +306,10 @@ check('Homepage: web design + development title', fileContains(
   HP,
   '<title>Web Design &amp; Development Company in Nagpur | eLan Technology</title>',
 ));
-check('ADA service: remediation + WCAG title and 48-hour response', fileContains(
+check('ADA service: remediation + WCAG title and 48-hour target response', fileContains(
   'services/ada-compliant-web-design/index.html',
   '<title>ADA Website Remediation Services &amp; WCAG Audits | eLan Technology</title>',
-  'Emergency response within 48 hours.',
+  'Target response within 48 hours for urgent requests.',
 ));
 check('Website audit: concise title with the fee', fileContains(
   'website-audit/index.html',
@@ -593,7 +593,7 @@ check('Emergency accessibility guide promises a 48-hour response', fileContains(
 ));
 check('AI-readable accessibility service copy promises 48 hours', fileContains(
   'llms.txt',
-  'emergency WCAG 2.1 AA assessment requests answered within 48 hours',
+  'emergency WCAG 2.1 AA assessment requests have a target response within 48 hours',
 ) && fileNotContains('llms.txt', 'emergency 24-hour WCAG'));
 
 // ── O. Portfolio showcase ───────────────────────────────────────────────────
@@ -970,6 +970,69 @@ check('eCommerce page combines Shopify, Medusa.js, WooCommerce and Zoho; Shopify
 check('Service pages target their Search Console queries', fileContains('services/ecommerce/medusa-js-development/index.html', 'Medusa.js Development Agency and Implementation Partner', 'implementation partner in the UK, Europe or the US', 'Medusa Cloud or self-hosting')
   && fileContains('services/ada-compliant-web-design/index.html', 'Website Accessibility Remediation for ADA', 'What is website accessibility remediation?', 'WCAG remediation services for ecommerce'));
 check('Healthy Genie service proof reflects production status', fileContains('services/ecommerce/medusa-js-development/index.html', 'Medusa.js meal commerce', 'Launched', 'https://healthygenie.in/', 'Visit launched website') && fileNotContains('services/ecommerce/medusa-js-development/index.html', 'healthygenie.elantech.cloud'));
+// 27 Nov 2026: Medusa.js page shows delivered work first (Healthy Genie and Puritas) and a scoped integration example;
+// the Medusa guides route readers to it. ADA page leads with remediation: an illustrative finding, three separate
+// ways to start, a 48-hour TARGET (not a promise) and plain wording that the audit plan does not include the fixes.
+check('Medusa.js page shows Healthy Genie and Puritas work and an ERP integration example', fileContains('services/ecommerce/medusa-js-development/index.html',
+  'Medusa.js work we have delivered', 'What the business needed', 'Puritas', 'https://puritas.in/', 'Razorpay and PhonePe payment integrations', 'Your ERP owns inventory', 'none is included by default')
+  && ['blog/ecommerce/shopify-vs-medusa-js-2026/index.html', 'blog/ecommerce/medusa-js-implementation-running-costs/index.html'].every((page) => fileContains(page, 'See our Medusa.js development service'))
+  && fileContains('portfolio/index.html', '/services/ecommerce/medusa-js-development/#work'));
+check('ADA page leads with remediation, an illustrative finding and three separate ways to start', fileContains('services/ada-compliant-web-design/index.html',
+  'Discuss remediation', 'Illustrative example', 'not taken from a client report', 'Three ways to start', 'It is not a full audit', 'Implementing them is quoted separately', 'delivery is confirmed after scope review')
+  && fileNotContains('services/ada-compliant-web-design/index.html', 'Emergency help within 48 hours')
+  && fileContains('website-audit/index.html', 'fixing them is quoted separately') && fileNotContains('website-audit/index.html', 'every template and journey')
+  && fileContains('services/ada-compliant-web-design/emergency-remediation/index.html', 'target response within 48 hours'));
+// 27 Nov 2026: each service page has a distinct job; these sections carry it (hub by need, scope, workflows, comparisons).
+check('Service pages carry their distinct-job sections', [
+  ['services/index.html', 'What do you need to do?', 'Fix accessibility', 'Improve an existing website'],
+  ['services/website-design/index.html', 'What a website design project includes', 'Revisions'],
+  ['services/web-development/index.html', 'Web development, or a more specialist service?'],
+  ['services/ecommerce/index.html', 'Choose your path'],
+  ['services/seo/index.html', 'What you receive from our SEO service', 'Paid website audit'],
+  ['services/digital-marketing/index.html', 'Google Ads, social campaigns and lead generation', 'How quickly can Google Ads bring enquiries?'],
+  ['services/mobile-app-development/index.html', 'Do you need a mobile app or a responsive web app?', 'What happens at release and after'],
+  ['services/maintenance-security/index.html', 'Recurring care, one-off fixes and incidents', 'They are targets, not guarantees'],
+  ['services/integrations/index.html', 'Your store takes the order. Who owns what?'],
+  ['services/custom-crm-erp-solutions/index.html', 'ERPNext customisation or custom development?', 'What is included in discovery and handover'],
+  ['services/dpdp-compliance-implementation/index.html', 'What we deliver, and what we do not', 'compliance certificate'],
+  ['services/headless-cms-development/index.html', 'When is a headless CMS worth it?', 'How an editor goes from draft to preview to publish', 'What the client needs', 'Contentful, Strapi, Payload CMS &amp; Directus Implementation', 'Headless Frontends With Astro, Next.js &amp; Gatsby', 'Astro + Contentful development', '>Headless CMS Development</h1>'],
+  ['services/payload-directus-development/index.html', 'Payload CMS or Directus?'],
+].every(([page, ...text]) => fileContains(page, ...text)));
+check('Emergency page makes no unconditional timeline or unverified client claim', fileContains('services/ada-compliant-web-design/emergency-remediation/index.html',
+  'Emergency ADA Remediation for Shopify &amp; Ecommerce Deadlines', 'Request a rush assessment', 'confirmed after review')
+  && fileNotContains('services/ada-compliant-web-design/emergency-remediation/index.html', 'in 30 Days')
+  && fileNotContains('services/ada-compliant-web-design/emergency-remediation/index.html', 'UK, and Australian clients')
+  && fileNotContains('services/ada-compliant-web-design/emergency-remediation/index.html', 'Almost always, yes'));
+// 27 Nov 2026 portfolio: descriptive H1, completed work first with what eLan delivered and the matching service, own share image.
+check('Portfolio leads with a descriptive H1 and featured completed work linked to services', fileContains('portfolio/index.html',
+  'Website Design &amp; eCommerce Portfolio</h1>', 'id="featured-work"', 'KEN Global Designs', 'Rangresha', 'Healthy Genie',
+  'href="/services/ecommerce/medusa-js-development/#work"', 'href="/services/ecommerce/#shopify"', 'href="/services/website-design/"',
+  '/images/og/portfolio.png') && fileNotContains('portfolio/index.html', 'View live site')
+  && existsSync(join(DIST, 'images/og/portfolio.png'))
+  && fileContains('services/ecommerce/medusa-js-development/index.html', '/portfolio/#featured-work')
+  && fileContains('services/ecommerce/index.html', 'More commerce work in our portfolio'));
+// 27 Nov 2026 products: every product is selectable in the walkthrough form and accepted by the server; links preselect
+// the product; only public demos are linked; the hub is a buying guide; no RERA-Ready claim; Central CMS vs service.
+await (async () => {
+  const { products: catalogue } = await import(new URL('../src/data/products.ts', import.meta.url).href);
+  const php = readFileSync(join(resolve(DIST, '..'), 'public/api/submit-lead.php'), 'utf8');
+  const demoBlock = php.slice(php.indexOf('$allowedDemoProducts = ['), php.indexOf('];', php.indexOf('$allowedDemoProducts = [')));
+  check('Every catalogue product is accepted by the walkthrough request server', catalogue.every((p) => demoBlock.includes(`'${p.title}'`)));
+  check('Product pages link to the walkthrough form with their product preselected', catalogue.every((p) => fileContains(`products/${p.slug}/index.html`, `/request-demo/?product=${p.slug}`)));
+  check('Only public demos are linked; walkthrough-only demo URLs never appear', catalogue.filter((p) => p.demoUrl && p.contactForDemo).every((p) => catalogue.every((q) => fileNotContains(`products/${q.slug}/index.html`, p.demoUrl)) && fileNotContains('products/index.html', p.demoUrl)));
+})();
+check('Products hub is a buying guide and product pages avoid unverified claims', fileContains('products/index.html', 'Configurable Business Software &amp; Portals</h1>', 'For: ', 'Workflow: ', 'Set by your signed proposal')
+  && ['real-estate-portal', 'ima-society-portal', 'medical-conference-portal', 'resort-management-system'].every((slug) => fileNotContains(`products/${slug}/index.html`, 'RERA-Ready') && fileNotContains(`products/${slug}/index.html`, 'RERA-ready') && fileNotContains(`products/${slug}/index.html`, 'Live Demo Coming Soon'))
+  && fileContains('products/real-estate-portal/index.html', 'From listing to enquiry to follow-up', 'PropertyCab, a client implementation')
+  && fileContains('products/elan-central-cms/index.html', 'headless-cms-development', 'Review')
+  && fileNotContains('products/ima-society-portal/index.html', '- eLan | eLan Technology'));
+// 27 Nov 2026 (owner): phone / WhatsApp is required on every enquiry form, in the browser and on the server.
+check('Phone / WhatsApp is required on every enquiry form and enforced by the server', ['ContactForm', 'GetQuoteForm', 'PaidCheckout', 'RequestDemoForm', 'RushAssessmentForm', 'WebsiteAuditForm'].every((f) => {
+  const src = readFileSync(join(resolve(DIST, '..'), `src/islands/${f}.tsx`), 'utf8');
+  return src.includes('phoneError(') && src.includes('PHONE_LABEL') && !/Phone[^<]{0,20}<span[^>]*>\(optional\)/.test(src) && !src.includes('Phone (optional)');
+}) && readFileSync(join(resolve(DIST, '..'), 'public/api/submit-lead.php'), 'utf8').includes("'A phone or WhatsApp number is required'")
+  && readFileSync(join(resolve(DIST, '..'), 'public/api/razorpay-order.php'), 'utf8').includes('Please enter a phone or WhatsApp number')
+  && fileNotContains('privacy-policy/index.html', 'optional phone'));
 section('W  Location-page index policy (src/data/indexPolicy.ts)');
 const indexedLocations = ['nagpur', 'pune', 'raipur', 'usa', 'canada', 'australia', 'japan', 'new-zealand', 'dubai-uae'];
 const noindexLocations = [
@@ -1070,11 +1133,12 @@ check('Product stacks come from one list: no Next.js on the React single-page pr
 check('Insurance portal states its stack, features and planned module', fileContains('products/insurance-agency-management-portal/index.html',
   'NestJS', 'MySQL', 'Commission management', 'Sub-agent management', 'Customer family management', 'Planned, not yet available', 'Stock management'));
 check('Project Management System page describes the workspace without exposing it', fileContains('products/project-management-system/index.html',
-  'Portfolio dashboard', 'Domain renewals', 'Book a walkthrough') && fileNotContains('products/project-management-system/index.html', 'pms.elantech.cloud'));
+  'Portfolio dashboard', 'Domain renewals', 'Request a walkthrough') && fileNotContains('products/project-management-system/index.html', 'pms.elantech.cloud'));
 check('Products index and llms.txt list seven products', productSlugs.every(slug => fileContains('products/index.html', `/products/${slug}/`) && fileContains('llms.txt', `/products/${slug}/`)));
 check('Portfolio archive cards name real technologies only', fileContains('portfolio/index.html', 'Built with WordPress') && fileNotContains('portfolio/index.html', 'Built with CSS3') && fileNotContains('portfolio/index.html', 'Custom UI,'));
 
-check('Service, location and homepage proof features Healthy Genie, not Puritas', ['services/ecommerce/medusa-js-development/index.html', 'services/ecommerce/index.html', 'index.html', 'web-design-company-dubai-uae/index.html', 'web-design-company-raipur/index.html', 'llms.txt'].every(page =>
+// 27 Nov 2026 (owner): Puritas is shown again on the Medusa.js service page only, beside Healthy Genie.
+check('Service, location and homepage proof features Healthy Genie, not Puritas (except the Medusa.js page)', ['services/ecommerce/index.html', 'index.html', 'web-design-company-dubai-uae/index.html', 'web-design-company-raipur/index.html', 'llms.txt'].every(page =>
   fileNotContains(page, 'Puritas') && fileNotContains(page, 'puritas.in'))
   && fileContains('services/ecommerce/medusa-js-development/index.html', 'Visit the Healthy Genie website', 'Meal plans and subscriptions')
   && fileContains('services/ecommerce/index.html', 'Healthy Genie - meal plans and subscriptions'));

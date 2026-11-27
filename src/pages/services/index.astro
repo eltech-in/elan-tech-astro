@@ -3,7 +3,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { services } from '../../data/services';
 import { breadcrumbSchema, serviceSchema } from '../../utils/schema';
 import TechStackCarousel from '../../components/TechStackCarousel.astro';
-import AnswerSummary from '../../components/AnswerSummary.astro';
 import BookingAdvance from '../../components/payments/BookingAdvance.astro';
 
 const breadcrumbs = [
@@ -27,6 +26,37 @@ const ecommerceLinks = [
   { label: 'Medusa.js', href: '/services/ecommerce/medusa-js-development/' },
   { label: 'WooCommerce', href: '/services/ecommerce/' },
   { label: 'Zoho Commerce', href: '/services/ecommerce/#zoho-commerce' },
+];
+// Choose by need (27 Nov 2026): buyers start from the problem; each link names the specialist page.
+const needs = [
+  { title: 'Build a website, app or brand', color: '--ac-pink', links: [
+    { label: 'Custom website design and redesign', href: '/services/website-design/' },
+    { label: 'Web apps, portals and custom builds', href: '/services/web-development/' },
+    { label: 'Mobile apps for iOS and Android', href: '/services/mobile-app-development/' },
+    { label: 'Logo and brand identity', href: '/services/branding/' },
+  ] },
+  { title: 'Sell online', color: '--ac-amber', links: [
+    { label: 'Choose an ecommerce platform', href: '/services/ecommerce/' },
+    { label: 'Custom Shopify store development', href: '/services/ecommerce/#shopify' },
+    { label: 'Medusa.js development agency', href: '/services/ecommerce/medusa-js-development/' },
+  ] },
+  { title: 'Connect your systems', color: '--svc-integrations', links: [
+    { label: 'Payment, shipping and API integrations', href: '/services/integrations/' },
+    { label: 'Custom CRM, ERP and ERPNext', href: '/services/custom-crm-erp-solutions/' },
+    { label: 'Headless CMS with Payload or Directus', href: '/services/headless-cms-development/' },
+  ] },
+  { title: 'Fix accessibility', color: '--ac-blue', links: [
+    { label: 'ADA and WCAG remediation', href: '/services/ada-compliant-web-design/' },
+    { label: 'Emergency help for a demand letter', href: '/services/ada-compliant-web-design/emergency-remediation/' },
+    { label: 'Accessibility quick check', href: '/website-audit/#paid-wcag-audit' },
+  ] },
+  { title: 'Improve an existing website', color: '--ac-emerald', links: [
+    { label: 'Paid website audit', href: '/website-audit/' },
+    { label: 'SEO services', href: '/services/seo/' },
+    { label: 'Google Ads and lead generation', href: '/services/digital-marketing/' },
+    { label: 'Maintenance and security plans', href: '/services/maintenance-security/' },
+    { label: 'DPDP consent and privacy implementation', href: '/services/dpdp-compliance-implementation/' },
+  ] },
 ];
 const steps = [
   { title: 'Discover', desc: 'Goals, audience, competitors and technical requirements.' },
@@ -71,10 +101,28 @@ const reasons = [
     </div>
   </section>
 
+  <!-- Choose by need -->
+  <section class="pt-12 md:pt-16" aria-labelledby="needs-heading">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 id="needs-heading" class="font-heading text-3xl font-bold text-[var(--text)]">What do you need to do?</h2>
+      <p class="mt-2 max-w-2xl text-[var(--text-dim)]">Start with the job, and we will point you to the right service.</p>
+      <ul class="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-5" role="list">
+        {needs.map((n) => (
+          <li class="tilt-card p-5" style={`--card-color: var(${n.color});`}>
+            <h3 class="font-heading text-lg font-bold leading-snug text-[var(--text)]">{n.title}</h3>
+            <ul class="mt-3 space-y-2.5" role="list">
+              {n.links.map((l) => <li><a href={l.href} class="text-sm font-semibold leading-snug text-[var(--text)] underline decoration-[var(--border)] underline-offset-4 transition hover:decoration-[var(--card-color)]">{l.label} →</a></li>)}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
   <!-- All services: one bento grid -->
   <section class="py-12 md:py-16" aria-labelledby="all-services-heading">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h2 id="all-services-heading" class="font-heading text-3xl font-bold text-[var(--text)]">Our Services</h2>
+      <h2 id="all-services-heading" class="font-heading text-3xl font-bold text-[var(--text)]">All services</h2>
       <p class="mt-2 max-w-2xl text-[var(--text-dim)]">Design, development, commerce, visibility and support services shaped around the agreed business requirement.</p>
       <ul class="svc-bento mt-7" role="list">
         {grid.map((s, i) => {
@@ -133,18 +181,8 @@ const reasons = [
   <TechStackCarousel compact />
 
   <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-    <AnswerSummary
-      eyebrow="Service answer"
-      title="Which eLan service should you choose?"
-      intro="Start with the business problem, not a technology name. We can combine design, development, ecommerce, accessibility, SEO and integrations into one clearly scoped project."
-      items={[
-        { question: 'I need a new website', answer: 'Start with Website Design when the main need is presentation and enquiries, or Web Development when the project includes accounts, data, portals or custom functionality.' },
-        { question: 'I need to sell online', answer: 'Choose eCommerce. We will compare Shopify, WooCommerce, Medusa.js, Zoho Commerce and other suitable platforms against your catalogue, team and operational needs.' },
-        { question: 'I am not sure what I need', answer: 'Share your current website, goals and constraints. We will recommend a practical scope and identify any third-party or ongoing costs before quoting.' },
-      ]}
-    />
 
-    <details class="note mt-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]" aria-labelledby="service-privacy-title">
+    <details class="note rounded-xl border border-[var(--border)] bg-[var(--bg-card)]" aria-labelledby="service-privacy-title">
       <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4">
         <span id="service-privacy-title" class="font-semibold text-[var(--text)]">How we handle your project information</span>
         <svg class="chev shrink-0 text-[var(--text-muted)]" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>

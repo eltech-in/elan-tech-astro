@@ -73,6 +73,14 @@ const medusaServices = [
   ['Shopify to Medusa migration', 'Products, customers, orders and URLs moved in stages.'],
   ['Hosting and support', 'Medusa Cloud or your own cloud, monitoring and releases.'],
 ];
+const paths = [
+  { label: 'A custom Shopify store', href: '#shopify' },
+  { label: 'Medusa.js development', href: '/services/ecommerce/medusa-js-development/' },
+  { label: 'WooCommerce on WordPress', href: '#woocommerce' },
+  { label: 'Zoho Commerce', href: '#zoho-commerce' },
+  { label: 'Compare the platforms', href: '#compare-title' },
+  { label: 'Shopify vs Medusa.js guide', href: '/blog/ecommerce/shopify-vs-medusa-js-2026/' },
+];
 const platforms = [
   {
     id: 'shopify', color: '--svc-shopify', eyebrow: 'Custom Shopify development',
@@ -141,6 +149,13 @@ const compare = [
     faqs={faqs}
     cta={{ title: 'Bring us the commerce problem, not a pre-selected platform', text: 'We will help you decide whether Shopify, Medusa.js or another platform best supports your customers, team and growth plans.', label: 'Schedule a consultation' }}
   >
+    <nav slot="lead" class="tilt-card p-5 sm:p-6" style="--card-color: var(--ac-amber);" aria-label="Choose your commerce path">
+      <p class="text-xs font-bold uppercase tracking-[0.16em] text-[var(--text-muted)]">Choose your path</p>
+      <ul class="mt-3 flex flex-wrap gap-2" role="list">
+        {paths.map((pth) => <li><a href={pth.href} class="inline-flex min-h-10 items-center rounded-lg border border-[var(--border)] bg-[var(--bg)] px-4 py-2 text-sm font-semibold text-[var(--text)] transition hover:border-[var(--card-color)]">{pth.label}</a></li>)}
+      </ul>
+    </nav>
+
     <section class="grid gap-6" aria-label="Our two main commerce platforms">
       {platforms.map((pf) => (
         <article id={pf.id} class="tilt-card tilt-card--lg scroll-mt-28 p-6 sm:p-8 lg:p-10" style={`--card-color: var(${pf.color});`} aria-labelledby={`${pf.id}-title`}>
@@ -154,7 +169,10 @@ const compare = [
                 <p class="text-[11px] font-bold uppercase tracking-[0.14em]" style={`color: var(${pf.color});`}>{pf.launch.label}</p>
                 <p class="mt-2 font-semibold text-[var(--text)]">{pf.launch.name}</p>
                 <p class="mt-1 text-sm leading-relaxed text-[var(--text-dim)]">{pf.launch.text}</p>
-                <a href={pf.launch.href} target="_blank" rel="noopener noreferrer" class="mt-3 inline-block text-sm font-semibold text-[var(--text)] underline underline-offset-4">{pf.launch.link} ↗<span class="sr-only"> (opens in a new tab)</span></a>
+                <p class="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+                  <a href={pf.launch.href} target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-[var(--text)] underline underline-offset-4">{pf.launch.link} ↗<span class="sr-only"> (opens in a new tab)</span></a>
+                  <a href="/portfolio/#ecommerce-work" class="text-sm font-semibold text-[var(--text-dim)] underline underline-offset-4">More commerce work in our portfolio</a>
+                </p>
               </div>
             </div>
             <ul class="grid content-start gap-x-8 gap-y-6 sm:grid-cols-2" role="list">

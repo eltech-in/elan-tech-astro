@@ -47,4 +47,7 @@ const { eyebrow, heading, intro, features, outcomes, deliverables, process, suit
   faqTitle={faqTitle ?? 'Frequently asked questions'}
   faqs={faqs}
   cta={{ title: ctaTitle ?? 'Talk to us about your project', text: ctaText ?? 'Share your goals and current setup. We will recommend a practical scope and quote it in writing.' }}
-/>
+>
+  <slot name="lead" slot="lead" />
+  <slot />
+</ServicePage>

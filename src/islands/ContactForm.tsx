@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { PHONE_LABEL, phoneError } from '../lib/phone';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { redirectToThankYou, submitLead } from '../lib/submitLead';
@@ -6,7 +7,7 @@ import { redirectToThankYou, submitLead } from '../lib/submitLead';
 const schema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.email('Please enter a valid email'),
-  phone: z.string().refine((val) => val === undefined || val === '' || /^[\d\s+\-()]{7,20}$/.test(val), { message: 'Please enter a valid phone number' }).optional(),
+  phone: z.string().superRefine((val, ctx) => { const message = phoneError(val ?? ''); if (message) ctx.addIssue({ code: 'custom', message }); }),
   company: z.string().optional(),
   website: z.url('Please enter a valid URL').optional().or(z.literal('')),
   service: z.string().optional(),
@@ -199,11 +200,14 @@ export default function ContactForm() {
       {/* Phone + Company */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="cf-phone" className="block text-sm font-medium text-[var(--text)] mb-1.5">Phone <span className="text-xs font-normal text-[var(--text-muted)]">(optional)</span></label>
+          <label htmlFor="cf-phone" className="block text-sm font-medium text-[var(--text)] mb-1.5">{PHONE_LABEL} <span aria-hidden="true" className="text-red-400">*</span></label>
           <input
             id="cf-phone"
             type="tel"
+            inputMode="tel"
             autoComplete="tel"
+            aria-required="true"
+            aria-invalid={Boolean(errors.phone)}
             aria-describedby={errors.phone ? 'cf-phone-error' : undefined}
             {...register('phone')}
             className={inputClass}

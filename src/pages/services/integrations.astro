@@ -1,6 +1,7 @@
 ---
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
 import ServicePage from '../../components/service/ServicePage.astro';
+import ServiceExplainer from '../../components/service/ServiceExplainer.astro';
 import { integrations } from '../../data/integrations';
 import { breadcrumbSchema, serviceSchema, faqSchema } from '../../utils/schema';
 
@@ -72,6 +73,18 @@ const colors = ['--ac-cyan', '--ac-emerald', '--ac-indigo', '--ac-amber', '--ac-
     faqs={serviceFaqs}
     cta={{ title: 'Connect the tools your business uses', text: 'List the systems you use and what should move between them. We will map the integration and quote it in writing.' }}
   >
+    <ServiceExplainer
+      id="workflow"
+      color="--svc-integrations"
+      eyebrow="Example: an order-to-courier integration"
+      title="Your store takes the order. Who owns what?"
+      intro="Before building an integration we agree, field by field, which system owns the data, how updates move and what happens when they fail. Here is how that looks for a store sending orders to a courier platform such as Shiprocket."
+      columns={[{"title": "Which system owns the data", "text": "The store owns the order and the customer. The courier platform owns the shipment, the AWB number and the tracking status."}, {"title": "How updates sync", "text": "A paid order creates a shipment straight away. Tracking updates come back by webhook and update the order, so customers see one status."}, {"title": "What happens when it fails", "text": "Failed calls are retried, then logged and sent to a named person. The order is flagged so nobody ships it twice or forgets it."}]}
+      numbered
+      note="Each integration is scoped and quoted on its own. Full CRM or ERP builds have their own page."
+      links={[{"href": "/services/custom-crm-erp-solutions/", "label": "Custom CRM and ERP development"}]}
+    />
+
     <section aria-labelledby="catalogue-title">
       <h2 id="catalogue-title" class="font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">Integrations we work with</h2>
       <div class="mt-5 grid gap-4 lg:grid-cols-3">

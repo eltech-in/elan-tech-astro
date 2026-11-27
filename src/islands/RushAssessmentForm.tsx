@@ -1,4 +1,5 @@
 import { useRef, useState, type SubmitEvent } from 'react';
+import { PHONE_LABEL, phoneError } from '../lib/phone';
 import { redirectToThankYou, submitLead } from '../lib/submitLead';
 
 // Rush assessment form for the Emergency ADA Remediation page.
@@ -18,6 +19,7 @@ export default function RushAssessmentForm() {
   const [fields, setFields] = useState({
     name: '',
     email: '',
+    phone: '',
     url: '',
     deadline: '',
     platform: '',
@@ -40,6 +42,8 @@ export default function RushAssessmentForm() {
     const errs: Record<string, string> = {};
     if (!fields.name.trim() || fields.name.trim().length < 2) errs.name = 'Name must be at least 2 characters';
     if (!fields.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email)) errs.email = 'Please enter a valid email';
+    const phoneMessage = phoneError(fields.phone);
+    if (phoneMessage) errs.phone = phoneMessage;
     if (!fields.url) errs.url = 'Website URL is required';
     else if (!/^https?:\/\/.+/.test(fields.url)) errs.url = 'Enter a valid URL (starting with http/https)';
     if (!privacyAccepted) errs.privacyAccepted = 'Please confirm the privacy notice before requesting an assessment';
@@ -70,7 +74,7 @@ export default function RushAssessmentForm() {
         priority: 'Emergency ADA',
         ...fields,
         privacyAccepted,
-        _privacyNoticeVersion: 'rush-assessment-2026-09-24',
+        _privacyNoticeVersion: 'rush-assessment-2026-11-27',
       });
       redirectToThankYou('rush-assessment');
     } catch {
@@ -152,6 +156,28 @@ export default function RushAssessmentForm() {
       </div>
 
       <div>
+        <label htmlFor="ra-phone" className="block text-sm font-medium text-[var(--text)] mb-1.5">
+          {PHONE_LABEL} <span aria-hidden="true" className="text-red-400">*</span>
+        </label>
+        <input
+          id="ra-phone"
+          type="tel"
+          inputMode="tel"
+          value={fields.phone}
+          onChange={(e) => set('phone', e.target.value)}
+          aria-required="true"
+          aria-invalid={Boolean(fieldErrors.phone)}
+          aria-describedby={fieldErrors.phone ? 'ra-phone-error' : undefined}
+          className={inputClass}
+          placeholder="+1 555 123 4567"
+          autoComplete="tel"
+        />
+        {fieldErrors.phone && (
+          <p id="ra-phone-error" role="alert" aria-live="polite" className="mt-1 text-xs text-red-400">{fieldErrors.phone}</p>
+        )}
+      </div>
+
+      <div>
         <label htmlFor="ra-url" className="block text-sm font-medium text-[var(--text)] mb-1.5">
           Website / store URL <span aria-hidden="true" className="text-red-400">*</span>
         </label>
@@ -209,7 +235,7 @@ export default function RushAssessmentForm() {
       <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-4">
         <h3 className="text-sm font-semibold text-[var(--text)]">How we use your rush-assessment request</h3>
         <p id="ra-privacy-notice" className="mt-2 text-xs leading-relaxed text-[var(--text-dim)]">
-          We use your name, email and public website URL, together with any optional target date and
+          We use your name, email, phone or WhatsApp number and public website URL, together with any optional target date and
           platform, to assess the technical request, prioritise it and contact you about possible
           remediation. Unconverted requests may be retained privately for up to 12 months. We do not
           add you to a marketing list. Do not submit demand letters, complainant details, health or
