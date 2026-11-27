@@ -41,7 +41,7 @@ const tick = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" vie
         <li class:list={['bento-cell', `is-${size}`]}>
           <a
             href={`/services/${s.slug}/`}
-            class:list={['service-card group relative flex h-full flex-col overflow-hidden rounded-lg border border-[var(--border)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl', size === 'large' ? 'p-6 md:p-8' : 'p-5']}
+            class:list={['service-card group relative flex h-full flex-col overflow-hidden rounded-xl border border-[var(--border)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl', size === 'large' ? 'p-6 md:p-8' : 'p-5']}
             style={`background: linear-gradient(135deg, color-mix(in srgb, var(${s.cssVar}) 10%, var(--bg-card)) 0%, var(--bg-card) 65%); --card-color: var(${s.cssVar});`}
           >
             <span aria-hidden="true" class="service-card__num pointer-events-none absolute right-4 top-3 select-none font-heading font-black leading-none" style={`color: var(${s.cssVar}); font-size: ${size === 'large' ? '6rem' : size === 'wide' ? '4.5rem' : '3.6rem'};`}>{num}</span>

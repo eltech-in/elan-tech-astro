@@ -280,7 +280,7 @@ export default function WebsiteAuditForm() {
                 {AUDIT_ASPECTS.map((aspect) => (
                   <label
                     key={aspect}
-                    className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border cursor-pointer text-sm transition-colors ${
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border cursor-pointer text-sm transition-colors ${
                       step2.aspects.includes(aspect)
                         ? 'border-[var(--accent)] bg-[var(--accent)]/10 text-[var(--text)]'
                         : 'border-[var(--border)] text-[var(--text-dim)] hover:border-[var(--accent)]'
@@ -359,7 +359,7 @@ export default function WebsiteAuditForm() {
           </div>
 
           {status === 'error' && (
-            <p role="alert" aria-live="polite" className="text-xs text-red-400 bg-red-400/10 p-3 rounded-lg border border-red-400/20 mt-2">
+            <p role="alert" aria-live="polite" className="text-xs text-red-400 bg-red-400/10 p-3 rounded-xl border border-red-400/20 mt-2">
               {errorMsg}
             </p>
           )}

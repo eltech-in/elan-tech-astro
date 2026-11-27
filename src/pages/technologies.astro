@@ -23,6 +23,8 @@ const groups = techGroups
   }))
   .filter((entry) => entry.items.length > 0);
 
+// Compact layout (owner, 27 Nov 2026): one section, groups as headings over three-column cards.
+const groupColors = ['--ac-cyan', '--ac-pink', '--ac-indigo', '--ac-amber', '--ac-violet', '--ac-emerald', '--ac-blue', '--ac-teal'];
 const groupId = (group: string) => `tech-${group.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 ---
 
@@ -31,88 +33,71 @@ const groupId = (group: string) => `tech-${group.toLowerCase().replace(/[^a-z0-9
   description="The technology stacks eLan Technology builds with, each linked to a published project or product that uses it: Next.js, React, Astro, Medusa.js, Shopify, WordPress and more."
   schema={schema}
 >
-  <section class="border-b border-[var(--border)] bg-[var(--bg)] py-14 sm:py-20" aria-labelledby="tech-title">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-      <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">Technology stacks</p>
-      <h1 id="tech-title" class="mt-3 font-heading text-4xl font-bold leading-tight text-[var(--text)] sm:text-5xl">Technologies we build with</h1>
-      <p class="mt-5 max-w-3xl text-lg leading-relaxed text-[var(--text-dim)]">
-        Every technology on this page is linked to a published project or one of our own products that uses it. We choose the stack after we understand the project, so this is a record of what we have delivered, not a list of everything we could attempt.
-      </p>
-      <nav class="mt-8" aria-label="Technology groups">
+  <section class="bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-12 md:py-14" aria-labelledby="tech-title">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Technology stacks</p>
+      <h1 id="tech-title" class="mt-3 font-heading text-4xl font-bold leading-tight text-[var(--text)] md:text-5xl">Technologies we build with</h1>
+      <p class="mt-4 max-w-3xl text-lg leading-relaxed text-[var(--text-dim)]">Every technology here links to a published project or one of our own products that uses it. We choose the stack after we understand the project, so this is a record of what we have delivered.</p>
+      <nav class="mt-6" aria-label="Technology groups">
         <ul class="flex flex-wrap gap-2" role="list">
           {groups.map((entry) => (
-            <li>
-              <a href={`#${groupId(entry.group)}`} class="inline-flex rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-4 py-2 text-sm font-semibold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">
-                {entry.group}
-              </a>
-            </li>
+            <li><a href={`#${groupId(entry.group)}`} class="inline-flex rounded-md border border-[var(--border)] bg-[var(--bg)] px-3.5 py-2 text-sm text-[var(--text-dim)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">{entry.group} <span class="ml-1 text-[var(--text-muted)]">{entry.items.length}</span></a></li>
           ))}
         </ul>
       </nav>
     </div>
   </section>
 
-  {groups.map((entry, index) => (
-    <section
-      id={groupId(entry.group)}
-      class:list={['scroll-mt-28 border-b border-[var(--border)] py-14 sm:py-16', index % 2 === 0 ? 'bg-[var(--bg-card)]' : 'bg-[var(--bg)]']}
-      aria-labelledby={`${groupId(entry.group)}-title`}
-    >
-      <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        <h2 id={`${groupId(entry.group)}-title`} class="font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">{entry.group}</h2>
-        <ul class="mt-7 grid gap-5 md:grid-cols-2" role="list">
+  <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    {groups.map((entry, gi) => (
+      <section id={groupId(entry.group)} style={`--card-color: var(${groupColors[gi % groupColors.length]});`} class="scroll-mt-28 [&+&]:mt-10" aria-labelledby={`${groupId(entry.group)}-title`}>
+        <h2 id={`${groupId(entry.group)}-title`} class="flex items-center gap-2.5 font-heading text-xl font-bold text-[var(--text)] sm:text-2xl"><i class="h-3 w-3 rounded-sm" style="background: var(--card-color);" aria-hidden="true"></i>{entry.group}</h2>
+        <ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" role="list">
           {entry.items.map((tech) => (
-            <li class:list={['flex flex-col rounded-2xl border border-[var(--border)] p-6', index % 2 === 0 ? 'bg-[var(--bg)]' : 'bg-[var(--bg-card)]']}>
-              <h3 class="font-heading text-xl font-bold text-[var(--text)]">{tech.name}</h3>
-              <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">{tech.summary}</p>
-              <p class="mt-5 text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">Used in</p>
-              <ul class="mt-2 flex flex-wrap gap-2" role="list">
+            <li class="tilt-card flex flex-col p-4 sm:p-5">
+              <h3 class="font-heading text-lg font-bold text-[var(--text)]">{tech.name}</h3>
+              <p class="mt-1 text-sm leading-relaxed text-[var(--text-dim)]">{tech.summary}</p>
+              <p class="mt-3 text-[11px] font-bold uppercase tracking-wider text-[var(--text-muted)]">Used in</p>
+              <ul class="mt-1.5 flex flex-wrap gap-1.5" role="list">
                 {tech.shown.map((proof) => (
                   <li>
                     {proof.external ? (
-                      <a href={proof.url} target="_blank" rel="noopener noreferrer" class="inline-flex rounded-full border border-[var(--border)] px-3 py-1 text-sm font-semibold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">
-                        {proof.title}<span class="sr-only"> (opens in a new tab)</span>
-                      </a>
+                      <a href={proof.url} target="_blank" rel="noopener noreferrer" class="chip">{proof.title}<span class="sr-only"> (opens in a new tab)</span></a>
                     ) : (
-                      <a href={proof.url} class="inline-flex rounded-full border border-[var(--border)] px-3 py-1 text-sm font-semibold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">
-                        {proof.title}{proof.kind === 'Product' && <span class="ml-1.5 text-[var(--text-muted)]">· product</span>}
-                      </a>
+                      <a href={proof.url} class="chip">{proof.title}{proof.kind === 'Product' && <span class="ml-1 text-[var(--text-muted)]">· product</span>}</a>
                     )}
                   </li>
                 ))}
                 {tech.more > 0 && (
-                  <li>
-                    <a href="/portfolio/#project-archive" class="inline-flex rounded-full border border-dashed border-[var(--border)] px-3 py-1 text-sm font-semibold text-[var(--text-dim)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">
-                      and {tech.more} more in the portfolio
-                    </a>
-                  </li>
+                  <li><a href="/portfolio/#project-archive" class="chip border-dashed text-[var(--text-dim)]">and {tech.more} more in the portfolio</a></li>
                 )}
               </ul>
               {tech.serviceUrl && (
-                <p class="mt-auto pt-5 text-sm">
-                  <a href={tech.serviceUrl} class="font-semibold text-[var(--accent)] underline underline-offset-4 hover:no-underline">{tech.serviceLabel}</a>
-                </p>
+                <p class="mt-auto pt-3 text-sm"><a href={tech.serviceUrl} class="font-semibold text-[var(--accent)] underline underline-offset-4 hover:no-underline">{tech.serviceLabel}</a></p>
               )}
             </li>
           ))}
         </ul>
-      </div>
-    </section>
-  ))}
+      </section>
+    ))}
+  </div>
 
-  <section class="bg-[var(--bg)] py-14 sm:py-16" aria-labelledby="tech-nda-title">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-      <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8">
-        <h2 id="tech-nda-title" class="font-heading text-2xl font-bold text-[var(--text)]">Work we cannot list</h2>
-        <p class="mt-3 max-w-3xl leading-relaxed text-[var(--text-dim)]">
-          Some of our work is delivered under confidentiality agreements, so those projects and their stacks are not named here. If you need experience with a technology that is not on this page, ask us and we will tell you plainly whether we have delivered it.
-        </p>
-        <div class="mt-6 flex flex-wrap gap-3">
-          <a href="/schedule-consultation/" class="inline-flex items-center rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-bold text-white transition hover:brightness-110">Discuss your stack</a>
-          <a href="/portfolio/" class="inline-flex items-center rounded-full border border-[var(--border)] px-6 py-3 text-sm font-bold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">See the portfolio</a>
-          <a href="/nda-confidentiality-policy/" class="inline-flex items-center rounded-full border border-[var(--border)] px-6 py-3 text-sm font-bold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">NDA and confidentiality policy</a>
-        </div>
+  <section class="border-t border-[var(--border)] bg-[var(--bg-card)] py-10" aria-labelledby="tech-nda-title">
+    <div class="mx-auto flex max-w-7xl flex-col gap-5 px-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+      <div class="max-w-3xl">
+        <h2 id="tech-nda-title" class="font-heading text-xl font-bold text-[var(--text)] sm:text-2xl">Work we cannot list</h2>
+        <p class="mt-2 leading-relaxed text-[var(--text-dim)]">Some work is delivered under confidentiality agreements, so those projects and stacks are not named here. Ask about any technology not listed and we will tell you plainly whether we have delivered it.</p>
+      </div>
+      <div class="flex shrink-0 flex-wrap gap-3">
+        <a href="/schedule-consultation/" class="inline-flex min-h-11 items-center rounded-lg bg-[var(--accent)] px-5 py-2.5 font-semibold text-white transition hover:brightness-110">Discuss your stack</a>
+        <a href="/portfolio/" class="inline-flex min-h-11 items-center rounded-lg border border-[var(--border)] bg-[var(--bg)] px-5 py-2.5 font-semibold text-[var(--text)] transition hover:border-[var(--accent)]">See the portfolio</a>
+        <a href="/nda-confidentiality-policy/" class="inline-flex min-h-11 items-center rounded-lg border border-[var(--border)] bg-[var(--bg)] px-5 py-2.5 font-semibold text-[var(--text)] transition hover:border-[var(--accent)]">NDA policy</a>
       </div>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .chip { display: inline-flex; border: 1px solid var(--border); border-radius: var(--radius-md); padding: .2rem .55rem; font-size: .78rem; font-weight: 600; color: var(--text); transition: border-color .2s, color .2s; }
+  .chip:hover { border-color: var(--accent); color: var(--accent); }
+</style>

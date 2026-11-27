@@ -1,0 +1,47 @@
+---
+// One earlier-project card for the portfolio archive (shared by the visible and folded lists).
+import { Image } from 'astro:assets';
+import { getProjectImage } from '../../lib/images';
+import { confirmedTech } from '../../data/techStack';
+import type { projects } from '../../data/portfolio';
+
+interface Props { project: (typeof projects)[number]; }
+const { project } = Astro.props;
+---
+<li>
+  <article class="archive-card tilt-card group h-full" style={`--card-color: ${project.accent};`}>
+    <a href={project.liveUrl || '/portfolio/'} target={project.liveUrl ? '_blank' : undefined} rel={project.liveUrl ? 'noopener noreferrer' : undefined} class="block h-full" aria-label={project.liveUrl ? `Visit ${project.title}, opens in a new tab` : `View ${project.title} in the portfolio`}>
+      <div class="relative aspect-[16/10] overflow-hidden bg-white">
+        <Image
+          src={getProjectImage(project.image)}
+          alt={`${project.title} project preview`}
+          widths={[320, 480, 640]}
+          sizes="(max-width: 639px) 50vw, (max-width: 1023px) 33vw, 25vw"
+          format={getProjectImage(project.image).format === 'svg' ? undefined : 'avif'}
+          loading="lazy"
+          decoding="async"
+          class:list={['h-full w-full transition duration-500 group-hover:scale-[1.035]', project.image.includes('/elan-client-logos/') ? 'object-contain p-6' : 'object-cover']}
+        />
+        <span class="absolute left-2 top-2 rounded px-2 py-0.5 text-[9px] font-black uppercase tracking-wider text-white" style={`background:${project.accent}`}>{project.category}</span>
+      </div>
+      <div class="pf-body">
+        <p class="pf-label text-[var(--text-muted)]">{project.industry}</p>
+        <h3 class="pf-title">{project.title}</h3>
+        <p class="pf-desc">{project.description}</p>
+        {confirmedTech(project).length > 0 && (
+          <p class="tech mt-1 text-[11px] font-semibold leading-4 text-[var(--text-muted)]">Built with {confirmedTech(project).join(', ')}</p>
+        )}
+      </div>
+    </a>
+  </article>
+</li>
+
+<style>
+  .archive-card:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent) 48%, var(--border)); box-shadow: 0 14px 36px color-mix(in srgb, var(--text) 10%, transparent); }
+  .pf-body { padding: .9rem 1rem 1rem; }
+  .pf-label { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; }
+  .pf-title { margin-top: .3rem; font-family: var(--font-heading); font-size: 1rem; font-weight: 800; line-height: 1.3; color: var(--text); }
+  .pf-desc { margin-top: .35rem; font-size: .8rem; line-height: 1.5; color: var(--text-dim); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  @media (max-width: 639px) { .pf-body { padding: .6rem .7rem .75rem; } .pf-title { font-size: .875rem; } .pf-desc, .tech { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .archive-card, .archive-card img { transition: none; } }
+</style>

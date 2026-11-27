@@ -19,7 +19,7 @@ function formatPrice(n: number): string {
 <article
   role="article"
   class:list={[
-    'relative flex flex-col h-full rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl',
+    'relative flex flex-col h-full rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl',
     plan.featured
       ? 'border-[#F26722] shadow-lg'
       : 'border-[var(--border)]',
@@ -31,7 +31,7 @@ function formatPrice(n: number): string {
   <!-- Single-plan offer badge -->
   {plan.featured && (
     <div
-      class="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full px-5 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-white whitespace-nowrap"
+      class="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-md px-5 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-white whitespace-nowrap"
       style="background: #F26722;"
     >
       14 to 25 September 2026
@@ -63,7 +63,7 @@ function formatPrice(n: number): string {
     <!-- ── Monthly reframe pill ──────────────────────────────────────── -->
     <div class="mb-5">
       <span
-        class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold"
+        class="inline-flex items-center rounded-md px-3 py-1 text-xs font-semibold"
         style="background: rgba(242,103,34,0.1); color: #F26722; border: 1px solid rgba(242,103,34,0.3);"
       >
         {plan.monthlyReframe} across the included 4-year period

@@ -39,7 +39,7 @@ export const navServices: NavLink[] = [
   { label: 'Website Design', href: '/services/website-design/' },
   { label: 'Web Development', href: '/services/web-development/' },
   { label: 'eCommerce', href: '/services/ecommerce/' },
-  { label: 'Custom Shopify Development', href: '/services/ecommerce/shopify-development/' },
+  { label: 'Custom Shopify Development', href: '/services/ecommerce/#shopify' },
   { label: 'Medusa.js Development', href: '/services/ecommerce/medusa-js-development/' },
   { label: 'Zoho Commerce Implementation', href: '/services/ecommerce/#zoho-commerce' },
   { label: 'Headless CMS (Payload & Directus)', href: '/services/headless-cms-development/' },

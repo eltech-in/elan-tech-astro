@@ -88,7 +88,7 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
       </nav>
 
       <div class="max-w-4xl">
-        <span class="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-white backdrop-blur-sm mb-6">
+        <span class="inline-flex items-center gap-2 rounded-md border border-white/30 bg-white/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-white backdrop-blur-sm mb-6">
           <span class="h-1.5 w-1.5 rounded-full animate-pulse" style={`background: var(${product.cssVar})`} aria-hidden="true"></span>
           Real Estate Software
           <span class="text-white/50">·</span>
@@ -108,21 +108,21 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
         <div class="flex flex-wrap gap-3 mb-6">
           {product.demoUrl && (
             <a href={product.demoUrl} target="_blank" rel="noopener noreferrer"
-               class="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all shadow-xl"
+               class="inline-flex items-center gap-2 rounded-lg px-7 py-3.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all shadow-xl"
                style={`background: var(${product.cssVar}); box-shadow: 0 12px 30px color-mix(in srgb, var(${product.cssVar}) 40%, transparent);`}
                aria-label={`Open ${product.title} live demo - opens in new tab`}>
               Try Live Demo
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             </a>
           )}
-          <a href="/request-demo/" class="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/5 backdrop-blur-sm px-7 py-3.5 text-sm font-bold text-white hover:bg-white/15 transition-all">
+          <a href="/request-demo/" class="inline-flex items-center gap-2 rounded-lg border border-white/40 bg-white/5 backdrop-blur-sm px-7 py-3.5 text-sm font-bold text-white hover:bg-white/15 transition-all">
             Book Walkthrough
           </a>
         </div>
 
         <div class="flex flex-wrap gap-2">
           {techStack.map((tech) => (
-            <span class="px-3 py-1 rounded-full text-xs bg-white/10 border border-white/20 text-white/90 backdrop-blur-sm">{tech}</span>
+            <span class="px-3 py-1 rounded-md text-xs bg-white/10 border border-white/20 text-white/90 backdrop-blur-sm">{tech}</span>
           ))}
         </div>
       </div>
@@ -172,7 +172,7 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
             { n: '02', title: 'What we agree', text: 'Branding, features, integrations, delivery, licensing, source-code rights, hosting and support.' },
             { n: '03', title: 'What remains separate', text: 'Hosting, maintenance, paid APIs, gateway charges and later upgrades unless your proposal includes them.' },
           ].map(item => (
-            <article class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-5">
+            <article class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-5">
               <span class="text-xs font-black" style={`color: var(${product.cssVar});`}>{item.n}</span>
               <h3 class="mt-2 font-semibold text-[var(--text)]">{item.title}</h3>
               <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">{item.text}</p>
@@ -204,7 +204,7 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
             </header>
             <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4" role="list">
               {features.map((f, i) => (
-                <li class="relative overflow-hidden rounded-2xl border border-[var(--border)] p-5 hover:-translate-y-0.5 transition-transform" style={`background: linear-gradient(135deg, color-mix(in srgb, var(${product.cssVar}) 8%, var(--bg-card)) 0%, var(--bg-card) 80%);`}>
+                <li class="relative overflow-hidden rounded-xl border border-[var(--border)] p-5 hover:-translate-y-0.5 transition-transform" style={`background: linear-gradient(135deg, color-mix(in srgb, var(${product.cssVar}) 8%, var(--bg-card)) 0%, var(--bg-card) 80%);`}>
                   <span aria-hidden="true" class="absolute top-2 right-3 font-heading font-black text-4xl leading-none select-none" style={`color: var(${product.cssVar}); opacity: 0.15;`}>{String(i + 1).padStart(2,'0')}</span>
                   <div class="relative">
                     <div class="mb-3 flex h-9 w-9 items-center justify-center rounded-xl" style={`background: color-mix(in srgb, var(${product.cssVar}) 18%, transparent);`}>
@@ -226,7 +226,7 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
             </header>
             <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4" role="list">
               {audience.map((a) => (
-                <li class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
+                <li class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
                   <h3 class="font-semibold text-[var(--text)] mb-1.5">{a.title}</h3>
                   <p class="text-sm text-[var(--text-dim)] leading-relaxed">{a.desc}</p>
                 </li>
@@ -235,18 +235,18 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
           </div>
 
           <!-- Inline CTA -->
-          <div class="relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 text-center">
+          <div class="relative overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-8 text-center">
             <h3 class="font-heading text-xl sm:text-2xl font-bold text-[var(--text)] mb-3">See it in action</h3>
             <p class="text-[var(--text-dim)] mb-6">Try the live demo now, or schedule a 30-minute guided walkthrough.</p>
             <div class="flex flex-col sm:flex-row gap-3 justify-center">
               {product.demoUrl && (
                 <a href={product.demoUrl} target="_blank" rel="noopener noreferrer"
-                   class="inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-bold text-white hover:-translate-y-0.5 transition-all"
+                   class="inline-flex items-center justify-center gap-2 rounded-lg px-7 py-3 text-sm font-bold text-white hover:-translate-y-0.5 transition-all"
                    style={`background: var(${product.cssVar});`}>
                   Try Live Demo ↗
                 </a>
               )}
-              <a href="/request-demo/" class="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--border)] px-7 py-3 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
+              <a href="/request-demo/" class="inline-flex items-center justify-center gap-2 rounded-lg border border-[var(--border)] px-7 py-3 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
                 Book Walkthrough
               </a>
             </div>
@@ -257,7 +257,7 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
         <aside class="lg:col-span-4 space-y-5" aria-label="Product details and other products">
           <div class="lg:sticky lg:top-24 space-y-5">
             <!-- Product meta -->
-            <div class="relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+            <div class="relative overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
               <span aria-hidden="true" class="absolute inset-x-0 top-0 h-[3px]" style={`background: var(${product.cssVar});`}></span>
               <p class="text-[11px] font-bold uppercase tracking-widest mb-4" style={`color: var(${product.cssVar});`}>Product Details</p>
               <dl class="space-y-3 text-sm">
@@ -285,19 +285,19 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
 
               {product.demoUrl && (
                 <a href={product.demoUrl} target="_blank" rel="noopener noreferrer"
-                   class="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all"
+                   class="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all"
                    style={`background: var(${product.cssVar});`}
                    aria-label={`Open ${product.title} live demo - opens in new tab`}>
                   Try Live Demo ↗
                 </a>
               )}
-              <a href="/request-demo/" class="mt-2 w-full inline-flex items-center justify-center gap-2 rounded-full border border-[var(--border)] px-5 py-2.5 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
+              <a href="/request-demo/" class="mt-2 w-full inline-flex items-center justify-center gap-2 rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
                 Book Walkthrough
               </a>
             </div>
 
             <!-- Other Products -->
-            <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+            <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
               <div class="flex items-center justify-between mb-4">
                 <p class="text-[11px] font-bold uppercase tracking-widest" style={`color: var(${product.cssVar});`}>Other Products</p>
                 <a href="/products/" class="text-[11px] font-semibold text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors">View All →</a>
@@ -305,8 +305,8 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
               <ul class="space-y-2.5" role="list">
                 {others.map((p) => (
                   <li>
-                    <a href={`/products/${p.slug}/`} class="group flex items-center gap-3 rounded-lg p-2 -mx-2 hover:bg-[var(--bg)] transition-colors">
-                      <span class="h-10 w-10 shrink-0 rounded-lg flex items-center justify-center text-[13px] font-black text-white" style={`background: var(${p.cssVar});`} aria-hidden="true">
+                    <a href={`/products/${p.slug}/`} class="group flex items-center gap-3 rounded-xl p-2 -mx-2 hover:bg-[var(--bg)] transition-colors">
+                      <span class="h-10 w-10 shrink-0 rounded-xl flex items-center justify-center text-[13px] font-black text-white" style={`background: var(${p.cssVar});`} aria-hidden="true">
                         {p.title.slice(0,1)}
                       </span>
                       <div class="min-w-0 flex-1">
@@ -321,11 +321,11 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
             </div>
 
             <!-- Mini CTA -->
-            <div class="relative overflow-hidden rounded-2xl p-6 text-center" style={`background: linear-gradient(135deg, color-mix(in srgb, var(${product.cssVar}) 18%, var(--bg-card)) 0%, var(--bg-card) 80%); border: 1px solid color-mix(in srgb, var(${product.cssVar}) 40%, var(--border));`}>
+            <div class="relative overflow-hidden rounded-xl p-6 text-center" style={`background: linear-gradient(135deg, color-mix(in srgb, var(${product.cssVar}) 18%, var(--bg-card)) 0%, var(--bg-card) 80%); border: 1px solid color-mix(in srgb, var(${product.cssVar}) 40%, var(--border));`}>
               <span aria-hidden="true" class="absolute -right-8 -bottom-8 h-28 w-28 rounded-full blur-2xl opacity-40" style={`background: var(${product.cssVar});`}></span>
               <p class="relative font-heading text-lg font-bold text-[var(--text)] mb-2">Need customizations?</p>
               <p class="relative text-xs text-[var(--text-dim)] mb-4">20-minute scoping call. No hard sell.</p>
-              <a href="/schedule-consultation/" class="relative inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all" style={`background: var(${product.cssVar});`}>
+              <a href="/schedule-consultation/" class="relative inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all" style={`background: var(${product.cssVar});`}>
                 Book a Call
               </a>
             </div>
@@ -355,18 +355,18 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
         {others.map((p) => (
           <li>
             <a href={`/products/${p.slug}/`}
-               class="group relative block h-full overflow-hidden rounded-2xl border border-[var(--border)] p-6 hover:-translate-y-1 transition-all"
+               class="group relative block h-full overflow-hidden rounded-xl border border-[var(--border)] p-6 hover:-translate-y-1 transition-all"
                style={`background: linear-gradient(135deg, color-mix(in srgb, var(${p.cssVar}) 12%, var(--bg)) 0%, var(--bg) 70%);`}>
               <span aria-hidden="true" class="absolute inset-x-0 top-0 h-[3px]" style={`background: var(${p.cssVar});`}></span>
               <div class="flex items-center gap-3 mb-3">
                 <span class="h-10 w-10 rounded-xl flex items-center justify-center text-sm font-black text-white" style={`background: var(${p.cssVar});`} aria-hidden="true">{p.title.slice(0,1)}</span>
                 {p.demoUrl ? (
-                  <span class="inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider" style={`color: var(${p.cssVar}); border-color: color-mix(in srgb, var(${p.cssVar}) 50%, transparent);`}>
+                  <span class="inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider" style={`color: var(${p.cssVar}); border-color: color-mix(in srgb, var(${p.cssVar}) 50%, transparent);`}>
                     <span class="h-1 w-1 rounded-full animate-pulse" style={`background: var(${p.cssVar})`} aria-hidden="true"></span>
                     Live Demo
                   </span>
                 ) : (
-                  <span class="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)]">{p.contactForDemo ? 'Demo on request' : 'Coming Soon'}</span>
+                  <span class="inline-flex items-center gap-1.5 rounded-md border border-[var(--border)] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)]">{p.contactForDemo ? 'Demo on request' : 'Coming Soon'}</span>
                 )}
               </div>
               <h3 class="font-heading font-bold text-[var(--text)] leading-snug mb-1 group-hover:text-[var(--accent)] transition-colors">{p.title}</h3>

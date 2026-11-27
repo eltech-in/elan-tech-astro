@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { services, accessibilityService, coreServices, newBusinessServices } from '../../data/services';
+import { services } from '../../data/services';
 import { breadcrumbSchema, serviceSchema } from '../../utils/schema';
 import TechStackCarousel from '../../components/TechStackCarousel.astro';
 import AnswerSummary from '../../components/AnswerSummary.astro';
@@ -17,6 +17,31 @@ const schemas = [
     serviceSchema(s.title, s.description, `/services/${s.slug}/`)
   ),
 ];
+
+// One bento grid for every service (owner, 27 Nov 2026): eCommerce large, the rest compact cards.
+const order = ['ecommerce', 'website-design', 'web-development', 'ada-compliant-web-design', 'seo', 'digital-marketing', 'mobile-app-development', 'branding', 'maintenance-security', 'custom-crm-erp-solutions', 'dpdp-compliance-implementation', 'headless-cms-development'];
+const grid = order.map((slug) => services.find((s) => s.slug === slug)!).filter(Boolean).map((s) => ({ href: `/services/${s.slug}/`, title: s.title, tagline: s.tagline, description: s.description, cssVar: s.cssVar, icon: s.iconSvg, slug: s.slug }));
+grid.push({ href: '/services/integrations/', title: 'API & Integrations', tagline: 'Payment, shipping, CRM and custom software connections', description: '', cssVar: '--svc-integrations', slug: 'integrations', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>' });
+const ecommerceLinks = [
+  { label: 'Shopify', href: '/services/ecommerce/#shopify' },
+  { label: 'Medusa.js', href: '/services/ecommerce/medusa-js-development/' },
+  { label: 'WooCommerce', href: '/services/ecommerce/' },
+  { label: 'Zoho Commerce', href: '/services/ecommerce/#zoho-commerce' },
+];
+const steps = [
+  { title: 'Discover', desc: 'Goals, audience, competitors and technical requirements.' },
+  { title: 'Strategy', desc: 'Sitemap, wireframes, stack, timeline and success measures.' },
+  { title: 'Design', desc: 'Responsive, accessible mock-ups with agreed review rounds.' },
+  { title: 'Develop', desc: 'Clean, maintainable code on the right platform for you.' },
+  { title: 'Test', desc: 'Browsers, devices, accessibility and Core Web Vitals.' },
+  { title: 'Launch', desc: 'Deployment, redirects, backups and post-launch checks.' },
+];
+const reasons = [
+  { title: 'Experience since 2002', desc: '24+ years and 1,500+ projects for organisations in India and abroad.' },
+  { title: 'Accessibility-first', desc: 'Considered from the start; formal WCAG scope and evidence agreed when required.' },
+  { title: 'Full-stack in one team', desc: 'Design, development and marketing in one engagement, with clear responsibilities.' },
+  { title: 'Support after launch', desc: 'Maintenance, response channels and service levels set out in your proposal.' },
+];
 ---
 <BaseLayout
   title="Web Design & Digital Services | eLan Technology"
@@ -24,381 +49,90 @@ const schemas = [
   ogImage="/images/og/services.png"
   schema={schemas}
 >
-  <!-- ── HERO ─────────────────────────────────────────────────────────────── -->
-  <section class="relative overflow-hidden bg-[var(--bg)] py-20 md:py-28">
-    <div class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-[var(--accent)]/10 via-transparent to-purple-500/5" aria-hidden="true"></div>
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-      <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-[var(--accent)]">Full-Service Digital Agency</p>
-      <h1 class="font-heading text-4xl font-bold leading-tight tracking-tight text-[var(--text)] md:text-5xl lg:text-6xl">
-        Digital Services for Growing Businesses
-      </h1>
-      <p class="mx-auto mt-6 max-w-3xl text-lg text-[var(--text-muted)] md:text-xl">
-        We design websites and stores, build CRM and ERP workflows, customise ERPNext, implement privacy controls, and connect modern content platforms including Payload CMS and Directus.
-      </p>
-      <div class="mt-8 flex flex-wrap justify-center gap-4">
-        <a href="/schedule-consultation/" class="inline-flex items-center rounded-lg bg-[var(--accent)] px-6 py-3 text-sm font-semibold text-white shadow transition hover:opacity-90">
-          Book a Consultation
-        </a>
-        <a href="/get-quote/" class="inline-flex items-center rounded-lg border border-[var(--border)] px-6 py-3 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg-card)]">
-          Get a Quote
-        </a>
+  <!-- Hero -->
+  <section class="relative bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-12 md:py-16">
+    <div class="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[1.4fr_0.6fr] lg:items-end lg:px-8">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Full-Service Digital Agency</p>
+        <h1 class="mt-3 font-heading text-4xl font-bold leading-tight tracking-tight text-[var(--text)] md:text-5xl">Digital Services for Growing Businesses</h1>
+        <p class="mt-4 max-w-2xl text-lg text-[var(--text-dim)]">We design websites and stores, build CRM and ERP workflows, customise ERPNext, implement privacy controls, and connect modern content platforms including Payload CMS and Directus.</p>
+        <ul class="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-[var(--text-dim)]" role="list">
+          <li class="flex items-center gap-1.5"><span class="text-[var(--accent)]" aria-hidden="true">✓</span>24+ years experience</li>
+          <li class="flex items-center gap-1.5"><span class="text-[var(--accent)]" aria-hidden="true">✓</span>1,500+ projects delivered</li>
+          <li class="flex items-center gap-1.5"><span class="text-[var(--accent)]" aria-hidden="true">✓</span>Accessibility-first development</li>
+          <li class="flex items-center gap-1.5"><span class="text-[var(--accent)]" aria-hidden="true">✓</span>Scope-based support</li>
+        </ul>
       </div>
-      <div class="mt-10 flex flex-wrap justify-center gap-6 text-sm text-[var(--text-muted)]">
-        <span class="flex items-center gap-2"><span class="text-green-400" aria-hidden="true">✓</span> 24+ Years Experience</span>
-        <span class="flex items-center gap-2"><span class="text-green-400" aria-hidden="true">✓</span> 200+ Projects Delivered</span>
-        <span class="flex items-center gap-2"><span class="text-green-400" aria-hidden="true">✓</span> Accessibility-First Development</span>
-        <span class="flex items-center gap-2"><span class="text-green-400" aria-hidden="true">✓</span> Scope-Based Support</span>
+      <div class="flex flex-col gap-3 sm:flex-row lg:flex-col">
+        <a href="/schedule-consultation/" class="inline-flex items-center justify-center rounded-lg bg-[var(--accent)] px-6 py-3 font-semibold text-white transition hover:brightness-110">Book a Consultation</a>
+        <a href="/get-quote/" class="inline-flex items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--bg)] px-6 py-3 font-semibold text-[var(--text)] transition hover:border-[var(--accent)]">Get a Quote</a>
+        <p class="text-center text-xs text-[var(--text-muted)] lg:text-left">Not sure which service you need? A 30-minute consultation helps; no obligation to proceed.</p>
       </div>
     </div>
   </section>
 
-  <!-- ── SERVICES GRID ──────────────────────────────────────────────────────── -->
-  <section class="py-16 md:py-20 bg-[var(--bg-card)]">
+  <!-- All services: one bento grid -->
+  <section class="py-12 md:py-16" aria-labelledby="all-services-heading">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="font-heading text-3xl font-bold text-[var(--text)] md:text-4xl">Our Services</h2>
-        <p class="mt-4 text-[var(--text-muted)] max-w-2xl mx-auto">Design, development, commerce, visibility and support services shaped around the agreed business requirement.</p>
-      </div>
-      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-5" role="list">
-        {coreServices.map((service, i) => {
-          const featured = i < 2;
+      <h2 id="all-services-heading" class="font-heading text-3xl font-bold text-[var(--text)]">Our Services</h2>
+      <p class="mt-2 max-w-2xl text-[var(--text-dim)]">Design, development, commerce, visibility and support services shaped around the agreed business requirement.</p>
+      <ul class="svc-bento mt-7" role="list">
+        {grid.map((s, i) => {
+          const large = s.slug === 'ecommerce';
           const num = String(i + 1).padStart(2, '0');
           return (
-            <li class:list={[featured ? 'lg:col-span-3' : 'lg:col-span-2']}>
-              <article
-                class:list={[
-                  'service-card group relative flex flex-col h-full overflow-hidden rounded-2xl border border-[var(--border)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl',
-                  featured ? 'p-7 md:p-8' : 'p-6',
-                ]}
-                style={`background: linear-gradient(135deg, color-mix(in srgb, var(${service.cssVar}) 10%, var(--bg-card)) 0%, var(--bg-card) 65%); --card-color: var(${service.cssVar});`}
-              >
-                <span
-                  aria-hidden="true"
-                  class="service-card__num pointer-events-none absolute top-3 right-4 font-heading font-black leading-none select-none"
-                  style={`color: var(${service.cssVar}); font-size: ${featured ? '5.5rem' : '4rem'};`}
-                >
-                  {num}
-                </span>
-                <span
-                  aria-hidden="true"
-                  class="service-card__stripe pointer-events-none absolute -left-8 -bottom-8 h-40 w-40 rotate-[-20deg] opacity-[0.08]"
-                  style={`background: var(${service.cssVar});`}
-                ></span>
-
-                <div class="relative flex items-center gap-3 mb-4">
-                  <div
-                    class="flex h-11 w-11 items-center justify-center rounded-xl flex-shrink-0"
-                    style={`background: color-mix(in srgb, var(${service.cssVar}) 16%, transparent); color: var(${service.cssVar});`}
-                    aria-hidden="true"
-                  >
-                    <div set:html={service.iconSvg} />
-                  </div>
-                  <span
-                    class="text-[10px] font-bold uppercase tracking-[0.2em]"
-                    style={`color: var(${service.cssVar});`}
-                  >
-                    {featured ? 'Flagship' : 'Service'} · {num}
-                  </span>
-                </div>
-
-                <h3 class:list={['relative font-heading font-bold text-[var(--text)] mb-2', featured ? 'text-xl md:text-2xl' : 'text-lg']}>
-                  {service.title}
-                </h3>
-                <p class:list={['relative text-[var(--text-dim)] mb-4', featured ? 'text-base' : 'text-sm']}>
-                  {service.tagline}
-                </p>
-                {featured && (
-                  <p class="relative text-sm text-[var(--text-muted)] mb-4 flex-grow">
-                    {service.description}
+            <li class:list={[large ? 'is-large' : 'is-small']}>
+              <article class:list={['service-card group relative flex h-full flex-col overflow-hidden rounded-xl border border-[var(--border)] transition hover:-translate-y-1 hover:shadow-xl', large ? 'p-6 md:p-8' : 'p-5']} style={`background: linear-gradient(135deg, color-mix(in srgb, var(${s.cssVar}) 10%, var(--bg-card)) 0%, var(--bg-card) 65%); --card-color: var(${s.cssVar});`}>
+                <span aria-hidden="true" class="service-card__num pointer-events-none absolute right-4 top-3 select-none font-heading font-black leading-none" style={`color: var(${s.cssVar}); font-size: ${large ? '6rem' : '3.4rem'};`}>{num}</span>
+                <span aria-hidden="true" class:list={['service-card__stripe pointer-events-none absolute rotate-[-20deg] opacity-[0.08]', large ? '-bottom-12 -left-12 h-64 w-64' : '-bottom-8 -left-8 h-32 w-32']} style={`background: var(${s.cssVar});`}></span>
+                <span class="relative flex h-11 w-11 items-center justify-center rounded-md" style={`background: color-mix(in srgb, var(${s.cssVar}) 16%, transparent); color: var(${s.cssVar});`} aria-hidden="true" set:html={s.icon} />
+                <h3 class:list={['relative mt-4 font-heading font-bold text-[var(--text)]', large ? 'text-2xl md:text-3xl' : 'text-lg']}>{s.title}</h3>
+                <p class:list={['relative mt-1.5 text-[var(--text-dim)]', large ? 'text-base' : 'text-sm']}>{s.tagline}</p>
+                {large && <p class="relative mt-3 text-sm leading-relaxed text-[var(--text-muted)]">{s.description}</p>}
+                {large && (
+                  <p class="relative mt-5 flex flex-wrap gap-2">
+                    {ecommerceLinks.map((l) => (
+                      <a href={l.href} class="rounded-md border border-[var(--border)] bg-[var(--bg-card)] px-3 py-1.5 text-sm font-semibold text-[var(--text)] transition hover:border-[var(--accent)]">{l.label}</a>
+                    ))}
                   </p>
                 )}
-
-                {featured ? (
-                  <ul class="relative mb-5 grid grid-cols-2 gap-x-4 gap-y-1.5" aria-label={`${service.title} features`}>
-                    {service.features.slice(0, 4).map(feature => (
-                      <li class="flex items-center gap-2 text-xs text-[var(--text-muted)]">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style={`color: var(${service.cssVar});`}>
-                          <polyline points="20 6 9 17 4 12"/>
-                        </svg>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <ul class="relative mb-5 space-y-1.5 flex-grow" aria-label={`${service.title} features`}>
-                    {service.features.slice(0, 3).map(feature => (
-                      <li class="flex items-center gap-2 text-xs text-[var(--text-muted)]">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style={`color: var(${service.cssVar});`}>
-                          <polyline points="20 6 9 17 4 12"/>
-                        </svg>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-
-                <a
-                  href={`/services/${service.slug}/`}
-                  class="relative mt-auto inline-flex items-center gap-1 text-sm font-semibold transition-transform duration-200 group-hover:translate-x-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
-                  style={`color: var(${service.cssVar});`}
-                  aria-label={`Learn more about ${service.title}`}
-                >
-                  Learn More
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                  </svg>
-                </a>
+                <a href={s.href} class="relative mt-auto inline-flex items-center gap-1 pt-4 text-sm font-semibold transition-transform duration-200 group-hover:translate-x-0.5" style={`color: var(${s.cssVar});`} aria-label={`Learn more about ${s.title}`}>Learn More <span aria-hidden="true">→</span></a>
               </article>
             </li>
           );
         })}
-
-        <!-- Integrations Card (matching bento style) -->
-        <li class="lg:col-span-2">
-          <article
-            class="service-card group relative flex flex-col h-full overflow-hidden rounded-2xl border border-[var(--border)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl p-6"
-            style="background: linear-gradient(135deg, color-mix(in srgb, var(--svc-integrations) 14%, var(--bg-card)) 0%, var(--bg-card) 65%); --card-color: var(--svc-integrations);"
-          >
-            <span
-              aria-hidden="true"
-              class="service-card__num pointer-events-none absolute top-3 right-4 font-heading font-black leading-none select-none"
-              style="color: var(--svc-integrations); font-size: 4rem;"
-            >
-              09
-            </span>
-            <span
-              aria-hidden="true"
-              class="service-card__stripe pointer-events-none absolute -left-8 -bottom-8 h-40 w-40 rotate-[-20deg] opacity-[0.08]"
-              style="background: var(--svc-integrations);"
-            ></span>
-            <div class="relative flex items-center gap-3 mb-4">
-              <div
-                class="flex h-11 w-11 items-center justify-center rounded-xl flex-shrink-0"
-                style="background: color-mix(in srgb, var(--svc-integrations) 16%, transparent); color: var(--svc-integrations);"
-                aria-hidden="true"
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
-              </div>
-              <span class="text-[10px] font-bold uppercase tracking-[0.2em]" style="color: var(--svc-integrations);">Service · 09</span>
-            </div>
-            <h3 class="relative font-heading font-bold text-[var(--text)] mb-2 text-lg">API &amp; Integrations</h3>
-            <p class="relative text-sm text-[var(--text-dim)] mb-4">Seamless third-party connections</p>
-            <ul class="relative mb-5 space-y-1.5 flex-grow" aria-label="API & Integrations features">
-              <li class="flex items-center gap-2 text-xs text-[var(--text-muted)]">
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--svc-integrations);"><polyline points="20 6 9 17 4 12"/></svg>
-                Global Payment Gateways
-              </li>
-              <li class="flex items-center gap-2 text-xs text-[var(--text-muted)]">
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--svc-integrations);"><polyline points="20 6 9 17 4 12"/></svg>
-                Shipping &amp; Courier APIs
-              </li>
-              <li class="flex items-center gap-2 text-xs text-[var(--text-muted)]">
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--svc-integrations);"><polyline points="20 6 9 17 4 12"/></svg>
-                Custom Software Integration
-              </li>
-            </ul>
-            <a
-              href="/services/integrations/"
-              class="relative mt-auto inline-flex items-center gap-1 text-sm font-semibold transition-transform duration-200 group-hover:translate-x-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
-              style="color: var(--svc-integrations);"
-              aria-label="Learn more about API & Integrations"
-            >
-              View Integrations
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </a>
-          </article>
-        </li>
-
-        <!-- ADA & WCAG Compliance - spans 4 cols, sits next to API Integrations -->
-        {(() => {
-          const ada = accessibilityService;
-          return (
-            <li class="lg:col-span-4">
-              <article
-                class="service-card group relative flex h-full flex-col md:flex-row items-stretch gap-6 overflow-hidden rounded-2xl border border-[var(--border)] p-6 md:p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-                style={`background: linear-gradient(135deg, color-mix(in srgb, var(${ada.cssVar}) 10%, var(--bg-card)) 0%, var(--bg-card) 65%); --card-color: var(${ada.cssVar});`}
-              >
-                <span
-                  aria-hidden="true"
-                  class="service-card__num pointer-events-none absolute top-3 right-6 font-heading font-black leading-none select-none"
-                  style={`color: var(${ada.cssVar}); font-size: 5rem;`}
-                >
-                  10
-                </span>
-                <span
-                  aria-hidden="true"
-                  class="service-card__stripe pointer-events-none absolute -left-10 -bottom-10 h-48 w-48 rotate-[-20deg] opacity-[0.08]"
-                  style={`background: var(${ada.cssVar});`}
-                ></span>
-                <div
-                  class="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-xl md:self-start"
-                  style={`background: color-mix(in srgb, var(${ada.cssVar}) 16%, transparent); color: var(${ada.cssVar});`}
-                  aria-hidden="true"
-                >
-                  <div set:html={ada.iconSvg} />
-                </div>
-                <div class="relative flex flex-1 flex-col">
-                  <span class="text-[10px] font-bold uppercase tracking-[0.2em]" style={`color: var(${ada.cssVar});`}>Compliance · 10</span>
-                  <h3 class="font-heading text-xl font-semibold text-[var(--text)] mt-1 mb-1">{ada.title}</h3>
-                  <p class="text-sm mb-2" style={`color: var(${ada.cssVar});`}>{ada.tagline}</p>
-                  <p class="text-sm text-[var(--text-muted)] mb-3">{ada.description}</p>
-                  <ul class="flex flex-wrap gap-x-5 gap-y-1 mb-4">
-                    {ada.features.slice(0, 4).map(f => (
-                      <li class="flex items-center gap-1.5 text-sm text-[var(--text-dim)]">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0" aria-hidden="true" style={`color: var(${ada.cssVar});`}><polyline points="20 6 9 17 4 12"/></svg>
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                  <a
-                    href={`/services/${ada.slug}/`}
-                    class="relative mt-auto inline-flex items-center gap-1 text-sm font-semibold transition-transform duration-200 group-hover:translate-x-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
-                    style={`color: var(${ada.cssVar});`}
-                    aria-label={`Learn more about ${ada.title}`}
-                  >
-                    Learn More
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  </a>
-                </div>
-              </article>
-            </li>
-          );
-        })()}
       </ul>
+      <p class="mt-5 text-sm text-[var(--text-dim)]">Also: <a href="/services/ada-compliant-web-design/emergency-remediation/" class="font-semibold underline underline-offset-2">Emergency ADA remediation</a> · <a href="/services/payload-directus-development/" class="font-semibold underline underline-offset-2">Payload CMS &amp; Directus</a> · <a href="/website-audit/" class="font-semibold underline underline-offset-2">Website audit</a></p>
+    </div>
+  </section>
 
-      <section class="mt-10 rounded-lg border border-[var(--border)] bg-[var(--bg)] p-5 sm:p-7" aria-labelledby="new-business-services-title">
-        <div class="mb-7 max-w-3xl">
-          <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Expanded capabilities</p>
-          <h2 id="new-business-services-title" class="mt-2 font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">Business systems, DPDP implementation and composable content</h2>
-          <p class="mt-3 text-sm leading-relaxed text-[var(--text-muted)]">Each service begins with discovery and ends with documented responsibilities, testing and handover, not an unsupported platform or compliance promise.</p>
-        </div>
-        <ul class="grid gap-5 lg:grid-cols-3" role="list">
-          {newBusinessServices.map((service, index) => (
-            <li>
-              <article class="group flex h-full flex-col rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 transition hover:-translate-y-1 hover:border-[var(--card-accent)] hover:shadow-xl" style={`--card-accent: var(${service.cssVar});`}>
-                <div class="flex items-center justify-between gap-3">
-                  <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--bg)] text-[var(--card-accent)]" set:html={service.iconSvg} aria-hidden="true" />
-                  <span class="text-[10px] font-black uppercase tracking-[0.18em] text-[var(--card-accent)]">Service · {String(index + 11).padStart(2, '0')}</span>
-                </div>
-                <h3 class="mt-5 font-heading text-xl font-bold text-[var(--text)]">{service.title}</h3>
-                <p class="mt-2 text-sm font-semibold text-[var(--card-accent)]">{service.tagline}</p>
-                <p class="mt-3 flex-1 text-sm leading-relaxed text-[var(--text-muted)]">{service.description}</p>
-                <ul class="mt-5 space-y-2" aria-label={`${service.title} features`}>
-                  {service.features.slice(0, 4).map((feature) => <li class="flex gap-2 text-xs text-[var(--text-muted)]"><span class="text-[var(--card-accent)]" aria-hidden="true">✓</span>{feature}</li>)}
-                </ul>
-                <a href={`/services/${service.slug}/`} class="mt-6 inline-flex min-h-11 items-center justify-center rounded-xl bg-[var(--card-accent)] px-5 py-3 text-sm font-bold text-[var(--bg)] transition hover:brightness-110">View service details</a>
-              </article>
-            </li>
+  <!-- How we work + why eLan -->
+  <section class="border-y border-[var(--border)] bg-[var(--bg-card)] py-12 md:py-16" aria-labelledby="how-heading">
+    <div class="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+      <div>
+        <h2 id="how-heading" class="font-heading text-3xl font-bold text-[var(--text)]">How We Work</h2>
+        <p class="mt-2 text-[var(--text-dim)]">Documented scope, responsibilities, review points and change control.</p>
+        <ol class="mt-6 grid gap-2 sm:grid-cols-2" role="list">
+          {steps.map((st, i) => (
+            <li class="step"><span aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><div><h3 class="font-heading font-bold text-[var(--text)]">{st.title}</h3><p class="text-sm text-[var(--text-dim)]">{st.desc}</p></div></li>
           ))}
-        </ul>
-      </section>
-
-      <!-- Specialist Capabilities - focused sub-service cards (mirrors homepage) -->
-      <div class="mt-10">
-        <p class="text-center text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)] mb-5">Specialist Capabilities</p>
-        <ul class="grid grid-cols-2 lg:grid-cols-4 gap-4" role="list">
-          {[
-            { name: 'Headless CMS Development', desc: 'Payload CMS, Directus and composable content architecture for modern digital experiences', cssVar: '--svc-headless', href: '/services/headless-cms-development/', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 14h4"/></svg>' },
-            { name: 'Security Audits & Hardening', desc: 'OWASP reviews, CSP tuning, secret rotation & automated patch pipelines', cssVar: '--ac-red', href: '/services/maintenance-security/', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg>' },
-            { name: 'Core Web Vitals Engineering', desc: 'Budget-driven LCP, INP & CLS tuning enforced in continuous integration', cssVar: '--ac-amber', href: '/services/web-development/', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14l4-4"/><path d="M3.5 17a9 9 0 1 1 17 0"/><circle cx="12" cy="14" r="1"/></svg>' },
-            { name: 'ADA & WCAG Remediation', desc: 'Hybrid audits, VPAT 2.5 documentation & WCAG 2.1 AA conformance', cssVar: accessibilityService.cssVar, href: '/services/ada-compliant-web-design/', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M5 9h14"/><path d="M12 9v5"/><path d="M8 20l4-6 4 6"/></svg>' },
-          ].map(cap => (
-            <li>
-              <a
-                href={cap.href}
-                class="card-tilt group flex flex-col items-center text-center h-full rounded-2xl p-5 border border-[var(--border)] bg-[var(--bg-card)] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)]"
-                style={`--cap-color: var(${cap.cssVar});`}
-              >
-                <div
-                  class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl"
-                  style={`background: color-mix(in srgb, var(${cap.cssVar}) 14%, transparent); color: var(${cap.cssVar});`}
-                  aria-hidden="true"
-                  set:html={cap.icon}
-                />
-                <h3 class="font-heading text-sm font-bold text-[var(--text)] mb-1" style={`color: var(${cap.cssVar});`}>{cap.name}</h3>
-                <p class="text-xs text-[var(--text-muted)] leading-relaxed">{cap.desc}</p>
-              </a>
-            </li>
+        </ol>
+      </div>
+      <div>
+        <h2 class="font-heading text-3xl font-bold text-[var(--text)]">Why Choose eLan Technology?</h2>
+        <p class="mt-2 text-[var(--text-dim)]">Technical depth and creative craft, focused on business outcomes.</p>
+        <ul class="mt-6 grid gap-3 sm:grid-cols-2" role="list">
+          {reasons.map((r) => (
+            <li class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-4"><h3 class="font-heading font-bold text-[var(--text)]">{r.title}</h3><p class="mt-1 text-sm text-[var(--text-dim)]">{r.desc}</p></li>
           ))}
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- ── WHY CHOOSE ELAN ────────────────────────────────────────────────────── -->
-  <section class="py-16 md:py-20 bg-[var(--bg)]">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="font-heading text-3xl font-bold text-[var(--text)] md:text-4xl">Why Choose eLan Technology?</h2>
-        <p class="mt-4 text-[var(--text-muted)] max-w-2xl mx-auto">We combine deep technical expertise with creative excellence to deliver digital experiences that drive real business outcomes.</p>
-      </div>
-      <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-        <div class="flex gap-4 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
-          <div class="h-12 w-12 shrink-0 rounded-xl bg-[var(--accent)]/10 flex items-center justify-center text-[var(--accent)]" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div>
-          <div>
-            <h3 class="font-heading text-lg font-semibold text-[var(--text)]">Experience Since 2002</h3>
-            <p class="mt-2 text-sm text-[var(--text-muted)]">eLan Technology began operating in 2002 and officially launched on 15 August 2005. Our work spans websites and digital solutions for organisations in India and international markets, with the final scope and suitable methodology agreed for each engagement.</p>
-          </div>
-        </div>
-        <div class="flex gap-4 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
-          <div class="h-12 w-12 shrink-0 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
-          <div>
-            <h3 class="font-heading text-lg font-semibold text-[var(--text)]">Accessibility-First Development</h3>
-            <p class="mt-2 text-sm text-[var(--text-muted)]">Accessibility is considered from the beginning of design and development. When formal conformance is required, we scope the WCAG version and level, tested journeys, assistive-technology coverage, remediation and evidence rather than assuming a legal outcome.</p>
-          </div>
-        </div>
-        <div class="flex gap-4 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
-          <div class="h-12 w-12 shrink-0 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
-          <div>
-            <h3 class="font-heading text-lg font-semibold text-[var(--text)]">Full-Stack Capability</h3>
-            <p class="mt-2 text-sm text-[var(--text-muted)]">Design, development and marketing can be combined into one agreed engagement. From wireframes to production deployment and campaigns, the proposal identifies what eLan Technology will handle, what the client supplies and where a third-party provider is involved.</p>
-          </div>
-        </div>
-        <div class="flex gap-4 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
-          <div class="h-12 w-12 shrink-0 rounded-xl bg-green-500/10 flex items-center justify-center text-green-500" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div>
-          <div>
-            <h3 class="font-heading text-lg font-semibold text-[var(--text)]">Dedicated Post-Launch Support</h3>
-            <p class="mt-2 text-sm text-[var(--text-muted)]">Post-launch assistance, maintenance coverage, response channels and any service levels are defined in the accepted proposal or maintenance plan. Hosting, licences, third-party services and work outside the agreed scope are identified separately.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <TechStackCarousel compact />
 
-  <!-- ── PROCESS OVERVIEW ───────────────────────────────────────────────────── -->
-  <section class="py-16 md:py-20 bg-[var(--bg-card)]">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="font-heading text-3xl font-bold text-[var(--text)] md:text-4xl">How We Work</h2>
-        <p class="mt-4 text-[var(--text-muted)] max-w-2xl mx-auto">A collaborative process with documented scope, responsibilities, review points, dependencies and change control.</p>
-      </div>
-      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {[
-          { step: '01', title: 'Discover', desc: 'We start with a deep-dive into your business goals, target audience, competitive landscape, and technical requirements through structured discovery sessions.' },
-          { step: '02', title: 'Strategy', desc: 'Armed with insights, we craft a detailed project plan covering sitemap, wireframes, technology stack, timeline, and key performance indicators.' },
-          { step: '03', title: 'Design', desc: 'Our designers create responsive mockups aligned with your brand and consider accessibility from the start. The agreed review and revision process is included in the proposal.' },
-          { step: '04', title: 'Develop', desc: 'Developers bring designs to life using modern frameworks - React, Next.js, WordPress, Shopify, or custom stacks - with clean, maintainable code.' },
-          { step: '05', title: 'Test', desc: 'Rigorous cross-browser and device testing, accessibility audits, Core Web Vitals checks, and stakeholder review ensure everything meets the brief before go-live.' },
-          { step: '06', title: 'Launch', desc: 'The agreed launch plan can cover deployment, DNS, SSL, redirects, backups and post-launch checks. Timing, acceptable interruption risk and support coverage are confirmed for the project.' },
-        ].map(({ step, title, desc }) => (
-          <div class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-6">
-            <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--accent)]/10 font-heading text-sm font-bold text-[var(--accent)]">
-              {step}
-            </div>
-            <h3 class="font-heading text-lg font-semibold text-[var(--text)]">{title}</h3>
-            <p class="mt-2 text-sm text-[var(--text-muted)]">{desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ── TECH STACK ─────────────────────────────────────────────────────────── -->
-  <TechStackCarousel />
-
-  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
     <AnswerSummary
       eyebrow="Service answer"
       title="Which eLan service should you choose?"
@@ -409,67 +143,36 @@ const schemas = [
         { question: 'I am not sure what I need', answer: 'Share your current website, goals and constraints. We will recommend a practical scope and identify any third-party or ongoing costs before quoting.' },
       ]}
     />
+
+    <details class="note mt-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]" aria-labelledby="service-privacy-title">
+      <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4">
+        <span id="service-privacy-title" class="font-semibold text-[var(--text)]">How we handle your project information</span>
+        <svg class="chev shrink-0 text-[var(--text-muted)]" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="border-t border-[var(--border)] px-5 py-5 text-sm leading-relaxed text-[var(--text-dim)]">
+        <p>Your information should match the stage of the conversation. This page collects nothing; the consultation and quote pages explain their fields, purpose and retention before you submit.</p>
+        <ol class="mt-4 grid gap-3 sm:grid-cols-2" aria-label="Service information lifecycle">
+          <li><strong class="text-[var(--text)]">1. Initial enquiry:</strong> share only contact and high-level business information. Never send passwords, production data, identity documents or confidential databases through an enquiry form.</li>
+          <li><strong class="text-[var(--text)]">2. Discovery and proposal:</strong> before asking for more, we identify the purpose, access, systems, third parties, retention and confidentiality needs.</li>
+          <li><strong class="text-[var(--text)]">3. Delivery access:</strong> role-based, time-bound and limited to the agreed work, with live personal data minimised or replaced by test data where practical.</li>
+          <li><strong class="text-[var(--text)]">4. Handover and closure:</strong> credentials returned or removed, client-controlled accounts, retained records, backups and any maintenance access identified.</li>
+        </ol>
+        <p class="mt-4"><strong class="text-[var(--text)]">Controller and processor roles are confirmed per project.</strong> The client commonly decides why its data is processed, while eLan Technology may process limited data on the client’s instructions. The proposal, contract or data-processing terms record the actual roles, people, hosting region, subprocessors, security measures, incident route and deletion arrangements. A service description alone is not a DPDP, GDPR, ADA or WCAG compliance guarantee.</p>
+        <p class="mt-3">Privacy questions: <a class="font-semibold text-[var(--accent)] underline underline-offset-4" href="mailto:privacy@elan-tech.net?subject=Service%20privacy%20question">privacy@elan-tech.net</a> · <a class="font-semibold text-[var(--accent)] underline underline-offset-4" href="/privacy-policy/">Privacy policy</a></p>
+      </div>
+    </details>
   </div>
 
-  <!-- ── SERVICE DATA & PRIVACY ────────────────────────────────────────────── -->
-  <section class="border-y border-[var(--border)] bg-[var(--bg-card)] py-16 md:py-20" aria-labelledby="service-privacy-title">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
-        <div>
-          <p class="text-xs font-bold uppercase tracking-[0.2em] text-[var(--accent)]">Privacy across the service lifecycle</p>
-          <h2 id="service-privacy-title" class="mt-3 font-heading text-3xl font-bold leading-tight text-[var(--text)] md:text-4xl">
-            Your information should match the stage of the conversation.
-          </h2>
-          <p class="mt-4 leading-relaxed text-[var(--text-muted)]">
-            This overview page does not collect project details. Consultation and quote buttons take you to separate pages that explain their required fields, purpose and retention before submission.
-          </p>
-          <a href="/privacy-policy/" class="mt-6 inline-flex min-h-11 items-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--bg)] px-5 py-2.5 text-sm font-bold text-[var(--text)] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]">
-            Read the privacy policy <span aria-hidden="true">→</span>
-          </a>
-        </div>
-
-        <ol class="grid gap-4 sm:grid-cols-2" aria-label="Service information lifecycle">
-          {[
-            { step: '01', title: 'Initial enquiry', desc: 'Share only the contact and high-level business information needed to understand the request. Do not send passwords, production data, identity documents or confidential databases through a general enquiry form.' },
-            { step: '02', title: 'Discovery and proposal', desc: 'If more detail is needed, we identify the purpose, access required, systems involved, third parties, responsibilities, proposed retention and confidentiality needs before requesting it.' },
-            { step: '03', title: 'Delivery access', desc: 'Project access should be role-based, time-bound and limited to the agreed work. Live personal data should be minimised or replaced with suitable test data wherever practical.' },
-            { step: '04', title: 'Handover and closure', desc: 'The project plan should identify returned or removed credentials, client-controlled accounts, retained contractual records, backups and any separately agreed maintenance access.' },
-          ].map(item => (
-            <li class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-5">
-              <span class="text-xs font-black text-[var(--accent)]">{item.step}</span>
-              <h3 class="mt-2 font-heading text-lg font-bold text-[var(--text)]">{item.title}</h3>
-              <p class="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{item.desc}</p>
-            </li>
-          ))}
-        </ol>
-      </div>
-
-      <aside class="mt-8 rounded-2xl border border-[var(--accent)]/25 bg-[var(--accent)]/[0.06] p-5 sm:p-6" aria-label="Project privacy responsibility notice">
-        <h3 class="font-heading text-lg font-bold text-[var(--text)]">Controller and processor roles are confirmed per project</h3>
-        <p class="mt-2 max-w-5xl text-sm leading-relaxed text-[var(--text-muted)]">
-          The client will commonly decide why its customer, employee or user data is processed, while eLan Technology may process limited data on the client’s instructions to deliver an agreed service. The proposal, contract or data-processing terms should record the actual roles, authorised people, hosting region, subprocessors, security measures, incident route, return or deletion arrangements and responsibilities applicable to that project. A service description alone is not a DPDP, GDPR, ADA or WCAG compliance guarantee.
-        </p>
-        <p class="mt-3 text-sm leading-relaxed text-[var(--text-muted)]">
-          For a privacy question or data request, email <a class="font-semibold text-[var(--accent)] underline underline-offset-4" href="mailto:privacy@elan-tech.net?subject=Service%20privacy%20question">privacy@elan-tech.net</a>.
-        </p>
-      </aside>
-    </div>
-  </section>
-
-  <!-- ── CTA ────────────────────────────────────────────────────────────────── -->
-  <section class="py-16 md:py-20 bg-gradient-to-br from-[var(--accent)]/10 to-purple-500/5">
-    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="font-heading text-3xl font-bold text-[var(--text)] md:text-4xl">Not Sure Which Service You Need?</h2>
-      <p class="mt-4 text-lg text-[var(--text-muted)]">Book a 30-minute consultation to discuss your current digital presence, goals and constraints. We can recommend a practical next step without an obligation to proceed.</p>
-      <div class="mt-8 flex flex-wrap justify-center gap-4">
-        <a href="/schedule-consultation/" class="inline-flex items-center rounded-lg bg-[var(--accent)] px-8 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:opacity-90">
-          Book a Consultation
-        </a>
-        <a href="/get-quote/" class="inline-flex items-center rounded-lg border border-[var(--border)] px-8 py-3.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg-card)]">
-          Get a Quote
-        </a>
-      </div>
-    </div>
-  </section>
   <div class="border-t border-[var(--border)] bg-[var(--bg-card)]"><BookingAdvance /></div>
 </BaseLayout>
+
+<style>
+  .svc-bento { display: grid; gap: 1rem; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .is-large { grid-column: span 2; grid-row: span 2; }
+  .step { display: grid; grid-template-columns: 2.25rem 1fr; gap: .75rem; padding: .7rem; border-radius: var(--radius-xl); border: 1px solid var(--border); background: var(--bg); }
+  .step > span { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: var(--radius-lg); background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); font-weight: 800; font-size: .8rem; }
+  .note[open] .chev { transform: rotate(180deg); } .chev { transition: transform .2s; }
+  .note summary::-webkit-details-marker { display: none; }
+  @media (max-width: 1023px) { .svc-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; } .is-large { grid-column: span 2; grid-row: auto; } }
+  @media (max-width: 639px) { .is-small :global(.service-card) { padding: 1rem; } .is-small :global(.service-card p) { display: none; } .is-small :global(.service-card h3) { font-size: 1rem; } .is-small :global(.service-card__num) { font-size: 2.4rem !important; } }
+</style>

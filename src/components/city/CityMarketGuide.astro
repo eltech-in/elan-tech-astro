@@ -28,7 +28,7 @@ const quoteHref = '/get-quote/';
 
       <div class="mt-10 grid gap-6 lg:grid-cols-3">
         {needs.map((item) => (
-          <article class="rounded-lg border border-[var(--border)] bg-[var(--bg)] p-6">
+          <article class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-6">
             <p class="text-sm font-semibold text-[var(--accent)]">{item.audience}</p>
             <h3 class="mt-2 font-heading text-lg font-bold text-[var(--text)]">{item.need}</h3>
             <ul role="list" class="mt-5 space-y-3">
@@ -63,7 +63,7 @@ const quoteHref = '/get-quote/';
           </p>
           <a
             href={quoteHref}
-            class="mt-5 inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-6 py-3 font-semibold text-[var(--bg)] transition-opacity hover:opacity-90"
+            class="mt-5 inline-flex items-center gap-2 rounded-lg bg-[var(--accent)] px-6 py-3 font-semibold text-[var(--bg)] transition-opacity hover:opacity-90"
           >
             Discuss Your Project
             <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>

@@ -13,39 +13,31 @@ const schema = [
   ]),
 ];
 
-const journey = [
-  { year: '2002–2004', title: 'Freelance & Startup Roots', desc: 'Operations began in Nagpur as a freelance and startup unit, building early websites for local businesses and establishing the experience behind the company.', cssVar: '--ac-indigo', span: 'lg:col-span-3' },
-  { year: '15 Aug 2005', title: 'Official Launch', desc: 'eLan Technology officially launched on India’s Independence Day, carrying forward the independent spirit, client relationships, and technical foundation built since 2002.', cssVar: '--ac-amber', span: 'lg:col-span-3' },
-  { year: '2006–2008', title: 'Dynamic Web Era', desc: 'Expanded into dynamic web development with PHP and MySQL, grew the team, and started serving businesses across Maharashtra.', cssVar: '--ac-amber', span: 'lg:col-span-3' },
-  { year: '2009–2013', title: 'Going Mobile-First', desc: 'Embraced responsive, mobile-first design early. Landed our first international clients in the USA and UK. Started building custom CMS solutions.', cssVar: '--ac-emerald', span: 'lg:col-span-2' },
-  { year: '2014–2018', title: 'Full-Stack & Marketing', desc: 'Transitioned to full-stack JavaScript development. Launched digital marketing, SEO, and branding services. Built enterprise portals and School ERP systems.', cssVar: '--ac-cyan', span: 'lg:col-span-2' },
-  { year: '2019–2022', title: 'Global Expansion', desc: 'Expanded our work on association portals and continued serving clients in India and international markets including the USA, Canada, Australia and the UAE.', cssVar: '--ac-violet', span: 'lg:col-span-2' },
-  { year: '2023–Present', title: 'Custom Commerce, AI & Accessibility', desc: 'Expanded our focus on custom Shopify and Medusa.js commerce, AI-assisted engineering, WCAG and ADA accessibility, and performance-focused frameworks including Astro and Next.js.', cssVar: '--ac-pink', span: 'lg:col-span-6' },
-];
-
-const values = [
-  { title: 'Accessibility First', desc: 'We consider accessibility during design, development and testing. Formal conformance work is scoped to the standard, journeys and evidence required for the project.', cssVar: '--ac-indigo', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>' },
-  { title: 'Transparency', desc: 'Fixed-price projects with milestone-based billing. No hidden costs, no surprise invoices. You get a detailed breakdown before any work begins, and regular progress updates throughout.', cssVar: '--ac-amber', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>' },
-  { title: 'Craftsmanship', desc: 'We plan for performance, security, maintainability and search visibility, then test the agreed journeys before launch. Targets reflect the project, content and third-party tools.', cssVar: '--ac-emerald', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>' },
-  { title: 'Long-Term Partnership', desc: 'We are not a one-and-done agency. Our relationships with clients span years - we grow with you, evolve your digital presence, and stay available as a trusted technology partner long after launch day.', cssVar: '--ac-cyan', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>' },
-  { title: 'Continuous Learning', desc: 'We stay at the cutting edge - from performance-first frameworks like Astro and Next.js to AI-assisted tooling - so your website is built for the web of today and tomorrow, not the web of five years ago.', cssVar: '--ac-violet', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>' },
-];
-
+// Official figures (founded 2002, 24+ years, 500+ clients, 1,500+ projects).
 const stats = [
-  { value: '24+', label: 'Years Experience', sub: 'Since 2002', cssVar: '--ac-indigo', span: 'lg:col-span-2' },
-  { value: '500+', label: 'Happy Clients', sub: 'Worldwide', cssVar: '--ac-amber', span: 'lg:col-span-2' },
-  { value: '2005', label: 'Official Launch', sub: '15 August', cssVar: '--ac-emerald', span: 'lg:col-span-2' },
-  { value: '10+', label: 'Countries Served', sub: 'Global reach', cssVar: '--ac-cyan', span: 'lg:col-span-3' },
-  { value: 'Global', label: 'Remote Delivery', sub: 'India and overseas', cssVar: '--ac-pink', span: 'lg:col-span-3' },
+  { value: '24+', label: 'Years', sub: 'Since 2002', cssVar: '--ac-indigo' },
+  { value: '500+', label: 'Clients', sub: 'India and abroad', cssVar: '--ac-amber' },
+  { value: '1,500+', label: 'Projects', sub: 'Delivered', cssVar: '--ac-emerald' },
+  { value: '10+', label: 'Countries', sub: 'Served remotely', cssVar: '--ac-cyan' },
 ];
 
-const whyItems = [
-  { title: 'Dedicated project teams', desc: 'You work with a consistent team who knows your project - not a rotating roster of freelancers.', cssVar: '--ac-indigo' },
-  { title: 'Accessibility-first development', desc: 'Accessibility is considered from design through development and testing. Formal conformance work is scoped to the standards and evidence required for each project.', cssVar: '--ac-amber' },
-  { title: 'Transparent pricing', desc: 'Fixed-price projects with milestone-based billing. No hidden costs, no surprise invoices.', cssVar: '--ac-emerald' },
-  { title: 'Performance-first development', desc: 'We set practical performance targets and test them against the agreed pages, content and integrations.', cssVar: '--ac-cyan' },
-  { title: 'Long-term support', desc: 'All packages include post-launch support. We also offer ongoing maintenance plans to keep your site healthy.', cssVar: '--ac-violet' },
-  { title: 'Work you can review', desc: 'Our portfolio links to real websites across ecommerce, healthcare, professional services, education and other sectors.', cssVar: '--ac-pink' },
+const journey = [
+  { year: '2002', title: 'Freelance and startup roots in Nagpur' },
+  { year: '2005', title: 'Official launch on 15 August' },
+  { year: '2006', title: 'Dynamic PHP and MySQL web applications' },
+  { year: '2009', title: 'Mobile-first design; first USA and UK clients' },
+  { year: '2014', title: 'Full-stack JavaScript, SEO, marketing and branding' },
+  { year: '2019', title: 'Association portals; more clients in Canada and Australia' },
+  { year: '2023', title: 'Custom commerce, accessibility, Astro and AI-assisted engineering' },
+];
+
+const principles = [
+  { title: 'Accessibility first', desc: 'Considered from design through development and testing; formal conformance work is scoped to the standard and evidence each project needs.', cssVar: '--ac-indigo', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4.5" r="1.5"/><path d="M5 8l7 1.5L19 8M12 9.5V15m0 0-3 6m3-6 3 6"/></svg>' },
+  { title: 'Transparent pricing', desc: 'Fixed-price projects with milestone billing and a detailed breakdown before work begins. No surprise invoices.', cssVar: '--ac-amber', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>' },
+  { title: 'Built to perform', desc: 'Performance, security, maintainability and search visibility are planned in, then tested on the agreed journeys before launch.', cssVar: '--ac-emerald', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>' },
+  { title: 'One consistent team', desc: 'You work with people who know your project, and you always know who is responsible for each stage.', cssVar: '--ac-pink', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>' },
+  { title: 'Long-term partnership', desc: 'Post-launch support on every package and ongoing maintenance plans. Many client relationships span years.', cssVar: '--ac-cyan', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>' },
+  { title: 'Always learning', desc: 'From Astro and Next.js to AI-assisted tooling, so your site is built for today’s web, not yesterday’s.', cssVar: '--ac-violet', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>' },
 ];
 ---
 
@@ -54,381 +46,155 @@ const whyItems = [
   description="eLan Technology began as a freelance startup unit in 2002 and officially launched on 15 August 2005. Web design, custom ecommerce, accessibility and digital technology from Nagpur."
   schema={schema}
 >
-  <!-- Hero -->
-  <section class="relative overflow-hidden bg-[var(--bg)] py-20 sm:py-28">
-    <div class="pointer-events-none absolute inset-0 opacity-[0.04] dark:opacity-[0.06]" aria-hidden="true"
-      style="background-image: radial-gradient(var(--text) 1px, transparent 1px); background-size: 28px 28px;"></div>
-    <div class="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 h-96 w-[40rem] rounded-full opacity-[0.12]"
-      aria-hidden="true"
-      style="background: radial-gradient(ellipse at center, var(--accent), transparent 70%); filter: blur(60px);"></div>
-    <div class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
-      <p class="text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-4">Since 2002</p>
-      <h1 class="font-heading text-4xl font-bold text-[var(--text)] sm:text-5xl lg:text-6xl leading-tight">
-        About eLan Technology
-      </h1>
-      <p class="mt-6 max-w-3xl mx-auto text-lg text-[var(--text-dim)] leading-relaxed">
-        From a small web design studio in Nagpur to a globally trusted digital agency - we've spent 24+ years designing, developing, and growing digital experiences for businesses across India and around the world.
-      </p>
-    </div>
-  </section>
-
-  <!-- Stats Bento -->
-  <section class="bg-[var(--bg-card)] border-y border-[var(--border)] py-14" aria-label="Company statistics">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4" role="list">
-        {stats.map((s) => (
-          <li class={s.span}>
-            <div
-              class="relative overflow-hidden rounded-2xl border border-[var(--border)] p-6 text-center h-full flex flex-col items-center justify-center"
-              style={`background: linear-gradient(135deg, color-mix(in srgb, var(${s.cssVar}) 12%, var(--bg)) 0%, var(--bg) 70%);`}
-            >
-              <span aria-hidden="true" class="pointer-events-none absolute -left-6 -bottom-6 h-28 w-28 rotate-[-20deg] opacity-[0.07]"
-                style={`background: var(${s.cssVar});`}></span>
-              <p class="font-heading text-4xl font-black relative" style={`color: var(${s.cssVar});`}>{s.value}</p>
-              <p class="mt-1 font-semibold text-sm text-[var(--text)] relative">{s.label}</p>
-              <p class="text-xs text-[var(--text-muted)] relative mt-0.5">{s.sub}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
-
-  <!-- Mission & Vision -->
-  <section class="py-20 sm:py-24" aria-labelledby="mission-heading">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-3">Purpose</p>
-        <h2 id="mission-heading" class="font-heading text-3xl font-bold text-[var(--text)] sm:text-4xl">Mission & Vision</h2>
-      </div>
-      <div class="grid gap-6 md:grid-cols-2">
-        <div class="relative overflow-hidden rounded-2xl border border-[var(--border)] p-8 md:p-10"
-          style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-indigo) 10%, var(--bg-card)) 0%, var(--bg-card) 65%);">
-          <span aria-hidden="true" class="pointer-events-none absolute -left-8 -bottom-8 h-40 w-40 rotate-[-20deg] opacity-[0.07]"
-            style="background: var(--ac-indigo);"></span>
-          <span aria-hidden="true" class="pointer-events-none absolute top-4 right-5 font-heading font-black leading-none select-none text-[6rem] opacity-[0.07]"
-            style="color: var(--ac-indigo);">M</span>
-          <div class="relative mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl"
-            style="background: color-mix(in srgb, var(--ac-indigo) 16%, transparent); color: var(--ac-indigo);" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-          </div>
-          <h3 class="relative font-heading text-2xl font-bold text-[var(--text)] mb-4">Our Mission</h3>
-          <p class="relative text-[var(--text-dim)] leading-relaxed">
-            To empower businesses - from Nagpur startups to global enterprises - with websites and digital solutions that are beautiful, accessible, fast, and built to generate real results. We believe great technology should be within reach for every business, regardless of size or location.
-          </p>
-        </div>
-        <div class="relative overflow-hidden rounded-2xl border border-[var(--border)] p-8 md:p-10"
-          style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-violet) 10%, var(--bg-card)) 0%, var(--bg-card) 65%);">
-          <span aria-hidden="true" class="pointer-events-none absolute -left-8 -bottom-8 h-40 w-40 rotate-[-20deg] opacity-[0.07]"
-            style="background: var(--ac-violet);"></span>
-          <span aria-hidden="true" class="pointer-events-none absolute top-4 right-5 font-heading font-black leading-none select-none text-[6rem] opacity-[0.07]"
-            style="color: var(--ac-violet);">V</span>
-          <div class="relative mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl"
-            style="background: color-mix(in srgb, var(--ac-violet) 16%, transparent); color: var(--ac-violet);" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          </div>
-          <h3 class="relative font-heading text-2xl font-bold text-[var(--text)] mb-4">Our Vision</h3>
-          <p class="relative text-[var(--text-dim)] leading-relaxed">
-            To be recognised as Central India's most trusted technology partner and a global leader in accessible, performance-driven web development. We envision a digital world where every website is inclusive, fast, and designed to deliver measurable business outcomes.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Our Story + Founder Spotlight -->
-  <section class="bg-[var(--bg-card)] py-20 sm:py-24" aria-labelledby="story-heading">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div class="grid gap-6 lg:grid-cols-6">
-        <!-- Story prose (4 cols) -->
-        <div class="lg:col-span-4 relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-8 md:p-10">
-          <span aria-hidden="true" class="pointer-events-none absolute -right-10 -bottom-10 h-48 w-48 rotate-[-20deg] opacity-[0.04]"
-            style="background: var(--accent);"></span>
-          <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-3">Our Story</p>
-          <h2 id="story-heading" class="font-heading text-3xl font-bold text-[var(--text)] sm:text-4xl mb-8">
-            24 Years of Building the Web
-          </h2>
-          <div class="space-y-5 text-[var(--text-dim)] leading-relaxed relative">
-            <p>
-              Our operations began in 2002 in Nagpur, Maharashtra, as a freelance and startup unit - at a time when having a website was still a novelty for most Indian businesses. Our founder, <strong class="text-[var(--text)]">Nishant Barde</strong>, saw an opportunity to help local businesses establish a credible online presence. That early work created the foundation for eLan Technology, officially launched on <strong class="text-[var(--text)]">15 August 2005</strong>.
-            </p>
-            <p>
-              Over the years, we expanded our capabilities far beyond web design. We built complex web applications, enterprise portals, eCommerce platforms, and School ERP systems. We started serving clients not just in Nagpur, but across Raipur, Mumbai, Pune, and Delhi - and then internationally, with clients in the USA, Canada, Australia, UAE, UK, Saudi Arabia, and Japan.
-            </p>
-            <p>
-              Through every phase of growth, we have held firm to one principle: <strong class="text-[var(--text)]">accessibility first</strong>. Every website we build is designed with WCAG compliance in mind, ensuring that the digital experiences we create are usable by everyone - regardless of ability, device, or connection speed.
-            </p>
-            <p>
-              Today, eLan Technology brings together expertise in web design, custom Shopify and Medusa.js commerce, web development, accessibility, digital marketing, mobile applications, and branding - with the same independent, problem-solving spirit that shaped our earliest work.
-            </p>
-          </div>
-        </div>
-        <!-- Founder spotlight (2 cols) -->
-        <div class="lg:col-span-2 relative overflow-hidden rounded-2xl border border-[var(--border)] p-8 flex flex-col justify-between"
-          style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-amber) 12%, var(--bg)) 0%, var(--bg) 70%);">
-          <span aria-hidden="true" class="pointer-events-none absolute -right-8 -bottom-8 h-40 w-40 rotate-[-20deg] opacity-[0.07]"
-            style="background: var(--ac-amber);"></span>
-          <div class="relative">
-            <p class="text-xs font-bold uppercase tracking-widest mb-5" style="color: var(--ac-amber);">Founder</p>
-            <div class="w-20 h-20 rounded-full overflow-hidden border-2 mb-5"
-              style="border-color: color-mix(in srgb, var(--ac-amber) 40%, transparent);">
-              <Image src={nishantPhoto} alt="Nishant Barde" width={200} height={200} format="avif" class="w-full h-full object-cover" loading="lazy" decoding="async" />
-            </div>
-            <h3 class="font-heading text-xl font-bold text-[var(--text)]">Nishant Barde</h3>
-            <p class="text-sm font-medium mt-1" style="color: var(--ac-amber);">Founder & Director</p>
-            <blockquote class="mt-5 text-sm text-[var(--text-dim)] leading-relaxed italic border-l-2 pl-4"
-              style="border-color: var(--ac-amber);">
-              "Great technology should be accessible to every business - not just the Fortune 500."
-            </blockquote>
-            <a href="/about/nishant-barde/" target="_blank" rel="noopener noreferrer" class="founder-card-cta group mt-6 flex min-h-16 w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-white">
-              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/15" aria-hidden="true">
-                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M6.5 16c.7-1.8 4.3-1.8 5 0M14 9h4M14 13h4"/></svg>
-              </span>
-              <span class="min-w-0 flex-1">
-                <small class="block text-[9px] font-extrabold uppercase tracking-[0.16em] text-emerald-200">Call • WhatsApp • Save</small>
-                <strong class="mt-0.5 block text-sm font-extrabold">View Nishant’s digital card</strong>
-              </span>
-              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-[#123d36] transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
-            </a>
-          </div>
-          <p class="relative mt-8 text-xs text-[var(--text-muted)]">
-            Building the web since <strong class="text-[var(--text)]">2002</strong>
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Journey Bento Grid -->
-  <section class="py-20 sm:py-24" aria-labelledby="journey-heading">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-3">Timeline</p>
-        <h2 id="journey-heading" class="font-heading text-3xl font-bold text-[var(--text)] sm:text-4xl">Our Journey</h2>
-        <p class="mt-4 text-[var(--text-dim)] max-w-2xl mx-auto">
-          Over two decades of growth, innovation, and building lasting client partnerships.
-        </p>
-      </div>
-      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4" role="list">
-        {journey.map((item) => (
-          <li class={item.span}>
-            <div
-              class="relative overflow-hidden rounded-2xl border border-[var(--border)] p-6 h-full"
-              style={`background: linear-gradient(135deg, color-mix(in srgb, var(${item.cssVar}) 10%, var(--bg-card)) 0%, var(--bg-card) 70%);`}
-            >
-              <span aria-hidden="true" class="pointer-events-none absolute -left-6 -bottom-6 h-32 w-32 rotate-[-20deg] opacity-[0.07]"
-                style={`background: var(${item.cssVar});`}></span>
-              <span aria-hidden="true" class="pointer-events-none absolute top-2 right-3 font-heading font-black leading-none select-none text-[4.5rem] opacity-[0.12]"
-                style={`color: var(${item.cssVar});`}>{item.year.slice(0, 4)}</span>
-              <p class="relative text-xs font-bold uppercase tracking-widest mb-2" style={`color: var(${item.cssVar});`}>{item.year}</p>
-              <h3 class="relative font-heading text-lg font-bold text-[var(--text)] mb-3">{item.title}</h3>
-              <p class="relative text-[var(--text-dim)] text-sm leading-relaxed">{item.desc}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
-
-  <!-- Core Values Bento -->
-  <section class="bg-[var(--bg-card)] py-20 sm:py-24" aria-labelledby="values-heading">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-3">Principles</p>
-        <h2 id="values-heading" class="font-heading text-3xl font-bold text-[var(--text)] sm:text-4xl">Our Core Values</h2>
-        <p class="mt-4 text-[var(--text-dim)] max-w-2xl mx-auto">
-          These principles guide every decision we make - from how we design to how we communicate.
-        </p>
-      </div>
-      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-5" role="list">
-        {values.map((v, i) => {
-          const featured = i < 2;
-          return (
-            <li class:list={[featured ? 'lg:col-span-3' : 'lg:col-span-2']}>
-              <div
-                class="relative overflow-hidden rounded-2xl border border-[var(--border)] p-7 h-full"
-                style={`background: linear-gradient(135deg, color-mix(in srgb, var(${v.cssVar}) 10%, var(--bg)) 0%, var(--bg) 65%);`}
-              >
-                <span aria-hidden="true" class="pointer-events-none absolute -left-8 -bottom-8 h-40 w-40 rotate-[-20deg] opacity-[0.07]"
-                  style={`background: var(${v.cssVar});`}></span>
-                <span aria-hidden="true"
-                  class={`pointer-events-none absolute top-3 right-4 font-heading font-black leading-none select-none opacity-[0.08] ${featured ? 'text-[5rem]' : 'text-[4rem]'}`}
-                  style={`color: var(${v.cssVar});`}>{String(i + 1).padStart(2, '0')}</span>
-                <div
-                  class="relative w-12 h-12 rounded-xl flex items-center justify-center mb-5"
-                  style={`background: color-mix(in srgb, var(${v.cssVar}) 16%, transparent); color: var(${v.cssVar});`}
-                  aria-hidden="true"
-                  set:html={v.icon}
-                />
-                <h3 class={`relative font-heading font-bold text-[var(--text)] mb-3 ${featured ? 'text-xl' : 'text-lg'}`}>{v.title}</h3>
-                <p class="relative text-[var(--text-dim)] leading-relaxed text-sm">{v.desc}</p>
-              </div>
+  <!-- Hero: who we are, key figures, founder -->
+  <section class="relative bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-12 md:py-16" aria-labelledby="about-heading">
+    <div class="mx-auto grid max-w-6xl gap-8 px-4 sm:px-6 lg:grid-cols-[1.35fr_0.65fr] lg:items-start lg:px-8">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Since 2002</p>
+        <h1 id="about-heading" class="mt-3 font-heading text-4xl font-bold leading-tight text-[var(--text)] sm:text-5xl">About eLan Technology</h1>
+        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-[var(--text-dim)]">A web design, commerce and accessibility studio from Nagpur, India. For 24+ years we have designed, built and looked after websites and business software for clients across India and around the world.</p>
+        <ul class="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-4" role="list">
+          {stats.map((s) => (
+            <li class="stat relative overflow-hidden rounded-xl border border-[var(--border)] p-4" style={`background: linear-gradient(135deg, color-mix(in srgb, var(${s.cssVar}) 12%, var(--bg-card)) 0%, var(--bg-card) 70%);`}>
+              <span aria-hidden="true" class="pointer-events-none absolute -bottom-6 -left-6 h-20 w-20 rotate-[-20deg] opacity-[0.07]" style={`background: var(${s.cssVar});`}></span>
+              <p class="relative font-heading text-3xl font-black" style={`color: var(${s.cssVar});`}>{s.value}</p>
+              <p class="relative text-sm font-semibold text-[var(--text)]">{s.label}</p>
+              <p class="relative text-xs text-[var(--text-muted)]">{s.sub}</p>
             </li>
-          );
-        })}
-      </ul>
-    </div>
-  </section>
+          ))}
+        </ul>
+      </div>
 
-  <!-- Team -->
-  <section class="py-20 sm:py-24" aria-labelledby="team-heading" aria-describedby="leadership-publication-note">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-3">People</p>
-        <h2 id="team-heading" class="font-heading text-3xl font-bold text-[var(--text)] sm:text-4xl">Leadership Team</h2>
-        <p class="mt-4 text-[var(--text-dim)] max-w-2xl mx-auto">
-          The people driving eLan Technology's vision and delivering results for clients worldwide.
-        </p>
-      </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
-        <!-- Nishant Barde -->
-        <div class="p-px rounded-2xl" style="background: linear-gradient(135deg, var(--ac-indigo), transparent 60%);">
-          <div class="rounded-2xl bg-[var(--bg-card)] p-6 h-full flex gap-5 items-start">
-            <div class="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 border-2"
-              style="border-color: color-mix(in srgb, var(--ac-indigo) 40%, transparent);">
-              <Image src={nishantPhoto} alt="Nishant Barde" width={200} height={200} format="avif" class="w-full h-full object-cover" loading="lazy" decoding="async" />
-            </div>
-            <div>
-              <h3 class="font-heading text-lg font-semibold text-[var(--text)]">Nishant Barde</h3>
-              <p class="text-sm font-medium mt-0.5" style="color: var(--ac-indigo);">Founder & Director</p>
-              <p class="mt-3 text-[var(--text-dim)] text-sm leading-relaxed">
-                Technology entrepreneur with experience growing eLan from a local web studio into a partner for businesses in India and overseas.
-              </p>
-            </div>
+      <aside class="founder relative overflow-hidden rounded-xl border border-[var(--border)] p-6" aria-labelledby="founder-name">
+        <span aria-hidden="true" class="pointer-events-none absolute -bottom-8 -right-8 h-36 w-36 rotate-[-20deg] opacity-[0.07]" style="background: var(--ac-amber);"></span>
+        <div class="relative flex items-center gap-4">
+          <div class="h-16 w-16 shrink-0 overflow-hidden rounded-full border-2" style="border-color: color-mix(in srgb, var(--ac-amber) 40%, transparent);">
+            <Image src={nishantPhoto} alt="Nishant Barde" width={200} height={200} format="avif" class="h-full w-full object-cover" loading="eager" decoding="async" />
           </div>
-        </div>
-        <!-- Abhishek Acharya -->
-        <div class="p-px rounded-2xl" style="background: linear-gradient(135deg, var(--ac-violet), transparent 60%);">
-          <div class="rounded-2xl bg-[var(--bg-card)] p-6 h-full flex gap-5 items-start">
-            <div class="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 border-2"
-              style="border-color: color-mix(in srgb, var(--ac-violet) 40%, transparent);">
-              <Image src={abhishekPhoto} alt="Abhishek Acharya" width={200} height={200} format="avif" class="w-full h-full object-cover" loading="lazy" decoding="async" />
-            </div>
-            <div>
-              <h3 class="font-heading text-lg font-semibold text-[var(--text)]">Abhishek Acharya</h3>
-              <p class="text-sm font-medium mt-0.5" style="color: var(--ac-violet);">Mentor & Training Lead</p>
-              <p class="mt-3 text-[var(--text-dim)] text-sm leading-relaxed">
-                Dedicated to guiding learners with practical knowledge and industry insights. Ensures our team stays sharp with the latest technologies through continuous training programmes.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <aside id="leadership-publication-note" class="profile-publication mt-6 overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] max-w-4xl mx-auto" aria-labelledby="profile-publication-title">
-        <div class="grid gap-5 p-5 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-start sm:p-6">
-          <span class="profile-publication-icon flex h-11 w-11 items-center justify-center rounded-xl" aria-hidden="true">
-            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c.8-5 3.5-7 8-7s7.2 2 8 7"/><path d="M18 4h3v3"/></svg>
-          </span>
           <div>
-            <p class="text-[10px] font-black uppercase tracking-[0.18em] text-[var(--ac-indigo)]">Professional profiles</p>
-            <h3 id="profile-publication-title" class="mt-1 font-heading text-lg font-black text-[var(--text)]">People, roles and accountability</h3>
-            <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">These profiles use only work-related names, photographs, roles and short biographies to identify the people responsible for leadership and training. They do not publish private addresses, personal phone numbers or unrelated family information.</p>
-            <div class="mt-3 grid gap-2 text-xs leading-relaxed text-[var(--text-muted)] sm:grid-cols-2">
-              <p><strong class="text-[var(--text)]">Current and relevant:</strong> public profile details are reviewed when responsibilities change and are not intended to replace private employment or contractual records.</p>
-              <p><strong class="text-[var(--text)]">Control:</strong> a featured person may request a correction, updated role, different photograph or removal. We may verify the request before changing another person’s profile.</p>
-            </div>
-            <a href="mailto:privacy@elan-tech.net?subject=Leadership%20profile%20correction%20or%20removal" class="mt-3 inline-flex text-xs font-bold text-[var(--text)] underline decoration-[var(--ac-indigo)] underline-offset-4">Request a profile update or removal</a>
+            <p class="text-[10px] font-bold uppercase tracking-[0.18em]" style="color: var(--ac-amber);">Founder</p>
+            <h2 id="founder-name" class="font-heading text-xl font-bold text-[var(--text)]">Nishant Barde</h2>
+            <p class="text-sm text-[var(--text-muted)]">Founder &amp; Director</p>
           </div>
         </div>
+        <blockquote class="relative mt-4 border-l-2 pl-3 text-sm italic leading-relaxed text-[var(--text-dim)]" style="border-color: var(--ac-amber);">"Great technology should be accessible to every business, not just the Fortune 500."</blockquote>
+        <a href="/about/nishant-barde/" target="_blank" rel="noopener noreferrer" class="founder-card-cta group relative mt-5 flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left text-white">
+          <span class="min-w-0 flex-1">
+            <small class="block text-[9px] font-extrabold uppercase tracking-[0.16em] text-emerald-200">Call • WhatsApp • Save</small>
+            <strong class="mt-0.5 block text-sm font-extrabold">View Nishant’s digital card</strong>
+          </span>
+          <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-white text-[#123d36] transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+        </a>
       </aside>
-      <div class="mt-6 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 max-w-4xl mx-auto text-center">
-        <p class="text-[var(--text-dim)]">
-          Our projects bring together the right mix of design, development, SEO, content and project coordination based on the work required. Clients know who is responsible for each stage and where to go when a decision is needed.
-        </p>
-      </div>
     </div>
   </section>
 
-  <!-- Why Businesses Choose eLan -->
-  <section class="bg-[var(--bg-card)] py-20 sm:py-24" aria-labelledby="why-us-heading">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-3">Advantages</p>
-        <h2 id="why-us-heading" class="font-heading text-3xl font-bold text-[var(--text)] sm:text-4xl">
-          Why Businesses Choose eLan
-        </h2>
-        <p class="mt-4 text-[var(--text-dim)] max-w-2xl mx-auto">
-          Not all web agencies are created equal. Here is what sets eLan apart.
-        </p>
+  <!-- Story + compact timeline -->
+  <section class="border-y border-[var(--border)] bg-[var(--bg-card)] py-12 md:py-16" aria-labelledby="story-heading">
+    <div class="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_1fr] lg:px-8">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Our story</p>
+        <h2 id="story-heading" class="mt-2 font-heading text-3xl font-bold text-[var(--text)]">24 Years of Building the Web</h2>
+        <div class="mt-5 space-y-4 leading-relaxed text-[var(--text-dim)]">
+          <p>Operations began in Nagpur in 2002 as a freelance and startup unit, when a website was still a novelty for most Indian businesses. Founder <strong class="text-[var(--text)]">Nishant Barde</strong> helped local businesses get a credible online presence, and eLan Technology officially launched on <strong class="text-[var(--text)]">15 August 2005</strong>.</p>
+          <p>Since then the work has grown into web applications, portals, custom Shopify and Medusa.js commerce, accessibility, marketing and branding, for clients across India and in the USA, Canada, Australia, the UK and Japan. One principle has stayed constant: <strong class="text-[var(--text)]">accessibility first</strong>.</p>
+        </div>
+        <p class="mt-5 rounded-xl border border-[var(--border)] bg-[var(--bg)] p-4 text-sm leading-relaxed text-[var(--text-dim)]"><strong class="text-[var(--text)]">Mission:</strong> websites and digital solutions that are beautiful, accessible, fast and built for real results, within reach of every business. <strong class="text-[var(--text)]">Vision:</strong> Central India’s most trusted technology partner, recognised globally for accessible, performance-driven web development.</p>
       </div>
-      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-5" role="list">
-        {whyItems.map(({ title, desc, cssVar }) => (
-          <li class="relative overflow-hidden flex gap-4 rounded-2xl bg-[var(--bg)] border border-[var(--border)] p-6">
-            <span aria-hidden="true" class="pointer-events-none absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl"
-              style={`background: var(${cssVar});`}></span>
-            <span class="flex-shrink-0 w-8 h-8 rounded-xl flex items-center justify-center mt-0.5"
-              style={`background: color-mix(in srgb, var(${cssVar}) 16%, transparent); color: var(${cssVar});`}
-              aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            <div>
-              <p class="font-semibold text-[var(--text)]">{title}</p>
-              <p class="mt-1 text-sm text-[var(--text-dim)]">{desc}</p>
-            </div>
+      <ol class="timeline" role="list" aria-label="Milestones">
+        {journey.map((j) => (
+          <li><span class="yr">{j.year}</span><span class="tx">{j.title}</span></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- What we stand for: values + why clients choose us, merged -->
+  <section class="py-12 md:py-16" aria-labelledby="values-heading">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">What we stand for</p>
+      <h2 id="values-heading" class="mt-2 font-heading text-3xl font-bold text-[var(--text)]">Why Businesses Choose eLan</h2>
+      <ul class="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" role="list">
+        {principles.map((p, i) => (
+          <li class="service-card relative overflow-hidden rounded-xl border border-[var(--border)] p-5" style={`background: linear-gradient(135deg, color-mix(in srgb, var(${p.cssVar}) 10%, var(--bg-card)) 0%, var(--bg-card) 65%); --card-color: var(${p.cssVar});`}>
+            <span aria-hidden="true" class="service-card__num pointer-events-none absolute right-4 top-3 select-none font-heading font-black leading-none" style={`color: var(${p.cssVar}); font-size: 3rem;`}>{String(i + 1).padStart(2, '0')}</span>
+            <span aria-hidden="true" class="service-card__stripe pointer-events-none absolute -bottom-8 -left-8 h-32 w-32 rotate-[-20deg] opacity-[0.08]" style={`background: var(${p.cssVar});`}></span>
+            <span class="relative flex h-10 w-10 items-center justify-center rounded-md" style={`background: color-mix(in srgb, var(${p.cssVar}) 16%, transparent); color: var(${p.cssVar});`} aria-hidden="true" set:html={p.icon} />
+            <h3 class="relative mt-3 font-heading text-lg font-bold text-[var(--text)]">{p.title}</h3>
+            <p class="relative mt-1.5 text-sm leading-relaxed text-[var(--text-dim)]">{p.desc}</p>
           </li>
         ))}
       </ul>
+    </div>
+  </section>
+
+  <!-- Leadership -->
+  <section class="border-t border-[var(--border)] bg-[var(--bg-card)] py-12 md:py-16" aria-labelledby="team-heading">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">People</p>
+      <h2 id="team-heading" class="mt-2 font-heading text-3xl font-bold text-[var(--text)]">Leadership Team</h2>
+      <div class="mt-7 grid gap-4 sm:grid-cols-2">
+        <div class="flex items-start gap-4 rounded-xl border border-[var(--border)] bg-[var(--bg)] p-5">
+          <div class="h-14 w-14 shrink-0 overflow-hidden rounded-full border-2" style="border-color: color-mix(in srgb, var(--ac-indigo) 40%, transparent);">
+            <Image src={nishantPhoto} alt="Nishant Barde" width={200} height={200} format="avif" class="h-full w-full object-cover" loading="lazy" decoding="async" />
+          </div>
+          <div>
+            <h3 class="font-heading text-lg font-bold text-[var(--text)]">Nishant Barde</h3>
+            <p class="text-sm font-medium" style="color: var(--ac-indigo);">Founder &amp; Director</p>
+            <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">Technology entrepreneur who grew eLan from a local web studio into a partner for businesses in India and overseas.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 rounded-xl border border-[var(--border)] bg-[var(--bg)] p-5">
+          <div class="h-14 w-14 shrink-0 overflow-hidden rounded-full border-2" style="border-color: color-mix(in srgb, var(--ac-violet) 40%, transparent);">
+            <Image src={abhishekPhoto} alt="Abhishek Acharya" width={200} height={200} format="avif" class="h-full w-full object-cover" loading="lazy" decoding="async" />
+          </div>
+          <div>
+            <h3 class="font-heading text-lg font-bold text-[var(--text)]">Abhishek Acharya</h3>
+            <p class="text-sm font-medium" style="color: var(--ac-violet);">Mentor &amp; Training Lead</p>
+            <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">Guides learners with practical knowledge and keeps the team current through continuous training.</p>
+          </div>
+        </div>
+      </div>
+      <details id="leadership-publication-note" class="note mt-4 rounded-xl border border-[var(--border)] bg-[var(--bg)]">
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-3 text-sm font-semibold text-[var(--text)]">
+          About these profiles
+          <svg class="chev shrink-0 text-[var(--text-muted)]" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="border-t border-[var(--border)] px-5 py-4 text-sm leading-relaxed text-[var(--text-dim)]">
+          <p>These profiles use only work-related names, photographs, roles and short biographies. They do not publish private addresses, personal phone numbers or unrelated family information, and they are reviewed when responsibilities change. A featured person may request a correction, updated role, different photograph or removal; we may verify the request first.</p>
+          <a href="mailto:privacy@elan-tech.net?subject=Leadership%20profile%20correction%20or%20removal" class="mt-2 inline-flex text-xs font-bold text-[var(--text)] underline decoration-[var(--ac-indigo)] underline-offset-4">Request a profile update or removal</a>
+        </div>
+      </details>
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="py-20 sm:py-24" aria-labelledby="about-cta-heading">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div class="relative overflow-hidden rounded-3xl border border-[var(--border)] p-10 sm:p-16 text-center"
-        style="background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 12%, var(--bg-card)) 0%, var(--bg-card) 65%);">
-        <div aria-hidden="true" class="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-64 w-64 rounded-full opacity-20"
-          style="background: radial-gradient(circle, var(--accent), transparent 70%); filter: blur(40px);"></div>
-        <span aria-hidden="true" class="pointer-events-none absolute -right-16 -bottom-16 h-64 w-64 rotate-[-20deg] opacity-[0.06]"
-          style="background: var(--accent);"></span>
-        <div class="relative">
-          <h2 id="about-cta-heading" class="font-heading text-3xl font-bold text-[var(--text)] sm:text-4xl">
-            Ready to work with us?
-          </h2>
-          <p class="mt-4 text-lg text-[var(--text-dim)]">
-            Let us bring our 24 years of experience to your next project.
-          </p>
-          <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="/get-quote/"
-              class="inline-flex items-center justify-center rounded-xl bg-[var(--accent)] px-8 py-4 text-base font-semibold text-[var(--bg)] hover:opacity-90 transition-opacity"
-            >
-              Start Your Project
-            </a>
-            <a
-              href="/schedule-consultation/"
-              class="inline-flex items-center justify-center rounded-xl border border-[var(--border)] px-8 py-4 text-base font-semibold text-[var(--text)] hover:bg-[var(--bg)] transition-colors"
-            >
-              Schedule a Meeting
-            </a>
-            <a
-              href="/portfolio/"
-              class="inline-flex items-center justify-center rounded-xl border border-[var(--border)] px-8 py-4 text-base font-semibold text-[var(--text)] hover:bg-[var(--bg)] transition-colors"
-            >
-              See Our Work
-            </a>
-          </div>
-        </div>
+  <section class="py-12 md:py-16" aria-labelledby="about-cta-heading">
+    <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 id="about-cta-heading" class="font-heading text-3xl font-bold text-[var(--text)] sm:text-4xl">Ready to work with us?</h2>
+      <p class="mt-3 text-lg text-[var(--text-dim)]">Let us bring our 24 years of experience to your next project.</p>
+      <div class="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
+        <a href="/get-quote/" class="inline-flex items-center justify-center rounded-lg bg-[var(--accent)] px-7 py-3.5 font-semibold text-white transition hover:brightness-110">Start Your Project</a>
+        <a href="/schedule-consultation/" class="inline-flex items-center justify-center rounded-lg border border-[var(--border)] px-7 py-3.5 font-semibold text-[var(--text)] transition hover:border-[var(--accent)]">Schedule a Meeting</a>
+        <a href="/portfolio/" class="inline-flex items-center justify-center rounded-lg border border-[var(--border)] px-7 py-3.5 font-semibold text-[var(--text)] transition hover:border-[var(--accent)]">See Our Work</a>
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .founder-card-cta {
-    background: linear-gradient(115deg, #075e52 0%, #047857 54%, #1d4ed8 135%);
-    box-shadow: 0 14px 28px rgba(4, 120, 87, .24);
-    transition: transform 180ms ease, box-shadow 180ms ease;
-  }
-  .founder-card-cta:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 19px 36px rgba(4, 120, 87, .3);
-  }
+  .founder { background: linear-gradient(135deg, color-mix(in srgb, var(--ac-amber) 12%, var(--bg-card)) 0%, var(--bg-card) 70%); }
+  .founder-card-cta { background: linear-gradient(115deg, #075e52 0%, #047857 54%, #1d4ed8 135%); box-shadow: 0 12px 24px rgba(4, 120, 87, .22); transition: transform 180ms ease, box-shadow 180ms ease; }
+  .founder-card-cta:hover { transform: translateY(-2px); box-shadow: 0 16px 30px rgba(4, 120, 87, .28); }
   .founder-card-cta:focus-visible { outline: 3px solid var(--ac-amber); outline-offset: 3px; }
-  .profile-publication {
-    background:
-      radial-gradient(circle at 95% 0%, color-mix(in srgb, var(--ac-violet) 10%, transparent), transparent 34%),
-      linear-gradient(125deg, color-mix(in srgb, var(--ac-indigo) 5%, var(--bg-card)), var(--bg-card) 58%);
-  }
-  .profile-publication-icon { background: color-mix(in srgb, var(--ac-indigo) 13%, var(--bg)); color: var(--ac-indigo); }
-  @media (prefers-reduced-motion: reduce) { .founder-card-cta, .founder-card-cta span { transition: none; } }
+  .timeline { position: relative; display: grid; gap: .25rem; margin: 0; padding: 0 0 0 1.4rem; list-style: none; }
+  .timeline::before { content: ''; position: absolute; left: .35rem; top: .5rem; bottom: .5rem; width: 2px; background: linear-gradient(var(--ac-indigo), var(--ac-pink)); opacity: .35; }
+  .timeline li { position: relative; display: grid; grid-template-columns: 3.4rem 1fr; gap: .75rem; align-items: baseline; padding: .6rem .8rem; border-radius: var(--radius-xl); }
+  .timeline li::before { content: ''; position: absolute; left: -1.25rem; top: 1.05rem; width: .7rem; height: .7rem; border-radius: 999px; background: var(--bg-card); border: 2px solid var(--accent); }
+  .timeline li:hover { background: var(--bg); }
+  .timeline .yr { font-family: var(--font-heading); font-weight: 800; color: var(--accent); }
+  .timeline .tx { color: var(--text); font-size: .95rem; }
+  .note[open] .chev { transform: rotate(180deg); } .chev { transition: transform .2s; }
+  .note summary::-webkit-details-marker { display: none; }
+  @media (prefers-reduced-motion: reduce) { .founder-card-cta { transition: none; } }
 </style>

@@ -183,7 +183,7 @@ function Tile({ stat }: { stat: Stat }) {
   return (
     <div
       ref={ref}
-      className="group relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 md:p-7"
+      className="group relative overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg)] p-6 md:p-7"
     >
       <div
         aria-hidden="true"

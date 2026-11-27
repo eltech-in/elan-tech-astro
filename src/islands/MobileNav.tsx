@@ -19,7 +19,6 @@ const buildNavLinks = (services: NavLink[], products: NavLink[]) => [
   },
   { label: 'Portfolio', href: '/portfolio/' },
   { label: 'Blog', href: '/blog/' },
-  { label: 'Pricing', href: '/pricing/' },
   { label: 'Contact', href: '/contact/' },
   { label: '🔍 Search', href: '/search/' },
 ];
@@ -301,11 +300,11 @@ export default function MobileNav({ services = [], products = [] }: { services?:
                 style={{
                   display: 'block',
                   borderRadius: '8px',
-                  backgroundColor: 'var(--accent)',
+                  backgroundColor: 'var(--btn-bg)',
                   padding: '10px 16px',
                   textAlign: 'center',
                   fontWeight: 600,
-                  color: 'var(--bg)',
+                  color: 'var(--btn-text)',
                   textDecoration: 'none',
                 }}
               >

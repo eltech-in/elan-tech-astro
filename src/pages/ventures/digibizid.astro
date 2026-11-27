@@ -78,7 +78,7 @@ const schema = [
   <main>
     <section class="relative overflow-hidden border-b border-[var(--border)] bg-[var(--bg)] py-16 sm:py-20" aria-labelledby="digibizid-title">
       <div aria-hidden="true" class="pointer-events-none absolute inset-0 opacity-[0.04] [background-image:linear-gradient(var(--text)_1px,transparent_1px),linear-gradient(90deg,var(--text)_1px,transparent_1px)] [background-size:48px_48px]"></div>
-      <div aria-hidden="true" class="pointer-events-none absolute -right-28 -top-32 h-96 w-96 rounded-3xl bg-[var(--ac-blue)]/15 blur-[100px]"></div>
+      <div aria-hidden="true" class="pointer-events-none absolute -right-28 -top-32 h-96 w-96 rounded-xl bg-[var(--ac-blue)]/15 blur-[100px]"></div>
       <div class="relative mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:px-8">
         <div>
           <p class="text-xs font-bold uppercase tracking-[0.2em] text-[var(--ac-blue)]">An eLan Technology venture · Launched 14 September 2026</p>
@@ -89,18 +89,18 @@ const schema = [
             DigiBizID gives professionals and teams one mobile-friendly place for their contact details, business links and professional profile. Share it through a link or QR code and update your details without printing a new card.
           </p>
           <div class="mt-7 flex flex-wrap gap-3">
-            <a href={ventureSite} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-xl bg-[var(--ac-blue)] px-6 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5">
+            <a href={ventureSite} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg bg-[var(--ac-blue)] px-6 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5">
               Visit DigiBizID <span aria-hidden="true">↗</span>
             </a>
-            <a href="/contact/" class="inline-flex items-center rounded-xl border border-[var(--border)] bg-[var(--bg-card)] px-6 py-3 text-sm font-bold text-[var(--text)] transition-colors hover:border-[var(--ac-blue)] hover:text-[var(--ac-blue)]">
+            <a href="/contact/" class="inline-flex items-center rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-6 py-3 text-sm font-bold text-[var(--text)] transition-colors hover:border-[var(--ac-blue)] hover:text-[var(--ac-blue)]">
               Ask a Question
             </a>
           </div>
           <p class="mt-4 text-sm text-[var(--text-muted)]">Subscription pricing and applicable GST are shown separately on the DigiBizID website.</p>
         </div>
 
-        <aside class="relative overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-xl" aria-label="DigiBizID at a glance">
-          <span class="inline-flex rounded-lg bg-[var(--ac-blue)]/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[var(--ac-blue)]">DigiBizID</span>
+        <aside class="relative overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-xl" aria-label="DigiBizID at a glance">
+          <span class="inline-flex rounded-xl bg-[var(--ac-blue)]/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[var(--ac-blue)]">DigiBizID</span>
           <h2 class="mt-4 font-heading text-2xl font-bold text-[var(--text)]">One profile. Several ways to connect.</h2>
           <ul class="mt-5 grid gap-3 sm:grid-cols-2" role="list">
             {features.map((feature, index) => (
@@ -125,31 +125,31 @@ const schema = [
             <p class="mt-4 leading-relaxed text-[var(--text-dim)]">
               A DigiBizID link and QR code are designed to be shared. Treat every published field as public and include only professional details you are comfortable distributing.
             </p>
-            <a href="/privacy-policy/" class="mt-6 inline-flex min-h-11 items-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--bg)] px-5 py-2.5 text-sm font-bold text-[var(--text)] transition-colors hover:border-[var(--ac-blue)] hover:text-[var(--ac-blue)]">
+            <a href="/privacy-policy/" class="mt-6 inline-flex min-h-11 items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--bg)] px-5 py-2.5 text-sm font-bold text-[var(--text)] transition-colors hover:border-[var(--ac-blue)] hover:text-[var(--ac-blue)]">
               Read eLan Technology’s privacy policy <span aria-hidden="true">→</span>
             </a>
           </div>
 
           <ol class="grid gap-4 sm:grid-cols-3" aria-label="How DigiBizID information moves">
-            <li class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-5">
-              <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--ac-blue)]/10 text-sm font-black text-[var(--ac-blue)]">01</span>
+            <li class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-5">
+              <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--ac-blue)]/10 text-sm font-black text-[var(--ac-blue)]">01</span>
               <h3 class="mt-4 font-heading text-lg font-bold text-[var(--text)]">Choose</h3>
               <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">Provide only the professional name, role, business details, photo, contact methods and links you want included.</p>
             </li>
-            <li class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-5">
-              <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--ac-blue)]/10 text-sm font-black text-[var(--ac-blue)]">02</span>
+            <li class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-5">
+              <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--ac-blue)]/10 text-sm font-black text-[var(--ac-blue)]">02</span>
               <h3 class="mt-4 font-heading text-lg font-bold text-[var(--text)]">Approve</h3>
               <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">Check spelling, links and visibility before publication. Obtain permission before supplying another person’s identifiable information.</p>
             </li>
-            <li class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-5">
-              <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--ac-blue)]/10 text-sm font-black text-[var(--ac-blue)]">03</span>
+            <li class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-5">
+              <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--ac-blue)]/10 text-sm font-black text-[var(--ac-blue)]">03</span>
               <h3 class="mt-4 font-heading text-lg font-bold text-[var(--text)]">Share</h3>
               <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">Anyone with the profile link or QR code may view, copy or save its public contact details. Avoid private or sensitive information.</p>
             </li>
           </ol>
         </div>
 
-        <aside class="mt-8 grid gap-4 rounded-2xl border border-[var(--ac-blue)]/25 bg-[var(--ac-blue)]/[0.06] p-5 sm:grid-cols-2 sm:p-6" aria-label="DigiBizID data responsibility notice">
+        <aside class="mt-8 grid gap-4 rounded-xl border border-[var(--ac-blue)]/25 bg-[var(--ac-blue)]/[0.06] p-5 sm:grid-cols-2 sm:p-6" aria-label="DigiBizID data responsibility notice">
           <div>
             <h3 class="font-heading text-lg font-bold text-[var(--text)]">On this eLan Technology page</h3>
             <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">
@@ -165,8 +165,7 @@ const schema = [
         </aside>
 
         <p class="mt-5 text-sm leading-relaxed text-[var(--text-muted)]">
-          To request access, correction or removal of personal information handled by eLan Technology, email
-          <a class="font-semibold text-[var(--ac-blue)] underline underline-offset-4" href="mailto:privacy@elan-tech.net?subject=DigiBizID%20privacy%20request">privacy@elan-tech.net</a>.
+          To request access, correction or removal of personal information handled by eLan Technology, email <a class="font-semibold text-[var(--ac-blue)] underline underline-offset-4" href="mailto:privacy@elan-tech.net?subject=DigiBizID%20privacy%20request">privacy@elan-tech.net</a>.
           We may use proportionate verification to protect the profile owner from unauthorised changes.
         </p>
       </div>

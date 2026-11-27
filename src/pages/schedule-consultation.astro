@@ -15,6 +15,7 @@ const coverPoints = [
   'Project timeline and budget estimate',
 ];
 
+// Compact consultation page (owner, 27 Nov 2026): explanation beside the booking calendar.
 const afterSteps = [
   { step: '1', title: 'Discovery Call', desc: 'We listen, understand your needs, and ask the right questions.' },
   { step: '2', title: 'Proposal & Next Steps', desc: 'When a proposal is appropriate, it sets out the agreed scope, timeline, and pricing.' },
@@ -29,152 +30,77 @@ const afterSteps = [
   schema={schema}
   noindex={true}
 >
-
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       HERO
-  ════════════════════════════════════════════════════════════════════════ -->
-  <section aria-labelledby="consult-hero-heading" class="relative overflow-hidden bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-24 md:py-32">
-    <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
-      <div class="absolute -top-40 left-1/2 -translate-x-1/2 h-[500px] w-[500px] rounded-full bg-[var(--accent)]/6 blur-[120px]"></div>
-    </div>
-
-    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)]/60 px-4 py-2 text-sm text-[var(--text-muted)] backdrop-blur-sm">
-        <span class="h-2 w-2 rounded-full bg-[var(--accent)] animate-pulse" aria-hidden="true"></span>
-        30 Minutes - No Obligation
+  <section class="relative bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-12 md:py-16" aria-labelledby="consult-hero-heading">
+    <div class="consult-grid mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="area-intro">
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">30 Minutes · No Obligation</p>
+        <h1 id="consult-hero-heading" class="mt-3 font-heading text-4xl font-bold leading-tight text-[var(--text)] sm:text-5xl">Let's Talk About Your Project</h1>
+        <p class="mt-4 text-lg leading-relaxed text-[var(--text-dim)]">A 30-minute strategy call with our team. No sales pitch, just honest advice about what will work for your business.</p>
       </div>
 
-      <h1
-        id="consult-hero-heading"
-        class="font-heading text-4xl sm:text-5xl font-bold text-[var(--text)] mb-6"
-      >
-        Let's Talk About Your Project
-      </h1>
-      <p class="mx-auto max-w-2xl text-lg text-[var(--text-dim)] leading-relaxed">
-        A 30-minute strategy call with our experts. No sales pitch - just honest advice about what will work for your business.
-      </p>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       WHAT WE COVER
-  ════════════════════════════════════════════════════════════════════════ -->
-  <section aria-labelledby="cover-heading" class="bg-[var(--bg-card)] border-y border-[var(--border)] py-16 md:py-20">
-    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        <div>
-          <p class="text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-3">What We Cover</p>
-          <h2 id="cover-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-8">
-            A Focused, Productive 30 Minutes
-          </h2>
-          <ul class="space-y-4" role="list">
-            {coverPoints.map((point) => (
-              <li class="flex items-start gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00E5A0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                <span class="text-[var(--text-dim)]">{point}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-8">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent)]/10">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00E5A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </div>
-            <div>
-              <p class="font-semibold text-[var(--text)]">30-Minute Session</p>
-              <p class="text-sm text-[var(--text-muted)]">Video call via Google Meet or Zoom</p>
-            </div>
-          </div>
-          <ul class="space-y-2 text-sm text-[var(--text-dim)]">
-            <li class="flex items-center gap-2">
-              <span class="text-[var(--accent)]">→</span> Business hours: {COMPANY.hours.weekdayLabel}; {COMPANY.hours.saturdayLabel}. Consultation slots are subject to appointment availability.
+      <div class="area-info">
+        <h2 id="cover-heading" class="font-heading text-lg font-bold text-[var(--text)]">What we cover</h2>
+        <ul class="mt-3 grid gap-2 sm:grid-cols-2" role="list">
+          {coverPoints.map((point) => (
+            <li class="flex items-start gap-2 text-sm text-[var(--text-dim)]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0 text-[var(--accent)]" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              {point}
             </li>
-            <li class="flex items-center gap-2">
-              <span class="text-[var(--accent)]">→</span> International clients welcome
+          ))}
+        </ul>
+        <p class="tilt-card mt-4 p-4 text-sm leading-relaxed text-[var(--text-dim)]" style="--card-color: var(--ac-cyan);"><strong class="text-[var(--text)]">Video call via Google Meet or Zoom.</strong> Business hours: {COMPANY.hours.weekdayLabel}; {COMPANY.hours.saturdayLabel}. Slots are subject to availability. International clients welcome.</p>
+
+        <h2 id="after-heading" class="mt-8 font-heading text-lg font-bold text-[var(--text)]">What happens next</h2>
+        <ol class="mt-3 space-y-4" role="list">
+          {afterSteps.map((s) => (
+            <li class="step">
+              <span aria-hidden="true">{s.step}</span>
+              <div>
+                <h3 class="font-semibold text-[var(--text)]">{s.title}</h3>
+                <p class="mt-0.5 text-sm leading-relaxed text-[var(--text-dim)]">{s.desc}</p>
+              </div>
             </li>
-            <li class="flex items-center gap-2">
-              <span class="text-[var(--accent)]">→</span> No obligation to proceed
-            </li>
-          </ul>
-        </div>
+          ))}
+        </ol>
       </div>
-    </div>
-  </section>
 
-
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       BOOKING SECTION
-  ════════════════════════════════════════════════════════════════════════ -->
-  <section aria-labelledby="booking-heading" class="bg-[var(--bg)] py-16 md:py-20">
-    <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
-      <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-4 sm:p-8 text-center">
-        <h2 id="booking-heading" class="font-heading text-2xl font-bold text-[var(--text)] mb-4">Book Your Call</h2>
-        <p class="text-[var(--text-dim)] mb-6">Pick a time that works for you:</p>
-
-        <div
-          id="calendly-consent-panel"
-          class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 sm:p-8 text-left"
-        >
-          <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--accent)]/10 text-[var(--accent)]" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="5" width="18" height="16" rx="2"></rect>
-              <path d="M16 3v4M8 3v4M3 10h18"></path>
-              <path d="m9 15 2 2 4-4"></path>
-            </svg>
-          </div>
-          <h3 class="mt-4 text-center font-heading text-xl font-bold text-[var(--text)]">Load the secure booking calendar</h3>
-          <p id="calendly-privacy-notice" class="mt-3 text-sm leading-relaxed text-[var(--text-dim)]">
-            The calendar is provided by Calendly and is blocked until you choose to load it. If you continue,
+      <div class="area-form tilt-card tilt-card--lg p-5 sm:p-8" style="--card-color: var(--ac-violet);" aria-labelledby="booking-heading">
+        <h2 id="booking-heading" class="font-heading text-2xl font-bold text-[var(--text)]">Book Your Call</h2>
+        <div id="calendly-consent-panel" class="mt-4">
+          <p id="calendly-privacy-notice" class="text-sm leading-relaxed text-[var(--text-dim)]">
+            The calendar is provided by Calendly and stays blocked until you choose to load it. If you continue,
             Calendly will receive your IP address and browser/device information, may set its own cookies, and
             will process the contact and scheduling details you enter. We use those details only to arrange and
             communicate about your requested consultation.
           </p>
-          <p class="mt-3 text-xs leading-relaxed text-[var(--text-muted)]">
-            Review our <a href="/privacy-policy/" class="font-semibold text-[var(--accent)] underline underline-offset-2">Privacy Policy</a>
-            and <a href="https://calendly.com/privacy" target="_blank" rel="noopener noreferrer" class="font-semibold text-[var(--accent)] underline underline-offset-2">Calendly's Privacy Notice</a>.
+          <p class="mt-2 text-xs leading-relaxed text-[var(--text-muted)]">
+            Review our <a href="/privacy-policy/" class="font-semibold text-[var(--accent)] underline underline-offset-2">Privacy Policy</a> and <a href="https://calendly.com/privacy" target="_blank" rel="noopener noreferrer" class="font-semibold text-[var(--accent)] underline underline-offset-2">Calendly's Privacy Notice</a>.
             You can use the direct contact options below without loading Calendly.
           </p>
           <button
             type="button"
             id="load-calendly"
             aria-describedby="calendly-privacy-notice"
-            class="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[var(--accent)] px-6 py-3 text-sm font-bold text-[var(--bg)] shadow-lg transition hover:-translate-y-0.5 hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] disabled:cursor-wait disabled:opacity-70"
+            class="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg bg-[var(--accent)] px-6 py-3 text-sm font-bold text-[var(--bg)] transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] disabled:cursor-wait disabled:opacity-70"
           >
             Load Calendly &amp; Choose a Time
             <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
           </button>
           <p class="mt-3 text-center text-xs text-[var(--text-muted)]">
-            Prefer a separate tab?
-            <a href="https://calendly.com/elantech/biz-meet" target="_blank" rel="noopener noreferrer" class="font-semibold text-[var(--accent)] underline underline-offset-2">Open Calendly directly</a>.
+            Prefer a separate tab? <a href="https://calendly.com/elantech/biz-meet" target="_blank" rel="noopener noreferrer" class="font-semibold text-[var(--accent)] underline underline-offset-2">Open Calendly directly</a>.
           </p>
-          <p id="calendly-load-status" class="mt-3 text-center text-xs text-[var(--text-muted)]" aria-live="polite"></p>
+          <p id="calendly-load-status" class="mt-2 text-center text-xs text-[var(--text-muted)]" aria-live="polite"></p>
         </div>
 
-        <div id="calendly-widget-host" class="w-full" style="min-width:0;height:700px;" hidden tabindex="-1" aria-label="Calendly appointment booking calendar"></div>
+        <div id="calendly-widget-host" class="mt-4 w-full" style="min-width:0;height:700px;" hidden tabindex="-1" aria-label="Calendly appointment booking calendar"></div>
 
-        <p class="mt-4 text-sm text-[var(--text-muted)]">Or reach us directly:</p>
-        <div class="flex flex-col sm:flex-row gap-3 justify-center mt-3">
-          <a
-            href="https://wa.me/918788834630"
-            class="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-8 py-3 text-sm font-semibold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
-          >
-            WhatsApp
-          </a>
-          <a
-            href="mailto:info@elan-tech.net"
-            class="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-8 py-3 text-sm font-semibold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
-          >
-            Email Us
-          </a>
-          <a
-            href="tel:+919822231642"
-            class="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-8 py-3 text-sm font-semibold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
-          >
-            Call Us
-          </a>
+        <div class="mt-6 border-t border-[var(--border)] pt-5">
+          <p class="text-sm text-[var(--text-muted)]">Or reach us directly:</p>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <a href="https://wa.me/918788834630" class="inline-flex min-h-10 items-center rounded-lg border border-[var(--border)] bg-[var(--bg)] px-4 py-2 text-sm font-semibold text-[var(--text)] transition hover:border-[var(--accent)]">WhatsApp</a>
+            <a href="mailto:info@elan-tech.net" class="inline-flex min-h-10 items-center rounded-lg border border-[var(--border)] bg-[var(--bg)] px-4 py-2 text-sm font-semibold text-[var(--text)] transition hover:border-[var(--accent)]">Email Us</a>
+            <a href="tel:+919822231642" class="inline-flex min-h-10 items-center rounded-lg border border-[var(--border)] bg-[var(--bg)] px-4 py-2 text-sm font-semibold text-[var(--text)] transition hover:border-[var(--accent)]">Call Us</a>
+          </div>
         </div>
       </div>
     </div>
@@ -240,30 +166,15 @@ const afterSteps = [
       });
     })();
   </script>
-
-
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       WHAT HAPPENS AFTER
-  ════════════════════════════════════════════════════════════════════════ -->
-  <section aria-labelledby="after-heading" class="bg-[var(--bg-card)] border-t border-[var(--border)] py-16 md:py-20">
-    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-      <p class="text-center text-sm font-semibold uppercase tracking-widest text-[var(--accent)] mb-3">After the Call</p>
-      <h2 id="after-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] text-center mb-12">
-        What Happens Next
-      </h2>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {afterSteps.map((s) => (
-          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 text-center">
-            <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent)]/10 font-bold text-[var(--accent)] font-heading text-lg">
-              {s.step}
-            </div>
-            <h3 class="font-semibold text-[var(--text)] mb-2">{s.title}</h3>
-            <p class="text-sm text-[var(--text-dim)] leading-relaxed">{s.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
 </BaseLayout>
+
+<style>
+  .consult-grid { display: grid; gap: 2rem; grid-template-areas: "intro" "form" "info"; }
+  .area-intro { grid-area: intro; } .area-form { grid-area: form; } .area-info { grid-area: info; }
+  @media (min-width: 1024px) {
+    .consult-grid { grid-template-columns: 0.95fr 1.05fr; grid-template-rows: auto 1fr; column-gap: 2.5rem; row-gap: 2rem; grid-template-areas: "intro form" "info form"; align-items: start; }
+    .area-form { position: sticky; top: 7rem; }
+  }
+  .step { display: grid; grid-template-columns: 2.25rem 1fr; gap: .9rem; }
+  .step > span { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: var(--radius-lg); background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); font-weight: 800; }
+</style>

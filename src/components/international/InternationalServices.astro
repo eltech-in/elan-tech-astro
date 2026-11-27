@@ -33,7 +33,7 @@ const services = [
     </div>
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {services.map((s) => (
-        <a href={s.href} class="group rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 transition-colors hover:border-[var(--accent)]">
+        <a href={s.href} class="group rounded-xl border border-[var(--border)] bg-[var(--bg)] p-6 transition-colors hover:border-[var(--accent)]">
           <h3 class="font-heading font-semibold text-[var(--text)] mb-2 group-hover:text-[var(--accent)] transition-colors">{s.title}</h3>
           <p class="text-sm text-[var(--text-dim)] leading-relaxed">{s.desc}</p>
         </a>

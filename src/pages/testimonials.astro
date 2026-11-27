@@ -62,7 +62,7 @@ const initials = (name: string) => name.replace(/\./g, '').split(/\s+/).filter(B
       <h2 id="featured-testimonials-heading" class="mt-2 font-heading text-3xl font-bold text-[var(--text)]">Stories That Stand Out</h2>
       <div class="mt-8 grid gap-4 md:grid-cols-2">
         {featured.map((t) => (
-          <figure class="feature service-card relative overflow-hidden rounded-lg border border-[var(--border)] p-7">
+          <figure class="feature service-card relative overflow-hidden rounded-xl border border-[var(--border)] p-7">
             <span aria-hidden="true" class="service-card__stripe pointer-events-none absolute -bottom-10 -left-10 h-40 w-40 rotate-[-20deg] opacity-[0.07]" style="background: var(--ac-indigo);"></span>
             <svg class="mark relative" viewBox="0 0 32 24" aria-hidden="true"><path d="M0 24V14C0 6 4.5 1.2 12 0l1.3 3.4C8.8 4.9 6.7 8 6.6 12H12v12H0Zm19 0V14c0-8 4.5-12.8 12-14l1 3.4C27.8 4.9 25.7 8 25.6 12H31v12H19Z" fill="currentColor"/></svg>
             <blockquote class="relative mt-4 text-lg leading-relaxed text-[var(--text)]">{t.quote}</blockquote>
@@ -105,7 +105,7 @@ const initials = (name: string) => name.replace(/\./g, '').split(/\s+/).filter(B
         <ul class="masonry mt-6" role="list">
           {rest.map((t) => (
             <li class="review" data-source={sourceKey(t)}>
-              <figure class="rounded-lg border border-[var(--border)] bg-[var(--bg)] p-5">
+              <figure class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-5">
                 <figcaption class="flex items-center gap-3">
                   <span class="avatar avatar-sm" aria-hidden="true">{initials(t.author)}</span>
                   <span class="min-w-0">
@@ -128,7 +128,7 @@ const initials = (name: string) => name.replace(/\./g, '').split(/\s+/).filter(B
         </ul>
       </div>
 
-      <details class="policy mt-10 rounded-lg border border-[var(--border)] bg-[var(--bg)]">
+      <details class="policy mt-10 rounded-xl border border-[var(--border)] bg-[var(--bg)]">
         <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-sm font-semibold text-[var(--text)]">
           How we publish reviews
           <svg class="chev shrink-0 text-[var(--text-muted)]" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
@@ -164,14 +164,14 @@ const initials = (name: string) => name.replace(/\./g, '').split(/\s+/).filter(B
 </BaseLayout>
 
 <style>
-  .stat { border: 1px solid var(--border); border-radius: .5rem; background: var(--bg-card); padding: .9rem 1rem; }
+  .stat { border: 1px solid var(--border); border-radius: var(--radius-xl); background: var(--bg-card); padding: .9rem 1rem; }
   .stat dt { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: var(--text-muted); }
   .stat dd { margin-top: .2rem; font-family: var(--font-heading); font-size: 2rem; font-weight: 800; color: var(--text); }
   .feature { background: linear-gradient(135deg, color-mix(in srgb, var(--ac-indigo) 8%, var(--bg-card)) 0%, var(--bg-card) 65%); }
   .mark { width: 2rem; height: 1.5rem; color: #6366f1; opacity: .5; }
   .avatar { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; flex-shrink: 0; border-radius: 999px; font-size: .85rem; font-weight: 800; color: #fff; background: linear-gradient(135deg, #4f46e5, #7c3aed); }
   .avatar-sm { width: 2.25rem; height: 2.25rem; font-size: .75rem; }
-  .src { display: inline-block; border-radius: .375rem; padding: .15rem .5rem; font-size: .68rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+  .src { display: inline-block; border-radius: var(--radius-md); padding: .15rem .5rem; font-size: .68rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
   .src-google { background: color-mix(in srgb, #ea4335 12%, transparent); color: #b3261e; }
   .src-linkedin { background: color-mix(in srgb, #0a66c2 12%, transparent); color: #0a66c2; }
   .src-client { background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); }
@@ -179,7 +179,7 @@ const initials = (name: string) => name.replace(/\./g, '').split(/\s+/).filter(B
 
   .filters { display: flex; flex-wrap: wrap; gap: .5rem; border: 0; padding: 0; margin: 0; }
   .filters input { position: absolute; opacity: 0; pointer-events: none; }
-  .filters label { cursor: pointer; border: 1px solid var(--border); border-radius: .5rem; background: var(--bg); padding: .45rem .9rem; font-size: .85rem; font-weight: 600; color: var(--text-dim); transition: border-color .2s, color .2s, background .2s; }
+  .filters label { cursor: pointer; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--bg); padding: .45rem .9rem; font-size: .85rem; font-weight: 600; color: var(--text-dim); transition: border-color .2s, color .2s, background .2s; }
   .filters input:checked + label { border-color: var(--accent); color: var(--text); background: color-mix(in srgb, var(--accent) 10%, var(--bg)); }
   .filters input:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 2px; }
   .reviews-filter:has(#f-google:checked) .review:not([data-source="google"]),

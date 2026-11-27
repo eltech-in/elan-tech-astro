@@ -1,0 +1,171 @@
+---
+// One service-detail page body (owner, 27 Nov 2026): hero, what we deliver, optional proof, page-specific
+// sections (default slot), process, fit, guides, FAQ and a closing call to action. Cards use the shared
+// .tilt-card style; corners use Tailwind's default scale.
+interface Card { title: string; text: string }
+interface FAQ { question: string; answer: string }
+interface Link { label: string; title: string; href: string }
+interface Proof { label: string; title: string; text: string; points: string[]; href: string; linkLabel: string; secondary?: { href: string; label: string } }
+
+interface Props {
+  accentVar: string;
+  eyebrow: string;
+  heading: string;
+  intro: string;
+  highlights: string[];
+  primaryCta?: { label: string; href: string };
+  secondaryCta?: { label: string; href: string; external?: boolean };
+  offersTitle: string;
+  offersIntro?: string;
+  offers: Card[];
+  proof?: Proof;
+  processTitle?: string;
+  process: Card[];
+  fit: string[];
+  needs?: string[];
+  note?: string;
+  guides?: Link[];
+  faqTitle: string;
+  faqs: FAQ[];
+  cta: { title: string; text: string; label?: string; href?: string };
+}
+
+const {
+  accentVar, eyebrow, heading, intro, highlights,
+  primaryCta = { label: 'Discuss your project', href: '/schedule-consultation/' },
+  secondaryCta = { label: 'Request a quote', href: '/get-quote/' },
+  offersTitle, offersIntro, offers, proof, processTitle = 'How we deliver', process, fit, needs, note, guides, faqTitle, faqs, cta,
+} = Astro.props;
+const accent = `var(${accentVar})`;
+---
+
+<section class="service-hero" style={`--card-color: ${accent};`}>
+  <div class="service-hero-grid">
+    <div>
+      <p class="text-xs font-bold uppercase tracking-[0.18em]" style={`color: ${accent};`}>{eyebrow}</p>
+      <h1 class="mt-3 font-heading font-bold text-[var(--text)]">{heading}</h1>
+      <p class="mt-4 max-w-2xl text-base leading-relaxed text-[var(--text-dim)] md:text-lg">{intro}</p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a href={primaryCta.href} class="inline-flex min-h-11 items-center rounded-lg bg-[var(--accent)] px-5 py-2.5 text-sm font-bold text-white transition hover:brightness-110">{primaryCta.label}</a>
+        <a href={secondaryCta.href} target={secondaryCta.external ? '_blank' : undefined} rel={secondaryCta.external ? 'noopener noreferrer' : undefined} class="inline-flex min-h-11 items-center rounded-lg border border-[var(--border)] bg-[var(--bg)] px-5 py-2.5 text-sm font-bold text-[var(--text)] transition hover:border-[var(--card-color)]">{secondaryCta.label}{secondaryCta.external && <span class="sr-only"> (opens in a new tab)</span>}</a>
+      </div>
+    </div>
+    <ul class="service-hero-aside grid gap-2 sm:grid-cols-2 md:grid-cols-1" role="list" aria-label="At a glance">
+      {highlights.map((item) => (
+        <li class="flex items-start gap-2 text-sm font-semibold text-[var(--text)]"><span class="mt-0.5 shrink-0" style={`color: ${accent};`} aria-hidden="true">✓</span>{item}</li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<section aria-labelledby="offers-title" style={`--card-color: ${accent};`}>
+  <h2 id="offers-title" class="font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">{offersTitle}</h2>
+  {offersIntro && <p class="mt-2 max-w-3xl text-[var(--text-dim)]">{offersIntro}</p>}
+  <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" role="list">
+    {offers.map((item, i) => (
+      <li class="tilt-card p-5">
+        <span class="text-[11px] font-black tracking-[0.14em]" style={`color: ${accent};`}>{String(i + 1).padStart(2, '0')}</span>
+        <h3 class="mt-1.5 font-heading text-base font-bold text-[var(--text)]">{item.title}</h3>
+        <p class="mt-1.5 text-sm leading-relaxed text-[var(--text-dim)]">{item.text}</p>
+      </li>
+    ))}
+  </ul>
+</section>
+
+{proof && (
+  <section class="tilt-card tilt-card--lg p-6 sm:p-8" style={`--card-color: ${accent};`} aria-labelledby="proof-title">
+    <div class="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[0.16em]" style={`color: ${accent};`}>{proof.label}</p>
+        <h2 id="proof-title" class="mt-2 font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">{proof.title}</h2>
+        <p class="mt-3 leading-relaxed text-[var(--text-dim)]">{proof.text}</p>
+        <div class="mt-5 flex flex-wrap gap-3">
+          <a href={proof.href} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center rounded-lg border border-[var(--border)] bg-[var(--bg)] px-5 py-2.5 text-sm font-bold text-[var(--text)] transition hover:border-[var(--card-color)]">{proof.linkLabel} ↗<span class="sr-only"> (opens in a new tab)</span></a>
+          {proof.secondary && <a href={proof.secondary.href} class="inline-flex min-h-11 items-center text-sm font-semibold underline underline-offset-4" style={`color: ${accent};`}>{proof.secondary.label} →</a>}
+        </div>
+      </div>
+      <ul class="grid gap-2 sm:grid-cols-2" role="list">
+        {proof.points.map((p) => <li class="rounded-lg border border-[var(--border)] bg-[var(--bg)] px-3.5 py-2.5 text-sm font-semibold text-[var(--text)]">✓ {p}</li>)}
+      </ul>
+    </div>
+  </section>
+)}
+
+<slot />
+
+<section aria-labelledby="process-title">
+  <h2 id="process-title" class="font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">{processTitle}</h2>
+  <ol class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4" role="list">
+    {process.map((step, i) => (
+      <li class="tilt-card p-4" style={`--card-color: ${accent};`}>
+        <span class="inline-grid h-8 w-8 place-items-center rounded-lg text-xs font-black" style={`color: ${accent}; background: color-mix(in srgb, ${accent} 15%, transparent);`}>{String(i + 1).padStart(2, '0')}</span>
+        <h3 class="mt-3 font-heading text-base font-bold text-[var(--text)]">{step.title}</h3>
+        <p class="mt-1 text-sm leading-relaxed text-[var(--text-dim)]">{step.text}</p>
+      </li>
+    ))}
+  </ol>
+</section>
+
+<section class:list={['grid gap-4', needs && needs.length ? 'lg:grid-cols-2' : '']} aria-label="Fit and responsibilities">
+  <div class="tilt-card p-5 sm:p-6" style="--card-color: var(--ac-emerald);">
+    <h2 class="font-heading text-lg font-bold text-[var(--text)]">A good fit when</h2>
+    <ul class="mt-3 space-y-2" role="list">
+      {fit.map((item) => <li class="flex gap-2.5 text-sm leading-relaxed text-[var(--text-dim)]"><span class="font-black text-[var(--ac-emerald)]" aria-hidden="true">→</span>{item}</li>)}
+    </ul>
+  </div>
+  {needs && needs.length > 0 && (
+    <div class="tilt-card p-5 sm:p-6" style="--card-color: var(--ac-amber);">
+      <h2 class="font-heading text-lg font-bold text-[var(--text)]">What we need from you</h2>
+      <ul class="mt-3 space-y-2" role="list">
+        {needs.map((item) => <li class="flex gap-2.5 text-sm leading-relaxed text-[var(--text-dim)]"><span class="font-black text-[var(--ac-amber)]" aria-hidden="true">✓</span>{item}</li>)}
+      </ul>
+    </div>
+  )}
+  {note && <p class="text-xs leading-relaxed text-[var(--text-muted)] lg:col-span-2"><strong class="text-[var(--text)]">Please note:</strong> {note}</p>}
+</section>
+
+{guides && guides.length > 0 && (
+  <section aria-labelledby="guides-title">
+    <h2 id="guides-title" class="font-heading text-xl font-bold text-[var(--text)]">Guides from our blog</h2>
+    <ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" role="list">
+      {guides.map((g) => (
+        <li><a href={g.href} class="tilt-card tilt-card--hover flex h-full flex-col p-4" style={`--card-color: ${accent};`}>
+          <span class="text-[11px] font-bold uppercase tracking-[0.14em]" style={`color: ${accent};`}>{g.label}</span>
+          <span class="mt-1 font-semibold leading-snug text-[var(--text)]">{g.title}</span>
+        </a></li>
+      ))}
+    </ul>
+  </section>
+)}
+
+<section aria-labelledby="service-faq-title">
+  <h2 id="service-faq-title" class="font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">{faqTitle}</h2>
+  <div class="faq-cols mt-6">
+    {faqs.map((faq) => (
+      <details class="faq group tilt-card" style={`--card-color: ${accent};`}>
+        <summary class="flex cursor-pointer list-none items-start justify-between gap-4 px-5 py-4 font-semibold text-[var(--text)]">
+          <span class="faq-q">{faq.question}</span>
+          <svg class="mt-1 h-4 w-4 shrink-0 text-[var(--text-muted)] transition-transform group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <p class="px-5 pb-5 text-sm leading-relaxed text-[var(--text-dim)]">{faq.answer}</p>
+      </details>
+    ))}
+  </div>
+</section>
+
+<section class="tilt-card tilt-card--lg flex flex-col gap-5 p-6 sm:p-8 lg:flex-row lg:items-center lg:justify-between" style={`--card-color: ${accent};`} aria-labelledby="service-cta-title">
+  <div class="max-w-2xl">
+    <h2 id="service-cta-title" class="font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">{cta.title}</h2>
+    <p class="mt-2 text-[var(--text-dim)]">{cta.text}</p>
+  </div>
+  <div class="flex shrink-0 flex-wrap gap-3">
+    <a href={cta.href ?? '/schedule-consultation/'} class="inline-flex min-h-11 items-center rounded-lg bg-[var(--accent)] px-5 py-2.5 text-sm font-bold text-white transition hover:brightness-110">{cta.label ?? 'Book a consultation'}</a>
+    <a href="/get-quote/" class="inline-flex min-h-11 items-center rounded-lg border border-[var(--border)] bg-[var(--bg)] px-5 py-2.5 text-sm font-bold text-[var(--text)] transition hover:border-[var(--card-color)]">Request a quote</a>
+  </div>
+</section>
+
+<style>
+  .faq-cols { display: grid; gap: .75rem; align-items: start; }
+  @media (min-width: 1024px) { .faq-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .faq summary::-webkit-details-marker { display: none; }
+</style>

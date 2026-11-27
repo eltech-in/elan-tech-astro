@@ -18,13 +18,13 @@ const steps = [
         <p class="mt-5 leading-7 text-[var(--text-dim)]">{isUS ? 'US morning and India evening calls can be scheduled by your actual time zone, including daylight-saving changes.' : 'Canadian morning and India evening reviews can be planned by province and time zone, including daylight-saving changes.'} Meeting frequency, response windows and approval owners are agreed at kickoff. Delivery is from India; no local {isUS ? 'US' : 'Canadian'} office is implied.</p>
         <p class="mt-4 leading-7 text-[var(--text-dim)]">Ask for one-time development and recurring costs separately. The quotation identifies currency, taxes where applicable, third-party fees, exclusions and ongoing support. A smaller assessment can define the scope before a rebuild is proposed.</p>
         <div class="mt-6 flex flex-wrap gap-3">
-          <a href="/get-quote/" class="inline-flex min-h-11 items-center justify-center rounded-xl bg-[var(--accent)] px-5 py-3 text-sm font-bold text-[var(--bg)]">{isUS ? 'Scope my US project' : 'Scope my Canadian project'} <span aria-hidden="true" class="ml-2">→</span></a>
-          <a href="/schedule-consultation/" class="inline-flex min-h-11 items-center justify-center rounded-xl border border-[var(--border)] px-5 py-3 text-sm font-bold">Discuss the requirements</a>
+          <a href="/get-quote/" class="inline-flex min-h-11 items-center justify-center rounded-lg bg-[var(--accent)] px-5 py-3 text-sm font-bold text-[var(--bg)]">{isUS ? 'Scope my US project' : 'Scope my Canadian project'} <span aria-hidden="true" class="ml-2">→</span></a>
+          <a href="/schedule-consultation/" class="inline-flex min-h-11 items-center justify-center rounded-lg border border-[var(--border)] px-5 py-3 text-sm font-bold">Discuss the requirements</a>
         </div>
         <p class="mt-4 text-xs leading-6 text-[var(--text-muted)]">Share a business summary, not passwords or customer records. Each enquiry form explains its own privacy notice. A website audit is not a complete WCAG conformance audit.</p>
       </div>
       <ol class="grid gap-4 sm:grid-cols-2">
-        {steps.map((step, index) => <li class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+        {steps.map((step, index) => <li class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
           <span class="text-sm font-bold text-[var(--accent)]">0{index + 1}</span>
           <h3 class="mt-3 font-heading text-lg font-bold">{step.title}</h3>
           <p class="mt-3 text-sm leading-7 text-[var(--text-dim)]">{step.text}</p>

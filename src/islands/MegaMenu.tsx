@@ -53,7 +53,7 @@ const services: { label: string; slug: string; subpages: SubPage[] }[] = [
     label: 'eCommerce',
     slug: 'ecommerce',
     subpages: [
-      { label: 'Custom Shopify Development', href: '/services/ecommerce/shopify-development/' },
+      { label: 'Custom Shopify Development', href: '/services/ecommerce/#shopify' },
       { label: 'Medusa.js Development', href: '/services/ecommerce/medusa-js-development/' },
       'Headless Commerce',
       'Subscriptions',
@@ -119,7 +119,6 @@ const primaryLinks = [
   { label: 'About', href: '/about/' },
   { label: 'Portfolio', href: '/portfolio/' },
   { label: 'Blog', href: '/blog/' },
-  { label: 'Pricing', href: '/pricing/' },
   { label: 'Contact', href: '/contact/' },
 ];
 

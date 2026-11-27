@@ -1,11 +1,13 @@
 ---
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
+import ServicePage from '../../components/service/ServicePage.astro';
 import { services } from '../../data/services';
-import { indexedCities } from '../../data/cities';
 import { serviceSchema, faqSchema, breadcrumbSchema } from '../../utils/schema';
-import CentralCmsFeature from '../../components/CentralCmsFeature.astro';
 
+// Rewritten 27 Nov 2026: compact, search-literal page in the shared service layout.
 const service = services.find((s) => s.slug === 'web-development')!;
+const title = 'Web Development Company in India: Websites, Portals & Web Apps';
+const description = 'Custom web development from India: business websites, customer portals, booking systems, dashboards and web applications with React, Next.js, Astro, Node.js, WordPress and headless CMS.';
 
 const serviceFaqs = [
   {
@@ -35,224 +37,70 @@ const breadcrumbs = [
   { name: 'Services', href: '/services/' },
   { name: service.title, href: `/services/${service.slug}/` },
 ];
-
-const schemaBreadcrumbs = breadcrumbs.map((b) => ({ name: b.name, url: b.href }));
-
 const schemas = [
-  serviceSchema(service.title, service.description, `/services/${service.slug}/`),
+  serviceSchema(title, description, `/services/${service.slug}/`),
   faqSchema(serviceFaqs),
-  breadcrumbSchema(schemaBreadcrumbs),
+  breadcrumbSchema(breadcrumbs.map((b) => ({ name: b.name, url: b.href }))),
 ];
-
-const featuredCities = indexedCities;
-
-const technologies = [
-  'React', 'Next.js', 'Astro', 'Node.js', 'Express.js', 'MongoDB', 'MySQL',
-  'PostgreSQL', 'Supabase', 'WordPress', 'Jamstack', 'Strapi', 'Sanity',
-  'REST APIs', 'GraphQL', 'TypeScript',
-  'PHP', 'Laravel', 'Redis', 'Docker', 'AWS', 'Vercel', 'Tailwind CSS',
-];
+const stack = ['React', 'Next.js', 'Astro', 'Node.js', 'Express.js', 'TypeScript', 'PostgreSQL', 'MySQL', 'MongoDB', 'Supabase', 'WordPress', 'Payload CMS', 'Directus', 'REST APIs', 'GraphQL', 'PHP', 'Laravel', 'Docker', 'AWS', 'Tailwind CSS'];
 ---
-<ServiceLayout
-  title={`${service.title} Services | eLan Technology`}
-  description={service.description}
-  breadcrumbs={breadcrumbs}
-  schema={schemas}
->
-
-  <!-- ── HERO ─────────────────────────────────────────────────────────────── -->
-  <section class="service-card relative mb-12 overflow-hidden rounded-2xl border border-[var(--border)] p-8 md:p-12" style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-indigo) 12%, var(--bg-card)) 0%, var(--bg-card) 65%);">
-    <span aria-hidden="true" class="service-card__num pointer-events-none absolute top-4 right-6 font-heading font-black leading-none select-none" style="color: var(--ac-indigo); font-size: 7rem;">02</span>
-    <span aria-hidden="true" class="service-card__stripe pointer-events-none absolute -left-12 -bottom-12 h-60 w-60 rotate-[-20deg] opacity-[0.08]" style="background: var(--ac-indigo);"></span>
-    <div class="relative">
-    <div class="grid gap-10 md:grid-cols-2 md:items-center">
-      <div>
-        <p class="mb-2 text-sm font-semibold uppercase tracking-widest" style="color: var(--ac-indigo);">{service.tagline}</p>
-        <h1 class="font-heading text-3xl font-bold leading-tight text-[var(--text)] md:text-4xl lg:text-5xl">Web Development Built Around Your Goals</h1>
-        <p class="mt-4 text-base text-[var(--text-muted)] md:text-lg">
-          {service.description} We explain the choices in plain language and recommend what suits your budget, team, and plans.
-        </p>
-        <div class="mt-6 flex flex-wrap gap-3">
-          <a href="/schedule-consultation/" class="inline-flex items-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white shadow transition hover:opacity-90" style="background: var(--ac-indigo);">
-            Book a Consultation
-          </a>
-          <a href="/get-quote/" class="inline-flex items-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
-            Get a Quote
-          </a>
+<ServiceLayout title={title} description={description} breadcrumbs={breadcrumbs} schema={schemas}>
+  <ServicePage
+    accentVar={service.cssVar}
+    eyebrow="Web development company · websites, portals and web apps"
+    heading="Custom Web Development for Websites, Portals and Web Apps"
+    intro="We build websites, customer and staff portals, booking systems, dashboards and online tools that are fast, easy to manage and ready to grow. We recommend the stack for your project instead of defaulting to one."
+    highlights={service.features.slice(0, 6)}
+    offersTitle="What our web development service covers"
+    offers={[
+      { title: 'React and Next.js applications', text: 'Fast, interactive front ends and production apps with server rendering and static generation.' },
+      { title: 'Full-stack and MERN builds', text: 'Complete applications with Node.js, databases, authentication and real-time features.' },
+      { title: 'WordPress development', text: 'Custom themes and plugins, careful customisation, or WordPress as a headless CMS.' },
+      { title: 'APIs and integrations', text: 'REST and GraphQL APIs, payment gateways, CRMs, ERPs, maps and shipping services.' },
+      { title: 'Headless CMS', text: 'Payload, Directus, Strapi or Sanity with Astro or Next.js for structured content.' },
+      { title: 'Portals and dashboards', text: 'Customer and staff portals, bookings, reports and role-based access.' },
+      { title: 'Performance optimisation', text: 'Core Web Vitals (LCP, CLS, INP), images, caching and CDN configuration.' },
+      { title: 'Code audits', text: 'Technical debt, security and performance reviewed with prioritised fixes.' },
+      { title: 'Security-aware development', text: 'Validation, parameterised queries, CSRF protection, rate limiting and headers.' },
+    ]}
+    process={[
+      { title: 'Discovery and specification', text: 'Requirements, journeys, stack, data model and success criteria agreed.' },
+      { title: 'Architecture and planning', text: 'API contracts, data models and components, planned in milestones.' },
+      { title: 'Build and test', text: 'TypeScript, code review, automated tests, performance and accessibility checks.' },
+      { title: 'Launch and support', text: 'CI/CD, deployment and monitoring, with 30 days of post-launch support.' },
+    ]}
+    fit={['You need more than a brochure site: logins, bookings, dashboards or data.', 'Your current site is slow, hard to update or built on outdated code.', 'You want to connect the website to the tools your team already uses.', 'You want honest advice on WordPress versus a custom framework.']}
+    guides={[
+      { label: 'Platform', title: 'WordPress vs a custom website', href: '/blog/web-design/wordpress-vs-custom-website/' },
+      { label: 'Portals', title: 'Custom business portal development: features and costs', href: '/blog/web-design/custom-business-portal-development/' },
+      { label: 'Astro', title: 'What is Astro 7? A plain-English guide', href: '/blog/technology-trends/what-is-astro-7-business-guide/' },
+    ]}
+    faqTitle="Web development FAQs"
+    faqs={serviceFaqs}
+    cta={{ title: 'Not sure which stack is right?', text: 'Book a 30-minute call to discuss your requirements and get honest advice before any quote.' }}
+  >
+    <section class="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]" aria-label="Choosing the stack and technologies">
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div class="tilt-card p-5" style="--card-color: var(--ac-indigo);">
+          <h2 class="font-heading text-lg font-bold text-[var(--text)]">When we recommend React or Next.js</h2>
+          <ul class="mt-2 space-y-1.5 text-sm text-[var(--text-dim)]" role="list">
+            <li>✓ Web apps with complex interactions</li><li>✓ Live dashboards, notifications or chat</li><li>✓ One API for web and mobile</li><li>✓ A team that can maintain JavaScript</li>
+          </ul>
+        </div>
+        <div class="tilt-card p-5" style="--card-color: var(--ac-blue);">
+          <h2 class="font-heading text-lg font-bold text-[var(--text)]">When we recommend WordPress</h2>
+          <ul class="mt-2 space-y-1.5 text-sm text-[var(--text-dim)]" role="list">
+            <li>✓ Content-heavy sites updated often</li><li>✓ Budget projects using proven plugins</li><li>✓ Teams wanting a familiar CMS</li><li>✓ Headless WordPress with a fast front end</li>
+          </ul>
         </div>
       </div>
-      <ul class="space-y-3">
-        {service.features.map((f) => (
-          <li class="flex items-center gap-3 rounded-lg bg-[var(--bg)] px-4 py-3 border border-[var(--border)] text-sm font-medium text-[var(--text)]">
-            <span class="text-green-400 font-bold">✓</span> {f}
-          </li>
-        ))}
-      </ul>
-    </div>
-  </div>
-  </section>
-
-  <!-- ── WHAT'S INCLUDED ───────────────────────────────────────────────────── -->
-  <section class="mb-16">
-    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-2">What's Included in Our {service.shortTitle} Services</h2>
-    <p class="text-[var(--text-muted)] mb-8">We offer a comprehensive range of web development capabilities - from front-end interfaces to back-end infrastructure and DevOps.</p>
-    <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-      {[
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg>', name: 'React & Next.js Development', desc: 'We build fast, interactive front-ends using React and production-ready applications using Next.js - with server-side rendering, static generation, and edge functions for maximum performance. Ideal for SaaS products, marketing sites, and content platforms.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>', name: 'MERN Stack Applications', desc: 'Full-stack development using MongoDB, Express.js, React, and Node.js. We architect and build complete web applications with RESTful or GraphQL APIs, authentication, real-time features, and database management - all from a single cohesive team.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>', name: 'WordPress Development', desc: 'Depending on the requirement, we can build a custom theme or plugin, carefully customise a maintained theme, or use WordPress as a headless CMS. The proposal identifies the chosen approach, licences, editing experience and maintenance responsibilities.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>', name: 'REST & GraphQL APIs', desc: 'We design and build robust APIs that power your web and mobile applications. Whether you need a simple CRUD API or a complex GraphQL schema with subscriptions, our backend engineers build APIs that are secure, documented, and performant.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>', name: 'Performance Optimization', desc: 'We audit and improve Core Web Vitals (LCP, CLS, INP) to boost search rankings and user experience. Our optimisation work covers image compression, code splitting, caching strategies, CDN configuration, and database query tuning.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>', name: 'Code Audits', desc: 'If you have an existing codebase with technical debt, security issues, or performance problems, our engineers provide a comprehensive code audit with prioritised recommendations and an optional remediation engagement.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>', name: 'Custom CMS Development', desc: 'Sometimes off-the-shelf CMS platforms do not fit your workflow. We build bespoke content management systems that match exactly how your team works - custom content types, approval workflows, and role-based access control.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>', name: 'Security-Aware Development', desc: 'Relevant controls can include input validation, parameterised queries, CSRF protection, rate limiting, security headers and dependency review. The project’s actual threat model, testing depth and operational responsibilities are agreed in scope.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>', name: 'Node.js Development', desc: 'We use Node.js to build fast, event-driven server-side applications. Its non-blocking I/O model makes it ideal for real-time apps, microservices, data-intensive APIs, and streaming platforms - all using JavaScript end-to-end for efficient full-stack development.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 8h2m2 0h2m2 0h2"/></svg>', name: 'Express.js Backend', desc: 'Express.js is our go-to framework for building robust REST APIs and backend services on top of Node.js. We use it to create middleware pipelines, route handlers, authentication layers, and scalable server architectures for production-grade applications.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v6c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 11v6c0 1.66 4 3 9 3s9-1.34 9-3v-6"/></svg>', name: 'PostgreSQL Databases', desc: 'PostgreSQL is our preferred relational database for mission-critical applications. We design normalised schemas, write optimised queries, implement row-level security, and set up replication and failover - ensuring your data layer is performant, reliable, and ACID-compliant.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>', name: 'Supabase Integration', desc: 'We build with Supabase as a powerful open-source backend-as-a-service. It provides instant PostgreSQL databases, authentication, real-time subscriptions, edge functions, and file storage - letting us ship production-ready features faster without compromising on flexibility or self-hosting options.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>', name: 'Headless CMS & Business Backends', desc: 'We implement platforms such as Payload, Directus, Strapi and Sanity with Astro, Next.js or another suitable frontend. Content models, roles, APIs, hosting, editorial workflows, commerce connections and maintenance are designed around the agreed use case.' },
-      ].map(({ icon, name, desc }) => (
-        <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
-          <div class="mb-3 inline-flex h-11 w-11 items-center justify-center rounded-xl" style="background: color-mix(in srgb, var(--ac-indigo) 18%, transparent); color: var(--ac-indigo);" set:html={icon} />
-          <h3 class="font-heading text-base font-semibold text-[var(--text)] mb-2">{name}</h3>
-          <p class="text-sm text-[var(--text-muted)] leading-relaxed">{desc}</p>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <!-- ── MERN vs WORDPRESS ─────────────────────────────────────────────────── -->
-  <section class="mb-16 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 md:p-10">
-    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-3">Choosing the Right Way to Build Your Website</h2>
-    <p class="text-[var(--text-muted)] mb-8">There is no universally correct answer. The best technology stack depends on your project's requirements, your team's capabilities, and your long-term roadmap. Here is how we think about it:</p>
-    <div class="grid gap-6 md:grid-cols-2">
-      <div class="rounded-xl bg-[var(--bg)] border border-[var(--border)] p-6">
-        <h3 class="font-heading text-base font-semibold mb-3" style="color: var(--ac-indigo);">When We Recommend MERN / React / Next.js</h3>
-        <ul class="space-y-2 text-sm text-[var(--text-muted)]">
-          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>You need a web application with complex user interactions</li>
-          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>Real-time features like live dashboards, notifications, or chat</li>
-          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>High-traffic performance requirements with custom caching</li>
-          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>API-first architecture serving both web and mobile clients</li>
-          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>Your team has or will hire JavaScript engineers to maintain it</li>
+      <div class="tilt-card p-5" style="--card-color: var(--ac-violet);">
+        <h2 class="font-heading text-lg font-bold text-[var(--text)]">Technologies we use</h2>
+        <ul class="mt-3 flex flex-wrap gap-1.5" role="list">
+          {stack.map((t) => <li class="rounded-md border border-[var(--border)] bg-[var(--bg)] px-2 py-1 text-xs font-semibold text-[var(--text)]">{t}</li>)}
         </ul>
+        <p class="mt-3 text-sm"><a href="/technologies/" class="font-semibold text-[var(--text)] underline underline-offset-4">See where we have used each →</a> · <a href="/services/headless-cms-development/" class="font-semibold text-[var(--text)] underline underline-offset-4">Headless CMS</a></p>
       </div>
-      <div class="rounded-xl bg-[var(--bg)] border border-[var(--border)] p-6">
-        <h3 class="font-heading text-base font-semibold mb-3" style="color: var(--ac-indigo);">When We Recommend WordPress</h3>
-        <ul class="space-y-2 text-sm text-[var(--text-muted)]">
-          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>Content-heavy websites where your team manages frequent updates</li>
-          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>Budget-conscious projects that benefit from a broad plugin ecosystem</li>
-          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>Businesses that want a familiar CMS without full developer dependency</li>
-          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>Headless WordPress feeding a fast React front-end via REST or GraphQL</li>
-          <li class="flex gap-2"><span class="text-green-400 shrink-0">✓</span>SEO-focused content sites where plugin support matters</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── OUR PROCESS ────────────────────────────────────────────────────────── -->
-  <section class="mb-16">
-    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-2">Our {service.shortTitle} Process</h2>
-    <p class="text-[var(--text-muted)] mb-8">From requirements gathering to deployment, we follow a structured process that minimises surprises and maximises quality.</p>
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      {[
-        { n: '1', title: 'Discovery & Strategy', desc: 'We gather functional requirements, map user journeys, choose the technology stack, plan the database schema, and define success criteria. We produce a technical specification document for alignment before work begins.' },
-        { n: '2', title: 'Design & Planning', desc: 'API contracts are defined, data models are designed, and front-end component architecture is planned. Development is broken into sprints with clear deliverables and milestone reviews to keep projects on track.' },
-        { n: '3', title: 'Development & Testing', desc: 'Code is written to production standards - TypeScript, linting, unit tests, integration tests, and code review included. We run performance benchmarks, security scans, and accessibility checks before sign-off.' },
-        { n: '4', title: 'Launch & Support', desc: 'We handle CI/CD pipeline setup, server configuration, deployment, and monitoring. Post-launch, we provide 30 days of support and offer ongoing maintenance plans for long-term stability and security.' },
-      ].map(({ n, title, desc }) => (
-        <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
-          <div class="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-full font-heading text-sm font-bold text-white" style="background: var(--ac-indigo);">{n}</div>
-          <h3 class="font-heading text-sm font-semibold text-[var(--text)] mb-2">{title}</h3>
-          <p class="text-sm text-[var(--text-muted)]">{desc}</p>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <!-- ── HEADLESS CMS DEVELOPMENT ─────────────────────────────────────────── -->
-  <section class="mb-16 overflow-hidden rounded-2xl border border-[var(--ac-cyan)]/30 bg-[var(--bg-card)] p-7 md:p-10" aria-labelledby="headless-cms-capability-title">
-    <div class="grid gap-8 lg:grid-cols-[1.08fr_.92fr] lg:items-center">
-      <div>
-        <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--ac-cyan)]">Specialist development practice</p>
-        <h2 id="headless-cms-capability-title" class="mt-2 font-heading text-2xl font-bold text-[var(--text)] md:text-3xl">Headless CMS development with Payload CMS and Directus</h2>
-        <p class="mt-4 text-sm leading-relaxed text-[var(--text-muted)]">We design structured content systems separately from the website or application front end, giving editorial teams controlled workflows while developers build fast experiences with Astro, Next.js and suitable API-driven stacks.</p>
-        <div class="mt-6 flex flex-wrap gap-3">
-          <a href="/services/headless-cms-development/" class="inline-flex min-h-11 items-center justify-center rounded-xl bg-[var(--ac-cyan)] px-5 py-3 text-sm font-bold text-white">Explore Headless CMS development</a>
-          <a href="/services/payload-directus-development/" class="inline-flex min-h-11 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--bg)] px-5 py-3 text-sm font-bold text-[var(--text)] hover:border-[var(--ac-cyan)]">Payload CMS &amp; Directus details</a>
-        </div>
-      </div>
-      <ul class="grid gap-3 sm:grid-cols-2" role="list">
-        {['Content architecture', 'Editorial roles & approvals', 'Astro & Next.js front ends', 'API & search integration', 'Content migration', 'Deployment & handover'].map((item) => (
-          <li class="rounded-xl border border-[var(--border)] bg-[var(--bg)] px-4 py-3 text-sm font-semibold text-[var(--text)]"><span class="mr-2 text-[var(--ac-cyan)]" aria-hidden="true">✓</span>{item}</li>
-        ))}
-      </ul>
-    </div>
-  </section>
-
-  <!-- ── TECHNOLOGIES ───────────────────────────────────────────────────────── -->
-  <section class="mb-16">
-    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-4">Technologies We Use</h2>
-    <p class="text-[var(--text-muted)] mb-6">Our engineers are proficient across the modern web stack. We select technologies based on project fit, not trend-chasing.</p>
-    <div class="flex flex-wrap gap-3">
-      {technologies.map((tech) => (
-        <span class="rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-4 py-2 text-sm font-medium text-[var(--text-muted)] hover:border-indigo-500/50 hover:text-[var(--text)] transition-colors">
-          {tech}
-        </span>
-      ))}
-    </div>
-  </section>
-
-  <!-- ── FAQ ───────────────────────────────────────────────────────────────── -->
-  <CentralCmsFeature variant="compact" />
-
-  <section class="mb-16">
-    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-8">Frequently Asked Questions</h2>
-    <div class="divide-y divide-[var(--border)] rounded-xl border border-[var(--border)] overflow-hidden">
-      {serviceFaqs.map(({ question, answer }) => (
-        <details class="bg-[var(--bg-card)] py-0">
-          <summary class="cursor-pointer font-medium text-[var(--text)] flex items-center justify-between px-6 py-4 hover:bg-[var(--bg)] transition-colors list-none">
-            <span>{question}</span>
-            <span class="ml-4 shrink-0 text-[var(--text-muted)] text-lg">+</span>
-          </summary>
-          <p class="px-6 pb-5 pt-1 text-sm text-[var(--text-muted)] leading-relaxed" set:html={answer} />
-        </details>
-      ))}
-    </div>
-  </section>
-
-  <!-- ── CITY LINKS ─────────────────────────────────────────────────────────── -->
-  <section class="mb-16">
-    <h2 class="font-heading text-xl font-bold text-[var(--text)] md:text-2xl mb-2">Web Development Services Across India</h2>
-    <p class="text-sm text-[var(--text-muted)] mb-6">Our remote-first team delivers full-stack web development for clients across India - from Nagpur and Raipur to Mumbai, Pune, Hyderabad, and Delhi.</p>
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-      {featuredCities.map((city) => (
-        <a
-          href={city.hasLandingPage ? `/web-design-company-${city.slug}/` : `/services/web-development/`}
-          class="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-3 hover:border-indigo-500/50 transition-colors"
-        >
-          <p class="font-medium text-sm text-[var(--text)]">{city.name}</p>
-          <p class="text-xs text-[var(--text-muted)] mt-0.5">Services available</p>
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <!-- ── DOUBLE CTA ─────────────────────────────────────────────────────────── -->
-  <section class="grid gap-5 md:grid-cols-2 mb-4">
-    <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-7 flex flex-col">
-      <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-2">Ready to Get Started?</h3>
-      <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Get a technical audit of your existing website or application. We'll identify performance bottlenecks, security vulnerabilities, and scalability limitations with actionable recommendations.</p>
-      <a href="/website-audit/" class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90" style="background: var(--ac-indigo);">
-        Book an Audit
-      </a>
-    </div>
-    <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-7 flex flex-col">
-      <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-2">Have Questions?</h3>
-      <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Not sure which technology stack is right for your project? Book a 30-minute call with one of our senior engineers to discuss your requirements and get honest advice.</p>
-      <a href="/schedule-consultation/" class="inline-flex items-center justify-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
-        Schedule a Call
-      </a>
-    </div>
-  </section>
-
+    </section>
+  </ServicePage>
 </ServiceLayout>

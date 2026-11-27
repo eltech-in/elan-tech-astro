@@ -51,7 +51,7 @@ const fmt = (d: Date) =>
       </div>
       <a
         href="/blog/"
-        class="inline-flex items-center gap-2 self-start rounded-full border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition-colors hover:bg-[var(--bg-card)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)]"
+        class="inline-flex items-center gap-2 self-start rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition-colors hover:bg-[var(--bg-card)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)]"
       >
         View all posts
         <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -67,7 +67,7 @@ const fmt = (d: Date) =>
       {feature && (
         <a
           href={`/blog/${feature.data.category}/${feature.id}/`}
-          class="group relative flex flex-col overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)] lg:col-span-3"
+          class="group relative flex flex-col overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-card)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)] lg:col-span-3"
         >
           <div class="relative aspect-[3/2] overflow-hidden bg-[var(--bg)]">
             <Image
@@ -84,7 +84,7 @@ const fmt = (d: Date) =>
           <div class="flex flex-1 flex-col p-6 md:p-8">
             <div class="mb-4 flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-wider">
               <span
-                class="rounded-full px-3 py-1"
+                class="rounded-md px-3 py-1"
                 style="background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent-dim);"
               >
                 {CATEGORY_LABELS[feature.data.category] ?? feature.data.category}
@@ -122,7 +122,7 @@ const fmt = (d: Date) =>
         {secondary.map((post) => (
           <a
             href={`/blog/${post.data.category}/${post.id}/`}
-            class="group flex flex-1 flex-col overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)] sm:flex-row"
+            class="group flex flex-1 flex-col overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-card)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)] sm:flex-row"
           >
             <div class="relative sm:w-[44%] aspect-[3/2] sm:aspect-auto overflow-hidden bg-[var(--bg)] flex-shrink-0">
               <Image

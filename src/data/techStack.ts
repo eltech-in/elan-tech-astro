@@ -41,7 +41,7 @@ export const technologies: Technology[] = [
   { name: 'Tailwind CSS', group: 'Frontend', summary: 'Utility-first styling used across our product interfaces.' },
   { name: 'TypeScript', group: 'Frontend', summary: 'Typed JavaScript used in our product front ends and back ends.' },
   { name: 'Medusa.js', group: 'Commerce', summary: 'Open-source commerce engine for stores that need custom modules and ownership.', serviceUrl: '/services/ecommerce/medusa-js-development/', serviceLabel: 'Medusa.js development' },
-  { name: 'Shopify', group: 'Commerce', summary: 'Hosted commerce platform with custom themes and storefront design.', serviceUrl: '/services/ecommerce/shopify-development/', serviceLabel: 'Shopify development' },
+  { name: 'Shopify', group: 'Commerce', summary: 'Hosted commerce platform with custom themes and storefront design.', serviceUrl: '/services/ecommerce/#shopify', serviceLabel: 'Shopify development' },
   { name: 'WooCommerce', group: 'Commerce', summary: 'Commerce on WordPress for catalogues, online orders and content-led stores.', serviceUrl: '/services/ecommerce/', serviceLabel: 'Ecommerce development' },
   { name: 'Node.js', group: 'Backend', summary: 'Server runtime for product APIs and business logic.', serviceUrl: '/services/web-development/', serviceLabel: 'Web development' },
   { name: 'Express', group: 'Backend', summary: 'Node.js framework used for product REST APIs.' },

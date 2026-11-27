@@ -1,11 +1,13 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import AuditPrice from '../../../components/AuditPrice.astro';
 import { getCollection } from 'astro:content';
 import { breadcrumbSchema } from '../../../utils/schema';
 import { isPublishedPost } from '../../../utils/blog';
-import { Image } from 'astro:assets';
 import BlogPrivacyNotice from '../../../components/BlogPrivacyNotice.astro';
+import BlogCard from '../../../components/blog/BlogCard.astro';
+import BlogFilter from '../../../components/blog/BlogFilter.astro';
+import BlogSidebar from '../../../components/blog/BlogSidebar.astro';
+import { blogCategoryColor } from '../../../data/blogCategories';
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('blog');
@@ -135,13 +137,8 @@ const accessibilityPaths = [
   },
 ];
 
-function truncate(str: string, n: number) {
-  return str.length > n ? str.slice(0, n - 1) + '…' : str;
-}
 
-const popularPosts = [...allPublished]
-  .sort((a, b) => (b.data.readTime ?? 0) - (a.data.readTime ?? 0))
-  .slice(0, 4);
+const counts = Object.fromEntries(categories.map((c) => [c, allPublished.filter((p) => p.data.category === c).length]));
 
 const schema = breadcrumbSchema([
   { name: 'Home', url: '/' },
@@ -160,54 +157,31 @@ const schema = breadcrumbSchema([
 >
 
   <!-- HERO -->
-  <section class="relative overflow-hidden bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-20 sm:py-28">
-    <div class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
-      <p class="text-sm font-semibold uppercase text-[var(--accent)] mb-4">
-        {isAccessibility ? 'Accessibility resource center' : 'Category'}
-      </p>
-      <h1 class="font-heading text-4xl sm:text-5xl font-bold text-[var(--text)] leading-tight">
-        {heading?.h1 ?? categoryLabel}
-      </h1>
-      {heading?.intro && (
-        <p class="mx-auto mt-6 max-w-3xl text-base sm:text-lg leading-relaxed text-[var(--text-dim)] text-left sm:text-center">
-          {heading.intro}
-        </p>
-      )}
-      <p class="mt-6 text-sm text-[var(--text-muted)]">{posts.length} article{posts.length !== 1 ? 's' : ''}</p>
+  <section class="bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-10 md:py-14">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <p class="text-xs font-bold uppercase tracking-[0.18em]" style={`color: ${blogCategoryColor(category)};`}>{isAccessibility ? 'Accessibility resource center' : 'Category'} · {posts.length} article{posts.length !== 1 ? 's' : ''}</p>
+      <h1 class="mt-3 font-heading text-4xl font-bold leading-tight tracking-tight text-[var(--text)] md:text-5xl">{heading?.h1 ?? categoryLabel}</h1>
+      {heading?.intro && <p class="mt-4 max-w-3xl text-lg leading-relaxed text-[var(--text-dim)]">{heading.intro}</p>}
     </div>
   </section>
 
-  <BlogPrivacyNotice context="category" category={category} />
-
   {isAccessibility && (
-    <section class="border-y border-[var(--border)] bg-[var(--bg-card)] py-12">
+    <section class="border-t border-[var(--border)] bg-[var(--bg-card)] py-10">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div class="mb-6 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div class="max-w-3xl">
-            <h2 class="font-heading text-2xl font-bold text-[var(--text)]">
-              Choose the right accessibility path
-            </h2>
-            <p class="mt-2 text-[var(--text-dim)]">
-              Learn the standard, assess your risk, or move directly into code-level remediation.
-            </p>
+            <h2 class="font-heading text-2xl font-bold text-[var(--text)]">Choose the right accessibility path</h2>
+            <p class="mt-1 text-[var(--text-dim)]">Learn the standard, assess your risk, or move directly into code-level remediation.</p>
           </div>
-          <a
-            href="/services/ada-compliant-web-design/emergency-remediation/"
-            class="text-sm font-semibold text-red-500 hover:underline"
-          >
-            Facing a demand-letter deadline? Emergency response →
-          </a>
+          <a href="/services/ada-compliant-web-design/emergency-remediation/" class="text-sm font-semibold text-[var(--ac-red)] hover:underline">Facing a demand-letter deadline? Emergency response →</a>
         </div>
-
-        <div class="grid gap-5 md:grid-cols-3">
-          {accessibilityPaths.map((path) => (
-            <article class="rounded-lg border border-[var(--border)] bg-[var(--bg)] p-6">
-              <p class="text-xs font-semibold uppercase text-[var(--accent)]">{path.label}</p>
+        <div class="grid gap-4 md:grid-cols-3">
+          {accessibilityPaths.map((path, i) => (
+            <article class="tilt-card tilt-card--bg p-5" style={`--card-color: var(${['--ac-indigo', '--ac-cyan', '--ac-emerald'][i % 3]});`}>
+              <p class="text-xs font-bold uppercase tracking-[0.14em]" style="color: var(--card-color);">{path.label}</p>
               <h3 class="mt-2 font-heading text-lg font-bold text-[var(--text)]">{path.title}</h3>
-              <p class="mt-3 text-sm leading-relaxed text-[var(--text-dim)]">{path.description}</p>
-              <a href={path.href} class="mt-5 inline-flex text-sm font-semibold text-[var(--accent)] hover:underline">
-                {path.linkLabel} →
-              </a>
+              <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">{path.description}</p>
+              <a href={path.href} class="mt-4 inline-flex text-sm font-semibold hover:underline" style="color: var(--card-color);">{path.linkLabel} →</a>
             </article>
           ))}
         </div>
@@ -215,149 +189,26 @@ const schema = breadcrumbSchema([
     </section>
   )}
 
-  <!-- CATEGORY FILTER PILLS -->
-  <section class="bg-[var(--bg)] py-4 border-b border-[var(--border)] sticky top-[72px] z-30 backdrop-blur-md bg-[var(--bg)]/90">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <nav aria-label="Blog categories" class="flex flex-wrap gap-2">
-        <a href="/blog/" class="px-4 py-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] text-sm text-[var(--text-dim)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
-          All Posts
-        </a>
-        {categories.map((cat) => (
-          <a
-            href={`/blog/category/${cat}/`}
-            aria-current={cat === category ? 'page' : undefined}
-            class={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${cat === category ? 'bg-[var(--accent)] text-[var(--bg)]' : 'border border-[var(--border)] bg-[var(--bg-card)] text-[var(--text-dim)] hover:border-[var(--accent)] hover:text-[var(--accent)]'}`}
-          >
-            {categoryLabels[cat] ?? cat}
-          </a>
-        ))}
-      </nav>
-    </div>
-  </section>
+  <BlogFilter categories={categories} counts={counts} total={allPublished.length} current={category} />
 
-  <!-- POSTS GRID + SIDEBAR -->
-  <section class="bg-[var(--bg)] py-14 pb-20">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-12 items-start">
-
-        <!-- Posts column -->
-        <div>
-          {posts.length === 0 ? (
-            <div class="py-20 text-center">
-              <p class="text-[var(--text-dim)] text-lg">No posts in this category yet.</p>
-              <a href="/blog/" class="mt-4 inline-flex items-center gap-2 text-[var(--accent)] font-semibold hover:underline">← Back to all posts</a>
-            </div>
-          ) : (
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {posts.map((post) => {
-                const date = new Date(post.data.publishDate);
-                const formattedDate = date.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
-                return (
-                  <article class="group rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] overflow-hidden flex flex-col hover:border-[var(--accent)]/40 hover:-translate-y-0.5 transition-all duration-300 shadow-sm hover:shadow-lg">
-                    {post.data.featuredImage?.src && (
-                      <a href={`/blog/${post.data.category}/${post.id}/`} aria-hidden="true" tabindex="-1" class="block aspect-video overflow-hidden">
-                        <Image
-                          src={post.data.featuredImage.src}
-                          alt={post.data.featuredImage.alt}
-                          widths={[320, 640, 960, 1280]}
-                          sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 32vw"
-                          format="avif"
-                          loading="lazy"
-                          decoding="async"
-                          class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      </a>
-                    )}
-                    <div class="p-5 flex flex-col flex-1">
-                      <span class="self-start mb-3 inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[var(--accent)]/10 text-[var(--accent)]">
-                        {categoryLabel}
-                      </span>
-                      <h2 class="font-heading text-base font-semibold text-[var(--text)] mb-2 leading-snug flex-1">
-                        <a href={`/blog/${post.data.category}/${post.id}/`} class="hover:text-[var(--accent)] transition-colors">
-                          {post.data.title}
-                        </a>
-                      </h2>
-                      <p class="text-sm text-[var(--text-dim)] leading-relaxed mb-4">
-                        {truncate(post.data.description, 120)}
-                      </p>
-                      <div class="flex items-center justify-between text-xs text-[var(--text-muted)] mt-auto pt-4 border-t border-[var(--border)]">
-                        <time datetime={date.toISOString()}>{formattedDate}</time>
-                        <span>{post.data.readTime} min read</span>
-                      </div>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          )}
-        </div>
-
-        <!-- Sidebar -->
-        <aside class="hidden lg:flex flex-col gap-8 sticky top-[120px]">
-
-          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
-            <h3 class="font-heading text-base font-bold text-[var(--text)] mb-5 flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--accent)]" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-              Longer Reads
-            </h3>
-            <ul class="space-y-4">
-              {popularPosts.map((p, i) => (
-                <li>
-                  <a href={`/blog/${p.data.category}/${p.id}/`} class="flex items-start gap-3 group">
-                    <span class="shrink-0 flex h-7 w-7 items-center justify-center rounded-full bg-[var(--accent)]/10 text-xs font-bold text-[var(--accent)]">
-                      {i + 1}
-                    </span>
-                    <span class="text-sm text-[var(--text-dim)] leading-snug group-hover:text-[var(--accent)] transition-colors">
-                      {truncate(p.data.title, 70)}
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
+  <section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <div class="grid items-start gap-10 lg:grid-cols-[1fr_300px]">
+      <div>
+        {posts.length === 0 ? (
+          <div class="py-16 text-center">
+            <p class="text-lg text-[var(--text-dim)]">No posts in this category yet.</p>
+            <a href="/blog/" class="mt-4 inline-flex items-center gap-2 font-semibold text-[var(--accent)] hover:underline">← Back to all posts</a>
           </div>
-
-          <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
-            <h3 class="font-heading text-base font-bold text-[var(--text)] mb-5">Browse by Category</h3>
-            <ul class="space-y-2">
-              {categories.map((cat) => {
-                const count = allPublished.filter((p) => p.data.category === cat).length;
-                return (
-                  <li>
-                    <a
-                      href={`/blog/category/${cat}/`}
-                      aria-current={cat === category ? 'page' : undefined}
-                      class={`flex items-center justify-between rounded-xl px-3 py-2 text-sm transition-colors ${cat === category ? 'bg-[var(--accent)]/10 text-[var(--accent)] font-semibold' : 'text-[var(--text-dim)] hover:bg-[var(--accent)]/5 hover:text-[var(--accent)]'}`}
-                    >
-                      <span>{categoryLabels[cat] ?? cat}</span>
-                      <span class="text-xs font-semibold bg-[var(--accent)]/10 text-[var(--accent)] rounded-full px-2 py-0.5">{count}</span>
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-
-          <div class="rounded-2xl border border-[var(--accent)]/20 bg-gradient-to-br from-[var(--accent)]/10 to-[#6366F1]/10 p-6 text-center">
-            <h3 class="font-heading text-base font-bold text-[var(--text)] mb-2">
-              {isAccessibility ? 'Need an Accessibility Audit?' : 'Ready to Grow Online?'}
-            </h3>
-            <p class="text-sm text-[var(--text-dim)] mb-4 leading-relaxed">
-              {isAccessibility
-                ? 'Get automated and manual WCAG testing with priority-ranked remediation guidance.'
-                : <>A website audit covering SEO and security for <AuditPrice kind="website" class="font-semibold" />.</>}
-            </p>
-            <a
-              href={isAccessibility ? '/services/ada-compliant-web-design/' : '/website-audit/'}
-              class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-5 py-2.5 text-sm font-semibold text-[var(--bg)] hover:brightness-110 transition-all"
-            >
-              {isAccessibility ? 'View Audit & Remediation' : 'Book an Audit'}
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </div>
-
-        </aside>
+        ) : (
+          <ul class="grid gap-5 sm:grid-cols-2" role="list">
+            {posts.map((post, i) => <li><BlogCard post={post} heading="h2" eager={i < 2} /></li>)}
+          </ul>
+        )}
       </div>
+      <BlogSidebar posts={allPublished} categories={categories} counts={counts} current={category} />
     </div>
   </section>
+
+  <BlogPrivacyNotice context="category" category={category} />
 
 </BaseLayout>

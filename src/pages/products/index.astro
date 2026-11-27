@@ -3,20 +3,21 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { breadcrumbSchema } from '../../utils/schema';
 import { products } from '../../data/products';
 import AnswerSummary from '../../components/AnswerSummary.astro';
-import ProductPrivacyPanel from '../../components/ProductPrivacyPanel.astro';
 
 const schema = breadcrumbSchema([
   { name: 'Home', url: '/' },
   { name: 'Products', url: '/products/' },
 ]);
 
-// Bento slot pattern for the product collection.
-const bentoSlots = [
-  'lg:col-span-4 lg:row-span-2',   // 0: hero product
-  'lg:col-span-2 lg:row-span-2',   // 1: tall
-  'lg:col-span-4 lg:row-span-1',   // 2: wide
-  'lg:col-span-2 lg:row-span-1',   // 3: compact
+// Compact catalogue (owner, 27 Nov 2026): the first product is the large card, the rest are
+// one-line cards in the services card style, and the last slot invites a custom product.
+const whatsapp = (title: string) => `https://wa.me/918788834630?text=Hi%20eLan%20Technology%2C%20I%27d%20like%20to%20schedule%20a%20demo%20for%20${encodeURIComponent(title)}.`;
+const models = [
+  { title: 'Subscription product', token: '--ac-amber', points: ['Published plan and billing cycle', 'Features included in that plan', 'Updates under the product terms'] },
+  { title: 'Configured product foundation', token: '--ac-emerald', points: ['Features agreed for your organisation', 'One-time development or licensing, often available', 'Source-code rights and hosting stated in the agreement'] },
 ];
+const arrow = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+const tick = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
 ---
 
 <BaseLayout
@@ -25,302 +26,147 @@ const bentoSlots = [
   ogImage="/images/og/products.png"
   schema={schema}
 >
-
-  <!-- ═══ HERO BENTO ═══════════════════════════════════════════════════════ -->
-  <section class="relative overflow-hidden bg-[var(--bg)] pt-16 pb-14 sm:pt-20 sm:pb-20" aria-labelledby="products-hero-h1">
-    <div aria-hidden="true" class="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:linear-gradient(var(--text)_1px,transparent_1px),linear-gradient(90deg,var(--text)_1px,transparent_1px)] [background-size:56px_56px]"></div>
-    <div aria-hidden="true" class="pointer-events-none absolute -top-40 -left-40 h-[520px] w-[520px] rounded-full bg-[var(--ac-teal)]/15 blur-[120px]"></div>
-    <div aria-hidden="true" class="pointer-events-none absolute -bottom-40 -right-40 h-[520px] w-[520px] rounded-full bg-[var(--ac-indigo)]/15 blur-[120px]"></div>
-
-    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        <!-- Title card -->
-        <div class="lg:col-span-8 relative overflow-hidden rounded-3xl border border-[var(--border)] p-8 sm:p-12" style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-teal) 10%, var(--bg-card)) 0%, var(--bg-card) 60%);">
-          <span aria-hidden="true" class="absolute -left-10 -bottom-10 h-72 w-72 rotate-[-20deg] opacity-[0.07]" style="background: var(--ac-indigo);"></span>
-          <span class="relative inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg)]/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[var(--ac-teal)] backdrop-blur-sm">
-            <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--ac-teal)]" aria-hidden="true"></span>
-            {products.length} Configurable Products
-          </span>
-          <h1 id="products-hero-h1" class="relative mt-5 font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--text)] leading-[1.05]">
-            Practical Digital Products<br/>
-            <span style="background:linear-gradient(90deg,var(--ac-teal),var(--ac-indigo),var(--ac-pink),var(--ac-amber));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Built Around Your Work.</span>
-          </h1>
-          <p class="relative mt-5 max-w-2xl text-base sm:text-lg text-[var(--text-dim)] leading-relaxed">
-            Start with a proven platform foundation and adapt its features, branding, deployment and support to your organisation’s requirements.
-          </p>
-          <div class="relative mt-7 flex flex-wrap gap-3">
-            <a href="#products-grid" class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[var(--accent)]/25 hover:brightness-110 transition-all">
-              Explore Products
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-            </a>
-            <a href="/get-quote/" class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] px-6 py-3 text-sm font-semibold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
-              Request a Quote
-            </a>
-          </div>
-        </div>
-
-        <!-- Stat bento -->
-        {[
-          { value: String(products.length), label: 'Products Available', token: '--ac-teal' },
-          { value: 'Custom', label: 'Configuration', token: '--ac-amber' },
-          { value: 'Clear', label: 'Proposal and Terms', token: '--ac-emerald' },
-          { value: 'Flexible', label: 'Deployment Options', token: '--ac-violet' },
-        ].map(stat => (
-          <div class="lg:col-span-2 relative overflow-hidden rounded-2xl border border-[var(--border)] p-5" style={`background: linear-gradient(140deg, color-mix(in srgb, var(${stat.token}) 14%, var(--bg-card)) 0%, var(--bg-card) 75%);`}>
-            <span aria-hidden="true" class="absolute -right-4 -top-4 h-16 w-16 rounded-full opacity-[0.18]" style={`background: var(${stat.token});`}></span>
-            <div class="relative">
-              <div class="font-heading text-3xl sm:text-4xl font-black" style={`color: var(${stat.token});`}>{stat.value}</div>
-              <div class="mt-1 text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">{stat.label}</div>
-            </div>
-          </div>
-        ))}
+  <!-- Hero -->
+  <section class="relative bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-12 md:py-16" aria-labelledby="products-hero-h1">
+    <div class="mx-auto grid max-w-7xl gap-6 px-4 sm:px-6 lg:grid-cols-[1.4fr_0.6fr] lg:items-end lg:px-8">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">{products.length} Configurable Products</p>
+        <h1 id="products-hero-h1" class="mt-3 font-heading text-4xl font-bold leading-tight tracking-tight text-[var(--text)] md:text-5xl">Practical Digital Products Built Around Your Work</h1>
+        <p class="mt-4 max-w-2xl text-lg text-[var(--text-dim)]">Start with a proven platform foundation and adapt its features, branding, deployment and support to your organisation’s requirements.</p>
+      </div>
+      <div class="flex flex-wrap gap-3 lg:justify-end">
+        <a href="/request-demo/" class="inline-flex min-h-11 items-center rounded-lg bg-[var(--accent)] px-5 py-2.5 font-semibold text-white transition hover:brightness-110">Request a live demo</a>
+        <a href="/get-quote/" class="inline-flex min-h-11 items-center rounded-lg border border-[var(--border)] px-5 py-2.5 font-semibold text-[var(--text)] transition hover:border-[var(--accent)]">Request a quote</a>
       </div>
     </div>
   </section>
 
-
-  <!-- ═══ PRODUCTS BENTO MOSAIC ═══════════════════════════════════════════ -->
-  <section id="products-grid" class="py-16 md:py-24 bg-[var(--bg)]" aria-labelledby="products-grid-h2">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
-      <header class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
-        <div>
-          <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-2">Product Collection</p>
-          <h2 id="products-grid-h2" class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)]">
-            Products for Businesses and Organisations
-          </h2>
-          <p class="mt-2 text-[var(--text-dim)] max-w-xl">
-            Each platform can be configured around your organisation, users, workflows and integrations.
-          </p>
-        </div>
-        <span class="shrink-0 text-sm text-[var(--text-muted)] border border-[var(--border)] rounded-full px-4 py-1.5">
-          {products.length} products and platforms
-        </span>
-      </header>
-
-      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-5 auto-rows-[minmax(260px,auto)]" role="list">
-        {products.map((product, i) => {
-          const slot = bentoSlots[i] ?? 'lg:col-span-2 lg:row-span-1';
-          const isHero = i === 0;
-          const isTall = slot.includes('row-span-2');
-          const num = String(i + 1).padStart(2, '0');
-          return (
-            <li class={slot}>
-              <article
-                class="service-card group relative h-full overflow-hidden rounded-2xl border border-[var(--border)] transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
-                style={`background: linear-gradient(135deg, color-mix(in srgb, var(${product.cssVar}) 14%, var(--bg-card)) 0%, var(--bg-card) 65%);`}
-              >
-                <span aria-hidden="true" class="pointer-events-none absolute -left-12 -bottom-12 h-60 w-60 rotate-[-20deg] opacity-[0.1]" style={`background: var(${product.cssVar});`}></span>
-                <span aria-hidden="true" class="pointer-events-none absolute top-3 right-5 font-heading font-black leading-none select-none" style={`color: var(${product.cssVar}); font-size: ${isHero ? '9rem' : isTall ? '7rem' : '5rem'}; opacity: 0.16;`}>{num}</span>
-                <span aria-hidden="true" class="absolute inset-x-0 top-0 h-[3px]" style={`background: var(${product.cssVar});`}></span>
-                <span aria-hidden="true" class="pointer-events-none absolute -top-10 -right-10 h-48 w-48 rounded-full blur-3xl opacity-30 group-hover:opacity-50 transition-opacity" style={`background: var(${product.cssVar});`}></span>
-
-                <div class="relative h-full flex flex-col justify-between p-6 sm:p-8">
-                  <div>
-                    <div class="flex items-center gap-2 mb-4">
-                      {product.demoUrl ? (
-                        <span class="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-widest" style={`color: var(${product.cssVar}); border-color: color-mix(in srgb, var(${product.cssVar}) 50%, transparent); background: color-mix(in srgb, var(${product.cssVar}) 10%, transparent);`}>
-                          <span class="h-1.5 w-1.5 rounded-full animate-pulse" style={`background: var(${product.cssVar});`} aria-hidden="true"></span>
-                          Live Demo
-                        </span>
-                      ) : (
-                        <span class="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] bg-[var(--bg)]/60 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-widest text-[var(--text-muted)]">
-                          Coming Soon
-                        </span>
-                      )}
-                    </div>
-
-                    <h3 class={`font-heading font-bold text-[var(--text)] leading-tight ${isHero ? 'text-3xl sm:text-4xl' : 'text-xl sm:text-2xl'}`}>
-                      {product.title}
-                    </h3>
-                    <p class="mt-2 text-sm text-[var(--text-dim)] leading-relaxed">
-                      {product.desc}
-                    </p>
-
-                    {(isHero || isTall) && (
-                      <ul class="mt-5 space-y-1.5" role="list">
-                        {product.features.slice(0, isHero ? 4 : 3).map(feat => (
-                          <li class="flex items-start gap-2 text-[13px] text-[var(--text-dim)]">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0" style={`color: var(${product.cssVar})`} aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                            <span>{feat}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-
-                  <div class="mt-6 flex flex-wrap items-center gap-3">
-                    <a
-                      href={`/products/${product.slug}/`}
-                      class="inline-flex items-center gap-1.5 rounded-full px-5 py-2.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all"
-                      style={`background: var(${product.cssVar}); box-shadow: 0 8px 20px color-mix(in srgb, var(${product.cssVar}) 30%, transparent);`}
-                    >
-                      Learn More
-                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                    </a>
-                    {product.demoUrl && !product.contactForDemo && (
-                      <a
-                        href={product.demoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`Open live demo of ${product.title} - opens in new tab`}
-                        class="inline-flex items-center gap-1.5 rounded-full border px-4 py-2.5 text-sm font-semibold hover:-translate-y-0.5 transition-all"
-                        style={`color: var(${product.cssVar}); border-color: color-mix(in srgb, var(${product.cssVar}) 45%, transparent);`}
-                      >
-                        Try Demo ↗
-                      </a>
-                    )}
-                    {product.contactForDemo && (
-                      <a
-                        href={`https://wa.me/918788834630?text=Hi%20eLan%20Technology%2C%20I%27d%20like%20to%20schedule%20a%20demo%20for%20${encodeURIComponent(product.title)}.`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`Contact eLan for a demo of ${product.title}`}
-                        class="inline-flex items-center gap-1.5 rounded-full border px-4 py-2.5 text-sm font-semibold hover:-translate-y-0.5 transition-all"
-                        style={`color: var(${product.cssVar}); border-color: color-mix(in srgb, var(${product.cssVar}) 45%, transparent);`}
-                      >
-                        📞 Contact for Demo
-                      </a>
-                    )}
-                  </div>
+  <!-- Catalogue -->
+  <section id="products-grid" class="mx-auto max-w-7xl px-4 py-10 sm:px-6 md:py-14 lg:px-8" aria-labelledby="products-grid-h2">
+    <h2 id="products-grid-h2" class="sr-only">Products for Businesses and Organisations</h2>
+    <ul class="prod-grid" role="list">
+      {products.map((product, i) => {
+        const lead = i === 0;
+        return (
+          <li class={lead ? 'is-lead' : ''}>
+            <article class="service-card relative flex h-full flex-col overflow-hidden rounded-xl border border-[var(--border)] p-5 sm:p-6" style={`--card-color: var(${product.cssVar}); background: linear-gradient(135deg, color-mix(in srgb, var(${product.cssVar}) 10%, var(--bg-card)) 0%, var(--bg-card) 65%);`}>
+              <span class="service-card__num pointer-events-none absolute right-4 top-3 select-none font-heading font-black leading-none" aria-hidden="true" style={`color: var(${product.cssVar}); font-size: ${lead ? '6rem' : '3.6rem'};`}>{String(i + 1).padStart(2, '0')}</span>
+              <span class:list={['service-card__stripe pointer-events-none absolute rotate-[-20deg] opacity-[0.08]', lead ? '-bottom-12 -left-12 h-64 w-64' : '-bottom-8 -left-8 h-36 w-36']} aria-hidden="true" style={`background: var(${product.cssVar});`}></span>
+              <div class="relative flex flex-1 flex-col">
+                <p class="text-[11px] font-bold uppercase tracking-[0.14em]" style={`color: var(${product.cssVar});`}>{product.demoUrl ? 'Live demo' : 'Demo on request'}</p>
+                <h3 class={`mt-2 font-heading font-bold leading-tight text-[var(--text)] ${lead ? 'text-2xl sm:text-3xl' : 'text-lg sm:text-xl'}`}>
+                  <a href={`/products/${product.slug}/`} class="after:absolute after:inset-0 after:content-['']">{product.title}</a>
+                </h3>
+                <p class={`mt-2 text-sm leading-relaxed text-[var(--text-dim)] ${lead ? '' : 'line-clamp-2'}`}>{product.desc}</p>
+                {lead && (
+                  <ul class="mt-4 grid gap-1.5 sm:grid-cols-2" role="list">
+                    {product.features.slice(0, 6).map((feat) => (
+                      <li class="flex items-start gap-2 text-[13px] text-[var(--text-dim)]"><span class="mt-0.5 shrink-0" style={`color: var(${product.cssVar});`} set:html={tick} />{feat}</li>
+                    ))}
+                  </ul>
+                )}
+                <div class="relative z-10 mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 pt-4 text-sm font-semibold">
+                  <span class="inline-flex items-center gap-1.5" style={`color: var(${product.cssVar});`}>Learn more <span set:html={arrow} /></span>
+                  {product.demoUrl && !product.contactForDemo && (
+                    <a href={product.demoUrl} target="_blank" rel="noopener noreferrer" aria-label={`Open live demo of ${product.title} - opens in new tab`} class="text-[var(--text)] underline underline-offset-2 hover:text-[var(--accent)]">Try demo ↗</a>
+                  )}
+                  {product.contactForDemo && (
+                    <a href={whatsapp(product.title)} target="_blank" rel="noopener noreferrer" aria-label={`Contact eLan for a demo of ${product.title}`} class="text-[var(--text)] underline underline-offset-2 hover:text-[var(--accent)]">Ask for a demo</a>
+                  )}
                 </div>
-              </article>
+              </div>
+            </article>
+          </li>
+        );
+      })}
+      <li class="is-custom">
+        <div class="flex h-full flex-col justify-center rounded-xl border border-dashed border-[var(--border)] p-5 sm:p-6">
+          <h3 class="font-heading text-lg font-bold text-[var(--text)]">Need something different?</h3>
+          <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">We also build custom portals, CRM and ERP workflows from scratch.</p>
+          <a href="/get-quote/" class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--accent)]">Discuss a custom product <span set:html={arrow} /></a>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Commercial model + answers -->
+  <section class="border-y border-[var(--border)] bg-[var(--bg-card)] py-12 md:py-14" aria-labelledby="own-vs-sub-h2">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Choose the right fit</p>
+          <h2 id="own-vs-sub-h2" class="mt-2 font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">Choose the Right Commercial Model</h2>
+          <p class="mt-3 leading-relaxed text-[var(--text-dim)]">Deployment, licensing, support and source-code rights should match how your organisation intends to use the platform.</p>
+        </div>
+        <ul class="grid gap-4 sm:grid-cols-2" role="list">
+          {models.map((m) => (
+            <li class="service-card relative overflow-hidden rounded-xl border border-[var(--border)] p-5" style={`--card-color: var(${m.token}); background: linear-gradient(135deg, color-mix(in srgb, var(${m.token}) 10%, var(--bg)) 0%, var(--bg) 65%);`}>
+              <span class="service-card__stripe pointer-events-none absolute -bottom-8 -left-8 h-36 w-36 rotate-[-20deg] opacity-[0.08]" aria-hidden="true" style={`background: var(${m.token});`}></span>
+              <h3 class="relative font-heading text-lg font-bold text-[var(--text)]">{m.title}</h3>
+              <ul class="relative mt-3 space-y-2" role="list">
+                {m.points.map((p) => (
+                  <li class="flex items-start gap-2 text-sm text-[var(--text-dim)]"><span class="mt-0.5 shrink-0" style={`color: var(${m.token});`} set:html={tick} />{p}</li>
+                ))}
+              </ul>
             </li>
-          );
-        })}
-      </ul>
+          ))}
+        </ul>
+      </div>
     </div>
   </section>
 
-
-  <!-- ═══ OWN vs SUBSCRIBE - BENTO PAIR ═══════════════════════════════════ -->
-  <div class="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
     <AnswerSummary
       eyebrow="Product answer"
       title="How eLan’s configurable products work"
-      intro="These four platform foundations can be adapted to client requirements. The approved proposal defines exactly what is included."
+      intro="These platform foundations can be adapted to client requirements. The approved proposal defines exactly what is included."
       items={[
         { question: 'Can the platforms be white-labelled?', answer: 'White-label branding and client-specific workflows can be included when they form part of the approved platform scope.' },
         { question: 'Do I receive source code?', answer: 'Source-code access, ownership and reuse rights depend on the signed proposal and completed payment terms.' },
         { question: 'Are hosting and support included?', answer: 'Hosting, maintenance, third-party services and future upgrades are listed separately unless the proposal includes them.' },
       ]}
     />
+
+    <details class="note mt-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+      <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4">
+        <span class="font-semibold text-[var(--text)]">Define the data lifecycle before a product is configured</span>
+        <svg class="chev shrink-0 text-[var(--text-muted)]" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="border-t border-[var(--border)] px-5 py-5 text-sm leading-relaxed text-[var(--text-dim)]">
+        <p>These platforms may handle information belonging to customers, delegates, members, guests, staff or property leads. The proposal identifies the product operator, eLan Technology’s delivery or support role, the minimum fields required and every external provider before implementation begins.</p>
+        <ol class="mt-4 grid gap-3 sm:grid-cols-2" aria-label="Product data lifecycle">
+          <li><strong class="text-[var(--text)]">1. Roles and instructions:</strong> the client normally decides why records are collected and how long they are kept. eLan Technology processes project or support data only for the documented engagement.</li>
+          <li><strong class="text-[var(--text)]">2. Data map and permissions:</strong> fields, user roles, administrator access, exports, notifications and deletion workflows are agreed for the selected modules.</li>
+          <li><strong class="text-[var(--text)]">3. Providers and deployment:</strong> hosting, payment, email, SMS, maps, storage and analytics providers are disclosed in the approved architecture.</li>
+          <li><strong class="text-[var(--text)]">4. Testing, handover and closure:</strong> generated or masked records for testing, plus recorded credentials, access removal, backups and end-of-service treatment.</li>
+        </ol>
+        <p class="mt-4">A configurable product does not make the client automatically compliant with the DPDP Act or another law. Legal notices, consent decisions, statutory retention and operational responses remain shared project responsibilities.</p>
+        <p class="mt-3">Privacy questions: <a class="font-semibold text-[var(--accent)] underline underline-offset-4" href="mailto:privacy@elan-tech.net?subject=Products%20page%20privacy%20enquiry">privacy@elan-tech.net</a> · <a class="font-semibold text-[var(--accent)] underline underline-offset-4" href="/privacy-policy/">Privacy policy</a></p>
+      </div>
+    </details>
   </div>
 
-  <ProductPrivacyPanel
-    title="Define the data lifecycle before a product is configured"
-    intro="These platforms may handle information belonging to customers, delegates, members, guests, staff or property leads. The proposal should identify the product operator, eLan Technology’s delivery or support role, the minimum fields required and every external provider before implementation begins."
-    accentVar="--ac-teal"
-    subject="Products page privacy enquiry"
-    items={[
-      { title: 'Roles and instructions', text: 'The client normally determines why operational records are collected and how long they are retained. eLan Technology processes project or support data only for the documented engagement and authorised instructions.' },
-      { title: 'Data map and permissions', text: 'Fields, user roles, administrator access, exports, notifications and deletion workflows are agreed for the selected modules. Unneeded sensitive fields should not be collected.' },
-      { title: 'Providers and deployment', text: 'Hosting, payment gateways, email, SMS, maps, storage, analytics and other integrations are disclosed in the approved architecture. Their contracts, locations and retention settings remain relevant.' },
-      { title: 'Testing, handover and closure', text: 'Use generated or masked records for testing where practical. Production credentials, access removal, backups, migration, handover and end-of-service treatment should be recorded.' },
-    ]}
-    note="A configurable product does not make the client automatically compliant with the DPDP Act or another law. Legal notices, consent or other lawful-use decisions, statutory retention and operational responses remain shared project responsibilities and should be reviewed for the actual deployment."
-  />
-
-  <section class="py-16 md:py-24 bg-[var(--bg-card)] border-y border-[var(--border)]" aria-labelledby="own-vs-sub-h2">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <header class="text-center mb-12">
-        <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-2">Choose the Right Fit</p>
-        <h2 id="own-vs-sub-h2" class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)]">
-          Choose the Right Commercial Model
-        </h2>
-        <p class="mt-3 max-w-2xl mx-auto text-[var(--text-dim)]">
-          Deployment, licensing, support and source-code rights should match how your organisation intends to use the platform.
-        </p>
-      </header>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- SaaS card -->
-        <article class="relative overflow-hidden rounded-2xl border border-[var(--border)] p-8" style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-red) 10%, var(--bg)) 0%, var(--bg) 70%);">
-          <span aria-hidden="true" class="absolute top-4 right-5 font-heading font-black text-[5.5rem] leading-none select-none" style="color: var(--ac-red); opacity: 0.16;">✕</span>
-          <div class="relative">
-            <div class="mb-4 flex items-center gap-3">
-              <div class="flex h-11 w-11 items-center justify-center rounded-xl" style="background: color-mix(in srgb, var(--ac-red) 18%, transparent);">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--ac-red)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-              </div>
-              <h3 class="font-heading text-xl font-bold text-[var(--text)]">Subscription Product</h3>
-            </div>
-            <ul class="space-y-2.5" role="list">
-              {[
-                'Start from a published plan',
-                'Pay on the stated billing cycle',
-                'Use the features included in that plan',
-                'Receive updates under the product terms',
-                'A practical fit for standardised needs',
-                'Published plan and support terms apply',
-              ].map(item => (
-                <li class="flex items-start gap-2.5 text-sm text-[var(--text-dim)]">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ac-red)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </article>
-
-        <!-- Own card -->
-        <article class="relative overflow-hidden rounded-2xl border p-8" style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-emerald) 14%, var(--bg)) 0%, var(--bg) 70%); border-color: color-mix(in srgb, var(--ac-emerald) 35%, var(--border));">
-          <span aria-hidden="true" class="absolute top-4 right-5 font-heading font-black text-[5.5rem] leading-none select-none" style="color: var(--ac-emerald); opacity: 0.2;">✓</span>
-          <div class="relative">
-            <div class="mb-4 flex items-center gap-3">
-              <div class="flex h-11 w-11 items-center justify-center rounded-xl" style="background: color-mix(in srgb, var(--ac-emerald) 18%, transparent);">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--ac-emerald)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              </div>
-              <h3 class="font-heading text-xl font-bold text-[var(--text)]">Configured Product Foundation</h3>
-            </div>
-            <ul class="space-y-2.5" role="list">
-              {[
-                'One-time development or licensing is often available',
-                'Features are agreed for your business',
-                'Client-server deployment can be included',
-                'Data responsibilities are documented',
-                'Source-code rights are defined in the agreement',
-                'Hosting, support and third-party costs are transparent',
-              ].map(item => (
-                <li class="flex items-start gap-2.5 text-sm text-[var(--text-dim)]">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ac-emerald)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </article>
+  <!-- CTA -->
+  <section class="border-t border-[var(--border)] bg-[var(--bg-card)] py-12" aria-labelledby="products-cta-h2">
+    <div class="mx-auto flex max-w-7xl flex-col gap-5 px-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+      <div>
+        <h2 id="products-cta-h2" class="font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">Which Product Fits Your Requirement?</h2>
+        <p class="mt-2 max-w-xl text-[var(--text-dim)]">We will explain the scope, commercial model and next step clearly.</p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a href="/get-quote/" class="inline-flex min-h-11 items-center rounded-lg bg-[var(--accent)] px-5 py-2.5 font-semibold text-white transition hover:brightness-110">Discuss a Custom Product</a>
+        <a href="/schedule-consultation/" class="inline-flex min-h-11 items-center rounded-lg border border-[var(--border)] bg-[var(--bg)] px-5 py-2.5 font-semibold text-[var(--text)] transition hover:border-[var(--accent)]">Schedule a Meeting</a>
       </div>
     </div>
   </section>
-
-
-  <!-- ═══ CTA ══════════════════════════════════════════════════════════════ -->
-  <section class="py-20 bg-[var(--bg)]" aria-labelledby="products-cta-h2">
-    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-      <div class="relative">
-        <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-[var(--ac-teal)] via-[var(--ac-indigo)] to-[var(--ac-pink)] opacity-20 blur-xl" aria-hidden="true"></div>
-        <div class="relative rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-10">
-          <h2 id="products-cta-h2" class="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] mb-4">
-            Which Product Fits Your Requirement?
-          </h2>
-          <p class="text-lg text-[var(--text-dim)] mb-8 leading-relaxed max-w-xl mx-auto">
-            Adapt one of our product foundations to your organisation. We will explain the scope, commercial model and next step clearly.
-          </p>
-          <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="/get-quote/" class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3.5 text-sm font-bold text-white shadow-lg shadow-[var(--accent)]/25 hover:brightness-110 transition-all">
-              Discuss a Custom Product
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-            <a href="/schedule-consultation/" class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] px-8 py-3.5 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
-              Schedule a Meeting
-            </a>
-            <a href="/request-demo/" class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] px-8 py-3.5 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
-              Request a Live Demo
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
 </BaseLayout>
+
+<style>
+  .prod-grid { display: grid; gap: 1rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .prod-grid > .is-lead { grid-column: span 2; grid-row: span 2; }
+  .prod-grid > .is-custom { grid-column: span 2; }
+  .note[open] .chev { transform: rotate(180deg); } .chev { transition: transform .2s; }
+  .note summary::-webkit-details-marker { display: none; }
+  @media (max-width: 1023px) { .prod-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .prod-grid > .is-lead { grid-row: auto; } }
+  @media (max-width: 639px) { .prod-grid { grid-template-columns: 1fr; gap: .75rem; } .prod-grid > .is-lead, .prod-grid > .is-custom { grid-column: auto; } }
+</style>

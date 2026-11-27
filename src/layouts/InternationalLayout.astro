@@ -110,14 +110,14 @@ const allSchemas = [svc, crumbSchema, ...(faq ? [faq] : []), ...extraSchema];
       <div class="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
         <a
           href={primaryAction.href}
-          class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[var(--bg)] shadow-lg transition-opacity duration-150 hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)] focus-visible:outline-offset-2"
+          class="inline-flex items-center gap-2 rounded-lg bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[var(--bg)] shadow-lg transition-opacity duration-150 hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)] focus-visible:outline-offset-2"
         >
           {primaryAction.label}
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
         <a
           href={primaryAction.href === '/get-quote/' ? '/website-audit/' : '/get-quote/'}
-          class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-8 py-3 text-base font-semibold text-[var(--text)] transition-colors duration-150 hover:border-[var(--accent)] hover:text-[var(--accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)] focus-visible:outline-offset-2"
+          class="inline-flex items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-8 py-3 text-base font-semibold text-[var(--text)] transition-colors duration-150 hover:border-[var(--accent)] hover:text-[var(--accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--accent)] focus-visible:outline-offset-2"
         >
           {primaryAction.href === '/get-quote/' ? 'Review my existing website' : 'Get Quote'}
         </a>

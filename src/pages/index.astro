@@ -201,9 +201,9 @@ function logoAlt(filename: string): string {
         <h2 id="final-cta-heading" class="font-heading text-3xl font-bold text-[var(--text)] sm:text-4xl">Ready to get started?</h2>
         <p class="mx-auto mt-3 max-w-2xl text-[var(--text-dim)]">Tell us about your project, message us on WhatsApp, or book a call. Replies within one business day.</p>
         <div class="mt-7 flex flex-wrap justify-center gap-3">
-          <a href="/get-quote/" class="inline-flex min-h-11 items-center rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-bold text-white transition hover:brightness-110">Request a Quote</a>
-          <a href={COMPANY.whatsapp.href} target="_blank" rel="noopener noreferrer" data-analytics-placement="home-final-cta" class="inline-flex min-h-11 items-center rounded-full border border-[var(--border)] bg-[var(--bg)] px-6 py-3 text-sm font-bold text-[var(--text)] transition hover:border-[var(--accent)]">WhatsApp {COMPANY.whatsapp.display}<span class="sr-only"> (opens in a new tab)</span></a>
-          <a href="/schedule-consultation/" class="inline-flex min-h-11 items-center rounded-full border border-[var(--border)] bg-[var(--bg)] px-6 py-3 text-sm font-bold text-[var(--text)] transition hover:border-[var(--accent)]">Book a Consultation</a>
+          <a href="/get-quote/" class="inline-flex min-h-11 items-center rounded-lg bg-[var(--accent)] px-6 py-3 text-sm font-bold text-white transition hover:brightness-110">Request a Quote</a>
+          <a href={COMPANY.whatsapp.href} target="_blank" rel="noopener noreferrer" data-analytics-placement="home-final-cta" class="inline-flex min-h-11 items-center rounded-lg border border-[var(--border)] bg-[var(--bg)] px-6 py-3 text-sm font-bold text-[var(--text)] transition hover:border-[var(--accent)]">WhatsApp {COMPANY.whatsapp.display}<span class="sr-only"> (opens in a new tab)</span></a>
+          <a href="/schedule-consultation/" class="inline-flex min-h-11 items-center rounded-lg border border-[var(--border)] bg-[var(--bg)] px-6 py-3 text-sm font-bold text-[var(--text)] transition hover:border-[var(--accent)]">Book a Consultation</a>
         </div>
       </div>
 
@@ -213,10 +213,10 @@ function logoAlt(filename: string): string {
           <p class="mt-1 text-sm text-[var(--text-dim)]">Based in Nagpur, delivering remotely for clients across India and abroad.</p>
           <ul class="mt-4 flex flex-wrap gap-2" role="list">
             {featuredCities.map((city) => (
-              <li><a href={city.hasLandingPage ? `/web-design-company-${city.slug}/` : '/contact/'} class="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] bg-[var(--bg)] px-3.5 py-1.5 text-sm text-[var(--text-dim)] transition hover:border-[var(--accent)] hover:text-[var(--text)]"><span aria-hidden="true">{flagEmoji('IN')}</span>{city.name}</a></li>
+              <li><a href={city.hasLandingPage ? `/web-design-company-${city.slug}/` : '/contact/'} class="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border)] bg-[var(--bg)] px-3.5 py-1.5 text-sm text-[var(--text-dim)] transition hover:border-[var(--accent)] hover:text-[var(--text)]"><span aria-hidden="true">{flagEmoji('IN')}</span>{city.name}</a></li>
             ))}
             {featuredCountries.map((country) => (
-              <li><a href={country.hasLandingPage ? `/web-design-company-${country.slug}/` : '/contact/'} class="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] bg-[var(--bg)] px-3.5 py-1.5 text-sm text-[var(--text-dim)] transition hover:border-[var(--accent)] hover:text-[var(--text)]"><span aria-hidden="true">{flagEmoji(country.code)}</span>{country.name}</a></li>
+              <li><a href={country.hasLandingPage ? `/web-design-company-${country.slug}/` : '/contact/'} class="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border)] bg-[var(--bg)] px-3.5 py-1.5 text-sm text-[var(--text-dim)] transition hover:border-[var(--accent)] hover:text-[var(--text)]"><span aria-hidden="true">{flagEmoji(country.code)}</span>{country.name}</a></li>
             ))}
           </ul>
         </div>
@@ -224,7 +224,7 @@ function logoAlt(filename: string): string {
           <h3 class="font-heading text-lg font-bold text-[var(--text)]">Latest guides</h3>
           <ul class="mt-4 grid gap-3" role="list">
             {latestPosts.map((post) => (
-              <li><a href={`/blog/${post.data.category}/${post.id}/`} class="group block rounded-xl border border-[var(--border)] bg-[var(--bg)] px-4 py-3 transition hover:border-[var(--accent)]"><span class="block text-sm font-semibold text-[var(--text)] group-hover:text-[var(--accent)]">{post.data.title}</span><span class="text-xs text-[var(--text-muted)]">{post.data.publishDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span></a></li>
+              <li><a href={`/blog/${post.data.category}/${post.id}/`} class="group block rounded-lg border border-[var(--border)] bg-[var(--bg)] px-4 py-3 transition hover:border-[var(--accent)]"><span class="block text-sm font-semibold text-[var(--text)] group-hover:text-[var(--accent)]">{post.data.title}</span><span class="text-xs text-[var(--text-muted)]">{post.data.publishDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span></a></li>
             ))}
           </ul>
           <a href="/blog/" class="mt-3 inline-block text-sm font-bold text-[var(--accent)] underline-offset-4 hover:underline">All articles <span aria-hidden="true">→</span></a>

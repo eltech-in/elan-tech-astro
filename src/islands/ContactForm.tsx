@@ -334,7 +334,7 @@ export default function ContactForm() {
       </div>
 
       {status === 'error' && (
-        <p role="alert" aria-live="polite" className="text-xs text-red-400 bg-red-400/10 p-3 rounded-lg border border-red-400/20">
+        <p role="alert" aria-live="polite" className="text-xs text-red-400 bg-red-400/10 p-3 rounded-xl border border-red-400/20">
           {errorMsg}
         </p>
       )}

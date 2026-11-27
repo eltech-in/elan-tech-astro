@@ -62,7 +62,7 @@ const schema = [
       </nav>
 
       <div class="max-w-4xl">
-        <span class="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-white backdrop-blur-sm mb-6">
+        <span class="inline-flex items-center gap-2 rounded-md border border-white/30 bg-white/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-white backdrop-blur-sm mb-6">
           <span class="h-1.5 w-1.5 rounded-full" style={`background: var(${product.cssVar})`} aria-hidden="true"></span>
           {page.eyebrow}
           <span class="text-white/50">·</span>
@@ -79,11 +79,11 @@ const schema = [
 
         <div class="flex flex-wrap gap-3 mb-6">
           <a href={whatsappUrl} target="_blank" rel="noopener noreferrer"
-             class="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all shadow-xl"
+             class="inline-flex items-center gap-2 rounded-lg px-7 py-3.5 text-sm font-bold text-white hover:-translate-y-0.5 transition-all shadow-xl"
              style={`background: var(${product.cssVar}); box-shadow: 0 12px 30px color-mix(in srgb, var(${product.cssVar}) 40%, transparent);`}>
             WhatsApp for a demo<span class="sr-only"> (opens in a new tab)</span>
           </a>
-          <a href="/request-demo/" class="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/5 backdrop-blur-sm px-7 py-3.5 text-sm font-bold text-white hover:bg-white/15 transition-all">
+          <a href="/request-demo/" class="inline-flex items-center gap-2 rounded-lg border border-white/40 bg-white/5 backdrop-blur-sm px-7 py-3.5 text-sm font-bold text-white hover:bg-white/15 transition-all">
             Book a walkthrough
           </a>
         </div>
@@ -91,7 +91,7 @@ const schema = [
         {techStack.length > 0 && (
           <ul class="flex flex-wrap gap-2" role="list" aria-label={`${product.title} technology`}>
             {techStack.map((tech) => (
-              <li class="px-3 py-1 rounded-full text-xs bg-white/10 border border-white/20 text-white/90 backdrop-blur-sm">{tech}</li>
+              <li class="px-3 py-1 rounded-md text-xs bg-white/10 border border-white/20 text-white/90 backdrop-blur-sm">{tech}</li>
             ))}
           </ul>
         )}
@@ -123,7 +123,7 @@ const schema = [
         </header>
         <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" role="list">
           {page.features.map((feature, index) => (
-            <li class="relative overflow-hidden rounded-2xl border border-[var(--border)] p-5" style={`background: linear-gradient(135deg, color-mix(in srgb, var(${product.cssVar}) 8%, var(--bg-card)) 0%, var(--bg-card) 70%);`}>
+            <li class="relative overflow-hidden rounded-xl border border-[var(--border)] p-5" style={`background: linear-gradient(135deg, color-mix(in srgb, var(${product.cssVar}) 8%, var(--bg-card)) 0%, var(--bg-card) 70%);`}>
               <span aria-hidden="true" class="absolute top-2 right-3 font-heading font-black text-4xl leading-none select-none" style={`color: var(${product.cssVar}); opacity: 0.15;`}>{String(index + 1).padStart(2, '0')}</span>
               <div class="relative">
                 <h3 class="font-semibold text-[var(--text)] mb-1.5">{feature.title}</h3>
@@ -142,7 +142,7 @@ const schema = [
           </header>
           <ol class="grid gap-4 md:grid-cols-4" role="list">
             {page.flow.steps.map((step, index) => (
-              <li class="relative rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
+              <li class="relative rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
                 <span class="flex h-9 w-9 items-center justify-center rounded-full text-sm font-black text-white" style={`background: var(${product.cssVar});`} aria-hidden="true">{index + 1}</span>
                 <h3 class="mt-3 font-semibold text-[var(--text)]"><span class="sr-only">Step {index + 1}: </span>{step.title}</h3>
                 <p class="mt-1.5 text-sm leading-relaxed text-[var(--text-dim)]">{step.text}</p>
@@ -152,17 +152,17 @@ const schema = [
               </li>
             ))}
           </ol>
-          <p class="mt-5 rounded-2xl border border-dashed border-[var(--border)] bg-[var(--bg-card)] p-5 text-sm leading-relaxed text-[var(--text-dim)]">{page.flow.note}</p>
+          <p class="mt-5 rounded-xl border border-dashed border-[var(--border)] bg-[var(--bg-card)] p-5 text-sm leading-relaxed text-[var(--text-dim)]">{page.flow.note}</p>
         </div>
       )}
 
       {page.roadmap && page.roadmap.length > 0 && (
-        <div class="rounded-2xl border border-dashed border-[var(--border)] bg-[var(--bg-card)] p-6" aria-labelledby="product-roadmap-heading">
+        <div class="rounded-xl border border-dashed border-[var(--border)] bg-[var(--bg-card)] p-6" aria-labelledby="product-roadmap-heading">
           <p class="text-xs font-bold uppercase tracking-widest mb-1 text-[var(--text-muted)]">Planned, not yet available</p>
           <h2 id="product-roadmap-heading" class="font-heading text-xl font-bold text-[var(--text)]">On the roadmap</h2>
           <ul class="mt-3 flex flex-wrap gap-2" role="list">
             {page.roadmap.map((item) => (
-              <li class="rounded-full border border-[var(--border)] px-3 py-1 text-sm font-semibold text-[var(--text)]">{item}</li>
+              <li class="rounded-md border border-[var(--border)] px-3 py-1 text-sm font-semibold text-[var(--text)]">{item}</li>
             ))}
           </ul>
           <p class="mt-3 text-sm text-[var(--text-dim)]">These modules are planned. They are not part of the current product and carry no delivery date.</p>
@@ -176,7 +176,7 @@ const schema = [
         </header>
         <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" role="list">
           {page.audience.map((item) => (
-            <li class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
+            <li class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
               <h3 class="font-semibold text-[var(--text)] mb-1.5">{item.title}</h3>
               <p class="text-sm text-[var(--text-dim)] leading-relaxed">{item.desc}</p>
             </li>
@@ -184,19 +184,19 @@ const schema = [
         </ul>
       </div>
 
-      <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 text-center">
+      <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-8 text-center">
         <h2 class="font-heading text-xl sm:text-2xl font-bold text-[var(--text)] mb-3">See it in action</h2>
         <p class="text-[var(--text-dim)] mb-6">Book a guided walkthrough with sample data and your own workflow in mind.</p>
         <div class="flex flex-col sm:flex-row gap-3 justify-center">
           {product.demoUrl && !product.contactForDemo && (
-            <a href={product.demoUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-bold text-white hover:-translate-y-0.5 transition-all" style={`background: var(${product.cssVar});`}>
+            <a href={product.demoUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 rounded-lg px-7 py-3 text-sm font-bold text-white hover:-translate-y-0.5 transition-all" style={`background: var(${product.cssVar});`}>
               Try the live demo<span class="sr-only"> (opens in a new tab)</span>
             </a>
           )}
-          <a href="/request-demo/" class="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--border)] px-7 py-3 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all">
+          <a href="/request-demo/" class="inline-flex items-center justify-center gap-2 rounded-lg border border-[var(--border)] px-7 py-3 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all">
             Book a walkthrough
           </a>
-          <a href="/contact/" class="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--border)] px-7 py-3 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all">
+          <a href="/contact/" class="inline-flex items-center justify-center gap-2 rounded-lg border border-[var(--border)] px-7 py-3 text-sm font-bold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all">
             Contact us
           </a>
         </div>
@@ -221,7 +221,7 @@ const schema = [
       <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" role="list">
         {others.map((p) => (
           <li>
-            <a href={`/products/${p.slug}/`} class="group relative block h-full overflow-hidden rounded-2xl border border-[var(--border)] p-6 hover:-translate-y-1 transition-all" style={`background: linear-gradient(135deg, color-mix(in srgb, var(${p.cssVar}) 12%, var(--bg)) 0%, var(--bg) 70%);`}>
+            <a href={`/products/${p.slug}/`} class="group relative block h-full overflow-hidden rounded-xl border border-[var(--border)] p-6 hover:-translate-y-1 transition-all" style={`background: linear-gradient(135deg, color-mix(in srgb, var(${p.cssVar}) 12%, var(--bg)) 0%, var(--bg) 70%);`}>
               <span aria-hidden="true" class="absolute inset-x-0 top-0 h-[3px]" style={`background: var(${p.cssVar});`}></span>
               <h3 class="font-heading font-bold text-[var(--text)] leading-snug mb-1 group-hover:text-[var(--accent)] transition-colors">{p.title}</h3>
               <p class="text-xs text-[var(--text-dim)] line-clamp-2">{p.desc}</p>

@@ -53,7 +53,7 @@ const reasons = [
     </div>
     <ul role="list" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {reasons.map((r) => (
-        <li class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+        <li class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
           <div class="mb-3 text-[var(--accent)]" aria-hidden="true" set:html={r.icon} />
           <h3 class="font-heading font-semibold text-[var(--text)] mb-2">{r.title}</h3>
           <p class="text-sm text-[var(--text-dim)] leading-relaxed">{r.desc}</p>

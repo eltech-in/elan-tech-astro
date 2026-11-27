@@ -99,6 +99,8 @@ RewriteRule ^who-we-are$            /about  [L,R=301]
 RewriteRule ^our-team$              /about  [L,R=301]
 
 # Services: old slugs → new
+# 27 Nov 2026: the Shopify service merged into the eCommerce page (Shopify section).
+RewriteRule ^services/ecommerce/shopify-development/?$ /services/ecommerce/#shopify [NE,L,R=301]
 RewriteRule ^services/web-design$                 /services/website-design          [L,R=301]
 RewriteRule ^services/website-design-services$    /services/website-design          [L,R=301]
 RewriteRule ^services/web-designing$              /services/website-design          [L,R=301]

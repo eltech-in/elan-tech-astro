@@ -69,7 +69,7 @@ const cards = products.map((p, i) => ({
   .h2 { margin-top: .8rem; max-width: 48rem; font-family: var(--font-heading, inherit); font-weight: 700; font-size: clamp(1.9rem, 3.8vw, 3.1rem); line-height: 1.08; letter-spacing: -.03em; color: var(--text); }
   .lead { margin-top: 1.1rem; max-width: 46rem; font-size: 1.06rem; line-height: 1.7; color: var(--text-dim); }
   .stack { display: grid; gap: 1.4rem; margin-top: 3rem; }
-  .pcard { position: sticky; top: calc(5.5rem + var(--i) * .9rem); display: grid; gap: 1.6rem; align-items: center; padding: 1.8rem; border-radius: .5rem;
+  .pcard { position: sticky; top: calc(5.5rem + var(--i) * .9rem); display: grid; gap: 1.6rem; align-items: center; padding: 1.8rem; border-radius: var(--radius-xl);
     border: 1px solid var(--border); background: linear-gradient(135deg, rgb(var(--tint) / .16), rgb(var(--tint) / .03) 55%), var(--bg);
     box-shadow: 0 -10px 40px -20px rgba(0,0,0,.25), 0 30px 60px -45px rgb(var(--tint) / .7); }
   @media (min-width: 1024px) { .pcard { grid-template-columns: .85fr 1.15fr; padding: 2.4rem; min-height: 25rem; } }
@@ -78,10 +78,10 @@ const cards = products.map((p, i) => ({
   h3 { margin-top: .7rem; font-family: var(--font-heading, inherit); font-size: clamp(1.5rem, 2.4vw, 2.1rem); font-weight: 700; letter-spacing: -.025em; color: var(--text); }
   .desc { margin-top: .8rem; line-height: 1.7; color: var(--text-dim); }
   .chips { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: 1.1rem; }
-  .chips li { padding: .3rem .75rem; border-radius: .375rem; font-size: .75rem; font-weight: 700; color: var(--text); background: rgb(var(--tint) / .12); border: 1px solid rgb(var(--tint) / .3); }
+  .chips li { padding: .3rem .75rem; border-radius: var(--radius-md); font-size: .75rem; font-weight: 700; color: var(--text); background: rgb(var(--tint) / .12); border: 1px solid rgb(var(--tint) / .3); }
   .more { display: inline-flex; align-items: center; gap: .35rem; min-height: 2.75rem; margin-top: .8rem; font-weight: 700; color: var(--accent); }
   .more:hover { text-decoration: underline; text-underline-offset: 3px; }
-  .shot { border-radius: .5rem; overflow: hidden; box-shadow: 0 0 0 1px rgb(var(--tint) / .25), 0 25px 60px -25px rgba(0,0,0,.45); }
+  .shot { border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 0 0 1px rgb(var(--tint) / .25), 0 25px 60px -25px rgba(0,0,0,.45); }
   .shot :global(img) { display: block; width: 100%; height: auto; }
   .note { margin-top: 1.5rem; font-size: .85rem; color: var(--text-muted); }
   .note a { font-weight: 700; color: var(--accent); }

@@ -22,14 +22,14 @@ const services = isUS ? [
       <p class="mt-5 leading-7 text-[var(--text-dim)]">{isUS ? 'For US businesses and teams that need a capable implementation partner: eLan Technology delivers remotely from Nagpur, India, with written scope, practical review windows and transparent handover terms.' : 'For Canadian service businesses and organisations improving an existing website or planning a new one: work directly with an India-based studio, with responsibilities and communication agreed before the project starts.'}</p>
     </div>
     <div class="mt-8 grid gap-5 lg:grid-cols-3">
-      {services.map((service) => <article class="flex flex-col rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-7">
+      {services.map((service) => <article class="flex flex-col rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-7">
         <span class="font-heading text-sm font-bold text-[var(--accent)]">{service.number}</span>
         <h3 class="mt-4 font-heading text-xl font-bold">{service.title}</h3>
         <p class="mt-3 flex-1 text-sm leading-7 text-[var(--text-dim)]">{service.text}</p>
         <a href={service.href} class="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-bold text-[var(--accent)]">{service.label}<span aria-hidden="true">→</span></a>
       </article>)}
     </div>
-    <figure class="mt-7 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8">
+    <figure class="mt-7 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8">
       <p class="text-xs font-bold uppercase tracking-wider text-[var(--accent)]">Client perspective · {testimonial.source}</p>
       <blockquote class="mt-4 max-w-4xl font-heading text-lg font-medium leading-8">“{testimonial.quote}”</blockquote>
       <figcaption class="mt-4 text-sm text-[var(--text-dim)]"><span class="font-bold text-[var(--text)]">{isUS ? testimonial.author : 'Eric H.'}</span> · {testimonial.role}, {testimonial.company}{testimonial.datePublished && <span> · {testimonial.datePublished}</span>}</figcaption>

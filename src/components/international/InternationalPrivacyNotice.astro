@@ -10,7 +10,7 @@ const { country } = Astro.props;
 
 <section class="border-y border-[var(--border)] bg-[var(--bg-card)] px-4 py-14 sm:px-6 lg:px-8" aria-labelledby={`${country.slug}-privacy-title`}>
   <div class="mx-auto max-w-7xl">
-    <div class="relative overflow-hidden rounded-3xl border border-[var(--border)] p-6 sm:p-8 lg:p-10" style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-cyan) 10%, var(--bg)) 0%, var(--bg) 68%);">
+    <div class="relative overflow-hidden rounded-xl border border-[var(--border)] p-6 sm:p-8 lg:p-10" style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-cyan) 10%, var(--bg)) 0%, var(--bg) 68%);">
       <span aria-hidden="true" class="absolute inset-x-0 top-0 h-1 bg-[var(--ac-cyan)]"></span>
       <div class="relative grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
         <div>
@@ -22,8 +22,8 @@ const { country } = Astro.props;
             This page is informational and has no enquiry or newsletter form. Quote, audit and consultation links open dedicated pages that explain their fields, purpose, providers and retention before submission.
           </p>
           <div class="mt-6 flex flex-wrap gap-3">
-            <a href="/privacy-policy/" class="inline-flex min-h-11 items-center rounded-full bg-[var(--accent)] px-5 py-2.5 text-sm font-bold text-white transition-opacity hover:opacity-90">Privacy policy</a>
-            <a href="/cookie-policy/" class="inline-flex min-h-11 items-center rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-5 py-2.5 text-sm font-bold text-[var(--text)] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]">Cookie policy</a>
+            <a href="/privacy-policy/" class="inline-flex min-h-11 items-center rounded-lg bg-[var(--accent)] px-5 py-2.5 text-sm font-bold text-white transition-opacity hover:opacity-90">Privacy policy</a>
+            <a href="/cookie-policy/" class="inline-flex min-h-11 items-center rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-5 py-2.5 text-sm font-bold text-[var(--text)] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]">Cookie policy</a>
           </div>
         </div>
 
@@ -34,7 +34,7 @@ const { country } = Astro.props;
             { title: 'Analytics and cookies', text: 'Necessary preference storage may operate, while optional Google Analytics and Microsoft Clarity remain off until the visitor allows analytics through the site’s privacy controls.' },
             { title: 'International project delivery', text: `If a ${country.name} organisation appoints our India-based team, the proposal or contract should identify authorised access, hosting and service providers, project tools, data locations, security, retention, handover and any required international-transfer terms.` },
           ].map((item, index) => (
-            <li class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/85 p-5">
+            <li class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)]/85 p-5">
               <span class="text-[10px] font-black uppercase tracking-[0.16em] text-[var(--ac-cyan)]">{String(index + 1).padStart(2, '0')}</span>
               <h3 class="mt-2 font-heading text-sm font-bold text-[var(--text)]">{item.title}</h3>
               <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">{item.text}</p>

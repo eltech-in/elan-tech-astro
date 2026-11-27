@@ -15,7 +15,7 @@ import {
 } from '../../data/portfolioShowcase';
 import { breadcrumbSchema } from '../../utils/schema';
 import { projects } from '../../data/portfolio';
-import { confirmedTech } from '../../data/techStack';
+import ArchiveCard from '../../components/portfolio/ArchiveCard.astro';
 
 const schema = breadcrumbSchema([
   { name: 'Home', url: '/' },
@@ -44,6 +44,9 @@ const showcaseUrls = new Set([
   legacyProject,
 ].filter(project => project.liveUrl).map(project => normalizedUrl(project.liveUrl)));
 const archiveProjects = projects.filter(project => !project.liveUrl || !showcaseUrls.has(normalizedUrl(project.liveUrl)));
+// Compact portfolio (owner, 27 Nov 2026): every project stays, the archive shows eight and folds the rest.
+const archiveFirst = archiveProjects.slice(0, 8);
+const archiveMore = archiveProjects.slice(8);
 ---
 
 <BaseLayout
@@ -53,52 +56,24 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
   schema={schema}
 >
   <main>
-    <section class="portfolio-hero relative overflow-hidden border-b border-[var(--border)] bg-[var(--bg)] py-12 sm:py-16 lg:py-20" aria-labelledby="portfolio-title">
-      <div class="portfolio-grid" aria-hidden="true"></div>
-      <div class="portfolio-glow portfolio-glow-one" aria-hidden="true"></div>
-      <div class="portfolio-glow portfolio-glow-two" aria-hidden="true"></div>
-
-      <div class="relative mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:px-8">
-        <div class="max-w-2xl">
-          <p class="mb-4 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.28em] text-[var(--ac-teal)]">
-            <span class="h-2 w-2 rounded-full bg-[var(--ac-teal)] shadow-[0_0_18px_var(--ac-teal)]"></span>
-            Selected work by eLan Technology
-          </p>
-          <h1 id="portfolio-title" class="font-heading text-4xl font-black leading-[1.02] tracking-[-0.04em] text-[var(--text)] sm:text-5xl lg:text-[3.6rem]">
-            Real websites for businesses ready to move forward.
-          </h1>
-          <p class="mt-6 max-w-xl text-base leading-7 text-[var(--text-dim)] sm:text-lg">
-            From a first idea to a growing online store, we design digital experiences that feel clear, look distinctive and make it easier for customers to take the next step.
-          </p>
-          <div class="mt-7 flex flex-wrap gap-3">
-            <a href="/portfolio/#recent-work" class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[var(--accent)]/20 transition hover:-translate-y-0.5 hover:brightness-110">
-              Explore recent work
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
-            </a>
-            <a href="/get-quote/" class="inline-flex items-center rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-6 py-3 text-sm font-bold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">
-              Request a quote
-            </a>
-            <a href="/technologies/" class="inline-flex items-center rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-6 py-3 text-sm font-bold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">
-              Technologies we use
-            </a>
+    <section class="relative border-b border-[var(--border)] bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-10 sm:py-14" aria-labelledby="portfolio-title">
+      <div class="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:px-8">
+        <div>
+          <p class="section-kicker text-[var(--accent)]">Selected work by eLan Technology</p>
+          <h1 id="portfolio-title" class="mt-3 font-heading text-4xl font-bold leading-tight tracking-tight text-[var(--text)] md:text-5xl">Real websites for businesses ready to move forward.</h1>
+          <p class="mt-4 max-w-xl text-lg text-[var(--text-dim)]">From a first idea to a growing online store, we design websites that look distinctive and make the next step easy for customers.</p>
+          <ul class="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-[var(--text-dim)]" role="list">
+            <li><strong class="text-[var(--text)]">Since 2002</strong></li>
+            <li><strong class="text-[var(--text)]">5</strong> featured stores</li>
+            <li><strong class="text-[var(--text)]">{launchingSoon.length}</strong> launches coming</li>
+          </ul>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="/get-quote/" class="inline-flex min-h-11 items-center rounded-lg bg-[var(--accent)] px-5 py-2.5 font-semibold text-white transition hover:brightness-110">Request a quote</a>
+            <a href="/technologies/" class="inline-flex min-h-11 items-center rounded-lg border border-[var(--border)] bg-[var(--bg)] px-5 py-2.5 font-semibold text-[var(--text)] transition hover:border-[var(--accent)]">Technologies we use</a>
           </div>
-          <dl class="mt-10 hidden max-w-lg grid-cols-3 gap-3 sm:grid">
-            <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/75 p-4 backdrop-blur">
-              <dt class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)]">Building since</dt>
-              <dd class="mt-1 font-heading text-xl font-black text-[var(--ac-indigo)]">2002</dd>
-            </div>
-            <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/75 p-4 backdrop-blur">
-              <dt class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)]">Commerce work</dt>
-              <dd class="mt-1 font-heading text-xl font-black text-[var(--ac-pink)]">5 featured</dd>
-            </div>
-            <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/75 p-4 backdrop-blur">
-              <dt class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)]">Coming next</dt>
-              <dd class="mt-1 font-heading text-xl font-black text-[var(--ac-amber)]">{launchingSoon.length} launches</dd>
-            </div>
-          </dl>
         </div>
 
-        <article class="hero-project group relative min-h-[420px] overflow-hidden rounded-lg border border-[var(--border)] bg-[var(--bg-card)] shadow-2xl shadow-black/10 sm:min-h-[500px]">
+        <article class="hero-project group relative min-h-[300px] overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-card)] shadow-xl shadow-black/10 sm:min-h-[380px]">
           <Image
             src={getProjectImage(latestLaunch.image)}
             alt={isLogo(latestLaunch) ? `${latestLaunch.title} brand mark` : `Homepage preview of ${latestLaunch.title}`}
@@ -107,23 +82,22 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
             format="avif"
             loading="eager"
             decoding="async"
-            class:list={['absolute inset-0 h-full w-full transition duration-700 group-hover:scale-[1.025]', isLogo(latestLaunch) ? 'object-contain bg-white p-12 pb-52' : 'object-cover object-top']}
+            class:list={['absolute inset-0 h-full w-full transition duration-700 group-hover:scale-[1.025]', isLogo(latestLaunch) ? 'object-contain bg-white p-12 pb-44' : 'object-cover object-top']}
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/35 to-transparent"></div>
-          <div class="absolute left-5 top-5 flex items-center gap-2 rounded-full border border-white/30 bg-slate-950/60 px-3 py-1.5 text-xs font-bold text-white backdrop-blur-md sm:left-7 sm:top-7">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/75 to-slate-950/10"></div>
+          <div class="absolute left-4 top-4 flex items-center gap-2 rounded-md border border-white/30 bg-slate-950/60 px-3 py-1.5 text-xs font-bold text-white backdrop-blur-md">
             <span class="h-2 w-2 animate-pulse rounded-full bg-emerald-400"></span>
             {latestLaunch.note}
           </div>
-          <div class="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+          <div class="absolute inset-x-0 bottom-0 p-5 sm:p-7">
             <p class="text-xs font-bold uppercase tracking-[0.2em] text-emerald-300">{latestLaunch.label}</p>
-            <div class="mt-2 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div class="mt-2 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <h2 class="font-heading text-3xl font-black text-white sm:text-4xl">{latestLaunch.title}</h2>
-                <p class="mt-2 max-w-xl text-sm leading-6 text-slate-200 sm:text-base">{latestLaunch.description}</p>
+                <h2 class="font-heading text-2xl font-black text-white sm:text-3xl">{latestLaunch.title}</h2>
+                <p class="mt-1 max-w-xl text-sm leading-6 text-slate-200">{latestLaunch.description}</p>
               </div>
-              <a href={latestLaunch.liveUrl} target="_blank" rel="noopener noreferrer" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-bold text-slate-950 transition hover:bg-emerald-300" aria-label={`Visit ${latestLaunch.title}, opens in a new tab`}>
-                View live site
-                <span aria-hidden="true">↗</span>
+              <a href={latestLaunch.liveUrl} target="_blank" rel="noopener noreferrer" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-white px-4 py-2 text-sm font-bold text-slate-950 transition hover:bg-emerald-300" aria-label={`Visit ${latestLaunch.title}, opens in a new tab`}>
+                View live site <span aria-hidden="true">↗</span>
               </a>
             </div>
           </div>
@@ -131,30 +105,7 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
       </div>
     </section>
 
-    <section id="portfolio-publication-note" class="border-b border-[var(--border)] bg-[var(--bg)] py-7" aria-labelledby="portfolio-publication-title">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="portfolio-publication overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] shadow-sm">
-          <div class="grid gap-5 p-5 sm:p-6 lg:grid-cols-[minmax(0,.72fr)_minmax(0,1.65fr)] lg:items-center lg:p-7">
-            <div>
-              <p class="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--ac-teal)]">Portfolio publication</p>
-              <h2 id="portfolio-publication-title" class="mt-2 font-heading text-xl font-black text-[var(--text)] sm:text-2xl">Project context without unnecessary personal data</h2>
-            </div>
-            <div class="grid gap-3 text-xs leading-relaxed text-[var(--text-muted)] sm:grid-cols-2 sm:text-sm">
-              <p><strong class="text-[var(--text)]">What is shown:</strong> project or business names, brand marks, website previews, public destinations and concise descriptions needed to identify the work.</p>
-              <p><strong class="text-[var(--text)]">Visual accuracy:</strong> screenshots represent a captured version of a project. Content, ownership, technology and availability may change after launch or handover.</p>
-              <p><strong class="text-[var(--text)]">External websites:</strong> live-site and preview links open only when selected. The destination may then receive ordinary connection, browser and device information under its own privacy practices.</p>
-              <p><strong class="text-[var(--text)]">Brand ownership:</strong> client names, logos and trademarks remain the property of their respective owners and are presented only to identify project work.</p>
-            </div>
-          </div>
-          <div class="flex flex-col gap-2 border-t border-[var(--border)] bg-[var(--bg)]/70 px-5 py-4 text-xs leading-relaxed text-[var(--text-muted)] sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-7">
-            <p>Represent a featured project and need its name, description, image, link or attribution corrected or removed?</p>
-            <a href="mailto:privacy@elan-tech.net?subject=Portfolio%20correction%20or%20removal%20request" class="shrink-0 font-bold text-[var(--text)] underline decoration-[var(--ac-teal)] underline-offset-4">Write to privacy@elan-tech.net</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <nav class="portfolio-nav sticky top-[var(--header-height,0px)] z-30 border-b border-[var(--border)] bg-[var(--bg)]/90 backdrop-blur-xl" aria-label="Portfolio sections">
+    <nav class="portfolio-nav sticky top-[72px] z-30 border-b border-[var(--border)] bg-[var(--bg)]/90 backdrop-blur-xl" aria-label="Portfolio sections">
       <div class="mx-auto flex max-w-7xl gap-2 overflow-x-auto px-4 py-3 sm:px-6 lg:px-8">
         <a href="/portfolio/#recent-work">Recent launches</a>
         <a href="/portfolio/#redesigned-work">Redesigns</a>
@@ -162,46 +113,40 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
         <a href="/portfolio/#launching-soon">Launching soon</a>
         <a href="/portfolio/#selected-work">Selected work</a>
         <a href="/portfolio/#project-archive">Earlier projects</a>
-        <a href="/portfolio/#long-running-work">Built to last</a>
       </div>
     </nav>
 
-    <section id="recent-work" class="scroll-mt-28 bg-[var(--bg)] py-16 sm:py-20" aria-labelledby="recent-title">
+    <section id="recent-work" class="pf-section" aria-labelledby="recent-title">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="mb-9 grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
+        <header class="pf-head">
           <div>
             <p class="section-kicker text-[var(--ac-teal)]">Fresh from the studio</p>
             <h2 id="recent-title" class="section-title">Recently launched</h2>
-            <p class="section-intro">New work across healthcare, interiors, real estate, marketing and product-led businesses.</p>
           </div>
-          <p class="rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-4 py-2 text-xs font-semibold text-[var(--text-muted)]">{recentLaunches.length} recent live websites</p>
-        </div>
-
-        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-12">
+          <p class="pf-count">{recentLaunches.length} recent live websites</p>
+        </header>
+        <div class="pf-grid">
           {recentLaunches.map((project, index) => (
-            <article class:list={['visual-card group', index < 2 ? 'lg:col-span-6' : 'lg:col-span-4']}>
+            <article class:list={['visual-card tilt-card group', index === 0 && 'is-wide']} style="--card-color: var(--ac-teal);">
               <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="block h-full" aria-label={`Visit ${project.title}, opens in a new tab`}>
                 <div class="relative aspect-[16/10] overflow-hidden bg-white">
                   <Image
                     src={getProjectImage(project.image)}
                     alt={`Website preview for ${project.title}`}
-                    widths={[480, 720, 960]}
-                    sizes={index < 2 ? '(max-width: 1023px) 100vw, 50vw' : '(max-width: 1023px) 50vw, 33vw'}
+                    widths={[360, 540, 720, 960]}
+                    sizes={index === 0 ? '(max-width: 639px) 100vw, 28vw' : '(max-width: 639px) 50vw, (max-width: 1023px) 33vw, 25vw'}
                     format={getProjectImage(project.image).format === 'svg' ? undefined : 'avif'}
                     loading="lazy"
                     decoding="async"
-                    class:list={['h-full w-full transition duration-500 group-hover:scale-[1.035]', isLogo(project) ? 'object-contain p-12' : 'object-cover object-top']}
+                    class:list={['h-full w-full transition duration-500 group-hover:scale-[1.035]', isLogo(project) ? 'object-contain p-8' : 'object-cover object-top']}
                   />
-                  <span class="absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full border border-white/50 bg-slate-950/65 text-sm font-bold text-white opacity-0 backdrop-blur transition group-hover:opacity-100" aria-hidden="true">↗</span>
                 </div>
-                <div class="p-5 sm:p-6">
-                  <p class="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--ac-teal)]">{project.label}</p>
-                  <h3 class="mt-2 font-heading text-xl font-bold text-[var(--text)]">{project.title}</h3>
-                  <p class="mt-2 text-sm leading-6 text-[var(--text-dim)]">{project.description}</p>
-                  {project.note && <p class="mt-3 text-xs font-semibold text-[var(--text-muted)]">{project.note}</p>}
-                  <div class="mt-4 flex flex-wrap gap-1.5">
-                    {project.stack?.map(item => <span class="project-pill">{item}</span>)}
-                  </div>
+                <div class="pf-body">
+                  <p class="pf-label text-[var(--ac-teal)]">{project.label}</p>
+                  <h3 class="pf-title">{project.title}</h3>
+                  <p class="pf-desc">{project.description}</p>
+                  {project.note && <p class="mt-2 text-xs font-semibold text-[var(--text-muted)]">{project.note}</p>}
+                  <div class="pf-pills">{project.stack?.map(item => <span class="project-pill">{item}</span>)}</div>
                 </div>
               </a>
             </article>
@@ -210,42 +155,38 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
       </div>
     </section>
 
-    <section id="redesigned-work" class="scroll-mt-28 border-t border-[var(--border)] bg-[var(--bg)] py-16 sm:py-20" aria-labelledby="redesigned-title">
+    <section id="redesigned-work" class="pf-section border-t border-[var(--border)]" aria-labelledby="redesigned-title">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="mb-9 grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
+        <header class="pf-head">
           <div>
             <p class="section-kicker text-[var(--ac-teal)]">New look, same partnership</p>
             <h2 id="redesigned-title" class="section-title">Recently redesigned</h2>
-            <p class="section-intro">Three long-standing clients moved from their earlier WordPress websites to new designs, rebuilt in Astro.</p>
+            <p class="section-intro">Three long-standing clients moved from earlier WordPress websites to new designs, rebuilt in Astro.</p>
           </div>
-          <p class="rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-4 py-2 text-xs font-semibold text-[var(--text-muted)]">{recentRedesigns.length} redesigned live websites</p>
-        </div>
-
-        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <p class="pf-count">{recentRedesigns.length} redesigned live websites</p>
+        </header>
+        <div class="grid gap-4 sm:grid-cols-3">
           {recentRedesigns.map((project) => (
-            <article class="visual-card group">
+            <article class="visual-card tilt-card group" style="--card-color: var(--ac-cyan);">
               <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="block h-full" aria-label={`Visit ${project.title}, opens in a new tab`}>
                 <div class="relative aspect-[16/10] overflow-hidden bg-white">
                   <Image
                     src={getProjectImage(project.image)}
                     alt={`Homepage of the redesigned ${project.title} website`}
                     widths={[480, 720, 960]}
-                    sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                    sizes="(max-width: 639px) 100vw, 33vw"
                     format="avif"
                     loading="lazy"
                     decoding="async"
                     class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.035]"
                   />
-                  <span class="absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full border border-white/50 bg-slate-950/65 text-sm font-bold text-white opacity-0 backdrop-blur transition group-hover:opacity-100" aria-hidden="true">↗</span>
                 </div>
-                <div class="p-5 sm:p-6">
-                  <p class="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--ac-teal)]">{project.label}</p>
-                  <h3 class="mt-2 font-heading text-xl font-bold text-[var(--text)]">{project.title}</h3>
-                  <p class="mt-2 text-sm leading-6 text-[var(--text-dim)]">{project.description}</p>
-                  {project.note && <p class="mt-3 text-xs font-semibold text-[var(--text-muted)]">{project.note}</p>}
-                  <div class="mt-4 flex flex-wrap gap-1.5">
-                    {project.stack?.map(item => <span class="project-pill">{item}</span>)}
-                  </div>
+                <div class="pf-body">
+                  <p class="pf-label text-[var(--ac-teal)]">{project.label}</p>
+                  <h3 class="pf-title">{project.title}</h3>
+                  <p class="pf-desc">{project.description}</p>
+                  {project.note && <p class="mt-2 text-xs font-semibold text-[var(--text-muted)]">{project.note}</p>}
+                  <div class="pf-pills">{project.stack?.map(item => <span class="project-pill">{item}</span>)}</div>
                 </div>
               </a>
             </article>
@@ -254,65 +195,57 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
       </div>
     </section>
 
-    <section id="ecommerce-work" class="scroll-mt-28 overflow-hidden border-y border-[var(--border)] bg-[var(--bg-card)] py-16 sm:py-20" aria-labelledby="commerce-title">
+    <section id="ecommerce-work" class="pf-section border-y border-[var(--border)] bg-[var(--bg-card)]" aria-labelledby="commerce-title">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="mb-9 max-w-3xl">
-          <p class="section-kicker text-[var(--ac-pink)]">Three strong commerce foundations</p>
-          <h2 id="commerce-title" class="section-title">Shopify, Medusa.js and WooCommerce</h2>
-          <p class="section-intro">The platform should fit the way you sell. Our portfolio includes custom Shopify storefronts, fully owned Medusa.js commerce and flexible WooCommerce stores.</p>
-        </div>
+        <header class="pf-head">
+          <div>
+            <p class="section-kicker text-[var(--ac-pink)]">Three strong commerce foundations</p>
+            <h2 id="commerce-title" class="section-title">Shopify, Medusa.js and WooCommerce</h2>
+            <p class="section-intro">The platform should fit the way you sell: custom Shopify storefronts, fully owned Medusa.js commerce and flexible WooCommerce stores.</p>
+          </div>
+          <a href="/services/ecommerce/" class="pf-count hover:border-[var(--ac-pink)]">Explore eCommerce services →</a>
+        </header>
 
-        <div class="commerce-platforms mb-6 grid gap-3 md:grid-cols-3" aria-label="eCommerce technology experience">
-          <a href="/services/ecommerce/shopify-development/" class="platform-card platform-shopify">
-            <span class="platform-index">01</span>
+        <div class="mb-4 grid gap-3 sm:grid-cols-3" aria-label="eCommerce technology experience">
+          <a href="/services/ecommerce/#shopify" class="platform-card platform-shopify">
             <span class="platform-name">Shopify</span>
             <span class="platform-detail">Custom themes and storefront UX</span>
             <span class="platform-proof">Featured work: Rangresha</span>
           </a>
           <a href="/services/ecommerce/medusa-js-development/" class="platform-card platform-medusa">
-            <span class="platform-index">02</span>
             <span class="platform-name">Medusa.js</span>
             <span class="platform-detail">Owned commerce and custom modules</span>
             <span class="platform-proof">Featured work: Healthy Genie</span>
           </a>
           <a href="/services/ecommerce/" class="platform-card platform-woo">
-            <span class="platform-index">03</span>
             <span class="platform-name">WooCommerce</span>
             <span class="platform-detail">Flexible stores on WordPress</span>
             <span class="platform-proof">3 selected stores below</span>
           </a>
         </div>
 
-        <div class="grid gap-5 lg:grid-cols-2">
+        <div class="grid gap-4 lg:grid-cols-2">
           {[shopifyProject, medusaProject].map((project, index) => (
-            <article class:list={['commerce-feature group', index === 0 ? 'commerce-shopify' : 'commerce-medusa']}>
-              <div class="grid h-full sm:grid-cols-[190px_1fr]">
-                <div class="commerce-logo-panel relative grid min-h-[190px] place-items-center overflow-hidden bg-white p-7 sm:min-h-full">
+            <article class:list={['commerce-feature tilt-card tilt-card--bg group', index === 0 ? 'commerce-shopify' : 'commerce-medusa']} style={`--card-color: ${index === 0 ? '#008060' : '#6366f1'};`}>
+              <div class="grid h-full grid-cols-[110px_1fr] sm:grid-cols-[150px_1fr]">
+                <div class="relative grid place-items-center overflow-hidden bg-white p-4">
                   <Image
                     src={getProjectImage(project.image)}
                     alt={`${project.title} brand mark`}
-                    widths={[320, 480]}
-                    sizes="(max-width: 639px) 100vw, 190px"
+                    widths={[240, 320]}
+                    sizes="150px"
                     format={getProjectImage(project.image).format === 'svg' ? undefined : 'avif'}
                     loading="lazy"
                     decoding="async"
-                    class="max-h-36 w-full object-contain transition duration-500 group-hover:scale-105"
+                    class="max-h-24 w-full object-contain"
                   />
                 </div>
-                <div class="flex flex-col p-5 sm:p-6">
-                  <div class="commerce-tech-lockup">
-                    <span class="commerce-tech-icon" aria-hidden="true">{index === 0 ? 'S' : 'M'}</span>
-                    <div>
-                      <p class="commerce-tech-eyebrow">Built with</p>
-                      <p class="commerce-tech-name">{index === 0 ? 'Shopify' : 'Medusa.js'}</p>
-                    </div>
-                  </div>
-                  <h3 class="mt-5 font-heading text-2xl font-black text-[var(--text)]">{project.title}</h3>
-                  <p class="mt-2 flex-1 text-sm leading-6 text-[var(--text-dim)]">{project.description}</p>
-                  <div class="mt-4 flex flex-wrap gap-1.5">
-                    {project.stack?.map(item => <span class="project-pill">{item}</span>)}
-                  </div>
-                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="mt-3 inline-flex min-h-11 items-center gap-2 self-start text-sm font-bold text-[var(--text)] hover:text-[var(--accent)]" aria-label={`Visit ${project.title}, opens in a new tab`}>
+                <div class="flex flex-col p-4 sm:p-5">
+                  <p class="commerce-tech-eyebrow">Built with <span class="commerce-tech-name">{index === 0 ? 'Shopify' : 'Medusa.js'}</span></p>
+                  <h3 class="mt-1 font-heading text-lg font-black text-[var(--text)]">{project.title}</h3>
+                  <p class="mt-1 line-clamp-3 text-sm leading-6 text-[var(--text-dim)]">{project.description}</p>
+                  <div class="pf-pills">{project.stack?.map(item => <span class="project-pill">{item}</span>)}</div>
+                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="mt-2 inline-flex min-h-10 items-center gap-2 self-start text-sm font-bold text-[var(--text)] hover:text-[var(--accent)]" aria-label={`Visit ${project.title}, opens in a new tab`}>
                     Visit {project.title} <span aria-hidden="true">↗</span>
                   </a>
                 </div>
@@ -321,100 +254,75 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
           ))}
         </div>
 
-        <div class="mt-8 flex items-center gap-4">
-          <div class="h-px flex-1 bg-[var(--border)]"></div>
-          <div class="woo-heading text-center">
-            <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#96588a]">Built with</p>
-            <h3 class="font-heading text-2xl font-black text-[var(--text)]">WooCommerce</h3>
-          </div>
-          <div class="h-px flex-1 bg-[var(--border)]"></div>
-        </div>
-
-        <div class="mt-6 grid gap-5 md:grid-cols-3">
+        <div class="mt-4 grid gap-4 sm:grid-cols-3">
           {wooCommerceProjects.map(project => (
-            <article class="woo-project group overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg)]">
+            <article class="woo-project tilt-card tilt-card--bg group" style="--card-color: #96588a;">
               <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="block h-full" aria-label={`Visit ${project.title}, opens in a new tab`}>
-                <div class="relative aspect-[16/8] overflow-hidden bg-white">
+                <div class="relative aspect-[16/7] overflow-hidden bg-white">
                   <Image
                     src={getProjectImage(project.image)}
                     alt={`${project.title} WooCommerce website`}
                     widths={[480, 720]}
-                    sizes="(max-width: 767px) 100vw, 33vw"
+                    sizes="(max-width: 639px) 100vw, 33vw"
                     format="avif"
                     loading="lazy"
                     decoding="async"
                     class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
                   />
-                  <span class="absolute left-3 top-3 rounded-full bg-[#96588a] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">WooCommerce</span>
+                  <span class="absolute left-3 top-3 rounded-md bg-[#96588a] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white">WooCommerce</span>
                 </div>
-                <div class="p-5">
-                  <h4 class="font-heading text-lg font-black text-[var(--text)]">{project.title}</h4>
-                  <p class="mt-2 text-sm leading-6 text-[var(--text-dim)]">{project.description}</p>
-                  <span class="mt-4 inline-flex min-h-10 items-center gap-2 text-sm font-bold text-[#96588a]">Visit store <span aria-hidden="true">↗</span></span>
+                <div class="pf-body">
+                  <h3 class="pf-title">{project.title}</h3>
+                  <p class="pf-desc">{project.description}</p>
+                  <span class="mt-2 inline-flex items-center gap-2 text-sm font-bold text-[#96588a]">Visit store <span aria-hidden="true">↗</span></span>
                 </div>
               </a>
             </article>
           ))}
         </div>
-
-        <div class="mt-8 flex flex-col items-start justify-between gap-4 rounded-2xl border border-[var(--ac-pink)]/25 bg-[var(--ac-pink)]/5 p-5 sm:flex-row sm:items-center sm:p-6">
-          <div>
-            <p class="font-heading text-lg font-bold text-[var(--text)]">Planning a new online store or replacing one that holds you back?</p>
-            <p class="mt-1 text-sm text-[var(--text-dim)]">We will help you choose the platform that fits your products, team and growth plans.</p>
-          </div>
-          <a href="/services/ecommerce/" class="inline-flex shrink-0 items-center gap-2 rounded-full bg-[var(--ac-pink)] px-5 py-2.5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:brightness-110">Explore eCommerce services <span aria-hidden="true">→</span></a>
-        </div>
       </div>
     </section>
 
-    <section id="launching-soon" class="scroll-mt-28 bg-[var(--bg)] py-16 sm:py-20" aria-labelledby="soon-title">
+    <section id="launching-soon" class="pf-section" aria-labelledby="soon-title">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="mb-9 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div class="max-w-3xl">
+        <header class="pf-head">
+          <div>
             <p class="section-kicker text-[var(--ac-amber)]">Currently in the launch studio</p>
             <h2 id="soon-title" class="section-title">Launching soon</h2>
-            <p class="section-intro">Websites in development, not completed launches. Working previews can change before release; projects without an approved public link are shown without a preview button.</p>
+            <p class="section-intro">Websites in development, not completed launches. Previews can change before release; projects without an approved public link have no preview button.</p>
           </div>
-          <span class="inline-flex self-start items-center gap-2 rounded-full border border-amber-500/25 bg-amber-500/10 px-4 py-2 text-xs font-bold text-amber-700 dark:text-amber-300">
-            <span class="h-2 w-2 animate-pulse rounded-full bg-amber-500"></span>
-            {launchingSoon.length} projects in progress
-          </span>
-        </div>
-
-        <ol class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <p class="pf-count">{launchingSoon.length} projects in progress</p>
+        </header>
+        <ol class="pf-grid" role="list">
           {launchingSoon.map((project, index) => (
-            <li class:list={['soon-card group', index === 0 && 'lg:col-span-2']}>
-              <div class:list={['grid h-full', index === 0 && 'sm:grid-cols-[1.15fr_0.85fr]']}>
-                <div class="relative min-h-[220px] overflow-hidden">
-                  {project.image ? <Image
-                    src={getProjectImage(project.image)}
-                    alt={isLogo(project) ? `${project.title} logo` : `Preview of the upcoming ${project.title} website`}
-                    widths={[480, 720, 960, 1280]}
-                    sizes={index === 0 ? '(max-width: 1023px) 100vw, 42vw' : '(max-width: 1023px) 50vw, 33vw'}
-                    format="avif"
-                    loading="lazy"
-                    decoding="async"
-                    class:list={['absolute inset-0 h-full w-full transition duration-500 group-hover:scale-[1.035]', isLogo(project) ? 'object-contain bg-white p-8' : 'object-cover object-top']}
-                  /> : <div class="absolute inset-0 flex flex-col justify-center bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-800 p-7 text-white">
-                    <span class="text-[10px] font-bold uppercase tracking-[.22em] text-cyan-200">eLan Technology · In development</span>
-                    <span class="mt-4 font-heading text-3xl font-bold leading-tight">{project.title}</span>
-                    <span class="mt-3 text-xs text-slate-200">Project preview artwork to follow</span>
-                  </div>}
-                  <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent"></div>
-                  <span class="absolute left-4 top-4 rounded-full border border-white/30 bg-slate-950/65 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur">Preview {String(index + 1).padStart(2, '0')}</span>
-                </div>
-                <div class="flex flex-col bg-[var(--bg-card)] p-5 sm:p-6">
-                  <p class="text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--ac-amber)]">{project.label}</p>
-                  <h3 class="mt-2 font-heading text-xl font-black text-[var(--text)]">{project.title}</h3>
-                  <p class="mt-2 flex-1 text-sm leading-6 text-[var(--text-dim)]">{project.description}</p>
-                  {project.note && <p class="mt-3 text-xs font-bold text-[var(--ac-amber)]">{project.note}</p>}
-                  {project.launchUrl && (
-                    <a href={project.launchUrl} target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex min-h-11 items-center gap-2 text-xs font-semibold text-[var(--text)] hover:underline">{project.title === 'Healthy Genie' ? 'Visit current website' : 'Production destination'}: {destinationLabel(project.launchUrl)} ↗</a>
-                  )}
-                  {project.liveUrl ? <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="mt-3 inline-flex min-h-11 items-center gap-2 self-start text-sm font-bold text-[var(--ac-amber)] hover:underline" aria-label={`Preview ${project.title}, opens in a new tab`}>
-                    View preview <span aria-hidden="true">↗</span>
-                  </a> : <p class="mt-3 inline-flex min-h-11 items-center text-sm font-semibold text-[var(--text-muted)]">Preview link coming soon</p>}
-                </div>
+            <li class="soon-card tilt-card group" style="--card-color: var(--ac-amber);">
+              <div class="relative aspect-[16/10] overflow-hidden">
+                {project.image ? <Image
+                  src={getProjectImage(project.image)}
+                  alt={isLogo(project) ? `${project.title} logo` : `Preview of the upcoming ${project.title} website`}
+                  widths={[360, 540, 720]}
+                  sizes="(max-width: 639px) 50vw, (max-width: 1023px) 33vw, 25vw"
+                  format="avif"
+                  loading="lazy"
+                  decoding="async"
+                  class:list={['absolute inset-0 h-full w-full transition duration-500 group-hover:scale-[1.035]', isLogo(project) ? 'object-contain bg-white p-6' : 'object-cover object-top']}
+                /> : <div class="absolute inset-0 flex flex-col justify-center bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-800 p-4 text-white">
+                  <span class="text-[9px] font-bold uppercase tracking-[.2em] text-cyan-200">In development</span>
+                  <span class="mt-2 font-heading text-lg font-bold leading-tight">{project.title}</span>
+                </div>}
+                <span class="absolute left-2 top-2 rounded-md bg-slate-950/70 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">Preview {String(index + 1).padStart(2, '0')}</span>
+              </div>
+              <div class="pf-body">
+                <p class="pf-label text-[var(--ac-amber)]">{project.label}</p>
+                <h3 class="pf-title">{project.title}</h3>
+                <p class="pf-desc">{project.description}</p>
+                {project.note && <p class="mt-2 text-xs font-bold text-[var(--ac-amber)]">{project.note}</p>}
+                {project.launchUrl && (
+                  <a href={project.launchUrl} target="_blank" rel="noopener noreferrer" class="mt-2 block break-words text-xs font-semibold text-[var(--text)] hover:underline">{project.title === 'Healthy Genie' ? 'Visit current website' : 'Production destination'}: {destinationLabel(project.launchUrl)} ↗</a>
+                )}
+                {project.liveUrl ? <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="mt-2 inline-flex min-h-10 items-center gap-2 text-sm font-bold text-[var(--ac-amber)] hover:underline" aria-label={`Preview ${project.title}, opens in a new tab`}>
+                  View preview <span aria-hidden="true">↗</span>
+                </a> : <p class="mt-2 inline-flex min-h-10 items-center text-sm font-semibold text-[var(--text-muted)]">Preview link coming soon</p>}
               </div>
             </li>
           ))}
@@ -422,39 +330,39 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
       </div>
     </section>
 
-    <section id="selected-work" class="scroll-mt-28 border-y border-[var(--border)] bg-[var(--bg-card)] py-16 sm:py-20" aria-labelledby="selected-title">
+    <section id="selected-work" class="pf-section border-y border-[var(--border)] bg-[var(--bg-card)]" aria-labelledby="selected-title">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="mb-9 max-w-3xl">
-          <p class="section-kicker text-[var(--ac-indigo)]">International and selected work</p>
-          <h2 id="selected-title" class="section-title">Websites built across borders and industries</h2>
-          <p class="section-intro">Real work for businesses in the USA, Canada and Australia, followed by more relationships we value across legal education, healthcare, consulting, architecture and digital platforms. Our New Zealand work is featured above with Stems Flower Studio.</p>
-        </div>
-
-        <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" role="list">
+        <header class="pf-head">
+          <div>
+            <p class="section-kicker text-[var(--ac-indigo)]">International and selected work</p>
+            <h2 id="selected-title" class="section-title">Websites built across borders and industries</h2>
+            <p class="section-intro">Work for businesses in the USA, Canada and Australia, then more relationships across legal education, healthcare, consulting, architecture and digital platforms. Our New Zealand work is featured above with Stems Flower Studio.</p>
+          </div>
+        </header>
+        <ul class="pf-grid" role="list">
           {broaderSelectedProjects.map(project => (
             <li>
-              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="selected-card group" aria-label={`Visit ${project.title}, opens in a new tab`}>
-                <div class="relative aspect-[4/3] overflow-hidden bg-white">
+              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="selected-card tilt-card tilt-card--bg group" style="--card-color: var(--ac-indigo);" aria-label={`Visit ${project.title}, opens in a new tab`}>
+                <div class="relative aspect-[16/10] overflow-hidden bg-white">
                   <Image
                     src={getProjectImage(project.image)}
                     alt={`${project.title} project`}
                     widths={[320, 480, 640]}
-                    sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 20vw"
+                    sizes="(max-width: 639px) 50vw, (max-width: 1023px) 33vw, 25vw"
                     format={getProjectImage(project.image).format === 'svg' ? undefined : 'avif'}
                     loading="lazy"
                     decoding="async"
-                    class:list={['h-full w-full transition duration-500 group-hover:scale-[1.04]', isLogo(project) ? 'object-contain p-8' : 'object-cover']}
+                    class:list={['h-full w-full transition duration-500 group-hover:scale-[1.04]', isLogo(project) ? 'object-contain p-6' : 'object-cover']}
                   />
                 </div>
-                <div class="p-4">
+                <div class="pf-body">
                   <div class="flex flex-wrap items-center gap-2">
-                    <p class="text-[10px] font-bold uppercase tracking-wider text-[var(--ac-indigo)]">{project.label}</p>
-                    {project.country && <span class="rounded-full bg-[var(--ac-indigo)]/10 px-2 py-0.5 text-[9px] font-black uppercase tracking-wider text-[var(--ac-indigo)]">{project.country}</span>}
+                    <p class="pf-label text-[var(--ac-indigo)]">{project.label}</p>
+                    {project.country && <span class="rounded bg-[var(--ac-indigo)]/10 px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-[var(--ac-indigo)]">{project.country}</span>}
                   </div>
-                  <h3 class="mt-1 font-heading text-base font-bold leading-snug text-[var(--text)]">{project.title}</h3>
-                  <p class="mt-2 text-xs leading-5 text-[var(--text-dim)]">{project.description}</p>
-                  {project.location && <p class="mt-2 text-[10px] font-semibold text-[var(--text-muted)]">{project.location}</p>}
-                  <span class="mt-3 inline-flex items-center gap-1 text-xs font-bold text-[var(--text-muted)] group-hover:text-[var(--ac-indigo)]">View website <span aria-hidden="true">↗</span></span>
+                  <h3 class="pf-title">{project.title}</h3>
+                  <p class="pf-desc">{project.description}</p>
+                  {project.location && <p class="mt-1 text-[10px] font-semibold text-[var(--text-muted)]">{project.location}</p>}
                 </div>
               </a>
             </li>
@@ -463,86 +371,70 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
       </div>
     </section>
 
-    <section id="project-archive" class="scroll-mt-28 bg-[var(--bg)] py-16 sm:py-20" aria-labelledby="archive-title">
+    <section id="project-archive" class="pf-section" aria-labelledby="archive-title">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="mb-9 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div class="max-w-3xl">
+        <header class="pf-head">
+          <div>
             <p class="section-kicker text-[var(--ac-violet)]">The wider portfolio</p>
             <h2 id="archive-title" class="section-title">Earlier projects and long-term client work</h2>
-            <p class="section-intro">The new launches lead the page, but they do not replace the work that came before them. Browse the earlier websites, portals and digital experiences here.</p>
           </div>
-          <span class="self-start rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-4 py-2 text-xs font-bold text-[var(--text-muted)]">{archiveProjects.length} additional projects</span>
-        </div>
-
-        <ul class="archive-grid grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" role="list">
-          {archiveProjects.map(project => (
-            <li>
-              <article class="archive-card group h-full overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]">
-                <a href={project.liveUrl || '/portfolio/'} target={project.liveUrl ? '_blank' : undefined} rel={project.liveUrl ? 'noopener noreferrer' : undefined} class="block" aria-label={project.liveUrl ? `Visit ${project.title}, opens in a new tab` : `View ${project.title} in the portfolio`}>
-                  <div class="relative aspect-[16/9] overflow-hidden bg-white">
-                    <Image
-                      src={getProjectImage(project.image)}
-                      alt={`${project.title} project preview`}
-                      widths={[360, 540, 720]}
-                      sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 25vw"
-                      format={getProjectImage(project.image).format === 'svg' ? undefined : 'avif'}
-                      loading="lazy"
-                      decoding="async"
-                      class:list={['h-full w-full transition duration-500 group-hover:scale-[1.035]', project.image.includes('/elan-client-logos/') ? 'object-contain p-7' : 'object-cover']}
-                    />
-                    <span class="absolute left-3 top-3 rounded-full px-2.5 py-1 text-[9px] font-black uppercase tracking-wider text-white" style={`background:${project.accent}`}>{project.category}</span>
-                  </div>
-                  <div class="p-4">
-                    <p class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)]">{project.industry}</p>
-                    <h3 class="mt-1 font-heading text-base font-black leading-snug text-[var(--text)]">{project.title}</h3>
-                    <p class="mt-2 line-clamp-2 text-xs leading-5 text-[var(--text-dim)]">{project.description}</p>
-                    {confirmedTech(project).length > 0 && (
-                      <p class="mt-2 text-[11px] font-semibold leading-4 text-[var(--text-muted)]">Built with {confirmedTech(project).join(', ')}</p>
-                    )}
-                    <div class="mt-3 flex items-center justify-between gap-3 border-t border-[var(--border)] pt-3">
-                      <span class="text-xs font-bold" style={`color:${project.accent}`}>{project.liveUrl ? 'Visit website' : 'Portfolio project'}</span>
-                      {project.liveUrl && <span class="text-xs text-[var(--text-muted)]" aria-hidden="true">Opens ↗</span>}
-                    </div>
-                  </div>
-                </a>
-              </article>
-            </li>
-          ))}
+          <p class="pf-count">{archiveProjects.length} additional projects</p>
+        </header>
+        <ul class="pf-grid" role="list">
+          {archiveFirst.map(project => <ArchiveCard project={project} />)}
         </ul>
-      </div>
-    </section>
+        {archiveMore.length > 0 && (
+          <details class="more mt-4">
+            <summary class="inline-flex min-h-11 cursor-pointer list-none items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] hover:border-[var(--accent)]">
+              <span class="when-closed">Show all {archiveProjects.length} earlier projects</span><span class="when-open">Show fewer projects</span>
+              <svg class="chev" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <ul class="pf-grid mt-4" role="list">
+              {archiveMore.map(project => <ArchiveCard project={project} />)}
+            </ul>
+          </details>
+        )}
 
-    <section id="long-running-work" class="scroll-mt-28 bg-[var(--bg)] py-16 sm:py-20" aria-labelledby="legacy-title">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <article class="legacy-card relative overflow-hidden rounded-lg border border-[var(--border)] bg-slate-950 text-white">
-          <div class="absolute inset-0 opacity-15 [background-image:linear-gradient(rgba(103,232,249,0.5)_1px,transparent_1px),linear-gradient(90deg,rgba(103,232,249,0.5)_1px,transparent_1px)] [background-size:44px_44px]" aria-hidden="true"></div>
-          <div class="absolute -right-32 -top-40 h-96 w-96 rounded-full bg-cyan-400/20 blur-[100px]" aria-hidden="true"></div>
-          <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-950/70"></div>
-          <div class="relative grid gap-8 p-7 sm:p-10 lg:grid-cols-[1fr_auto] lg:items-end lg:p-14">
-            <div class="max-w-3xl">
-              <p class="section-kicker text-cyan-300">Built to remain useful</p>
-              <h2 id="legacy-title" class="mt-3 font-heading text-3xl font-black sm:text-4xl">{legacyProject.title}</h2>
-              <p class="mt-4 text-base leading-7 text-slate-300 sm:text-lg">{legacyProject.description}</p>
-              <div class="mt-5 flex flex-wrap gap-2">
-                {legacyProject.stack?.map(item => <span class="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold text-slate-200">{item}</span>)}
-              </div>
+        <article id="long-running-work" class="mt-10 scroll-mt-28 flex flex-col gap-4 rounded-xl border border-[var(--border)] bg-slate-950 p-6 text-white sm:p-8 lg:flex-row lg:items-center lg:justify-between" aria-labelledby="legacy-title">
+          <div class="max-w-3xl">
+            <p class="section-kicker text-cyan-300">Built to remain useful</p>
+            <h2 id="legacy-title" class="mt-2 font-heading text-2xl font-black sm:text-3xl">{legacyProject.title}</h2>
+            <p class="mt-2 text-sm leading-6 text-slate-300 sm:text-base">{legacyProject.description}</p>
+            <div class="mt-3 flex flex-wrap gap-2">
+              {legacyProject.stack?.map(item => <span class="rounded-md border border-white/20 bg-white/10 px-2.5 py-1 text-xs font-semibold text-slate-200">{item}</span>)}
             </div>
-            <a href={legacyProject.liveUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 rounded-full bg-cyan-300 px-6 py-3 text-sm font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-white" aria-label={`Visit ${legacyProject.title}, opens in a new tab`}>
-              Visit long-running project <span aria-hidden="true">↗</span>
-            </a>
           </div>
+          <a href={legacyProject.liveUrl} target="_blank" rel="noopener noreferrer" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-cyan-300 px-5 py-2.5 text-sm font-bold text-slate-950 transition hover:bg-white" aria-label={`Visit ${legacyProject.title}, opens in a new tab`}>
+            Visit long-running project <span aria-hidden="true">↗</span>
+          </a>
         </article>
+
+        <details id="portfolio-publication-note" class="note mt-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4">
+            <span id="portfolio-publication-title" class="font-semibold text-[var(--text)]">Portfolio publication: project context without unnecessary personal data</span>
+            <svg class="chev shrink-0 text-[var(--text-muted)]" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="grid gap-3 border-t border-[var(--border)] px-5 py-5 text-sm leading-relaxed text-[var(--text-dim)] sm:grid-cols-2">
+            <p><strong class="text-[var(--text)]">What is shown:</strong> project or business names, brand marks, website previews, public destinations and concise descriptions needed to identify the work.</p>
+            <p><strong class="text-[var(--text)]">Visual accuracy:</strong> screenshots represent a captured version of a project. Content, ownership, technology and availability may change after launch or handover.</p>
+            <p><strong class="text-[var(--text)]">External websites:</strong> live-site and preview links open only when selected. The destination may then receive ordinary connection, browser and device information under its own privacy practices.</p>
+            <p><strong class="text-[var(--text)]">Brand ownership:</strong> client names, logos and trademarks remain the property of their respective owners and are presented only to identify project work.</p>
+            <p class="sm:col-span-2">Represent a featured project and need its name, description, image, link or attribution corrected or removed? <a href="mailto:privacy@elan-tech.net?subject=Portfolio%20correction%20or%20removal%20request" class="font-semibold text-[var(--accent)] underline underline-offset-4">Write to privacy@elan-tech.net</a></p>
+          </div>
+        </details>
       </div>
     </section>
 
-    <section class="border-t border-[var(--border)] bg-[var(--bg-card)] py-16 sm:py-20" aria-labelledby="portfolio-cta-title">
-      <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-        <p class="section-kicker text-[var(--accent)]">Your project can be next</p>
-        <h2 id="portfolio-cta-title" class="mt-3 font-heading text-3xl font-black text-[var(--text)] sm:text-4xl">Let’s create something people enjoy using.</h2>
-        <p class="mx-auto mt-4 max-w-2xl text-base leading-7 text-[var(--text-dim)]">Tell us what you want to launch, improve or sell online. We will recommend a practical way forward in plain language.</p>
-        <div class="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
-          <a href="/get-quote/" class="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--accent)] px-7 py-3 text-sm font-bold text-white shadow-lg shadow-[var(--accent)]/20 transition hover:-translate-y-0.5 hover:brightness-110">Request a quote <span aria-hidden="true">→</span></a>
-          <a href="/schedule-consultation/" class="inline-flex items-center justify-center rounded-full border border-[var(--border)] bg-[var(--bg)] px-7 py-3 text-sm font-bold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">Schedule a consultation</a>
+    <section class="border-t border-[var(--border)] bg-[var(--bg-card)] py-12" aria-labelledby="portfolio-cta-title">
+      <div class="mx-auto flex max-w-7xl flex-col gap-5 px-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+        <div>
+          <p class="section-kicker text-[var(--accent)]">Your project can be next</p>
+          <h2 id="portfolio-cta-title" class="mt-2 font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">Let’s create something people enjoy using.</h2>
+          <p class="mt-2 max-w-xl text-[var(--text-dim)]">Tell us what you want to launch, improve or sell online. We will recommend a practical way forward in plain language.</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a href="/get-quote/" class="inline-flex min-h-11 items-center rounded-lg bg-[var(--accent)] px-5 py-2.5 font-semibold text-white transition hover:brightness-110">Request a quote</a>
+          <a href="/schedule-consultation/" class="inline-flex min-h-11 items-center rounded-lg border border-[var(--border)] bg-[var(--bg)] px-5 py-2.5 font-semibold text-[var(--text)] transition hover:border-[var(--accent)]">Schedule a consultation</a>
         </div>
       </div>
     </section>
@@ -550,271 +442,66 @@ const archiveProjects = projects.filter(project => !project.liveUrl || !showcase
 </BaseLayout>
 
 <style>
-  .portfolio-grid {
-    position: absolute;
-    inset: 0;
-    opacity: 0.045;
-    background-image:
-      linear-gradient(var(--text) 1px, transparent 1px),
-      linear-gradient(90deg, var(--text) 1px, transparent 1px);
-    background-size: 48px 48px;
-    mask-image: linear-gradient(to bottom, black, transparent 90%);
-  }
+  .portfolio-nav a { flex: 0 0 auto; border: 1px solid var(--border); border-radius: var(--radius-md); padding: .45rem .85rem; background: var(--bg-card); color: var(--text-dim); font-size: .75rem; font-weight: 700; white-space: nowrap; transition: border-color 180ms ease, color 180ms ease; }
+  .portfolio-nav > div { scrollbar-width: none; }
+  .portfolio-nav > div::-webkit-scrollbar { display: none; }
+  .portfolio-nav a:hover, .portfolio-nav a:focus-visible { border-color: var(--accent); color: var(--accent); }
 
-  .portfolio-glow {
-    position: absolute;
-    width: 34rem;
-    height: 34rem;
-    border-radius: 999px;
-    filter: blur(120px);
-    opacity: 0.16;
-    pointer-events: none;
-  }
+  .pf-section { scroll-margin-top: 7rem; padding: 3rem 0; }
+  .pf-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: .75rem 1.5rem; margin-bottom: 1.5rem; }
+  .pf-count { display: inline-flex; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--bg-card); padding: .4rem .8rem; font-size: .75rem; font-weight: 600; color: var(--text-muted); }
+  .section-kicker { font-size: .7rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
+  .section-title { margin-top: .4rem; font-family: var(--font-heading); font-size: clamp(1.6rem, 3vw, 2.25rem); font-weight: 800; line-height: 1.1; letter-spacing: -.02em; color: var(--text); }
+  .section-intro { max-width: 46rem; margin-top: .5rem; color: var(--text-dim); font-size: .95rem; line-height: 1.6; }
 
-  .portfolio-glow-one { top: -18rem; left: -12rem; background: var(--ac-teal); }
-  .portfolio-glow-two { right: -14rem; bottom: -20rem; background: var(--ac-pink); }
+  .pf-grid { display: grid; gap: 1rem; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .pf-grid > .is-wide { grid-column: span 2; }
+  .is-wide > a { display: grid; grid-template-columns: 1.1fr 1fr; }
+  .is-wide > a > div:first-child { aspect-ratio: auto; height: 100%; min-height: 11rem; }
+  .pf-body { padding: .9rem 1rem 1rem; }
+  .pf-label { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; }
+  .pf-title { margin-top: .3rem; font-family: var(--font-heading); font-size: 1rem; font-weight: 800; line-height: 1.3; color: var(--text); }
+  .is-wide .pf-title { font-size: 1.35rem; }
+  .pf-desc { margin-top: .35rem; font-size: .8rem; line-height: 1.5; color: var(--text-dim); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .is-wide .pf-desc { -webkit-line-clamp: 5; font-size: .875rem; }
+  .pf-pills { margin-top: .6rem; display: flex; flex-wrap: wrap; gap: .3rem; }
 
-  .portfolio-publication {
-    background:
-      radial-gradient(circle at 92% 5%, color-mix(in srgb, var(--ac-indigo) 9%, transparent), transparent 34%),
-      linear-gradient(125deg, color-mix(in srgb, var(--ac-teal) 5%, var(--bg-card)), var(--bg-card) 52%);
-  }
+  .visual-card:hover, .commerce-feature:hover, .woo-project:hover, .soon-card:hover, .selected-card:hover, .archive-card:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent) 48%, var(--border)); box-shadow: 0 14px 36px color-mix(in srgb, var(--text) 10%, transparent); }
+  .selected-card { display: block; height: 100%; }
 
-  .portfolio-nav a {
-    flex: 0 0 auto;
-    border: 1px solid var(--border);
-    border-radius: .375rem;
-    padding: 0.5rem 0.9rem;
-    background: var(--bg-card);
-    color: var(--text-dim);
-    font-size: 0.75rem;
-    font-weight: 700;
-    white-space: nowrap;
-    transition: border-color 180ms ease, color 180ms ease, transform 180ms ease;
-  }
-
-  .portfolio-nav > div {
-    scrollbar-width: none;
-  }
-
-  .portfolio-nav > div::-webkit-scrollbar {
-    display: none;
-  }
-
-  .portfolio-nav a:hover,
-  .portfolio-nav a:focus-visible {
-    border-color: var(--accent);
-    color: var(--accent);
-    transform: translateY(-1px);
-  }
-
-  .section-kicker {
-    font-size: 0.7rem;
-    font-weight: 800;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-  }
-
-  .section-title {
-    margin-top: 0.65rem;
-    font-family: var(--font-heading);
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 900;
-    line-height: 1.08;
-    letter-spacing: -0.035em;
-    color: var(--text);
-  }
-
-  .section-intro {
-    max-width: 46rem;
-    margin-top: 0.8rem;
-    color: var(--text-dim);
-    font-size: 1rem;
-    line-height: 1.7;
-  }
-
-  .visual-card,
-  .commerce-feature,
-  .woo-project,
-  .soon-card,
-  .selected-card,
-  .archive-card {
-    overflow: hidden;
-    border: 1px solid var(--border);
-    border-radius: .5rem;
-    background: var(--bg-card);
-    box-shadow: 0 12px 36px color-mix(in srgb, var(--text) 7%, transparent);
-    transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
-  }
-
-  .visual-card:hover,
-  .commerce-feature:hover,
-  .woo-project:hover,
-  .soon-card:hover,
-  .selected-card:hover,
-  .archive-card:hover {
-    transform: translateY(-4px);
-    border-color: color-mix(in srgb, var(--accent) 48%, var(--border));
-    box-shadow: 0 18px 48px color-mix(in srgb, var(--text) 12%, transparent);
-  }
-
-  .commerce-feature { background: var(--bg); }
-  .soon-card { min-height: 100%; }
-  .selected-card { display: block; height: 100%; border-radius: .5rem; }
-
-  .platform-card {
-    position: relative;
-    display: grid;
-    min-height: 11rem;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    border-radius: .5rem;
-    padding: 1.25rem;
-    color: white;
-    isolation: isolate;
-    transition: transform 200ms ease, box-shadow 200ms ease;
-  }
-
-  .platform-card::after {
-    content: '';
-    position: absolute;
-    width: 8.5rem;
-    height: 4.5rem;
-    right: -1.4rem;
-    bottom: -1.35rem;
-    border: 1px solid rgba(255, 255, 255, 0.28);
-    border-radius: .5rem;
-    background: rgba(255, 255, 255, 0.1);
-    transform: rotate(-4deg);
-    z-index: -1;
-  }
-
-  .platform-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.2);
-  }
-
+  .platform-card { position: relative; display: grid; gap: .25rem; overflow: hidden; border-radius: var(--radius-xl); padding: 1rem 1.1rem; color: white; isolation: isolate; transition: transform 200ms ease; }
+  .platform-card::after { content: ''; position: absolute; width: 7rem; height: 4rem; right: -1.4rem; bottom: -1.35rem; border: 1px solid rgba(255,255,255,.28); border-radius: var(--radius-lg); background: rgba(255,255,255,.1); transform: rotate(-12deg); z-index: -1; }
+  .platform-card:hover { transform: translateY(-2px); }
   .platform-shopify { background: linear-gradient(135deg, #006e52, #008060); }
   .platform-medusa { background: linear-gradient(135deg, #172554, #4338ca); }
   .platform-woo { background: linear-gradient(135deg, #573f8c, #96588a); }
+  .platform-name { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 900; line-height: 1.1; }
+  .platform-detail { font-size: .8rem; color: rgba(255,255,255,.85); }
+  .platform-proof { margin-top: .35rem; font-size: .66rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  .commerce-tech-eyebrow { font-size: .62rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; color: var(--text-muted); }
+  .commerce-tech-name { margin-left: .25rem; letter-spacing: .05em; color: var(--text); }
 
-  .platform-index {
-    justify-self: end;
-    font-family: var(--font-heading);
-    font-size: 0.7rem;
-    font-weight: 900;
-    opacity: 0.65;
+  .project-pill { display: inline-flex; border: 1px solid var(--border); border-radius: var(--radius-md); background: color-mix(in srgb, var(--bg-card) 78%, transparent); padding: .2rem .5rem; color: var(--text-muted); font-size: .62rem; font-weight: 700; }
+
+  .more summary::-webkit-details-marker, .note summary::-webkit-details-marker { display: none; }
+  .more .when-open { display: none; }
+  .more[open] .when-open { display: inline; }
+  .more[open] .when-closed { display: none; }
+  .chev { transition: transform .2s; }
+  .more[open] .chev, .note[open] .chev { transform: rotate(180deg); }
+
+  @media (max-width: 1023px) { .pf-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 639px) {
+    .pf-section { padding: 2.25rem 0; }
+    .pf-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; }
+    .is-wide > a { display: block; }
+    .is-wide > a > div:first-child { aspect-ratio: 16 / 10; height: auto; min-height: 0; }
+    .pf-body { padding: .6rem .7rem .75rem; }
+    .pf-title { font-size: .875rem; }
+    .pf-grid > :not(.is-wide) .pf-desc, .pf-grid > :not(.is-wide) .pf-pills { display: none; }
+    .soon-card .pf-body > a:first-of-type { font-size: .7rem; }
   }
-
-  .platform-name {
-    margin-top: 0.6rem;
-    font-family: var(--font-heading);
-    font-size: clamp(1.7rem, 3vw, 2.35rem);
-    font-weight: 900;
-    letter-spacing: -0.04em;
-    line-height: 1;
-  }
-
-  .platform-detail {
-    margin-top: 0.55rem;
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.82);
-  }
-
-  .platform-proof {
-    align-self: end;
-    margin-top: 1rem;
-    font-size: 0.68rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
-  .commerce-shopify { border-top: 4px solid #008060; }
-  .commerce-medusa { border-top: 4px solid #4338ca; }
-
-  .commerce-logo-panel::after {
-    content: '';
-    position: absolute;
-    inset: auto 1.25rem 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(15, 23, 42, 0.16), transparent);
-  }
-
-  .commerce-tech-lockup {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-  }
-
-  .commerce-tech-icon {
-    display: grid;
-    width: 2.5rem;
-    height: 2.5rem;
-    place-items: center;
-    border-radius: .5rem;
-    background: var(--text);
-    color: var(--bg);
-    font-family: var(--font-heading);
-    font-weight: 900;
-  }
-
-  .commerce-shopify .commerce-tech-icon { background: #008060; color: white; }
-  .commerce-medusa .commerce-tech-icon { background: #4338ca; color: white; }
-
-  .commerce-tech-eyebrow {
-    font-size: 0.6rem;
-    font-weight: 800;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
-
-  .commerce-tech-name {
-    font-family: var(--font-heading);
-    font-size: 1.35rem;
-    font-weight: 900;
-    line-height: 1.1;
-    color: var(--text);
-  }
-
-  .archive-card { box-shadow: none; }
-
-  @media (min-width: 640px) {
-    .commerce-logo-panel::after {
-      inset: 1.25rem 0;
-      width: 1px;
-      height: auto;
-      background: linear-gradient(180deg, transparent, rgba(15, 23, 42, 0.16), transparent);
-    }
-  }
-
-  .project-pill {
-    display: inline-flex;
-    border: 1px solid var(--border);
-    border-radius: .375rem;
-    background: color-mix(in srgb, var(--bg-card) 78%, transparent);
-    padding: 0.25rem 0.55rem;
-    color: var(--text-muted);
-    font-size: 0.65rem;
-    font-weight: 700;
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .hero-project img,
-    .visual-card,
-    .visual-card img,
-    .commerce-feature,
-    .commerce-feature img,
-    .woo-project,
-    .woo-project img,
-    .soon-card,
-    .soon-card img,
-    .selected-card,
-    .selected-card img,
-    .archive-card,
-    .archive-card img {
-      transition: none;
-    }
+    .hero-project img, .visual-card, .visual-card img, .commerce-feature, .woo-project, .woo-project img, .soon-card, .soon-card img, .selected-card, .selected-card img, .archive-card, .archive-card img { transition: none; }
   }
 </style>

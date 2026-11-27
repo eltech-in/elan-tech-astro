@@ -9,10 +9,41 @@ const isAccessibility = category === 'accessibility';
 const title = context === 'article'
   ? 'Reading this article does not submit personal information'
   : 'Read freely: there is no newsletter or hidden blog sign-up';
+// Index and category pages fold the note behind a summary line (owner, 27 Nov 2026: shorter pages).
+const folded = context !== 'article';
 ---
 
+{folded ? (
+  <section class="blog-privacy-notice mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8" aria-labelledby={`blog-privacy-${context}`}>
+    <details class="bpn rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+      <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4">
+        <h2 id={`blog-privacy-${context}`} class="font-heading text-base font-semibold text-[var(--text)]">{title}</h2>
+        <svg class="chev shrink-0 text-[var(--text-muted)]" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="border-t border-[var(--border)] p-5">
+    <div class="relative grid gap-6 lg:grid-cols-[1.2fr_1fr] lg:items-start">
+      <div>
+                        <p class="text-sm leading-relaxed text-[var(--text-dim)]">
+          Blog pages do not contain a newsletter form. Optional GA4 and Microsoft Clarity measurement remains off until allowed through the site’s privacy controls. Reading history is not used by eLan Technology to create a marketing subscription.
+        </p>
+      </div>
+      <ul class="grid gap-3 text-sm text-[var(--text-dim)]" role="list">
+        <li class="rounded-xl border border-[var(--border)] bg-[var(--bg)]/70 p-4"><strong class="text-[var(--text)]">External sharing:</strong> LinkedIn and X open only after you select them; those platforms then apply their own terms and may receive the article URL and connection data.</li>
+        <li class="rounded-xl border border-[var(--border)] bg-[var(--bg)]/70 p-4"><strong class="text-[var(--text)]">Enquiries:</strong> Audit, contact and consultation links open dedicated pages with their own purpose, provider and retention notices before submission.</li>
+        <li class="rounded-xl border border-[var(--border)] bg-[var(--bg)]/70 p-4"><strong class="text-[var(--text)]">Editorial limits:</strong> Content is general technical and business information, not a guarantee of rankings, revenue, legal compliance or a particular outcome.{isAccessibility ? ' Accessibility articles are not legal advice or regulatory certification.' : ''}</li>
+      </ul>
+    </div>
+    <div class="relative mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-[var(--border)] pt-4 text-xs text-[var(--text-muted)]">
+      <a href="/privacy-policy/" class="font-semibold text-[var(--accent)] hover:underline">Privacy policy</a>
+      <a href="/cookie-policy/" class="font-semibold text-[var(--accent)] hover:underline">Cookie policy</a>
+      <span>Corrections or privacy requests: <a href="mailto:privacy@elan-tech.net" class="font-semibold text-[var(--accent)] hover:underline">privacy@elan-tech.net</a></span>
+    </div>
+      </div>
+    </details>
+  </section>
+) : (
 <section class="blog-privacy-notice mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8" aria-labelledby={`blog-privacy-${context}`}>
-  <div class="relative overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8">
+  <div class="relative overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8">
     <span aria-hidden="true" class="absolute inset-x-0 top-0 h-1 bg-[var(--ac-teal)]"></span>
     <div class="relative grid gap-6 lg:grid-cols-[1.2fr_1fr] lg:items-start">
       <div>
@@ -23,9 +54,9 @@ const title = context === 'article'
         </p>
       </div>
       <ul class="grid gap-3 text-sm text-[var(--text-dim)]" role="list">
-        <li class="rounded-2xl border border-[var(--border)] bg-[var(--bg)]/70 p-4"><strong class="text-[var(--text)]">External sharing:</strong> LinkedIn and X open only after you select them; those platforms then apply their own terms and may receive the article URL and connection data.</li>
-        <li class="rounded-2xl border border-[var(--border)] bg-[var(--bg)]/70 p-4"><strong class="text-[var(--text)]">Enquiries:</strong> Audit, contact and consultation links open dedicated pages with their own purpose, provider and retention notices before submission.</li>
-        <li class="rounded-2xl border border-[var(--border)] bg-[var(--bg)]/70 p-4"><strong class="text-[var(--text)]">Editorial limits:</strong> Content is general technical and business information, not a guarantee of rankings, revenue, legal compliance or a particular outcome.{isAccessibility ? ' Accessibility articles are not legal advice or regulatory certification.' : ''}</li>
+        <li class="rounded-xl border border-[var(--border)] bg-[var(--bg)]/70 p-4"><strong class="text-[var(--text)]">External sharing:</strong> LinkedIn and X open only after you select them; those platforms then apply their own terms and may receive the article URL and connection data.</li>
+        <li class="rounded-xl border border-[var(--border)] bg-[var(--bg)]/70 p-4"><strong class="text-[var(--text)]">Enquiries:</strong> Audit, contact and consultation links open dedicated pages with their own purpose, provider and retention notices before submission.</li>
+        <li class="rounded-xl border border-[var(--border)] bg-[var(--bg)]/70 p-4"><strong class="text-[var(--text)]">Editorial limits:</strong> Content is general technical and business information, not a guarantee of rankings, revenue, legal compliance or a particular outcome.{isAccessibility ? ' Accessibility articles are not legal advice or regulatory certification.' : ''}</li>
       </ul>
     </div>
     <div class="relative mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-[var(--border)] pt-4 text-xs text-[var(--text-muted)]">
@@ -35,3 +66,10 @@ const title = context === 'article'
     </div>
   </div>
 </section>
+)}
+
+<style>
+  .bpn summary::-webkit-details-marker { display: none; }
+  .bpn .chev { transition: transform .2s; }
+  .bpn[open] .chev { transform: rotate(180deg); }
+</style>

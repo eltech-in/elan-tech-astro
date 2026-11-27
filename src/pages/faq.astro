@@ -24,6 +24,8 @@ const categoryLabels: Record<string, string> = {
 };
 
 const categories = [...new Set(faqs.map((f) => f.category))];
+const palette = ['--ac-teal', '--ac-amber', '--ac-indigo', '--ac-cyan', '--ac-pink', '--ac-emerald', '--ac-violet'];
+// Compact FAQ (owner, 27 Nov 2026): categories as two columns of collapsed questions.
 ---
 
 <BaseLayout
@@ -31,106 +33,61 @@ const categories = [...new Set(faqs.map((f) => f.category))];
   description="Answers to common questions about eLan Technology's web design, development, SEO, pricing, process, and services for businesses in Nagpur, Raipur, and across India."
   schema={schema}
 >
-
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       HERO
-  ════════════════════════════════════════════════════════════════════════ -->
-  <section aria-labelledby="faq-hero-heading" class="relative overflow-hidden bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-24 md:py-32">
-    <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
-      <div class="absolute -top-40 left-1/2 -translate-x-1/2 h-[500px] w-[500px] rounded-full bg-[var(--accent)]/6 blur-[120px]"></div>
-    </div>
-
-    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)]/60 px-4 py-2 text-sm text-[var(--text-muted)] backdrop-blur-sm">
-        <span class="h-2 w-2 rounded-full bg-[var(--accent)] animate-pulse" aria-hidden="true"></span>
-        {faqs.length} Questions Answered
-      </div>
-
-      <h1
-        id="faq-hero-heading"
-        class="font-heading text-4xl sm:text-5xl font-bold text-[var(--text)] mb-6"
-      >
-        Got Questions? We Have Answers.
-      </h1>
-      <p class="mx-auto max-w-2xl text-lg text-[var(--text-dim)] leading-relaxed">
-        Everything you need to know about working with eLan Technology - pricing, process, technology, and more.
-      </p>
+  <section class="bg-gradient-to-br from-[var(--bg)] to-[var(--bg-card)] py-12 md:py-14" aria-labelledby="faq-hero-heading">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">{faqs.length} Questions Answered</p>
+      <h1 id="faq-hero-heading" class="mt-3 font-heading text-4xl font-bold leading-tight text-[var(--text)] md:text-5xl">Got Questions? We Have Answers.</h1>
+      <p class="mt-4 max-w-2xl text-lg text-[var(--text-dim)]">Working with eLan Technology: pricing, process, technology and more.</p>
+      <nav class="mt-6" aria-label="FAQ categories">
+        <ul class="flex flex-wrap gap-2" role="list">
+          {categories.map((cat) => (
+            <li><a href={`#faq-${cat}`} class="inline-flex rounded-md border border-[var(--border)] bg-[var(--bg)] px-3.5 py-2 text-sm text-[var(--text-dim)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">{categoryLabels[cat] ?? cat}</a></li>
+          ))}
+        </ul>
+      </nav>
     </div>
   </section>
 
-
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       FAQ BY CATEGORY
-  ════════════════════════════════════════════════════════════════════════ -->
-  <section class="bg-[var(--bg)] py-16 md:py-20">
-    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-
-      {categories.map((cat) => {
+  <section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <div class="faq-grid">
+      {categories.map((cat, ci) => {
         const items = faqs.filter((f) => f.category === cat);
         return (
-          <div class="mb-14">
-            <h2 class="font-heading text-xl font-bold text-[var(--text)] mb-6 pb-3 border-b border-[var(--border)]">
-              <span class="text-[var(--accent)]">#</span> {categoryLabels[cat] ?? cat}
-            </h2>
+          <div id={`faq-${cat}`} class="tilt-card tilt-card--lg scroll-mt-28" style={`--card-color: var(${palette[ci % palette.length]});`}>
+            <h2 class="border-b border-[var(--border)] px-5 py-3 font-heading text-lg font-bold text-[var(--text)]">{categoryLabels[cat] ?? cat}</h2>
             <div class="divide-y divide-[var(--border)]">
               {items.map((item) => (
-                <details class="border-b border-[var(--border)] py-4 group">
-                  <summary class="faq-question cursor-pointer list-none flex items-center justify-between font-medium text-[var(--text)] py-1 hover:text-[var(--accent)] transition-colors">
+                <details class="group px-5">
+                  <summary class="faq-question flex cursor-pointer list-none items-center justify-between gap-4 py-3.5 text-[15px] font-medium text-[var(--text)] transition-colors hover:text-[var(--accent)]">
                     {item.question}
-                    <svg
-                      class="h-5 w-5 shrink-0 transition-transform duration-200 group-open:rotate-180 ml-4 text-[var(--text-muted)]"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"
-                    >
-                      <polyline points="6 9 12 15 18 9"/>
-                    </svg>
+                    <svg class="h-4 w-4 shrink-0 text-[var(--text-muted)] transition-transform duration-200 group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                   </summary>
-                  <div class="faq-answer pt-3 pb-1 text-[var(--text-dim)] text-sm leading-relaxed" set:html={item.answer} />
+                  <div class="faq-answer pb-4 text-sm leading-relaxed text-[var(--text-dim)]" set:html={item.answer} />
                 </details>
               ))}
             </div>
           </div>
         );
       })}
-
     </div>
   </section>
 
-
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       STILL HAVE QUESTIONS CTA
-  ════════════════════════════════════════════════════════════════════════ -->
-  <section aria-labelledby="faq-cta-heading" class="bg-[var(--bg-card)] py-16 md:py-20 border-t border-[var(--border)]">
-    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-      <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-8 text-center">
-        <h2 id="faq-cta-heading" class="font-heading text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
-          Still Have Questions?
-        </h2>
-        <p class="text-[var(--text-dim)] mb-8 leading-relaxed">
-          Our team is happy to answer anything not covered above. Reach out directly or book a consultation call.
-        </p>
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a
-            href="/contact/"
-            class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[var(--bg)] hover:opacity-90 transition-opacity"
-          >
-            Contact Us Directly
-          </a>
-          <a
-            href="/schedule-consultation/"
-            class="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-8 py-3 text-base font-semibold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
-          >
-            Schedule a Call
-          </a>
-        </div>
+  <section class="border-t border-[var(--border)] bg-[var(--bg-card)] py-10" aria-labelledby="faq-cta-heading">
+    <div class="mx-auto flex max-w-7xl flex-col gap-4 px-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+      <div>
+        <h2 id="faq-cta-heading" class="font-heading text-xl font-bold text-[var(--text)] sm:text-2xl">Still Have Questions?</h2>
+        <p class="mt-1 text-[var(--text-dim)]">We are happy to answer anything not covered above.</p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a href="/contact/" class="inline-flex min-h-11 items-center rounded-lg bg-[var(--accent)] px-5 py-2.5 font-semibold text-[var(--bg)] transition hover:opacity-90">Contact Us Directly</a>
+        <a href="/schedule-consultation/" class="inline-flex min-h-11 items-center rounded-lg border border-[var(--border)] bg-[var(--bg)] px-5 py-2.5 font-semibold text-[var(--text)] transition hover:border-[var(--accent)]">Schedule a Call</a>
       </div>
     </div>
   </section>
-
 </BaseLayout>
+
+<style>
+  .faq-grid { display: grid; gap: 1rem; align-items: start; }
+  @media (min-width: 1024px) { .faq-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .faq-question::-webkit-details-marker { display: none; }
+</style>

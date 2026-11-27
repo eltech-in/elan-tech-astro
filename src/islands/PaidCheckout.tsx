@@ -128,18 +128,18 @@ export default function PaidCheckout({ product, currency: pinned, needsUrl = fal
 
   if (unavailable) {
     return (
-      <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
+      <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
         <p className="font-semibold text-[var(--text)]">Online payment opens shortly.</p>
         <p className="mt-2 text-sm leading-6 text-[var(--text-dim)]">Message us and we will send a secure Razorpay payment link. Your booking is confirmed once payment is received.</p>
-        <a href={whatsapp} target="_blank" rel="noopener noreferrer" data-analytics-placement={`${product}-payment`} className="mt-4 inline-flex min-h-11 items-center rounded-xl bg-[var(--accent)] px-5 py-2.5 font-semibold text-[var(--bg)]">Get a payment link on WhatsApp<span className="sr-only"> (opens in a new tab)</span></a>
+        <a href={whatsapp} target="_blank" rel="noopener noreferrer" data-analytics-placement={`${product}-payment`} className="mt-4 inline-flex min-h-11 items-center rounded-lg bg-[var(--accent)] px-5 py-2.5 font-semibold text-[var(--bg)]">Get a payment link on WhatsApp<span className="sr-only"> (opens in a new tab)</span></a>
       </div>
     );
   }
 
-  const input = 'mt-1 w-full rounded-xl border border-[var(--border)] bg-[var(--bg)] px-3.5 py-2.5 text-[var(--text)] focus:border-[var(--accent)] focus:outline-none';
+  const input = 'mt-1 w-full rounded-lg border border-[var(--border)] bg-[var(--bg)] px-3.5 py-2.5 text-[var(--text)] focus:border-[var(--accent)] focus:outline-none';
   const label = 'block text-sm font-semibold text-[var(--text)]';
   return (
-    <form onSubmit={pay} className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-5 sm:p-7" data-paid-checkout={product} noValidate>
+    <form onSubmit={pay} className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5 sm:p-7" data-paid-checkout={product} noValidate>
       <div className="grid gap-4 sm:grid-cols-2">
         <label className={label}>Your name<input required autoComplete="name" className={input} value={form.name} onChange={set('name')} /></label>
         <label className={label}>Email<input required type="email" autoComplete="email" className={input} value={form.email} onChange={set('email')} /></label>
@@ -156,7 +156,7 @@ export default function PaidCheckout({ product, currency: pinned, needsUrl = fal
         <legend className="text-sm font-semibold text-[var(--text)]">Pay in</legend>
         <div className="mt-2 flex flex-wrap gap-2">
           {options.map((c) => (
-            <label key={c} className={`cursor-pointer rounded-full border px-4 py-2 text-sm font-semibold ${currency === c ? 'border-[var(--accent)] bg-[var(--accent)]/10 text-[var(--text)]' : 'border-[var(--border)] text-[var(--text-dim)]'}`}>
+            <label key={c} className={`cursor-pointer rounded-md border px-4 py-2 text-sm font-semibold ${currency === c ? 'border-[var(--accent)] bg-[var(--accent)]/10 text-[var(--text)]' : 'border-[var(--border)] text-[var(--text-dim)]'}`}>
               <input type="radio" name={`cur-${product}`} value={c} checked={currency === c} onChange={() => setCurrency(c)} className="sr-only" />
               {formatPrice(prices[c], c)} {c === 'INR' ? '· India' : c === 'USD' ? '· US dollars' : `· ${c}`}
             </label>
@@ -171,7 +171,7 @@ export default function PaidCheckout({ product, currency: pinned, needsUrl = fal
 
       {error && <p role="alert" className="mt-4 rounded-xl border border-red-500/40 bg-red-500/10 p-3 text-sm text-[var(--text)]">{error}</p>}
 
-      <button type="submit" disabled={busy || !ready} className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[var(--accent)] px-6 py-3 text-base font-bold text-[var(--bg)] transition hover:brightness-110 disabled:opacity-60 sm:w-auto">
+      <button type="submit" disabled={busy || !ready} className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg bg-[var(--accent)] px-6 py-3 text-base font-bold text-[var(--bg)] transition hover:brightness-110 disabled:opacity-60 sm:w-auto">
         {busy ? 'Opening secure payment…' : `${payLabel} · ${price}`}
       </button>
       <p className="mt-3 text-xs text-[var(--text-muted)]">Secure payment by Razorpay: {currency === 'INR' ? 'UPI, cards, netbanking and wallets' : 'international cards'}. Do not enter passwords or customer records here.</p>

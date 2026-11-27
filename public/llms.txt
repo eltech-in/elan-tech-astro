@@ -25,7 +25,7 @@ Do not substitute employee, developer, vendor or unrelated third-party phone num
 - Website design: https://elan-tech.net/services/website-design/
 - Web development: https://elan-tech.net/services/web-development/
 - Ecommerce development: https://elan-tech.net/services/ecommerce/
-- Custom Shopify development: https://elan-tech.net/services/ecommerce/shopify-development/
+- Custom Shopify development: https://elan-tech.net/services/ecommerce/#shopify
 - Medusa.js development: https://elan-tech.net/services/ecommerce/medusa-js-development/
 - Zoho Commerce implementation and customisation: https://elan-tech.net/services/ecommerce/#zoho-commerce
 - Accessibility and WCAG services: https://elan-tech.net/services/ada-compliant-web-design/

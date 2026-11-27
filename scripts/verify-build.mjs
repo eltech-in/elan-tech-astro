@@ -198,7 +198,8 @@ check('Homepage does not link de-indexed location pages', ['bhopal', 'mumbai', '
 // ── E. Header + Footer ────────────────────────────────────────────────────────
 
 section('E  Header + Footer  (Steps 7B/7C)');
-check('Primary pricing navigation remains', fileContains(HP, '/pricing/'));
+// 27 Nov 2026: /pricing/ stays reachable but is no longer in the header, mobile or footer menus.
+check('Pricing page is out of the menus but still reachable', fileExists('pricing/index.html') && fileNotContains(HP, '>Pricing</a>', '"label":"Pricing"', '&quot;label&quot;:[0,&quot;Pricing&quot;]'));
 check('No expired Launchpad footer price', fileNotContains(HP, 'Digital Launchpad: ₹32,000 + GST'));
 check('7C: Footer orange link colour',          fileContains(HP, 'F26722'));
 check('Search icon in header',                  fileContains(HP, '/search/'));
@@ -226,21 +227,25 @@ check('No FormSubmit route: forms post only to our server', fileNotContains(HT, 
 // Every image needs an alt attribute; a bare \`alt\` (Astro's output for alt="") marks a decorative image.
 check('Every image on every page has an alt attribute', generatedHtmlFiles(DIST).every((path) => [...readFileSync(path, 'utf8').matchAll(/<img\b[^>]*>/g)].every((m) => /\salt(=|[\s>\/])/.test(m[0]))));
 check('Web fonts have metric-matched fallbacks (no layout shift on font swap)', fileContains('index.html', 'DM Sans Fallback', 'Sora Fallback', 'size-adjust:104.53%', 'size-adjust:105.63%'));
+// 27 Nov 2026: corners use Tailwind's default scale (cards rounded-xl 12px, buttons rounded-lg 8px), not overrides.
+check('Corner radii use Tailwind defaults, not overridden values', fileContains('index.html', '--radius-lg:.5rem', '--radius-xl:.75rem') && fileNotContains('index.html', '--radius-card', 'a.rounded-full[class*="px-"]'));
 check('No em dashes on the website', generatedHtmlFiles(DIST).every((path) => !/—|&mdash;|&#8212;|&#x2014;|\s–\s/i.test(readFileSync(path, 'utf8'))));
 check('Lead and checkout forms load with the page, not on scroll', ['contact/index.html', 'request-demo/index.html', 'get-quote/index.html', 'website-audit/index.html', 'pricing/index.html', 'services/ada-compliant-web-design/emergency-remediation/index.html']
   .every((page) => { const html = readFileSync(join(DIST, page), 'utf8');
     return [...html.matchAll(/<astro-island[^>]*component-url="[^"]*(?:ContactForm|GetQuoteForm|RequestDemoForm|RushAssessmentForm|PaidCheckout)[^"]*"[^>]*>/g)].length > 0
       && [...html.matchAll(/<astro-island[^>]*component-url="[^"]*(?:ContactForm|GetQuoteForm|RequestDemoForm|RushAssessmentForm)[^"]*"[^>]*>/g)].every((m) => /client="load"/.test(m[0])); }));
 // Payment forms may load on scroll: their server-rendered pay button is disabled until the form is ready.
-check('Country pages show packages and the booking advance in their own currency', [
-  ['web-design-company-usa/index.html', 'US$590', 'US$1,190', 'US$99'],
-  ['web-design-company-canada/index.html', 'C$790', 'C$1,590', 'C$139'],
-  ['web-design-company-australia/index.html', 'A$890', 'A$1,790', 'A$149'],
-  ['web-design-company-new-zealand/index.html', 'NZ$990', 'NZ$1,990', 'NZ$169'],
-  ['web-design-company-japan/index.html', '¥89,000', '¥179,000', '¥14,900'],
-  ['web-design-company-dubai-uae/index.html', 'AED 2,190', 'AED 4,390', 'AED 369'],
-  ['web-design-company-european-union/index.html', '€549', '€1,099', '€89'],
-].every(([page, ...needles]) => fileContains(page, ...needles, 'id="book-online"', 'Pay booking advance')));
+// 27 Nov 2026: no package prices on country pages; audits and the booking advance in local currency.
+check('Country pages show audits and the booking advance in their own currency, no package prices', [
+  ['web-design-company-usa/index.html', 'US$19', 'US$99'],
+  ['web-design-company-canada/index.html', 'C$25', 'C$139'],
+  ['web-design-company-australia/index.html', 'A$29', 'A$149'],
+  ['web-design-company-new-zealand/index.html', 'NZ$29', 'NZ$169'],
+  ['web-design-company-japan/index.html', '¥2,900', '¥14,900'],
+  ['web-design-company-dubai-uae/index.html', 'AED 69', 'AED 369'],
+  ['web-design-company-european-union/index.html', '€19', '€89'],
+].every(([page, ...needles]) => fileContains(page, ...needles, 'id="book-online"', 'Pay booking advance', 'Every project is quoted to its scope')
+  && fileNotContains(page, 'US$590', 'C$790', 'A$890', 'NZ$990', '¥89,000', 'AED 2,190', '€549')));
 check('Every service page offers the booking advance', ['services/index.html', 'services/website-design/index.html', 'services/ecommerce/medusa-js-development/index.html', 'services/seo/index.html', 'services/ada-compliant-web-design/emergency-remediation/index.html'].every((page) => fileContains(page, 'id="book-online"', '&quot;product&quot;:[0,&quot;booking-advance&quot;]')));
 check('Pay buttons cannot submit before the payment form loads', ['pricing/index.html', 'services/website-design/index.html', 'web-design-company-canada/index.html'].every((page) => /<form[^>]*data-paid-checkout[\s\S]*?<button type="submit" disabled=""/.test(readFileSync(join(DIST, page), 'utf8'))));
 check('Lead endpoint requires a form token and runs spam checks', existsSync(join(DIST, 'api/form-guard.php')) && existsSync(join(DIST, 'api/form-token.php'))
@@ -625,7 +630,7 @@ check('Commerce platforms are prominent and linked', fileContains(
   '>Shopify</span>',
   '>Medusa.js</span>',
   '>WooCommerce</span>',
-  '/services/ecommerce/shopify-development/',
+  '/services/ecommerce/#shopify',
   '/services/ecommerce/medusa-js-development/',
 ));
 check('Upcoming work includes new previews and retains earlier projects', fileContains(
@@ -874,7 +879,7 @@ check('Canada page has relevant proof and qualified accessibility scope', fileCo
 check('Comparison has both project examples, operating costs and migration checkpoints', fileContains(
   'blog/ecommerce/shopify-vs-medusa-js-2026/index.html', 'Rangresha', 'Puritas',
   'like-for-like cost estimate', 'Cutover and rollback', 'comparison-table',
-  '/services/ecommerce/shopify-development/', '/services/ecommerce/medusa-js-development/',
+  '/services/ecommerce/#shopify', '/services/ecommerce/medusa-js-development/',
 ));
 check('Generated image recovery rules do not redirect probes to sales pages',
   fileContains('.htaccess', '# BEGIN LEGACY CLIENT ASSETS', '/_astro/') &&
@@ -943,6 +948,13 @@ check('Projects awaiting preview have no empty destination links', octoberUpcomi
 check('Phoenix Luminaries is the latest launch on the portfolio', fileContains('portfolio/index.html', 'Phoenix Luminaries', 'https://phoenixlightings.com/', 'Latest launch', 'Industrial Lighting Manufacturer'));
 check('Healthy Genie remains a launched production project, not upcoming', fileContains('portfolio/index.html', 'Medusa.js Meal Commerce', 'https://healthygenie.in/', 'Production launch') && !octoberUpcoming.includes('Healthy Genie') && fileNotContains('portfolio/index.html', 'healthygenie.elantech.cloud'));
 check('Phoenix Luminaries logo is in the homepage client carousel', fileContains('index.html', 'Phoenix Luminaries - eLan Technology client'));
+// 27 Nov 2026: one eCommerce page leads with Medusa.js and Shopify; the Shopify page redirects to its section,
+// the Medusa.js page stays for agency and implementation-partner searches.
+check('eCommerce page combines Shopify, Medusa.js, WooCommerce and Zoho; Shopify URL redirects', fileContains('services/ecommerce/index.html', 'id="shopify"', 'id="medusa"', 'id="woocommerce"', 'id="zoho-commerce"', '/services/ecommerce/medusa-js-development/')
+  && !fileExists('services/ecommerce/shopify-development/index.html')
+  && fileContains('.htaccess', 'RewriteRule ^services/ecommerce/shopify-development/?$ /services/ecommerce/#shopify [NE,L,R=301]'));
+check('Service pages target their Search Console queries', fileContains('services/ecommerce/medusa-js-development/index.html', 'Medusa.js Development Agency and Implementation Partner', 'implementation partner in the UK, Europe or the US', 'Medusa Cloud or self-hosting')
+  && fileContains('services/ada-compliant-web-design/index.html', 'Website Accessibility Remediation for ADA', 'What is website accessibility remediation?', 'WCAG remediation services for ecommerce'));
 check('Healthy Genie service proof reflects production status', fileContains('services/ecommerce/medusa-js-development/index.html', 'Medusa.js meal commerce', 'Launched', 'https://healthygenie.in/', 'Visit launched website') && fileNotContains('services/ecommerce/medusa-js-development/index.html', 'healthygenie.elantech.cloud'));
 section('W  Location-page index policy (src/data/indexPolicy.ts)');
 const indexedLocations = ['nagpur', 'pune', 'raipur', 'usa', 'canada', 'australia', 'japan', 'new-zealand', 'dubai-uae'];

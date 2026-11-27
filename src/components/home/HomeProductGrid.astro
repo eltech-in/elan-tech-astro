@@ -2,6 +2,9 @@
 // Homepage products: one small card per product (src/data/navigation.ts). Screens, features and
 // demos live on each product page.
 import { navProducts } from '../../data/navigation';
+import { products } from '../../data/products';
+
+const colorFor = (href: string) => products.find((p) => href.includes(`/products/${p.slug}/`))?.cssVar ?? '--ac-teal';
 ---
 <section aria-labelledby="products-heading" class="border-y border-[var(--border)] bg-[var(--bg-card)] py-12 md:py-16">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -19,12 +22,12 @@ import { navProducts } from '../../data/navigation';
         const digibiz = p.href === '/ventures/digibizid/';
         return (
           <li>
-            <a href={p.href} class="prod group flex h-full items-center gap-3 rounded-xl border border-[var(--border)] bg-[var(--bg)] px-3.5 py-3 transition hover:border-[var(--accent)]" aria-label={digibiz ? 'Discover DigiBizID: Digital Biz ID' : `${p.label}: view product`}>
+            <a href={p.href} class="prod tilt-card tilt-card--bg group flex h-full items-center gap-3 px-3.5 py-3" style={`--card-color: var(${colorFor(p.href)});`} aria-label={digibiz ? 'Discover DigiBizID: Digital Biz ID' : `${p.label}: view product`}>
               <span class="min-w-0 flex-1">
                 <span class="block truncate font-heading text-sm font-bold text-[var(--text)] sm:text-[15px]">{p.label}</span>
                 <span class="mt-0.5 hidden truncate text-xs text-[var(--text-dim)] sm:block">{p.blurb}</span>
               </span>
-              <span class="shrink-0 text-[var(--accent)] transition group-hover:translate-x-0.5" aria-hidden="true">→</span>
+              <span class="shrink-0 transition group-hover:translate-x-0.5" style="color: var(--card-color);" aria-hidden="true">→</span>
             </a>
           </li>
         );

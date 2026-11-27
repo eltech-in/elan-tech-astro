@@ -1,0 +1,27 @@
+---
+// Sticky category filter under the floating header, shared by the blog index and category pages.
+import { blogCategoryColor, blogCategoryLabel } from '../../data/blogCategories';
+
+interface Props { categories: string[]; counts: Record<string, number>; total: number; current?: string; }
+const { categories, counts, total, current } = Astro.props;
+---
+<div class="blog-filter sticky top-[72px] z-30 border-y border-[var(--border)] bg-[var(--bg)]/90 backdrop-blur-md">
+  <nav aria-label="Blog categories" class="mx-auto flex max-w-7xl gap-2 overflow-x-auto px-4 py-3 sm:px-6 lg:px-8">
+    <a href="/blog/" aria-current={!current ? 'page' : undefined} class:list={['pill', !current && 'is-active']} style="--card-color: var(--accent);">All Posts <span>{total}</span></a>
+    {categories.map((cat) => (
+      <a href={`/blog/category/${cat}/`} aria-current={cat === current ? 'page' : undefined} class:list={['pill', cat === current && 'is-active']} style={`--card-color: ${blogCategoryColor(cat)};`}>
+        <i aria-hidden="true"></i>{blogCategoryLabel(cat)} <span>{counts[cat] ?? 0}</span>
+      </a>
+    ))}
+  </nav>
+</div>
+
+<style>
+  nav { scrollbar-width: none; }
+  nav::-webkit-scrollbar { display: none; }
+  .pill { display: inline-flex; flex: 0 0 auto; align-items: center; gap: .45rem; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--bg-card); padding: .45rem .85rem; font-size: .85rem; font-weight: 600; color: var(--text-dim); white-space: nowrap; transition: border-color .2s, color .2s; }
+  .pill i { width: .5rem; height: .5rem; border-radius: var(--radius-xs); background: var(--card-color); }
+  .pill span { font-size: .75rem; font-weight: 600; color: var(--text-muted); }
+  .pill:hover { border-color: var(--card-color); color: var(--text); }
+  .pill.is-active { border-color: var(--card-color); color: var(--text); background: color-mix(in srgb, var(--card-color) 14%, var(--bg-card)); }
+</style>

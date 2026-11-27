@@ -19,7 +19,6 @@ const companyLinks = [
   { label: 'Technologies', href: '/technologies/' },
   { label: 'Website Audit', href: '/website-audit/' },
   { label: 'Blog', href: '/blog/' },
-  { label: 'Pricing', href: '/pricing/' },
   { label: 'Testimonials', href: '/testimonials/' },
   { label: 'Contact', href: '/contact/' },
   { label: 'Schedule Consultation', href: '/schedule-consultation/' },
@@ -382,7 +381,7 @@ const socialLinks = [
 
     <!-- Analytics notice: full width, above the bottom bar -->
     <aside
-      class="relative mt-10 overflow-hidden rounded-2xl border border-[var(--border)] bg-gradient-to-r from-emerald-500/5 via-indigo-500/5 to-pink-500/5 p-4 sm:p-5"
+      class="relative mt-10 overflow-hidden rounded-xl border border-[var(--border)] bg-gradient-to-r from-emerald-500/5 via-indigo-500/5 to-pink-500/5 p-4 sm:p-5"
       aria-label="Analytics notice"
     >
       <div class="pointer-events-none absolute -right-8 -top-10 h-28 w-28 rounded-full bg-[var(--accent)]/10 blur-2xl" aria-hidden="true"></div>
@@ -403,7 +402,7 @@ const socialLinks = [
         </div>
         <a
           href="/cookie-policy/"
-          class="inline-flex min-h-10 shrink-0 items-center justify-center gap-1 rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-4 py-2 text-xs font-semibold text-[var(--accent)] transition hover:border-[var(--accent)]"
+          class="inline-flex min-h-10 shrink-0 items-center justify-center gap-1 rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-2 text-xs font-semibold text-[var(--accent)] transition hover:border-[var(--accent)]"
         >
           Cookie Policy
           <span aria-hidden="true">→</span>
@@ -443,7 +442,7 @@ const socialLinks = [
     align-items: center;
     min-height: 44px;
     padding: .65rem .75rem;
-    border-radius: .5rem;
+    border-radius: var(--radius-lg);
     white-space: nowrap;
   }
   @media (min-width: 1024px) {

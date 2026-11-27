@@ -7,6 +7,30 @@ const schema = [
   webPageSchema('Accessibility Statement', 'eLan Technology accessibility statement - our accessibility-first approach, feedback channel and current limitations.', '/accessibility-statement/'),
   breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Accessibility Statement', url: '/accessibility-statement/' }]),
 ];
+
+// Compact statement (owner, 27 Nov 2026): same commitments and caveats, tighter wording.
+const measures = [
+  ['Semantic landmarks', 'header, main, nav and footer define page regions for screen readers.'],
+  ['Skip link', '"Skip to main content" comes before the primary navigation.'],
+  ['Image alternatives', 'meaningful images carry text alternatives; decorative images are hidden.'],
+  ['Colour contrast', 'the design system targets WCAG 2.1 AA thresholds.'],
+  ['Keyboard use', 'navigation, forms and custom controls work from the keyboard.'],
+  ['Visible focus', 'a visible focus treatment marks keyboard position.'],
+  ['Labelled fields', 'first-party form fields have associated labels, not placeholders alone.'],
+  ['Error messages', 'validation names the affected field and the correction needed.'],
+  ['Reflow and zoom', 'layouts reflow at increased zoom; complex tables or long strings may scroll.'],
+  ['No flashing', 'we do not publish content that flashes at seizure-risk frequencies.'],
+  ['Reduced motion', 'animations are minimised under prefers-reduced-motion.'],
+  ['Reading order', 'visual order matches the DOM order.'],
+  ['Page language', 'templates declare English as the page language.'],
+  ['Link text', 'links use meaningful, context-aware wording.'],
+];
+const methods = [
+  ['Automated checks', 'find a subset of detectable issues; scores are not proof of conformance.'],
+  ['Lighthouse reviews', 'one development signal on selected templates and key journeys.'],
+  ['Manual keyboard review', 'focus order, visibility and operability, repeated after material changes.'],
+  ['Assistive technology', 'representative journeys with tools such as NVDA and VoiceOver, not every combination.'],
+];
 ---
 <LegalLayout
   title="Accessibility Statement"
@@ -15,193 +39,75 @@ const schema = [
 >
   <SchemaMarkup schema={schema} />
 
+  <dl class="a11y-facts">
+    <div class="tilt-card" style="--card-color: var(--ac-indigo);"><dt>Target</dt><dd>WCAG 2.1 Level AA</dd></div>
+    <div class="tilt-card" style="--card-color: var(--ac-teal);"><dt>Report a barrier</dt><dd><a href="mailto:accessibility@elan-tech.net">accessibility@elan-tech.net</a></dd></div>
+    <div class="tilt-card" style="--card-color: var(--ac-amber);"><dt>Response</dt><dd>Acknowledged within 2 business days</dd></div>
+  </dl>
+
   <h2>Our Commitment</h2>
   <p>
-    eLan Technology is committed to ensuring digital accessibility for people with disabilities. We
-    believe that everyone deserves equal access to information and services online, regardless of
-    ability. We use an accessibility-first development approach for this website and continue to
-    review barriers as content, code and third-party services change. Client-project requirements
-    and testing are separately defined in each accepted scope.
+    eLan Technology is committed to digital accessibility for people with disabilities. We use an
+    accessibility-first approach for this website and keep reviewing barriers as content, code and
+    third-party services change. Requirements and testing for client projects are defined separately
+    in each accepted scope.
   </p>
 
   <h2>Conformance Status</h2>
   <p>
-    Our present target for this website is WCAG 2.1 Level AA. This is a conformance target, not a
-    certification or a claim that every page, third-party component or future content change is free
-    from accessibility barriers.
+    Our target for this website is <strong>WCAG 2.1 Level AA</strong> (W3C), the primary technical
+    reference for review and remediation. It is a target, not a certification or a claim that every
+    page, third-party component or future change is free from barriers. Applicability of the <strong>ADA</strong> and <strong>Section 508</strong> is fact-specific: WCAG-informed work supports
+    accessibility but is not by itself legal certification, and Section 508 applies to particular
+    United States federal contexts.
   </p>
-  <ul>
-    <li>
-      <strong>WCAG 2.1 Level AA</strong> - Web Content Accessibility Guidelines 2.1 published by the
-      World Wide Web Consortium (W3C), used as the primary technical reference for review and remediation.
-    </li>
-    <li>
-      <strong>ADA (Americans with Disabilities Act)</strong> - legal applicability and compliance are
-      fact-specific. WCAG-informed work can support accessibility but does not by itself constitute a
-      legal certification.
-    </li>
-    <li>
-      <strong>Section 508 of the Rehabilitation Act</strong> - relevant requirements may apply to
-      particular United States federal contexts; they are not automatically applicable to every website.
-    </li>
-  </ul>
-
-  <h2>Technical Specifications</h2>
   <p>
-    Our website relies on the following technologies to deliver content and support accessible use:
+    The site is built with HTML5, CSS (Tailwind CSS v4), minimal JavaScript (Astro islands) and WAI-ARIA.
   </p>
-  <ul>
-    <li>HTML5</li>
-    <li>CSS3 / Tailwind CSS v4</li>
-    <li>JavaScript (Astro Islands architecture - minimal and purposeful)</li>
-    <li>WAI-ARIA (Web Accessibility Initiative - Accessible Rich Internet Applications)</li>
-  </ul>
 
   <h2>Measures Taken</h2>
-  <p>
-    eLan Technology has implemented the following specific accessibility measures on this website:
-  </p>
-  <ul>
-    <li>
-      <strong>Semantic HTML5 landmarks:</strong> we use <code>&lt;header&gt;</code>,
-      <code>&lt;main&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;footer&gt;</code>, and other
-      landmark elements to define page regions clearly for screen reader users.
-    </li>
-    <li>
-      <strong>Skip navigation link:</strong> shared page templates place a "Skip to main content"
-      link before the primary navigation so keyboard users can bypass repeated controls.
-    </li>
-    <li>
-      <strong>Image alternatives:</strong> meaningful images are intended to include useful text
-      alternatives, while decorative images should be hidden from assistive technology. New and
-      changed content requires continued editorial review.
-    </li>
-    <li>
-      <strong>Colour contrast:</strong> the design system targets WCAG 2.1 AA contrast thresholds;
-      individual images, embedded content and future changes may require separate verification.
-    </li>
-    <li>
-      <strong>Keyboard use:</strong> navigation, forms and custom controls are designed for keyboard
-      operation and are reviewed when interaction patterns change.
-    </li>
-    <li>
-      <strong>Visible focus indicators:</strong> the interface provides a visible focus treatment for
-      keyboard interaction; third-party components may use their own focus presentation.
-    </li>
-    <li>
-      <strong>Labelled form fields:</strong> first-party forms are designed with programmatically
-      associated labels and should not rely on placeholder text alone.
-    </li>
-    <li>
-      <strong>Error communication:</strong> first-party validation is designed to identify the
-      affected field and describe the correction needed.
-    </li>
-    <li>
-      <strong>Responsive and zoomable:</strong> layouts are designed to reflow and remain usable at
-      increased zoom. Complex tables, code, third-party content and unusually long strings may need
-      horizontal scrolling or an alternative presentation.
-    </li>
-    <li>
-      <strong>Flashing content:</strong> we do not intentionally publish content that flashes at a
-      frequency known to create a seizure risk.
-    </li>
-    <li>
-      <strong>Reduced motion support:</strong> we respect the <code>prefers-reduced-motion</code>
-      CSS media query. Animations and transitions are disabled or minimised for users who have
-      indicated a preference for reduced motion.
-    </li>
-    <li>
-      <strong>Logical reading order:</strong> the visual reading order of content matches the
-      underlying DOM order, ensuring screen readers present content in a logical sequence without
-      relying on CSS positioning.
-    </li>
-    <li>
-      <strong>Page language declared:</strong> shared templates declare English as the primary page
-      language to support pronunciation and language processing by assistive technology.
-    </li>
-    <li>
-      <strong>Descriptive link text:</strong> we aim to use meaningful, context-aware link text and
-      avoid ambiguous standalone phrases when creating or revising content.
-    </li>
+  <ul class="a11y-list">
+    {measures.map(([title, text]) => <li><strong>{title}:</strong> {text}</li>)}
   </ul>
+  <p class="a11y-note">New content, images, embedded tools and third-party components may need separate verification.</p>
 
   <h2>Known Limitations</h2>
-  <p>
-    We are committed to continuous improvement. The following known limitations are being addressed:
-  </p>
   <ul>
-    <li>
-      <strong>Legacy PDF documents:</strong> some older PDF files on this website may not be fully
-      accessible to screen reader users. If you require an accessible version of any document, please
-      contact us and we will provide an alternative format.
-    </li>
-    <li>
-      <strong>Third-party embeds:</strong> embedded tools such as Calendly (scheduling) and Google
-      Maps are provided by third parties and are beyond our direct control. We encourage users
-      requiring accessible alternatives to contact us directly.
-    </li>
+    <li><strong>Legacy PDFs:</strong> some older PDFs may not be fully accessible to screen readers. Ask us and we will provide an alternative format.</li>
+    <li><strong>Third-party embeds:</strong> Calendly (scheduling) and Google Maps are outside our direct control. Contact us directly for an accessible alternative.</li>
   </ul>
 
   <h2>Feedback and Contact</h2>
   <p>
-    We actively welcome feedback on the accessibility of our website. If you encounter any barriers,
-    have difficulty accessing content, or would like to report an accessibility issue, please get in
-    touch:
+    If you meet a barrier or have difficulty accessing content, email <a href="mailto:accessibility@elan-tech.net">accessibility@elan-tech.net</a>, WhatsApp <a href="https://wa.me/918788834630">+91 8788834630</a>, call <a href="tel:+919822231642">+91 9822231642</a>,
+    or write to <a href="https://share.google/PklD3tFGBBqsPHjli" target="_blank" rel="noopener noreferrer">eLan Technology, Basement Floor, PTG IT Park, Plot No. 21, IT Park Rd, Gayatri Nagar, Nagpur, Maharashtra 440022, India</a>.
   </p>
-  <ul>
-    <li>
-      Email: <a href="mailto:accessibility@elan-tech.net">accessibility@elan-tech.net</a>
-    </li>
-    <li>
-      WhatsApp: <a href="https://wa.me/918788834630">+91 8788834630</a>
-    </li>
-    <li>
-      Phone: <a href="tel:+919822231642">+91 9822231642</a>
-    </li>
-    <li>
-      Address: <a href="https://share.google/PklD3tFGBBqsPHjli" target="_blank" rel="noopener noreferrer">eLan Technology, Basement Floor, PTG IT Park, Plot No. 21, IT Park Rd, Gayatri Nagar, Nagpur, Maharashtra 440022, India</a>
-    </li>
-  </ul>
   <p>
-    We aim to acknowledge accessibility enquiries within <strong>2 business days</strong>.
-    Investigation and remediation time depends on the barrier, affected content and third-party involvement.
-  </p>
-
-  <h2>Formal Complaints</h2>
-  <p>
-    If you have raised an accessibility concern with us and are not satisfied with the response or
-    the resolution timeline, you are entitled to contact the relevant regulatory authority or
-    disability rights body in your jurisdiction.
+    We aim to acknowledge accessibility enquiries within <strong>2 business days</strong>. Investigation
+    and remediation time depends on the barrier, the affected content and any third-party involvement.
+    If you are not satisfied with our response or timeline, you may contact the relevant regulatory
+    authority or disability rights body in your jurisdiction.
   </p>
 
   <h2>Assessment Approach</h2>
-  <p>
-    eLan Technology self-assesses the accessibility of this website using the following tools and
-    methods:
-  </p>
-  <ul>
-    <li>
-      <strong>Automated checks</strong> - suitable scanning tools can identify a subset of detectable
-      issues; automated scores are not treated as proof of conformance.
-    </li>
-    <li>
-      <strong>Lighthouse reviews</strong> - used as one development signal on selected templates and
-      important user journeys.
-    </li>
-    <li>
-      <strong>Manual keyboard review</strong> - selected templates and important interactions are
-      reviewed for focus order, visibility and operability, with repeat checks after material changes.
-    </li>
-    <li>
-      <strong>Assistive-technology review</strong> - representative journeys may be reviewed with
-      technologies such as NVDA and VoiceOver. This is not continuous coverage of every combination.
-    </li>
+  <p>We self-assess this website using:</p>
+  <ul class="a11y-list">
+    {methods.map(([title, text]) => <li><strong>{title}:</strong> {text}</li>)}
   </ul>
 
   <h2>Statement Date</h2>
   <p>
-    This Accessibility Statement was last reviewed and updated on <strong>24 September 2026</strong>.
-    We review this statement at least annually and whenever significant changes are made to the
-    website.
+    This statement was last reviewed and updated on <strong>24 September 2026</strong>. We review it at
+    least annually and whenever the website changes significantly.
   </p>
 </LegalLayout>
+
+<style>
+  .a11y-facts { display: grid; gap: .75rem; margin: 0 0 2rem; }
+  .a11y-facts > div { padding: .8rem 1rem; }
+  .a11y-facts dt { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: var(--text-muted); }
+  .a11y-facts dd { margin: .15rem 0 0; font-weight: 600; color: var(--text); line-height: 1.5; overflow-wrap: anywhere; }
+  .a11y-note { font-size: .875rem; }
+  @media (min-width: 640px) { .a11y-facts { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (min-width: 768px) { .a11y-list { columns: 2; column-gap: 2.5rem; } .a11y-list > li { break-inside: avoid; } }
+</style>

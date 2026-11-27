@@ -1,10 +1,14 @@
 ---
 import ServiceLayout from '../../../layouts/ServiceLayout.astro';
+import ServicePage from '../../../components/service/ServicePage.astro';
 import { serviceSchema, faqSchema, breadcrumbSchema } from '../../../utils/schema';
 
-const title = 'Medusa.js Development Company & Implementation Partner';
+// Rewritten 27 Nov 2026 around the Search Console queries this page already appears for:
+// "medusajs development agency", "implementation partner", "medusajs cost", "medusa vs shopify",
+// "shopify to medusa migration", "medusa js hosting", "medusajs consultancy", UK / Europe / US partners.
+const title = 'Medusa.js Development Agency & Implementation Partner';
 const description =
-  'Custom Medusa.js ecommerce design and development for subscriptions, B2B, marketplaces, complex payments, shipping, ERP integrations, and owned commerce infrastructure.';
+  'Medusa.js development agency and remote implementation partner: custom modules, subscriptions, payments, ERP and PIM integrations, Shopify to Medusa migration, hosting and costs explained.';
 
 const breadcrumbs = [
   { name: 'Home', href: '/' },
@@ -15,59 +19,44 @@ const breadcrumbs = [
 
 const faqs = [
   {
-    question: 'What is Medusa.js?',
-    answer:
-      'Medusa.js is a modular commerce platform and framework for building custom commerce features. It provides core capabilities such as products, carts, orders, inventory, pricing, payments, and fulfilment while allowing developers to extend data models, workflows, APIs, admin tools, and integrations.',
-  },
-  {
-    question: 'Is Medusa.js a good alternative to Shopify?',
-    answer:
-      'It can be, but it solves a different problem. Shopify is usually the better fit when a business values a hosted platform and faster operational setup. Medusa.js is compelling when custom workflows, ownership, integrations, or differentiated commerce logic are central to the business. We evaluate total operational responsibility as well as feature flexibility.',
-  },
-  {
-    question: 'Can you build subscriptions with Medusa.js?',
-    answer:
-      'Yes. Subscription commerce can be modelled around plans, billing state, order generation, customer actions, payment events, shipping cycles, retries, cancellations, and operational reporting. On a production Medusa.js store, we developed a custom subscription module alongside Razorpay, PhonePe, and shipping modules.',
-  },
-  {
-    question: 'Can you integrate Indian payment gateways and shipping providers?',
-    answer:
-      'Yes. We build Medusa payment and fulfilment modules around the provider APIs, webhook events, security model, refund flow, serviceability, rates, tracking, and exception states required by the project. Our production Medusa.js work includes custom Razorpay, PhonePe, and shipping implementations.',
-  },
-  {
-    question: 'Who operates and maintains a Medusa.js platform?',
-    answer:
-      'A Medusa implementation is a custom application, so the merchant or its technology partner is responsible for hosting, monitoring, security updates, backups, integrations, and continued engineering. We define this operating model before recommending Medusa.',
-  },
-  {
-    question: 'Do you work with companies and agencies outside India?',
-    answer:
-      'Yes. We work remotely with clients in India, North America, Australia and Japan. NDA and white-label arrangements are available where agreed, so an agency can bring us in behind its own brand. Scope, ownership and communication are defined in the proposal.',
+    question: 'What does a Medusa.js development agency do?',
+    answer: 'A Medusa.js agency designs and builds custom commerce on Medusa: the storefront, custom modules and workflows, payment and shipping providers, integrations with ERP, PIM or warehouse systems, data migration, and the hosting and support model after launch. We do all of these, from discovery to ongoing engineering.',
   },
   {
     question: 'Can you be our Medusa.js implementation partner in the UK, Europe or the US?',
-    answer:
-      'Yes. We work as a remote Medusa.js implementation partner, either directly with the merchant or white-label behind an agency. Our India working day overlaps with the UK and European morning and the US evening, and scope, ownership and handover are agreed in writing before work starts.',
-  },
-  {
-    question: 'Where should a Medusa.js store be hosted?',
-    answer:
-      'A Medusa backend needs a Node.js server and a PostgreSQL database, usually with Redis, plus hosting for the storefront. That can be Medusa\'s managed cloud or your own cloud account. We recommend the option based on who will operate the store, and our Medusa.js running-costs guide on the blog breaks down the hosting and support budget.',
+    answer: 'Yes. We work as a remote Medusa.js implementation partner, either directly with the merchant or white-label behind an agency, with NDA available. Our India working day overlaps the UK and European morning and the US evening, and scope, ownership and handover are agreed in writing before work starts.',
   },
   {
     question: 'How much does a Medusa.js implementation cost?',
-    answer:
-      'There is no single figure, because the cost follows the scope: the number of custom modules, payment and shipping providers, ERP or PIM integrations, data migration, storefront design, and the support model after launch. We quote after a discovery conversation. Medusa itself is open source, but hosting, monitoring, security updates and ongoing engineering are real running costs and are included in the discussion.',
+    answer: 'There is no single figure, because cost follows scope: the number of custom modules, payment and shipping providers, ERP or PIM integrations, data migration, storefront design and the support model after launch. We quote after a discovery conversation. Medusa is open source, but hosting, monitoring, security updates and ongoing engineering are real running costs and are part of the discussion.',
   },
   {
-    question: 'Can you migrate an existing Shopify or WooCommerce store to Medusa.js?',
-    answer:
-      'Yes. Migration covers products, customers, orders, URL redirects and integrations, and it is planned in stages to protect existing search visibility. We also tell you honestly when staying on Shopify is the better choice, for example when a hosted platform covers your needs with less operational responsibility.',
+    question: 'Medusa Cloud or self-hosting: which costs less?',
+    answer: "A Medusa backend needs a Node.js server and a PostgreSQL database, usually with Redis, plus hosting for the storefront. Medusa's managed cloud reduces operations work; your own cloud account gives more control but someone must run updates, backups and monitoring. We compare both for your traffic and team, and our running-costs guide breaks down the budget.",
+  },
+  {
+    question: 'Medusa.js vs Shopify: when does Medusa make more sense?',
+    answer: 'Shopify is usually better when a hosted platform covers your needs and you want the fastest setup with the least operational responsibility. Medusa makes more sense when custom workflows, B2B or subscription logic, owned code and data, or deep integrations are central to the business, and you have a team or partner to operate the application.',
+  },
+  {
+    question: 'Can you migrate a Shopify or WooCommerce store to Medusa.js?',
+    answer: 'Yes. Migration covers products, variants, customers, orders, URL redirects and integrations, planned in stages to protect search visibility. We also say plainly when staying on Shopify is the better choice.',
   },
   {
     question: 'Can Medusa.js connect to ERP, PIM or warehouse systems?',
-    answer:
-      'Yes. We build integrations for inventory, PIM, CRM, accounting, warehouse and customer-service systems. The approach depends on the other system’s API, how often data must sync, and what should happen when a sync fails.',
+    answer: "Yes. We build integrations for inventory, PIM, CRM, accounting, warehouse (WMS) and customer-service systems. The approach depends on the other system's API, how often data must sync, and what should happen when a sync fails.",
+  },
+  {
+    question: 'Can you build subscriptions and Indian payment gateways on Medusa.js?',
+    answer: 'Yes. On a production Medusa.js store we built a custom subscription module alongside Razorpay, PhonePe and shipping modules: plans, billing state, recurring orders, webhooks, retries, refunds and customer controls.',
+  },
+  {
+    question: 'Who operates and maintains a Medusa.js platform after launch?',
+    answer: 'A Medusa implementation is a custom application, so the merchant or its technology partner is responsible for hosting, monitoring, security updates, backups, integrations and continued engineering. We agree this operating model before recommending Medusa, and can provide ongoing support.',
+  },
+  {
+    question: 'What is Medusa.js?',
+    answer: 'Medusa.js is an open-source, modular commerce platform. It provides products, carts, orders, inventory, pricing, payments and fulfilment, and lets developers extend data models, workflows, APIs, the admin and integrations.',
   },
 ];
 
@@ -75,17 +64,6 @@ const schemas = [
   serviceSchema(title, description, '/services/ecommerce/medusa-js-development/'),
   faqSchema(faqs),
   breadcrumbSchema(breadcrumbs.map(({ name, href }) => ({ name, url: href }))),
-];
-
-const capabilities = [
-  ['Commerce architecture', 'Domain modelling, platform boundaries, modules, workflows, infrastructure, observability, security, and a staged delivery plan.'],
-  ['Custom storefronts', 'Original, accessible customer experiences built with a modern frontend and connected through Medusa Store APIs.'],
-  ['Custom modules & workflows', 'Business-specific data models, validation, services, events, automations, and recoverable multi-step processes.'],
-  ['Payments & subscriptions', 'Gateway modules, token and webhook handling, subscription state, retries, refunds, recurring orders, and customer controls.'],
-  ['Fulfilment & shipping', 'Serviceability, rates, shipment creation, fulfilment state, carrier connectivity, tracking, notifications, and exceptions.'],
-  ['B2B & marketplaces', 'Companies, buyer permissions, quotes, account pricing, bulk ordering, vendor models, commissions, and operational approvals.'],
-  ['ERP and operational integration', 'Inventory, PIM, CRM, accounting, warehouse, customer service, analytics, and custom internal systems.'],
-  ['Migration & ongoing engineering', 'Data migration, URL preservation, test automation, monitoring, releases, backups, and a sustainable support model.'],
 ];
 ---
 
@@ -97,135 +75,89 @@ const capabilities = [
   breadcrumbs={breadcrumbs}
   schema={schemas}
 >
-  <section class="relative mb-14 overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-8 md:p-12">
-    <div class="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-cyan-400/10 blur-3xl" aria-hidden="true"></div>
-    <div class="service-hero-grid relative">
-      <div>
-        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-400">Custom Medusa.js ecommerce development</p>
-        <h1 class="mt-3 font-heading text-4xl font-bold leading-tight text-[var(--text)] md:text-5xl lg:text-6xl">
-          Custom Commerce When Standard Stores Fall Short
-        </h1>
-        <p class="mt-6 max-w-3xl text-lg leading-relaxed text-[var(--text-dim)]">
-          Medusa.js gives us a flexible starting point for stores with unusual products, repeat-order plans, special pricing, or business processes that do not fit neatly into a ready-made platform.
-        </p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a href="/schedule-consultation/" class="rounded-full bg-cyan-400 px-6 py-3 text-sm font-bold text-slate-950 hover:brightness-110">Discuss Your Medusa Build</a>
-          <a href="https://healthygenie.in/" target="_blank" rel="noopener noreferrer" class="rounded-full border border-[var(--border)] px-6 py-3 text-sm font-semibold text-[var(--text)] hover:border-cyan-400">Visit the Healthy Genie website</a>
+  <ServicePage
+    accentVar="--svc-medusa"
+    eyebrow="Medusa.js development agency · remote implementation partner"
+    heading="Medusa.js Development Agency and Implementation Partner"
+    intro="We design, build and run custom Medusa.js commerce: modules, subscriptions, payments, ERP and PIM integrations, and migrations from Shopify or WooCommerce. Available directly to merchants or white-label for agencies in the UK, Europe, the US and India."
+    highlights={['A launched production Medusa.js store', 'Custom modules, workflows and subscriptions', 'Razorpay, PhonePe and shipping modules', 'Shopify and WooCommerce to Medusa migration', 'ERP, PIM and warehouse integrations', 'White-label for agencies, NDA available']}
+    primaryCta={{ label: 'Discuss your Medusa build', href: '/schedule-consultation/' }}
+    secondaryCta={{ label: 'Visit the Healthy Genie website', href: 'https://healthygenie.in/', external: true }}
+    offersTitle="Medusa.js development services"
+    offersIntro="Medusa gives us core commerce plus a framework for extending it, so essential business logic does not end up in brittle workarounds."
+    offers={[
+      { title: 'Architecture and consulting', text: 'Domain model, modules, workflows, infrastructure, security and a staged delivery plan.' },
+      { title: 'Custom storefronts', text: 'Accessible, fast customer experiences connected through the Medusa Store API.' },
+      { title: 'Custom modules and workflows', text: 'Business-specific data models, validation, events, automations and recoverable processes.' },
+      { title: 'Payments and subscriptions', text: 'Gateway modules, webhooks, subscription state, retries, refunds and recurring orders.' },
+      { title: 'Fulfilment and shipping', text: 'Serviceability, rates, shipments, carrier connections, tracking and exceptions.' },
+      { title: 'B2B and marketplaces', text: 'Company accounts, buyer permissions, quotes, account pricing, vendors and commissions.' },
+      { title: 'ERP, PIM and WMS integration', text: 'Inventory, product data, CRM, accounting, warehouse and customer-service systems.' },
+      { title: 'Migration', text: 'Products, customers, orders and URL redirects moved from Shopify or WooCommerce in stages.' },
+      { title: 'Hosting and ongoing engineering', text: 'Medusa Cloud or your own cloud, monitoring, backups, releases and a support model.' },
+    ]}
+    proof={{
+      label: 'Medusa.js meal commerce · Launched',
+      title: 'Healthy Genie',
+      text: "We redesigned and redeveloped Healthy Genie's meal-commerce website on Medusa.js. The launched Pune website presents meals, snacks, subscription plans, food preferences and corporate meal enquiries. No sales uplift or performance score is claimed here.",
+      points: ['Custom storefront design', 'Medusa.js commerce backend', 'Next.js storefront', 'Meal plans and subscriptions', 'Customer accounts and cart', 'Corporate and party order enquiries'],
+      href: 'https://healthygenie.in/',
+      linkLabel: 'Visit launched website',
+      secondary: { href: '/blog/ecommerce/medusa-js-implementation-running-costs/', label: 'Medusa.js implementation and running-cost guide' },
+    }}
+    processTitle="How we deliver a Medusa.js project"
+    process={[
+      { title: 'Model the business', text: 'Products, customers, orders, subscriptions, payments, fulfilment and exceptions.' },
+      { title: 'Define the architecture', text: 'Modules, workflows, APIs, storefront, hosting, integrations and security.' },
+      { title: 'Build and validate', text: 'Incremental delivery with real gateway and fulfilment scenarios and your testing.' },
+      { title: 'Launch and operate', text: 'Migration, monitoring, backups, documentation and ongoing engineering.' },
+    ]}
+    fit={['Your products, pricing, subscriptions or fulfilment do not fit a standard platform.', 'Custom workflows and integrations are part of your competitive advantage.', 'You want owned code, data, deployment and platform evolution.', 'B2B, marketplace, multi-region or multi-channel logic needs a tailored model.', 'You have a team or partner able to operate a custom application.']}
+    guides={[
+      { label: 'Comparison', title: 'Shopify vs Medusa.js in 2026', href: '/blog/ecommerce/shopify-vs-medusa-js-2026/' },
+      { label: 'Costs', title: 'Medusa.js implementation and running costs: a buyer’s guide', href: '/blog/ecommerce/medusa-js-implementation-running-costs/' },
+      { label: 'Build guide', title: 'Subscriptions with Medusa.js, Razorpay and PhonePe', href: '/blog/ecommerce/building-subscription-ecommerce-medusa-js-india/' },
+    ]}
+    faqTitle="Medusa.js development FAQs"
+    faqs={faqs}
+    cta={{ title: 'Plan your Medusa.js project', text: 'Tell us about your products, workflows and systems. We will say honestly whether Medusa, Shopify or another platform fits, and quote the scope in writing.', label: 'Book a consultation' }}
+  >
+    <section aria-labelledby="vs-title">
+      <h2 id="vs-title" class="font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">Medusa.js vs Shopify: which fits your store?</h2>
+      <div class="mt-5 grid gap-4 md:grid-cols-2">
+        <div class="tilt-card p-5 sm:p-6" style="--card-color: var(--svc-medusa);">
+          <h3 class="font-heading text-lg font-bold text-[var(--text)]">Choose Medusa.js when</h3>
+          <ul class="mt-3 space-y-2 text-sm leading-relaxed text-[var(--text-dim)]" role="list">
+            <li>✓ Subscriptions, B2B pricing or fulfilment rules are unusual</li>
+            <li>✓ You need owned code, data and hosting</li>
+            <li>✓ ERP, PIM or warehouse integrations are central</li>
+            <li>✓ Shopify Plus fees or app limits outweigh the hosting work</li>
+          </ul>
+        </div>
+        <div class="tilt-card p-5 sm:p-6" style="--card-color: var(--svc-shopify);">
+          <h3 class="font-heading text-lg font-bold text-[var(--text)]">Choose Shopify when</h3>
+          <ul class="mt-3 space-y-2 text-sm leading-relaxed text-[var(--text-dim)]" role="list">
+            <li>✓ A hosted platform and its apps cover your needs</li>
+            <li>✓ You want the fastest launch with least operations</li>
+            <li>✓ Your team should not run servers or updates</li>
+            <li>✓ <a href="/services/ecommerce/#shopify" class="underline underline-offset-4">See our Shopify development service</a></li>
+          </ul>
         </div>
       </div>
-      <aside class="service-hero-aside" aria-label="Medusa.js custom commerce layers">
-        <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-400">Why choose custom commerce</p>
-        <h2 class="mt-1 font-heading text-xl font-bold text-[var(--text)]">More freedom where it matters</h2>
-        <div class="mt-5 grid gap-2 sm:grid-cols-2">
-          {[
-            ['01', 'Your customer journey', 'A store designed around how people buy'],
-            ['02', 'Your selling rules', 'Repeat orders, pricing, and special workflows'],
-            ['03', 'Payments and delivery', 'Razorpay, PhonePe, and shipping options'],
-            ['04', 'More control', 'Greater ownership of the store and its data'],
-          ].map(([number, heading, text]) => (
-            <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-3.5">
-              <span class="text-[10px] font-bold text-cyan-400">{number}</span>
-              <strong class="mt-1 block text-sm text-[var(--text)]">{heading}</strong>
-              <span class="mt-1 block text-xs leading-snug text-[var(--text-muted)]">{text}</span>
-            </div>
-          ))}
-        </div>
-      </aside>
-    </div>
-  </section>
+    </section>
 
-  <section class="mb-16 rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-7 md:p-10" aria-labelledby="healthy-genie-project">
-    <p class="text-sm font-semibold uppercase tracking-wider text-[var(--service-accent)]">Medusa.js meal commerce · Launched</p>
-    <h2 id="healthy-genie-project" class="mt-2 font-heading text-3xl font-bold text-[var(--text)]">Healthy Genie</h2>
-    <a href="/blog/ecommerce/medusa-js-implementation-running-costs/" class="mt-3 inline-flex min-h-11 items-center font-semibold text-[var(--service-accent)] underline">Read the Medusa.js implementation and running-cost guide →</a>
-    <p class="mt-4 max-w-3xl leading-relaxed text-[var(--text-dim)]">We redesigned and redeveloped Healthy Genie’s meal-commerce website using Medusa.js. The launched Pune-based website presents meals, snacks, subscription plans, food preferences and corporate meal enquiries.</p>
-    <p class="mt-3 max-w-3xl text-sm leading-relaxed text-[var(--text-muted)]">Explore the production website as an example of our commerce implementation work. No sales uplift, performance score or payment-processing outcome is claimed here.</p>
-    <ul class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" role="list">
-      {['Custom storefront design', 'Medusa.js commerce backend', 'Next.js storefront', 'Meal plans and subscriptions', 'Customer accounts and cart', 'Corporate and party order enquiries'].map((item) => (
-        <li class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-4 text-sm font-semibold text-[var(--text)]">✓ {item}</li>
-      ))}
-    </ul>
-    <div class="mt-6 flex flex-wrap gap-4">
-      <a href="https://healthygenie.in/" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center rounded-xl bg-[var(--service-accent)] px-5 py-3 font-semibold text-[var(--bg)]">Visit launched website ↗</a>
-    </div>
-  </section>
-
-  <section class="mb-16">
-    <div class="max-w-3xl">
-      <p class="text-sm font-semibold uppercase tracking-wider text-[var(--service-accent)]">Modular by design</p>
-      <h2 class="mt-2 font-heading text-3xl font-bold text-[var(--text)]">Customise the parts that make your commerce unique</h2>
-      <p class="mt-3 text-[var(--text-dim)]">Medusa gives us core commerce capabilities and a framework for extending them without pushing essential business logic into brittle workarounds.</p>
-    </div>
-    <div class="mt-8 grid gap-5 md:grid-cols-2">
-      {capabilities.map(([heading, text]) => (
-        <article class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
-          <h3 class="font-heading text-lg font-bold text-[var(--text)]">{heading}</h3>
-          <p class="mt-3 text-sm leading-relaxed text-[var(--text-dim)]">{text}</p>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section class="mb-16 rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-7 md:p-10">
-    <h2 class="font-heading text-3xl font-bold text-[var(--text)]">Medusa.js is a strong fit when…</h2>
-    <div class="mt-7 grid gap-4 md:grid-cols-2">
-      {[
-        'Your products, pricing, subscriptions, or fulfilment do not fit conventional platform assumptions.',
-        'Custom workflows and integrations are part of the core competitive advantage.',
-        'You need owned code, data, deployment, and platform evolution.',
-        'B2B, marketplace, multi-region, or multi-channel logic requires a tailored domain model.',
-        'You have an internal team or technology partner capable of operating a custom application.',
-        'Long-term flexibility matters more than the shortest possible initial setup.',
-      ].map((item) => (
-        <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-5 text-sm leading-relaxed text-[var(--text-dim)]">✓ {item}</div>
-      ))}
-    </div>
-  </section>
-
-  <section class="mb-16">
-    <h2 class="font-heading text-3xl font-bold text-[var(--text)]">How we deliver a custom commerce platform</h2>
-    <div class="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-      {[
-        ['01', 'Model the business', 'Products, customers, orders, subscriptions, payments, fulfilment, actors, and exception states.'],
-        ['02', 'Define the architecture', 'Modules, workflows, APIs, storefront, infrastructure, integrations, security, and observability.'],
-        ['03', 'Build and validate', 'Incremental delivery with automated checks, real gateway and fulfilment scenarios, and stakeholder testing.'],
-        ['04', 'Launch and operate', 'Migration, monitoring, backups, incident responsibilities, documentation, and ongoing product engineering.'],
-      ].map(([number, heading, text]) => (
-        <article class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6">
-          <span class="text-2xl font-bold text-cyan-400">{number}</span>
-          <h3 class="mt-4 font-heading text-lg font-bold text-[var(--text)]">{heading}</h3>
-          <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">{text}</p>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section class="mb-16 grid gap-4 md:grid-cols-2">
-    <a href="/blog/ecommerce/shopify-vs-medusa-js-2026/" class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 transition hover:border-cyan-400">
-      <span class="text-xs font-semibold uppercase text-cyan-400">Platform selection</span>
-      <strong class="mt-2 block text-lg text-[var(--text)]">Shopify vs Medusa.js in 2026</strong>
-    </a>
-    <a href="/blog/ecommerce/building-subscription-ecommerce-medusa-js-india/" class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 transition hover:border-cyan-400">
-      <span class="text-xs font-semibold uppercase text-cyan-400">Implementation guide</span>
-      <strong class="mt-2 block text-lg text-[var(--text)]">Building subscriptions with Razorpay, PhonePe, and shipping</strong>
-    </a>
-  </section>
-
-  <section class="mb-16">
-    <h2 class="font-heading text-3xl font-bold text-[var(--text)]">Medusa.js development FAQs</h2>
-    <div class="mt-7 divide-y divide-[var(--border)] overflow-hidden rounded-2xl border border-[var(--border)]">
-      {faqs.map((faq) => (
-        <details class="bg-[var(--bg-card)] p-6">
-          <summary class="cursor-pointer font-semibold text-[var(--text)]">{faq.question}</summary>
-          <p class="mt-3 text-sm leading-relaxed text-[var(--text-dim)]">{faq.answer}</p>
-        </details>
-      ))}
-    </div>
-  </section>
-
-  <section class="rounded-3xl bg-cyan-400 p-8 text-slate-950 md:p-12">
-    <p class="text-sm font-bold uppercase tracking-wider">When the workflow is the differentiator</p>
-    <h2 class="mt-2 max-w-3xl font-heading text-3xl font-bold md:text-4xl">Build the commerce platform your operating model actually needs.</h2>
-    <a href="/schedule-consultation/" class="mt-7 inline-flex rounded-full bg-slate-950 px-6 py-3 text-sm font-bold text-white">Plan your Medusa.js project</a>
-  </section>
+    <section class="grid gap-4 lg:grid-cols-2" aria-label="Cost, hosting and partnership">
+      <div class="tilt-card p-5 sm:p-6" style="--card-color: var(--ac-amber);">
+        <h2 class="font-heading text-lg font-bold text-[var(--text)]">What drives Medusa.js cost and hosting</h2>
+        <ul class="mt-3 grid gap-1.5 text-sm text-[var(--text-dim)] sm:grid-cols-2" role="list">
+          {['Custom modules and workflows', 'Payment and shipping providers', 'ERP, PIM or WMS integrations', 'Data migration and redirects', 'Storefront design', 'Medusa Cloud or self-hosting', 'Monitoring, backups, updates', 'Support after launch'].map((item) => <li>• {item}</li>)}
+        </ul>
+        <a href="/blog/ecommerce/medusa-js-implementation-running-costs/" class="mt-3 inline-block text-sm font-semibold text-[var(--text)] underline underline-offset-4">Read the full cost breakdown →</a>
+      </div>
+      <div class="tilt-card p-5 sm:p-6" style="--card-color: var(--ac-indigo);">
+        <h2 class="font-heading text-lg font-bold text-[var(--text)]">A Medusa.js partner for agencies and merchants abroad</h2>
+        <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">We work remotely, directly with merchants or white-label behind an agency, under NDA where needed. The India working day overlaps the UK and European morning and the US evening. Scope, code ownership, hosting responsibility and handover are agreed in writing before work starts.</p>
+      </div>
+    </section>
+  </ServicePage>
 </ServiceLayout>

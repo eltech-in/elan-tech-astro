@@ -67,7 +67,7 @@ const tick = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" vie
       </div>
 
       <!-- The form -->
-      <div class="area-form form-card rounded-lg border border-[var(--border)] bg-[var(--bg-card)] p-5 shadow-sm sm:p-8" aria-labelledby="quote-form-heading">
+      <div class="area-form tilt-card tilt-card--lg p-5 shadow-sm sm:p-8" style="--card-color: var(--ac-teal);" aria-labelledby="quote-form-heading">
         <h2 id="quote-form-heading" class="mb-6 font-heading text-2xl font-bold text-[var(--text)]">Project Quote Request</h2>
         <GetQuoteForm client:load />
       </div>
@@ -76,7 +76,6 @@ const tick = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" vie
 </BaseLayout>
 
 <style>
-  .form-card { border-top: 3px solid var(--accent); }
   .quote-grid { display: grid; gap: 2rem; grid-template-areas: "intro" "form" "info"; }
   .area-intro { grid-area: intro; } .area-form { grid-area: form; } .area-info { grid-area: info; }
   @media (min-width: 1024px) {
@@ -84,5 +83,5 @@ const tick = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" vie
     .area-form { position: sticky; top: 7rem; }
   }
   .step { display: grid; grid-template-columns: 2.25rem 1fr; gap: .9rem; }
-  .step > span { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: .5rem; background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); font-weight: 800; }
+  .step > span { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: var(--radius-lg); background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); font-weight: 800; }
 </style>

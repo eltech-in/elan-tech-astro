@@ -23,7 +23,7 @@ const countryProjects = internationalProjects.filter((item) => item.countrySlug 
       </div>
       <div class:list={['grid gap-6', countryProjects.length > 1 && 'lg:grid-cols-2']}>
       {countryProjects.map((project) => (
-      <article class="overflow-hidden rounded-lg border border-[var(--border)] bg-[var(--bg)] shadow-[0_24px_70px_rgba(15,23,42,0.08)]">
+      <article class="overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg)] shadow-[0_24px_70px_rgba(15,23,42,0.08)]">
         <div class="relative min-h-[260px] overflow-hidden bg-slate-950 sm:min-h-[360px] lg:min-h-[430px]">
           <Image
             src={getProjectImage(project.image)}
@@ -38,7 +38,7 @@ const countryProjects = internationalProjects.filter((item) => item.countrySlug 
           <div class="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent" aria-hidden="true"></div>
           <div class="absolute bottom-5 left-5 right-5 flex flex-wrap items-center gap-2">
             {project.stack?.map((item) => (
-              <span class="rounded-full border border-white/25 bg-slate-950/70 px-3 py-1.5 text-[11px] font-bold text-white backdrop-blur">{item}</span>
+              <span class="rounded-md border border-white/25 bg-slate-950/70 px-3 py-1.5 text-[11px] font-bold text-white backdrop-blur">{item}</span>
             ))}
           </div>
         </div>
@@ -51,10 +51,10 @@ const countryProjects = internationalProjects.filter((item) => item.countrySlug 
             This is client work delivered from our India studio. It shows how we collaborate across borders without suggesting a local eLan office in {country.name}.
           </p>
           <div class="relative mt-7 flex flex-wrap gap-3">
-            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-5 py-2.5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:brightness-110" aria-label={`Visit ${project.title}, opens in a new tab`}>
+            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg bg-[var(--accent)] px-5 py-2.5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:brightness-110" aria-label={`Visit ${project.title}, opens in a new tab`}>
               Visit live website <span aria-hidden="true">↗</span>
             </a>
-            <a href="/portfolio/" class="inline-flex items-center rounded-full border border-[var(--border)] px-5 py-2.5 text-sm font-bold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">
+            <a href="/portfolio/" class="inline-flex items-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-bold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">
               View portfolio
             </a>
           </div>

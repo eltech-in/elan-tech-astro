@@ -1,0 +1,44 @@
+---
+// One blog article card in the shared card style, coloured by category.
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { blogCategoryColor, blogCategoryLabel } from '../../data/blogCategories';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  heading?: 'h2' | 'h3';
+  eager?: boolean;
+}
+const { post, heading = 'h3', eager = false } = Astro.props;
+const Heading = heading;
+const href = `/blog/${post.data.category}/${post.id}/`;
+const date = new Date(post.data.publishDate);
+const desc = post.data.description.length > 125 ? post.data.description.slice(0, 124) + '…' : post.data.description;
+---
+<article class="blog-card tilt-card tilt-card--hover group flex h-full flex-col" style={`--card-color: ${blogCategoryColor(post.data.category)};`}>
+  {post.data.featuredImage?.src && (
+    <a href={href} aria-hidden="true" tabindex="-1" class="block aspect-[16/9] overflow-hidden">
+      <Image
+        src={post.data.featuredImage.src}
+        alt={post.data.featuredImage.alt}
+        widths={[320, 480, 640, 960]}
+        sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 30vw"
+        format="avif"
+        loading={eager ? 'eager' : 'lazy'}
+        decoding="async"
+        class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+    </a>
+  )}
+  <div class="flex flex-1 flex-col p-5">
+    <p class="text-[11px] font-bold uppercase tracking-[0.14em]" style="color: var(--card-color);">{blogCategoryLabel(post.data.category)}</p>
+    <Heading class="mt-2 font-heading text-base font-bold leading-snug text-[var(--text)] sm:text-[17px]">
+      <a href={href} class="transition-colors hover:text-[var(--card-color)]">{post.data.title}</a>
+    </Heading>
+    <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">{desc}</p>
+    <p class="mt-auto flex items-center justify-between pt-4 text-xs text-[var(--text-muted)]">
+      <time datetime={date.toISOString()}>{date.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' })}</time>
+      <span>{post.data.readTime} min read</span>
+    </p>
+  </div>
+</article>

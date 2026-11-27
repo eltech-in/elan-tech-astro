@@ -104,7 +104,7 @@ export default function TestimonialCarousel({ testimonials }: Props) {
       onMouseLeave={() => setInteractionPaused(false)}
       onFocusCapture={() => setInteractionPaused(true)}
       onBlurCapture={handleBlur}
-      className="relative overflow-hidden rounded-lg border border-[var(--border)] bg-[var(--bg-card)] p-4 shadow-[0_24px_80px_-36px_rgba(15,23,42,0.35)] sm:p-6 lg:p-8"
+      className="relative overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-4 shadow-[0_24px_80px_-36px_rgba(15,23,42,0.35)] sm:p-6 lg:p-8"
     >
       <style>{`
         @keyframes testimonial-card-in {
@@ -141,11 +141,11 @@ export default function TestimonialCarousel({ testimonials }: Props) {
         {visibleItems.map(({ item, offset }) => (
           <blockquote
             key={`${current}-${offset}-${item.author}`}
-            className={`testimonial-card relative min-h-[330px] flex-col overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg)]/85 p-6 shadow-sm backdrop-blur-sm ${offset === 0 ? 'flex' : offset === 1 ? 'hidden md:flex' : 'hidden xl:flex'}`}
+            className={`testimonial-card relative min-h-[330px] flex-col overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg)]/85 p-6 shadow-sm backdrop-blur-sm ${offset === 0 ? 'flex' : offset === 1 ? 'hidden md:flex' : 'hidden xl:flex'}`}
             style={{ animation: `testimonial-card-in 500ms ease-out ${offset * 80}ms both` }}
           >
             <div className="mb-5 flex items-center justify-between gap-3">
-              <span className={`inline-flex rounded-lg border px-2.5 py-1 text-[11px] font-bold ${sourceStyle(item.source)}`}>{item.source}</span>
+              <span className={`inline-flex rounded-xl border px-2.5 py-1 text-[11px] font-bold ${sourceStyle(item.source)}`}>{item.source}</span>
               {item.rating ? <StarRating rating={item.rating} /> : <span className="text-3xl font-bold leading-none text-[var(--accent)]/25" aria-hidden="true">“</span>}
             </div>
 
@@ -174,12 +174,12 @@ export default function TestimonialCarousel({ testimonials }: Props) {
         </div>
 
         <div className="flex items-center gap-2">
-          <button type="button" aria-label="Previous testimonials" onClick={() => goTo(current - 1)} className="inline-flex h-10 items-center gap-1.5 rounded-xl border border-[var(--border)] px-3 text-sm font-semibold text-[var(--text-muted)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">
+          <button type="button" aria-label="Previous testimonials" onClick={() => goTo(current - 1)} className="inline-flex h-10 items-center gap-1.5 rounded-lg border border-[var(--border)] px-3 text-sm font-semibold text-[var(--text-muted)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
             <span className="hidden sm:inline">Previous</span>
           </button>
           {!reducedMotion && (
-            <button type="button" aria-label={manualPaused ? 'Resume testimonial carousel' : 'Pause testimonial carousel'} aria-pressed={manualPaused} onClick={() => setManualPaused((value) => !value)} className="inline-flex h-10 items-center gap-2 rounded-xl border border-[var(--border)] px-3 text-sm font-semibold text-[var(--text-muted)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">
+            <button type="button" aria-label={manualPaused ? 'Resume testimonial carousel' : 'Pause testimonial carousel'} aria-pressed={manualPaused} onClick={() => setManualPaused((value) => !value)} className="inline-flex h-10 items-center gap-2 rounded-lg border border-[var(--border)] px-3 text-sm font-semibold text-[var(--text-muted)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">
               {manualPaused ? (
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m7 4 13 8-13 8V4Z" /></svg>
               ) : (
@@ -188,7 +188,7 @@ export default function TestimonialCarousel({ testimonials }: Props) {
               <span>{manualPaused ? 'Play' : 'Pause'}</span>
             </button>
           )}
-          <button type="button" aria-label="Next testimonials" onClick={() => goTo(current + 1)} className="inline-flex h-10 items-center gap-1.5 rounded-xl border border-[var(--border)] px-3 text-sm font-semibold text-[var(--text-muted)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">
+          <button type="button" aria-label="Next testimonials" onClick={() => goTo(current + 1)} className="inline-flex h-10 items-center gap-1.5 rounded-lg border border-[var(--border)] px-3 text-sm font-semibold text-[var(--text-muted)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">
             <span className="hidden sm:inline">Next</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
           </button>

@@ -1,10 +1,13 @@
 ---
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
+import ServicePage from '../../components/service/ServicePage.astro';
 import { services } from '../../data/services';
-import { indexedCities } from '../../data/cities';
 import { serviceSchema, faqSchema, breadcrumbSchema } from '../../utils/schema';
 
+// Rewritten 27 Nov 2026: compact, search-literal page in the shared service layout.
 const service = services.find((s) => s.slug === 'seo')!;
+const title = "SEO Services in India: Technical, Local & Content SEO";
+const description = "SEO services from India: technical SEO, on-page optimisation, keyword strategy, local SEO and Google Business Profile, content SEO and clear Search Console reporting. No ranking guarantees, just evidence.";
 
 const serviceFaqs = [
   {
@@ -34,161 +37,27 @@ const breadcrumbs = [
   { name: 'Services', href: '/services/' },
   { name: service.title, href: `/services/${service.slug}/` },
 ];
-
-const schemaBreadcrumbs = breadcrumbs.map((b) => ({ name: b.name, url: b.href }));
-
 const schemas = [
-  serviceSchema(service.title, service.description, `/services/${service.slug}/`),
+  serviceSchema(title, description, `/services/${service.slug}/`),
   faqSchema(serviceFaqs),
-  breadcrumbSchema(schemaBreadcrumbs),
+  breadcrumbSchema(breadcrumbs.map((b) => ({ name: b.name, url: b.href }))),
 ];
-
-const featuredCities = indexedCities;
 ---
-<ServiceLayout
-  title={`${service.title} (SEO) Services | eLan Technology`}
-  description={service.description}
-  breadcrumbs={breadcrumbs}
-  schema={schemas}
->
-
-  <!-- HERO -->
-  <section class="service-card relative mb-12 overflow-hidden rounded-2xl border border-[var(--border)] p-8 md:p-12" style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-emerald) 12%, var(--bg-card)) 0%, var(--bg-card) 65%);">
-    <span aria-hidden="true" class="service-card__num pointer-events-none absolute top-4 right-6 font-heading font-black leading-none select-none" style="color: var(--ac-emerald); font-size: 7rem;">04</span>
-    <span aria-hidden="true" class="service-card__stripe pointer-events-none absolute -left-12 -bottom-12 h-60 w-60 rotate-[-20deg] opacity-[0.08]" style="background: var(--ac-emerald);"></span>
-    <div class="relative">
-    <div class="grid gap-10 md:grid-cols-2 md:items-center">
-      <div>
-        <p class="mb-2 text-sm font-semibold uppercase tracking-widest" style={`color: ${service.accent};`}>{service.tagline}</p>
-        <h1 class="font-heading text-3xl font-bold leading-tight text-[var(--text)] md:text-4xl lg:text-5xl">SEO That Helps Customers Find You</h1>
-        <p class="mt-4 text-base text-[var(--text-muted)] md:text-lg">
-          {service.description} We focus on searches that matter to your business and show you what changed in a straightforward monthly report.
-        </p>
-        <div class="mt-6 flex flex-wrap gap-3">
-          <a href="/website-audit/" class="inline-flex items-center rounded-lg px-5 py-2.5 text-sm font-semibold shadow transition hover:opacity-90" style={`background: ${service.accent}; color: #000;`}>
-            Get an SEO Audit
-          </a>
-          <a href="/get-quote/" class="inline-flex items-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
-            Get a Quote
-          </a>
-        </div>
-      </div>
-      <ul class="space-y-3">
-        {service.features.map((f) => (
-          <li class="flex items-center gap-3 rounded-lg bg-[var(--bg)] px-4 py-3 border border-[var(--border)] text-sm font-medium text-[var(--text)]">
-            <span class="font-bold" style={`color: ${service.accent};`}>&#10003;</span> {f}
-          </li>
-        ))}
-      </ul>
-    </div>
-  </div>
-  </section>
-
-  <!-- WHAT'S INCLUDED -->
-  <section class="mb-16">
-    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-2">What's Included in Our SEO Services</h2>
-    <p class="text-[var(--text-muted)] mb-8">A comprehensive SEO service covering every aspect of search engine optimisation - from technical foundations to content strategy and authority building.</p>
-    <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-      {[
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>', name: 'Technical SEO', desc: 'Site speed optimisation, Core Web Vitals improvements, crawlability fixes, XML sitemap management, robots.txt configuration, structured data implementation, and mobile-friendliness audits. We ensure search engines can efficiently crawl and index every important page.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>', name: 'On-Page Optimisation', desc: 'Title tags, meta descriptions, heading structure, internal linking, image alt text, URL structure, and content optimisation. Every page is fine-tuned to target specific keywords while providing an excellent user experience.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 11-7.778 7.778 5.5 5.5 0 017.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>', name: 'Keyword Research & Strategy', desc: 'In-depth keyword research using Semrush, Ahrefs, and Google Search Console data. We identify high-intent keywords with realistic difficulty scores, map them to pages, and build a content calendar around search demand.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>', name: 'Link Building & Off-Page', desc: 'White-hat link building through digital PR, guest posting, resource page outreach, and broken link building. We focus on acquiring high-quality, relevant backlinks that genuinely improve your domain authority.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>', name: 'Local SEO', desc: 'Google Business Profile setup and optimisation, local citation building (Justdial, Sulekha, IndiaMART), review management strategy, and geo-targeted content. Essential for businesses serving Nagpur, Raipur, and other Indian cities.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>', name: 'Content SEO', desc: 'Blog posts, pillar pages, FAQ sections, and resource guides written to rank. Every piece is keyword-researched, strategically structured with proper headings and schema, and designed to earn featured snippets and answer boxes.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>', name: 'SEO Reporting & Analytics', desc: 'Monthly reports covering organic rankings, traffic trends, backlink growth, Core Web Vitals scores, and conversion tracking. GA4 and Search Console dashboards give you real-time visibility into your SEO performance.' },
-        { icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>', name: 'Competitor Analysis', desc: 'We analyse your top 5-10 competitors - their keyword targets, backlink profiles, content strategies, and technical advantages. This intelligence directly informs our strategy, helping you find gaps and opportunities they have missed.' },
-      ].map(({ icon, name, desc }) => (
-        <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
-          <div class="mb-3 inline-flex h-11 w-11 items-center justify-center rounded-xl" style="background: color-mix(in srgb, var(--ac-emerald) 18%, transparent); color: var(--ac-emerald);" set:html={icon} />
-          <h3 class="font-heading text-base font-semibold text-[var(--text)] mb-2">{name}</h3>
-          <p class="text-sm text-[var(--text-muted)] leading-relaxed">{desc}</p>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <!-- OUR SEO PROCESS -->
-  <section class="mb-16 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 md:p-10">
-    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-3">Our SEO Process</h2>
-    <p class="text-[var(--text-muted)] mb-8">We follow a structured, data-driven SEO process that builds sustainable organic growth - no shortcuts, no black-hat techniques.</p>
-    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-      {[
-        { n: '1', step: 'Audit & Discovery', desc: 'Comprehensive technical audit, keyword gap analysis, backlink review, and competitor benchmarking. We identify every issue and opportunity before writing a single line of strategy.' },
-        { n: '2', step: 'Strategy & Roadmap', desc: 'We build a 90-day SEO roadmap with specific keyword targets, content assignments, technical fixes, and link building goals. You review and approve before we begin execution.' },
-        { n: '3', step: 'Execute & Optimise', desc: 'Technical fixes are implemented first, followed by on-page optimisation and content creation. Link building runs in parallel. Every task is tracked in a shared project board.' },
-        { n: '4', step: 'Report & Scale', desc: 'Monthly reports with clear metrics. We double down on what works, adjust what does not, and continuously expand your keyword footprint and authority.' },
-      ].map(({ n, step, desc }) => (
-        <div class="rounded-xl bg-[var(--bg)] border border-[var(--border)] p-5">
-          <div class="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-full font-heading text-sm font-bold text-black" style={`background: ${service.accent};`}>{n}</div>
-          <h3 class="font-heading text-base font-semibold text-[var(--text)] mb-2">{step}</h3>
-          <p class="text-sm text-[var(--text-muted)]">{desc}</p>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <!-- TOOLS -->
-  <section class="mb-16">
-    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-4">SEO Tools We Use</h2>
-    <div class="flex flex-wrap gap-3">
-      {['Google Search Console', 'Google Analytics 4', 'Semrush', 'Ahrefs', 'Screaming Frog', 'Google PageSpeed Insights', 'Google Tag Manager', 'Schema Markup Validator', 'Moz', 'Ubersuggest', 'Surfer SEO', 'Looker Studio'].map((tech) => (
-        <span class="rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-4 py-2 text-sm font-medium text-[var(--text-muted)] hover:border-emerald-500/50 hover:text-[var(--text)] transition-colors">
-          {tech}
-        </span>
-      ))}
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section class="mb-16">
-    <h2 class="font-heading text-2xl font-bold text-[var(--text)] md:text-3xl mb-8">SEO - Frequently Asked Questions</h2>
-    <div class="divide-y divide-[var(--border)] rounded-xl border border-[var(--border)] overflow-hidden">
-      {serviceFaqs.map(({ question, answer }) => (
-        <details class="bg-[var(--bg-card)] py-0">
-          <summary class="cursor-pointer font-medium text-[var(--text)] flex items-center justify-between px-6 py-4 hover:bg-[var(--bg)] transition-colors list-none">
-            <span>{question}</span>
-            <span class="ml-4 shrink-0 text-[var(--text-muted)] text-lg">+</span>
-          </summary>
-          <p class="px-6 pb-5 pt-1 text-sm text-[var(--text-muted)] leading-relaxed" set:html={answer} />
-        </details>
-      ))}
-    </div>
-  </section>
-
-  <!-- CITY LINKS -->
-  <section class="mb-16">
-    <h2 class="font-heading text-xl font-bold text-[var(--text)] md:text-2xl mb-2">SEO Services Across India</h2>
-    <p class="text-sm text-[var(--text-muted)] mb-6">We provide SEO services for businesses in Nagpur, Raipur, Mumbai, Pune, Hyderabad, Delhi, and across India - with deep knowledge of local search behaviour and competitive landscapes in each market.</p>
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-      {featuredCities.map((city) => (
-        <a
-          href={city.hasLandingPage ? `/web-design-company-${city.slug}/` : `/services/seo/`}
-          class="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-3 hover:border-emerald-500/50 transition-colors"
-        >
-          <p class="font-medium text-sm text-[var(--text)]">{city.name}</p>
-          <p class="text-xs text-[var(--text-muted)] mt-0.5">SEO services available</p>
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <!-- DOUBLE CTA -->
-  <section class="grid gap-5 md:grid-cols-2 mb-4">
-    <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-7 flex flex-col">
-      <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-2">Get an SEO Audit</h3>
-      <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Find out exactly where your competitors are outranking you, what technical issues are holding your site back, and how to fix them - with no obligation to proceed.</p>
-      <a href="/website-audit/" class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-black transition hover:opacity-90" style={`background: ${service.accent};`}>
-        Book an Audit
-      </a>
-    </div>
-    <div class="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-7 flex flex-col">
-      <h3 class="font-heading text-xl font-bold text-[var(--text)] mb-2">Have SEO Questions?</h3>
-      <p class="text-sm text-[var(--text-muted)] mb-5 flex-1">Not sure where to start with SEO? Schedule a strategy call with one of our SEO specialists and walk away with clarity on your priorities - regardless of whether you engage us.</p>
-      <a href="/schedule-consultation/" class="inline-flex items-center justify-center rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--bg)]">
-        Schedule a Call
-      </a>
-    </div>
-  </section>
-
+<ServiceLayout title={title} description={description} breadcrumbs={breadcrumbs} schema={schemas}>
+  <ServicePage
+    accentVar={service.cssVar}
+    highlights={service.features.slice(0, 6)}
+    eyebrow={"SEO services · technical, local and content"}
+    heading={"SEO Services That Help Customers Find You"}
+    intro={"We fix what stops search engines understanding your website, then build the pages and local presence that match what your customers actually search for. Every month you see the Search Console evidence, not vanity numbers."}
+    offersTitle={"What our SEO service includes"}
+    offers={[{"title": "Technical SEO", "text": "Speed, Core Web Vitals, crawlability, sitemaps, robots.txt, structured data and mobile checks."}, {"title": "On-page optimisation", "text": "Titles, descriptions, headings, internal links, image alt text and content matched to search intent."}, {"title": "Keyword research and mapping", "text": "Realistic, high-intent keywords from Search Console and research tools, mapped to pages."}, {"title": "Local SEO", "text": "Google Business Profile, local citations, reviews and city pages for the places you serve."}, {"title": "Content SEO", "text": "Guides, FAQs and pillar pages structured to answer real questions and earn featured answers."}, {"title": "Ethical link building", "text": "Digital PR and relevant outreach; no paid link schemes."}, {"title": "Competitor analysis", "text": "Keyword targets, content and technical gaps among the competitors you actually face."}, {"title": "Reporting and analytics", "text": "GA4 and Search Console reports in plain English, with agreed measures and next steps."}]}
+    process={[{"title": "Audit", "text": "Technical audit, keyword gaps, backlinks and competitor benchmarks."}, {"title": "Roadmap", "text": "A 90-day plan of fixes, pages and targets you approve before work starts."}, {"title": "Implement", "text": "Technical fixes first, then on-page work and content, tracked on a shared board."}, {"title": "Measure and refine", "text": "Monthly reports; keep what works, change what does not."}]}
+    fit={["Your website gets impressions but few clicks.", "You serve specific cities and want to appear in local results.", "A redesign or migration put your rankings at risk.", "You want evidence-led SEO, not ranking promises."]}
+    faqTitle={"SEO FAQs"}
+    cta={{"title": "Find out what is holding your rankings back", "text": "Start with a paid website audit or a short call. We will show the Search Console evidence and the fixes that matter first.", "label": "Book a website audit", "href": "/website-audit/"}}
+    note={"Search rankings, traffic, impressions, clicks and enquiries depend on search engines, competitors and demand and cannot be guaranteed."}
+    guides={[{"label": "Local SEO", "title": "SEO guide for small businesses in Nagpur", "href": "/blog/seo/seo-guide-small-business-nagpur/"}, {"label": "AI search", "title": "Generative engine optimisation for AI search", "href": "/blog/technology-trends/generative-engine-optimization-ai-search-2026/"}, {"label": "Audit", "title": "Website audit findings explained", "href": "/blog/web-design/website-audit-findings-explained/"}]}
+    faqs={serviceFaqs}
+  ></ServicePage>
 </ServiceLayout>

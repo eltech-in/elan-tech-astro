@@ -44,12 +44,12 @@ const points = [
             ))}
           </ul>
           <div class="mt-8 flex flex-wrap gap-3">
-            <a href="/products/elan-central-cms/" class="inline-flex min-h-11 items-center rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-bold text-white transition hover:brightness-110">See how eLan Central CMS works</a>
-            <a href="/technologies/" class="inline-flex min-h-11 items-center rounded-full border border-[var(--border)] px-6 py-3 text-sm font-bold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">Technologies we build with</a>
+            <a href="/products/elan-central-cms/" class="inline-flex min-h-11 items-center rounded-lg bg-[var(--accent)] px-6 py-3 text-sm font-bold text-white transition hover:brightness-110">See how eLan Central CMS works</a>
+            <a href="/technologies/" class="inline-flex min-h-11 items-center rounded-lg border border-[var(--border)] px-6 py-3 text-sm font-bold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">Technologies we build with</a>
           </div>
         </div>
 
-        <div class="rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8">
+        <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8">
           <p class="text-xs font-bold uppercase tracking-widest text-[var(--text-muted)]">From edit to live</p>
           <ol class="mt-5 space-y-4" role="list">
             {steps.map((step, index) => (
@@ -64,7 +64,7 @@ const points = [
           </ol>
           <ul class="mt-6 flex flex-wrap gap-2 border-t border-[var(--border)] pt-5" role="list" aria-label="eLan Central CMS technology">
             {['Astro', 'Payload CMS', 'Next.js', 'PostgreSQL', 'TypeScript'].map((tech) => (
-              <li class="rounded-full border border-[var(--border)] px-3 py-1 text-xs font-semibold text-[var(--text)]">{tech}</li>
+              <li class="rounded-md border border-[var(--border)] px-3 py-1 text-xs font-semibold text-[var(--text)]">{tech}</li>
             ))}
           </ul>
         </div>
@@ -72,7 +72,7 @@ const points = [
     </div>
   </section>
 ) : (
-  <section class="mb-16 rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-7 md:p-10" aria-labelledby={headingId}>
+  <section class="mb-16 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-7 md:p-10" aria-labelledby={headingId}>
     <p class="text-xs font-bold uppercase tracking-widest" style="color: var(--ac-cyan);">Our own content platform</p>
     <h2 id={headingId} class="mt-2 font-heading text-2xl font-bold text-[var(--text)] md:text-3xl">eLan Central CMS: Payload CMS for Astro websites</h2>
     <p class="mt-4 max-w-3xl leading-relaxed text-[var(--text-dim)]">
@@ -80,7 +80,7 @@ const points = [
     </p>
     <ol class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4" role="list">
       {steps.map((step, index) => (
-        <li class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-4">
+        <li class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-4">
           <span class="text-xs font-black" style="color: var(--ac-cyan);" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
           <h3 class="mt-1 font-semibold text-[var(--text)]"><span class="sr-only">Step {index + 1}: </span>{step.title}</h3>
           <p class="mt-1 text-sm leading-relaxed text-[var(--text-dim)]">{step.text}</p>

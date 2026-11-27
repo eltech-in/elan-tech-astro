@@ -2,7 +2,6 @@
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import LocationsCloud from '../components/LocationsCloud.astro';
-import AnswerSummary from '../components/AnswerSummary.astro';
 import BookingAdvance from '../components/payments/BookingAdvance.astro';
 import { services as serviceCatalog, accessibilityService, coreServices, newBusinessServices } from '../data/services';
 
@@ -80,12 +79,6 @@ const navigation = [
 
 const specialThemes = [
   {
-    path: '/services/ecommerce/shopify-development/',
-    label: 'Custom Shopify Development',
-    cssVar: '--svc-shopify',
-    number: '03A',
-  },
-  {
     path: '/services/ecommerce/medusa-js-development/',
     label: 'Medusa.js Development',
     cssVar: '--svc-medusa',
@@ -143,18 +136,6 @@ const privacyProfiles: Record<string, {
       { title: 'Retention and customer controls', text: 'Define order, account, abandoned-cart, support and marketing retention separately, including access, correction, deletion, unsubscribe and legally required transaction records.' },
     ],
     note: 'Platform configuration can support privacy controls, but the merchant remains responsible for its lawful purposes, notices, operational practices and instructions to service providers.',
-  },
-  '/services/ecommerce/shopify-development/': {
-    eyebrow: 'Shopify privacy architecture',
-    title: 'Theme, apps and markets form one customer-data chain.',
-    intro: 'A Shopify project should inventory native platform processing plus every installed app, tracking tag, market, checkout extension and external integration before launch.',
-    items: [
-      { title: 'Store and Shopify roles', text: 'Document the merchant’s decisions, Shopify’s platform role, eLan’s authorised implementation access and the responsibility of each selected app or integration provider.' },
-      { title: 'Apps and pixels', text: 'Review the data requested by reviews, loyalty, subscriptions, email, analytics, advertising and support apps. Avoid overlapping tools and permissions that exceed the approved purpose.' },
-      { title: 'Markets and transfers', text: 'International selling may involve market-specific notices, tax, currency, fulfilment providers and cross-border processing. Required regions and vendors should be confirmed during discovery.' },
-      { title: 'Access and handover', text: 'Use collaborator or role-based access where available, identify the store owner, document app billing and permissions, and remove project access when the agreed work ends.' },
-    ],
-    note: 'Shopify features, app behaviour and plan availability can change. The final privacy configuration must be checked against the merchant’s current Shopify plan, markets and installed apps.',
   },
   '/services/ecommerce/medusa-js-development/': {
     eyebrow: 'Owned commerce, defined responsibility',
@@ -310,93 +291,45 @@ const privacyProfile = privacyProfiles[currentPath];
     class="service-canvas"
     style={`--service-accent: var(${activeTheme.cssVar}); --detail-accent: var(${activeTheme.cssVar});`}
   >
-    <div class="service-sticky sticky top-[68px] sm:top-[76px] z-40 border-b border-[var(--border)] bg-[var(--bg)]/95 px-4 py-2 backdrop-blur-xl sm:px-6 lg:px-8">
-      <div class="mx-auto max-w-7xl">
-        <div class="flex items-center justify-between gap-4">
-          <Breadcrumb items={breadcrumbs} />
-          <span class="hidden shrink-0 items-center gap-2 text-[9px] font-bold uppercase tracking-[0.16em] text-[var(--text-muted)] md:inline-flex">
-            <span class="h-1.5 w-1.5 rounded-full bg-[var(--service-accent)]" aria-hidden="true"></span>
-            {activeTheme.number} · {activeTheme.label}
-          </span>
-        </div>
-
-        <nav aria-label="Explore all services" class="mt-2">
-          <ul class="service-switcher grid gap-1" role="list">
-          {navigation.map((item) => {
-            const isActive = currentPath.startsWith(item.href);
-            return (
-              <li>
-                <a
-                  href={item.href}
-                  aria-label={item.fullLabel}
-                  aria-current={isActive ? 'page' : undefined}
-                  class:list={['service-switcher__item group', isActive && 'is-active']}
-                  style={`--item-accent: var(${item.cssVar});`}
-                >
-                  <span class="service-switcher__icon" aria-hidden="true"><span set:html={item.iconSvg} /></span>
-                  <span class="min-w-0">
-                    <span class="block text-[8px] font-bold uppercase tracking-[0.14em] text-[var(--item-accent)]">{item.number}</span>
-                    <span class="block truncate text-[11px] font-semibold leading-tight text-[var(--text)]">{item.label}</span>
-                  </span>
-                </a>
-              </li>
-            );
-          })}
-          </ul>
-        </nav>
-      </div>
+    <div class="mx-auto max-w-7xl px-4 pt-4 sm:px-6 lg:px-8">
+      <Breadcrumb items={breadcrumbs} />
     </div>
 
-    <div class="mx-auto max-w-7xl px-4 pb-12 pt-6 sm:px-6 lg:px-8 lg:pb-20 lg:pt-8">
+    <div class="mx-auto max-w-7xl px-4 pb-12 pt-4 sm:px-6 lg:px-8 lg:pb-16">
       <main class="service-bento-flow" data-service={activeTheme.label}>
         <slot />
         {privacyProfile && (
-          <section class="service-privacy-panel rounded-lg border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-8 lg:p-10" aria-labelledby="service-data-responsibility-title">
-            <div class="grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
-              <div>
-                <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--service-accent)]">{privacyProfile.eyebrow}</p>
-                <h2 id="service-data-responsibility-title" class="mt-3 font-heading text-2xl font-bold leading-tight text-[var(--text)] md:text-3xl">{privacyProfile.title}</h2>
-                <p class="mt-4 text-sm leading-relaxed text-[var(--text-muted)]">{privacyProfile.intro}</p>
-                <a href="/privacy-policy/" class="mt-5 inline-flex min-h-11 items-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--bg)] px-5 py-2.5 text-sm font-bold text-[var(--service-accent)] transition-colors hover:border-[var(--service-accent)]">
-                  Read the privacy policy <span aria-hidden="true">→</span>
-                </a>
-              </div>
-              <ul class="grid gap-4 sm:grid-cols-2" role="list">
-                {privacyProfile.items.map((item, index) => (
-                  <li class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-5">
-                    <span class="text-[10px] font-black uppercase tracking-[0.16em] text-[var(--service-accent)]">{String(index + 1).padStart(2, '0')}</span>
-                    <h3 class="mt-2 font-heading text-sm font-bold text-[var(--text)]">{item.title}</h3>
-                    <p class="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{item.text}</p>
-                  </li>
+          <details class="service-privacy tilt-card" style={`--card-color: var(${activeTheme.cssVar});`}>
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4">
+              <span><span class="block text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--service-accent)]">{privacyProfile.eyebrow}</span><span id="service-data-responsibility-title" class="mt-0.5 block font-semibold text-[var(--text)]">{privacyProfile.title}</span></span>
+              <svg class="chev h-4 w-4 shrink-0 text-[var(--text-muted)]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="border-t border-[var(--border)] px-5 py-5 text-sm leading-relaxed text-[var(--text-dim)]">
+              <p>{privacyProfile.intro}</p>
+              <ul class="mt-4 grid gap-3 sm:grid-cols-2" role="list">
+                {privacyProfile.items.map((item) => (
+                  <li><strong class="text-[var(--text)]">{item.title}:</strong> {item.text}</li>
                 ))}
               </ul>
+              <p class="mt-4 text-xs text-[var(--text-muted)]">{privacyProfile.note}</p>
+              <p class="mt-2 text-xs text-[var(--text-muted)]">Privacy questions and personal-data requests: <a href={`mailto:privacy@elan-tech.net?subject=${encodeURIComponent(`${activeTheme.label} privacy question`)}`} class="font-semibold text-[var(--service-accent)] underline underline-offset-4">privacy@elan-tech.net</a> · <a href="/privacy-policy/" class="font-semibold text-[var(--service-accent)] underline underline-offset-4">Privacy policy</a></p>
             </div>
-            <p class="mt-6 border-t border-[var(--border)] pt-5 text-xs leading-relaxed text-[var(--text-muted)]">{privacyProfile.note}</p>
-            <p class="mt-2 text-xs leading-relaxed text-[var(--text-muted)]">
-              Privacy questions and personal-data requests can be sent to <a href={`mailto:privacy@elan-tech.net?subject=${encodeURIComponent(`${activeTheme.label} privacy question`)}`} class="font-semibold text-[var(--service-accent)] underline underline-offset-4">privacy@elan-tech.net</a>.
-            </p>
-          </section>
+          </details>
         )}
-        <AnswerSummary
-          eyebrow="Service answer"
-          title={`Is ${activeTheme.label} right for your project?`}
-          intro={description}
-          accentVar={activeTheme.cssVar}
-          items={[
-            {
-              question: `What does eLan provide for ${activeTheme.label}?`,
-              answer: 'We plan the work around your business goal, agree the deliverables before development, and provide a clear proposal covering scope, schedule, responsibilities and support.',
-            },
-            {
-              question: 'How is the price decided?',
-              answer: 'Pricing depends on the approved features, content, integrations, compliance work and delivery requirements. Any third-party subscriptions or usage charges are identified separately.',
-            },
-            {
-              question: 'What should you do next?',
-              answer: 'Share your goals, current website or reference examples. We will recommend a practical approach and provide a quote without forcing a particular platform or package.',
-            },
-          ]}
-        />
+
+        <nav aria-labelledby="other-services-title">
+          <h2 id="other-services-title" class="font-heading text-xl font-bold text-[var(--text)]">Explore our other services</h2>
+          <ul class="mt-4 grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-5" role="list">
+            {navigation.filter((item) => !currentPath.startsWith(item.href)).map((item) => (
+              <li>
+                <a href={item.href} class="tilt-card tilt-card--hover flex h-full items-center gap-2.5 px-3 py-2.5" style={`--card-color: var(${item.cssVar});`}>
+                  <span class="other-icon" aria-hidden="true"><span set:html={item.iconSvg} /></span>
+                  <span class="text-sm font-semibold leading-tight text-[var(--text)]">{item.fullLabel}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </main>
     </div>
   </div>
@@ -416,58 +349,16 @@ const privacyProfile = privacyProfiles[currentPath];
       var(--bg);
   }
 
-  .service-switcher__item {
-    display: flex;
-    min-height: 2.85rem;
-    align-items: center;
-    gap: 0.45rem;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    border-radius: .5rem;
-    padding: 0.35rem 0.45rem;
-    background: linear-gradient(135deg, color-mix(in srgb, var(--item-accent) 5%, var(--bg-card)), var(--bg-card) 70%);
-    box-shadow: 0 8px 22px -22px var(--item-accent);
-    transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
-  }
-
-  @media (min-width: 1024px) {
-    .service-switcher { grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr)); }
-  }
-
-  .service-switcher__item:hover,
-  .service-switcher__item:focus-visible,
-  .service-switcher__item.is-active {
-    border-color: color-mix(in srgb, var(--item-accent) 55%, var(--border));
-    box-shadow: 0 12px 26px -22px var(--item-accent);
-    transform: translateY(-1px);
-    outline: none;
-  }
-
-  .service-switcher__item.is-active {
-    background: linear-gradient(135deg, color-mix(in srgb, var(--item-accent) 15%, var(--bg-card)), var(--bg-card) 72%);
-  }
-
-  .service-switcher__icon {
-    display: inline-flex;
-    height: 1.75rem;
-    width: 1.75rem;
-    flex: 0 0 auto;
-    align-items: center;
-    justify-content: center;
-    border-radius: .5rem;
-    color: var(--item-accent);
-    background: color-mix(in srgb, var(--item-accent) 12%, transparent);
-  }
-
-  :global(.service-switcher__icon svg) {
-    width: 1rem;
-    height: 1rem;
-  }
+  .other-icon { display: inline-grid; place-items: center; width: 2rem; height: 2rem; flex: 0 0 auto; border-radius: var(--radius-lg); color: var(--card-color); background: color-mix(in srgb, var(--card-color) 14%, transparent); }
+  :global(.other-icon svg) { width: 1rem; height: 1rem; }
+  .service-privacy summary::-webkit-details-marker { display: none; }
+  .service-privacy .chev { transition: transform .2s; }
+  .service-privacy[open] .chev { transform: rotate(180deg); }
 
   .service-bento-flow {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    gap: clamp(3rem, 6vw, 5.5rem);
+    gap: clamp(2.25rem, 4vw, 3.5rem);
   }
 
   :global(.service-bento-flow > section) {
@@ -480,8 +371,8 @@ const privacyProfile = privacyProfiles[currentPath];
     overflow: hidden;
     min-height: auto;
     border: 1px solid color-mix(in srgb, var(--service-accent) 30%, var(--border)) !important;
-    border-radius: .5rem !important;
-    padding: clamp(1.5rem, 4vw, 3.5rem) !important;
+    border-radius: var(--radius-xl) !important;
+    padding: clamp(1.25rem, 3vw, 2.5rem) !important;
     border-color: color-mix(in srgb, var(--service-accent) 28%, var(--border)) !important;
     background-image:
       linear-gradient(color-mix(in srgb, var(--service-accent) 4%, transparent) 1px, transparent 1px),
@@ -507,8 +398,8 @@ const privacyProfile = privacyProfiles[currentPath];
   }
 
   :global(.service-bento-flow > section:first-child h1) {
-    max-width: 20ch;
-    font-size: clamp(2.25rem, 4.5vw, 3.75rem);
+    max-width: 22ch;
+    font-size: clamp(2rem, 3.6vw, 3rem);
     line-height: 1.08;
     letter-spacing: -0.035em;
     text-wrap: balance;
@@ -522,7 +413,7 @@ const privacyProfile = privacyProfiles[currentPath];
 
   :global(.service-bento-flow > section:first-child .service-hero-aside) {
     border: 1px solid color-mix(in srgb, var(--service-accent) 22%, var(--border));
-    border-radius: .5rem;
+    border-radius: var(--radius-xl);
     padding: clamp(1rem, 2vw, 1.5rem);
     background: color-mix(in srgb, var(--service-accent) 6%, var(--bg));
     backdrop-filter: blur(12px);
@@ -558,25 +449,6 @@ const privacyProfile = privacyProfiles[currentPath];
     outline-offset: 3px;
   }
 
-  @media (max-width: 1023px) {
-    .service-switcher {
-      display: flex;
-      margin-inline: -0.25rem;
-      overflow-x: auto;
-      padding-inline: 0.25rem;
-      padding-bottom: 0.25rem;
-      scroll-snap-type: x proximity;
-      scrollbar-width: none;
-    }
-
-    .service-switcher::-webkit-scrollbar { display: none; }
-    .service-switcher > li { min-width: 7.75rem; scroll-snap-align: start; }
-  }
-
-  @media (max-width: 639px) {
-    .service-switcher > li { min-width: 8.75rem; }
-  }
-
   @media (min-width: 768px) {
     :global(.service-bento-flow > section:first-child .service-hero-grid) {
       grid-template-columns: minmax(0, 1.08fr) minmax(19rem, 0.92fr);
@@ -596,7 +468,6 @@ const privacyProfile = privacyProfiles[currentPath];
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .service-switcher__item,
     :global(.service-bento-flow section .grid > *),
     :global(.service-bento-flow section > *) {
       transition: none !important;

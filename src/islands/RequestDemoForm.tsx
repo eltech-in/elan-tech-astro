@@ -112,7 +112,7 @@ export default function RequestDemoForm() {
 
   if (status === 'success') {
     return (
-      <div className="rounded-2xl border border-[var(--accent)]/30 bg-[var(--accent)]/10 p-8 text-center" role="status" aria-live="polite">
+      <div className="rounded-xl border border-[var(--accent)]/30 bg-[var(--accent)]/10 p-8 text-center" role="status" aria-live="polite">
         <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[var(--accent)] text-[var(--bg)]" aria-hidden="true">
           <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="20 6 9 17 4 12" />
@@ -294,7 +294,7 @@ export default function RequestDemoForm() {
       </div>
 
       {status === 'error' && (
-        <p role="alert" aria-live="polite" className="rounded-lg border border-red-400/20 bg-red-400/10 p-3 text-sm text-red-400">
+        <p role="alert" aria-live="polite" className="rounded-xl border border-red-400/20 bg-red-400/10 p-3 text-sm text-red-400">
           {errorMessage}
         </p>
       )}
@@ -302,7 +302,7 @@ export default function RequestDemoForm() {
       <button
         type="submit"
         disabled={status === 'submitting'}
-        className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[var(--bg)] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg bg-[var(--accent)] px-8 py-3 text-base font-semibold text-[var(--bg)] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {status === 'submitting' ? (
           <>

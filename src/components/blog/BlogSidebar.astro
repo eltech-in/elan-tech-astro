@@ -1,0 +1,52 @@
+---
+// Right sidebar for the blog index and category pages: longer reads, categories and an audit offer.
+import type { CollectionEntry } from 'astro:content';
+import AuditPrice from '../AuditPrice.astro';
+import { blogCategoryColor, blogCategoryLabel } from '../../data/blogCategories';
+
+interface Props { posts: CollectionEntry<'blog'>[]; categories: string[]; counts: Record<string, number>; current?: string; }
+const { posts, categories, counts, current } = Astro.props;
+const longer = [...posts].sort((a, b) => (b.data.readTime ?? 0) - (a.data.readTime ?? 0)).slice(0, 4);
+const isAccessibility = current === 'accessibility';
+---
+<aside class="blog-sidebar hidden h-full flex-col gap-5 lg:flex" aria-label="More from the blog">
+  <section class="tilt-card p-5" style="--card-color: var(--ac-violet);" aria-labelledby="sb-longer">
+    <h2 id="sb-longer" class="font-heading text-base font-bold text-[var(--text)]">Longer Reads</h2>
+    <ol class="mt-4 space-y-3.5" role="list">
+      {longer.map((p, i) => (
+        <li>
+          <a href={`/blog/${p.data.category}/${p.id}/`} class="group flex items-start gap-3">
+            <span class="grid h-7 w-7 shrink-0 place-items-center rounded-md text-xs font-black" style={`color: ${blogCategoryColor(p.data.category)}; background: color-mix(in srgb, ${blogCategoryColor(p.data.category)} 15%, transparent);`}>{String(i + 1).padStart(2, '0')}</span>
+            <span class="text-sm leading-snug text-[var(--text-dim)] transition-colors group-hover:text-[var(--text)]">{p.data.title}<span class="mt-0.5 block text-xs text-[var(--text-muted)]">{p.data.readTime} min read</span></span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <div class="flex flex-col gap-5 lg:sticky lg:top-[150px]">
+  <section class="tilt-card p-5" style="--card-color: var(--ac-cyan);" aria-labelledby="sb-cats">
+    <h2 id="sb-cats" class="font-heading text-base font-bold text-[var(--text)]">Browse by Category</h2>
+    <ul class="mt-3 space-y-1" role="list">
+      {categories.map((cat) => (
+        <li>
+          <a href={`/blog/category/${cat}/`} aria-current={cat === current ? 'page' : undefined} class:list={['flex items-center justify-between rounded-md px-2.5 py-1.5 text-sm transition-colors hover:bg-[var(--bg)]', cat === current ? 'bg-[var(--bg)] font-semibold text-[var(--text)]' : 'text-[var(--text-dim)]']}>
+            <span class="flex items-center gap-2"><i class="h-2 w-2 rounded-sm" style={`background: ${blogCategoryColor(cat)};`} aria-hidden="true"></i>{blogCategoryLabel(cat)}</span>
+            <span class="text-xs font-semibold text-[var(--text-muted)]">{counts[cat] ?? 0}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="tilt-card tilt-card--lg p-5" style="--card-color: var(--ac-amber);" aria-labelledby="sb-audit">
+    <h2 id="sb-audit" class="font-heading text-base font-bold text-[var(--text)]">{isAccessibility ? 'Need an Accessibility Audit?' : 'Ready to Grow Online?'}</h2>
+    <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">
+      {isAccessibility
+        ? 'Automated and manual WCAG testing with priority-ranked remediation guidance.'
+        : <>A website audit covering SEO and security for <AuditPrice kind="website" class="font-semibold text-[var(--text)]" />.</>}
+    </p>
+    <a href={isAccessibility ? '/services/ada-compliant-web-design/' : '/website-audit/'} class="mt-4 inline-flex min-h-10 items-center rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-white transition hover:brightness-110">{isAccessibility ? 'View Audit & Remediation' : 'Book an Audit'} →</a>
+  </section>
+  </div>
+</aside>

@@ -24,12 +24,12 @@ const buying = {
         <p class="mt-4 leading-relaxed text-[var(--text-dim)]">{guide.intro}</p>
         <ul class="mt-5 space-y-2">{guide.needs.map(need => <li class="text-sm">✓ {need}</li>)}</ul>
         <div class="mt-6 flex flex-wrap gap-3">
-          <a class="rounded-xl bg-[var(--accent)] px-5 py-3 font-semibold text-[var(--bg)]" href="/pricing/">See scope and pricing</a>
-          <a class="rounded-xl border border-[var(--border)] px-5 py-3 font-semibold" href="/get-quote/">Request a written proposal</a>
+          <a class="rounded-lg bg-[var(--accent)] px-5 py-3 font-semibold text-[var(--bg)]" href="/pricing/">See scope and pricing</a>
+          <a class="rounded-lg border border-[var(--border)] px-5 py-3 font-semibold" href="/get-quote/">Request a written proposal</a>
         </div>
         {city === 'nagpur' && <a class="mt-4 inline-block text-sm underline" href="/blog/nagpur-business/website-cost-nagpur/">What affects a Nagpur website quotation?</a>}
       </div>
-      <aside class="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6">
+      <aside class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-6">
         <p class="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">Approved client recommendation</p>
         <blockquote class="mt-4 leading-relaxed">“{review.quote}”</blockquote>
         <p class="mt-4 text-sm font-semibold">{review.author} · {review.role}, {review.company}</p>

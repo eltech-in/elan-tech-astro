@@ -9,27 +9,27 @@
 
     <ul class="mt-9 grid gap-4 md:grid-cols-3" role="list">
       <li>
-        <a href="/website-audit/" class="start start-a flex h-full flex-col rounded-2xl p-6">
-          <span class="text-xs font-bold uppercase tracking-[0.16em] opacity-80">Website audit</span>
-          <span class="mt-3 font-heading text-2xl font-bold">See what to fix first</span>
-          <span class="mt-2 text-sm leading-relaxed opacity-90">Enquiry journeys, search visibility, speed, mobile and public security signals, reviewed by a person, with prioritised fixes.</span>
-          <span class="mt-auto pt-5 text-sm font-bold">Book an audit <span aria-hidden="true">→</span></span>
+        <a href="/website-audit/" class="start tilt-card tilt-card--lg flex h-full flex-col p-6" style="--card-color: var(--ac-teal);">
+          <span class="kicker">Website audit</span>
+          <span class="mt-3 font-heading text-2xl font-bold text-[var(--text)]">See what to fix first</span>
+          <span class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">Enquiry journeys, search visibility, speed, mobile and public security signals, reviewed by a person, with prioritised fixes.</span>
+          <span class="cta mt-auto pt-5 text-sm font-bold">Book an audit <span aria-hidden="true">→</span></span>
         </a>
       </li>
       <li>
-        <a href="/pricing/#booking-advance" class="start start-b flex h-full flex-col rounded-2xl p-6">
-          <span class="text-xs font-bold uppercase tracking-[0.16em] opacity-80">Book a project</span>
-          <span class="mt-3 font-heading text-2xl font-bold">Reserve your project slot</span>
-          <span class="mt-2 text-sm leading-relaxed opacity-90">Pay a secure booking advance online to reserve a discovery session and a place in our schedule.</span>
-          <span class="mt-auto pt-5 text-sm font-bold">Pay booking advance <span aria-hidden="true">→</span></span>
+        <a href="/pricing/#booking-advance" class="start tilt-card tilt-card--lg flex h-full flex-col p-6" style="--card-color: var(--ac-indigo);">
+          <span class="kicker">Book a project</span>
+          <span class="mt-3 font-heading text-2xl font-bold text-[var(--text)]">Reserve your project slot</span>
+          <span class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">Pay a secure booking advance online to reserve a discovery session and a place in our schedule.</span>
+          <span class="cta mt-auto pt-5 text-sm font-bold">Pay booking advance <span aria-hidden="true">→</span></span>
         </a>
       </li>
       <li>
-        <a href="/get-quote/" class="start start-c flex h-full flex-col rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 text-[var(--text)]">
-          <span class="text-xs font-bold uppercase tracking-[0.16em] text-[var(--text-muted)]">Get a quote</span>
+        <a href="/get-quote/" class="start tilt-card tilt-card--lg flex h-full flex-col p-6 text-[var(--text)]" style="--card-color: var(--ac-amber);">
+          <span class="kicker">Get a quote</span>
           <span class="mt-3 font-heading text-2xl font-bold">Tell us what you need</span>
           <span class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">We review quote requests within one business day and reply with the scope and next steps.</span>
-          <span class="mt-auto pt-5 text-sm font-bold text-[var(--accent)]">Request a quote <span aria-hidden="true">→</span></span>
+          <span class="cta mt-auto pt-5 text-sm font-bold">Request a quote <span aria-hidden="true">→</span></span>
         </a>
       </li>
     </ul>
@@ -38,10 +38,8 @@
 </section>
 
 <style>
-  .start { transition: transform .2s ease, box-shadow .2s ease; }
-  .start:hover { transform: translateY(-3px); }
-  .start-a { color: #fff; background: linear-gradient(150deg, #047857, #065f46); box-shadow: 0 18px 40px -26px rgba(4,120,87,.9); }
-  .start-b { color: #fff; background: radial-gradient(120% 90% at 100% 0%, #a78bfa 0%, transparent 55%), linear-gradient(150deg, #4f46e5, #312e81); box-shadow: 0 18px 40px -26px rgba(79,70,229,.9); }
-  .start-c:hover { border-color: var(--accent); }
+  /* Shared card style (owner, 27 Nov 2026), coloured per route. */
+  .kicker { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .16em; color: var(--card-color); }
+  .cta { color: var(--card-color); }
   .start:focus-visible { outline: 3px solid #6366f1; outline-offset: 3px; }
 </style>
