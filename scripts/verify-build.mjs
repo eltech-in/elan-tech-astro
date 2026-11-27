@@ -918,7 +918,21 @@ check('Website audit is booked only by payment (no unpaid request form)', fileNo
     .filter((path) => freeOffer.test(readFileSync(path, 'utf8').replace(/<script[\s\S]*?<\/script>/g, '').replace(/href="[^"]*"/g, '')));
   check('No page offers a free audit, review, consultation or quote', offenders.length === 0, offenders.slice(0, 5).map((f) => f.replace(DIST + '/', '')).join(', '));
 }
-check('Audit page shows the ₹999 fee and paid schema offer', fileContains('website-audit/index.html', '₹999', '"price":"999"', 'Accessibility audits start'));
+check('Audit page shows the ₹999 fee and paid schema offer', fileContains('website-audit/index.html', '₹999', '"price":"999"', 'Accessibility Quick Check', 'US and international websites only'));
+// 27 Nov 2026: ADA / WCAG accessibility services are international only. No INR price anywhere for them,
+// the server refuses INR for the quick check, India's country page does not offer them, and the ADA page
+// shows the price ladder (quick check, full audit, remediation range, ACR, monitoring).
+await (async () => {
+  const { AUDIT_PRICES, PAY_PRICES, ACCESSIBILITY_PRICES } = await import(new URL('../src/data/auditPricing.ts', import.meta.url).href);
+  const php = readFileSync(join(resolve(DIST, '..'), 'public/api/payments-common.php'), 'utf8');
+  const phpRow = php.match(/'accessibility-audit' => \[[^\n]*/)?.[0] ?? '';
+  const noInr = !('INR' in AUDIT_PRICES.accessibility) && !('INR' in PAY_PRICES['accessibility-audit'])
+    && Object.values(ACCESSIBILITY_PRICES).every((t) => !('INR' in t)) && phpRow && !phpRow.includes("'INR'");
+  check('Accessibility services are priced for international markets only (no INR)', noInr);
+})();
+check('India country page does not offer accessibility services; other country pages do', fileNotContains('web-design-company-india/index.html', 'Accessibility quick check')
+  && fileContains('web-design-company-usa/index.html', 'Accessibility quick check', 'US$1,500'));
+check('ADA page shows the accessibility price ladder', fileContains('services/ada-compliant-web-design/index.html', 'Accessibility quick check', 'WCAG 2.2 AA audit and remediation plan', 'US$1,500', 'US$2,500', 'US$8,000', 'ACR / VPAT', 'US$750', 'US$199'));
 check('Country pages show audit prices in their own currency', fileContains('web-design-company-dubai-uae/index.html', 'AED 69', 'AED 369')
   && fileContains('web-design-company-canada/index.html', 'C$25', 'C$139')
   && fileContains('web-design-company-usa/index.html', 'US$19', 'US$99')

@@ -184,11 +184,6 @@ export const cities: CityData[] = [
         answer:
           'Yes. We start by auditing the existing URLs, content, analytics, search visibility and technical dependencies. The redesign plan includes a redirect map and acceptance checks; rankings and Core Web Vitals cannot be guaranteed, but changes are measured before and after launch.',
       },
-      {
-        question: 'Do you build WCAG 2.1 AA and ADA compliant websites in Nagpur?',
-        answer:
-          'Yes. eLan Technology offers accessibility-first design and development, WCAG audits, remediation and ongoing monitoring. Formal conformance and documentation are scoped to the applicable standard, tested journeys and evidence required by the client.',
-      },
     ],
     portfolio: [
       {

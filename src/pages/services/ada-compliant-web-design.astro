@@ -2,6 +2,9 @@
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
 import { breadcrumbSchema, faqSchema } from '../../utils/schema';
 import ServicePage from '../../components/service/ServicePage.astro';
+import LocalPrice from '../../components/LocalPrice.astro';
+import { ACCESSIBILITY_PRICES as AP } from '../../data/auditPricing';
+const usd = (n: number) => `US$${n.toLocaleString('en-US')}`;
 
 const SITE_URL = 'https://elan-tech.net';
 
@@ -30,7 +33,7 @@ const faqs = [
   },
   {
     question: 'How much does an ADA website audit and remediation cost?',
-    answer: 'A rapid accessibility audit and remediation plan starts at $1,500 USD. The final price depends on the number of page types, user journeys, documents and third-party tools to test. Code-level remediation is quoted once the audit scope is understood.',
+    answer: `An accessibility quick check costs ${usd(AP.quickCheck.USD)}. A full WCAG 2.2 AA audit and remediation plan starts at ${usd(AP.audit.USD)} for up to about 10 page templates and 2 to 3 journeys. Code-level remediation is quoted after the audit and is typically ${usd(AP.remediationFrom.USD)} to ${usd(AP.remediationTo.USD)} for a small website or Shopify store. Prices are also shown in your local currency. These services are offered to US and other international organisations.`,
   },
   {
     question: 'Is an automated accessibility scan or overlay enough?',
@@ -78,12 +81,10 @@ const serviceSchemaObj = {
     { '@type': 'Country', name: 'Canada' },
   ],
   serviceType: ['Website Accessibility Remediation', 'ADA Website Remediation', 'WCAG Remediation', 'WCAG Accessibility Audit', 'Accessible Web Development'],
-  offers: {
-    '@type': 'Offer',
-    price: '1500',
-    priceCurrency: 'USD',
-    description: 'Rapid accessibility audit and remediation plan starting price',
-  },
+  offers: [
+    { '@type': 'Offer', price: String(AP.quickCheck.USD), priceCurrency: 'USD', description: 'Accessibility quick check (one domain)' },
+    { '@type': 'Offer', price: String(AP.audit.USD), priceCurrency: 'USD', description: 'WCAG 2.2 AA audit and remediation plan starting price' },
+  ],
 };
 
 const schemaBreadcrumbs = breadcrumbs.map(b => ({ name: b.name, url: b.href }));
@@ -97,12 +98,14 @@ const standards = [
   ['Government of Canada federal accessibility law overview', 'https://www.canada.ca/en/government/publicservice/wellness-inclusion-diversity-public-service/diversity-inclusion-public-service/accessibility-public-service/about-canada-federal-accessibility-law.html'],
   ['Accessibility Standards Canada web requirements', 'https://accessible.canada.ca/creating-accessibility-standards/canasc-en-301-5492024-accessibility-requirements-ict-products-and-services/9-web'],
 ];
+// Price ladder (owner, 27 Nov 2026): international only, shown in the visitor's currency, never INR.
 const options = [
-  ['Rapid WCAG audit', 'Priorities and a remediation plan', 'From $1,500'],
-  ['Code-level remediation', 'Fixing an existing website', 'Quoted after scope'],
-  ['Accessible redesign or rebuild', 'Replacing an outdated experience', '$3,000 to $12,000'],
-  ['ACR preparation', 'Procurement and client reviews', 'Scoped by product'],
-  ['Ongoing retesting', 'Preventing regressions', 'Monthly or quarterly'],
+  { service: 'Accessibility quick check', best: 'Automated scan plus manual checks of the homepage and one journey', from: AP.quickCheck },
+  { service: 'WCAG 2.2 AA audit and remediation plan', best: 'Up to about 10 templates and 2 to 3 journeys; larger sites quoted', from: AP.audit, prefix: 'from' },
+  { service: 'Code-level remediation', best: 'Fixing an existing website or store, quoted after the audit', from: AP.remediationFrom, to: AP.remediationTo, prefix: 'typically' },
+  { service: 'Accessible redesign or rebuild', best: 'Replacing an outdated experience', from: AP.redesignFrom, to: AP.redesignTo },
+  { service: 'ACR / VPAT', best: 'Procurement and client reviews, after an audit', from: AP.acr, prefix: 'from' },
+  { service: 'Monitoring and retesting', best: 'Preventing regressions after launch', from: AP.monitoring, suffix: 'a month', alt: AP.retest },
 ];
 
 ---
@@ -186,13 +189,20 @@ const options = [
 
     <section aria-labelledby="options-title">
       <h2 id="options-title" class="font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">Service options and starting costs</h2>
-      <p class="mt-2 text-[var(--text-dim)]">Pricing follows the website's unique page types, journeys, documents and integrations. You receive a written scope before work begins.</p>
+      <p class="mt-2 text-[var(--text-dim)]">For US and other international organisations, shown in your currency. Pricing follows the website's unique page types, journeys, documents and integrations, and you receive a written scope before work begins. The quick check fee is credited toward the full audit.</p>
       <div class="tilt-card mt-5 overflow-x-auto" style="--card-color: var(--ac-blue);">
-        <table class="w-full min-w-[34rem] text-left text-sm">
-          <thead><tr class="border-b border-[var(--border)] text-xs uppercase tracking-wider text-[var(--text-muted)]"><th scope="col" class="px-5 py-3 font-semibold">Service</th><th scope="col" class="px-5 py-3 font-semibold">Best for</th><th scope="col" class="px-5 py-3 font-semibold">Starting point</th></tr></thead>
+        <table class="w-full min-w-[40rem] text-left text-sm">
+          <thead><tr class="border-b border-[var(--border)] text-xs uppercase tracking-wider text-[var(--text-muted)]"><th scope="col" class="px-5 py-3 font-semibold">Service</th><th scope="col" class="px-5 py-3 font-semibold">Best for</th><th scope="col" class="px-5 py-3 font-semibold">Price</th></tr></thead>
           <tbody>
-            {options.map(([service, best, price]) => (
-              <tr class="border-b border-[var(--border)] last:border-0"><th scope="row" class="px-5 py-3 font-semibold text-[var(--text)]">{service}</th><td class="px-5 py-3 text-[var(--text-dim)]">{best}</td><td class="px-5 py-3 font-semibold text-[var(--text)]">{price}</td></tr>
+            {options.map((o) => (
+              <tr class="border-b border-[var(--border)] last:border-0">
+                <th scope="row" class="px-5 py-3 font-semibold text-[var(--text)]">{o.service}</th>
+                <td class="px-5 py-3 text-[var(--text-dim)]">{o.best}</td>
+                <td class="whitespace-nowrap px-5 py-3 font-semibold text-[var(--text)]">
+                  {o.prefix && <span class="font-normal text-[var(--text-muted)]">{o.prefix} </span>}<LocalPrice prices={o.from} />{o.to && <> to <LocalPrice prices={o.to} /></>}{o.suffix && <span class="font-normal text-[var(--text-muted)]"> {o.suffix}</span>}
+                  {o.alt && <span class="block text-xs font-normal text-[var(--text-muted)]">or <LocalPrice prices={o.alt} /> a quarterly retest</span>}
+                </td>
+              </tr>
             ))}
           </tbody>
         </table>

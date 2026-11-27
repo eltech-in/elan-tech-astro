@@ -124,8 +124,10 @@ const allSchemas = [svc, crumbSchema, ...(faq ? [faq] : []), ...extraSchema];
       </div>
       <p class="mt-6 text-sm text-[var(--text-muted)]">
         Website audit <AuditPrice kind="website" currency={localCurrency} class="font-semibold text-[var(--text)]" />
-        <span aria-hidden="true"> · </span>
-        Accessibility (WCAG) audit <AuditPrice kind="accessibility" currency={localCurrency} class="font-semibold text-[var(--text)]" />
+        {localCurrency !== 'INR' && (<>
+          <span aria-hidden="true"> · </span>
+          Accessibility quick check <AuditPrice kind="accessibility" currency={localCurrency} from={false} class="font-semibold text-[var(--text)]" />
+        </>)}
       </p>
     </div>
   </section>

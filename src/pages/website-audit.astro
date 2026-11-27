@@ -4,7 +4,7 @@ import { breadcrumbSchema, faqSchema } from '../utils/schema';
 import PaidCheckout from '../islands/PaidCheckout';
 import AuditPrice from '../components/AuditPrice.astro';
 import LocalPrice from '../components/LocalPrice.astro';
-import { AUDIT_PRICES, PAY_PRICES, auditPrice } from '../data/auditPricing';
+import { ACCESSIBILITY_PRICES, AUDIT_PRICES, PAY_PRICES, auditPrice } from '../data/auditPricing';
 import { services } from '../data/services';
 const faqs = [
   { question: 'What does the website audit check?', answer: 'We review the public homepage and representative pages for search visibility foundations, mobile usability, loading behaviour, obvious broken journeys and publicly visible HTTPS/security-header signals. Findings are prioritised with suggested next steps. It is an initial review, not an exhaustive crawl, penetration test or formal accessibility certification.' },
@@ -13,7 +13,7 @@ const faqs = [
   { question: 'How much does it cost?', answer: `The website audit costs ${auditPrice('website')} per domain (US$${AUDIT_PRICES.website.USD} or the equivalent in your currency). The fee is paid in full when you book; the review starts once payment is confirmed. It does not oblige you to buy development or maintenance. Remediation, a larger crawl, formal accessibility testing or security testing requires a separate agreed scope and quotation.` },
   { question: 'What happens after I submit?', answer: 'We review your website URL and selected concerns, confirm any scope questions, then send prioritised findings to the email you provide. You may implement them yourself, use your existing developer or request a separate quotation from us.' },
   { question: 'Will the audit guarantee rankings or identify every vulnerability?', answer: 'No. Rankings depend on many factors beyond a technical review. Public-page checks cannot establish that a website is secure, detect every vulnerability or prove legal compliance. Intrusive testing requires explicit written authorisation and a separate scope.' },
-  { question: 'Can you review accessibility?', answer: `The website audit may highlight obvious usability or accessibility issues. A formal WCAG review with representative journeys, keyboard and assistive-technology testing and remediation evidence is a separate accessibility audit, from ${auditPrice('accessibility')} depending on the pages and journeys covered.` },
+  { question: 'Can you review accessibility?', answer: `The website audit may highlight obvious usability or accessibility issues. Formal ADA / WCAG work is offered to US and other international websites: an accessibility quick check from US$${ACCESSIBILITY_PRICES.quickCheck.USD}, or a full WCAG 2.2 AA audit and remediation plan from US$${ACCESSIBILITY_PRICES.audit.USD.toLocaleString('en-US')} (or the equivalent in your currency).` },
 ];
 const icon = (slug: string) => services.find((s) => s.slug === slug)?.iconSvg ?? '';
 const checks = [
@@ -135,38 +135,38 @@ const schemas = [breadcrumbSchema([{name:'Home',url:'/'},{name:'Website Audit',u
     </div>
   </section>
 
-  <!-- Accessibility audit: summary first, checkout on request -->
+  <!-- Accessibility quick check (US and international only): summary first, checkout on request -->
   <section id="paid-wcag-audit" class="scroll-mt-20 border-t border-[var(--border)] bg-[var(--bg-card)] py-14 md:py-20" aria-labelledby="ada-heading">
     <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <article class="service-card relative overflow-hidden rounded-xl border border-[var(--border)] p-7 md:p-10" style="background: linear-gradient(135deg, color-mix(in srgb, var(--ac-blue) 12%, var(--bg-card)) 0%, var(--bg-card) 65%);">
-        <span aria-hidden="true" class="service-card__stripe pointer-events-none absolute -bottom-12 -left-12 h-60 w-60 rotate-[-20deg] opacity-[0.08]" style="background: var(--ac-blue);"></span>
-        <div class="relative grid gap-8 md:grid-cols-[1.2fr_0.8fr] md:items-start">
+      <article class="tilt-card tilt-card--lg tilt-card--bg p-7 md:p-10" style="--card-color: var(--ac-blue);">
+        <div class="grid gap-8 md:grid-cols-[1.2fr_0.8fr] md:items-start">
           <div>
-            <span class="text-[10px] font-bold uppercase tracking-[0.2em]" style="color: var(--ac-blue);">Premium add-on</span>
-            <h2 id="ada-heading" class="mb-3 mt-1 font-heading text-2xl font-bold text-[var(--text)] md:text-3xl">ADA &amp; WCAG 2.2 AA Accessibility Audit</h2>
-            <p class="mb-5 text-[var(--text-dim)]">Accessibility audits start <AuditPrice kind="accessibility" class="font-semibold text-[var(--text)]" />, depending on the pages and journeys covered. The fixed one-domain package includes full manual testing and VPAT documentation. Confirm coverage, manual testing, documentation and exclusions before payment. This is technical guidance, not legal advice or a guarantee of compliance.</p>
+            <span class="text-[10px] font-bold uppercase tracking-[0.2em]" style="color: var(--ac-blue);">ADA / WCAG · US and international websites</span>
+            <h2 id="ada-heading" class="mb-3 mt-1 font-heading text-2xl font-bold text-[var(--text)] md:text-3xl">Accessibility Quick Check</h2>
+            <p class="mb-5 text-[var(--text-dim)]">A fast, paid first look at how accessible your website is: an automated WCAG scan plus manual checks of the homepage and one key journey, with prioritised findings. The fee is credited if you go on to the full audit. This is technical guidance, not legal advice or a guarantee of compliance.</p>
             <ul class="grid grid-cols-1 gap-x-5 gap-y-2 sm:grid-cols-2" role="list">
-              {['Colour contrast & typography audit', 'ARIA, roles & landmark review', 'Keyboard navigation flow', 'Screen reader testing (NVDA/JAWS)', 'Form accessibility', 'Image alt-text coverage', 'Video captions & transcripts', 'VPAT 2.5 documentation'].map((i) => (
+              {['Automated WCAG 2.2 AA scan', 'Keyboard navigation check', 'Colour contrast and text check', 'Screen reader spot check', 'Forms on the key journey', 'Prioritised findings summary'].map((i) => (
                 <li class="flex items-start gap-2 text-sm text-[var(--text)]"><span class="mt-0.5 shrink-0" style="color: var(--ac-blue);" set:html={tick} />{i}</li>
               ))}
             </ul>
+            <p class="mt-5 text-sm text-[var(--text-dim)]">Need full testing of every template and journey, a VPAT / ACR or the fixes themselves? The full WCAG audit starts <LocalPrice prices={ACCESSIBILITY_PRICES.audit} class="font-semibold text-[var(--text)]" />. <a href="/services/ada-compliant-web-design/#options-title" class="font-semibold underline underline-offset-4" style="color: var(--ac-blue);">See all accessibility services and prices →</a></p>
           </div>
           <div class="rounded-xl border border-[var(--border)] bg-[var(--bg)] p-5 text-center">
-            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--text-muted)]">Full package · one public domain</p>
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--text-muted)]">Quick check · one public domain</p>
             <p class="mt-3 font-heading text-4xl font-extrabold" style="color: var(--ac-blue);"><LocalPrice prices={PAY_PRICES['accessibility-audit']} /></p>
-            <p class="mt-1 text-xs text-[var(--text-muted)]">shown in your currency; ₹9,999 in India</p>
-            <p class="mt-3 text-xs leading-relaxed text-[var(--text-muted)]">Detailed PDF report with WCAG 2.2 AA findings, severity ratings, code-level remediation guidance and a VPAT template.</p>
+            <p class="mt-1 text-xs text-[var(--text-muted)]">shown in your currency; US and international websites only</p>
+            <p class="mt-3 text-xs leading-relaxed text-[var(--text-muted)]">Short PDF of findings mapped to WCAG criteria, with the fixes to make first. Credited toward the full audit.</p>
           </div>
         </div>
-        <details class="ada-book relative mt-8">
-          <summary class="inline-flex min-h-12 cursor-pointer list-none items-center gap-2 rounded-lg px-6 py-3 font-semibold text-white" style="background: var(--ac-blue);">Book the accessibility audit <span aria-hidden="true" class="chev">↓</span></summary>
+        <details class="ada-book mt-8">
+          <summary class="inline-flex min-h-12 cursor-pointer list-none items-center gap-2 rounded-lg px-6 py-3 font-semibold text-white" style="background: var(--ac-blue);">Book the accessibility quick check <span aria-hidden="true" class="chev">↓</span></summary>
           <div class="mt-6 max-w-2xl">
             <PaidCheckout
               client:load
               product="accessibility-audit"
               formType="paid-booking"
               needsUrl
-              payLabel="Pay for the audit"
+              payLabel="Pay for the quick check"
               privacyNoticeVersion="paid-booking-2026-11-16"
             />
           </div>

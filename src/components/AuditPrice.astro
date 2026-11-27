@@ -2,6 +2,7 @@
 // A paid-audit price. Renders INR (or the pinned currency) on the server; the PriceLocalizer script
 // in BaseLayout swaps it to the visitor's currency unless `currency` pins it (country pages).
 import { AUDIT_PRICES, auditPrice, type AuditKind, type Currency } from '../data/auditPricing';
+// Tables without an INR price (the international-only accessibility quick check) render in US dollars.
 
 interface Props {
   kind: AuditKind;

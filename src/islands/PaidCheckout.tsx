@@ -48,9 +48,11 @@ async function postJson(url: string, body: unknown) {
 }
 
 export default function PaidCheckout({ product, currency: pinned, needsUrl = false, needsReference = false, payLabel = 'Pay and book', formType, privacyNoticeVersion }: Props) {
-  const prices = PAY_PRICES[product];
-  const [currency, setCurrency] = useState<Currency>(pinned ?? 'INR');
-  const [local, setLocal] = useState<Currency>(pinned ?? 'INR');
+  const prices: Readonly<Partial<Record<Currency, number>>> = PAY_PRICES[product];
+  // Products without an INR price (the international-only accessibility quick check) fall back to US dollars.
+  const usable = (c: Currency): Currency => (prices[c] != null ? c : 'USD');
+  const [currency, setCurrency] = useState<Currency>(usable(pinned ?? 'INR'));
+  const [local, setLocal] = useState<Currency>(usable(pinned ?? 'INR'));
   // The server-rendered button stays disabled until this island has loaded, so an early click
   // cannot submit the form natively (a plain page reload).
   const [ready, setReady] = useState(false);
@@ -65,13 +67,13 @@ export default function PaidCheckout({ product, currency: pinned, needsUrl = fal
     if (pinned) return;
     try {
       const detected = currencyFromTimeZone(Intl.DateTimeFormat().resolvedOptions().timeZone || '');
-      setCurrency(detected);
-      setLocal(detected);
+      setCurrency(usable(detected));
+      setLocal(usable(detected));
     } catch { /* keep INR */ }
   }, [pinned]);
 
-  const price = useMemo(() => formatPrice(prices[currency], currency), [currency, prices]);
-  const options = [...new Set<Currency>([local, 'INR', 'USD'])];
+  const price = useMemo(() => formatPrice(prices[currency] as number, currency), [currency, prices]);
+  const options = [...new Set<Currency>([local, 'INR', 'USD'])].filter((c) => prices[c] != null);
   const set = (k: keyof typeof form) => (e: { target: { value: string } }) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
   async function pay(e: { preventDefault: () => void }) {
@@ -158,7 +160,7 @@ export default function PaidCheckout({ product, currency: pinned, needsUrl = fal
           {options.map((c) => (
             <label key={c} className={`cursor-pointer rounded-md border px-4 py-2 text-sm font-semibold ${currency === c ? 'border-[var(--accent)] bg-[var(--accent)]/10 text-[var(--text)]' : 'border-[var(--border)] text-[var(--text-dim)]'}`}>
               <input type="radio" name={`cur-${product}`} value={c} checked={currency === c} onChange={() => setCurrency(c)} className="sr-only" />
-              {formatPrice(prices[c], c)} {c === 'INR' ? '· India' : c === 'USD' ? '· US dollars' : `· ${c}`}
+              {formatPrice(prices[c] as number, c)} {c === 'INR' ? '· India' : c === 'USD' ? '· US dollars' : `· ${c}`}
             </label>
           ))}
         </div>
