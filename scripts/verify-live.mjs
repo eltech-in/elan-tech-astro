@@ -267,7 +267,7 @@ await checkPageText(
 await checkPageText(
   'LLM service summary',
   '/llms.txt',
-  ['emergency wcag 2.1 aa assessment requests answered within 48 hours'],
+  ['emergency wcag 2.1 aa assessment requests have a target response within 48 hours'],
   ['emergency wcag 2.1 aa assessment requests answered within 24 hours'],
 );
 await checkRedirect(
