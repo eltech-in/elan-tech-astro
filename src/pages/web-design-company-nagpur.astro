@@ -1,7 +1,6 @@
 ---
 import CityLayout from '../layouts/CityLayout.astro';
 import AuditPrice from '../components/AuditPrice.astro';
-import { pricingTiers } from '../data/pricing';
 import CityBuyerGuide from '../components/city/CityBuyerGuide.astro';
 import ChapterLabel from '../components/ChapterLabel.astro';
 import CityHQSection from '../components/city/CityHQSection.astro';
@@ -64,10 +63,10 @@ const services = [
 ];
 
 const ada = {
-  title: 'Accessibility-first development & WCAG services',
-  tagline: 'Accessibility-first development, audits, remediation and documentation based on the agreed requirement.',
-  features: ['Hybrid audits', 'Accessibility Conformance Reports', 'Remediation sprints', 'Ongoing monitoring'],
-  href: '/blog/accessibility/ada-wcag-compliance-us-canada-2026/',
+  title: 'Accessibility-first development',
+  tagline: 'Readable, keyboard-friendly websites with sensible contrast, labelled forms and clear structure, considered from the first design.',
+  features: ['Keyboard and focus checks', 'Colour contrast', 'Labelled forms', 'Clear headings and structure'],
+  href: '/services/website-design/',
   cssVar: '--ac-teal',
   iconSvg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M5 9h14"/><path d="M12 9v5"/><path d="M8 20l4-6 4 6"/></svg>',
 };
@@ -77,7 +76,7 @@ const stats = [
   { num: '24+', label: 'Years in Nagpur', cssVar: '--ac-cyan' },
   { num: '2005', label: 'Official launch year', cssVar: '--ac-amber' },
   { num: '500+', label: 'Clients · 10+ countries', cssVar: '--ac-violet' },
-  { num: 'AA', label: 'WCAG target available', cssVar: '--ac-emerald' },
+  { num: '1,500+', label: 'Projects delivered', cssVar: '--ac-emerald' },
 ];
 
 const reasons = [
@@ -88,8 +87,8 @@ const reasons = [
     iconSvg: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>',
   },
   {
-    title: 'The Nagpur business map, internalised',
-    desc: `We know Sitabuldi retail, Dharampeth professional services, Wardha Road industrial corridor, and Ramdaspeth corporate - and how each shops differently.`,
+    title: 'A clear first discussion',
+    desc: `We look at your current website or idea, the pages and content you need, any integrations, your timeline and budget range. You leave knowing what the written quote will cover.`,
     cssVar: '--ac-violet',
     iconSvg: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
   },
@@ -127,22 +126,60 @@ const steps = [
   { num: '04', title: 'Launch & support', desc: 'Deployment, authorised measurement setup, handover and post-launch support according to the proposal.', cssVar: '--ac-emerald' },
 ];
 
-// ── Portfolio (featured + standard tiles) ──────────────────────────────
-const portfolio = city.portfolio;
-const portfolioAccents = ['--ac-cyan', '--ac-violet', '--ac-amber'];
 
-// ── Pricing packages with accent gradients ─────────────────────────────
-const packages = pricingTiers.map((tier, index) => ({
-  name: tier.name,
-  price: tier.customPricing ? 'Contact for pricing' : '₹' + tier.prices.INR.toLocaleString('en-IN') + ' + GST',
-  desc: tier.tagline,
-  cssVar: ['--ac-cyan', '--ac-amber', '--ac-violet'][index],
-  features: [...tier.features.slice(0, 5), String(tier.revisions) + ' revisions'],
-  popular: tier.highlighted,
-}));
+// ── Nagpur proof (27 Nov 2026): three approved, live Nagpur projects across different needs ──
+const nagpurWork = [
+  { name: 'Trimit Architects', type: 'Business website · redesigned', cssVar: '--ac-cyan', url: 'https://www.trimitarch.com/', built: 'A new website for a Nagpur architecture studio with 25 years of built work: nine services, projects grouped by building type and a clear route to start a project. Redesigned and rebuilt in Astro.' },
+  { name: 'Dizviz', type: 'Institute enquiry journey · redesigned', cssVar: '--ac-violet', url: 'https://www.dizviz.com/', built: 'A new website for a Nagpur animation, VFX and design institute, bringing degree programmes, short courses, fees, placements and admissions enquiries into one journey. Rebuilt in Astro.' },
+  { name: 'Cement Pipe Nagpur', type: 'Product catalogue · B2B enquiries', cssVar: '--ac-amber', url: 'https://cementpipenagpur.com/', built: 'A product-first website for a Nagpur RCC pipe manufacturer, presenting the pipe range and routing trade buyers to a B2B enquiry.' },
+];
+const firstMeeting = [
+  'Your current website or idea, and what it needs to achieve',
+  'The pages, content and photos you already have',
+  'Integrations such as payments, WhatsApp, CRM or bookings',
+  'Your timeline, budget range and who will update the site',
+];
+// What moves a website quote (no package prices on location pages; current pricing lives on /pricing/).
+const quoteFactors = [
+  { title: 'Content', text: 'How many pages, who writes the copy, and whether photography or translation is needed.' },
+  { title: 'Page types', text: 'Unique templates such as product, service, project or blog pages, rather than the raw page count.' },
+  { title: 'Integrations', text: 'Payments, bookings, CRM, WhatsApp, catalogues or a client portal.' },
+  { title: 'Support', text: 'Hosting, maintenance, content updates and SEO after launch.' },
+];
 ---
 
 <CityLayout city={city} heroHeading="Web Design Company in Nagpur">
+  <section aria-labelledby="nagpur-proof-heading" class="py-14 md:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Nagpur-based team · operating since 2002</p>
+      <h2 id="nagpur-proof-heading" class="mt-2 max-w-3xl font-heading text-3xl font-bold leading-tight text-[var(--text)] sm:text-4xl">Websites we have built for Nagpur businesses</h2>
+      <ul class="mt-8 grid gap-5 lg:grid-cols-3" role="list">
+        {nagpurWork.map((w) => (
+          <li class="tilt-card flex flex-col p-6" style={`--card-color: var(${w.cssVar});`}>
+            <p class="text-xs font-bold uppercase tracking-[0.14em]" style={`color: var(${w.cssVar});`}>{w.type}</p>
+            <h3 class="mt-2 font-heading text-xl font-bold text-[var(--text)]">{w.name}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">{w.built}</p>
+            <a href={w.url} target="_blank" rel="noopener noreferrer" class="mt-auto pt-4 text-sm font-semibold text-[var(--text)] underline underline-offset-4">Visit the {w.name} website ↗<span class="sr-only"> (opens in a new tab)</span></a>
+          </li>
+        ))}
+      </ul>
+
+      <div class="tilt-card tilt-card--lg mt-6 grid gap-6 p-6 sm:p-8 lg:grid-cols-[1fr_1fr] lg:items-center" style="--card-color: var(--accent);">
+        <div>
+          <h3 class="font-heading text-2xl font-bold text-[var(--text)]">Meet us at PTG IT Park, Gayatri Nagar</h3>
+          <p class="mt-2 leading-relaxed text-[var(--text-dim)]">The people who plan, design and build your website work from our Nagpur office. Come in for the first discussion, or talk by video or WhatsApp. At the first discussion we cover:</p>
+          <ul class="mt-4 space-y-2" role="list">
+            {firstMeeting.map((m) => <li class="flex gap-2.5 text-sm text-[var(--text-dim)]"><span class="text-[var(--accent)]" aria-hidden="true">✓</span>{m}</li>)}
+          </ul>
+        </div>
+        <div class="flex flex-col gap-3 lg:items-start lg:pl-6">
+          <a href="/get-quote/" class="inline-flex min-h-11 items-center justify-center rounded-lg bg-[var(--accent)] px-6 py-3 font-semibold text-white transition hover:brightness-110">Request a Website Quote</a>
+          <a href="/website-audit/" class="inline-flex min-h-11 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--bg)] px-6 py-3 font-semibold text-[var(--text)] transition hover:border-[var(--accent)]">Book a paid audit of your current website</a>
+          <p class="text-xs text-[var(--text-muted)]">Business history: operations began in 2002; official launch on 15 August 2005.</p>
+        </div>
+      </div>
+    </div>
+  </section>
   <CityBuyerGuide city="nagpur" />
 
   <!-- ═══════════════════════════════════════════════════════════════════════
@@ -497,65 +534,6 @@ const packages = pricingTiers.map((tier, index) => ({
 
 
   <!-- ═══════════════════════════════════════════════════════════════════════
-       SECTION 6: PORTFOLIO BENTO
-  ════════════════════════════════════════════════════════════════════════ -->
-  <section aria-labelledby="nagpur-portfolio-heading" class="bg-[var(--bg-card)] py-16 md:py-24 border-y border-[var(--border)]">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <ChapterLabel number="06" label="Recent Nagpur work" class="mb-6" />
-      <h2 id="nagpur-portfolio-heading" class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--text)] text-center mb-4">
-        Built in Nagpur. Shipped to the world.
-      </h2>
-      <p class="text-lg text-[var(--text-dim)] text-center mb-12 max-w-2xl mx-auto">
-        A snapshot of recent work for clients across Nagpur and Vidarbha.
-      </p>
-
-      <ul class="grid grid-cols-1 lg:grid-cols-6 gap-5" role="list">
-        {portfolio.map((p, i) => {
-          const featured = i === 0;
-          const cssVar = portfolioAccents[i % portfolioAccents.length];
-          return (
-            <li class:list={[featured ? 'lg:col-span-3' : 'lg:col-span-3']}>
-              <article
-                class:list={[
-                  'relative h-full overflow-hidden rounded-xl border border-[var(--border)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl',
-                  featured ? 'p-7 md:p-8' : 'p-6',
-                ]}
-                style={`background: linear-gradient(135deg, color-mix(in srgb, var(${cssVar}) 10%, var(--bg)) 0%, var(--bg) 65%);`}
-              >
-                <span
-                  aria-hidden="true"
-                  class="pointer-events-none absolute -right-8 -bottom-8 h-36 w-36 rotate-[-20deg] opacity-[0.08]"
-                  style={`background: var(${cssVar});`}
-                ></span>
-                <div class="relative text-[10px] font-bold uppercase tracking-[0.22em] mb-3" style={`color: var(${cssVar});`}>
-                  {p.category}
-                </div>
-                <h3 class:list={['relative font-heading font-bold text-[var(--text)] mb-3', featured ? 'text-xl md:text-2xl' : 'text-lg']}>
-                  {p.name}
-                </h3>
-                <p class:list={['relative text-[var(--text-dim)] leading-relaxed', featured ? 'text-base' : 'text-sm']}>
-                  {p.desc}
-                </p>
-              </article>
-            </li>
-          );
-        })}
-      </ul>
-
-      <div class="mt-10 text-center">
-        <a
-          href="/portfolio/"
-          class="inline-flex items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--bg)] px-8 py-3 font-semibold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
-        >
-          View full portfolio
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════════════════════════════════════════
        SECTION 7: VISIT NAGPUR HQ (existing bento section)
   ════════════════════════════════════════════════════════════════════════ -->
   <CityHQSection />
@@ -566,80 +544,26 @@ const packages = pricingTiers.map((tier, index) => ({
   ════════════════════════════════════════════════════════════════════════ -->
   <section aria-labelledby="nagpur-pricing-heading" class="bg-[var(--bg-card)] py-16 md:py-24 border-y border-[var(--border)]">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <ChapterLabel number="07" label="Investment" class="mb-6" />
+      <ChapterLabel number="06" label="Investment" class="mb-6" />
       <h2 id="nagpur-pricing-heading" class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--text)] text-center mb-4">
-        Website design cost in Nagpur
+        What affects the cost of a website in Nagpur
       </h2>
       <p class="text-lg text-[var(--text-dim)] text-center mb-12 max-w-2xl mx-auto">
-        {city.pricingNote}
+        Every quote is written for the agreed scope. These are the four things that move it most.
       </p>
-
-      <ul class="grid gap-6 sm:grid-cols-3" role="list">
-        {packages.map((pkg) => (
-          <li class:list={[pkg.popular ? 'sm:-translate-y-2' : '']}>
-            <article
-              class:list={[
-                'relative h-full overflow-hidden rounded-xl border p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl',
-                pkg.popular ? 'border-[var(--accent)] shadow-lg shadow-[var(--accent)]/10' : 'border-[var(--border)]',
-              ]}
-              style={`background: linear-gradient(135deg, color-mix(in srgb, var(${pkg.cssVar}) 12%, var(--bg)) 0%, var(--bg) 70%);`}
-            >
-              {pkg.popular && (
-                <div
-                  class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-md px-4 py-1 text-xs font-bold text-[var(--bg)]"
-                  style={`background: var(${pkg.cssVar});`}
-                >
-                  Most popular
-                </div>
-              )}
-              <span
-                aria-hidden="true"
-                class="pointer-events-none absolute -right-10 -bottom-10 h-48 w-48 rotate-[-20deg] opacity-[0.07]"
-                style={`background: var(${pkg.cssVar});`}
-              ></span>
-
-              <div class="relative">
-                <span class="text-[10px] font-bold uppercase tracking-[0.22em]" style={`color: var(${pkg.cssVar});`}>
-                  Package
-                </span>
-                <h3 class="font-heading text-2xl font-bold text-[var(--text)] mt-2 mb-1">
-                  {pkg.name}
-                </h3>
-                <p class="text-sm text-[var(--text-muted)] mb-5">{pkg.desc}</p>
-                <div class="mb-6 font-heading text-4xl font-black" style={`color: var(${pkg.cssVar});`}>
-                  {pkg.price}
-                </div>
-                <ul class="space-y-3 mb-8" role="list">
-                  {pkg.features.map((f) => (
-                    <li class="flex items-center gap-2 text-sm text-[var(--text-dim)]">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0" aria-hidden="true" style={`color: var(${pkg.cssVar});`}>
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="/get-quote/"
-                  class:list={[
-                    'block w-full rounded-full py-3 text-center font-semibold transition-opacity',
-                    pkg.popular ? 'text-[var(--bg)] hover:opacity-90' : 'border border-[var(--border)] hover:opacity-90',
-                  ]}
-                  style={pkg.popular ? `background: var(${pkg.cssVar}); color: #fff;` : `color: var(${pkg.cssVar}); border-color: color-mix(in srgb, var(${pkg.cssVar}) 50%, var(--border));`}
-                >
-                  Get quote
-                </a>
-              </div>
-            </article>
+      <ul class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4" role="list">
+        {quoteFactors.map((f, i) => (
+          <li class="tilt-card p-6" style={`--card-color: var(${['--ac-cyan', '--ac-violet', '--ac-amber', '--ac-emerald'][i]});`}>
+            <h3 class="font-heading text-lg font-bold text-[var(--text)]">{f.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">{f.text}</p>
           </li>
         ))}
       </ul>
-
-      <div class="mt-10 text-center">
-        <a href="/pricing/" class="text-sm text-[var(--accent)] hover:underline">
-          View all packages & compare features →
-        </a>
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+        <a href="/get-quote/" class="inline-flex min-h-11 items-center rounded-lg bg-[var(--accent)] px-6 py-3 font-semibold text-white transition hover:brightness-110">Request a Website Quote</a>
+        <a href="/pricing/" class="inline-flex min-h-11 items-center rounded-lg border border-[var(--border)] bg-[var(--bg)] px-6 py-3 font-semibold text-[var(--text)] transition hover:border-[var(--accent)]">See current pricing</a>
       </div>
+      <p class="mt-6 text-center text-sm text-[var(--text-muted)]">Costs for Nagpur businesses are explained in more detail in our <a href="/blog/nagpur-business/website-cost-nagpur/" class="font-semibold text-[var(--text)] underline underline-offset-4">website cost guide for Nagpur</a>.</p>
     </div>
   </section>
 
@@ -676,26 +600,26 @@ const packages = pricingTiers.map((tier, index) => ({
               Ready when you are
             </p>
             <h2 id="nagpur-cta-heading" class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--text)] mb-4 leading-tight">
-              Let's design Nagpur's next great website.
+              Plan your website with a Nagpur team.
             </h2>
             <p class="text-[var(--text-dim)] text-base md:text-lg max-w-xl">
-              Walk into our Gayatri Nagar office, hop on a Zoom, or WhatsApp us. A website audit of your current site costs <AuditPrice kind="website" currency="INR" />, with findings within two business days of confirming the scope.
+              Visit our Gayatri Nagar office, meet by video or WhatsApp us. Already have a website? A paid audit of it costs <AuditPrice kind="website" currency="INR" /> and gives you written, prioritised findings.
             </p>
           </div>
 
           <div class="lg:col-span-5 flex flex-col gap-3">
             <a
-              href="/website-audit/"
+              href="/get-quote/"
               class="inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--accent)] px-8 py-4 text-base font-semibold text-[var(--bg)] shadow-lg hover:opacity-90 transition-opacity"
             >
-              Book a website audit
+              Request a Website Quote
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </a>
             <a
-              href="/schedule-consultation/"
+              href="/website-audit/"
               class="inline-flex items-center justify-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--bg)] px-8 py-4 text-base font-semibold text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
             >
-              Schedule a consultation
+              Book a paid website audit
             </a>
             <a
               href="https://wa.me/918788834630?text=Hi%20eLan%20Technology%2C%20I'm%20a%20Nagpur%20business%20interested%20in%20web%20design"

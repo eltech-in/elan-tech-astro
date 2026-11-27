@@ -1,9 +1,8 @@
 ---
+// Australia (27 Nov 2026): leads with the Rushmore Group project and how remote delivery works, not a list of every service.
 import InternationalLayout from '../layouts/InternationalLayout.astro';
-import InternationalWhyOutsource from '../components/international/InternationalWhyOutsource.astro';
-import InternationalCostComparison from '../components/international/InternationalCostComparison.astro';
-import InternationalServices from '../components/international/InternationalServices.astro';
 import InternationalProjectProof from '../components/international/InternationalProjectProof.astro';
+import InternationalRemoteDelivery from '../components/international/InternationalRemoteDelivery.astro';
 import InternationalFAQ from '../components/international/InternationalFAQ.astro';
 import InternationalContact from '../components/international/InternationalContact.astro';
 import { getCountryBySlug } from '../data/countries';
@@ -12,10 +11,10 @@ const country = getCountryBySlug('australia')!;
 ---
 
 <InternationalLayout country={country}>
-  <InternationalWhyOutsource country={country} />
-  <InternationalCostComparison country={country} />
-  <InternationalServices country={country} />
-  <InternationalProjectProof country={country} />
+  <Fragment slot="market-introduction">
+    <InternationalProjectProof country={country} />
+  </Fragment>
+  <InternationalRemoteDelivery country={country} />
   <InternationalFAQ country={country} />
   <InternationalContact country={country} />
 </InternationalLayout>

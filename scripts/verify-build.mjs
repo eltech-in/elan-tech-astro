@@ -1033,6 +1033,19 @@ check('Phone / WhatsApp is required on every enquiry form and enforced by the se
 }) && readFileSync(join(resolve(DIST, '..'), 'public/api/submit-lead.php'), 'utf8').includes("'A phone or WhatsApp number is required'")
   && readFileSync(join(resolve(DIST, '..'), 'public/api/razorpay-order.php'), 'utf8').includes('Please enter a phone or WhatsApp number')
   && fileNotContains('privacy-policy/index.html', 'optional phone'));
+// 27 Nov 2026 location pages: each answers why choose eLan there, what work can be shown and how delivery works.
+check('Location pages lead with local proof and delivery, with current prices and no unverified claims', fileContains('web-design-company-nagpur/index.html',
+  'Websites we have built for Nagpur businesses', 'https://www.trimitarch.com/', 'https://www.dizviz.com/', 'https://cementpipenagpur.com/', 'Request a Website Quote', '15 August 2005', 'What affects the cost of a website in Nagpur')
+  && fileContains('web-design-company-pune/index.html', 'Healthy Genie', '/services/ecommerce/medusa-js-development/', 'Where delivery is based', 'ASBIM Consulting', 'https://asbimconsulting.com/')
+  && fileNotContains('web-design-company-raipur/index.html', 'lack professional web presence') && fileContains('web-design-company-raipur/index.html', 'What affects the cost of a website for a Raipur business')
+  && fileNotContains('faq/index.html', 'rice milling') && fileNotContains('faq/index.html', 'rank on page one')
+  && ['nagpur', 'raipur', 'pune', 'bhopal', 'indore', 'kolkata', 'lucknow', 'chandigarh'].every((slug) => fileNotContains(`web-design-company-${slug}/index.html`, '₹45,000') && fileNotContains(`web-design-company-${slug}/index.html`, '₹21,000'))
+  && fileNotContains('web-design-company-bhopal/index.html', 'best web design company in Bhopal')
+  && fileContains('web-design-company-usa/index.html', 'Code-level ADA &amp; WCAG remediation', '/services/ada-compliant-web-design/emergency-remediation/', 'not an accessibility case study')
+  && fileContains('web-design-company-canada/index.html', 'WCAG audits, reporting and remediation for Canadian organisations', '/blog/accessibility/website-accessibility-audit-deliverables-canada/')
+  && fileContains('web-design-company-australia/index.html', 'Rushmore Group', 'How we work with Australia clients')
+  && fileContains('web-design-company-new-zealand/index.html', 'Stems Flower Studio', 'How we work with New Zealand clients')
+  && fileContains('web-design-company-japan/index.html', 'Headless CMS and frontend development for Japanese businesses'));
 section('W  Location-page index policy (src/data/indexPolicy.ts)');
 const indexedLocations = ['nagpur', 'pune', 'raipur', 'usa', 'canada', 'australia', 'japan', 'new-zealand', 'dubai-uae'];
 const noindexLocations = [

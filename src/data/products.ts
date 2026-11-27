@@ -35,6 +35,8 @@ export interface Product {
    * List only what is confirmed. Leave undefined and the page shows no stack.
    */
   stack?: { group: string; items: string[] }[];
+  /** Descriptive link text for the Products hub (what the software is, in search words). */
+  linkLabel: string;
   /** Who buys it, in a few words (Products hub buying guide). */
   buyer: string;
   /** The primary workflow, as 3-4 short steps (Products hub buying guide). */
@@ -50,6 +52,7 @@ export const products: Product[] = [
     id: 'elan-central-cms',
     title: 'eLan Central CMS',
     slug: 'elan-central-cms',
+    linkLabel: "Payload CMS for Astro websites",
     buyer: "Businesses and teams running Astro websites",
     workflow: ["Edit", "Review", "Publish", "Static site goes live"],
     desc: 'Our customised Payload CMS for Astro websites: one place to edit content, with fast static pages published to the website’s own hosting.',
@@ -83,6 +86,7 @@ export const products: Product[] = [
     id: 'real-estate-portal',
     title: 'Real Estate Portal',
     slug: 'real-estate-portal',
+    linkLabel: "White-label real estate portal software",
     buyer: "Property developers, brokers and portal operators",
     workflow: ["Listing", "Buyer enquiry", "Agent follow-up"],
     desc: 'A configurable property portal foundation with listings, agent dashboards, maps and lead capture, adapted to each client’s operating model.',
@@ -118,6 +122,7 @@ export const products: Product[] = [
     id: 'medical-conference-portal',
     title: 'Medical Conference Portal',
     slug: 'medical-conference-portal',
+    linkLabel: "Medical conference registration and abstract software",
     buyer: "Organising committees of medical conferences",
     workflow: ["Abstracts", "Programme", "Registration", "Certificates"],
     desc: 'A configurable portal for medical conference registration, abstracts, speakers, schedules and certificates.',
@@ -160,6 +165,7 @@ export const products: Product[] = [
     id: 'ima-society-portal',
     title: 'IMA Society Portal',
     slug: 'ima-society-portal',
+    linkLabel: "Medical association membership software",
     buyer: "Medical associations and their office bearers",
     workflow: ["Membership", "Dues and renewals", "Events and CME", "Documents"],
     desc: 'A configurable member portal for medical associations, with memberships, events, documents and payments.',
@@ -199,6 +205,7 @@ export const products: Product[] = [
     id: 'resort-management-system',
     title: 'Resort Management Portal',
     slug: 'resort-management-system',
+    linkLabel: "Resort booking and property management software",
     buyer: "Resort owners and boutique stay operators",
     workflow: ["Online booking", "Check-in and housekeeping", "Billing"],
     desc: 'A configurable operations portal for resorts and boutique stays, covering bookings and selected day-to-day workflows.',
@@ -241,6 +248,7 @@ export const products: Product[] = [
     id: 'project-management-system',
     title: 'Project Management System',
     slug: 'project-management-system',
+    linkLabel: "Project management software for agencies",
     buyer: "Agencies and IT service teams",
     workflow: ["Enquiry", "Project and tasks", "Billing", "Renewal reminder"],
     desc: 'A configurable project management system for agencies and service businesses, covering clients, projects, tasks, billing, enquiries and renewal reminders.',
@@ -271,6 +279,7 @@ export const products: Product[] = [
     id: 'insurance-agency-management-portal',
     title: 'Insurance Agency Management Portal',
     slug: 'insurance-agency-management-portal',
+    linkLabel: "Insurance agency policy and renewal software",
     buyer: "Insurance agencies with sub-agent networks",
     workflow: ["Policy", "Renewal", "Commission", "Sub-agent records"],
     desc: 'A configurable management portal for insurance agencies, covering LIC, health, motor and general policies, deposits, renewals, commissions, sub-agents and customer records.',

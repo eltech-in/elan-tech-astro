@@ -1,0 +1,33 @@
+---
+// How remote delivery from Nagpur works for one country (27 Nov 2026): meetings, reviews and handover,
+// instead of listing every service. Used on the Australia, New Zealand and Japan pages.
+import type { CountryData } from '../../data/countries';
+interface Props { country: CountryData; intro?: string }
+const { country, intro } = Astro.props;
+const steps = [
+  { title: 'Meetings', text: `${country.timezoneOverlap}. Calls are by video; the meeting rhythm and who joins are agreed at kickoff.` },
+  { title: 'Reviews', text: 'Designs and builds are shared on preview links, so your team can review in its own working day. Decisions and approvals are written down.' },
+  { title: 'Testing and launch', text: 'We test the agreed devices, forms and journeys with you, then launch with redirects, backups and a rollback plan where relevant.' },
+  { title: 'Handover', text: 'Source code, access, documentation and training as listed in the proposal, so you are never locked in. Ongoing support is a separate, optional plan.' },
+];
+---
+<section class="px-4 py-16 sm:px-6 lg:px-8" aria-labelledby={`${country.slug}-remote-title`}>
+  <div class="mx-auto max-w-6xl">
+    <p class="text-xs font-bold uppercase tracking-[.18em] text-[var(--accent)]">Delivered from Nagpur, India</p>
+    <h2 id={`${country.slug}-remote-title`} class="mt-3 font-heading text-3xl font-bold">How we work with {country.name} clients</h2>
+    <p class="mt-4 max-w-3xl leading-7 text-[var(--text-dim)]">{intro ?? `There is no eLan office in ${country.name}. Our team works from Nagpur, and these are the arrangements we agree at the start of a project.`}</p>
+    <ol class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" role="list">
+      {steps.map((s, i) => (
+        <li class="tilt-card p-6" style="--card-color: var(--accent);">
+          <span class="text-sm font-bold text-[var(--accent)]">0{i + 1}</span>
+          <h3 class="mt-2 font-heading text-lg font-bold">{s.title}</h3>
+          <p class="mt-2 text-sm leading-7 text-[var(--text-dim)]">{s.text}</p>
+        </li>
+      ))}
+    </ol>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href="/get-quote/" class="inline-flex min-h-11 items-center rounded-lg bg-[var(--accent)] px-5 py-3 text-sm font-bold text-white transition hover:brightness-110">Scope my {country.name} project</a>
+      <a href="/schedule-consultation/" class="inline-flex min-h-11 items-center rounded-lg border border-[var(--border)] px-5 py-3 text-sm font-bold">Book a call</a>
+    </div>
+  </div>
+</section>

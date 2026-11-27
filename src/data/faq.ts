@@ -41,7 +41,7 @@ export const faqs: FAQItem[] = [
   {
     question: 'How much does a website cost?',
     answer:
-      'Website costs vary based on complexity, number of pages, and required features. Our Starter package begins at ₹21,000 (approx. $250 USD) for a 5-page responsive business website. Our Professional package starts at ₹45,000 for up to 15 pages with CMS and SEO. Enterprise custom projects start at ₹1,50,000+. Visit our Pricing page for detailed information.',
+      'Website costs depend on content, the number of unique page types, integrations and support after launch. Current package prices, in rupees and other currencies, are on our Pricing page; larger and custom projects are quoted after a short discovery conversation.',
     category: 'pricing',
   },
   {
@@ -143,7 +143,7 @@ export const faqs: FAQItem[] = [
   {
     question: 'How long does SEO take to show results?',
     answer:
-      'SEO is a long-term investment. Most clients begin seeing measurable improvements in keyword rankings and organic traffic within 3–4 months. Significant business impact - consistent lead generation from organic search - typically becomes visible at the 6–9 month mark. We provide monthly reports tracking keyword positions, traffic, and conversions.',
+      'SEO is a medium- to long-term activity. How soon changes show depends on the website, competition, search demand, content and technical fixes, so no date or ranking is guaranteed. We record a baseline first and report Search Console and analytics evidence at the frequency agreed in the proposal.',
     category: 'seo',
   },
   {
@@ -155,7 +155,7 @@ export const faqs: FAQItem[] = [
   {
     question: 'Can you help with local SEO for my Nagpur or Raipur business?',
     answer:
-      'Yes, local SEO is one of our core strengths. We have helped businesses in Nagpur and Raipur rank on page one for local search terms like "dentist in Nagpur" or "caterers in Raipur." Our local SEO process covers Google Business Profile optimization, local citations, geo-targeted content, and review management.',
+      'Yes. Local SEO for a Nagpur or Raipur business covers Google Business Profile guidance, location pages, local citations, technical fixes and review prompts, measured in Search Console. Rankings depend on competition and search engines, so no position is guaranteed.',
     category: 'seo',
   },
 
@@ -183,19 +183,19 @@ export const faqs: FAQItem[] = [
   {
     question: 'Do you serve clients in Raipur, Chhattisgarh?',
     answer:
-      'Yes, Raipur is one of our key markets. We have served clients in Raipur across manufacturing, agriculture, education, and hospitality sectors. We work remotely with Raipur clients and can also arrange in-person meetings for larger projects.',
+      'Yes. We serve Raipur businesses from our Nagpur office, mostly by video meetings, shared design reviews and WhatsApp. Whether an in-person meeting is needed is agreed in the proposal.',
     category: 'city-raipur',
   },
   {
-    question: 'Which industries in Raipur have you worked with?',
+    question: 'What kind of Raipur projects do you take on?',
     answer:
-      'We have built websites and digital marketing campaigns for Raipur-based businesses in steel manufacturing, rice milling, hospitality (hotels and resorts), education, and agricultural exports. Raipur is a fast-growing business hub and we understand the competitive digital landscape for businesses there.',
+      'Corporate websites, product catalogues, trade enquiry forms and handover of enquiries to a CRM or sales team, plus ecommerce where it fits. Examples we show from other locations are labelled as such; we do not present them as Raipur client work.',
     category: 'city-raipur',
   },
   {
     question: 'How can a Raipur business get started with eLan Technology?',
     answer:
-      'Getting started is simple. Fill out our contact form at <a href="https://elan-tech.net/contact/" class="text-[var(--accent)] underline hover:opacity-80" target="_blank" rel="noopener noreferrer">elan-tech.net/contact/</a>, send us an email at <a href="mailto:hello@elan-tech.net" class="text-[var(--accent)] underline hover:opacity-80">hello@elan-tech.net</a>, or call us directly. We will schedule a discovery call to understand your business goals and send you a detailed proposal within 48 hours.',
+      'Request a quote or WhatsApp us with your current website or idea. We arrange a discovery call to understand the goals, pages, content and integrations, then send a written proposal once the scope is clear.',
     category: 'city-raipur',
   },
 ];

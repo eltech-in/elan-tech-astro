@@ -48,7 +48,7 @@ const countryProjects = internationalProjects.filter((item) => item.countrySlug 
           {project.location && <p class="relative mt-1 text-xs text-[var(--text-muted)]">{project.location}</p>}
           <p class="relative mt-4 text-base leading-7 text-[var(--text-dim)]">{project.description}</p>
           <p class="relative mt-5 text-sm leading-6 text-[var(--text-muted)]">
-            This is client work delivered from our India studio. It shows how we collaborate across borders without suggesting a local eLan office in {country.name}.
+            This is client work delivered from our India studio. It shows how we collaborate across borders without suggesting a local eLan office in {country.name}.{(country.slug === 'usa' || country.slug === 'canada') && ' It is a website project, not an accessibility case study.'}
           </p>
           <div class="relative mt-7 flex flex-wrap gap-3">
             <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg bg-[var(--accent)] px-5 py-2.5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:brightness-110" aria-label={`Visit ${project.title}, opens in a new tab`}>

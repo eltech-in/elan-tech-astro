@@ -1,5 +1,6 @@
 ---
 import type { CityData } from '../../data/cities';
+import { PACKAGE_PRICES } from '../../data/auditPricing';
 
 interface Props {
   city: CityData;
@@ -29,7 +30,7 @@ const reasons = city.isHQ
   : [
       {
         title: 'Published Starting Prices',
-        desc: 'Business website packages start at ₹21,000. We confirm deliverables, exclusions, timeline and payment milestones before development.',
+        desc: `Business website packages start at ₹${PACKAGE_PRICES.starter.INR.toLocaleString('en-IN')}. We confirm deliverables, exclusions, timeline and payment milestones before development.`,
       },
       {
         title: 'Technology Matched to the Project',

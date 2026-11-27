@@ -40,6 +40,15 @@ const tick = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" vie
     </div>
   </section>
 
+  <!-- Descriptive product links (27 Nov 2026): what each product is, in the words buyers search with -->
+  <nav class="border-y border-[var(--border)] bg-[var(--bg-card)]" aria-label="Products">
+    <ul class="mx-auto flex max-w-7xl flex-wrap gap-2 px-4 py-4 sm:px-6 lg:px-8" role="list">
+      {products.map((product) => (
+        <li><a href={`/products/${product.slug}/`} class="inline-flex min-h-10 items-center rounded-lg border border-[var(--border)] bg-[var(--bg)] px-3.5 py-2 text-sm font-semibold text-[var(--text)] transition hover:border-[var(--accent)]">{product.linkLabel}</a></li>
+      ))}
+    </ul>
+  </nav>
+
   <!-- Catalogue -->
   <section id="products-grid" class="mx-auto max-w-7xl px-4 py-10 sm:px-6 md:py-14 lg:px-8" aria-labelledby="products-grid-h2">
     <h2 id="products-grid-h2" class="sr-only">Products for Businesses and Organisations</h2>
@@ -69,7 +78,7 @@ const tick = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" vie
                   </ul>
                 )}
                 <div class="relative z-10 mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 pt-4 text-sm font-semibold">
-                  <span class="inline-flex items-center gap-1.5" style={`color: var(${product.cssVar});`}>Learn more <span set:html={arrow} /></span>
+                  <span class="inline-flex items-center gap-1.5" style={`color: var(${product.cssVar});`}>About the {product.title} <span set:html={arrow} /></span>
                   <a href={demoRequestHref(product.slug)} aria-label={`Request a walkthrough of ${product.title}`} class="text-[var(--text)] underline underline-offset-2 hover:text-[var(--accent)]">Request a walkthrough</a>
                   {hasPublicDemo(product) && (
                     <a href={product.demoUrl} target="_blank" rel="noopener noreferrer" aria-label={`Open the public demo of ${product.title}, opens in a new tab`} class="text-[var(--text)] underline underline-offset-2 hover:text-[var(--accent)]">Try the live demo ↗</a>

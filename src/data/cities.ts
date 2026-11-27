@@ -1,4 +1,5 @@
 import { isIndexedLocationSlug } from './indexPolicy';
+import { PACKAGE_PRICES } from './auditPricing';
 // ─── City Data for Geo-Targeted Landing Pages ──────────────────────────────
 // Each city ha s full SEO, content, and schema data for its landing page.
 // Cities are grouped into tiers by priority and search volume.
@@ -30,15 +31,13 @@ export interface CityPricingTiers {
   enterprise: string;
 }
 
-// Verified eLan price ladder (from city FAQ copy, confirmed 2026-06). Used by
-// every city page that does not set its own `pricing`. Change in one place to
-// reprice all cities at once.
-// NOTE: Nagpur HQ Professional price is assumed equal to the ladder (₹45,000);
-// confirm with the owner if HQ pricing differs.
+// City package prices come from the same table as /pricing/ (PACKAGE_PRICES in auditPricing.ts), so a
+// city page can never show an outdated amount (27 Nov 2026: pages had said ₹20,999 / ₹30,999).
+const inr = (n: number) => '₹' + n.toLocaleString('en-IN');
 export const DEFAULT_CITY_PRICING: CityPricingTiers = {
-  starter: '₹21,000',
-  professional: '₹45,000',
-  enterprise: '₹1,50,000+',
+  starter: inr(PACKAGE_PRICES.starter.INR),
+  professional: inr(PACKAGE_PRICES.professional.INR),
+  enterprise: 'Custom quote',
 };
 
 export interface CityData {
@@ -148,21 +147,21 @@ export const cities: CityData[] = [
       'Trimit Architects',
     ],
     introContent:
-      'Nagpur is no longer just the "Zero Mile City" at the geographic heart of India - it is rapidly transforming into a major economic and technology hub. With the MIHAN project attracting international investment, the Nagpur IT Park housing dozens of technology firms, and Vidarbha\'s industrial corridor expanding year on year, local businesses face unprecedented digital competition.',
+      'eLan Technology works from PTG IT Park in Gayatri Nagar, Nagpur. Operations began in 2002 and the company officially launched on 15 August 2005. Nagpur businesses can meet the team that plans, designs and builds their website, review progress in person and call the same people after launch.',
     whyChooseContent:
-      'eLan Technology has been designing websites for Nagpur businesses since 2002. We understand the unique commercial ecosystems of areas like Sitabuldi\'s retail district, Dharampeth\'s professional services corridor, Wardha Road\'s industrial belt, and Ramdaspeth\'s growing corporate sector. Visit our office at PTG IT Park for a face-to-face consultation.',
+      'Our Nagpur work covers business websites, institute and clinic enquiry journeys, product catalogues and online stores. Each project starts with a written scope, so you know the pages, content, integrations and support before work begins.',
     pricingNote:
       'Website costs depend on the agreed pages, content, design, integrations, testing and support. Published packages provide a starting point; the written proposal identifies accessibility work, hosting, third-party charges and ownership terms.',
     faq: [
       {
-        question: 'Which is the best web design company in Nagpur?',
+        question: 'How do I choose a web design company in Nagpur?',
         answer:
-          "eLan Technology has operated from Nagpur since 2002. Our work spans business websites, custom ecommerce, accessibility services, digital marketing and configurable software products. Accessibility is considered during design and development, while formal conformance work is scoped to the standard, testing and evidence required for each project.",
+          "Ask to see live websites the company has built for businesses like yours, who will actually do the work, what the written quote includes, and what support looks like after launch. eLan Technology has worked from Nagpur since 2002; you can see our Nagpur projects on this page and meet the team at PTG IT Park.",
       },
       {
         question: 'How much does website development cost in Nagpur?',
         answer:
-          'Published Nagpur packages currently begin at ₹21,000 for the listed starter scope. Business websites, ecommerce and custom applications are quoted after confirming pages, content, design, integrations, accessibility testing, licences, hosting and support. The written proposal identifies the final price, taxes, third-party charges, ownership terms and any post-launch support.',
+          'It depends mainly on content, the number of unique page types, integrations and support after launch. Current starting prices are on our pricing page; your written quote states the final price, taxes, third-party charges, ownership terms and any post-launch support.',
       },
       {
         question: 'Does eLan Technology have an office in Nagpur?',
@@ -187,19 +186,19 @@ export const cities: CityData[] = [
     ],
     portfolio: [
       {
-        name: 'Aasthaa Hospital',
-        category: 'Healthcare, Nagpur',
-        desc: 'A healthcare website structured around departments, doctor information, patient resources and appointment enquiries.',
-      },
-      {
         name: 'Trimit Architects',
-        category: 'Architecture & Real Estate',
-        desc: 'An architecture portfolio website with structured project galleries, clear service information and enquiry routes.',
+        category: 'Business website, Nagpur',
+        desc: 'A new website for a Nagpur architecture studio with 25 years of built work: nine services, projects grouped by building type and a clear route to start a project.',
       },
       {
-        name: 'CIPL',
-        category: 'Industrial / Manufacturing',
-        desc: 'A B2B company profile and product catalogue website for an industrial client. Built with export market targeting, multi-language support, and inquiry management system.',
+        name: 'Dizviz',
+        category: 'Education, Nagpur',
+        desc: 'A new website for a Nagpur animation, VFX and design institute with programmes, fees, placements and admissions enquiries in one journey.',
+      },
+      {
+        name: 'Cement Pipe Nagpur',
+        category: 'Manufacturing catalogue, Nagpur',
+        desc: 'A product-first website for a Nagpur RCC pipe manufacturer, routing trade buyers to a B2B enquiry.',
       },
     ],
   },
@@ -247,7 +246,7 @@ export const cities: CityData[] = [
     businessDistricts: ['Pandri', 'Telibandha', 'Shankar Nagar', 'Fafadih', 'Naya Raipur'],
     nearbyClients: [],
     introContent:
-      "Raipur, the capital of Chhattisgarh, is witnessing a digital transformation driven by the Naya Raipur smart city initiative, a booming steel and mining sector, and an increasingly tech-savvy consumer base. Yet most local businesses still lack professional web presence - creating a massive opportunity for those who invest in quality digital infrastructure now.",
+      'Raipur manufacturers, traders and service firms often sell through catalogues and trade enquiries rather than online checkout. We build websites that present products clearly, collect the details a sales team needs and hand each enquiry to the right person or CRM.',
     whyChooseContent:
       'eLan Technology serves Raipur businesses remotely from our Nagpur headquarters. We begin with the audience, content and required customer journey, then document pages, integrations, ownership, testing, launch and support in the proposal.',
     pricingNote:
@@ -392,7 +391,9 @@ export const cities: CityData[] = [
     population: '7.4 million',
     knownFor: 'IT hub, educational centre, automotive industry',
     distanceFromNagpur: '690 km',
-    tagline: 'Web design and development for Pune businesses, delivered from Nagpur',
+    tagline: 'Ecommerce builds and integrations for Pune businesses, delivered by our team in Nagpur',
+    seoTitle: 'Ecommerce & Web Design Company Serving Pune | eLan Technology',
+    seoDescription: 'Ecommerce and website development for Pune businesses: Shopify and Medusa.js stores, payments, shipping and business-system integrations, delivered from Nagpur. See our Pune meal-commerce build.',
     primaryKeyword: 'web design company Pune',
     secondaryKeywords: [
       'website design Pune',
@@ -420,9 +421,9 @@ export const cities: CityData[] = [
     ],
     nearbyClients: [],
     introContent:
-      'Pune businesses span software, manufacturing, education and growing consumer brands. Their websites may need product content, integrations, multilingual publishing, recruitment journeys or custom application workflows.',
+      'For Pune businesses we mostly build online stores and the integrations behind them: payments, subscriptions, shipping, inventory and the tools your team already uses. Our Pune work includes Healthy Genie, a meal-commerce website built on Medusa.js, and ASBIM Consulting, a BIM consultancy website.',
     whyChooseContent:
-      'We serve Pune remotely from Nagpur in the same state and timezone. The proposal identifies technology, scope, acceptance tests, ownership, third-party services and support.',
+      'Delivery is from our Nagpur office, in the same state and timezone. Discovery, design reviews and testing happen by video and shared links, and the proposal records the scope, integrations, ownership and support.',
     pricingNote:
       'Pricing depends on the agreed pages, content, integrations, testing, hosting and support. Published packages provide a starting point and the proposal records the final scope and recurring costs.',
     faq: [
@@ -435,6 +436,16 @@ export const cities: CityData[] = [
         question: 'How much does a website cost compared to Pune agencies?',
         answer:
           'Pricing varies with discovery, UX, integrations, security, testing and support. We provide an itemised proposal instead of promising a standard saving against Pune agencies.',
+      },
+      {
+        question: 'Have you built an online store for a Pune business?',
+        answer:
+          'Yes. We redesigned and rebuilt Healthy Genie, a Pune meal-commerce brand, on Medusa.js with a Next.js storefront: meal discovery, subscription plans, customer accounts and corporate meal enquiries. No sales figures are claimed.',
+      },
+      {
+        question: 'Which other Pune websites have you built?',
+        answer:
+          'ASBIM Consulting, a Pune BIM consultancy: a structured service website presenting its architectural, structural and MEP BIM expertise, with clear routes to explore services and make an enquiry.',
       },
       {
         question: 'Do you work with Pune-based startups?',
@@ -457,7 +468,18 @@ export const cities: CityData[] = [
           'The project plan confirms communication channels, meeting frequency, design reviews, code access and handover rather than assuming a fixed toolset for every client.',
       },
     ],
-    portfolio: [],
+    portfolio: [
+      {
+        name: 'Healthy Genie',
+        category: 'Medusa.js meal commerce, Pune',
+        desc: 'A Pune meal-commerce website on Medusa.js with a Next.js storefront: meal discovery, subscription plans, customer accounts and corporate meal enquiries.',
+      },
+      {
+        name: 'ASBIM Consulting',
+        category: 'B2B service website, Pune',
+        desc: 'A structured service website for a Pune BIM consultancy, presenting architectural, structural and MEP BIM expertise with clear enquiry routes.',
+      },
+    ],
   },
 
   {
@@ -811,10 +833,9 @@ export const cities: CityData[] = [
       'eLan Technology serves Bhopal remotely from its Nagpur headquarters. Discovery, design reviews, content approvals, testing, ownership and support responsibilities are documented so distance does not create ambiguity.',
     pricingNote:
       "Website design and development costs depend on the pages, content, integrations, accessibility work and support required. We provide an itemised proposal and identify hosting, third-party charges and ownership terms before work begins.",
-    pricing: { starter: '₹21,000', professional: '₹45,000', enterprise: '₹1,00,000+' },
     faq: [
       {
-        question: 'Which is the best web design company in Bhopal?',
+        question: 'How do I compare web design companies serving Bhopal?',
         answer:
           "When comparing web design companies serving Bhopal, review real live work, the written scope, mobile quality, accessibility approach, ownership terms and post-launch support. eLan Technology has operated since 2002 and serves Bhopal remotely from Nagpur. Source-code rights, hosting and handover terms are defined in each proposal rather than assumed.",
       },
@@ -824,9 +845,9 @@ export const cities: CityData[] = [
           'Pricing depends on pages, templates, content, integrations, testing and support. Published packages provide a starting point, while the proposal confirms GST, payment stages, exclusions, recurring costs and ownership terms.',
       },
       {
-        question: 'Who is the best website developer in Bhopal for a small business?',
+        question: 'Who will update the content after my Bhopal website launches?',
         answer:
-          'Choose a developer who can explain the scope, editing workflow, mobile testing, search foundations, ownership and post-launch costs. A straightforward WordPress or Astro site may suit many SMEs; source-code rights and delivery dates depend on the agreed proposal and payment terms.',
+          'Usually your own team. We set up an editing workflow your staff can use for pages, notices, courses or staff profiles, train them at handover, and offer content updates under a maintenance plan if you prefer us to do it.',
       },
       {
         question: 'Do you offer custom website development in Bhopal?',
@@ -839,9 +860,9 @@ export const cities: CityData[] = [
           'Yes. Beyond websites we build mobile applications (Flutter, React Native), progressive web apps, custom internal tools, and API integrations. Our application & website services in Bhopal cover the full stack: design, development, hosting setup, third-party integrations (Razorpay, WhatsApp Business, GSTN, DigiLocker), and ongoing maintenance. If you need both a website AND an app for your Bhopal business, we deliver them as one cohesive engagement with shared branding and a single point of contact.',
       },
       {
-        question: 'What makes the best web development company in Bhopal stand out from local agencies?',
+        question: 'How do enquiries from the website reach our team?',
         answer:
-          'Look for relevant live work, a clear architecture recommendation, named acceptance tests, ownership terms and a realistic maintenance plan. No framework guarantees speed, security or longevity; those results depend on implementation, content, hosting and ongoing operation.',
+          'Each form is routed to the right person by email or WhatsApp, with the course, service or department the visitor chose. Where needed, enquiries can also go to a CRM or a shared sheet, with access limited to the people who follow them up.',
       },
       {
         question: 'Can you handle web designing in Bhopal remotely from your Nagpur office?',
@@ -898,7 +919,7 @@ export const cities: CityData[] = [
     tagline: 'Web design and development for Indore businesses, delivered from Nagpur',
     seoTitle: 'Web Design & Development Company in Indore',
     seoDescription:
-      'Web design and development for Indore businesses, startups and manufacturers. Custom websites from ₹21,000, eCommerce and web apps. Website audits from ₹999.',
+      'Web design and development for Indore businesses, startups and manufacturers. Custom websites from ₹20,999, eCommerce and web apps. Website audits from ₹999.',
     primaryKeyword: 'web design company Indore',
     secondaryKeywords: [
       'website design Indore',
@@ -923,7 +944,7 @@ export const cities: CityData[] = [
     whyChooseContent:
       'Indore companies can engage us for business websites, ecommerce stores and custom applications through a defined scope, named responsibilities and documented handover.',
     pricingNote:
-      'Business website packages start at ₹21,000. Final pricing depends on page count, content, integrations, eCommerce features and accessibility requirements.',
+      'Business website packages start at ₹20,999. Final pricing depends on page count, content, integrations, eCommerce features and accessibility requirements.',
     marketNeeds: [
       {
         audience: 'Startups and SaaS teams',
@@ -953,7 +974,7 @@ export const cities: CityData[] = [
       {
         question: 'How much does a website cost in Indore?',
         answer:
-          'Business websites for Indore companies start at ₹21,000. The Professional package starts at ₹45,000; the final scope depends on content, integrations, eCommerce features and accessibility requirements.',
+          'Business websites for Indore companies start at ₹20,999. The Professional package starts at ₹30,999; the final scope depends on content, integrations, eCommerce features and accessibility requirements.',
       },
       {
         question: 'Can you build eCommerce sites for Indore businesses?',
@@ -1013,7 +1034,7 @@ export const cities: CityData[] = [
     tagline: 'Web design and development for Kolkata businesses, delivered from Nagpur',
     seoTitle: 'Web Design & Development Company in Kolkata',
     seoDescription:
-      'Web design and development for Kolkata companies, exporters and institutions. Custom websites from ₹21,000, eCommerce, multilingual content and SEO.',
+      'Web design and development for Kolkata companies, exporters and institutions. Custom websites from ₹20,999, eCommerce, multilingual content and SEO.',
     primaryKeyword: 'web design company Kolkata',
     secondaryKeywords: [
       'website design Kolkata',
@@ -1031,7 +1052,7 @@ export const cities: CityData[] = [
     whyChooseContent:
       "Kolkata businesses work with eLan for clear project ownership, modern development options and experience across B2B, institutional, retail and service websites.",
     pricingNote:
-      'Business website packages start at ₹21,000. Multilingual content, eCommerce, custom integrations and application features are estimated after discovery.',
+      'Business website packages start at ₹20,999. Multilingual content, eCommerce, custom integrations and application features are estimated after discovery.',
     marketNeeds: [
       {
         audience: 'Exporters and B2B companies',
@@ -1061,7 +1082,7 @@ export const cities: CityData[] = [
       {
         question: 'How much does a website cost compared to Kolkata agencies?',
         answer:
-          'Business websites start at ₹21,000 and the Professional package starts at ₹45,000. eCommerce, multilingual content, custom integrations and application features are estimated after discovery.',
+          'Business websites start at ₹20,999 and the Professional package starts at ₹30,999. eCommerce, multilingual content, custom integrations and application features are estimated after discovery.',
       },
       {
         question: 'What Kolkata industries do you serve?',
@@ -1226,7 +1247,7 @@ export const cities: CityData[] = [
       {
         question: 'How much does a website cost in Jaipur?',
         answer:
-          'Published business-site packages begin at ₹21,000. Booking systems, ecommerce, accessibility testing and multilingual content are quoted after discovery; the proposal identifies GST and third-party charges.',
+          'Published business-site packages begin at ₹20,999. Booking systems, ecommerce, accessibility testing and multilingual content are quoted after discovery; the proposal identifies GST and third-party charges.',
       },
       {
         question: 'Can you build eCommerce for Jaipur gems and handicrafts?',
@@ -1267,7 +1288,7 @@ export const cities: CityData[] = [
     tagline: 'Web design and development for Lucknow organisations, delivered from Nagpur',
     seoTitle: 'Web Design & Development Company in Lucknow',
     seoDescription:
-      'Website design and development for Lucknow businesses and institutions. Custom sites from ₹21,000, bilingual content, web apps and accessibility.',
+      'Website design and development for Lucknow businesses and institutions. Custom sites from ₹20,999, bilingual content, web apps and accessibility.',
     primaryKeyword: 'web design company Lucknow',
     secondaryKeywords: [
       'website design Lucknow',
@@ -1285,7 +1306,7 @@ export const cities: CityData[] = [
     whyChooseContent:
       "Lucknow organisations work with eLan for structured discovery, accessible interface design, bilingual-ready architecture and documented remote delivery.",
     pricingNote:
-      'Business website packages start at ₹21,000. Bilingual content, portals, user accounts and third-party integrations are scoped separately.',
+      'Business website packages start at ₹20,999. Bilingual content, portals, user accounts and third-party integrations are scoped separately.',
     marketNeeds: [
       {
         audience: 'Institutions and public organisations',
@@ -1315,7 +1336,7 @@ export const cities: CityData[] = [
       {
         question: 'How much does a website cost for a Lucknow business?',
         answer:
-          'Business websites start at ₹21,000 and the Professional package starts at ₹45,000. Bilingual content, portals, user accounts, accessibility requirements and integrations are scoped separately.',
+          'Business websites start at ₹20,999 and the Professional package starts at ₹30,999. Bilingual content, portals, user accounts, accessibility requirements and integrations are scoped separately.',
       },
       {
         question: 'Can you build government portals for Lucknow organisations?',
@@ -1375,7 +1396,7 @@ export const cities: CityData[] = [
     tagline: 'Web design and development for Chandigarh Tricity, delivered from Nagpur',
     seoTitle: 'Web Design Company in Chandigarh | Websites & Landing Pages',
     seoDescription:
-      'Web design for Chandigarh, Mohali and Panchkula businesses. Custom sites and landing pages from ₹21,000, plus web apps, SEO and accessibility.',
+      'Web design for Chandigarh, Mohali and Panchkula businesses. Custom sites and landing pages from ₹20,999, plus web apps, SEO and accessibility.',
     primaryKeyword: 'web design company Chandigarh',
     secondaryKeywords: [
       'website design Chandigarh',
@@ -1393,7 +1414,7 @@ export const cities: CityData[] = [
     whyChooseContent:
       "Tricity organisations work with eLan for structured planning, conversion-focused landing pages, modern development and clear ownership from discovery through handover.",
     pricingNote:
-      'Business website packages start at ₹21,000. Landing pages, institutional portals, applications and integrations are priced against an agreed scope.',
+      'Business website packages start at ₹20,999. Landing pages, institutional portals, applications and integrations are priced against an agreed scope.',
     marketNeeds: [
       {
         audience: 'Professional services and B2B',
@@ -1423,7 +1444,7 @@ export const cities: CityData[] = [
       {
         question: 'How much does a website cost in Chandigarh?',
         answer:
-          'Business websites start at ₹21,000 and the Professional package starts at ₹45,000. Landing pages, portals, web applications, accessibility requirements and integrations are estimated against an agreed scope.',
+          'Business websites start at ₹20,999 and the Professional package starts at ₹30,999. Landing pages, portals, web applications, accessibility requirements and integrations are estimated against an agreed scope.',
       },
       {
         question: 'Can you serve Chandigarh defence sector clients?',
@@ -1520,7 +1541,7 @@ export const cities: CityData[] = [
       {
         question: 'How much does a website cost for a Kochi business?',
         answer:
-          'Published business-site packages begin at ₹21,000. Booking, ecommerce, accessibility testing and multilingual requirements are quoted after discovery, with GST and third-party charges identified.',
+          'Published business-site packages begin at ₹20,999. Booking, ecommerce, accessibility testing and multilingual requirements are quoted after discovery, with GST and third-party charges identified.',
       },
       {
         question: 'Do you work with Infopark and SmartCity companies?',

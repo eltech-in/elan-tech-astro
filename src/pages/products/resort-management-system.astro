@@ -16,6 +16,7 @@ const startingPrice = new Intl.NumberFormat('en-IN', { style: 'currency', curren
 
 const faqs = [
   { question: 'What is the Resort Management Portal?', answer: 'It is a configurable operations portal for resorts and boutique stays. It covers direct bookings, an occupancy dashboard, billing and invoicing, housekeeping, rate plans, staff scheduling, multi-property views and reports.' },
+  { question: 'What does the resort booking and property management software cover?', answer: 'Online room booking with Razorpay payments, an occupancy dashboard with check-in and check-out tracking, housekeeping and staff scheduling, configurable billing and invoices, email and SMS booking notifications, and a multi-property view. Channel managers and OTA connections are scoped separately.' },
   { question: 'Can guests book and pay online?', answer: 'Yes. The booking engine shows real-time availability by room type and takes payment through Razorpay, which supports direct bookings without OTA commission on those reservations.' },
   { question: 'Does it connect to OTAs or a channel manager?', answer: 'Channel-manager and OTA connections are not part of the standard feature list. If you need them, they are scoped separately after we review the providers and their APIs.' },
   { question: 'How are billing and tax invoices handled?', answer: 'Billing, invoice fields and multi-payment settlement are configured to the property’s approved accounting requirements. Confirm your tax-invoice format with your accountant so we can set it up correctly.' },
@@ -147,7 +148,7 @@ const techStack = [...new Set((product.stack ?? []).flatMap((group) => group.ite
       id="workflow"
       color={product.cssVar}
       eyebrow="The workflows it supports"
-      title="Booking to check-out"
+      title="Resort booking and property management, from booking to check-out"
       columns={[{"title": "Online booking", "text": "Guests book rooms online and pay through Razorpay; the booking appears on the occupancy dashboard."}, {"title": "Check-in and housekeeping", "text": "Staff track check-ins and check-outs and schedule housekeeping from the dashboard."}, {"title": "Billing", "text": "Bills and invoices are raised with configurable settlement across several payment methods."}, {"title": "Reminders", "text": "Booking confirmations and reminders go out by email and SMS."}]}
       numbered
       note="Workflows are configured for each property; channel managers and other integrations are scoped separately."

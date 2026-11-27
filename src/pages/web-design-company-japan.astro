@@ -1,19 +1,41 @@
 ---
+// Japan (27 Nov 2026): leads with headless CMS, frontend development and agreed bilingual publishing.
+// The Japan page never names Contentful (build check: it would point to a confidential project); the headless
+// CMS page carries the general Astro + Contentful capability.
 import InternationalLayout from '../layouts/InternationalLayout.astro';
-import InternationalWhyOutsource from '../components/international/InternationalWhyOutsource.astro';
-import InternationalCostComparison from '../components/international/InternationalCostComparison.astro';
-import InternationalServices from '../components/international/InternationalServices.astro';
+import InternationalRemoteDelivery from '../components/international/InternationalRemoteDelivery.astro';
 import InternationalFAQ from '../components/international/InternationalFAQ.astro';
 import InternationalContact from '../components/international/InternationalContact.astro';
+import ServiceExplainer from '../components/service/ServiceExplainer.astro';
 import { getCountryBySlug } from '../data/countries';
 
 const country = getCountryBySlug('japan')!;
 ---
 
-<InternationalLayout country={country}>
-  <InternationalWhyOutsource country={country} />
-  <InternationalCostComparison country={country} />
-  <InternationalServices country={country} />
+<InternationalLayout country={country}
+  title="Headless CMS & Frontend Development for Japanese Businesses | eLan Technology"
+  description="Headless CMS and frontend development for Japanese businesses: a managed CMS, Strapi, Payload CMS or Directus with Astro or Next.js, and an agreed Japanese/English publishing workflow, delivered from India."
+  heading="Headless CMS and frontend development for Japanese businesses"
+  introduction="We set up the CMS your editors use and the frontend your visitors see, with a Japanese and English publishing workflow agreed before the build. Delivery is remote from our team in Nagpur, India."
+  primaryAction={{ href: '/services/headless-cms-development/', label: 'See headless CMS development' }}>
+  <Fragment slot="market-introduction">
+    <section class="px-4 py-14 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-6xl space-y-6">
+        <ServiceExplainer
+          id="japan-headless"
+          eyebrow="What we implement"
+          title="A headless CMS, a fast frontend and a bilingual workflow"
+          columns={[
+            { title: 'Headless CMS', text: 'A managed, hosted CMS when you want no servers to run; Strapi or Payload CMS for more control over hosting; Directus when content starts from an existing database.' },
+            { title: 'Frontend', text: 'Astro for content-led sites that can be prebuilt; Next.js when pages also need application features such as accounts or search.' },
+            { title: 'Japanese / English publishing', text: 'Locale fields, previews for each language and a review step before both versions go live. Translation and linguistic review come from a qualified specialist.' },
+          ]}
+          links={[{ href: '/services/headless-cms-development/', label: 'Headless CMS platforms and frontends we implement' }]}
+        />
+      </div>
+    </section>
+  </Fragment>
+  <InternationalRemoteDelivery country={country} />
   <InternationalFAQ country={country} />
   <InternationalContact country={country} />
 </InternationalLayout>

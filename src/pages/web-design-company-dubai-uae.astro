@@ -109,7 +109,7 @@ const steps = [
 ];
 const principles = [
   { title: 'Arabic / English: implementation is not translation', text: 'Agree the language coverage of pages, product data, forms, transactional messages and search metadata. We can implement RTL layouts and language switching; a qualified Arabic specialist must supply or approve translation, terminology and cultural review. Arabic-language support staffing is not assumed.' },
-  { title: 'Integrations: validate before promising', text: 'Confirm payment-gateway eligibility, merchant onboarding, API access, shipping coverage, tax configuration and accounting or CRM interfaces before committing to a feature. Availability depends on the platform plan and provider. Tax and regulatory decisions remain with your qualified advisers.' },
+  { title: 'Integrations: validate before promising', text: 'Confirm payment-gateway eligibility, merchant onboarding, API access, shipping coverage, inventory sync, tax configuration and accounting or CRM interfaces before committing to a feature. Availability depends on the platform plan and provider. Tax and regulatory decisions remain with your qualified advisers.' },
   { title: 'Remote delivery with written checkpoints', text: 'Agree meeting windows, approval owners, staged demonstrations and acceptance tests at kickoff. Delivery dates depend on signed scope, content readiness and third-party access, not a blanket turnaround promise.' },
   { title: 'A proposal that separates the costs', text: 'Separate implementation, localisation, hosting, licences, API charges, maintenance and upgrades. Confirm source-code rights, application ownership, hosting location, data access and handover against the proposal and payment terms.' },
 ];
@@ -138,7 +138,6 @@ const ICONS: Record<string, string> = {
         <div class="crumbs"><Breadcrumb items={breadcrumbs} /></div>
         <p class="pill" data-reveal>
           <span aria-hidden="true">{country.flag}</span> Serving United Arab Emirates businesses
-          {showTrip && <span class="pill-trip" data-trip> · Meet us in Dubai, 7–12 December</span>}
         </p>
         <h1 id="uae-title" class="display" data-reveal>
           Ecommerce &amp; business-system implementation <span class="grad">for UAE businesses</span>
