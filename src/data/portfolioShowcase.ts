@@ -162,7 +162,7 @@ export const ecommerceProjects: PortfolioShowcaseItem[] = [
     title: 'Rangresha',
     label: 'Custom Shopify',
     description: 'A custom Shopify storefront for handcrafted products, cultural storytelling, retail shopping and corporate gifting.',
-    image: '/elan-client-logos/rangresha.avif',
+    image: '/portfolio/rangresha.avif',
     liveUrl: 'https://rangresha.com/',
     stack: ['Shopify', 'Custom Theme', 'Mobile Commerce'],
   },
@@ -173,6 +173,15 @@ export const ecommerceProjects: PortfolioShowcaseItem[] = [
     image: '/portfolio/healthy-genie.avif',
     liveUrl: 'https://healthygenie.in/',
     stack: ['Medusa.js', 'Next.js', 'Subscription Plans'],
+  },
+  // Restored 27 Nov 2026 (owner): a second Medusa.js project beside Healthy Genie.
+  {
+    title: 'Puritas',
+    label: 'Medusa.js Subscription Commerce',
+    description: 'Subscription commerce on Medusa.js for a nutraceuticals brand, with a custom subscription module, Razorpay and PhonePe payments and shipping workflows.',
+    image: '/portfolio/puritas.avif',
+    liveUrl: 'https://puritas.in/',
+    stack: ['Medusa.js', 'Subscriptions', 'Razorpay & PhonePe'],
   },
   {
     title: 'Mahavir Mevawala',

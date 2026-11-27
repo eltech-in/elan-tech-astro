@@ -24,7 +24,17 @@ const schema = breadcrumbSchema([
 
 const isLogo = (project: PortfolioShowcaseItem) => project.image.includes('/elan-client-logos/');
 const destinationLabel = (url: string) => new URL(url).hostname.replace(/^www\./, '');
-const [shopifyProject, medusaProject, ...wooCommerceProjects] = ecommerceProjects;
+// Commerce cards are grouped by platform (27 Nov 2026: Puritas restored as a second Medusa.js project).
+const shopifyProject = ecommerceProjects.find((p) => p.stack?.includes('Shopify'))!;
+const medusaProjects = ecommerceProjects.filter((p) => p.stack?.includes('Medusa.js'));
+const wooCommerceProjects = ecommerceProjects.filter((p) => p.stack?.includes('WooCommerce'));
+// Order requested by the owner (27 Nov 2026): Healthy Genie, Rangresha, Puritas; website photo above, text below.
+const medusaService = { href: '/services/ecommerce/medusa-js-development/#work', label: 'Medusa.js development service' };
+const commerceFeatures = [
+  { project: medusaProjects.find((p) => p.title === 'Healthy Genie')!, platform: 'Medusa.js', color: '#6366f1', service: medusaService },
+  { project: shopifyProject, platform: 'Shopify', color: '#008060', service: { href: '/services/ecommerce/#shopify', label: 'Shopify development service' } },
+  { project: medusaProjects.find((p) => p.title === 'Puritas')!, platform: 'Medusa.js', color: '#6366f1', service: medusaService },
+];
 const internationalPortfolioProjects = internationalProjects.filter((project) => project.title !== 'Stems Flower Studio');
 const broaderSelectedProjects = [...internationalPortfolioProjects, ...selectedProjects];
 const normalizedUrl = (url: string) => {
@@ -50,7 +60,7 @@ const archiveFirst = archiveProjects.slice(0, 8);
 const byTitle = (title: string) => [...ecommerceProjects, ...recentLaunches, ...recentRedesigns, ...internationalProjects, ...selectedProjects].find((p) => p.title === title)!;
 const featured = [
   { project: byTitle('Healthy Genie'), color: '--svc-medusa', image: '/portfolio/healthy-genie.avif', delivered: 'We redesigned and rebuilt the meal-commerce website on Medusa.js with a Next.js storefront: meal plans, subscriptions, customer accounts and corporate meal enquiries.', service: { href: '/services/ecommerce/medusa-js-development/#work', label: 'Medusa.js development service' } },
-  { project: byTitle('Rangresha'), color: '--svc-shopify', image: '/elan-client-logos/rangresha.avif', delivered: 'We designed and built a custom Shopify storefront for handcrafted products, with cultural storytelling, retail shopping and corporate gifting.', service: { href: '/services/ecommerce/#shopify', label: 'Custom Shopify development' } },
+  { project: byTitle('Rangresha'), color: '--svc-shopify', image: '/portfolio/rangresha.avif', delivered: 'We designed and built a custom Shopify storefront for handcrafted products, with cultural storytelling, retail shopping and corporate gifting.', service: { href: '/services/ecommerce/#shopify', label: 'Custom Shopify development' } },
   { project: byTitle('KEN Global Designs'), color: '--ac-pink', image: '/portfolio/ken-global.avif', delivered: 'We designed and built a corporate website for an apparel manufacturer, presenting its manufacturing expertise, responsible practices and sampling technology.', service: { href: '/services/website-design/', label: 'Website design services' } },
 ];
 const archiveMore = archiveProjects.slice(8);
@@ -263,7 +273,7 @@ const archiveMore = archiveProjects.slice(8);
           <a href="/services/ecommerce/medusa-js-development/" class="platform-card platform-medusa">
             <span class="platform-name">Medusa.js</span>
             <span class="platform-detail">Owned commerce and custom modules</span>
-            <span class="platform-proof">Featured work: Healthy Genie</span>
+            <span class="platform-proof">Featured work: Healthy Genie and Puritas</span>
           </a>
           <a href="/services/ecommerce/" class="platform-card platform-woo">
             <span class="platform-name">WooCommerce</span>
@@ -272,31 +282,32 @@ const archiveMore = archiveProjects.slice(8);
           </a>
         </div>
 
-        <div class="grid gap-4 lg:grid-cols-2">
-          {[shopifyProject, medusaProject].map((project, index) => (
-            <article class:list={['commerce-feature tilt-card tilt-card--bg group', index === 0 ? 'commerce-shopify' : 'commerce-medusa']} style={`--card-color: ${index === 0 ? '#008060' : '#6366f1'};`}>
-              <div class="grid h-full grid-cols-[110px_1fr] sm:grid-cols-[150px_1fr]">
-                <div class="relative grid place-items-center overflow-hidden bg-white p-4">
-                  <Image
-                    src={getProjectImage(project.image)}
-                    alt={`${project.title} brand mark`}
-                    widths={[240, 320]}
-                    sizes="150px"
-                    format={getProjectImage(project.image).format === 'svg' ? undefined : 'avif'}
-                    loading="lazy"
-                    decoding="async"
-                    class="max-h-24 w-full object-contain"
-                  />
-                </div>
-                <div class="flex flex-col p-4 sm:p-5">
-                  <p class="commerce-tech-eyebrow">Built with <span class="commerce-tech-name">{index === 0 ? 'Shopify' : 'Medusa.js'}</span></p>
-                  <h3 class="mt-1 font-heading text-lg font-black text-[var(--text)]">{project.title}</h3>
-                  <p class="mt-1 line-clamp-3 text-sm leading-6 text-[var(--text-dim)]">{project.description}</p>
-                  <div class="pf-pills">{project.stack?.map(item => <span class="project-pill">{item}</span>)}</div>
-                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="mt-2 inline-flex min-h-10 items-center gap-2 self-start text-sm font-bold text-[var(--text)] hover:text-[var(--accent)]" aria-label={`Visit ${project.title}, opens in a new tab`}>
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {commerceFeatures.map(({ project, platform, color, service }) => (
+            <article class="commerce-feature tilt-card tilt-card--bg group flex flex-col overflow-hidden" style={`--card-color: ${color};`}>
+              <div class="relative aspect-[16/10] overflow-hidden border-b border-[var(--border)] bg-white">
+                <Image
+                  src={getProjectImage(project.image)}
+                  alt={`Homepage of the ${project.title} website`}
+                  widths={[480, 720, 960]}
+                  sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                  format="avif"
+                  loading="lazy"
+                  decoding="async"
+                  class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.035]"
+                />
+                <span class="absolute left-3 top-3 rounded-md px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white" style={`background: ${color};`}>{platform}</span>
+              </div>
+              <div class="flex flex-1 flex-col p-5">
+                <p class="commerce-tech-eyebrow">Built with <span class="commerce-tech-name">{platform}</span></p>
+                <h3 class="mt-1 font-heading text-lg font-black text-[var(--text)]">{project.title}</h3>
+                <p class="mt-1 text-sm leading-6 text-[var(--text-dim)]">{project.description}</p>
+                <div class="pf-pills">{project.stack?.map(item => <span class="project-pill">{item}</span>)}</div>
+                <div class="mt-auto flex flex-col gap-1 pt-3">
+                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-10 items-center gap-2 self-start text-sm font-bold text-[var(--text)] hover:text-[var(--accent)]" aria-label={`Visit ${project.title}, opens in a new tab`}>
                     Visit {project.title} <span aria-hidden="true">↗</span>
                   </a>
-                  <a href={index === 0 ? '/services/ecommerce/#shopify' : '/services/ecommerce/medusa-js-development/#work'} class="self-start text-sm font-semibold text-[var(--accent)] underline underline-offset-4">{index === 0 ? 'Shopify development service' : 'Medusa.js development service'} →</a>
+                  <a href={service.href} class="self-start text-sm font-semibold text-[var(--accent)] underline underline-offset-4">{service.label} →</a>
                 </div>
               </div>
             </article>

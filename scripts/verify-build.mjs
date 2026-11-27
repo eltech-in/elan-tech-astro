@@ -1132,7 +1132,8 @@ check('Site-wide link blocks skip de-indexed location pages', ['index.html', 'ab
 }
 
 // Technology stacks: shown only where a project or product proves them.
-check('Portfolio features Healthy Genie as the Medusa.js project, not Puritas', fileContains('portfolio/index.html', 'Featured work: Healthy Genie') && fileNotContains('portfolio/index.html', 'Puritas'));
+// 27 Nov 2026 (owner): Puritas restored on the portfolio as a second Medusa.js project beside Healthy Genie.
+check('Portfolio features Healthy Genie and Puritas as Medusa.js projects', fileContains('portfolio/index.html', 'Featured work: Healthy Genie and Puritas', 'https://puritas.in/', 'https://healthygenie.in/'));
 check('Technologies page lists proven stacks with proof links', fileContains(
   'technologies/index.html',
   'Technologies we build with', 'Next.js', 'Medusa.js', 'Shopify', 'WordPress',
