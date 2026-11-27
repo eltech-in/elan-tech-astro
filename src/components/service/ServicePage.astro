@@ -61,12 +61,12 @@ const accent = `var(${accentVar})`;
 <section aria-labelledby="offers-title" style={`--card-color: ${accent};`}>
   <h2 id="offers-title" class="font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">{offersTitle}</h2>
   {offersIntro && <p class="mt-2 max-w-3xl text-[var(--text-dim)]">{offersIntro}</p>}
-  <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" role="list">
+  <ul class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" role="list">
     {offers.map((item, i) => (
-      <li class="tilt-card p-5">
+      <li class="tilt-card p-6">
         <span class="text-[11px] font-black tracking-[0.14em]" style={`color: ${accent};`}>{String(i + 1).padStart(2, '0')}</span>
-        <h3 class="mt-1.5 font-heading text-base font-bold text-[var(--text)]">{item.title}</h3>
-        <p class="mt-1.5 text-sm leading-relaxed text-[var(--text-dim)]">{item.text}</p>
+        <h3 class="mt-2 font-heading text-lg font-bold leading-snug text-[var(--text)]">{item.title}</h3>
+        <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">{item.text}</p>
       </li>
     ))}
   </ul>
@@ -84,8 +84,8 @@ const accent = `var(${accentVar})`;
           {proof.secondary && <a href={proof.secondary.href} class="inline-flex min-h-11 items-center text-sm font-semibold underline underline-offset-4" style={`color: ${accent};`}>{proof.secondary.label} →</a>}
         </div>
       </div>
-      <ul class="grid gap-2 sm:grid-cols-2" role="list">
-        {proof.points.map((p) => <li class="rounded-lg border border-[var(--border)] bg-[var(--bg)] px-3.5 py-2.5 text-sm font-semibold text-[var(--text)]">✓ {p}</li>)}
+      <ul class="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-1" role="list">
+        {proof.points.map((p) => <li class="flex gap-2.5 rounded-lg border border-[var(--border)] bg-[var(--bg)] px-4 py-3 text-sm font-semibold text-[var(--text)]"><span style={`color: ${accent};`} aria-hidden="true">✓</span>{p}</li>)}
       </ul>
     </div>
   </section>
@@ -95,28 +95,28 @@ const accent = `var(${accentVar})`;
 
 <section aria-labelledby="process-title">
   <h2 id="process-title" class="font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">{processTitle}</h2>
-  <ol class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4" role="list">
+  <ol class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" role="list">
     {process.map((step, i) => (
-      <li class="tilt-card p-4" style={`--card-color: ${accent};`}>
+      <li class="tilt-card p-5" style={`--card-color: ${accent};`}>
         <span class="inline-grid h-8 w-8 place-items-center rounded-lg text-xs font-black" style={`color: ${accent}; background: color-mix(in srgb, ${accent} 15%, transparent);`}>{String(i + 1).padStart(2, '0')}</span>
         <h3 class="mt-3 font-heading text-base font-bold text-[var(--text)]">{step.title}</h3>
-        <p class="mt-1 text-sm leading-relaxed text-[var(--text-dim)]">{step.text}</p>
+        <p class="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">{step.text}</p>
       </li>
     ))}
   </ol>
 </section>
 
 <section class:list={['grid gap-4', needs && needs.length ? 'lg:grid-cols-2' : '']} aria-label="Fit and responsibilities">
-  <div class="tilt-card p-5 sm:p-6" style="--card-color: var(--ac-emerald);">
+  <div class="tilt-card p-6 sm:p-7" style="--card-color: var(--ac-emerald);">
     <h2 class="font-heading text-lg font-bold text-[var(--text)]">A good fit when</h2>
-    <ul class="mt-3 space-y-2" role="list">
+    <ul class="mt-4 space-y-3" role="list">
       {fit.map((item) => <li class="flex gap-2.5 text-sm leading-relaxed text-[var(--text-dim)]"><span class="font-black text-[var(--ac-emerald)]" aria-hidden="true">→</span>{item}</li>)}
     </ul>
   </div>
   {needs && needs.length > 0 && (
-    <div class="tilt-card p-5 sm:p-6" style="--card-color: var(--ac-amber);">
+    <div class="tilt-card p-6 sm:p-7" style="--card-color: var(--ac-amber);">
       <h2 class="font-heading text-lg font-bold text-[var(--text)]">What we need from you</h2>
-      <ul class="mt-3 space-y-2" role="list">
+      <ul class="mt-4 space-y-3" role="list">
         {needs.map((item) => <li class="flex gap-2.5 text-sm leading-relaxed text-[var(--text-dim)]"><span class="font-black text-[var(--ac-amber)]" aria-hidden="true">✓</span>{item}</li>)}
       </ul>
     </div>

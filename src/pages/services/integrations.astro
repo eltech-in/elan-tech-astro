@@ -76,11 +76,11 @@ const colors = ['--ac-cyan', '--ac-emerald', '--ac-indigo', '--ac-amber', '--ac-
       <h2 id="catalogue-title" class="font-heading text-2xl font-bold text-[var(--text)] sm:text-3xl">Integrations we work with</h2>
       <div class="mt-5 grid gap-4 lg:grid-cols-3">
         {categories.map((category, i) => (
-          <div class="tilt-card p-5" style={`--card-color: var(${colors[i % colors.length]});`}>
+          <div class="tilt-card p-6" style={`--card-color: var(${colors[i % colors.length]});`}>
             <h3 class="font-heading text-lg font-bold text-[var(--text)]">{category}</h3>
-            <ul class="mt-3 space-y-2" role="list">
+            <ul class="mt-4 flex flex-wrap gap-2" role="list">
               {integrations.filter((item) => item.category === category).map((item) => (
-                <li class="text-sm"><strong class="text-[var(--text)]">{item.name}</strong><span class="block text-[var(--text-dim)]">{item.description}</span></li>
+                <li class="rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 py-1.5 text-sm font-semibold text-[var(--text)]" title={item.description}>{item.name}</li>
               ))}
             </ul>
           </div>
